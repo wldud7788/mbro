@@ -1,0 +1,156 @@
+<?php /* Template_ 2.2.6 2020/12/29 11:38:46 /www/music_brother_firstmall_kr/data/skin/responsive_diary_petit_gl_1/mypage/point_exchange.html 000006019 */ ?>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 포인트로 캐시 교환 @@
+- 파일위치 : [스킨폴더]/mypage/point_exchange.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)" hrefOri='amF2YXNjcmlwdDp2b2lkKDAp' >MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text" textIndex="1"  textTemplatePath="cmVzcG9uc2l2ZV9kaWFyeV9wZXRpdF9nbF8xL215cGFnZS9wb2ludF9leGNoYW5nZS5odG1s" >포인트로 캐시 교환</span></h2>
+		</div>
+		
+		<div class="tab_basic">
+			<ul>
+<?php if($TPL_VAR["emoney_exchange_use"]=='y'){?>
+				<li class="on">
+					<a href="/mypage/point_exchange" hrefOri='L215cGFnZS9wb2ludF9leGNoYW5nZQ==' >포인트 → <span class="Dib">캐시</span></a>
+				</li>
+<?php }?>
+				<li>
+					<a href="/mypage/promotion" hrefOri='L215cGFnZS9wcm9tb3Rpb24=' >포인트 → <span class="Dib">할인코드</span></a>
+				</li>
+				<li>
+					<a href="/mypage/emoney_exchange" hrefOri='L215cGFnZS9lbW9uZXlfZXhjaGFuZ2U=' >캐시 → <span class="Dib">사은품</span></a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="tab_desc">
+			보유하신 포인트로 상품구매 시 사용하실 수 있는 마일리지를 교환하실 수 있습니다.<br />
+			포인트 <span class="pointcolor"><strong><?php echo $TPL_VAR["configReserve"]["emoney_point_rate"]?></strong>P</span>가 캐시 <span class="pointcolor2"><strong>1</strong>원</span>으로 교환됩니다.
+		</div>
+
+		<div class="resp_table_row th_size2 mt20">
+			<ul class="tr">
+				<li class="th"><?php echo $TPL_VAR["userInfo"]["user_name"]?>님의 보유 포인트</li>
+				<li class="td">
+					<strong class="strong1"><?php echo number_format($TPL_VAR["mypoint"])?></strong>P
+				</li>
+			</ul>
+			<ul class="tr">
+				<li class="th">이번달 소멸 예정 포인트</li>
+				<li class="td">
+					<strong class="strong1"><?php echo number_format($TPL_VAR["extinction"]["reserve_point"])?></strong>P
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="title_sub1">포인트로 캐시 교환</h3>
+		<input type="hidden" name="point" value="<?php echo get_member_money('point',$TPL_VAR["userInfo"]["member_seq"])?>"/>
+		<form name="exchangefrm" method="post" action="../mypage_process/point_exchagne" target="actionFrame">
+		<div class="point_mileage_exchange">
+			<ul>
+				<li class="point_aera">
+					<p class="title">교환할 <span class="pointcolor">포인트</span></p>
+					<input type="text" name="exchange_point" value="" class="input v1" onkeyup="exchange_calculate(this.value);" />
+				</li>
+				<li class="arr_aera"></li>
+				<li class="mileage_aera">
+					<p class="title">전환 <span class="pointcolor2">캐시</span></p>
+					<input type="text" name="exchange_emoney" value=""  class="input v2" readonly />
+				</li>
+				<li class="btn_aera">
+					<button type="submit" class="btn_resp size_b color2">교환</button>
+					<!--a href="javascript:;" onclick="point_exchange();" class="btn_chg"></a-->
+				</li>
+			</ul>
+			<p class="desc">최소 교환 포인트 : <?php echo $TPL_VAR["configReserve"]["emoney_minum_point"]?>P<br /><?php echo $TPL_VAR["configReserve"]["emoney_point_rate"]?>P 미만은 반환</p>
+		</div>
+		</form>
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="/data/skin/responsive_diary_petit_gl_1/common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+
+<div id="giftPopup" style="display:none"></div>
+
+<script type="text/javascript" src="/app/javascript/plugin/zeroclipboard/ZeroClipboard.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".req_gift").click(function(){
+			var my_point = $("input[name='point']").val();
+			var my_reserve = "<?php echo $TPL_VAR["myemoney"]?>";
+			var seq		= $(this).attr("seq");
+			var point	= $(this).attr("point");
+			var goods_rule	= $(this).attr("goods_rule");
+			var goods_name	= $(this).attr("goods_name");
+			
+			if(goods_rule == "reserve"){
+				//alert(my_point+" : "+$(this).attr("point"));
+				if(parseInt(my_reserve) < parseInt($(this).attr("point"))){
+					//해당 사은품은 증정 받기 위한 잔여 캐시가 부족합니다
+					alert(getAlert('mp082'));
+					return;
+				}
+			}else{
+				//alert(my_point+" : "+$(this).attr("point"));
+				if(parseInt(my_point) < parseInt($(this).attr("point"))){
+					//해당 사은품은 증정 받기 위한 잔여 포인트가 부족합니다
+					alert(getAlert('mp083'));
+					return;
+				}
+			}
+			//alert($(this).attr("point")+" : "+$(this).attr("seq"));
+
+			$.get('/mypage/buy_gift?seq='+seq+'&point='+point+'&goods_rule='+goods_rule+'&goods_name='+escape(goods_name), function(data) {
+				$('#giftPopup').html(data);
+			});
+			//사은품 신청
+			openDialog(getAlert('mp097'), "giftPopup", {"width":"1000","height":700});
+		});
+	});
+
+	function clipBoard(name, id){
+		var clip = new ZeroClipboard.Client();
+		clip.setHandCursor( true );
+		clip.setCSSEffects( true );
+		clip.setText($("input[name='"+name+"']").val());
+		clip.addEventListener( 'complete', function(client, text) {
+			//클립보드에 복사되었습니다.
+			alert(getAlert('mp098'));
+		});
+		clip.glue(id);
+	}
+/*
+	function point_exchange(){
+		var frm = document.exchangefrm;
+		frm.submit();
+	}
+*/
+
+	function exchange_calculate(point){
+		var exchange_rate = "<?php echo $TPL_VAR["configReserve"]["emoney_point_rate"]?>";
+
+		if(point == ""){
+			point = "0";
+		}
+		var exchage_emoney = parseInt(parseInt(point) / parseInt(exchange_rate));
+
+		$("input[name='exchange_emoney']").val(exchage_emoney);
+	}
+</script>

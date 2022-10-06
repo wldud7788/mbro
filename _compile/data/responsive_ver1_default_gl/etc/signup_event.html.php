@@ -1,0 +1,2 @@
+<?php /* Template_ 2.2.6 2022/01/17 10:58:18 /www/music_brother_firstmall_kr/data/skin/responsive_ver1_default_gl/etc/signup_event.html 000000257 */ ?>
+<img src="/data/skin/responsive_ver1_default_gl/images/KakaoTalk_20210308_140125255.jpg" alt="" title="">

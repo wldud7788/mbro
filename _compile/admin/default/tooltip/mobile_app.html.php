@@ -1,0 +1,20 @@
+<?php /* Template_ 2.2.6 2020/12/01 09:20:51 /www/music_brother_firstmall_kr/admin/skin/default/tooltip/mobile_app.html 000000679 */ ?>
+<div id="tip1" class="tip_wrap">
+	<h1>앱 설치 권장 팝업</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen ">
+			<li>모바일 웹 페이지 접속 시 노출되는 팝업입니다.</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip2" class="tip_wrap">
+	<h1>앱 업데이트 권장 팝업</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen ">
+			<li>쇼핑몰 앱을 설치한 고객들 중 앱이 최신 업데이트 되지 않은 사용자에게 노출되는 팝업입니다. </li>			
+		</ul>
+	</div>
+</div>

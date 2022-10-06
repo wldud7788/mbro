@@ -1,0 +1,342 @@
+<?php /* Template_ 2.2.6 2022/01/28 11:00:53 /www/music_brother_firstmall_kr/admin/skin/default/bigdata/preview.html 000013385 */ ?>
+<?php $this->print_("layout_header",$TPL_SCP,1);?>
+
+
+<style type="text/css">
+	.condition_lay li{margin-bottom:10px;}
+	div.displayCriteriaDesc{padding:10px;border:1px solid #dadada;min-height:100px;}
+	div.result_lay{border:1px solid #dadada;background:#fff; width:100%; min-height:100px;}
+	.result_lays{border:1px solid #dadada;background:#fff; width:100%}
+	.result_goods li{float:left;padding:20px;text-align:center;width:130px;min-height:100px;margin-top:10px;margin-bottom:20px;}
+	.result_goods li img{width:100px;height:100px;}
+	.result_goods li div{margin-top:10px;overflow:hidden;white-space:nowrap;}
+</style>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy=<?php echo date('YmdHis')?>"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js?dummy=<?php echo date('Ymd')?>"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy=<?php echo date('Ymd')?>"></script>
+<script type="text/javascript" src="/app/javascript/js/goods-display.js?dummy=<?php echo date('YmdHis')?>"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gGoodsSelectList.js?mm=<?php echo date('Ymd')?>"></script>
+<script type="text/javascript">
+	displayKind = '';
+	$(document).ready(function(){
+
+		// 기준 상품 검색
+		$("button.search-bigdata-goods").click(function(){
+			if	($(this).closest('span').hasClass('btn-disable'))
+				openDialogAlert('기준 상품을 먼저 검색해 주세요.', 400, 150);
+			else
+				get_bigdata_goods_list($(this).closest("div.set-bigdata-lay").attr('kindName'));
+		});
+
+		$("button.bigdataCriteriaButton").live("click",function(){
+			set_condition_goods_auto();
+		});
+
+		$("input[name='condition_chk']").click(function(){
+<?php if(serviceLimit('H_FR')){?>
+			if	($(this).val() != 'admin'){
+				event.cancelBubble = false;
+				$('input[name="condition_chk"][value="admin"]').click();
+				<?php echo serviceLimit('A3')?>
+
+				return;
+			}
+<?php }?>
+			if	($(this).val() == 'admin')
+				$('#search_form').hide();
+			else
+				$('#search_form').show();
+		});
+
+<?php if($TPL_VAR["sc"]["condition"]){?>
+		$("input[name='condition_chk'][value='<?php echo $TPL_VAR["sc"]["condition"]?>']").prop('checked',true);
+<?php }?>
+
+<?php if($TPL_VAR["sc"]["criteria"]){?>
+		$('#displayCriteria').val('<?php echo $TPL_VAR["sc"]["criteria"]?>');
+<?php }?>
+
+		change_condition('init');
+		setCriteriaDescription_upgrade();
+		
+		// 상품선택
+		$(".btn_select_goods").on("click",function(){
+			gGoodsSelect.open({'goodsNameStrCut':30,'selectCnt':1,'autoClose':true,'closeMessageUse':false,'service_h_ad':window.Firstmall.Config.Environment.serviceLimit.H_AD});
+		});
+		
+		$(".goods_list_header input[name='chkAll']").on("click",function(){
+			
+		});
+	});
+
+	function set_condition_goods_auto(){
+		kind = $('input[name="condition_chk"]:checked').val();
+		kind = kind.replace(/bigdata_/g,'');
+		displayCriteria = $('#displayCriteria').val();
+
+		$.ajax({
+			type: "get",
+			url: "../goods/select_auto_condition",
+			data: "bigdata_test=1&condition="+encodeURIComponent(displayCriteria)+"&displayKind="+displayKind+"&kind="+kind,
+			success: function(result){
+				$("div#condition_change_option").html(result);
+				openDialog('조건 변경', 'condition_change_option', {"width":"850","height":"600","show" : "fade","hide" : "fade"});
+			}
+		});
+	}
+
+	// 빅데이터 상품 검색
+	function get_bigdata_goods_list(kind, goods_seq){
+
+		var params	= 'goods_seq=' + goods_seq + '&skind=' + kind
+					+ '&base64_params=' + $("div."+kind+"-title").find("div.base64-param").text();
+
+		$.ajax({
+			type: "post",
+			url: "get_bigdata_goods",
+			data: params,
+			dataType: 'json',
+			success: function(result){
+				$("div."+result.kind+"-title").show();
+				$("div."+result.kind+"-result").html('<div style="margin:30px 0;font-size:12px;"><p>빅데이터 조건에 맞는 결과가 없습니다.</p><p>이 영역은 사용자화면에서는 보이지 않습니다.</p></div>');
+				$("div."+result.kind+"-result").show();
+				if	(result.status){
+					$("div."+result.kind+"-title").show();
+					$("div."+result.kind+"-result").html(result.html);
+					$("div."+result.kind+"-result").show();
+				}
+			}
+		});
+	}
+
+	var targetGoods = $("input[name='issueGoods[]']");
+	function change_condition(init){
+<?php if(serviceLimit('H_FR')){?>
+			$('input[name="condition_chk"][value="admin"]').click();
+<?php }?>
+		that = $('input[name="condition_chk"]:checked');
+		$('#condition_txt').text(that.closest('label').text());
+		kind_temp = that.val();
+		displayKind = '';
+		if(kind_temp.indexOf('bigdata') > -1) displayKind = 'bigdata';
+		$('.display_kind').val(displayKind);
+
+		if(init == undefined){
+			$('.displayCriteria').val('');
+			$('.displayCriteriaDesc').html('');
+		}
+
+		targetGoods.remove();
+		$('.result_lay').html('');
+		closeDialog('condition_popup');
+	}
+
+	function get_test_list(){
+		goods_seq = targetGoods.prop('id');
+		condition = $('input[name="condition_chk"]:checked').val();
+		displayCriteria = $('#displayCriteria').val();
+
+		if(targetGoods.length == 0 && condition != 'admin'){
+			openDialogAlert('상품을 지정해주세요', 400, 150, function(){});
+			return;
+		}
+
+		if(displayCriteria == ''){
+			openDialogAlert('조건을 선택해주세요', 400, 150, function(){});
+			return;
+		}
+		
+		$.ajax({
+			type: "post",
+			url: "get_goods",
+			data: {'goods_seq':goods_seq,'condition':condition,'displayCriteria':displayCriteria},
+			dataType: 'json',
+			success: function(result){
+				if	(result.record){
+					x = -1;
+					html = [];
+					html[++x] = '<ul class="result_goods clearbox">';
+					$.each(result.record,function(){
+						html[++x] = '<li>';
+						html[++x] = '<a href="/goods/view?no='+this.goods_seq+'" target="_blank"><img src="'+this.image+'" onerror="this.src=\'/admin/skin/default/images/common/noimage.gif\';"></a>';
+						html[++x] = '<div title="'+this.goods_name+'">'+this.goods_name+'</div>';
+						html[++x] = '</li>';
+					});
+					html[++x] = '</ul>';
+					$("div.result_lay").html(html.join(''));
+				}else{
+					openDialogAlert('검색된 상품이 없습니다.', 400, 150, function(){
+						$("div.result_lay").html('');
+						$("form#bigdataFrm").find("input[name='goods_seq']").val('');
+						$("div.result-bigdata-lay").html('');
+						$("div.result-bigdata-title").hide();
+						$("div.result-bigdata-lay").hide();
+					});
+				}
+			}
+		});
+	}
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2> 결과 테스트</h2>
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+		</ul>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div id="lay_goods_select"></div>
+
+<div class="contents_container">
+	<div class="item-title">조건</div>
+
+	<table class="table_basic bigdataTextContainer">
+	<colgroup>
+		<col width="15%">
+		<col width="85%">
+	</colgroup>
+	<tr>
+		<th class="left">조건</th>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="left">통계 기준</th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="goods" value="goods"> 상품 기준</label>
+				<label><input type="radio" name="goods" value="goods"> 행동 기준</label>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th class="left">상품 기준 상세</th>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="left">상품 선택</th>
+		<td>
+			<input type="button" value="상품 선택" class="btn_select_goods resp_btn active"  />
+			<input type="button" value="선택 삭제" class="select_goods_del resp_btn v3" selectType="goods" />
+			<div class="mt10 wx600">
+				<div class="goods_list_header">
+				<table class="table_basic tdc">
+					<colgroup>
+						<col width="10%" />
+<?php if(serviceLimit('H_AD')){?>
+						<col width="25%" />
+						<col width="45%" />
+<?php }else{?>
+						<col width="70%" />
+<?php }?>
+						<col width="20%" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th><label class="resp_checkbox"><input type="checkbox" name="chkAll" value="goods"></label></th>
+<?php if(serviceLimit('H_AD')){?>
+							<th>입점사명</th>
+<?php }?>
+							<th>상품명</th>
+							<th>판매가</th>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div class="goods_list">
+				<table class="table_basic tdc fix">
+					<colgroup>
+						<col width="10%" />
+<?php if(serviceLimit('H_AD')){?>
+						<col width="25%" />
+						<col width="45%" />
+<?php }else{?>
+						<col width="70%" />
+<?php }?>
+						<col width="20%" />
+					</colgroup>
+					<tbody>
+						<tr rownum=0 class="show">
+							<td colspan="4">상품을 선택하세요</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th class="left">조건 선택</th>
+		<td>
+			<input type="hidden" class="isBigdataTest" value="1"/>
+			<input type="hidden" class="display_kind" value=""/>
+			<input type='hidden' class="displayCriteria" id="displayCriteria" name='displayCriteria' value="order∀type=select_auto,bigdata_month=6,same_category=1,month=3,age=all,sex=all,agent=all,act=order_cnt,min_ea=1,isFirst=1" />
+
+			<button type="button" id="condition" class="displayCriteriaType resp_btn active" auto_type='auto'>조건선택</button>
+			<button type="button" class="bigdataCriteriaButton resp_btn active hide" dp_id="displayCriteria" use_id="">조건변경</button>
+			<div class="displayCriteriaDesc"></div>
+
+		</td>
+	</tr>
+	</table>
+
+</div>
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+<div class="sub-layout-container body-height-resizing">
+	<!-- 서브메뉴 바디 : 시작-->
+	<div class='slc-body-wrap'>
+		<div class="slc-body">
+			<div>
+				<div class="item-title"><span id="condition_txt">대상선택</span> <span class="btn small cyanblue hide"><button type="button" onclick="openDialog('큐레이션 기준 선택', 'condition_popup', {'width':'630','height':'530'});">변경</button></span></div>
+			</div>
+
+			<div class="bigdataTextContainer">
+			</div>
+
+			<div class="mt20">
+				<div class="item-title"><span id="condition">결과</span></div>
+				<div class="result_lay clearbox"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="condition_popup" class="hide fm_default_font">
+	<ul class="condition_lay">
+		<li><strong>추천상품 - ○○○고객이 현재 보고 있는 상품 기준</strong></li>
+		<li><label><input type="radio" name="condition_chk" value="bigdata_order" checked>고객이 보고 있는 이 상품을 구매한 다른 고객의 행동</label></li>
+		<li><label><input type="radio" name="condition_chk" value="bigdata_view">고객이 보고 있는 이 상품을 본 다른 고객의 행동</label></li>
+		<li><label><input type="radio" name="condition_chk" value="bigdata_review">고객이 보고 있는 이 상품의 리뷰를 쓴 다른 고객의 행동</label></li>
+		<li><label><input type="radio" name="condition_chk" value="bigdata_cart">고객이 보고 있는 이 상품을 장바구니에 담은 다른 고객의 행동</label></li>
+		<li><label><input type="radio" name="condition_chk" value="bigdata_wish">고객이 보고 있는 이 상품을 위시리스트에 담은 다른 고객의 행동</label></li>
+		<li class="mt30"><strong>추천상품 - ○○○고객의 최근 행동 기준</strong></li>
+		<li><label><input type="radio" name="condition_chk" value="admin">관리자 직접 지정한 기준에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+		<li><label><input type="radio" name="condition_chk" value="view">고객이 최근 본 상품에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+		<li><label><input type="radio" name="condition_chk" value="cart">고객이 최근 장바구니에 담은 상품에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+		<li><label><input type="radio" name="condition_chk" value="wish">고객이 최근 위시리스트에 담은 상품에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+		<li><label><input type="radio" name="condition_chk" value="restock_notify">고객이 최근 ‘재입고알림요청’한 상품에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+		<li><label><input type="radio" name="condition_chk" value="search">고객이 최근 검색한 결과 중 최상위 상품에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+		<li><label><input type="radio" name="condition_chk" value="order">고객이 최근 구매한 상품에 대한 다른 고객의 행동 또는 관리자 최근등록상품</label></li>
+	</ul>
+	<div class="center">
+		<span class="btn medium cyanblue"><button type="button" onclick="change_condition();">확인</button></span>
+	</div>
+</div>
+
+<div id="condition_change_option">
+</div>
+
+<?php $this->print_("layout_footer",$TPL_SCP,1);?>

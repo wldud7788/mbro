@@ -1,0 +1,2 @@
+<?php /* Template_ 2.2.6 2021/03/08 14:04:22 /www/music_brother_firstmall_kr/data/skin/responsive_diary_petit_gl_1/etc/signup_event.html 000000562 */ ?>
+<img src="/data/skin/responsive_diary_petit_gl_1/images/KakaoTalk_20210308_140125255.jpg" alt="" title="" designImgSrcOri='Li4vaW1hZ2VzL0tha2FvVGFsa18yMDIxMDMwOF8xNDAxMjUyNTUuanBn' designTplPath='cmVzcG9uc2l2ZV9kaWFyeV9wZXRpdF9nbF8xL2V0Yy9zaWdudXBfZXZlbnQuaHRtbA==' designImgSrc='L2RhdGEvc2tpbi9yZXNwb25zaXZlX2RpYXJ5X3BldGl0X2dsXzEvaW1hZ2VzL0tha2FvVGFsa18yMDIxMDMwOF8xNDAxMjUyNTUuanBn' designElement='image' >

@@ -1,0 +1,2 @@
+<?php /* Template_ 2.2.6 2020/12/01 09:20:51 /www/music_brother_firstmall_kr/admin/skin/default/page_manager/ajax_get_extra_navigation.html 000000204 */ ?>
+<div><?php echo $TPL_VAR["banner_html"]?></div>
