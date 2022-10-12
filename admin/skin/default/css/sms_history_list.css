@@ -1,0 +1,2 @@
+table#sms_history_list tr td {height:30px;}
+table#sms_history_list tr td div.tran_msg {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:650px; text-align:left;}

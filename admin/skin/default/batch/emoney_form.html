@@ -1,0 +1,245 @@
+{ #layout_header_popup }
+<script type="text/javascript" src="/app/javascript/js/batch.js?v={=date('Ymd')}"></script>
+
+<style>
+	html{overflow-y:hidden !important;}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$("#send_submit").click(function(){
+		var memo = $("select[name='memo_type']").val();
+		if(memo=='direct'){
+			$("input[name='memo']").val($("input[name='memo_direct']").val());
+		}else{
+			$("input[name='memo']").val(memo);
+		}
+
+		document.emoneyForm.submit();
+		loadingStart();
+	});
+
+	$("select[name='memo_type']").live('change',function(){
+		if($(this).val()=='direct'){
+			$("input[name='memo_direct']").show();
+		}else{
+			$("input[name='memo_direct']").hide();
+		}
+	});
+
+	$("select[name='reserve_select']").live("change",function(){
+		span_controller('reserve');
+	});
+	$("select[name='gb']").live('change',function(){
+		if($(this).val()=='minus'){
+			$(".reserve_select_lay").hide();
+			$(".reserve_select_lay_minus").show();
+		}else{
+			$(".reserve_select_lay").show();
+			$(".reserve_select_lay_minus").hide();
+		}
+	});
+
+	$("#downloadMemberBtn").click(function(){
+		{? auth_member_down}
+		if($("input[name='mcount']").val() == 0){
+			openDialogAlert('다운로드 파일이 없습니다.<br />먼저 회원을 검색해 주세요.', 400, 150);
+			return;
+		}
+
+		{? preg_match("/chrome/", strtolower(_SERVER['HTTP_USER_AGENT'])) || preg_match("/firefox/", strtolower(_SERVER['HTTP_USER_AGENT']))}
+		if($("input[name='mcount']").val() > 30000){
+			openDialogAlert("현재 브라우져에서는 대량 다운로드가 원할하지 않을 수 있습니다.<br />다운로드가 되지 않을 시 IE에서 다운로드 하시기 바랍니다.", 450, 160);
+		}
+		{/}
+
+		openDialog('회원정보 다운로드','admin_member_download', {'width':550,'height':420});
+		{:}
+			openDialogAlert('다운로드 권한이 없습니다.<br /> <a href="../setting/manager"><span class="orange"><b>관리자</b></span></a>에서 설정할 수 있습니다.', 400, 150);
+			return;
+		{/}
+	});
+
+	$('#reserve_year').val('{reserve.reserve_year}');
+	setContentsSelect("gb", "plus");
+	
+	$("select[name='perpage']").on("change", function(){
+		location.href = '?perpage='+$(this).val();
+	});
+});
+
+function span_controller(name){
+	var reserve_y = $("span[name='"+name+"_y']");
+	var reserve_d = $("span[name='"+name+"_d']");
+	var value = $("select[name='"+name+"_select'] option:selected").val();
+	if(value==""){
+		reserve_y.hide();
+		reserve_d.hide();
+	}else if(value=="year"){
+		reserve_y.show();
+		reserve_d.hide();
+	}else if(value=="direct"){
+		reserve_y.hide();
+		reserve_d.show();
+	}
+}
+
+
+</script>
+
+
+<form name="emoneyForm" id="emoneyForm" method="post" target="actionFrame" action="../batch_process/set_emoney" class="hp100">
+<input type="hidden" name="send_member" />
+<input type="hidden" name="memo" />
+<input type="hidden" name="mode" value="" />
+<input type="hidden" name="serialize" id="serialize" value=""/>
+<input type="hidden" name="mcount" value="0">
+<input type="hidden" name="member" value="search">
+<input type="hidden" name="searchSelect" value="search">
+<input type="hidden" name="selectMember" value="">
+<input type="hidden" name="callPage" value="emoney">
+
+<div class="contents_container">
+	<div class="content">		
+		<div class="item-title">마일리지 지급 및 차감</div>
+		<table class="table_basic thl">		
+			<tr>
+				<th>지급자</th>
+				<td>{managerInfo.mname}({managerInfo.manager_id})</td>
+			</tr>
+
+			<tr>
+				<th>대상 회원</th>
+				<td>
+					<span id="search_member" class="bold">0</span>명 
+					<button type="button" id="searchMemberBtn" callpage="emoney" class="resp_btn v2">회원 검색</button>
+					<span class="resp_btn v3" id="downloadMemberBtn"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>다운로드</span></span>
+				</td>
+			</tr>
+
+			<tr>
+				<th>마일리지</th>
+				<td>
+					<select name="gb">
+						<option value="plus">지급 (+)</option>
+						<option value="minus">차감 (-)</option>
+					</select>
+					<input type="text" name="emoney" class="line onlyfloat" size="7"> {=basic_currency_info['currency_symbol']}
+					
+					<span class="reserve_select_lay ml20">
+						유효기간 : 
+						<select name="reserve_select">
+							<option value="">제한하지 않음</option>
+							<option value="year" {?reserve.reserve_select=='year'}selected{/}>제한 - 12월31일</option>
+							<option value="direct" {?reserve.reserve_select=='direct'}selected{/}>제한 - 직접입력</option>
+						</select>
+
+						<span name="reserve_y" class="hide"> 
+							<select name="reserve_year" id="reserve_year">
+							{@range(0, 9)}
+								<option value="{.key_}">{=intval(date('Y'))+intval(.key_)}년</option>
+							{/}
+							</select>
+							12월 31일</span>
+							<span name="reserve_d" class="hide"><input type="text" name="reserve_direct" class="line onlynumber" style="text-align:right" size="3" value="{reserve.reserve_direct}" />개월</span>
+						</span>				
+					</span>
+				</td>
+			</tr>
+
+			<tr>
+				<th>사유</th>
+				<td>
+					<select name="memo_type">
+						<option value="">선택</option>
+						<option value="신규 회원가입 지급" class="gb_plus hide">신규 회원가입 지급</option>
+						<option value="상품 구매 추가 적립" class="gb_plus hide">상품 구매 추가 적립</option>
+						<option value="상품 구매 사용 차감" class="gb_minus hide">상품 구매 사용 차감</option>
+						<option value="direct">직접 입력</option>
+					</select>
+					<input type="text" name="memo_direct" class="hide">
+				</td>
+			</tr>
+		</table>
+
+		<div class="footer">
+			<button type="button" id="send_submit" class="resp_btn active size_XL">확인</button>
+		</div>		
+
+		<!-- 포인트 지급 내역 시작 -->
+		<div class="item-title">지급 및 차감 내역</div>
+
+		<div class="list_info_container">
+			<div class="dvs_left"><div class="left-btns-txt" id="search_count" class="hide">총 <b>{data_total}</b> 개</div></div>
+			<div class="dvs_right">
+				<select name="perpage">
+					<option id="dp_qty10" value="10" {? perpage == 10 } selected{/} >10개씩</option>
+					<option id="dp_qty50" value="50" {? perpage == 50 } selected{/} >50개씩</option>
+					<option id="dp_qty100" value="100" {? perpage == 100 } selected{/} >100개씩</option>
+					<option id="dp_qty200" value="200" {? perpage == 200 } selected{/} >200개씩</option>
+				</select>				
+			</div>
+		</div>
+		
+		<!-- 주문리스트 테이블 : 시작 -->
+		<table class="table_row_basic">
+			<!-- 테이블 헤더 : 시작 -->			
+			<thead>
+			<tr>
+				<th>번호</th>
+				<th>구분</th>	
+				<th>지급/차감 {categoryKR}</th>					
+				<th>사유</th>					
+				<th>지급 회원 수</th>
+				<th>지급자</th>
+				<th>요청 일시</th>
+				<th>완료 일시</th>
+				<th>상태</th>
+			</tr>
+			</thead>
+			<!-- 테이블 헤더 : 끝 -->
+
+			<!-- 시작 -->
+			<tbody>
+			<!--{? loop }-->
+			<!-- 리스트 있으면 -->
+				<!--{@ loop }-->
+				<!-- 리스트 시작 -->
+				<tr>
+					<td class="page_no">{.no}</td>
+					<td class="gb">{.gb}</td>	
+					<td class="amount">{.amount}</td>						
+					<td class="memo">{.memo}</td>						
+					<td class="count">{.count}</td>	
+					<td class="request_user">{.manager_id}</td>
+					<td class="request_date">{.reg_date}</td>
+					<td class="complete_date">{.com_date}</td>
+					<td class="status">{.state}</td>
+				</tr>
+				<!--{ / }-->
+				<!-- 리스트 끝 -->
+			<!--{ : }-->
+			<!-- 리스트 없으면 -->
+			<tr>
+				<td colspan="9">등록된 내역이 없습니다.</td>
+			</tr>
+			<!--{ / }-->
+			</tbody>
+		<!-- 끝 -->
+		</table>
+		<!-- 주문리스트 테이블 : 끝 -->	
+	
+		<!-- 페이징 -->
+		<div class="paging_navigation">{pagin}</div>	
+	</div>
+	
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onclick="window.close();">닫기</button>
+	</div>
+</div>
+</form>
+<!-- 포인트 지급 내역 종료 -->
+
+{#member_download_info}
+{ #layout_footer_popup }

@@ -1,0 +1,416 @@
+{ #layout_header }
+
+<style type="text/css">
+	/* sms 종류 Tab 메뉴 CSS */
+	div.sms-group-tab-lay {width:100%;border-bottom:1px solid #727b99;}
+	table.sms-group-tab {width:750px;}
+	table.sms-group-tab td {font-size:13px;text-align:center;height:26px;font-weight:normal;}
+	table.sms-group-tab td.tab-start {width:1px;background:url('../images/common/tab_bg.gif') no-repeat;background-position:0;}
+	table.sms-group-tab td.tab-end {width:0px;background:url('../images/common/tab_bg.gif') no-repeat;background-position:-598px 0;}
+	table.sms-group-tab td.tab-item {min-width:100px; cursor:pointer;padding:0 0 0 10px;color:#7b7b7b;background-color:#ffffff;border-top:1px solid #727b99;border-right:1px solid #727b99;}
+	table.sms-group-tab td.nolinknone {cursor:pointer;padding:0 0 0 10px;color:#7b7b7b;background-color:#ffffff;border-top:1px solid #727b99;border-right:1px solid #727b99;}
+	table.sms-group-tab td.tab-item span.current-arrow {padding:0 5px;margin-left:12px;}
+	table.sms-group-tab td.tab-item:hover {color:#727b99;background-color:#e8e9ee;}
+	table.sms-group-tab td.tab-item.current {color:#ffffff;font-weight:bold;background-color:#727b99;}
+	table.sms-group-tab td.tab-item.current:hover {color:#ffffff;font-weight:bold;background-color:#727b99;}
+	table.sms-group-tab td.tab-item.current span.current-arrow {padding:0 5px;margin-left:5px;background:url('../images/common/icon_arw.gif') no-repeat;background-position:0 5px;}
+	/* --- sms 종류 Tab 메뉴 CSS */
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		/* ### */
+		$(".info_code").click(function(){
+			$("#s_title").html($(this).attr("title"));
+			setSmsInfo($(this).attr("name"));
+			openDialog("사용 가능한 치환코드", "infoPopup", {"width":"500","height":"300"});
+		});
+
+		// 굿스플로 우편번호 검색 :: 2015-07-07 lwh
+		$("#goodsflowZipcodeButton").live("click",function(){
+			{? config_goodsflow.setting['goodsflow_step'] != '2' }
+			openDialogZipcode('goodsflow');
+			{ / }
+		});
+
+	})
+
+	function setSmsInfo(type){
+		$(".s_info").hide();
+		switch (type){
+			case 'order':
+				$('#re_{=implode(",#re_",use_replace_code["order"])}').show();
+			case 'settle':
+				$('#re_{=implode(",#re_",use_replace_code["settle"])}').show();
+			break;
+			case 'notpaid':
+				$('#re_{=implode(",#re_",use_replace_code["notpaid"])}').show();
+			break;
+			case 'prod_ans':
+				$('#re_{=implode(",#re_",use_replace_code["prod_ans"])}').show();
+			break;
+			case 'mb_ans':
+				$('#re_{=implode(",#re_",use_replace_code["mb_ans"])}').show();
+			break;
+			case 'goods_review_ans':
+				$('#re_{=implode(",#re_",use_replace_code["goods_review_ans"])}').show();
+			break;
+			case 'released':
+				$('#re_{=implode(",#re_",use_replace_code["released"])}').show();
+			break;
+			case 'released2':
+				$('#re_{=implode(",#re_",use_replace_code["released2"])}').show();
+			break;
+			case 'delivery':
+				$('#re_{=implode(",#re_",use_replace_code["delivery"])}').show();
+			break;
+			case 'delivery2':
+				$('#re_{=implode(",#re_",use_replace_code["delivery2"])}').show();
+			break;
+			case 'cancel':
+				$('#re_{=implode(",#re_",use_replace_code["cancel"])}').show();
+			break;
+			case 'refund':
+				$('#re_{=implode(",#re_",use_replace_code["refund"])}').show();
+			break;
+			case 'coupon_released':
+				$('#re_{=implode(",#re_",use_replace_code["coupon_released"])}').show();
+			break;
+			case 'coupon_released2':
+				$('#re_{=implode(",#re_",use_replace_code["coupon_released2"])}').show();
+			break;
+			case 'coupon_delivery':
+				$('#re_{=implode(",#re_",use_replace_code["coupon_delivery"])}').show();
+			break;
+			case 'coupon_delivery2':
+				$('#re_{=implode(",#re_",use_replace_code["coupon_delivery2"])}').show();
+			break;
+			case 'coupon_cancel':
+				$('#re_{=implode(",#re_",use_replace_code["coupon_cancel"])}').show();
+			break;
+			case 'coupon_refund':
+				$('#re_{=implode(",#re_",use_replace_code["coupon_refund"])}').show();
+			break;			
+		}
+	}
+
+	// 종류 tab 메뉴
+	function tabmenu(no){
+		var i=1;
+		$(".tab-item").each(function(){
+			$(this).removeClass("current");
+			if(no == i){
+				var change_idx	= "{? scm_use_chk == 'Y'}5{:}4{/}";
+				
+				$(".sms_message_group_lay").hide();
+				$(this).addClass("current");
+				if($(this).attr("value") == change_idx){
+					$("#sms_restriction").show();
+				}else{
+					$("#sms_restriction").hide();
+					$("#sms_message_group_lay_" + $(this).attr('value')).show();
+				}
+			}
+			i = i+1;
+		});
+	}
+</script>
+
+<!-- admin/skin/default/member/sms.html을 참고하여 진행함 -->
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">	
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>푸시발송관리</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><span class="btn large black"><button  {? isdemo.isdemo }  type="button" {isdemo.isdemojs1} {:} type="submit" {/} >저장하기<span class="arrowright"></span></button></span></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+
+{#top_menu}
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td>
+			<div class="item-title mt20">푸시 설정</div>
+		</td>
+		<td class="pdl10" style="vertical-align:bottom;"></td>
+	</tr>
+</table>
+
+<div class="clearbox">
+	<table class="info-table-style" style="width:100%">
+		<colgroup>
+			<col width="12%" />
+			<col width="88%" />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th class="its-th-align left " style="padding-left:10px;"><strong>사용 여부</strong></th>
+				<td class="its-td-align left"  style="padding-left:10px;">
+					<span>	
+						<input type="radio" name="radio_sendType" value="send" checked="checked"> 사용					
+					</span>
+					<span class="ml20">						
+						<input type="radio" name="radio_sendType" value="rsvt_send"> 사용 안 함											
+					</span>
+					<div>
+						- ‘사용’으로 설정 변경하시면 SMS, 알림톡 자동발송 메시지가 푸시로 전송됩니다.  
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align left" style="padding-left:10px;"><strong>발송시간 제한</strong></th>
+				<td class="its-td-align left" style="padding-left:10px;">
+					<a href="../member/sms?no=4">
+						<span class="btn small">
+							 <button type="button" id="previewBtn">설정 바로가기</button>
+						</span>
+					</a>
+					<div>
+						- SMS 발송시간제한 설정과 동일하게 푸시 메시지 발송시간이 제한됩니다.  
+					</div>
+				</td>
+			</tr>	
+		</tbody>
+	</table>
+</div>
+
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td>
+			<div class="item-title mt20">푸시자동발송 메시지</div>
+		</td>
+		<td class="pdl10" style="vertical-align:bottom;"></td>
+	</tr>
+</table>
+
+<!-- 종류 TAB 메뉴 -->
+<div class="left sms-group-tab-lay">
+	<table class="sms-group-tab" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="tab-start"></td>
+			<td class="tab-item current" onclick="tabmenu(1)" value="1">공통 <span class="current-arrow"></span></td>
+			<td class="tab-item" onclick="tabmenu(2)" value="2">실물 발송 상품 <span class="current-arrow"></span></td>
+			<!--{ ? serviceLimit('H_FR') }-->
+			<td class="tab-item" onclick="{=serviceLimit('A1','echo')}">티켓 발송 상품 <span class="current-arrow"></span></td>
+			<!--{ : }-->
+			<td class="tab-item" onclick="tabmenu(3)" value="3">티켓 발송 상품 <span class="current-arrow"></span></td>
+			<!--{ / }-->
+			<td class="tab-end"></td>
+		</tr>
+	</table>
+</div>
+<!-- //종류 TAB 메뉴 -->
+
+<br style="line-height:30px;" />
+{@ loop }
+<div id="sms_message_group_lay_{.key_}" class="sms_message_group_lay { ?.key_ > 1 }hide{ / }" >
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		{@ .value_ }
+		{? ..name}<input type="hidden" name="group_list[]" value="{..name}" />{/}
+		{? ..index_ && ..index_ % 4 == 0 }
+		</tr><tr><td height="5" colspan="3"></td></tr><tr>
+		{ / }
+		<td width="25%" align="center" valign="top">
+			
+			{? ..title }
+			<div class="clearbox">
+
+			<table class="info-table-style">
+				<tr>
+					<th class="its-th-align center">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td style="padding-left:8px;"><input type="checkbox"></td>
+							<td align="right">
+								<span>{..title}</span>
+								<span class="red"></span>												
+							</td>
+							<td align="right" style="padding-right:10px;">							
+								<span class="btn small cyanblue"><input type="button" value="치환코드" name="{..name}" title="{..text}" class="info_code"/></span>
+							</td>
+						</tr>
+						</table>
+					</th>
+				</tr>
+				<tr>
+					<td class="its-td-align" style="text-align:center;">
+						<table border="0" cellpadding="0" cellspacing="0" style="margin:auto;">
+						<tr>
+							<td align="center" valign="top">
+								<div class="push-define-form">
+									<div class="sdf-head clearbox">
+										<div class="fl"><img src="../images/common/sms_i_antena.gif"></div>
+										<div class="fr"><img src="../images/common/sms_i_battery.gif"></div>
+									</div>
+									<div class="sdf-body-wrap">
+										<div class="sdf-body">
+										
+											<textarea name="{..name}_user" class="sms_contents">{..push_msg}</textarea>
+											<div class="sdf-body-foot clearbox">
+												<div class="fl"><b class="sms_byte">0</b>byte</div>
+												<div class="fr"><img src="../images/common/sms_btn_send.gif" align="absmiddle" class="del_message" /></div>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</td>							
+						</tr>
+						
+						</table>
+					</td>
+				</tr>
+			</table>
+			</div>
+			{ / }
+		</td>
+		{ / }
+	</tr>
+	</table>
+
+	{? .key_==1}
+	<br style="line-height:40px;" />
+
+	<table width="100%" cellspacing="0" cellpadding="0">
+	<tr><td height="20" colspan="3"></td></tr><tr>
+		<tr>
+			<td colspan="2" style="padding:0 50px;" valign="top">
+			<table width="100%" cellspacing="0" cellpadding="0">
+				<tr >
+					<td valign="top" style=" line-height:25px; font-size:12px; padding:105px 0px;">
+						오프라인 매장 주소  
+						<input type="text" name="goodsflowZipcode[]" value="{config_goodsflow.setting['goodsflowNewZipcode']}" class="gf_ing" size="6" readonly />
+							<span class="btn small"><input type="button" id="goodsflowZipcodeButton" value="우편번호" /></span>
+							<input type="text" name="goodsflowAddress_type" value="{config_goodsflow.setting['goodsflowAddress_type']}" class="line hide" />
+							<input type="text" name="goodsflowAddress" value="{config_goodsflow.setting['goodsflowAddress']}" size="40" class="line gf_ing" />
+							<input type="text" name="goodsflowAddress_street" value="{config_goodsflow.setting['goodsflowAddress_street']}" size="40" class="line hide" />
+							<input type="text" name="goodsflowAddressDetail" value="{config_goodsflow.setting['goodsflowAddressDetail']}" size="30" class="line gf_ing" />
+						<br />
+
+						근처 <select name="deposit_send_day" onchange="change_deposit_send_day(this.value);">
+							<option value="300" {? deposit_send_day == "2"}selected{/}>300</option>
+							<option value="500" {? deposit_send_day == "3"}selected{/}>500</option>
+							<option value="700" {? deposit_send_day == "4"}selected{/}>700</option>
+							<option value="900" {? deposit_send_day == "5"}selected{/}>900</option>
+						</select>             m 안에 앱 설치 고객 접근 시 <br/>
+
+						자동으로 푸시를 발송합니다. (1일 1회)			
+					</td>
+					<td align="center" valign="middle">
+						<img src="../images/design/arrow_admin.png">
+					</td>
+
+					<td align="right">
+						<table class="info-table-style">
+							<tr>
+								<td class="its-th-align center" colspan="2">
+									<table width="100%" cellpadding="0" cellspacing="0" border="0">
+									<tr>
+										<td style="padding-left:8px;" width="30px"><input type="checkbox"></td>
+										<td align="left">
+											<span>오프라인 매장 푸시 알림</span>																		
+										</td>
+										
+									</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="its-td-align" colspan="2" style="text-align:center;">
+									<table border="0" cellpadding="0" cellspacing="0" style="margin:auto;">
+										<tr>
+											<td  align="center" valign="top">
+												<div class="push-define-form">
+													<div class="sdf-head clearbox">
+														<div class="fl"><img src="../images/common/sms_i_antena.gif"></div>
+														<div class="fr"><img src="../images/common/sms_i_battery.gif"></div>
+													</div>
+													<div class="sdf-body-wrap">
+														<div class="sdf-body">
+														
+															<textarea name="{..name}_user" class="sms_contents">(광고) 주변 매장에 들러 다양한 할인 혜택을 누려보세요!</textarea>
+															<div class="sdf-body-foot clearbox">
+																<div class="fl"><b class="sms_byte">0</b>byte</div>
+																<div class="fr"><img src="../images/common/sms_btn_send.gif" align="absmiddle" class="del_message" /></div>
+															</div>
+															
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										
+									</table>
+								</td>
+							</tr>
+
+							<tr>
+								<td align="left" width="90px" height="30px" style="border-bottom:1px solid #d6d6d6; border-left:1px solid #d6d6d6; padding-left:10px;">푸시이미지
+									<span class="helpicon2 detailDescriptionLayerBtn" title="푸시이미지"></span>
+									<div class="detailDescriptionLayer hide">
+										※ 이미지 사이즈(가로 640px, 세로 320px)만 업로드 할 수 있습니다.<br>
+										※ 이미지 파일(.jpg, .gif, .png)만 업로드 할 수 있습니다.
+									</div>
+								</td>
+								<td style="border-left:1px solid #d6d6d6; border-bottom:1px solid #d6d6d6; padding-left:10px;"></td>	
+							</tr>
+							<tr align="left" height="40px">
+								<td style="border-bottom:1px solid #d6d6d6; border-left:1px solid #d6d6d6; padding-left:10px;" >푸시연결링크</td>
+								<td style="border-left:1px solid #d6d6d6; border-bottom:1px solid #d6d6d6; padding-left:10px;">
+									<input type="text" width="200px" />
+								</td>
+							</tr>
+							
+						</table>
+					</td>
+				</tr>
+			</table>
+				</tr>
+	</table>
+
+	<br style="line-height:70px;" />
+	{ / }
+</div>
+{ / }
+
+
+
+<div id="infoPopup" class="hide">
+	<div style="padding-bottom:5px;"><span style="font-weight:bold;" id="s_title"></span> 사용 가능한 치환코드입니다.</div>
+	<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="30%" />
+		<col width="70%" />
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th-align center" >치환코드</th>
+		<th class="its-th-align center" >설명</th>
+	</tr>
+	</thead>
+	<tbody>
+	{@ replace_item }
+	<tr class="s_info hide" oldid="s_tab{=.key_ + 1}" id="re_{.cd}">
+		<td class="its-td-align center">&#123;{=.cd}&#125;</td>
+		<td class="its-td">{=.nm} {?.etc}<br /><span style='color:#696969;font-size:11px;line-height:15px;font-family:돋움;'>{=.etc}</span>{/}</td>
+	</tr>
+	{ / }
+	</tbody>
+	</table>
+	<div style="padding:10px;"></div>
+</div>
+

@@ -1,0 +1,78 @@
+<script type="text/javascript">
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+    gcategorySelect.searchCategory();
+  };
+}, true);
+
+var categoryType 	= "{=sc.categoryType}";
+var categoryLay		= "div#{=sc.divSelectLay}";
+
+if(categoryType == "brand"){
+//	_getBrand();	/* 브랜드 불러오기 */
+	$("#provider_brand_container").hide();
+	$("form[name='brandConnectFrm'] input[name='provider_seq']").val('');
+	$("input[type='radio'][name='brandInputMethod'][value='select']").attr('checked',true);
+	
+}else if(categoryType == "location"){
+//	_getLocation(); /* 지역 불러오기 */
+}else{
+//	_getCategory();	/* 카테고리 불러오기 */
+}
+
+</script>
+
+<style>
+.category_select select { width:100% !important;border:0px !important; height:200px !important; }
+.category_select.brand select,.category_select.location select { height:170px !important; }
+</style>
+
+<!--카테고리 연결 레이어-->
+<div class="category_select {=sc.categoryType}">
+	{? sc.openType == "popup"}<div class="content">{/}
+	<table class="table_basic thl v7">
+		<colgroup>
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>1차 {=sc.categoryTitle}</th>
+				<th>2차 {=sc.categoryTitle}</th>
+				<th>3차 {=sc.categoryTitle}</th>
+				<th>4차 {=sc.categoryTitle}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="clear center">
+					<select name="select_{=sc.categoryType}1" multiple='multiple' no=1 ></select>
+				</td>
+				<td class="clear center">
+					<select name="select_{=sc.categoryType}2" multiple='multiple' no=2 ></select>
+				</td>
+				<td class="clear center">
+					<select name="select_{=sc.categoryType}3" multiple='multiple' no=3 ></select>
+				</td>
+				<td class="clear center">
+					<select name="select_{=sc.categoryType}4" multiple='multiple' no=4 ></select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	{? sc.categoryType != "category" }
+	<ul class='bullet_hyphen resp_message'>
+		<li>신규 {=sc.categoryTitle} 생성은 <a href="/admin/{=sc.categoryType}/catalog" target="_blank"><span class="underline blue">{=sc.categoryTitle}</span></a>에서 가능 합니다.</li>
+	</ul>
+	{/}
+	{? sc.openType == "popup"}</div>{/}
+
+	<div class="footer">
+		<button type="button" class="confirmSelectCategory resp_btn active size_XL" data-opt='{=scObj}' >선택</button>
+		{? sc.openType == "popup"}
+		<button type="button" class="btnLayClose resp_btn v3 size_XL">닫기</button>
+		{/}
+	</div>
+</div>

@@ -1,0 +1,616 @@
+[2022-04-03 03:37:51.136353000]
+REMOTE_IP : 125.209.251.214
+Array
+(
+    [product] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1883
+                    [merchantProductId] => M2Q2MzRhZmM0MWUzN2FhM2Q4MDQzNjU3ODA4MWIzMjk1MGNkZTZjN18xNjQ4OTI0NjA5
+                    [optionManageCodes] => opt113576
+                )
+
+        )
+
+    [supplementSearch] => true
+    [optionSearch] => true
+    [merchantCustomCode1] => M2Q2MzRhZmM0MWUzN2FhM2Q4MDQzNjU3ODA4MWIzMjk1MGNkZTZjN18xNjQ4OTI0NjA5
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-04-03 03:37:51.138982000]
+REMOTE_IP : 125.209.251.214
+Array
+(
+    [1883] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 1883
+            [goods_name] => 미러플립톡 MIRROR FLIP TOK
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 13576
+            [price] => 22000
+            [commission_rate] => 0.1
+            [commission_type] => SACO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 22000.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 24
+            [provider_name] => 뮤직브로
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 398
+            [trust_shipping] => N
+            [shipping_group_seq] => 398
+            [shipping_set_seq] => 425
+            [shipping_set_code] => delivery
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 26370
+            [choice] => 
+            [cart_seq] => 23169
+            [option1] => 용감한 블루
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 플립톡 색상
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 425
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/24/2021/07/1883_tmp_6f2d960c812d82afa25c429961a167578960thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330002
+                    [2] => 003300020008
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330002
+                    [2] => 003300020008
+                )
+
+            [package_error] => 
+            [org_price] => 22000.00
+            [tot_ori_price] => 22000
+            [basic_sale] => 0
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 22000
+            [tot_price] => 22000
+            [first] => 1
+            [cart_suboptions] => 
+            [cart_inputs] => 
+            [shipping_provider_seq] => 24
+            [goods_shipping] => 0
+            [shipping_group] => 398_425_delivery
+            [shipping_method_name] => 택배
+            [shipping_provider_division] => 1
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 872
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 3500.00
+                                    [shipping_cost_seq] => 1217
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 4500.00
+                                    [shipping_cost_seq] => 1218
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1219
+                                )
+
+                            [2] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 6000.00
+                                    [shipping_cost_seq] => 1220
+                                )
+
+                            [3] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 1221
+                                )
+
+                            [4] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 5000.00
+                                    [shipping_cost_seq] => 1222
+                                )
+
+                            [5] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 7000.00
+                                    [shipping_cost_seq] => 1223
+                                )
+
+                            [6] => Array
+                                (
+                                    [shipping_opt_seq] => 874
+                                    [shipping_group_seq] => 398
+                                    [shipping_set_seq] => 425
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 24
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 8000.00
+                                    [shipping_cost_seq] => 1224
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 872
+                            [shipping_group_seq] => 398
+                            [shipping_set_seq] => 425
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => fixed
+                            [shipping_provider_seq] => 24
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 0
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => delivery
+                            [shipping_cost] => 3500.00
+                            [shipping_cost_seq] => 1217
+                        )
+
+                    [shipping_group_id] => 398_425_delivery
+                    [shipping_std_group_free] => 
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/24/2021/07/1883_tmp_6f2d960c812d82afa25c429961a167578960list1.jpg
+            [tot_stock] => 1097
+            [base_price] => 22000
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 398_425_delivery
+                    [shipping_type] => CHARGE
+                    [shipping_paytype] => PREPAYED
+                    [shipping_price] => 3500
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 0
+                    [apiSupport] => true
+                    [return_sellername] => 플렉스 코퍼레이션
+                    [return_address1] => 경기도 군포시 번영로 82 (한국복합물류(주))
+                    [return_address2] => 경기도 군포시 번영로 82 (부곡동, 한국복합물류(주))
+                    [return_contact1] => 02-567-5870
+                    [return_contact2] => 02-567-5870
+                    [return_zipcode] => 15878
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [플립톡 색상] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt113576
+                                            [text] => 용감한 블루
+                                            [status] => true
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt113577
+                                            [text] => 용감한 블랙
+                                            [status] => true
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt113578
+                                            [text] => 용감한 하트
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt113576] => Array
+                        (
+                            [option_seq] => 13578
+                            [goods_seq] => 1883
+                            [code_seq] => direct
+                            [default_option] => n
+                            [option_type] => direct
+                            [option_title] => 플립톡 색상
+                            [option1] => 용감한 하트
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 22000.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 0.1
+                            [tmpprice] => 22000,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 22000
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 13578
+                            [commission_type] => SACO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 368
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 플립톡 색상
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 22000
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 용감한 하트
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 0
+                            [tax] => 2000
+                            [net_profit] => 22000
+                            [rstock] => 379
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 플립톡 색상
+                                            [id] => opt113576
+                                            [value] => 용감한 블루
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => 
+        )
+
+)
+
+

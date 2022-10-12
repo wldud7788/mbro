@@ -1,0 +1,105 @@
+<div class="resp_message mb10">  
+   상품디스플레이를 미리 저장해 두어 더 빠른 속도로 페이지를 접속할 수 있게 합니다.
+   <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/cache', '#tip1', 'sizeR')"></span>   
+</div>
+<table width="100%" class="table_row_basic tdc">
+<colgroup>
+    <col width="7%" />
+    <col width="7%" />
+    <col width="20%" />
+    <col width="20%" />
+    <col width="8%" />
+    <col width="8%" />
+    <col width="10%" />
+    <col width="20%" />
+</colgroup>
+<thead>
+    <tr>
+        <th rowspan="2"><span class="icon-star-gray hand" onclick="setAllFavorite(this)" ></span></th>
+        <th rowspan="2">번호</th>
+        <th rowspan="2">[플랫폼] 영역</th>
+        <th rowspan="2">상품디스플레이명</th>                    
+        <th colspan="2">캐시파일 생성</th>
+        <th rowspan="2">
+			캐시파일 사용<br/>
+			<span class="tooltip_btn mt5" onClick="showTooltip(this, '/admin/tooltip/cache', '#tip3', '280')"></span>
+		</th>
+        <th rowspan="2">캐시파일</th>
+    </tr>
+    <tr>
+        <th>
+			자동
+			<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/cache', '#tip2', 'sizeM')"></span>
+		</th>
+        <th>수동 <span class="hand view-goods-display-cach-set-btn resp_btn v2 size_S" onclick="allGoodsDisplayCache();">일괄</span></th>        
+    </tr>
+</thead>
+<tbody>
+<!--{ @ display_list.record }-->
+    <tr>        
+        <td><span class="icon-star-gray hand {?.favorite=='y'}checked{ / }" onclick="setFavorite(this,{'display_seq':'{.display_seq}','display_tab_index':'{.display_tab_index}','favorite':'{.favorite}'})"></span></td>
+        <td>{._no}</td>
+        <td class="left">
+            [{?.platform=='pc'}데스크톱{:.platform=='mobile'}모바일{:.platform=='fammerce'}페이스북{:.platform=='responsive'}반응형{/}] 상품디스플레이
+        </td>                    
+        <td class="left">
+            ({.display_seq})
+            <!--{ ? .admin_comment }-->
+            {=htmlspecialchars(.admin_comment)}
+            <!--{ : }-->
+            없음
+            <!--{ / }-->
+            <!--{ ? display_list.record[.index_-1].display_seq == .display_seq || display_list.record[.index_+1].display_seq == .display_seq }-->
+            - 탭 {.display_tab_index + 1}
+            <!--{ / }-->
+        </td>
+        <td>            
+            <label class="resp_checkbox"><input type="checkbox" name="auto_generation[]" value="{.display_seq}_{.display_tab_index}" onclick="setAutoGeneration(this,{'display_seq':'{.display_seq}','display_tab_index':'{.display_tab_index}','auto_generation':'{.auto_generation}'})" /></label>
+            <script type="text/javascript">chkAutoGeneration({'idx':'{.index_}','auto_generation':'{.auto_generation}','auto_use':'{.auto_use}','cache_use':'{.cache_use}','cache_file':'{.cache_file}'})</script>
+        </td>
+        <td class="select_style">
+            <div onclick="chgGoodsDisplayCache(this, {'display_seq':'{.display_seq}', 'display_tab_index':'{.display_tab_index}', 'perpage':'{.perpage}', 'kind':'{.kind}'});">
+                <!--{ ? .auto_use != 'y' }-->
+                <span class="hand goods-display-cach-btn resp_btn">생성</span>
+                <!--{ : }-->
+                <span class="link">불가</span>
+                <!--{ / }-->
+            </div>
+        </td>
+        <td>
+            <div onclick="setGoodsDisplayCache(this, {'display_seq':'{.display_seq}', 'display_tab_index':'{.display_tab_index}', 'perpage':'{.perpage}', 'kind':'{.kind}'});">
+                <!--{ ? !.cache_file }-->
+                <span class="link">불가</span>
+                <!--{ : }-->            
+                    <!--{ ? .cache_use == 'y' }-->
+                <span class="btn-gradient hand view-goods-display-cach-set-btn" style="width:40px;">사용</span>
+                    <!--{ : }-->            
+                <span class="btn-gradient hand off view-goods-display-cach-set-btn" style="width:40px;">미사용</span>
+                    <!--{ / }-->
+                <!--{ / }-->
+            </div>
+        </td>
+        <td>
+            <div onclick="viewGoodsDisplayCache(this, {'display_seq':'{.display_seq}', 'display_tab_index':'{.display_tab_index}', 'perpage':'{.perpage}', 'kind':'{.kind}'});">
+                <!--{ ? !.cache_file || .cache_use != 'y' }-->
+                -
+                <!--{ : }-->
+                    <!--{ ? .auto_generation == 'y' }-->
+                [자동]
+                    <!--{ : }-->
+                [수동]
+                    <!--{ / }-->
+                {.cache_file}
+                <span class="link">보기</span>
+                <!--{ / }-->
+            </div>
+        </td>
+    </tr>                
+<!--{ : }-->
+    <tr>
+        <td colspan="8">검색된 결과가 없습니다.</td>
+    </tr>
+<!--{ / }-->
+</tbody>
+</table>
+<div class="paging_navigation">{display_list.page.html}</div>

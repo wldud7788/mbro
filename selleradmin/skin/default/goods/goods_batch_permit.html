@@ -1,0 +1,58 @@
+<script type="text/javascript">
+function digit_sale_pop(){
+	openDialog("매입상품 내역", "digit_sale", {"width":"300","height":"200","show" : "fade","hide" : "fade"});
+}
+function digit_goods_pop(){	
+	openDialog("입점사상품 내역", "digit_goods", {"width":"300","height":"200","show" : "fade","hide" : "fade"});
+}
+</script>
+<div id="body_contants">
+	<!--{ ? warning }-->
+	<div style="width:100%;text-align:center;margin-top:20px;margin-bottom:20px;">
+		<div style="margin-bottom:20px;">{warning}</div>
+	</div>
+	<!--{ / }-->
+	<!--{ ? digit_goods }-->
+	<div style="width:100%;text-align:center;margin-top:20px;margin-bottom:20px;">
+		<div style="margin-bottom:20px;">일부 상품의  정산금액이 판매가보다 많습니다.</div>
+		<span class="btn large gray"><button type="button" onclick="digit_goods_pop();">상품확인</button></span>
+	</div>
+	<!--{ / }-->
+
+	<!--{ ? digit_sale }-->
+	<div style="width:100%;text-align:center;margin-top:20px;margin-bottom:20px;">
+		<div style="margin-bottom:20px;">일부 상품의  매입금액이 판매가보다 많습니다.</div>
+		<span class="btn large gray"><button type="button" onclick="digit_sale_pop();">상품확인</button></span>
+	</div>
+	<!--{ / }-->
+
+	<div style="width:100%;text-align:center;margin-top:10px;">
+		상품정보를 일괄 업데이트하겠습니까?<br/>변경된 데이터는 복구 되지 않습니다!
+	</div>
+	<div style="width:100%;text-align:center;margin-top:20px;">
+		<button type="button" class="resp_btn active size_L" onclick="closeDialog('goods_permit_lay');batch_goods_save_submit();"> 확인 </button>
+		<button type="button" class="resp_btn v3 size_L" onclick="closeDialog('goods_permit_lay');"> 취소 </button>
+	</div>
+</div>
+
+<!--{ ? digit_goods }-->
+<div id="digit_goods" class="hide">
+	<table class="info-table-style" style="width:99%">
+	<tr><th class="its-th-align center">상품명</th><tr>
+	<!--{ @ digit_goods }-->
+	<tr><td class="its-td-align center">{.value_}</td></tr>
+	<!--{ / }-->
+	</table>
+</div>
+<!--{ / }-->
+
+<!--{ ? digit_sale }-->
+<div id="digit_sale" class="hide">
+	<table class="info-table-style" style="width:99%">
+	<tr><th class="its-th-align center">상품명</th><tr>
+	<!--{ @ digit_sale }-->
+	<tr><td class="its-td-align center">{.value_}</td></tr>
+	<!--{ / }-->
+	</table>
+</div>
+<!--{ / }-->

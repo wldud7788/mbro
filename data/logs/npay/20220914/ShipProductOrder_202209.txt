@@ -1,0 +1,24 @@
+[2022-09-14 15:11:32.746233000]
+MODE : Request
+TIMESTAMP : 2022-09-14T06:11:32.744Z4902
+REMOTE_IP : 210.217.35.28
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-09-14T06:11:32.744Z4902</base:Timestamp><base:Signature>IIOjsmK+SMD67Ik9yhBs2Pg/er4hhApklH/p4+vKpKo=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022090878427840</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>6112411042367</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-09-14T06:11:32.741Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-09-14 15:11:33.25628000]
+MODE : Response
+TIMESTAMP : 2022-09-14T06:11:32.744Z4902
+REMOTE_IP : 210.217.35.28
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>SUCCESS</n1:ResponseType><n1:ResponseTime>265</n1:ResponseTime><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-09-14T06:11:33.32Z</n1:Timestamp><n1:MessageID>itdLHuFeTpSCK2zp6ckMEA</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-09-14 15:27:53.960890000]
+MODE : Request
+TIMESTAMP : 2022-09-14T06:27:53.959Z9658
+REMOTE_IP : 210.217.35.28
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-09-14T06:27:53.959Z9658</base:Timestamp><base:Signature>No1Kyef/uJ5aHJ/vZwnMHJrVYzohkrXPseeSnVBxqcQ=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022091457837950</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>6112402148419</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-09-14T06:27:53.955Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-09-14 15:27:54.182177000]
+MODE : Response
+TIMESTAMP : 2022-09-14T06:27:53.959Z9658
+REMOTE_IP : 210.217.35.28
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>SUCCESS</n1:ResponseType><n1:ResponseTime>214</n1:ResponseTime><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-09-14T06:27:54.53Z</n1:Timestamp><n1:MessageID>NybwGXvUQv2WkliDtWMrjw</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+

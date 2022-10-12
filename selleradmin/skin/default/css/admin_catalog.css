@@ -1,0 +1,13 @@
+.goodsOptionTable {display:none; position:absolute; border-collapse:collapse; top:-10px; left:60px; border:1px solid #f5f5f5;}
+.goodsOptionTable table {width:220px;}
+.goodsOptionTable th {padding:5px; border:1px solid #ddd; background-color:#f5f5f5}
+.goodsOptionTable td {height:25px !important; border:1px solid #ddd; background-color:#ffffff; text-align:center;}
+
+div.sub-choose-lay div.choose-form-lay {top:27px;right:0;width:200px;}
+div.sub-choose-lay div.choose-down-lay {top:27px;right:140px;width:150px;}
+div.list-string-price-lay {position:relative;}
+div.list-string-price-lay img {cursor:pointer;}
+div.view-string-price-lay {position:absolute;top:25px;right:0px;width:300px;z-index:100;background-color:#fff;}
+.t_tot_stock {text-align:center; border-collapse:collapse; width:570px;}
+.t_tot_stock td {border:1px solid #666; padding:5px;}
+.gr_col {color:#666;}

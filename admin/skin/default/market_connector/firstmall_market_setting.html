@@ -1,0 +1,67 @@
+				<!--{? pageMode == 'FirstSet'}-->
+				<div class="market_regist">
+					<!--{? MarketConnectorClause == 'NOT_YET' }-->
+					{# CLAUSE}
+					<!--{ : }-->
+					<div class="icon">						
+						<button type="button"  onclick="addNewAccount('');" class="resp_btn active size_L">오픈 마켓 등록</button>					
+					</div>					
+					<!--{ / }-->
+				</div>
+				<!--{ : }-->
+				
+				<ul class="tab_01 tabEvent">
+				<!--{@ useMarketList}-->
+					<!--{? market == .key_}-->
+					<li><a onclick="moveMenu('./market_setting?market={.key_}')" class="current"><img src="../images/common/ico_connector_{.key_}.png" align="absmiddle" alt="{.value_}"> {.value_}</a></li>
+					<!--{ : }-->
+					<li><a onclick="moveMenu('./market_setting?market={.key_}')"><img src="../images/common/ico_connector_{.key_}.png" align="absmiddle" alt="{.value_}"> {.value_}</a></li>
+					<!--{ / }-->
+				<!--{ / }-->
+				</ul>
+
+				<div class="contents_dvs v2">
+					<!-- //탭메뉴 -->
+					<table class="market-table-style" width="100%"  cellpadding="0" cellspacing="0">
+						<colgroup>
+							<col width="200" /><col />
+						</colgroup>
+						<tbody>
+						<tr valign="top">
+							<td>								
+								<dl class="market_seller">
+								<!--{@ accountList}-->
+									<!--{? sellerId == .sellerId}-->
+									<dt class="active">{.sellerId}</dt>
+									<dd style="display:block">
+										<ul>
+											<li class="act {? pageMode == 'AccountSet'}on{ / }" onclick="moveMenu('./market_setting?market={market}&sellerId={.sellerId}&accountSeq={.accountSeq}&pageMode=AccountSet')">
+												계정설정
+											</li>
+											<li class="add {? pageMode == 'AddInfoListSet' || pageMode == 'AddInfoRegistSet'}on{ / }" onclick="moveMenu('./market_setting?market={market}&sellerId={.sellerId}&pageMode=AddInfoListSet')">
+												필수정보 설정
+											</li>
+											<li class="ctg {? pageMode == 'CategoryMatchingListSet'}on{ / }" onclick="moveMenu('./market_setting?market={market}&sellerId={.sellerId}&pageMode=CategoryMatchingListSet')">
+												카테고리 매칭
+											</li>
+										</ul>
+									</dd>
+									<!--{ : }-->
+									<dt onclick="moveMenu('./market_setting?market={market}&sellerId={.sellerId}&accountSeq={.accountSeq}&pageMode=AccountSet')">
+										{.sellerId}
+									</dt>
+									<!--{ / }-->
+								<!--{ / }-->
+								</dl>
+							</td>
+							<td>
+								<div id="rightContentLay">
+									{# RIGHT_CONTENT}
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<!--{ / }-->

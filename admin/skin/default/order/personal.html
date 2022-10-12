@@ -1,0 +1,333 @@
+{ #layout_header }
+
+<div id="orderAdminSettle" class="hide"></div>
+<div id="issueGoodsSelect" class="hide"></div>
+<div id="optional_changes_dialog" class="hide"></div>
+<script type="text/javascript">
+	var search_type				= "{=sc.search_type}";
+
+	/* default search */
+	var default_search_pageid	= "personal";
+	var default_obj_width		= 750;
+	var default_obj_height		= 200;
+
+	var gf_deliveryCode			= "{=gf_config.gf_deliveryCode}";
+
+	$(document).ready(function() {
+		$(".all-check").toggle(function(){
+			$(this).parent().find('input[type=checkbox]').attr('checked',true);
+		},function(){
+			$(this).parent().find('input[type=checkbox]').attr('checked',false);
+		});
+
+		$("span.list-important").bind("click",function(){
+			var param = "?no="+$(this).attr('id');
+			if( $(this).hasClass('checked') ){
+				$(this).removeClass('checked');
+				param += "&val=0";
+				$.get('important'+param,function(data) {});
+
+			}else{
+				$(this).addClass('checked');
+				param += "&val=1";
+				$.get('important'+param,function(data) {});
+			}
+		});
+
+		$("select.list-select").bind("change",function(){
+			var nm = $(this).attr("name");
+			var value_str = $(this).val();
+			var that = this;
+
+			$("select[name='"+nm+"']").not(this).each(function(idx){
+				$(this).find("option[value='"+value_str+"']").attr("selected",true);
+				this.selectedIndex = that.selectedIndex;
+				$(this).customSelectBox("selectIndex",that.selectedIndex);
+			});
+
+			var step = nm.replace('select_', "");
+			var obj = $(".important-"+step);
+			obj.each(function(){
+				if( value_str ){
+					$(this).parent().parent().find("td").eq(0).find("input").attr("checked",false);
+					if(  value_str == 'important' && $(this).hasClass('checked') ){
+						$(this).parent().parent().find("td").eq(0).find("input").attr("checked",true);
+					}else if( value_str == 'not-important' && !$(this).hasClass('checked') ){
+						$(this).parent().parent().find("td").eq(0).find("input").attr("checked",true);
+					}else if(  value_str == 'select' ){
+						$(this).parent().parent().find("td").eq(0).find("input").attr("checked",true);
+					}
+				}
+			});
+		});
+
+
+		// 체크박스 색상
+		$("input[type='checkbox'][name='order_seq[]']").live('change',function(){
+			if($(this).is(':checked')){
+				$(this).closest('tr').addClass('checked-tr-background');
+			}else{
+				$(this).closest('tr').removeClass('checked-tr-background');
+			}
+		}).change();
+
+	});
+
+	function person_view(displayId,inputGoods,person_seq,member_seq){
+		$.ajax({
+			type: "get",
+			url: "../order/person_view",
+			data: "page=1&inputGoods="+inputGoods+"&displayId="+displayId+"&person_seq="+person_seq+"&member_seq="+member_seq,
+			success: function(result){
+				$("div#"+displayId).html(result);
+			}
+		});
+		openDialog("개인 결제 보기", displayId, {"width":"1000","height":"700","show" : "fade","hide" : "fade"});
+	}
+
+
+	function set_date(target, start,end){
+		var starget  =  target + '_sdate';
+		var etarget  =  target + '_edate';
+		$("input[name='" + starget + "[]']").val(start);
+		$("input[name='" + etarget + "[]']").val(end);
+	}
+
+
+
+	function personal_order_del(){
+		var f = document.listFrm;;
+		f.action = "personal_del";
+		f.submit();
+	}
+</script>
+
+<script type="text/javascript" src="/app/javascript/js/admin-searchForm.js?v={=date('Ymd')}"></script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/searchform.css?v={=date('Ymd')}" />
+
+<style>
+	.goods_name {display:inline-block;white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+	.search_label 	{display:inline-block;width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+	span.step_title { font-weight:normal;padding:0 5px 0 5px; }
+	span.export-list { display:inline-block;background-url("../images/common/btn_list_release.gif");width:60px;height:15px; }
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>개인 결제 조회</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<!--ul class="page-buttons-right">
+			<li><span class="btn large"><button name="order_admin_settle">관리자가 주문 넣기<span class="arrowright"></span></button></span></li>
+			<li><span class="btn large"><button name="download_list">다운로드항목설정<span class="arrowright"></span></button></span></li>
+		</ul-->
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 주문리스트 검색폼 : 시작 -->
+<div class="search-form-container search_container">
+	<form name="search-form" method="get">
+	<input type="hidden" name="regist_date_type" value="{sc.regist_date_type}" />	
+
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td>
+				<input type="text" name="keyword" size="100" value="{sc.keyword}" title="주문자, 아이디, 이메일, 휴대폰, 주문번호, 상품명" />
+			</div>
+			</td>
+		</tr>
+	</table>
+
+	<table class="search-form-table" id="search_detail_table">
+		<tr>
+			<td>
+				<table class="sf-option-table table_search">
+					<col width="60"><col >
+					<tr>
+						<th>등록일</th>
+						<td>
+							<input type="text" name="regist_sdate" value="{sc.regist_sdate}" class="datepicker"  maxlength="10" default_none />
+							&nbsp;<span class="gray">-</span>&nbsp;
+							<input type="text" name="regist_edate" value="{sc.regist_edate}" class="datepicker" maxlength="10" default_none />
+							<span class="resp_btn_wrap">
+								<span class="btn small"><input type="button" id="today" value="오늘" class="select_date resp_btn" settarget="regist" /></span>
+								<span class="btn small"><input type="button" id="3day" value="3일간" class="select_date resp_btn" settarget="regist"/></span>
+								<span class="btn small"><input type="button" id="1week" value="일주일" class="select_date resp_btn" settarget="regist"/></span>
+								<span class="btn small"><input type="button" id="1month" value="1개월" class="select_date resp_btn" settarget="regist"/></span>
+								<span class="btn small"><input type="button" id="3month" value="3개월" class="select_date resp_btn" settarget="regist"/></span>
+								<span class="btn small"><input type="button" id="all"  value="전체" class="select_date resp_btn" settarget="regist" row_bunch/></span>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>유효기간</th>
+						<td>
+							<input type="text" name="expiry_sdate" value="{sc.expiry_sdate}" class="datepicker"  maxlength="10" default_none />
+							&nbsp;<span class="gray">-</span>&nbsp;
+							<input type="text" name="expiry_edate" value="{sc.expiry_edate}" class="datepicker" maxlength="10" default_none />
+							<span class="resp_btn_wrap">
+								<span class="btn small"><input type="button" id="today" value="오늘" class="select_date resp_btn" settarget="expiry" /></span>
+								<span class="btn small"><input type="button" id="3day" value="3일간" class="select_date resp_btn" settarget="expiry" /></span>
+								<span class="btn small"><input type="button" id="1week" value="일주일" class="select_date resp_btn" settarget="expiry" /></span>
+								<span class="btn small"><input type="button" id="1month" value="1개월" class="select_date resp_btn" settarget="expiry" /></span>
+								<span class="btn small"><input type="button" id="3month" value="3개월" class="select_date resp_btn" settarget="expiry" /></span>
+								<span class="btn small"><input type="button" id="all"  value="전체" class="select_date resp_btn" settarget="expiry" row_bunch/></span>
+							</span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<div class="footer search_btn_lay">
+		<div>	
+			<span class="sc_edit">
+				<button type="button" id="set_default_setting_button" class="resp_btn v3">기본검색설정</button>
+				<button type="button" id="set_default_apply_button" onclick="set_search_form('personal')" class="resp_btn v3">기본검색적용</button>		
+			</span>	
+			<span class="search">	
+				<button type="submit" class="resp_btn active size_XL"><span>검색</span></button>	
+				<button type="button" id="search_reset_button" class="resp_btn v3 size_XL">초기화</button>		
+			</span>					
+		</div>
+	</div>
+	</form>
+</div>
+<!-- 주문리스트 검색폼 : 끝 -->
+
+<!-- 주문리스트 테이블 : 시작 -->
+<div class="contents_dvs v2">
+	<table class="list-table-style table_row_basic" cellspacing="0">
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>
+			<col width="40" />
+			<col width="40" />
+			<col width="60" />
+			<col width="120" />
+			<col width="120" />
+			<col />
+			<col width="270" />
+			<col width="200" />
+			<col width="120" />
+			<col width="170" />
+			<col width="70" />
+		</colgroup>
+		<thead class="lth">
+		<tr>
+			<th>선택</th>
+			<th>중요</th>
+			<th>번호</th>
+			<th>유효기간</th>
+			<th>등록일시</th>
+			<th>개인결제 타이틀</th>
+			<th>상품</th>
+			<th>주문자</th>
+			<th>개인결제가</th>
+			<th>주문번호</th>
+			<th>관리</th>
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+		<!-- 리스트 : 시작 -->
+		<tbody class="ltb">
+			<form name="listFrm" id="listFrm" method="post" target="actionFrame">
+			<!--{ ? !record }-->
+			<tr class="list-row">
+				<td colspan="10" align="center">검색어가 없거나 검색 결과가 없습니다.</td>
+			</tr>
+			<!--{ : }-->
+			<!--{ @ record }-->
+	
+			<tr class="list-row step{.step}">
+				<td align="center"><input type="checkbox" name="person_seq[]" value="{.person_seq}"  class="resp_checkbox"/></td>
+				<td align="center">
+				<!--{ ? .important }-->
+				<span class="icon-star-gray hand checked list-important important-{.step}" id="important_{.person_seq}"></span>
+				<!--{ : }-->
+				<span class="icon-star-gray hand list-important important-{.step}" id="important_{.person_seq}"></span>
+				<!--{ / }-->
+				</td>
+				<td align="center">{.no}</td>
+				<td align="center">{=substr(.regist_date,2,-3)}</td>
+				<td align="center">{=substr(.expiry_date,2,-3)}</td>
+				<td class="left" align="left" style="padding-left:10px">
+					{.title}
+				</td>
+				<td class="left" align="left">
+				<!--{ ? .item_cnt < 2 }-->
+				<div class="goods_name">{.goods_name}</div>
+				<!--{ : }-->
+				<div class="goods_name">{.goods_name} 외 {.item_cnt-1}건</div>
+				<!--{ / }-->
+				</td>
+				<td class="hand" onclick="open_crm_summary(this,'{.member_seq}','{.order_seq}','right');">
+					<!--{ ? .member_seq }-->
+					<div>
+						{?.member_type=='개인'}<img src="../images/common/icon/icon_personal.gif" />
+						{:.member_type=='기업'}<img src="../images/common/icon/icon_besiness.gif" />{/}
+						{.order_user_name}
+						<!--{ ? .mbinfo_rute == 'facebook' //facebook 회원인경우 }-->
+							(<span style="color:#d13b00;"><img src="../images/board/icon/sns_f0.gif" align="absmiddle">{.mbinfo_email}</span>/<span class="blue">{.group_name}</span>)
+						<!--{ : }-->
+							(<span style="color:#d13b00;">{.userid}</span>/<span class="blue">{.group_name}</span></a>)
+						<!--{ / }-->
+					</div>
+					<!--{ : }-->
+					<img src="../images/common/icon/icon_personal.gif" /> {.order_user_name} (<span class="desc">비회원</span>)
+					<!--{ / }-->
+				</td>
+	
+				<td class="right" align="right"><b>{=get_currency_price(.total_price - .enuri,3)}</b></td>
+				<td align="center"><a href="/admin/order/view?no={.order_seq}">{.order_seq}</a></td>
+				<td align="center"><span class="btn small"><button type="button" onclick='person_view("orderAdminSettle","issueGoods", "{.person_seq}", "{.member_seq}");' class="resp_btn v3">상세</button></span></td>
+			</tr>
+			<!--<tr><td colspan="12" style="padding-top:3px;"></td></tr>-->
+			<tr class="order-list-summary-row hide">
+				<td colspan="10" class="order-list-summary-row-td"><div class="order_info"></div></td>
+			</tr>
+			<!-- 리스트데이터 : 끝 -->
+			<!--{ ? .end }-->
+			<!-- 합계 : 시작 -->
+			<tr class="list-end-row">
+				<td colspan="11" class="list-end-row-td">
+					<ul class="left-btns clearbox" style="margin-top:2px">
+						<li>
+							<select class="list-select custom-select-box-multi" name="select_{.step}"  rows="4">
+							<option value="select">전체선택</option>
+							<option value="not-select">선택안함</option>
+							</select>
+						</li>
+						<li>
+							<span class="btn small"><button type="button" name="goods_del" onclick="personal_order_del()" class="resp_btn v3">삭제</button></span>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<!-- 합계 : 끝 -->
+			<!--{ / }-->
+			<!--{ / }-->
+			<!--{ / }-->
+			</form>		
+		</tbody>
+		<!-- 리스트 : 끝 -->
+	</table>
+</div>
+
+<!-- 주문리스트 테이블 : 끝 -->
+</form>
+</div>
+
+<!-- 기본검색설정 -->
+<script type="text/javascript" src="/app/javascript/js/admin-searchDefaultConfig.js?mm={=date('Ymd')}"></script>
+
+
+{ #layout_footer }

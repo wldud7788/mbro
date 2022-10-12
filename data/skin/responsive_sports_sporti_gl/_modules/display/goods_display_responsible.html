@@ -1,0 +1,43 @@
+<!--{* ver.[20181210] original.[responsible] 버전관리용입니다 삭제하지마세요 *}-->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ [반응형] 디스플레이 템플릿 - 격자 반응형 @@
+- 파일위치 : [스킨폴더]/_modules/display/goods_display_responsible.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<style>
+	.{display_key} .goods_list li.gl_item{ width:{goodsImageSize.width}px; }
+</style>
+
+<!--{? !ajax_call }-->
+<!--{? isRecommend}--><h3 class="title_sub1">추천상품</h3><!--{/}-->
+<div id='{display_key}' class='{displayClass}' designElement='{displayElement}' templatePath='{template_path}' displaySeq='{display_seq}' page='{page.nowpage}' perpage='{perpage}' category='{category_code}' displayStyle='{style}'>
+	<!--{ ? title }--><div class="res_db_title1">{title}</div><!--{ / }-->
+	<!--{ ? displayTitle }--><div class="res_db_title2">{displayTitle}</div><!--{ / }-->
+	<!--{ ? count(displayTabsList)>1 }-->
+	<ul class="displayTabContainer displayTabType1">
+		<!--{ @ displayTabsList }-->
+			<li {?.index_==0}class="current"{/} style="width:{=100/count(displayTabsList)}%">{.tab_title}</li>
+		<!--{ / }-->
+	</ul>
+	<!--{ / }-->
+<!--{ / }-->
+
+<!--{ @ displayTabsList }-->
+	<div class="{display_key} display_responsible_class {? count(displayTabsList)>1 || ajax_call }displayTabContentsContainer displayTabContentsContainerBox{/}">
+	<!--{ ? .contents_type == 'text' }-->
+		  <div>{.tab_contents}</div>
+	<!--{ : }-->
+		<!-- ------- 상품정보. 파일위치 : /data/design/ ------- -->
+		<!--{ #goods_list }-->
+		<!-- ------- //상품정보. ------- -->
+	<!--{ / }-->
+	</div>
+<!--{ / }-->
+
+
+<!--{? !ajax_call }-->
+<!--{ ? perpage }-->
+	{#paging}
+<!--{ / }-->
+</div>
+<!--{ / }-->

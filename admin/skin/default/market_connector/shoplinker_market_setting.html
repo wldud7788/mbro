@@ -1,0 +1,60 @@
+<style>
+	.mgt20 {margin-top:20px;}
+	.shoplinker_btn {margin-left:15px;}
+	.shoplinker_setting {margin-left:15px;width:100%;}
+	.left {text-align:left;}
+	.shoplinkerAddinfoArea {text-align:center;margin-top:20px;}
+	.right {text-align:right;border-left:0px;border-bottom:0px;}
+	.listTl {width:98%;margin-bottom:10px;}
+	.rightBor {border-right:1px solid #ccc;}
+	.pad10 {padding:10px;}
+	.pad5 {padding:5px;}
+	.groupName {font-weight: bold;color:gray;}
+	.txtMiddle {vertical-align: middle;}
+	.addInfoFrame {width:1020px;min-height:1000px;border:0px;}
+</style>
+<form name="processFrom" id="processFrom" method="get" action="/admin/market_connector/market_setting">
+	<input type="hidden" name="pageMode" value="{pageMode}" />
+	<input type="hidden" name="searchMarket" value="" />
+	<input type="hidden" name="detailMarket" value="" />
+	<input type="hidden" name="accountSeq" value="" />
+	<input type="hidden" name="chkSeq" value="" />
+	<input type="hidden" name="linkMode" value="" />
+	<input type="hidden" name="groupId" value="" />				
+</form>
+<div class="contents_dvs v2">
+<table class="market-table-style" width="100%"  cellpadding="0" cellspacing="0">
+	<colgroup>
+		<col width="200" /><col />
+	</colgroup>
+	<tbody>
+	<tr valign="top">
+		<td>			
+			<dl class="market_seller">
+			<!--{? MarketLinkage.shoplinkerId}-->
+				<dt class="active">{MarketLinkage.shoplinkerId}</dt>
+				<dd style="display:block">
+					<ul>
+						<li class="act {? pageMode == 'AccountSet' || pageMode == 'AccountSetDetail'}on{ / }" onclick="moveMenu('./market_setting?pageMode=AccountSet')">
+							계정 설정
+						</li>
+						<li class="add {? pageMode == 'AddInfoListSet' || pageMode == 'AddInfoDetail'}on{ / }" onclick="moveMenu('./market_setting?pageMode=AddInfoListSet')">
+							그룹정보 관리
+						</li>
+						<li class="ctg {? pageMode == 'CategoryMatchingListSet'}on{ / }" onclick="moveMenu('./market_setting?pageMode=CategoryMatchingListSet')">
+							카테고리 매칭
+						</li>
+					</ul>
+				</dd>
+			<!--{ / }-->
+			</dl>
+		</td>
+		<td>
+			<div id="rightContentLay">
+				{# RIGHT_CONTENT} 
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</div>

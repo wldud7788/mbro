@@ -1,0 +1,147 @@
+{ #layout_header_popup }
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/sms_history_list.css?mm={=date('Ymd')}" >
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	gSearchForm.init();	
+});
+</script>
+<style>
+	body{background: none !important;}
+</style>
+
+
+
+<div id="search_container" class="search_container">
+	<form id="sms_history_list" method="get" class='search_form'>	
+		<table class="table_search">		
+			<tr>
+				<th>조회기간</th>
+				<td>
+					<div class="sc_day_date date_range_form">
+						<input type="text" name="sdate" class="datepicker sdate" maxlength="10" value="{sdate}" defaultValue="{=defaultSdate}" />
+						-
+						<input type="text" name="edate" class="datepicker edate" maxlength="10" value="{edate}" defaultValue="{=defaultEdate}"  />
+						<div class="resp_btn_wrap">
+							<input type="button" range="today" value="오늘" class="select_date resp_btn" />
+							<input type="button" range="3day" value="3일간" class="select_date resp_btn" />
+							<input type="button" range="1week" value="일주일" class="select_date resp_btn" />
+							<input type="button" range="1month" value="1개월" class="select_date resp_btn" />
+							<input type="button" range="3month" value="3개월" class="select_date resp_btn" />
+							<input type="hidden" name="select_date_regist" value="{select_date_regist}" class="select_date_input" defaultValue="{=defaultSelectDate}" selectDate=1 />
+						</div>
+					</div>
+				</td>				
+			</tr>
+			<tr>
+				<th>상태</th>
+				<td>
+					<select name="tran_kind">
+						<option value="">발송유형</option>
+						<option value="sms" { ? tran_kind == 'sms'}selected{/}>SMS</option>
+						<option value="lms" { ? tran_kind == 'lms'}selected{/}>장문</option>
+					</select>
+					<select name="tran_rslt">
+						<option value="">현재상태</option>
+						<option value="succ" { ? tran_rslt=='succ' }selected{/}>성공</option>
+						<option value="fail" { ? tran_rslt=='fail' }selected{/}>실패</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>검색내용</th>
+				<td>
+					<select name="search_type" defaultValue="{=defaultSearchType}">
+						<option value="tran_msg" {?search_type=='tran_msg' }selected{/}>발송내용</option>
+						<option value="tran_phone" {?search_type=='tran_phone' }selected{/}>수신번호</option>
+						<option value="tran_callback" {?search_type=='tran_callback' }selected{/}>회신번호</option>
+					</select>
+					<span class='search_keyword keyword'><input type="text" name="keyword" id="search_keyword"
+							class='resp_text' size="100" value="{keyword}" /></span>
+				</td>
+			</tr>
+		</table>
+		<div class="footer search_btn_lay">
+			<div>
+				<span class="search">
+					<button type="submit" class="search_submit resp_btn active size_XL">검색</button>
+					<button type="button" class="search_reset resp_btn v3 size_XL"
+						onclick="$('#sms_search')[0].reset();">초기화</button>
+				</span>
+			</div>
+		</div>	
+	</form>	
+</div>
+<div class="contents_dvs v2">
+	<div class="list_info_container">
+		<div class="dvs_left">
+			<div class="left-btns-txt">
+				<span>검색 <b>{=number_format(total)}</b>개 </span>
+				<span class="pdl5">성공 <b>{=number_format(success)}</b>개 </span>
+				<span class="pdl5">실패 <b>{=number_format(fail)}</b>개</span>
+			</div>
+		</div>
+	</div>
+
+	<table class="table_row_basic list" id="sms_history_list">
+			<colgroup>
+				<col width="5%" />
+				<col width="5%" />
+				<col width="5%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col  />
+				<col width="5%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>유형</th>
+					<th>차감검수</th>
+					<th>발송시간</th>
+					<th>결과수신시간</th>
+					<th>수신번호</th>
+					<th>회신번호</th>
+					<th>발송내용</th>
+					<th>현재상태</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--{ ? total > 0 }-->
+				<!--{ @ data}-->
+				<!--{ ? total - (page + .index_) > 0 }-->
+				<tr>
+					<td>{total - (page + .index_)}</td>
+					<!--{ ? .tran_kind == 'sms'}-->
+					<td>SMS</td>
+					<td>1</td>
+					<!--{ : }-->
+					<td>장문</td>
+					<td>3</td>
+					<!--{ / }-->
+					<td>{.tran_date}</td>
+					<td>{.tran_rsltdate}</td>
+					<td>{.tran_phone}</td>
+					<td>{.tran_callback}</td>
+					<td><div class="tran_msg">{.tran_msg}</div></td>
+					<td>
+						{.tran_rslt_code_msg}
+					</td>
+				</tr>
+				<!--{ / }-->
+				<!--{ / }-->
+				<!--{ : }-->
+				<tr>
+					<td colspan="9">
+						검색결과가 없습니다.
+					</td>
+				</tr>
+				<!--{ / }-->
+		</tbody>
+	</table>
+	
+	<div class="paging_navigation">{paginlay}</div>
+</div>

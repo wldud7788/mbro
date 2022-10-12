@@ -1,0 +1,350 @@
+<script type="text/javascript">
+	var keyword					= "{=sc.keyword}";
+	var search_type				= "{=sc.search_type}";
+</script>
+
+
+<script type="text/javascript" src="/app/javascript/js/admin-searchForm.js?v={=date('Ymd')}"></script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/searchform.css?v={=date('Ymd')}" />
+
+<table class="table_search">
+	<tr>
+		<th>검색어</th>					
+		<td>
+			<div class="relative">
+				<input type="text" name="keyword" id="search_keyword" value="{=sc.keyword}" title="{=implode(',',arr_search_keyword)}" size="100" autocomplete='off'/>
+				<!-- 검색어 입력시 레이어 박스 : start -->
+				<div class="search_type_text hide">{=sc.keyword}</div>
+				<div class="searchLayer hide">
+					<input type="hidden" name="search_type" id="search_type" value="{=sc.search_type}" />
+					<ul class="searchUl">
+						<li><a class="link_keyword" s_type="all" href="#"><span class="txt_keyword"></span> <span class="txt_title">-전체검색</span></a></li>
+						{@ arr_search_keyword }
+						<li><a class="link_keyword" s_type="{=.key_}" href="#">{=.value_}: <span class="txt_keyword"></span> <span class="txt_title">-{=.value_}로 찾기</span></a></li>
+						{ / }
+					</ul>
+				</div>
+				<!-- 검색어 입력시 레이어 박스 : end -->
+				<label class="resp_checkbox ml10"><input type="checkbox" name="set_search_partial" title="부분 검색 설정" {?_GET.set_search_partial=='on'}checked{/}/> 부분검색</label>
+			</div>			
+		</td>		
+	</tr>
+</table>
+		
+<!-- 상세검색 시작 -->
+<div class="search-detail-lay ">
+	<table class="search-form-table" id="search_detail_table" >
+		<tr>
+			<td>
+				<table class="sf-option-table table_search">					
+					<!--{ ? serviceLimit('H_AD') // 배송책임 }-->
+					<tr>
+						<th>배송책임</th>
+						<td colspan="5">
+							<!--{? pagemode == "company_catalog" }-->
+							<span class="red"><strong>본사</strong> (입점사 위탁배송상품 포함)</span>
+							<input type="hidden" class="shipping_provider_seq" name="shipping_provider_seq" value="1" default_none />
+							<!--{ : }-->
+							<div class="ui-widget"  style="float:left;">
+								<select name="shipping_provider_seq_selector" style="vertical-align:middle;" default_none>
+									<option value="0">- 검색 -</option>
+									<option value="1" provider_id="본사" {? sc.provider_seq == 1 }selected{/}>본사</option>
+									{@ provider}
+									<option value="{.provider_seq}" provider_id="{=.provider_id}" {? sc.shipping_provider_seq == .provider_seq}selected{/}>{.provider_name}</option>
+									{/}
+								</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="hidden" class="shipping_provider_seq" name="shipping_provider_seq" value="{=sc.shipping_provider_seq}" default_none />
+								<input type="text" name="shipping_provider_name" value="{=sc.shipping_provider_name}" style="width:150px;" readonly class="disabled"  default_none />
+								<script type="text/javascript">
+									$(function(){
+										$( "select[name='shipping_provider_seq_selector']" )
+										.combobox()
+										.change(function(){
+											if( $(this).val() > 0 ){
+												$("input[name='shipping_provider_seq']").val($(this).val());
+												$("input[name='shipping_provider_name']").val($("option:selected",this).attr("provider_id"));
+												if	($(this).val() > 1){
+													$(this).closest('td').find('span.ptc-charges').html('(입점사 위탁배송상품 제외)').show();
+												}else{
+													$(this).closest('td').find('span.ptc-charges').html('(입점사 위탁배송상품 포함)').show();
+												}
+											}else{
+												$("input[name='shipping_provider_seq']").val('');
+												$("input[name='shipping_provider_name']").val('');
+												$(this).closest('td').find('span.ptc-charges').html('').hide();
+											}
+										})
+										.next(".ui-combobox").children("input")
+										.bind('focus',function(){
+											if($(this).val()==$( "select[name='shipping_provider_seq_selector'] option:first-child" ).text()){
+												$(this).val('');
+											}
+										})
+										.bind('mouseup',function(){
+											if($(this).val()==''){
+												$( "select[name='shipping_provider_seq_selector']").next(".ui-combobox").children("a.ui-combobox-toggle").click();
+											}
+										});
+									});
+								</script>
+							</div>
+							<span class="ptc-charges hide" style="display:inline-block; margin:5px 0 0 5px"></span>
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ / }-->				
+					<tr><!-- 날짜 -->
+						<th>날짜</th>
+						<td colspan="5">
+							<input type="hidden" name="regist_date_type" value="{=sc.regist_date_type}"  />
+							<select name="date_field" style="width:110px;">
+								<option value="regist_date" {?_GET.date_field=='regist_date' || !_GET.date_field}selected{/}>주문일</option>
+								<option value="deposit_date" {?_GET.date_field=='deposit_date'}selected{/}>입금일</option>
+							</select>
+							<input type="text" name="regist_date[]" value="{=sc.regist_date[0]}" class="datepicker"  maxlength="10" default_none />
+							&nbsp;<span class="gray">-</span>&nbsp;
+							<input type="text" name="regist_date[]" value="{=sc.regist_date[1]}" class="datepicker" maxlength="10" style="width:90px;" default_none />
+							
+							<span class="resp_btn_wrap">
+								<span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn" settarget="regist_date"/></span>
+								<span class="btn small"><input type="button" value="3일간" id="3day" class="select_date resp_btn" settarget="regist_date"/></span>
+								<span class="btn small"><input type="button" value="일주일" id="1week" class="select_date resp_btn" settarget="regist_date"/></span>
+								<span class="btn small"><input type="button" value="1개월" id="1month" class="select_date resp_btn" settarget="regist_date"/></span>
+								<span class="btn small"><input type="button" value="3개월" id="3month" class="select_date resp_btn" settarget="regist_date"/></span>
+								<span class="btn small"><input type="button" value="6개월" id="6month" class="select_date resp_btn" settarget="regist_date"/></span>
+								<span class="btn small"><input type="button" value="1년" id="1year" class="select_date resp_btn" settarget="regist_date"/></span>
+							</span>
+						</td>
+					</tr>
+					<!-- 주문상태 출고 전 -->
+					<tr>
+						<th style="letter-spacing:-1px;"><span class='red'>{? pagemode == "company_catalog" }상품상태{:}주문상태{/}</span> (출고 전)</th>
+						<td colspan="5">
+							<!--{ @config_load('step') }-->
+							<!--{ ? .key_ < 50 || .key_ >  80 }-->
+							<!--{ ? .key_ > 15 || pagemode != 'company_catalog' }-->
+							<label class="search_label resp_checkbox mr5"><input type="checkbox" name="chk_step[{.key_}]" value="1" {? sc.chk_step[.key_]}checked{/} /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ / }-->
+							<span class="icon-check hand all-check"><b>전체</b></span>
+						</td>
+					</tr>
+					<!-- 주문상태 출고 후 -->
+					<tr>
+						<th style="letter-spacing:-1px;"><span class='red'>{? pagemode == "company_catalog" }상품상태{:}주문상태{/}</span> (출고 후)</th>
+						<td colspan="5" style="position:relative;">
+							<!--{ @config_load('step') }-->
+							<!--{ ? .key_ >= 50 && .key_ <  80 }-->
+							<label class="search_label mr5 resp_checkbox"><input type="checkbox" name="chk_step[{.key_}]" value="1" {? sc.chk_step[.key_]}checked{/} /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<span class="icon-check hand all-check"><b>전체</b></span>
+							{? pagemode != "company_catalog" }
+							&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+							<label class="resp_checkbox">
+								<input type="checkbox" name="chk_bundle_yn" value="1" {? sc.chk_bundle_yn == '1'}checked{/} wrapped/>
+								<span>합포장(묶음배송)</span>
+							</label>
+							<div class="relative">
+								<span class="helpicon2 detailDescriptionLayerBtn" title="합포장(묶음배송) 출고"></span>
+								<!-- 합포장(묶음배송) 설명 -->
+								<div class="detailDescriptionLayer wx300 hide" style="left:0px;">
+									2개 이상의 주문에 대하여<br />합포장(묶음배송)으로 출고된 주문 조회
+								</div>
+							</div>
+							{ / }
+						</td>
+					</tr>
+					<!-- 배송방법 -->
+					<tr>
+						<th>배송방법
+							<span class="helpicon2 detailDescriptionLayerBtn" title="배송방법"></span>
+							<!-- 배송방법 설명 -->
+							<div class="detailDescriptionLayer hide">선택된 배송국가의 배송방법으로 주문된 주문 조회</div>
+						</th>
+						<td colspan="5">
+							<label class="search_label resp_checkbox"><input type="checkbox" name="nation[]" value="domestic" {? in_array('domestic',sc.nation)}checked{/}/> 대한민국</label>
+							(<!--{ @ ship_set_code }-->
+							<label class="resp_checkbox" ><input type="checkbox" name="shipping_set_code[domestic][]" value="{.key_}" groupset='domestic' grouplast="{? count(ship_set_code)-1 == .index_ }y{:}n{/}" {? in_array(.key_,sc.shipping_set_code.domestic)}checked{/} /> <span  class="fx11">{.value_}</span></label>
+							<!--{ / }-->)
+							<label class="search_label ml10 resp_checkbox" ><input type="checkbox" name="nation[]" value="international" br='y'
+							{? in_array('international',sc.nation)}checked{/}/> 해외국가</label>
+							(<!--{ @ ship_set_code }-->
+							<label class="resp_checkbox"<input type="checkbox" name="shipping_set_code[international][]" value="{.key_}"  groupset='international' grouplast="{? count(ship_set_code)-1 == .index_ }y{:}n{/}" {? in_array(.key_,sc.shipping_set_code.international)}checked{/} /> <span  class="fx11">{.value_}</span></label>
+							<!--{ / }-->)
+							&nbsp;|&nbsp;
+							<label class="search_label resp_checkbox"><input type="checkbox" name="shipping_set_code[ticket]" value="ticket" br='y' {? sc.shipping_set_code.ticket == 'ticket'}checked{/} /> 문자/이메일 (티켓발송)</label>
+						</td>
+					</tr>
+					<!-- 배송예정 -->
+					<tr>
+						<th>배송예정
+							<span class="helpicon2 detailDescriptionLayerBtn" title="배송예정"></span>
+							<!-- 배송방법 설명 -->
+							<div class="detailDescriptionLayer wx300 hide">희망배송일이 입력기간인 주문조회<br />예약상품발송일이 입력기간인 주문조회</div>
+						</th>
+						<td colspan="5">
+							<label class="resp_checkbox" ><input type="checkbox" name="shipping_hop_use" value="y" { ? sc.shipping_hop_use == 'y' }checked{/}/> 희망배송일</label>
+							<input type="text" name="shipping_hope_sdate" value="{=sc.shipping_hope_sdate}" class="datepicker "  maxlength="10" style="width:90px" default_none />
+							<span class="gray">-</span>
+							<input type="text" name="shipping_hope_edate" value="{=sc.shipping_hope_edate}" class="datepicker " maxlength="10" style="width:90px" default_none />
+							<span class="resp_btn_wrap"><span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn" settarget="shipping_hope" /></span></span>
+							<label class="resp_checkbox ml20"><input type="checkbox" name="shipping_reserve_use" value="y" { ? sc.shipping_reserve_use == 'y' }checked{/}/> 예약상품발송일</label>
+							<input type="text" name="shipping_reserve_sdate" value="{=sc.shipping_reserve_sdate}" class="datepicker"  maxlength="10" style="width:90px" default_none />
+							<span class="gray">-</span>
+							<input type="text" name="shipping_reserve_edate" value="{=sc.shipping_reserve_edate}" class="datepicker" maxlength="10" style="width:90px" default_none />
+							<span class="resp_btn_wrap"><span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn" settarget="shipping_reserve"/></span></span>
+						</td>
+					</tr>
+					<!-- 주문상품 -->
+					<tr>
+						<th>주문상품
+							<span class="helpicon2 detailDescriptionLayerBtn" title="주문상품"></span>
+							<!-- 배송방법 설명 -->
+							<div class="detailDescriptionLayer hide">
+								<table class='helpicon_table' cellpadding='0' cellspacing='0'>
+									<colgroup><col width="65"><col width="100"/><col/></colgroup>
+									<tr><th class="center">구분</th><th class="center">주문상품</th><th class="center">주문 조회 결과</th></tr>
+									<tr><td>일반/티켓</td><td>성인상품</td><td class='red left'>성인상품이 있는 주문 조회</td></tr>
+									<tr><td>일반/티켓</td><td>청약철회불가</td><td class='red left'>청약철회불가상품이 있는 주문 조회</td></tr>
+									<tr><td>일반/티켓</td><td>구매대행</td><td class='red left'>구매대행상품이 있는 주문 조회</td></tr>
+									<tr><td>일반</td><td>예약상품</td><td class='red left'>예약상품이 있는 주문 조회</td></tr>
+									<tr><td>일반</td><td>패키지/복합상품</td><td class='red left'>패키지/복합상품이 있는 주문 조회</td></tr>
+									<tr><td>일반</td><td>사은품</td><td class='red left'>사은품이 있는 주문 조회</td></tr>
+									<tr><td>티켓</td><td>티켓</td><td class='red left'>티켓이 있는 주문 조회</td></tr>
+									<tr><td>일반</td><td>위탁배송상품</td><td class='red left'>위탁배송이 있는 주문 조회</td></tr>
+								</table>
+							</div>
+						</th>
+						<td colspan="3">
+							{@ arr_order_goods_type }
+							{? .key_ == "package"} | &nbsp; { / }
+							<label class="search_label resp_checkbox" no="1" {? .key_ == "withdraw"}style="width:120px;"{: .key_ == "package"}style="width:140px;"{/}>
+								<input type="checkbox" name="goodstype[]" value="{=.key_}" row_group="주문상품" {? in_array(.key_,sc.goodstype)}checked{/}  /> <img src="../images/design/icon_order_{=.key_}.gif" align="absmiddle" />
+								{=.value_}
+							</label>
+							{ / }
+						</td>
+						<th style="vertical-align:middle" class="pdt3 auto">중요주문</span></th>
+						<td>
+							<label class="mr10 resp_checkbox"><input type="checkbox" name="important[]" value="1" {? in_array('1',sc.important)}checked{/} /> <span class="icon-star-gray hand checked list-important"></span></label>
+							<label class="resp_checkbox"><input type="checkbox" name="important[]" value="0" {? in_array('0',sc.important)}checked{/} /> <span class="icon-star-gray hand list-important "></span></label>
+						</td>
+					</tr>
+					{? pagemode != "company_catalog" }
+					<!-- 주문환경/주문유형 -->
+					<tr>
+						<th>주문환경</th>
+						<td no=0>
+							<div class="resp_checkbox v2">
+							<!--{ @ sitetypeloop }-->
+							<label class="search_label"><input type="checkbox" name="sitetype[]" value="{.key_}" {? in_array(.key_,sc.sitetype)}checked{/} /> {.name}</label>
+							<!--{ / }-->
+						</div>
+						</td>
+						<th class="auto">주문유형</th>
+						<td no=1 colspan="3">
+							<label class="search_label resp_checkbox" ><input type="checkbox" name="ordertype[]" value="change" {? in_array('change',sc.ordertype)}checked{/} /> <img src="../images/design/icon_order_exchange.gif" align="absmiddle" /> 교환주문</label>
+							<label class="resp_checkbox"><input type="checkbox" name="ordertype[]" value="admin"  {? in_array('admin',sc.ordertype)}checked{/} /> <img src="../images/design/icon_order_admin.gif" align="absmiddle" /> 관리자주문</label>
+							<label class="resp_checkbox"><input type="checkbox" name="ordertype[]" value="personal" {? in_array('personal',sc.ordertype)}checked{/}  /> <img src="../images/design/icon_order_personal.gif" align="absmiddle" /> 개인결제</label>
+							<label class="resp_checkbox"><input type="checkbox" name="ordertype[]" value="present" {? in_array('present',sc.ordertype)}checked{/}  /> <img src="../images/design/icon_order_present.gif" align="absmiddle" width="14" /> 선물하기</label>
+						</td>
+					</tr>
+					<!-- 주문결제/주문유입 -->
+					<tr>
+						<th style="vertical-align:top" class="pdt10">주문결제</span></th>
+						<td no=0 class="pdt5">
+							<div class="selectbox_multi">
+								<div class="cont bank pdt5">
+									<label class="search_label resp_checkbox"><input type="checkbox" name="payment[]" value="bank" {? in_array('bank',sc.payment)}checked{/} /> 무통장</label>
+									<label class="search_label resp_checkbox"><input type="checkbox" name="payment[]" value="pos_pay" {? in_array('pos_pay',sc.payment)}checked{/} /> 매장결제</label>
+								</div>
+								<div class="cont multiselect">
+									<h2><label class="resp_checkbox"><input type="checkbox" name="allpg" class="allSelectDrop" br='y' value='y' {? sc.allpg == 'y'}checked{/}> <span class="allpg">모든 결제사</span></label></h2>
+									<div class="list">
+									<ul>
+										{@ arr_order_pg }
+										<li><label class="resp_checkbox"><input type="checkbox" name="pg[]" value="{.key_}" title="{.value_}" {? in_array(.key_,sc.pg)}checked{/}> {.value_}</label></li>
+										{ / }
+									</ul>
+									</div>
+								</div>								
+								<div class="cont multiselect">
+									<h2><label class="resp_checkbox"><input type="checkbox" name="allpayment" class="allSelectDrop" br='y' value='y' {? sc.allpayment == 'y'}checked{/}> <span class="allpayment">모든 결제수단</span></label></h2>
+									<div class="list">
+									<ul>
+										{@ arr_order_payment }
+										<li><label class="resp_checkbox"><input type="checkbox" name="payment[]" value="{.key_}" title="{.value_}" {? in_array(.key_,sc.payment)}checked{/}> {.value_}</label></li>
+										{ / }
+									</ul>
+									</div>
+								</div>
+							</div>
+						</td>
+						<th style="vertical-align:top;" class="pdt10 auto"><span>주문유입</span></th>
+						<td no=1 class="pdt5">
+							<div class="selectbox_multi">
+								<div class="cont multiselect">
+									<h2><label class="resp_checkbox"><input type="checkbox" name="allreferer" class="allSelectDrop" default_none value='y' {? sc.allreferer == 'y'}checked{/}> <span class="allreferer">모든 유입경로</span></label></h2>
+									<div class="list">
+									<ul>
+										{@ referer_list }
+										{? .referer_group_cd == 'mypeople'}
+										<li><label class="resp_checkbox"><input type="checkbox" name="referer[]" value="etc" title="기타" default_none {? in_array('etc',sc.referer)}checked{/}> 기타</label></li>
+										{ / }
+										<li><label class="resp_checkbox"><input type="checkbox" name="referer[]" value="{.referer_group_cd}" title="{.referer_group_name}" default_none {? in_array(.referer_group_cd,sc.referer)}checked{/}> {.referer_group_name}</label></li>
+										{ / }
+									</ul>
+									</div>
+								</div>
+							</div>
+						</td>
+						<th style="vertical-align:top" class="pdt10 auto"><!--{ ? connectorUse == true }-->오픈마켓<!--{ / }--></th>
+						<td no=1 class="pdt5">
+							<!--{ ? connectorUse == true }-->
+							<div class="selectbox_multi">
+								<div class="cont multiselect">
+									<h2><label class="resp_checkbox"><input type="checkbox" name="allselectMarkets" class="allSelectDrop" default_none value='y' {? sc.allselectMarkets == 'y'}checked{/}> <span class="allselectMarkets">모든 마켓</span></label></h2>
+									<div class="list">
+										<ul>
+											<li>
+												<label class="resp_checkbox"><input type="checkbox" class="allCheckMark" name="selectMarkets[]" value="NOT" { ? in_array('NOT', sc.selectMarkets) }checked{ / }/> 내쇼핑몰</label>
+											</li>
+											<!--{ @ marketList }-->
+											<li>
+												<label class="resp_checkbox"><input type="checkbox" class="allCheckMark" name="selectMarkets[]" value="{.key_}" { ? in_array(.key_, sc.selectMarkets) }checked{ / }/> {.name}</label>
+											</li>
+											<!--{ / }-->
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!--{ / }-->
+						</td>
+					</tr>
+					{ / }
+				</table>
+			</td>
+		</tr>
+	</table>	
+</div>
+<!-- 상세검색 끝 -->
+
+<div class="footer search_btn_lay">
+	<div>	
+		<span class="sc_edit">
+			<button type="button" id="set_default_setting_button" class="resp_btn v3">기본검색설정</button>
+			<button type="button" id="set_default_apply_button" onclick="set_search_form('order')" class="resp_btn v3">기본검색적용</button>		
+		</span>	
+		<span class="search">	
+			<button type="submit" class="resp_btn active size_XL"><span>검색</span></button>	
+			<button type="button" id="search_reset_button" class="resp_btn v3 size_XL">초기화</button>		
+		</span>				
+		<span class="detail">	
+			<button type="button" id="search_detail_button" class="close resp_btn v3" value="open">상세검색닫기</button>	
+		</span>			
+	</div>
+</div>
+<!-- 상세검색 끝 -->
+

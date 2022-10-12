@@ -1,0 +1,226 @@
+{ #layout_header } 
+
+<script type="text/javascript"> 
+	$(document).ready(function() {
+
+		var siteUrl = "{config_system.domain}";
+		<!--{ ? config_system.operation_type == 'light' }-->
+			siteUrl = "{=get_connet_protocol()}" + siteUrl;
+		<!--{ : }-->
+			siteUrl = "{=get_connet_protocol()}m." + siteUrl;
+		<!--{ / }-->
+
+
+		//소스수정
+		$('input.onlinecouponcodemodifybtn').click(function() {
+			{? coupons.type == 'birthday' || coupons.type == 'anniversary' || coupons.type == 'memberGroup'  || coupons.type == 'memberGroup_shipping' }
+				var href = "/promotion/{=getcouponpagepopup(coupons,'url')}?setDesignMode=on&setMode=pc&popup=1";
+			{:}
+				var href = "/promotion/{=getcouponpagepopup(coupons,'url')}?setDesignMode=on";
+			{/}
+			var a = window.open(href, 'coupon{coupons.type}_{coupons.coupon_seq}', '');
+			if ( a ) {
+				a.focus();
+			} 
+		});
+
+		$('input.onlinemobilecouponcodemodifybtn').click(function() { 
+			{? coupons.type == 'birthday' || coupons.type == 'anniversary' || coupons.type == 'memberGroup'  || coupons.type == 'memberGroup_shipping' }
+				var href = siteUrl + "/promotion/{=getcouponpagepopup(coupons,'url')}?setDesignMode=on&setMode=mobile&popup=1";
+			{:}
+				var href = siteUrl + "/promotion/{=getcouponpagepopup(coupons,'url')}?setDesignMode=on&setMode=mobile";
+			{/}
+			var a = window.open(href, 'mobilecoupon{coupons.type}_{coupons.coupon_seq}', '');
+			if ( a ) {
+				a.focus();
+			}		
+		});
+		
+		//미리보기
+		$('input.onlinecouponcodeviewbtn').click(function() {
+			{? coupons.type == 'memberGroup'  || coupons.type == 'memberGroup_shipping' }
+				var href = "/main/index?previewlayer=membergroup&setDesignMode=on&setMode=pc";
+			{:}
+				var href = "/main/index?previewlayer={coupons.type}&setDesignMode=on&setMode=pc";
+			{/}
+			var a = window.open(href, 'couponpreviewlayer{coupons.type}_{coupons.coupon_seq}', '');
+			if ( a ) {
+				a.focus();
+			} 
+		});
+
+		$('input.onlinemobilecouponcodeviewbtn').click(function() { 
+			{? coupons.type == 'memberGroup'  || coupons.type == 'memberGroup_shipping' }
+			
+				var href = siteUrl + "/main/index?previewlayer=membergroup&setDesignMode=on&setMode=mobile";
+			{:}
+				var href = siteUrl + "/main/index?previewlayer={coupons.type}&setDesignMode=on&setMode=mobile";
+			{/}
+			var a = window.open(href, 'mobilecouponpreviewlayer{coupons.type}_{coupons.coupon_seq}', '');
+			if ( a ) {
+				a.focus();
+			}		
+		});
+
+		$("#couponusesave").click(function(){
+			var coupon_popup_use = $("input:radio[name$='coupon_popup_use']:checked").val();
+			$.ajax({
+					'url' : '../coupon_process/couponpopupuse',
+					'data' : {'couponpopupuse':coupon_popup_use,'type':'{coupons.type}','coupon_seq':'{=coupons.coupon_seq}'},
+					'type' : 'post',
+					'dataType': 'json',
+					'success' : function(res){
+						if(res.result == true ){
+							alert(res.msg);
+							document.location.reload();
+						}else{
+							alert(res.msg);
+						}
+					}
+				});
+		});
+
+		$(document).on("click",".coupon_popup",function(){
+			document.location.href='/admin/coupon/catalog';
+		});
+
+		$(document).on("change","select[name='coupon_type']",function(){
+
+			var select_value = $(this).children("option:selected").val();
+			document.location.href= '/admin/coupon/coupon_popup_setting?type=' + select_value;
+
+		});
+
+
+		$(".couponpgae_view").on("click",function(){
+
+			var mode = $(this).attr("mode");
+			window.open('/admin/coupon/couponpage_codeview?coupon_seq={=coupons.coupon_seq}&type={=coupons.type}&mode='+mode, 'onlinecouponcodepopup', 'width=900px,height=550px,top=50,toolbar=no,location=no,resizable=yes,scrollbars=yes');
+		});
+
+
+		// 쿠폰URL복사
+		/*
+		$(document).on("click","#couponallhtml_btn", function(){
+
+			var code = $("#onlinecouponcodepopup .entry code").html();
+
+			var str = "gocoder"
+			code = replaceAll(code,"&lt;","<");
+			code = replaceAll(code,"&gt;",">");
+
+
+			clipboard_copy(code);
+			alert('소스코드가 복사되었습니다.\nCtrl+V로 붙여넣기 하세요.');
+		});
+		*/
+	});
+
+/*
+function replaceAll(str, searchStr, replaceStr) {
+  return str.split(searchStr).join(replaceStr);
+}
+*/
+</script> 
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area"  class="gray-bar">
+	<div id="page-title-bar">
+		
+		<div class="page-title">
+			<h2> 쿠폰별 팝업</h2>
+		</div> 
+
+		<ul class="page-buttons-right birthday anniversary membergroup memberGroup memberGroup_shipping"> 
+			<li><button type="button" id="couponusesave" class="resp_btn active size_L">저장</button></li>
+		</ul> 
+		
+		<!-- 좌측 버튼 -->
+		<div class="page-buttons-left"><button name="coupon_popup" class="coupon_popup resp_btn v3 size_L">리스트 바로가기</button></div>
+		<!-- 타이틀 -->
+	</div>
+</div>
+
+<div class="contents_dvs">
+	<div class="item-title">쿠폰 정보</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>쿠폰 종류</th>
+			<td>
+				<select name="coupon_type" class="resp_select">
+				{@ coupon_popup_list }
+					<option value="{=.key_}" {? coupons.type == .key_}selected{/} />{.value_}</option>
+				{ / }
+				</select>
+			</td>
+		</tr>
+		<tr class="t_popup_open_option {? !in_array(coupons.type,array('birthday','anniversary','memberGroup'))}hide{/}">
+			<th>팝업 노출 방법</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="coupon_popup_use" value="Y" {? coupons.popup_use == 'Y' } checked="checked"{/}> 대상 회원이 로그인 시</label>
+					<label><input type="radio" name="coupon_popup_use" value="N" {? !coupons.popup_use || coupons.popup_use == 'N' } checked="checked"{/}> 팝업 제공 안함</label>
+				</div>
+			</td>
+		</tr>
+	</table>	
+</div>
+
+<div class="contents_dvs">
+	<div class="item-title">팝업 디자인</div>
+	
+	<table class="table_basic v7 thl tdc">
+	<colgroup>
+		<col width="14%" />
+		<col width="43%" />
+		<col width="43%" />
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th></th>
+			<th class="center">PC</th>
+			<th class="center">Mobile</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<th>미리 보기</th>
+			<td><img src="../images/design/coupon/{=getcouponpagepopup(coupons,'url')}.jpg"  style="border: 1px solid #000;"></td>
+			<td><img src="../images/design/coupon/mobile_{=getcouponpagepopup(coupons,'url')}.jpg" style="border: 1px solid #000;"></td>
+			</td>
+		</tr>
+		<tr>
+			<th>디자인 편집</th>
+			<td>
+				<!--onclick="document.location.href='#pc_coupon_code'"-->
+				<input type="button" class="couponpgae_view resp_btn" value="소스보기" mode="pc" />
+				{? in_array(coupons.type,array('birthday','anniversary','memberGroup','memberGroup_shipping')) }
+				<input type="button" class="onlinecouponcodeviewbtn resp_btn v2"  value="디자인수정" />
+				{:}
+				<input type="button" class="onlinecouponcodemodifybtn resp_btn v2"  value="디자인수정" />
+				{/}
+				
+			</td>
+			<td>			
+				<input type="button" class="couponpgae_view resp_btn"  value="소스보기" mode="mobile" />
+				{? in_array(coupons.type,array('birthday','anniversary','memberGroup','memberGroup_shipping')) }
+				<input type="button" class="onlinemobilecouponcodeviewbtn  resp_btn v2"  value="디자인수정" />
+				{:}
+				<input type="button" class="onlinemobilecouponcodemodifybtn  resp_btn v2"  value="디자인수정" />
+				{/}				
+			</td>
+		</tr>
+	</tbody>
+
+	</table>
+
+	<div class="resp_message">
+		- EYE-DESIGN 화면에서는 프로모션 폴더의  {couponfilename} 화면에서도 수정 가능합니다.</li>		
+	</div>
+</div>
+
+
+
+{ #layout_footer }

@@ -1,0 +1,99 @@
+<table class="table_row_basic">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="50" /><!--체크-->
+		{ ? serviceLimit('H_AD') }<col width="100" /><!--입점사-->{ / }
+		<col width="63" /><!--상품이미지-->
+		<col /><!--상품명-->
+		<col width="120" /><!--전달여부-->
+		<col width="250" /><!--전달 검색어 / 이벤트-->
+		<col width="250" /><!--전달 검색어 / 이벤트-->
+		<col width="200" /><!--전달 배송비-->
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+		{ ? serviceLimit('H_AD') }<th>입점사</th>{ / }
+		<th colspan="2">상품명</th>
+		<th>상품 정보 전달</th>
+		<th>검색어</th>
+		<th>노출 이벤트</th>
+		<th>노출 배송비</th>
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<!--{? loop }-->
+	<!--{@ loop }-->
+		<!-- 상품정보 : 시작 -->
+		<tbody class="ltb goods_list">
+			<tr class="list-row" style="height:70px;">
+				<td class="center">
+					<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+				</td>
+				<!--{ ? serviceLimit('H_AD') }-->
+				<td class="{.provider_bg} center">{.provider_name}</td>
+				<!--{ / }-->
+				<td class="center">
+					<a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" style="width:50px"></a>
+				</td>
+				<td class="left" style="padding-left:10px;">
+					{=showBatchGoodsData(.value_)}
+				</td>
+				<td class="center">{.feed_status_txt}</td>
+				<td class="left pdl5">
+					<div>검색어 : { ? .openmarket_keyword }{.openmarket_keyword}{ : }<span style="color:#8b8b8b;">없음</span>{ / }</div>
+				</td>
+				<td class="left">
+					<div>이벤트 : 
+						<!--{ ? .feed_evt_sdate || .feed_evt_edate || .feed_evt_text }-->
+						{ .feed_evt_sdate }~{ .feed_evt_edate }
+						<br/>{ .feed_evt_text }
+						<!--{ : }-->
+						<span style="color:#8b8b8b;">없음</span>
+						<!--{ / }-->
+					</div>
+				</td>
+				<td class="left pdl5">
+					<!--{ ? .feed_ship_type == 'S' }-->
+					[통합설정]<br/>
+						기본 배송비 : 
+							{ ? common_epship.std == '0' }무료
+							{ : common_epship.std == '-1' }착불
+							{ : }{ common_epship.std }{ / }
+						<!--{ ? common_epship.add }-->
+						<br/>추가 배송비 : { common_epship.add }
+						<!--{ / }-->
+					<!--{ : .feed_ship_type == 'E' }-->
+					[개별설정]<br/>
+						{ ? .feed_pay_type == 'fixed' }유료 { .feed_std_fixed } {=config_system['basic_currency']}
+						{ : .feed_pay_type == 'postpay' }착불 { .feed_std_postpay } {=config_system['basic_currency']}
+						{ : }무료{ / }
+						{ ? .feed_pay_type != 'postpay' }<br />{ .feed_add_txt }{ / }
+					<!--{ : }-->
+					[설정된 배송비]
+					<!--{ / }-->
+				</td>
+			</tr>
+		</tbody>
+		<!-- 상품정보 : 끝 -->
+	<!--{ / }-->
+	<!--{ : }-->
+	<tbody class="ltb goods_list">
+		<tr class="list-row">
+			<td class="center" colspan="{ ? serviceLimit('H_AD') }8{:}7{/}">
+				<!--{ ? search_text }-->
+					'{search_text}' 검색된 상품이 없습니다.
+				<!--{:}-->
+					등록된 상품이 없습니다.
+				<!--{/}-->
+			</td>
+		</tr>
+	</tbody>
+	<!--{ / }-->
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>
+<!-- 주문리스트 테이블 : 끝 -->

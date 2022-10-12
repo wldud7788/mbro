@@ -1,0 +1,81 @@
+<div class="th">
+	악성내역 &nbsp;
+	<span class="btn small"><button type="button" id="blacklist">등록</button></span>
+	<span class="btn small"><button type="button" id="blacklistInit">초기화</button></span>
+</div>
+{? blackList}
+	{@ blackList}	
+		{? .blacklist_level > 0}						
+			<div id="blacklistOff{.blacklist_seq}" class="blacklistOffDiv" blacklist_seq="{.blacklist_seq}">
+				<table class="info-table-style list" style="width:100%">
+					<colgroup>
+						<col width="28%" />
+						<col />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th class="its-th"><img src="../images/blacklist/devil.png" align="absmiddle"> x{.blacklist_level}</th>
+							<td class="its-th" style="border-left:0">
+								{=getstrcut(.blacklist_contents, 10)}
+								<span class="blacklistOpen absolute" style="right:5px">▼</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="blacklistOn{.blacklist_seq}" class="blacklistOnDiv hide" >
+				<table class="info-table-style list" style="width:100%">
+					<colgroup>
+						<col width="28%" />
+						<col />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th class="its-th"><img src="../images/blacklist/devil.png" align="absmiddle"> x{.blacklist_level}</th>
+							<td class="its-th blacklistOnTd" style="border-left:0" blacklist_seq="{.blacklist_seq}">
+								{.blacklist_regist_manager} 
+								<span class="desc">({.blacklist_regist_date})</span>
+								<span class="absolute" style="right:5px">▲</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="its-td">
+								{.blacklist_contents}
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="its-td">
+								<span class="btn small"><button type="button" name="blacklist_modify" onclick="customer_commnet_load({.blacklist_seq})">수정</button></span></div>
+								<span class="btn small"><button type="button" name="blacklist_delete" onclick="customer_commnet_del({.blacklist_seq})">삭제</button></span></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		{:}
+			<div id="blacklistOff" class="blacklistOffDiv" blacklist_seq="{.blacklist_seq}">
+				<table class="info-table-style list" style="width:100%">
+					<colgroup>
+						<col width="40%" />
+						<col />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th class="its-th">{.blacklist_contents}</th>
+							<td class="its-th" style="border-left:0;font-size: 11px;">
+								{.blacklist_regist_manager}<br />({.blacklist_regist_date})
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		{/}
+	{/}
+	<div class="paging_navigation" style="margin:auto;">
+		{@ blackListpage.page}
+			<a {? _POST.page == (.index_+1)}class="on"{/} href="javascript:get_black_list({.value_});">{.value_}</a>
+		{/}
+	</div>
+{:}
+	<div class="nodata">악성 고객이 아닙니다.</div>
+{/}

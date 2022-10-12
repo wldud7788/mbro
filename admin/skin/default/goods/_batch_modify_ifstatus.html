@@ -1,0 +1,128 @@
+<table class="table_row_basic">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col style="width:3%" /><!--체크-->
+		{ ? serviceLimit('H_AD') }<col style="width:8%" /><!--입점-->{ / }
+		<col style="width:6%" /><!--상품이미지-->
+		<col style="width:17%" /><!--상품명-->
+		{ ? serviceLimit('H_AD') }<col style="width:9%" /><!--승인/미승인-->{ / }
+		<col style="width:9%" /><!--노출/미노출-->
+		<col style="width:8%" /><!--상태-->
+		<col /><!--재고에따른판매여부-->
+		<col style="width:7%" /><!--성인-->
+		<col style="width:11%" /><!--개인통관고유부호-->
+		<col style="width:10%" /><!--청약철회-->
+		<col style="width:7%" /><!--선물하기-->
+	</colgroup>
+	<thead class="">
+	<tr>
+		<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+		{ ? serviceLimit('H_AD') }<th>입점사</th>{ / }
+		<th colspan="2">상품명</th>
+		{ ? serviceLimit('H_AD') }<th>승인/미승인</th>{ / }
+		<th>노출/미노출</th>
+		<th>상태</th>
+		<th>재고에따른판매여부</th>
+		<th>성인 인증</th>
+		<th>개인통관고유부호</th>
+		<th>청약철회</th>
+		<th>선물하기</th>
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<tbody>
+	<!--{? loop }-->
+	<!--{@ loop }-->
+		<tr>
+			<td class="center">
+				<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+			</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<td class="{.provider_bg} center">{.provider_name}</td>
+			<!--{ / }-->
+			<td class="center">
+				<a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" style="width:50px"></a>
+			</td>
+			<td class="left pdl10">
+				{=showBatchGoodsData(.value_)}
+			</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<!-- 승인/미승인 -->
+			<td class="center">
+				{ ? .provider_status == '0' || .provider_status == ''}미승인{ : }승인{ / }
+			</td>
+			<!--{ / }-->
+			<!-- 노출/미노출 -->
+			<td class="center">
+				<!--{ ? .display_terms == 'AUTO' }-->
+				<span class="click-lay display-terms-{.goods_seq}" style="color:#ff9900 !important;" onclick="openGoodsDisplayTerms('{.goods_seq}');">노출 예약</span>
+				<!--{ / }-->
+				<span class="display-goods-view-{.goods_seq} { ? .display_terms == 'AUTO' }hide{ / }">
+					{ ? .goods_view == 'look'}노출{ : }미노출{ / }
+				</span>
+			</td>
+			<!-- 상태 -->
+			<td class="center">
+				<p class="goods_status_text">{.goods_status_text}</p>
+				{ ? .goods_status == 'normal' || .goods_status == 'runout' }<span class="desc">(정상/품절)</span>{ / }
+			</td>
+
+			<!-- 재고에따른판매여부 -->
+			<td class="option_td pdl5 center">
+				{ ? !.runout_policy }
+					통합정책
+				{ : }
+					개별정책
+					<div class="desc">
+					{ ? .runout_policy=='stock' }(재고가 있을 때 판매)
+					{ : }
+						<!--{ ? scm_cfg['use'] != 'Y' }-->
+						{ ? .runout_policy=='ableStock' }(가용재고가 {=number_format(.able_stock_limit)} 이상일 때 판매))
+						{ : .runout_policy=='unlimited' }(재고와 상관없이 판매){ / }
+						<!--{ / }-->
+					{ / }
+					</div>
+				{ / }
+			</td>
+
+			<!--성인-->
+			<td class="center">
+				{? .adult_goods == "N"}사용 안 함{: .adult_goods == "Y"}사용함{/}
+			</td>
+
+			<!--해외구매대행-->
+			<td class="center">
+				{? .option_international_shipping_status == "y"}수집{:}수집 안 함{/}
+			</td>
+
+			<!--청약철회-->
+			<td class="center">
+				{? .cancel_type == "1"}청약철회불가{: .cancel_type == "0"}청약철회가능{/}
+			</td>
+
+			<!--선물하기-->
+			<td class="center">
+				{? .present_use === "0"}사용 안 함{: .present_use == "1"}사용함{/}
+			</td>
+		</tr>
+	<!--{ / }-->
+	<!--{ : }-->
+	<tr class="list-row">
+		<td class="center" colspan="{ ? serviceLimit('H_AD') }12{:}10{/}">
+			<!--{ ? search_text }-->
+				'{search_text}' 검색된 상품이 없습니다.
+			<!--{:}-->
+				등록된 상품이 없습니다.
+			<!--{/}-->
+		</td>
+	</tr>
+	<!--{ / }-->
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+
+
+</table>
+<!-- 주문리스트 테이블 : 끝 -->

@@ -1,0 +1,10 @@
+[2022-09-24 09:24:31.338938000]
+MODE : Request
+REMOTE_IP : 106.101.2.23
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=5021]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YzkxN2VhODZmM2VkYjlmNDdhNmQ3ZDA2NjUwZGRlNzM3NWYxZWE5Y18xNjYzOTc5MDcx</merchantCustomCode1><naverInflowCode>ct%3Dl8bajwnz%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3Da59b6c45d46208f717ffe5bf37c601fc3343494d%7Ctrx%3D</naverInflowCode></interface><product><id>5021</id><merchantProductId>YzkxN2VhODZmM2VkYjlmNDdhNmQ3ZDA2NjUwZGRlNzM3NWYxZWE5Y18xNjYzOTc5MDcxQG9wdDE0NzM4OQ==</merchantProductId><ecMallProductId>5021</ecMallProductId><name><![CDATA[[특가이벤트]가장 가까운 카페 일랑더치 10개입 (YLANG)]]></name><basePrice>15900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=5021]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/86/2022/09/_tmp_e7ea54ed3890842e296e60c012db38810190list1.JPG]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>1357_1593_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>30000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-09-24 09:24:31.381802000]
+MODE : Response
+REMOTE_IP : 106.101.2.23
+SUCCESS:yo8HSyPtQaKwcMjozka9uw:200337588
+

@@ -1,0 +1,89 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/goodsBarcode.js?mm={=date('Ymd',mktime)}"></script>
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>바코드 등록(엑셀)</h2>
+		</div>	
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">			
+			<li><button type="button" name="barcode_upload_btn" class="barcode_update resp_btn active size_L">업로드</button></li>
+		</ul>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li><button type="button" class="resp_btn v3 size_L" onClick="document.location='catalog';">리스트 바로가기</button></li>
+		</ul>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+<div class="contents_dvs">
+	<div class="item-title"><span>바코드 일괄 등록</span></div>
+	<div class="upload-form">
+		<form name="excelUpload" id="excelUpload" method="post" action="../barcode_process/set_barcode_data_excel" enctype="multipart/form-data"  target="actionFrame">
+			<input type="hidden" name="goods_kind" value="{kind}" />
+			<table class="table_basic thl">
+			<tr>
+				<th>바코드 일괄 업로드</th>
+				<td>
+					<input type="file" name="barcode_excel_file" size="30" mode="new" class="" iclass="resp_text pointer" />
+				</td>
+			</tr>
+			</table>
+		</form>
+	</div>	
+</div>
+
+<div class="contents_dvs v2">
+	<div class="item-title"><span>처리 로그 (최근 10개)</span></div>
+	<table class="table_row_basic" >
+		<colgroup>
+			<col style="width:150px" />
+			<col style="width:150px" />
+			<col />
+			<col />
+		</colgroup>
+		<thead>
+		<tr>
+			<th>처리 일시</th>
+			<th>아이피</th>
+			<th>업로드 파일</th>
+			<th>실패 로그</th>
+			<th>성공 로그</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--{ @ logs }-->
+		<tr>
+			<td>{.upload_date}</td>
+			<td>{.uploader_ip}</td>
+			<td>{.upload_filename}</td>
+			<td class="hand" onclick="download_log_file(this);">{.result_failed}</td>
+			<td class="hand" onclick="download_log_file(this);">{.result_success}</td>
+		</tr>
+		<!--{ : }-->
+		<tr>
+			<td colspan="6" style="text-align:center;">처리 로그가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>	
+</div>
+
+<div class="box_style_05 mt20">
+	<div class="title">안내</div>
+	<ul class="bullet_hyphen">					
+		<li>바코드 정보 입력 방법 <a href="https://www.firstmall.kr/customer/faq/1319" target="_blank"><span class="underline blue">자세히 보기 &gt;</span></a></li>
+		<li class="red">엑셀은 반드시 Excel 97 – 2003 통합 문서로 저장 후 업로드해주세요. </li>
+	</ul>
+</div>
+
+
+
+{ #layout_footer }

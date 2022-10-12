@@ -1,0 +1,94 @@
+{ #layout_header }	
+
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jstree/jquery.jstree.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-font-decoration.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/js/base64.js"></script>
+<script type="text/javascript">var categoryDefault = {=categoryDefault};</script>
+<script type="text/javascript" src="/app/javascript/plugin/jstree/category_jstree.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/category.js?mm={=date('YmdH')}"></script>
+<!-- 페이지 타이틀 바 : 시작 -->
+<form target="actionFrame">
+<input type="hidden" name="categoryCode" class='categoryCode' value="" />
+<input type="hidden" name="mode" value="" />
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>브랜드</h2>
+		</div>
+		
+		<ul class="page-buttons-left">
+			<li></li>
+		</ul>
+		
+		<ul class="page-buttons-right hide">
+			<li><button type="button" onclick="categorySettingFormSubmit()" class='resp_btn active size_L'>저장<span class="arrowright"></span></button></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브메뉴 바디 : 시작-->
+<div class="contents_dvs v2">
+	<div class="catagroy_tree_list">
+		<div class="item-title">
+			<span>브랜드 설정</span>
+			<span id="mmenu" class='fr'>
+				<input type="button" id="add_folder" class='resp_btn active' value='추가'/>
+				<input type="button" id="remove_button" class='resp_btn v3' value='삭제'/>
+				<input type="button" id="remove" value="-" style="display:none; float:left;"/>
+			</span>	
+		</div>
+
+		<table width="100%" class="info-table-style mt0">
+			<col />
+			<tr>
+				<td class="its-td" style="background:rgba(255,255,238,0.9);width:310px;padding:0px;">	
+					<div id="tree" class="tree" style="height:500px;overflow:auto; padding:10px 5px;"></div>
+					<div style="height:30px; text-align:center;display:none;">
+						<input type="button" style='width:170px; height:24px; margin:5px auto;' value="reconstruct" onclick="$.get('./tree?reconstruct', function () { $('#tree').jstree('refresh',-1); });" />
+						<input type="button" style='width:170px; height:24px; margin:5px auto;' id="analyze" value="analyze" onclick="$('#alog').load('./tree?analyze');" />
+						<input type="button" style='width:170px; height:24px; margin:5px auto;' value="refresh" onclick="$('#tree').jstree('refresh',-1);" />
+					</div>
+					<div id='alog' style="display:none;"></div>
+				</td>
+			</tr>
+		</table>
+		<div class="right mt5">
+			<button type='button' class="btn_sort v3 resp_btn" data-type="title">브랜드명순</button>
+			<button type='button' class="btn_sort v3 resp_btn" data-type="title_eng">브랜드 영문명순</button>
+		</div>
+	</div>
+		
+	<div class="catagroy_setting_content">
+		<table width="100%" id="categoryInfoFirst" class='hide'>
+			<col />	
+			<tr>
+			<th class="its-th" style="height:20px; padding-left:15px;">브랜드 정보</th>
+			</tr>
+			<tbody>
+			<tr>				
+				<td class="its-td">
+					<span class="btn small cyanblue"><input type="button" value="생성"/></span> 버튼을 클릭하여 브랜드를 생성할 수 있습니다.
+				</td>
+			</tr>			
+			</tbody>
+		</table>
+		
+		<div id="categorySettingContainer"></div>
+	</div>
+</div>
+</form>
+
+
+<!-- 서브메뉴 바디 : 끝 -->
+
+<script>
+	viewCategoryInfo(categoryDefault);
+</script>
+{ #layout_footer }

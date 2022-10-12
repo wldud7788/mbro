@@ -1,0 +1,22 @@
+<style>
+.header-alert-container {background-color:red; height:17px; line-height:19px; overflow:hidden; box-sizing:border-box; *zoom:1; color:#fff; font-size:11px; padding-left:20px; background:url('/admin/skin/default/images/common/red_bg.gif') repeat-x;}
+.header-alert-container:after {content:""; display:block; clear:both;}
+
+.manager_alert_view_btn {display:inline-block; height:17px; line-height:17px; cursor:pointer; color:#ffe652; vertical-align:middle; background:url('/admin/skin/default/images/common/redline_icon.png') no-repeat left 2px; padding-left:14px}
+
+#manager_alert_dialog {min-height:300px !important}
+.ui-dialog[aria-labelledby='ui-dialog-title-manager_alert_dialog'] {border:1px solid red}
+.ui-dialog[aria-labelledby='ui-dialog-title-manager_alert_dialog'] .ui-dialog-titlebar {background-color:red !important;}
+</style>
+<div class="header-alert-container">
+	<span class="manager_alert_view_btn">중요행위확인하기 <img src="/admin/skin/default/images/common/redline_icon2.png" /></span>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	{@action_history_data}{?.index_}, {/}<span>[{=date('m-d',strtotime(.regist_date))}]{.action_message}</span>{/}
+</div>
+<div id="manager_alert_dialog" class="hide"></div>
+<script>
+$(".manager_alert_view_btn").bind('click',function(){
+	$("#manager_alert_dialog").load('/admin/common/manager_alert_history');
+	openDialog("중요행위발생을 알려 드립니다!", "manager_alert_dialog", {"width":800});
+});
+</script>

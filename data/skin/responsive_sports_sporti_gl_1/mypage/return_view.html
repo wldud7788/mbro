@@ -1,0 +1,322 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 반품/교환 상세 @@
+- 파일위치 : [스킨폴더]/mypage/return_view.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">반품/교환 상세</span></h2>
+		</div>
+
+		<div class="res_table">
+			<ul class="thead">
+				<li>상품</li>
+				<li style="width:100px;">반품수량</li>
+				<li style="width:100px;">반품상태</li>
+				<li style="width:100px;">반품종류</li>
+			</ul>
+			<!--{ @ data_return_item }-->
+			<ul class="tbody">
+				<li class="item_info">
+					<ul class="oc_item_info_detail">
+						<li class="img_link">
+							<a href='/goods/view?no={.goods_seq}' target='_blank' title="새창"><img src="{.image}" class="order_thumb" alt="{.goods_name}" /></a>
+						</li>
+						<li class="detail_spec">
+							<!--{ ? .goods_type == 'gift'}--><img src="../images/common/icon_gift.gif" alt="사은품" vspace=3 /><!--{ / }-->
+
+							<div class="goods_name">{.goods_name}</div>
+							
+							<!--{?.option1}-->
+							<div class="oc_res_block">
+								<ul class="goods_options">
+									<!--{ ? .option1 }-->
+									<li><!--{?.title1}--><span class="xtle">{.title1}</span><!--{ / }--> {.option1}</li>
+									<!--{ / }-->
+									<!--{ ? .option2 }-->
+									<li><!--{?.title2}--><span class="xtle">{.title2}</span><!--{ / }--> {.option2}</li>
+									<!--{ / }-->
+									<!--{ ? .option3 }-->
+									<li><!--{?.title3}--><span class="xtle">{.title3}</span><!--{ / }--> {.option3}</li>
+									<!--{ / }-->
+									<!--{ ? .option4 }-->
+									<li><!--{?.title4}--><span class="xtle">{.title4}</span><!--{ / }--> {.option4}</li>
+									<!--{ / }-->
+									<!--{ ? .option5 }-->
+									<li><!--{?.title5}--><span class="xtle">{.title5}</span><!--{ / }--> {.option5}</li>
+									<!--{ / }-->
+								</ul>
+							</div>
+							<!--{ / }-->
+
+							{? .goods_type == "gift" }
+								{? .gift_title }
+								<div class="mt3">
+									{.gift_title}
+									<button type="button" class="gift_log btn_resp" order_seq="{=data_return.order_seq}" item_seq="{.item_seq}">자세히</button>
+								</div>
+								{/}
+							{ / }
+						</li>
+					</ul>
+				</li>
+				<li><span class="motle">수량:</span> {.ea}</li>
+				<li><span class="motle">상태:</span> <span class="pointcolor">{data_return.mstatus}</span></li>
+				<li><span class="motle">종류:</span> {data_return.mreturn_type}</li>
+			</ul>
+			<!--{ / }-->
+		</div>
+
+		<ul class="order_settle">
+			<li class="col1">
+				<h4 class="title">
+					반품처리&nbsp;
+					<button type="button" onclick="document.location.href='/mypage/myqna_write?category={=urlencode('반품문의')}'" class="btn_resp size_a color2">문의</button>
+				</h4>
+				<div class="resp_table_row2">
+					<ul>
+						<li class="th">반품상태</li>
+						<li class="td">:&nbsp; {data_return.mstatus}</li>
+					</ul>
+					<ul>
+						<li class="th">반품번호</li>
+						<li class="td">:&nbsp; {data_return.return_code}</li>
+					</ul>
+					<ul>
+						<li class="th">반품종류</li>
+						<li class="td">:&nbsp; {data_return.mreturn_type}</li>
+					</ul>
+					<ul>
+						<li class="th">반품접수일</li>
+						<li class="td">:&nbsp; {=date('Y년 m월 d일',strtotime(data_return.regist_date))}</li>
+					</ul>
+					<ul>
+						<li class="th">반품완료일</li>
+						<li class="td">:&nbsp; {?data_return.return_date}{=date('Y년 m월 d일',strtotime(data_return.return_date))}{/}</li>
+					</ul>
+				</div>
+			</li>
+			<li class="col2">
+				<form action="../mypage_process/return_modify" target="actionFrame" method="post">
+				<input type="hidden" name="return_code" value="{data_return.return_code}" />
+				<h4 class="title">
+					반품정보&nbsp;
+					{?data_return.status=='request'}<button type="submit" class="btn_resp size_a color2">변경</button>{/}
+				</h4>
+				<div class="resp_table_row2 form_style">
+					<ul>
+						<li class="th">회수방법</li>
+						<li class="td">
+							<!--{ ? data_order.payment != 'pos_pay' }-->
+								{?data_return.status=='request'}
+									<label class="label1"><input type="radio" name="return_method" value="user" /> 자가반품</label>
+									<label class="label1"><input type="radio" name="return_method" value="shop" /> 택배회수</label>
+									<script>$("input[name='return_method'][value='{data_return.return_method}']").attr('checked',true);</script>
+								{:}
+									{data_return.mreturn_method}
+								{/}
+							<!--{ : }-->
+								{?data_return.status=='request'}
+									<label class="label1"><input type="radio" name="return_method" value="user" /> 오프라인 매장 반품</label>
+									<script>$("input[name='return_method'][value='{data_return.return_method}']").attr('checked',true);</script>
+								{:}
+									오프라인 매장 반품
+								{/}
+							<!--{ / }-->
+						</li>
+					</ul>
+					<ul>
+						<li class="th">휴대폰</li>
+						<li class="td">
+							{?data_return.status=='request'}
+								<input type="text" name="cellphone[]" class="size_phone" value="{data_return.cellphone[0]}" />
+								<input type="text" name="cellphone[]" class="size_phone" value="{data_return.cellphone[1]}" />
+								<input type="text" name="cellphone[]" class="size_phone" value="{data_return.cellphone[2]}" />
+							{:}
+								{=implode("-",data_return.cellphone)}
+							{/}
+						</li>
+					</ul>
+					<ul>
+						<li class="th">연락처</li>
+						<li class="td">
+							{?data_return.status=='request'}
+								<input type="text" name="phone[]" class="size_phone" value="{data_return.phone[0]}" />
+								<input type="text" name="phone[]" class="size_phone" value="{data_return.phone[1]}" />
+								<input type="text" name="phone[]" class="size_phone" value="{data_return.phone[2]}" />
+							{:}
+								{=implode("-",data_return.phone)}
+							{/}
+						</li>
+					</ul>
+					<ul>
+						<li class="th">회수주소</li>
+						<li class="td">
+							{?data_return.status=='request'}
+								<input type="text" name="senderZipcode[]" value="{data_return.sender_new_zipcode}" class="size_zip_all" readonly />
+								<!--button type="button" id="senderZipcodeButton" class="btn_resp size_b color4" onclick="zipcode_popup(this)">우편번호 검색</button-->
+								<button type="button" id="senderZipcodeButton" class="btn_resp size_b color4" onclick="openDialogZipcode_resp('sender');">우편번호 검색</button>
+
+								<input type="hidden" name="senderAddress_type" value="{data_return.sender_address_type}" />
+								<div class="address_area2">
+									<input type="text" name="senderAddress" value="{data_return.sender_address}" class="size_address {? data_return.sender_address_type == 'street'}hide{/}" readonly />
+									<input type="text" name="senderAddress_street" value="{data_return.sender_address_street}" class="size_address {? data_return.sender_address_type != 'street'}hide{/}" readonly />
+								</div>
+								<div class="address_area2">
+									<input type="text" name="senderAddressDetail" value="{data_return.sender_address_detail}" class="size_address" placeholder="상세 주소" />
+								</div>
+							{:}
+								{=implode("-",data_return.sender_zipcode)}{? data_return.sender_address}<input type="button" name="change_address_btn" class="btn_move small" onclick="address_change_view();" value="{? address_type == "street"}지번 주소보기{:}도로명 주소보기{/}">{/}
+								<div id="address_zibun" style="display:{? address_type == "street"}none{/}; padding-top:5px;">{data_return.sender_address} {data_return.sender_address_detail}</div>
+								<div id="address_street" style="display:{? address_type != "street"}none{/}; padding-top:5px;">{data_return.sender_address_street} {data_return.sender_address_detail}</div>
+							{/}
+						</li>
+					</ul>
+					<ul>
+						<li class="th">상세사유</li>
+						<li class="td">
+							{?data_return.status=='request'}
+								<textarea name="return_reason">{data_return.return_reason}</textarea>
+							{:}
+								{data_return.return_reason}
+							{/}
+						</li>
+					</ul>
+					<ul>
+						<li class="th">배송비 입금</li>
+						<li class="td">
+							{?data_return.status=='request'}
+								<input type="text" name="shipping_price_depositor" value="{data_return.shipping_price_depositor}" class="size_name" placeholder="입금자명" title="입금자명" />
+								<div class="address_area2">
+									<select name="shipping_price_bank_account">
+										<option value="">입금은행</option>
+										{@bankReturn}
+										<option value="{.bank} {.accountReturn} {.bankUserReturn}">{.bank} {.accountReturn} {.bankUserReturn}</option>
+										{/}
+									</select>
+									<script>$("select[name='shipping_price_bank_account'] option[value='{data_return.shipping_price_bank_account}']").attr('selected',true);</script>
+								</div>
+							{:}
+								{?data_return.shipping_price_bank_account}{data_return.shipping_price_bank_account}{/}<br />
+								{?data_return.shipping_price_depositor}
+								입금자명 : {data_return.shipping_price_depositor}
+								{/}
+							{/}
+						</li>
+					</ul>
+				</div>
+				</form>
+			</li>
+		</ul>
+
+		<div class="btn_area_b">
+			<a href="/mypage/return_catalog" class="btn_resp size_c">반품 목록</a>
+		</div>
+
+		<h3 class="title_sub1">반품 절차</h3>
+		<ol class="step_type1">
+			<li>
+				<p class="tle"><span class="num">1</span> 반품신청</p>
+				<p class="cont">고객님의 반품신청이 접수되었습니다.</p>
+			</li>
+			<li>
+				<p class="tle"><span class="num">2</span> 반품처리중</p>
+				<p class="cont">고객님의 반품상품을 회수중에 있습니다.</p>
+			</li>
+			<li>
+				<p class="tle"><span class="num">3</span> 반품완료</p>
+				<p class="cont">고객님의 반품상품이 회수되었습니다.</p>
+			</li>
+		</ol>
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+<div id="gift_use_lay" class="resp_layer_pop hide">
+	<h4 class="title">사은품 이벤트 정보</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v3">
+			
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+ <script type="text/javascript">
+	$(function(){
+		// 사은품 지급 조건 상세
+		$(".gift_log").bind('click', function(){
+			$.ajax({
+				type: "post",
+				url: "./gift_use_log",
+				data: "order_seq="+$(this).attr('order_seq')+"&item_seq="+$(this).attr('item_seq'),
+				success: function(result){
+					if	(result){
+						$("#gift_use_lay .layer_pop_contents").html(result);
+						//사은품 이벤트 정보
+						showCenterLayer('#gift_use_lay');
+						//openDialog(getAlert('mp122'), "gift_use_lay", {"width":"450","height":"220"});
+					}
+				}
+			});
+		});
+
+		return_address();
+
+		$("input:radio[name='return_method']").click(function(){
+			return_address();
+		});
+	});
+
+	function return_address(){
+		/*
+		var type = $("input:radio[name='return_method']:checked").val();
+		if(type=='user'){
+			var sender_new_Zipcode = "{config_shipping.returnZipcode[0]}{config_shipping.returnZipcode[1]}";
+			var senderAddress = "{config_shipping.returnAddress}";
+			var senderAddress_street = "{config_shipping.returnAddress_street}";
+			var senderAddressDetail = "{config_shipping.returnAddressDetail}";
+		}else{
+			var sender_new_Zipcode ="{data_return.sender_new_zipcode}";
+			var senderAddress = "{data_return.sender_address}";
+			var senderAddress_street = "{data_return.sender_address_street}";
+			var senderAddressDetail = "{data_return.sender_address_detail}";
+		}
+		$("input[name='sender_new_Zipcode']").val(sender_new_Zipcode);
+		$("input[name='senderAddress']").val(senderAddress);
+		$("input[name='senderAddress_street']").val(senderAddress_street);
+		$("input[name='senderAddressDetail']").val(senderAddressDetail);
+		*/
+	}
+
+	function zipcode_popup(obj){
+		window.open('../popup/zipcode?popup=1&zipcode=senderZipcode[]&new_zipcode=sender_new_Zipcode&address=senderAddress&address_street=senderAddress_street&address_detail=senderAddressDetail','popup_zipcode','width=900,height=480');
+	}
+
+	function address_change_view(){
+		if($("#address_street").css("display") == "none"){
+			$("#address_zibun").hide();
+			$("#address_street").show();
+			$("input[name='change_address_btn']").val("지번 주소보기");
+		}else{
+			$("#address_zibun").show();
+			$("#address_street").hide();
+			$("input[name='change_address_btn']").val("도로명 주소보기");
+		}
+	}
+</script>

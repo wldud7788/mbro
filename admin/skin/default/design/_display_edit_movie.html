@@ -1,0 +1,178 @@
+	<tbody class="goodsDisplayDecorationContainer">
+	<input type="hidden" name="info_settings" class="info_settings" value='{?data.info_settings}{=data.info_settings}{:}{}{/}' />
+	<input type="hidden" name="image_decoration" class="image_decoration" value="" />
+	<tr>
+		<th class="dsts-th">동영상</th>
+		<td class="dsts-td left" colspan="2">
+		 	<label><input type="radio" name="goods_video_type" class="goods_video_type" value="image" title="상품상세페이지 [상품이미지영역] 동영상" {?data.goods_video_type=='image'  || !data.goods_video_type}checked="checked"{/} />상품상세페이지 [상품이미지영역] 동영상</label>
+		 	<label><input type="radio" name="goods_video_type" class="goods_video_type" value="contents" title="중앙정렬" {?data.goods_video_type=='contents'}checked="checked"{/} />상품상세페이지 [상품설명영역] 동영상</label>
+		</td>
+	</tr>
+	<tr>
+		<th class="dsts-th">동영상 사이즈</th>
+		<td class="dsts-td left" colspan="2">
+			<input type="text" name="videosize_w" value="{?data.videosize_w}{data.videosize_w}{:}400{/}" class="line" size="4" maxlength="4" />
+			X
+			<input type="text" name="videosize_h" value="{?data.videosize_h}{data.videosize_h}{:}300{/}" class="line" size="4" maxlength="4" />
+			<span class="desc" >(예: 320X240, 400X300(기본), 640X480, 720X480)</span>
+		</td>
+	</tr>
+	<tr>
+		<th class="dsts-th">동영상 플레이어 <br />스킨 안내</th>
+		<td class="dsts-td left" colspan="2">
+			<table border="0" >
+			<tr>
+			<td>
+				동영상 플레이어는 기본스킨 중에서 선택하거나 스킨을 직접 만들 수도 있습니다. <br/>
+				또한 로고등록, 쇼핑몰링크걸기, 플레이어 색상, 컨트롤바 숨기기도 조정할 수 있습니다.
+			</td>
+			<td><span class="btn large cyanblue"><button type="button" class="" onclick="window.open('https://admin.smartucc.kr', 'ucc_domain');" >동영상관리 > 스킨설정</button></span></td>
+			</tr>
+			<tr><td colspan="2"><img src="../images/design/sample_vod_skin.gif"  align="absmiddle" style="padding:5px;"></td></tr>
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<th class="dsts-th">
+			상품 정보
+			<br />
+			<span class="desc" style="font-weight:normal;">노출순서변경</span> <span class="helpicon" title="마우스로 드래그&드랍해서 조정합니다."></span>
+		</th>
+		<td class="dsts-td left">
+		 	<div class="pd5">
+			<img src="../images/design/icon_design_plus.gif" align="absmiddle" onclick="add_new_info_item(this)" class="hand" />
+		 	<label class="mr10"><input type="radio" name="text_align" class="text_align" value="left" title="좌측정렬" {?data.text_align=='left'}checked="checked"{/} /> 좌측정렬</label>
+		 	<label class="mr10"><input type="radio" name="text_align" class="text_align" value="center" title="중앙정렬" {?data.text_align=='center' || !data.text_align}checked="checked"{/} /> 중앙정렬</label>
+		 	<label><input type="radio" name="text_align" class="text_align" value="right" title="우측정렬" {?data.text_align=='right'}checked="checked"{/} /> 우측정렬</label>
+		 	</div>
+
+		 	<div class="info_item_container"></div>
+
+		 	<div class="info_item_default info_item hide" style="min-height:30px">
+		 		<img src='../images/common/icon_move.gif' align='absmiddle' style="margin-left:5px" class="move" />
+		 		<img src="../images/design/icon_design_minus.gif" align="absmiddle" onclick="remove_info_item(this)" class="hand" />
+
+		 		<span class="info_item_cell_kind info_item_cell">
+		 			<select class="info_item_kind info_item_selector">
+			 			<option value="goods_name">상품명</option>
+			 			<option value="summary">짧은 설명</option>
+			 			<option value="icon">아이콘</option>
+			 			<option value="consumer_price">정가</option>
+			 			<option value="price">판매가</option>
+						<option value="sale_price">(혜택적용)판매가</option>
+			 			{?eventpage}
+			 			<option value="event_text">이벤트내용</option>
+			 			{/}
+						<option value="status_icon">상태 아이콘</option>
+						<option value="shipping">배송비</option>
+						<option value="pageview">페이지뷰, 찜</option>
+			 		</select>
+		 		</span>
+
+		 		<span class="info_item_cell_font_decoration info_item_cell">
+		 			<input type="text" value="" class="info_item_font_decoration info_item_selector customFontDecoration hide" />
+		 		</span>
+
+				<span class="info_item_cell_position info_item_cell"> 
+					<select class="info_item_position info_item_selector">
+						<option value="">=노출위치=</option>
+						<option value="before">금액앞</option>
+						<option value="after">금액뒤</option>
+					</select>
+				</span>
+				<span class="info_item_cell_postfix info_item_cell"> 
+					<select class="info_item_postfix info_item_selector">
+						<option value="">=노출심볼=</option>
+						{@ currency_symbol_list[basic_currency]['0']['value'] }
+						{? strstr(.value_,"&") }
+						<option value="symbol">{=.value_}</option>
+						{ : }
+						<option value="{=.value_}">{=.value_}</option>
+						{ / }
+						{ / }
+						<option value=""></option>
+					</select>
+				</span>
+
+				<span class="info_item_cell_status_icon_runout info_item_cell"  >
+					<label><input type="checkbox" name="status_icon_runout" class="info_item_status_icon_runout info_item_selector" value="1"  /> 품절 <img src="/data/icon/goods_status/icon_list_soldout.gif" align="absmiddle" /></label>
+				</span>
+				<span class="info_item_cell_status_icon_purchasing info_item_cell ml5"  >
+					<label><input type="checkbox" name="status_icon_purchasing" class="info_item_status_icon_purchasing info_item_selector" value="1"  /> 재고확보중 <img src="/data/icon/goods_status/icon_list_warehousing.gif" align="absmiddle" /></label>
+				</span>
+				<span class="info_item_cell_status_icon_unsold info_item_cell ml5"  >
+					<label><input type="checkbox" name="status_icon_unsold" class="info_item_status_icon_unsold info_item_selector" value="1"  /> 판매중지 <img src="/data/icon/goods_status/icon_list_stop.gif" align="absmiddle" /></label>
+				</span>
+
+				<span class="info_item_cell_status_icon_desc info_item_cell helpicon ml5" title="해당 상품 디스플레이에 있는 상품의 상태가<br />품절, 재고확보중, 판매중지일 때 체크된 아이콘이 나타납니다."></span>
+				
+				<span class="info_item_cell_shipping_free info_item_cell">
+					<label><input type="checkbox" name="info_item_shipping_free" class="info_item_shipping_free info_item_selector" value="1"/>무료배송</label>
+				</span>
+
+				<span class="info_item_cell_shipping_fixed info_item_cell">
+					<label><input type="checkbox" name="info_item_shipping_fixed" class="info_item_shipping_fixed info_item_selector" value="1"/>고정배송비</label>				
+				</span>
+
+				<span class="info_item_cell_shipping_iffree info_item_cell">
+					<label><input type="checkbox" name="info_item_shipping_iffree" class="info_item_shipping_iffree info_item_selector" value="1"/>조건부 무료배송</label>				
+				</span>
+
+				<span class="info_item_cell_shipping_ifpay info_item_cell">
+					<label><input type="checkbox" name="info_item_shipping_ifpay" class="info_item_shipping_ifpay info_item_selector" value="1"/>조건부 차등배송</label>				
+				</span>
+
+				<span class="info_item_cell_shipping_overseas info_item_cell">
+					<label><input type="checkbox" name="info_item_shipping_overseas" class="info_item_shipping_overseas info_item_selector" value="1"/>해외배송</label>
+				</span>
+
+				<span class="info_item_cell_shipping_desc info_item_cell">
+					<ul class="pdt5" style="margin-left:150px;">
+						<li>※ 해당 상품에 해당되는 배송비를 안내할 수 있습니다.</li>
+						<li>※ 각 경우(무료배송~해외배송)에 대한 배송비 안내 문구는 각각의 배송그룹에서 설정 가능합니다.</li>
+					</ul>
+				</span>
+
+				<span class="info_item_cell_pageview_desc info_item_cell desc">
+					(예시) 9,999+ 찜 327
+				</span>
+
+		 		<input type="text" name="info_setting[]" value="" class="info_setting hide" disabled="disabled" />
+		 	</div>
+
+			
+			
+		</td>
+		<td  class="dsts-td" style="padding:0px;">
+			<table class="goodsDisplayImageTable" width="220" align="center" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td valign="top" class="pd10">
+						<table width="100%" align="right" cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td><a href="javascript:;"><span class="goodsDisplayImageWrap" goodsInfo="{=base64_encode(json_encode(sampleGoodsInfo))}"><img src="../images/design/img_effect_sample.gif" class="goodsDisplayImage" width="100%" designElement /></span></a></td>
+						</tr>
+						<tr><td height="10"></td></tr>
+						<tr>
+							<td align="center" class="goodsDisplayAlign"><img src="/data/icon/goods/1.gif" /></td>
+						</tr>
+						<tr><td height="6"></td></tr>
+						<tr>
+							<td align="center" class="goodsDisplayAlign"><span style="font:12px tahoma; color:#999999; font-weight:bold;">{sampleGoodsInfo.goods_name}</span></td>
+						</tr>
+						<tr><td height="6"></td></tr>
+						<tr>
+							<td align="center" class="goodsDisplayAlign"><span style="font:12px tahoma; color:#999999;">{=get_currency_price(sampleGoodsInfo.consumer_price,2)}</span></td>
+						</tr>
+						<tr><td height="3"></td></tr>
+						<tr>
+							<td align="center" class="goodsDisplayAlign"><span style="font:12px tahoma; color:#444444; font-weight:bold;">{=get_currency_price(sampleGoodsInfo.price,2)}</span></td>
+						</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</tbody>

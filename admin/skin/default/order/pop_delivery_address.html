@@ -1,0 +1,220 @@
+<div id="delivery_address_area">
+	<div style="position:relative;width:100%;height:100%;">
+		<div class="clearbox">
+		<!--{ ? add_loop }-->
+			<!--{ @ add_loop }-->
+			<div class="address_box">
+				<dl>
+					<dt>
+						<label><input type="radio" name="select_address" value="{.address_seq}"/> {.recipient_user_name}</label>
+						<p>{?.address_description}{.address_description}{:}&nbsp;{/}</p>
+					</dt>
+					<dd style="min-height:80px;">
+						<ul>
+							<li>
+							<!--{ ? .international == 'domestic' // 국내 }-->
+								({.recipient_zipcode}) {.recipient_address}
+								<!--{ ? .recipient_address_type == 'street' }-->
+								{.recipient_address_street}
+								<!--{ : }-->
+								{.recipient_address}
+								<!--{ / }-->
+								{.recipient_address_detail}
+							<!--{ : // 해외 }-->
+								{.international_address}, {.international_town_city},{.international_county}, {.international_postcode},{.international_country}
+							<!--{ / }-->
+							</li>
+							<li>{.recipient_phone} / {.recipient_cellphone}</li>
+							<li>배송국가 : {?.international=='domestic'||.nation=='KOREA'}대한민국{:}{.nation}{/}</li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<!--{ / }-->
+		<!--{ : }-->
+			<div class="pdt20 center">등록된 배송지가 없습니다.</div>
+		<!--{ / }-->
+		</div>
+		<div class="paging_navigation" style="position:absolute;width:100%;">
+			{page.html}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 해당 주소 최종 선택
+	$("input[name='select_address']").click(function(){
+		var url = '';
+		if( '{is_admin}' == 1 ) {
+			url = '../member/delivery_address_ajax';
+		} else {
+			url = '/mypage/delivery_address_ajax';
+		}
+		var add_seq = $(this).val();
+		$.ajax({
+			url: url,
+			data : {'address_seq':add_seq},
+			dataType : 'json',
+			success: function(data) {
+				$("input[name='address_group']").val(data.address_group);
+
+				if(data.defaults=='Y'){
+					$("input[name='save_delivery_address']").attr('checked',true);
+				}else{
+					$("input[name='save_delivery_address']").removeAttr('checked');
+				}
+
+				// 국가 정보 없는경우 재 등록요구 :: 2016-08-03 lwh
+				if(!data.nation && data.international == 'international'){
+					//배송국가가 지정되지 않았습니다.\n수정을 통해 배송국가를 지정해주세요.
+					alert(getAlert('os150'));
+					return;
+				}
+				set_admin_address(data);
+
+				$(".delivery_member").show();
+				$(".delivery_input").hide();
+				closeDialog("delivery_address_dialog");
+			}
+		});
+	});
+});
+
+
+function popDeliverypage(params){
+	$.ajax({
+		'url'	: '/order/pop_delivery_address',
+		'data'	: params,
+		'type'	: 'get',
+		'dataType': 'text',
+		'success': function(html) {
+			console.log(html);
+			if(html){
+				$("#delivery_address_area").html(html);
+			}else{
+				alert("주소록을 로드하지 못했습니다.");
+				document.location.reload();
+			}
+		}
+	});
+}
+
+function set_admin_address(addr){
+	$(".kr_zipcode").show();
+	if(addr.nation == 'KOREA' || addr.international == 'domestic'){
+		// input values
+		$("#international").val('0');
+		$(".kr_zipcode").show();
+		$("input[name='address_description']").val(addr.address_description);
+		$("input[name='recipient_user_name']").val(addr.recipient_user_name);
+		$("input[name='recipient_address_type']").val(addr.recipient_address_type);
+		$("input[name='recipient_address']").val(addr.recipient_address);
+		$("input[name='recipient_address_street']").val(addr.recipient_address_street);
+		$("input[name='recipient_address_detail']").val(addr.recipient_address_detail);
+		$("input[name='recipient_new_zipcode']").eq(0).val(addr.recipient_new_zipcode);
+		$("input[name='recipient_email']").val(addr.recipient_email);
+		if (addr.recipient_phone != null) {
+			$("input[name='recipient_phone[]']").each(function(idx){
+				$(this).val( addr.recipient_phone.split('-')[idx] );
+			});
+		}
+		if (addr.recipient_cellphone != null) {
+			$("input[name='recipient_cellphone[]']").each(function(idx){
+				$(this).val( addr.recipient_cellphone.split('-')[idx] );
+			});
+		}
+
+		// span values
+		if(addr.recipient_user_name)
+				$(".recipient_user_name").html(addr.recipient_user_name);
+		else	$(".recipient_user_name").html('받는분 없음');
+
+		if(addr.recipient_new_zipcode){
+			$(".recipient_zipcode").html(addr.recipient_new_zipcode);
+			if(addr.recipient_address_type == 'street'){
+				$(".recipient_address").html(addr.recipient_address_street);
+			}else{
+				$(".recipient_address").html(addr.recipient_address);
+			}
+			$(".recipient_address_detail").html(addr.recipient_address_detail);
+		}else{
+			$(".kr_zipcode").hide();
+			$(".recipient_address").html('배송주소 없음');
+		}
+		
+		if(addr.recipient_cellphone)
+				$(".cellphone").html(addr.recipient_cellphone);
+		else	$(".cellphone").html('휴대폰번호 없음');
+		
+		if(addr.recipient_phone)
+				$(".phone").html(addr.recipient_phone);
+		else	$(".phone").html('추가연락처 없음');
+
+		$(".international_nation").html('대한민국');
+		$("#address_nation").val('KOREA').trigger('change');
+	}else{
+		// input values
+		$("#international").val('1');
+		$(".kr_zipcode").hide();
+		$("input[name='address_description']").val(addr.address_description);
+		$("input[name='recipient_user_name']").val(addr.recipient_user_name);
+		$("select[name='region']").val(addr.region);
+		$("input[name='international_county']").val(addr.international_county);
+		$("input[name='international_address']").val(addr.international_address);
+		$("input[name='international_town_city']").val(addr.international_town_city);
+		$("input[name='international_postcode']").val(addr.international_postcode);
+		$("input[name='international_country']").val(addr.international_country);
+		$("input[name='recipient_email']").val(addr.recipient_email);
+		if (addr.recipient_phone != null) {
+			$("input[name='recipient_phone[]']").each(function(idx){
+				$(this).val( addr.recipient_phone.split('-')[idx] );
+			});
+		}
+		if (addr.recipient_cellphone != null) {
+			$("input[name='recipient_cellphone[]']").each(function(idx){
+				$(this).val( addr.recipient_cellphone.split('-')[idx] );
+			});
+		}
+
+		// span values
+		$(".recipient_user_name").html(addr.recipient_user_name);
+		var international_address = addr.international_address + ',' + addr.international_town_city + ',' + addr.international_county + ',' + addr.international_postcode + ',' + addr.international_country;
+		$(".recipient_address").html(international_address);
+		$(".cellphone").html(addr.recipient_cellphone);
+		$(".phone").html(addr.recipient_phone);
+		$(".recipient_email").html(addr.recipient_email);
+		$(".international_nation").html(addr.nation);
+		$("#address_nation").val(addr.nation).trigger('change');
+	} // end nation if
+
+	if(addr.recipient_email)
+			$(".recipient_email").html(addr.recipient_email);
+	else	$(".recipient_email").html('이메일주소 없음');
+
+	set_admin_shipping('view');
+}
+
+function set_admin_shipping(type){
+	if(typeof(is_goods)!='undefined' && is_goods || typeof(is_direct_store)!='undefined' && is_direct_store)
+		$(".goods_delivery_info").show();
+	if(typeof(is_coupon)!='undefined' && is_coupon)
+		$(".coupon_delivery_info").show();
+
+	// 입력 또는 view 결정
+	if(type == 'view'){
+		$(".delivery_member").show();
+		$(".delivery_input").hide();
+	}else{
+		$(".delivery_member").hide();
+		$(".delivery_input").show();
+	}
+
+	// 국가별 결정
+	var international = $("#address_nation").val();
+	if(international == 'KOREA'){
+		$(".international").hide();
+	}else{
+		$(".domestic").hide();
+	}
+}
+</script>

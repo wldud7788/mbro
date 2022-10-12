@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css" href="../css/massage.css" />
+<script type="text/javascript">
+$(document).ready(function() {
+});
+</script>
+
+<div>
+	<table class="table_basic thl">
+	<tr>
+		<th>발송일시</th>
+		<td>{=log_detail.regist_date}</td>
+	</tr>
+	<tr>
+		<th>수신번호</th>
+		<td>{=log_detail.mobile}</td>
+	</tr>
+	<tr>
+		<th>발송상황</th>
+		<td>{=log_detail.msg_txt}</td>
+	</tr>
+	<tr>
+		<th>발송내용</th>
+		<td>
+			<div class="kakao_message" style="width:200px;">
+				<div class="cont">
+					<textarea style="height:200px;" readonly>{=log_detail.message}</textarea>
+				</div>
+				<!--{ ? count(log_detail.buttons_arr) > 0 }-->
+				<div class="btns">
+					<div class="btn_area link">
+						<ul class="clearbox">
+						<!--{ @ log_detail.buttons_arr }-->
+							<li><a>{=.name}</a></li>
+						<!--{ / }-->
+						</ul>
+					</div>
+				</div>
+				<!--{ / }-->
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>전송결과</th>
+		<td>
+			<!--{ ? log_detail.status_yn == 'Y' }-->
+			성공
+			<!--{ : }-->
+			실패
+			<!--{ / }-->
+		</td>
+	</tr>
+	<tr>
+		<th>실패사유</th>
+		<td>
+			<!--{ ? log_detail.status_yn == 'Y' }-->
+			-
+			<!--{ : }-->
+			{=log_detail.status}
+			<!--{ / }-->
+		</td>
+	</tr>
+	</table>
+	<div class="footer">
+		<button type="button" onclick="closeDialog('sendLogPopup');" class="resp_btn v3 size_XL">닫기</button>
+	</div>
+</div>

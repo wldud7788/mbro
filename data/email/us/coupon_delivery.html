@@ -1,0 +1,260 @@
+<table align="center" width="696" border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<tr>
+			<td style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><img src="/data/email/us/img/logo.gif"></td>
+		</tr>
+		<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<tr><td height="2" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;" bgcolor="#000000"></td></tr>
+		<tr><td height="60" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<!-- 내용시작 -->
+		<tr>
+			<td style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><img src="/data/email/us/img/txt_coupon_delivery.gif"></td>
+		</tr>
+		<tr><td height="35" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<tr><td class="texts" style="color: rgb(97, 106, 116); line-height: 22px; padding-left: 10px; font-family: 돋움, Dotum; font-size: 12px;">This is your ticket information.</td></tr>
+		<tr><td class="texts" style="color: rgb(97, 106, 116); line-height: 22px; padding-left: 10px; font-family: 돋움, Dotum; font-size: 12px;">You can check the ticket use history in {config_basic.shopName} > MY ACCOUNT.</td></tr>
+		<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	</tbody>
+</table>
+<table align="center" width="696" border="0" cellspacing="0" cellpadding="0">
+<colgroup><col width="48%">
+<col style="width:4%;">
+<col width="48%">
+</colgroup><tbody><tr>
+	<td><span style="font-size:12px; color:#000000; font-weight:bold; letter-spacing:-1px;">Order Details</span></td>
+	<td></td>
+	<td><span style="font-size:12px; color:#000000; font-weight:bold; letter-spacing:-1px;">Payment Datails</span></td>
+</tr>
+<tr>
+	<td><div style="width:100%;border-top:1px solid #545454;height:1px;"></div></td>
+	<td></td>
+	<td><div style="width:100%;border-top:1px solid #545454;height:1px;"></div></td>
+</tr>
+<tr>
+	<td>
+		<table width="100%">
+			<tbody><tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Order Number</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{order.order_seq}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Order Date</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{order.regist_date}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Full Name</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{order.order_user_name}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Tel</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{order.order_phone}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Mobile Number</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{order.order_cellphone}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Email Address</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{order.order_email}</td>
+			</tr>
+		</tbody></table>
+	</td>
+	<td></td>
+	<td>
+		<table width="100%">
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Subtotal</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{=get_currency_price(items_tot.price,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Shipping</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{=get_currency_price(shipping_tot.goods_shipping_cost + shipping_tot.shipping_cost,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Discount</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{=get_currency_price( items_tot.event_sale + items_tot.multi_sale + items_tot.coupon_sale + items_tot.member_sale + items_tot.mobile_sale + items_tot.promotion_code_sale + items_tot.referer_sale + shipping_tot.shipping_coupon_sale + shipping_tot.shipping_promotion_code_sale + order.enuri ,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Used Mileage/Point</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">{=get_currency_price(order.emoney,2)} / {=get_currency_price(order.cash,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Total</th>
+				<td style="padding:7px 0px;text-align:right;">
+				{?order.deposit_yn!='y'}<span>(Deposit Before)</span>{/}
+				<span style="font-size:11px;color:#ff0000;font-weight:bold;"">{=get_currency_price(order.settleprice,2)}</span>
+				</td>
+			</tr>
+			<tr>
+				<th style="padding:7px 0px;text-align:left;color:#8b8b8b;font-weight:bold;font-size:11px;">Payment Method</th>
+				<td style="padding:7px 0px;text-align:right;font-size:11px;">
+				<!--{ ?order.payment=='bank' }-->
+				{order.bank_account}
+				<!--{ : }-->
+				{order.mpayment}
+				<!--{ / }-->
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+</tbody></table>
+<div style="height:10px"></div>
+<table align="center" width="696">
+<tbody><tr>
+	<td class="left"><span style="font-size:12px; color:#000000; font-weight:bold; letter-spacing:-1px;">Ticket Details</span></td>
+</tr>
+<tr>
+	<td><div style="width:100%;border-top:1px solid #545454;height:2px;"></div></td>
+</tr>
+</tbody></table>
+<!--{ @ shipping_group_items }-->
+<!--{ ? .index_ == 0 && .couopn_items }-->
+<table style=" border-collapse:collapse !important; border:1px solid #bcbfc1;" align="center" width="696">
+	<colgroup><col width="80">
+	<col width="260">
+	<col width="80">
+	<col>
+	</colgroup><tbody><tr>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Release Number</th>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;">
+			<!--{ @ .arr_export }-->
+				<div>{..export_code}</div>
+			<!--{/}-->
+		</td>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Release Date</th>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;">
+			{data_export.export_date}
+		</td>
+	</tr>
+	<tr>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Shipping Details</th>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;" colspan="3">
+			{order.recipient_email}
+			/ {order.recipient_cellphone}
+		</td>
+	</tr>
+	<tr>
+		<th style="padding:7px 7px 7px 7px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Shipping Message</th>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;" colspan="3">
+		{order.memo}
+		</td>
+	</tr>
+
+</tbody></table>
+<!--{ / }-->
+<!--{ ? .couopn_items }-->
+<div style="height:6px"></div>
+<table style="border-collapse:collapse; border:1px solid #bcbfc1;" align="center" width="696">
+	<colgroup>
+	<col />
+	<col width="50" />
+	<col width="50" />
+	<col width="50" />
+	<col width="100" />
+	<col width="160" />
+	</colgroup><tbody>
+	<tr>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Product</th>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">수량</th>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Cancel</th>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Delivery</th>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Product Price</th>
+		<th style="padding:7px 0px;font-size:11px;color:#4d4d4d;font-weight:bold; border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1; background-color:#efefef;">Ticket Details</th>
+	</tr>
+	<!--{ @ .couopn_items }-->
+	<!--{ @ ..arr_options }-->
+	<tr>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;">
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<img src="{..image}" style="max-width:50px;max-height:50px;">
+					</td>
+					<td style="font-size:11px;">
+						{..goods_name}
+						{ ? ...option1!=null }
+						<div style="padding:5px 0px 0px 10px;color:#75757;font-size:11px;">
+							{...title1}:{...option1}
+							{ ? ...option2!=null } {...title2}:{...option2}{ / }
+							{ ? ...option3!=null } {...title3}:{...option3}{ / }
+							{ ? ...option4!=null } {...title4}:{...option4}{ / }
+							{ ? ...option5!=null } {...title5}:{...option5}{ / }
+						</div>
+						{ / }
+						<div style="padding:5px 0px 0px 10px;color:#ff0000;font-size:11px;">
+						{...goods_code}
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td style="text-align:right;padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;">{...ea}</td>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;text-align:right;">{...step85}</td>
+		<td style="padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;text-align:right;">{ ...step55 + ...step65 + ...step75 }</td>
+		<td style="text-align:right;padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;">{=get_currency_price(...ea*...price,2)}</td>
+		<!--{ ? ..index_ == 0}-->
+		<td rowspan="{=.rowspan}" style="text-align:left;padding:7px 7px;font-size:11px;border-left:1px solid #bcbfc1; border-top:1px solid #bcbfc1;">
+			<!--{ @ ...arr_export_item }-->
+				<div>{....coupon_serial} ( {....coupon_st} / {....opt_ea} )</div>
+			<!--{ / }-->
+			<br>
+			<!--{ ? ...option1!=null }-->
+			<div>{...title1}:{...option1}</div>
+			<!--{ / }-->
+			<!--{ ? ...option2!=null }-->
+			<div>{...title2} : {...option2}</div>
+			<!--{ / }-->
+			<!--{ ? ...option3!=null }-->
+			<div>{...title3} : {...option3}</div>
+			<!--{ / }-->
+			<!--{ ? ...option4!=null }-->
+			<div>{...title4} : {...option4}</div>
+			<!--{ / }-->
+			<!--{ ? ...option5!=null }-->
+			<div>{...title5} : {...option5}</div>
+			<!--{ / }-->
+			<!--{ ? ...arr_export_item[0].social_start_date && ...arr_export_item[0].social_end_date }-->
+			<div>{...arr_export_item[0].social_start_date}~{...arr_export_item[0].social_end_date}</div>
+			<!--{ / }-->
+			<!--{ ? ...arr_export_item[0].coupon_value_type == 'pass' }-->
+			<div> - Available Number of Times : {=number_format(...arr_export_item[0].coupon_input)}회</div>
+			<!--{ : }-->
+			<div> - Available Price : {=get_currency_price(...arr_export_item[0].coupon_input,2)}</div>
+			<!--{ / }-->
+			<br>
+			<!--{?export.refund_rule}-->
+			<div>※ The unused ticket does not refund..</div>
+			<!--{ : }-->
+			<div>※ The unused ticket does not refund.</div>
+			<!--{ / }-->
+		</td>
+		<!--{ / }-->
+	</tr>
+	<!--{ / }-->
+	<!--{ / }-->
+</tbody></table>
+<div style="height:6px"></div>
+<!--{ / }-->
+<!--{ / }-->
+
+<table style="border:0px;" align="center" width="696">
+	<tbody><tr><td height="50" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td align="center" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><a href="{basic.domain}" target="_blank"><img src="/data/email/us/img/btn_go.gif" border="0"></a></td>
+	</tr>
+	<tr><td height="30" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr><td height="2" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;" bgcolor="#000000"></td></tr>
+	<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td class="company" style="text-align: center; color: rgb(151, 158, 165); line-height: 22px; font-family: 돋움, Dotum; font-size: 11px;">
+			Business Number : {config_basic.businessLicense}&nbsp;&nbsp;&nbsp;&nbsp;Online Business Number : {config_basic.mailsellingLicense}&nbsp;&nbsp;&nbsp;&nbsp;Representative : {config_basic.ceo}
+		</td>
+	</tr>
+	<tr>
+		<td class="company" style="text-align: center; color: rgb(151, 158, 165); line-height: 22px; font-family: 돋움, Dotum; font-size: 11px;">
+			Address : {config_basic.companyAddress} {config_basic.companyAddressDetail}&nbsp;&nbsp;&nbsp;&nbsp;Contact Number : {config_basic.companyPhone}&nbsp;&nbsp;&nbsp;&nbsp;Fax : {config_basic.companyFax}
+		</td>
+	</tr>
+</tbody></table>

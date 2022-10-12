@@ -1,0 +1,470 @@
+<!-- 상품등록 : 추가 구성옵션 영역 -->
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// 추가구성옵션 만들기
+		$("#subOptionMake").on("click",function(){
+			if	(!$(this).closest('span').hasClass('gray')){
+				if(providerChk()){
+					openSettingSubOption('');
+				}
+			}
+		});
+
+		// 추가옵션 사용
+		$("input[name='subOptionUse']").on("click",function(){
+			
+			if(!providerChk()) return false;
+
+			<!--{ ? sopts_loop }-->
+			if(!$(this).is(':checked')){
+				if(!confirm("추가구성옵션 사용을 해제 할 경우 기존에 작성한 내용은 사라집니다.\n다만, 추가구성옵션 만들기 클릭시 옵션명,값,가격등의 기초정보는 확인하실 수 있습니다.")){
+					$(this).attr("checked",true);
+					return;
+				} else {
+					$("input[name='frequentlysub']").val("0");
+				}
+			}
+			<!--{ / }-->
+			show_subOptionUse();
+			set_option_select_layout();
+		});
+
+		// 추가 옵션 미리보기
+		$("#subOptionPreview").click(function(){
+			var optCnt = $(".subOptionTitle").length;
+			if(optCnt>0){
+				$("#popPreviewOpt").html($("#preview_suboption").html());
+				openDialog("추가 구성옵션 미리보기", "popPreviewOpt", {"width":"400","height":"330","show" : "fade","hide" : "fade"});
+			}
+		});
+		
+		// 옵션 관리
+		$("#subOptionSetting").bind("click",function(){
+			openDialog("자주쓰는 상품의 추가구성옵션 관리", "suboptionSettingPopup", {"width":"500","height":"500","show" : "fade","hide" : "fade"});
+		});
+
+		// 가져오기 선택 시
+		$("input[name='frequentlytypesuboptck']").click(function(){
+			if($(this).attr("checked") == "checked" ) {
+				$("#frequentlytypesuboptlay").removeAttr("disabled");
+				$("#frequentlytypesuboptlay").removeClass("gray");
+			}else{
+				$("#frequentlytypesuboptlay").attr("disabled","disabled");
+				$("#frequentlytypesuboptlay").addClass("gray");
+			}
+		});
+
+		// 추가옵션 모두열기 몇개만보기
+		$(".suboption_open_all").on("click", function(){
+			var openBtn = $(this);
+			if	($(this).hasClass('openall')){
+				viewSubOptionTmp('limit');
+				openBtn.removeClass('openall');
+				openBtn.text('모두열기');
+			}else{
+				viewSubOptionTmp('');
+				openBtn.addClass('openall');
+				openBtn.text('{config_goods.suboption_view_count}개만보기▲');
+			}
+		});
+
+		// 입점사 세션 수수료 수정 차단
+		<!--{ ? adminSessionType == 'provider' || provider_seq == '1' }-->
+		$("input[name='subCommissionRate[]']").live('keydown change focusin selectstart',function(){
+			$(this).blur();
+			return false;
+		});
+		<!--{ / }-->
+		<!--{ ? provider_seq == '1'}-->
+		$("input[name='subCommissionRate[]']").val('100').change();
+		<!--{ / }-->
+
+		<!--{ ? goods.option_suboption_use }-->
+		$("form[name='goodsRegist'] input[name='subOptionUse'][value='1']").prop("checked",true);
+		show_subOptionUse();
+		<!--{ / }-->
+		calulate_subOption_price();
+
+		$("input[name='subReserveRate[]']").on("blur",function(){calulate_subOption_price();});
+		$("select[name='subReserveUnit[]']").on("change",function(){calulate_subOption_price();});
+		$("input[name='subReserve[]']").on("blur",function(){calulate_subOption_price();});
+		$("input[name='subSupplyPrice[]']").on("blur",function(){calulate_subOption_price();});
+		$("input[name='subConsumerPrice[]']").on("blur",function(){calulate_subOption_price();});
+		$("input[name='subPrice[]']").on("blur",function(){calulate_subOption_price();});
+		$("input[name='subCommissionRate[]']").on("blur",function(){calulate_subOption_price();});
+	});
+	
+	//옵션관리
+	function delFreqOption(goods_seq, type, page, packageyn, popupID){
+		if( !goods_seq || goods_seq <= 0 ){
+			alert("상품 번호를 찾을 수 없습니다.");
+			return false;
+		}
+		
+		if( !type ){
+			alert("타입을 찾을 수 없습니다.");
+			return false;
+		}
+
+		$.ajax({
+			'url' : '../goods_process/del_freq_option',
+			'data' : {'goods_seq': goods_seq, 'type': type},
+			'type' : 'post',
+			'success' : function(res){
+				if(res === false){
+					alert("삭제 실패");
+				} else {
+					$(".delFreqOptionName_"+goods_seq).parent().parent().remove();
+					if (type == "opt") {
+						$('select[name="frequentlytypeopt"] option[value="'+goods_seq+'"]').remove();
+					} else if (type == "sub") {
+						$('select[name="frequentlytypesubopt"] option[value="'+goods_seq+'"]').remove();
+					} else if (type == "inp") {
+						$('select[name="frequentlytypeinputopt"] option[value="'+goods_seq+'"]').remove();
+					}
+					
+					frequentlypaging(page, type, packageyn, popupID);
+					alert("삭제 성공");
+				}
+			}
+		});
+	}
+
+	function frequentlypaging(page, type, packageyn, popupID){
+		$.ajax({
+			'url' : '../goods_process/get_freq_paging',
+			'data' : {'page': page, 'type': type, 'packageyn': packageyn, 'popupID': popupID},
+			'type' : 'post',
+			'success' : function(res){
+				var data = jQuery.parseJSON(res);
+				var result = data.result;
+				
+				if(result.length > 0){
+					$("#"+popupID+" table tbody").html('');
+					
+					$.each(result, function(key, item) {
+						var contents = '<tr>';
+						contents += '<td><span class="delFreqOptionName_'+item.goods_seq+'">'+item.goods_name+'</span></td>';
+						contents += '<td>';
+						contents += '<span class="btn small"><button type="button" class="delFreqOption" value="'+item.goods_seq+'" data-type="opt">삭제</button></span>';
+						contents += '</td>';
+						contents += '</tr>';
+						
+						$("#"+popupID+" table tbody").append(contents);
+					});
+				} else {
+					$("#"+popupID+" table tbody").html('');
+					$("#"+popupID+" table tbody").html('<tr> <td colspan="2">데이터 없음</td></tr>');
+				}
+				
+				$("#"+popupID+" .paging_navigation").html(data.paging);
+			}
+		});
+	}
+</script>
+<input type="hidden" name="frequentlysub" value="{goods.frequentlysub}" /> 
+<input type="hidden" name="package_yn_suboption" value="{=package_yn_suboption}" />
+<input type="hidden" name="sub_reserve_policy" value="{ ? goods.sub_reserve_policy == 'goods'}goods{ : }shop{ / }" />
+<!--{ ? !( socialcpuse || goods.goods_kind == 'coupon' ) }-->
+
+<div>
+	<table class="table_basic thl mb10">
+	<tr>
+		<th>옵션 사용 여부</th>
+		<td colspan="3">
+			<div class="resp_radio">
+				<label><input type="radio" name="subOptionUse" value="1" { ? goods.option_suboption_use }checked="checked"{ / } /> 사용</label>
+				<label class="ml10"><input type="radio" name="subOptionUse" value="" { ? goods.option_suboption_use != '1' }checked="checked"{ / } /> 사용 안 함</label>
+			</div>
+		</td>
+	</tr>
+	<tr class="subOptionCreate { ? !goods.option_suboption_use }hide{ / }">
+		<th>옵션 생성</th>
+		<td colspan="3">
+			<button type="button" id="subOptionMake" class="resp_btn active">옵션 생성/수정</button>
+		</td>
+	</tr>
+	<tr class="subOptionCreate { ? !goods.option_suboption_use }hide{ / }">
+		<th>옵션 화면</th>
+		<td>
+			<button type="button" class="resp_btn v2 option_layout_button" data-mode="suboption">구매 방법 설정</button>
+		</td>
+		<th>주문 단계별 설정</th>
+		<td>
+			<button type="button" id="subOptionProcessBtn" class="resp_btn v2">설정</button>
+		</td>
+	</tr>
+	</table>
+</div>
+
+<div class="suboptionPriview right mb5 { ? !goods.option_suboption_use }hide{ / }">
+	<button type="button" id="subOptionPreview" class="resp_btn">미리보기</button>
+	<!--{ ? suboptions && config_goods.suboption_view_count > 0 && config_goods.suboption_view_count < totsuboptionrowcnt }-->
+	<button type="button" class="resp_btn suboption_open_all">모두열기</button>
+	<!--{ / }-->
+</div>
+<div id="suboptionLayer">
+	<!--{ ? suboptions }-->
+	<table class="table_basic v7 lh_normal">
+	<thead>
+	<tr>
+		<th style='min-width:50px;'>추가혜택</th>
+		<th style='min-width:50px;'>필수선택</th>
+		<th style='min-width:60px;'>옵션명</th>
+		<th style='min-width:80px;'>옵션값</th>
+		<!--{ ? package_yn_suboption != 'y' && isplusfreenot && !package_count_suboption }-->
+		<th style='min-width:60px;'>옵션코드</th>
+		<!--{ / }-->
+		{ ? package_yn_suboption != 'y' && !package_count_suboption}<th style='min-width:40px;'>무게(kg)</th>{ / }
+		<!--{ ? socialcpuse }-->
+		<th class="couponinputtitle" style='min-width:60px;'>값어치<span class="couponinputsubtitle">{? goods.socialcp_input_type =='price' }금액{:}횟수{/}</span></th>
+		<!--{ / }-->
+		{ ? package_yn_suboption == 'y' }
+		<th style='min-width:80px;'>
+			<div class="pdb5">상품
+				<button type="button" onclick="package_error_check('suboption');" class="resp_btn v2">연결 상태 확인</button>
+			</div>
+		</th>
+		{ : }
+		<th style='min-width:50px;'>재고</th>
+		<th style='min-width:50px;'>불량</th>
+		<th style='min-width:50px;'>가용</th>
+		<th style='min-width:60px;'>안전재고</th>
+		<!--{ ? (provider_seq == '1' || sc.provider == 'base') }-->
+		<th style='min-width:60px;'>매입가(평균)</th>
+		<!--{ / }-->
+		{ / }
+		<th class="{?provider_seq == '1'}hide{/}" style='min-width:60px;'>정산 금액</th>
+		<th class="{?provider_seq == '1'}hide{/}" style='min-width:60px;'>
+			<!--{? provider_charge[0].commission_type == 'SACO' || provider_charge[0].commission_type == ''}-->
+			수수료
+			<!--{:}-->
+			<span class="SUCO_title">공급가</span>
+			<!--{/}-->
+		</th>
+		<th style='min-width:60px;'>정가</th>
+		<th style='min-width:60px;'>판매가</th>
+		<th style='min-width:60px;'>마일리지 지급</th>
+		<th class="optionStockSetText" style='min-width:60px;'>옵션 노출</th>
+	</tr>
+	</thead>
+	<tbody>
+		<!--{ @ suboptions }-->
+			<!--{ @ .value_ }-->
+				<!--{ ? !config_goods.suboption_view_count || config_goods.suboption_view_count > ..index_}-->
+	<tr class="suboptionTr">
+		<td class="center">
+			<input type="hidden" name="suboptionSeq[]" value="{..suboption_seq}" />
+				<!--{? ..key_ == 0 }-->
+					<!--{? ..sub_sale == 'y' }-->Y<!--{ : }-->N<!--{ / }-->
+				<!--{ / }-->
+		</td>
+		<td class="center">
+			<!--{? ..key_ == 0 }-->
+				<!--{? ..sub_required == 'y' }-->Y<!--{ : }-->N<!--{ / }-->
+			<!--{ / }-->
+		</td>
+		<td class="center subOptionTitle">
+			<!--{? ..key_ == 0 }-->{..suboption_title}<!--{ / }-->
+		</td>
+		<td class="center">
+			{..suboption}
+			<!--{ ? ..newtype }-->
+				<!--{? ..newtype == 'color' }-->
+			<div class="colorPickerBtn " style="background-color:{..color}" ></div>
+				<!--{: ..newtype == 'address'  }-->
+			<span class="addrhelpicon helpicon" title="{? ..zipcode }[{..zipcode}] <br> (지번) {..address} {..addressdetail}<br>(도로명) {..address_street}  {..addressdetail} {:}지역 정보가 없습니다.{/} {? ..biztel }업체 연락처:{..biztel}{/}">지역</span>
+				<!--{: ..newtype == 'date'  }-->
+			<span class="codedatehelpicon helpicon" title="{? ..codedate && ..codedate !='0000-00-00' }{..codedate} {:}날짜 정보가 없습니다.{/}">날짜</span>
+				<!--{: ..newtype == 'dayinput'  }-->
+			<span class="dayinputhelpicon helpicon" title="{? ..sdayinput && ..fdayinput }{..sdayinput} ~ {..fdayinput} {:}자동기간 정보가 없습니다.{/}">수동기간</span>
+				<!--{: ..newtype == 'dayauto'  }-->
+			<span class="dayautohelpicon helpicon" title="{? ..dayauto_type }'결제확인' {..dayauto_type_title} {..sdayauto}일 {? ..dayauto_type == 'day' }이후{/}부터 + {..fdayauto}일{..dayauto_day_title} {:}자동기간 정보가 없습니다.{/}">자동기간</span>
+				<!--{ / }-->
+			<!--{ / }-->
+		</td>
+		<!--{ ? package_yn_suboption != 'y' && isplusfreenot && !suboptions[0].package_count }-->
+			<td class="center"><span class="goodsCode">{goods.goods_code}</span>{..suboption_code}</td>
+		<!--{ / }-->
+		{ ? package_yn_suboption != 'y' }<td class="right pdr10">{..weight}</td>{ / }
+		<!--{ ? socialcpuse }-->
+		<td class="center couponinputtitle">
+			{=get_currency_price(..coupon_input)}
+			<input type="hidden" name="subcoupon_input[]" value="{..coupon_input}" />
+		</td>
+		<!--{ / }-->
+	{ ? ..package_count }
+			<td class="pdl5">
+		<!--{ ? ..package_error_code1 }-->
+				<div class="package_error">
+					<script>package_error_msg('{..package_error_code1}');</script>
+				</div>
+		<!--{ / }-->
+				<div>
+		<!--{ ? ..package_goods_seq1 }-->
+					<a href="../goods/regist?no={..package_goods_seq1}" target="_blank">
+					<span class="tmp_package_goods_seq1">[{..package_goods_seq1}]</span>
+		<!--{ / }-->
+					<span class="tmp_package_goods_name1">{..package_goods_name1}</span>
+		<!--{ ? ..package_goods_seq1 }-->
+					</a>
+		<!--{ / }-->
+				</div>
+				<div class="tmp_package_option_name1">{..package_option1}</div>
+				<div class="tmp_package_goodscode1">{..package_option_code1} {?..weight1}{?..package_option_code1}|{/} {..weight1}kg {/}</div>
+				<div>
+					주문당 {=number_format(..package_unit_ea1)}개 발송
+					<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_package_ea')" ></span>
+				</div>
+				<div>
+					<span class="wh_option hand" onclick="goods_option_btn('{..package_goods_seq1}',this,{ ? scm_cfg['use'] == 'Y'}'{goods.provider_seq}'{ : }'2'{ / })">
+						<span class="option-stock" optType="option" optSeq="{..package_option_seq1}">
+							{=number_format(..package_stock1)}
+						</span>
+					</span>
+					({=number_format(..package_badstock1)})
+					/ {=number_format(..package_ablestock1)}
+					/ {=number_format(..package_safe_stock1)}
+					<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_package_stock')" ></span>
+				</div>
+			</td>
+	{ : }
+		<!--{ ? scm_cfg['use'] == 'Y' && (provider_seq == '1' || sc.provider == 'base') && goods.goods_seq > 0 && ..suboption_seq > 0 && scm_use_suboption_mode }-->
+		<td class="right pdr10" onclick="goods_option_btn('{goods.goods_seq}',this,{ ? scm_cfg['use'] == 'Y'}'{goods.provider_seq}'{ : }'2'{ / })">
+			<span class="option-stock" optType="suboption" optSeq="{..suboption_seq}">{=number_format(..stock)}</span>
+		</td>
+		<!--{ : }-->
+		<td class="center"> 
+			{=number_format(..stock)}
+		</td>
+		<!--{ / }-->
+		<td class="center">
+			{=number_format(..badstock)}
+		</td>
+		<td class="center">
+			<!--{ ? cfg_order.ableStockStep == 15 }-->
+			{=number_format(..stock - ..badstock - ..reservation15)}
+			<!--{ / }-->
+			<!--{ ? cfg_order.ableStockStep == 25 }-->
+			{=number_format(..stock - ..badstock - ..reservation25)}
+			<!--{ / }-->
+		</td>
+		<td class="center">
+			{=number_format(..safe_stock)}
+		</td>
+		<!--{ ? (provider_seq == '1' || sc.provider == 'base') }-->
+		<td class="right pdr10">
+			<span title="{..supply_price}">{=get_currency_price(..supply_price)}</span>
+			<input type="hidden" name="subSupplyPrice[]" value="{..supply_price}" />
+		</td>
+		<!--{ / }-->
+	{ / }
+		<td class="right pdr10 subSettlementAmount {?provider_seq == '1'}hide{/}"></td>
+		<td style="padding-right: 10px;" class="right {?provider_seq == '1'}hide{/}">
+			<input class="right onlyfloat input-box-default-text" name="subCommissionRate[]" value="{?..commission_rate}{..commission_rate}{:}0{/}" size="3" type="hidden">
+			<input class="right onlyfloat input-box-default-text" name="subCommissionType[]" value="{?..commission_type}{..commission_type}{:}0{/}" size="3" type="hidden">
+			{?..commission_type == 'SUPR'}
+				{?..commission_rate}{=get_currency_price(..commission_rate)}{:}{=get_currency_price(0){/}
+			{:}
+				{?..commission_rate}{..commission_rate}{:}0{/}%
+			{/}
+		</td>
+		<td class="right pdr10 pricetd">
+			{=get_currency_price(..consumer_price)}
+			<input type="hidden" name="subConsumerPrice[]" value="{..consumer_price}" />
+		</td>
+		<td class="right pdr10 pricetd">
+			<span class="priceSpan">{=get_currency_price(..price)}</span>
+			<input type="hidden" name="subPrice[]" value="{..price}" />
+		</td>
+		<td class="right pdr10">
+			<!--{? ..reserve_unit == 'percent' }-->
+			{=floatval(..reserve_rate)}% ({=get_currency_price(..reserve,2)})
+			<!--{ : }-->
+			{=get_currency_price(..reserve,2)}
+			<!--{ / }-->
+		</td>
+		<td class="center">{ ? ..option_view == 'N' }미노출{ : }노출{ / }</td>
+	</tr>
+				<!--{ / }-->
+			<!--{ / }-->
+		<!--{ / }-->
+	</tbody>
+	</table>
+	<!--{ / }-->
+</div>
+
+<input type="hidden" name="tmp_suboption_seq" value="" />
+<ul class='bullet_hyphen resp_message'>
+	<li>옵션 보기 <span style="margin-top:-5px;"><button type='button' name='' class='btn_goods_default_set resp_btn v2' data-type="option">기본 설정</button></span></li>
+</ul>
+
+<!-- 추가구성옵션 주문 단계별 설정 값 -->
+<input type="hidden" id="individual_refund" name="individual_refund" value="{ ? goods.individual_refund == '1'}1{ : }0{ / }" />
+<input type="hidden" id="individual_refund_inherit" name="individual_refund_inherit" value="{goods.individual_refund_inherit}" />
+<input type="hidden" id="individual_export" name="individual_export" value="{ ? goods.individual_export == '1'}1{ : }0{ / }" />
+<input type="hidden" id="individual_return" name="individual_return" value="{ ? goods.individual_return == '1'}1{ : }0{ / }" />
+
+<!-- 추가구성옵션 미리보기-->
+<div id="preview_suboption" class="hide">
+	<div class="content">
+		<!--{ ? suboptions }-->
+		<table class="table_basic">
+			<!--{ @ suboptions }-->
+		<tr>
+			<th>{.value_[0]['suboption_title']}</th>
+			<td><select style='width:200px;'><option>- 선택 -</option>
+				<!--{ @ .value_ }-->
+				<option>{..suboption}</option>
+				<!--{ / }-->
+			</select></td>
+		</tr>
+			<!--{ / }-->
+		</table>
+		<!--{ / }-->
+	</div>
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog('popPreviewOpt')">닫기</button>
+	</div>
+</div>
+
+<!-- 추가구성옵션관리 다이얼로그 -->
+<div id="suboptionSettingPopup" class="hide">
+	<div class="content">
+		<table  class="table_basic">
+			<colgroup>
+				<col width="80%" />
+				<col width="20%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>상품명</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!--{ ? frequentlysublist }-->
+				<!--{ @ frequentlysublist }-->
+				<tr>
+					<td><span class="delFreqOptionName_{.goods_seq}">{.goods_name}</span></td>
+					<td class="center">
+						<button type="button" class="resp_btn v3 size_S delFreqOption" value="{.goods_seq}" data-type="sub" data-packageyn="{.package_yn}">삭제</button>
+					</td>
+				</tr>
+				<!--{ / }-->
+			<!--{ : }-->
+				<tr>
+					<td colspan="2">데이터 없음</td>
+				</tr>
+			<!--{ / }-->
+			</tbody>
+		</table>
+		
+		<div class="paging_navigation">{frequentlysubpaginlay}</div>
+	</div>
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog('suboptionSettingPopup')">닫기</button>
+	</div>
+</div>
+<!--{ / }-->

@@ -1,0 +1,107 @@
+<script>
+$(document).ready(function() {
+	$("#btnRestrictionConfig").click(function(){
+		$("#restrictionForm").attr("action","../member_process/sms_restriction");
+		$("#restrictionForm").submit();
+	}); 
+	$(".adminck").on("click",function(){
+		var no = $(this).attr("no");
+		$("#sys_"+no).attr("checked",$(this).is(":checked"));
+	});
+});
+</script>
+
+<form name="restrictionForm" id="restrictionForm" method="post" action="" target="actionFrame" class="hx100">
+<input type="hidden" name="mode" value="{=_GET['mode']}">
+	<div class="content">
+		<div class="item-title">메시지</div>
+		<table class="table_basic thl">
+			<!-- 테이블 헤더 : 시작 -->
+			{? _GET['mode'] != "board" }		
+			{@ restriction_item}			
+				{@ .value_ }
+				{? ..use == 'y' }
+			<tr>
+				{? ori_key != .key_ }
+				<th rowspan="{=.usecnt}">{=restriction_title[.key_]}</th>
+				<!--{ = this->assign( 'ori_key', .key_ ) }-->
+				{ / }
+				<td>
+					{? ..ac_admin != ""}<label class="resp_checkbox"><input type="checkbox" name="{=..key_}" no="{.index_}{..index_}" class="adminck" {=sms_rest[..key_]} value="checked"></label>{/} 
+					{=restriction_title[..key_]}
+				</td>			
+			</tr>
+				{ / }
+				{ / }
+			{ / }
+			
+			{ : }
+			<colgroup>
+				<col width="20%">
+				<col>
+			</colgroup>
+			<tr>
+				<th>
+					<label for="form-element-board_toadmin">게시글 메시지</label>
+				</th>
+				<td>
+					<label class="resp_checkbox">
+						<input type="checkbox" name="board_toadmin" id="form-element-board_toadmin" {=sms_rest['board_toadmin']} value="checked">
+						게시글 작성 시 (관리자)
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="form-element-board_touser">답글 메시지</label>
+				</th>
+				<td>
+					<label class="resp_checkbox">
+						<input type="checkbox" name="board_touser" id="form-element-board_touser" {=sms_rest['board_touser']} value="checked">
+						답글 작성 시 (고객)
+					</label>
+				</td>
+			</tr>
+			{ / }
+		</table>
+		
+		<div class="item-title">발송 시간 제한</div>
+		<table class="table_basic thl">		
+			<tr>
+				<th>발송 제한 시간</th>
+				<td>
+					<select name="{=config_field[0]}">
+					{@ loop_config_time }
+					<option value="{.value_}" {=selected.config_time_s[.value_]}>{.value_}시</option>
+					{ / }
+					</select>
+					 ~ 
+					<select name="{=config_field[1]}">
+					{@ loop_config_time }
+					<option value="{.value_}" {=selected.config_time_e[.value_]}>{.value_}시</option>
+					{ / }
+					</select>
+				</td>
+			</tr>	
+			
+			<tr>
+				<th>재발송 시간</th>
+				<td>
+					오전 8시 
+					<select name="{=config_field[2]}">
+					{@ loop_reserve_time }
+					<option value="{.key_}" {=selected.reserve_time[.key_]}>{.value_}</option>
+					{ / }
+					</select> 부터 순차적으로 자동 발송
+				</td>
+			</tr>	
+		</table>
+		<div class="resp_message">- SMS 발송시간 상세 안내 <a href="https://www.firstmall.kr/customer/faq/1266" target="_blank" class="resp_btn_txt">자세히 보기</a></div>
+	</div>
+
+	<div class="footer">
+		<button type="button" id="btnRestrictionConfig" class="resp_btn active size_XL">확인</button>
+		<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('restrictionPopup')">취소</button>
+	</div>
+
+</form>

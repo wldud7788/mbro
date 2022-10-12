@@ -1,0 +1,31 @@
+<!--{ ? target_list }-->
+	<!--{ @ target_list }-->
+<tr>
+	<td class="center">
+		<label class='resp_checkbox'><input type="checkbox" class="chk" name="code[]" value="{.key_}" /></label>
+	</td>
+	<td class="center">{.title}</td>
+	<td class="center">
+		<!--{ ? .top_html }-->
+		<button type="button" style="width:500px;" onclick="pop_target_view('{.key_}');" class="resp_btn" >배너 보기 및 수정</button>
+		<div class="hide" id="banner_view_{=.key_}">{=str_replace(array('<script','</script'), array('[script', '[/script'), .top_html)}</div>
+		<!--{ : }-->
+		미등록
+		<!--{ / }-->
+	</td>
+	<td class="center">
+		<button type='button' class='resp_btn v2' onclick="pop_target_view('{.key_}');">수정</button>
+	</td>
+</tr>
+	<!--{ / }-->
+<!--{ : }-->
+	<!--{ ? target_code }-->
+<tr>
+	<td class="center" colspan="4">대상이 없습니다.</td>
+</tr>
+	<!--{ : }-->
+<tr>
+	<td class="center" colspan="4">대상을 먼저 선택하여 주세요.</td>
+</tr>
+	<!--{ / }-->
+<!--{ / }-->

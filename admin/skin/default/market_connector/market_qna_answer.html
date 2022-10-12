@@ -1,0 +1,58 @@
+<form name="processFrom" id="processFrom" method="post" action="/admin/market_connector_process/doQnaAnswer" onsubmit="return confirm('답변을 전송하시겠습니까?')" target="actionFrame">
+<input type="hidden" name="seq" value="{marketQna.seq}" />
+<table class="info-table-style" cellspacing="0" style="width:100%">
+<!-- 테이블 헤더 : 시작 -->
+<colgroup>
+	<col width="" />
+	<col width="70%" />
+</colgroup>
+<tbody class="lth">
+	<tr>
+		<th class="its-th-align left pdl10">상품정보</th>
+		<td class="its-td">
+			<!--{? marketQna.image }-->
+			<div><img src="{marketQna.image}" style="width:{imageSize.thumbView.width}px;height:{imageSize.thumbView.height}px;"></div>
+			<!--{ / }-->
+			<div>
+			{marketQna.market_product_name}
+			<!--{ ? serviceLimit('H_AD')  && marketQna.provider_name }-->
+			<br/>[{marketQna.provider_name}]
+			<!--{ / }-->
+			</div>
+		</th>
+	</tr>
+	<!--{? marketQna.fm_order_seq }--> 
+	<tr>
+		<th class="its-th-align left pdl10">퍼스트몰 주문번호</th>
+		<td class="its-td"><a href="/admin/order/view?no={marketQna.fm_order_seq}" target="_blank">{marketQna.fm_order_seq}</a></td>
+	</tr>
+	<!--{ / }-->
+	<tr>
+		<th class="its-th-align left pdl10">오픈마켓 상품번호</th>
+		<td class="its-td">{marketQna.market_product_code}</td>
+	</tr>
+	<!--{? marketQna.market_order_no }--> 
+	<tr>
+		<th class="its-th-align left pdl10">오픈마켓 주문번호</th>
+		<td class="its-td">{marketQna.market_order_no}</td>
+	</tr>
+	<!--{ / }-->
+	<tr>
+		<th class="its-th-align left pdl10">제목</th>
+		<td class="its-td">{marketQna.market_qna_title}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align left pdl10">내용</th>
+		<td class="its-td">{=nl2br(marketQna.market_conent)}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align left pdl10">답변내용</th>
+		<td class="its-td"><textarea name="market_answer" style="width:550px;height:100px;margin-right:15px;" required>{marketQna.market_answer}</textarea></td>
+	</tr>
+</tbody>
+</table>
+<br style="line-height:10px;" />
+<div class="center">
+	<span class="btn large gray"><button type="submit">답변등록</button></span>
+</div>
+</form>

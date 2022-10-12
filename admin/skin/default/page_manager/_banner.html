@@ -1,0 +1,18 @@
+<div class="webftpFormItem">				
+	<label class="resp_btn v2"><input type="file" id="bigdata_banner" class="uploadify">파일선택</label>				
+	<input type="hidden" class="webftpFormItemInput" name="bigdata_banner" value="{data.banner}" size="30" maxlength="255" />				
+	<div class="preview_image"></div>
+</div>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js"></script>
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 파일 미리 업로드
+		$('#bigdata_banner').createAjaxFileUpload(uploadConfig, uploadCallback);
+
+		if("{=data.banner}") imgUploadEvent("#bigdata_banner", "", "/data/bigdata/", "{data.banner}");
+		
+	});
+
+
+</script>

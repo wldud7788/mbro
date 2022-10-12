@@ -1,0 +1,79 @@
+<script type="text/javascript">
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+    //gProviderSelect.searchProvider(1);
+  };
+}, true);
+</script>
+
+<div class="content">
+<div class="item-title">입점사 검색</div>
+
+<form name="selectProviderFrm" method="post" onSubmit="return false">
+<input type="hidden" name="select_providers" value="{=implode('|',sc.select_providers)}">
+	<div class="search_container">
+		<table class="table_search">	
+			<tr>
+				<th>입점사명</th>
+				<td>
+					<input type="text" name="sc_provider_name" style="width:55%;" value="{=sc.sc_provider_name}" class="resp_text" />
+
+					<!-- { ? shippingtype > 0 } -->
+					<div style="width:100%;">
+						<label><input type="radio" name="src_provider_gb" value="company" {?default_deli_group!='provider'}checked{/} /> 본사배송</label>
+						<label><input type="radio" name="src_provider_gb" value="provider" {?default_deli_group=='provider'}checked{/} /> 입점사배송</label>
+					</div>
+					<!-- { / } -->	
+					
+					<button type="submit" class="resp_btn active " id="btn_src_provider">검색</button>		
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<table class="table_basic provider_list">
+		<colgroup>
+			<col width="10%" />
+			<col width="50%" />
+			<col width="40%" />
+		</colgroup>
+		<thead>
+			<tr class="nodrag nodrop">
+				<th><label class="resp_checkbox"><input type="checkbox" name="chkAll" title="전체선택" ></label></th>
+				<th>입점사명</th>
+				<th>정산 방식</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--{? result }-->
+		<!--{ @ result }-->
+			<tr rownum="{=.provider_seq}" {? in_array(.provider_seq,sc.select_lists)}class="bg-gray"{/}>
+				<td class="center">
+					{? !in_array(.provider_seq,sc.select_lists)}
+					<label class="resp_checkbox"><input type="checkbox" name="providerSeq[]" class="chk" value="{=.provider_seq}"></label>
+					<input type="hidden" name="providerName[]" value="{=.provider_name}">
+					<input type="hidden" name="providerCommission[]" value="{=.commission_text}">
+					{ / }
+				</td>
+				<td class="center">{=.provider_name}</td>
+				<td class="center">{=.commission_text} ({=.commission_charge})</td>
+			</tr>
+		<!--{ / }-->
+		<!--{ : }-->
+			<tr>
+				<td class="center" colspan="3">검색된 입점사가 없습니다.</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+
+	</form>
+
+	<div class="paging_navigation">{=page.html}</div>
+
+</div>
+
+<div class="footer">
+	<button type="button" class="confirmSelectProvider resp_btn active size_XL">선택</button>
+	<button type="button" class="btnLayClose resp_btn v3 size_XL">닫기</button>
+</div>

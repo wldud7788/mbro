@@ -1,0 +1,59 @@
+{ #layout_header }
+<!--{? date}-->
+<script>
+// 날짜 인자가 있을 시 해당 날짜로 이동
+var date = '{date}';
+</script>
+<!--{/}-->
+
+<!-- Full calendar CSS -->
+<link href='/app/javascript/plugin/fullcalendar/packages/core/main.css' rel='stylesheet' />
+<link href='/app/javascript/plugin/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+<link href='/app/javascript/plugin/fullcalendar/packages/list/main.css' rel='stylesheet' />
+<link rel="stylesheet" type="text/css" href="../css/broadcast.css" />
+<!-- Full calendar JS -->
+<script src='/app/javascript/plugin/moment/moment.min.js'></script>
+<script src='/app/javascript/plugin/fullcalendar/packages/core/main.min.js'></script>
+<script src='/app/javascript/plugin/fullcalendar/packages/core/locales-all.min.js'></script>
+<script src='/app/javascript/plugin/fullcalendar/packages/moment/main.min.js'></script>
+<script src='/app/javascript/plugin/fullcalendar/packages/daygrid/main.min.js'></script>
+<script src='/app/javascript/plugin/fullcalendar/packages/list/main.min.js'></script>
+<script src='/app/javascript/plugin/fullcalendar/packages/interaction/main.min.js'></script>
+<script src='/app/javascript/js/broadcast/admin/catalog.js?dummy={=uniqid()}'></script>
+
+
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 좌측 버튼 -->
+		<ul  class="page-buttons-left">
+			<li>
+				<span class="btn large"><button type="button" class="btn-close" onclick="goCatalog()">전체 일정</button></span>
+			</li>
+		</ul>
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>라이브 방송</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li>
+				<span class="btn large black">		
+					<button type="button" id="add_broadcast">방송 등록</button>
+				</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 달력 영역 시작 -->
+<div id="calendar-container" class="gon_resp_wrap">
+	<div id='calendar'></div>
+</div>
+<!-- 달력 영역 종료 -->
+
+{ #layout_footer }

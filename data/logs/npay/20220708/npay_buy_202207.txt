@@ -1,0 +1,20 @@
+[2022-07-08 00:35:56.439437000]
+MODE : Request
+REMOTE_IP : 59.186.249.241
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1886]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MTY2NWVmMzhhNmVlNWI5NmZlYzJmODJlN2RkYWE0NDU5NmU4Mjk2Zl8xNjU3MjA4MTU2</merchantCustomCode1></interface><product><id>1886</id><merchantProductId>MTY2NWVmMzhhNmVlNWI5NmZlYzJmODJlN2RkYWE0NDU5NmU4Mjk2Zl8xNjU3MjA4MTU2QG9wdDExMzU4Nw==</merchantProductId><ecMallProductId>1886</ecMallProductId><name><![CDATA[소주잔 세트 SOJU GLASS SET]]></name><basePrice>55000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1886]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1886_tmp_f36027d379fc8612b5dcee4190badadb9885list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-07-08 00:35:56.493199000]
+MODE : Response
+REMOTE_IP : 59.186.249.241
+SUCCESS:cmn7n6KfS3iO5Sa9ftSePA:200337588
+
+[2022-07-08 00:36:01.792405000]
+MODE : Request
+REMOTE_IP : 59.186.249.241
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1886]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MTY2NWVmMzhhNmVlNWI5NmZlYzJmODJlN2RkYWE0NDU5NmU4Mjk2Zl8xNjU3MjA4MTYx</merchantCustomCode1></interface><product><id>1886</id><merchantProductId>MTY2NWVmMzhhNmVlNWI5NmZlYzJmODJlN2RkYWE0NDU5NmU4Mjk2Zl8xNjU3MjA4MTYxQG9wdDExMzU4Nw==</merchantProductId><ecMallProductId>1886</ecMallProductId><name><![CDATA[소주잔 세트 SOJU GLASS SET]]></name><basePrice>55000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1886]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1886_tmp_f36027d379fc8612b5dcee4190badadb9885list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-07-08 00:36:01.835211000]
+MODE : Response
+REMOTE_IP : 59.186.249.241
+SUCCESS:aTidF5toRRakYT9gq-zpdg:200337588
+

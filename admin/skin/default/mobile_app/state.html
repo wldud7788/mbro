@@ -1,0 +1,80 @@
+{ #layout_header }
+
+<script type="text/javascript">
+</script>
+
+<link rel="stylesheet" type="text/css" href="../css/mobile_app.css" />
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>서비스 현황</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><span class="btn large red"><button onclick="">서비스 안내</button></span></li>
+			<li><span class="btn large deepblue"><button onclick="">서비스 신청</button></span></li>
+		</ul>
+		
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div class="item-title">서비스 현황</div>
+
+<!-- 서비스 현황 테이블 : 시작 -->
+<table class="list-table-style" cellspacing="0">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="30" /><!--os-->
+		<col width="30" /><!--시작일-->
+		<col width="40" /><!--만기일-->
+		<col width="60" /><!--남은기간-->
+		<col width="60"/><!--상태-->	
+	</colgroup>
+	
+	<thead class="lth">
+		<tr>
+			<th></th>
+			<th>시작일</th>
+			<th>만기일</th>
+			<th>남은시간</th>
+			<th>상태</th>
+		</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<tbody class="ltb">
+		<tr class="list-row" style="height:40px;">
+			<td align="center">안드로이드앱</td>
+			<td align="center">2018.01.02</td>
+			<td align="center">2019.01.01</td>
+			<td align="center">365일 남음
+				<span class="btn small valign-middle">
+					<input type="button" value="연장" onclick=""/>
+				</span>
+			</td>
+			<td align="center">신청완료 
+				<span class="btn small valign-middle">
+					<input type="button" value="재신청" onclick=""/>
+				</span>
+			</td>
+		</tr>	
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>
+
+<ul class="mt20 ml15">
+	<li>※ 안드로이드의 경우 영업일 기준 최대 6일, 앱스토어의 경우 심사 및 출시까지 영업일 기준 최대 14일 소요됩니다.</li>
+	<li>※ 결제완료 후 상태는 ‘신청완료’ 상태로 노출되며 담당자 확인 후 ‘제작중’ 또는 ‘신청거절’ 상태로 변경됩니다.</li>
+	<li>※ 신청거절 상태 시, 사유 확인 후 ‘재신청’ 하시기 바랍니다. (퍼스트몰홈페이지>MY퍼스트몰 에서 확인 가능)</li>
+	<li>※ 스토어 등록이 완료되면 상태가 ‘사용’ 으로 변경됩니다.</li>
+	<li>※ 서비스 해지를 원하시는 경우 고객센터(1544-3270) 문의 또는 1:1문의 게시판에 등록 바랍니다.</li>
+	<li>※ 현재 등록된 앱 정보(앱명칭, 앱아이콘 등) 변경을 원하시는 경우 [모바일앱>앱 정보변경]에서 신청 가능합니다. (OS별 월 2회)</li>
+</ul>

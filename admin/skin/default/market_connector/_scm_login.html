@@ -1,0 +1,58 @@
+<input type="button" value="마켓 로그인" class="scm_login_btn resp_btn v3 size_L" /> 
+
+<div id="scm_login_layer" class="hide">
+	<table class="table_basic tdc">
+	<!-- 테이블 헤더 : 시작 -->	
+	<tr>
+		<th>마켓</th>
+		<th>판매자 아이디</th>
+		<th>자동 로그인</th>
+	</tr>
+
+	<tbody>
+<!-- {@ scmLoginList} -->		
+		<tr>
+			<td>{.marketName}</td>
+			<td>{.sellerId}</td>
+			<td><input type="button" value="로그인" class="scmLoginBtn resp_btn" id="scmLoginBtn" onclick="scmLogin('{.market}','{.sellerId}')"/></td>
+	<!-- { : } -->	
+		
+		<tr>
+			<td colspan="3">
+				등록된 마켓이 없습니다.
+			</td>
+		</tr>
+		
+	<!-- { / } -->	
+	</tbody>
+	</table>
+
+	<div class="box_style_05 mt10">
+		<div class="title">안내</div>
+		<ul class="bullet_circle">					
+			<li>샵링커 관리자에 등록된 마켓 관리자 정보 입니다.</li>
+			<li>관리자 정보는 샵링커 관리자>기본정보관리자>쇼핑몰등록관리에서 가능합니다.</li>
+		</ul>
+	</div>
+	
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_L" onclick="closeDialog('scm_login_layer')">닫기</button>
+	</div>
+</div>
+<script>
+	$(".scm_login_btn").click(function() {
+		openDialog("마켓 관리자 자동 로그인", "scm_login_layer", {"width":"570","show" : "fade","hide" : "fade"});
+	});
+	
+	function scmLogin(market, sellerId){
+		$.post('../market_connector/getMarketScmLogin', {'market':market,'user_id':sellerId}, function(response){
+			if(response.success == "Y"){
+				window.open(response.resultData, '_blank');
+			}else{
+				openDialogAlert(response.message, 0, 0);			
+			}
+				
+		}, 'json');	
+		
+	}
+</script>

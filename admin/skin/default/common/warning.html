@@ -1,0 +1,158 @@
+<style>
+#warningDialogLayer {line-height:20px; text-align:center; padding-bottom:25px;}
+</style>
+
+<script>
+function openFirstmallExtendLayer() {
+	window.open('{=firstmallUrl}/myshop','','');
+}
+function setWarningFlag(cookieId, day){
+	if(typeof cookieId == "undefined") {
+		alert("지정된 ID가 없습니다.");
+		return false;
+	}
+	if(typeof day == "undefined") {
+		day = 7;
+	}
+	$.cookie(cookieId, 'N', { expires: day, path:'/'});
+	$('#warningDialogLayer').dialog('close');
+}
+</script>
+<div id="warningDialogLayer">
+
+	<!--[ 유료몰 : 만료일 전 10~0일 이내일때]-->
+	<!--{ ? hosting_expires == 1 }-->
+		<!-- 클라우드 호스팅(후불) or 자동결제(선불) 이용 시 - 서비스 만료일 7일 전에 만료기한 1회 안내 -->
+		<!--{ ? hosting_service == "CLOUD" || auto_pay_use == true }-->
+			<div class="fx15">쇼핑몰 서비스 사용기간이 <b class="red">{=number_format(intval)}</b>일 남았습니다.</div>
+			<div class="mt20 ml20 left fx13">
+
+				{? auto_pay_use == true }
+				자동결제일에 등록하신 카드로 자동 결제가 진행됩니다. <br />
+				결제 실패  시에는  만료일 + 3일 후 한번 더 자동 결제가 진행됩니다. <br />
+				그럼에도 불구하고 결제 실패 시에는 {=myfirstmall}에서 직접 결제하셔야 합니다.<br />
+				결제가 진행되지 않을 경우, 아래와 같이 쇼핑몰이 정지 및 삭제되오니 이용에 참고 부탁드립니다. 
+				{ : }
+				매월 5일 등록하신 카드로 자동 결제가 진행됩니다.<br />
+				결제 실패 시에는 {=myfirstmall}에서 직접 결제하셔야 합니다.<br />
+				결제가 진행되지 않을 경우, 아래와 같이 쇼핑몰이 정지 및 삭제 되오니 이용에 참고 부탁드립니다.
+				{ / }
+				<ul class="mt10 ml30 left fx13">
+					<li class="li-disc"> 만료일 &nbsp;7일 경과 시 : 쇼핑몰 정지</li>
+					<li class="li-disc"> 만료일 30일 경과 시 : 별도 예고 없이 쇼핑몰 삭제</li>
+				</ul>
+			</div>
+
+			<div class="pdt20">
+				<span class="btn large cyanblue"><input type="button" value="확인" style="width:100px" onclick="setWarningFlag('warningCloudFlag',7)" /></span>
+			</div>
+
+			<script type="text/javascript">
+			openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700});
+			</script>
+		<!-- 그 외 일반 기간제 서비스 이용 시 -->
+		<!--{ : }-->
+			<div class="fx15">쇼핑몰 서비스 사용기간이 <b class="red">{=number_format(intval)}</b>일 남았습니다.</div>
+			<div class="mt20 ml20 left fx13">
+
+				사용기간 만료 시 아래와 같이 쇼핑몰이 정지 및 삭제 되오니, {=myfirstmall}에 접속하셔서 사용기간을 연장해 주시기 바랍니다.<br />
+
+				<ul class="mt10 ml30 left fx13">
+					<li class="li-disc"> 만료일 &nbsp;7일 경과 시 : 쇼핑몰 정지</li>
+					<li class="li-disc"> 만료일 30일 경과 시 : 별도 예고 없이 쇼핑몰 삭제</li>
+				</ul>
+			</div>
+
+			<div class="pdt20">
+				<span class="btn large cyanblue"><input type="button" value="연장" style="width:100px" onclick="openFirstmallExtendLayer()" /></span>
+				<span class="btn large cyanblue"><input type="button" value="확인" style="width:100px" onclick="$('#warningDialogLayer').dialog('close')" /></span>
+			</div>
+
+			<script type="text/javascript">
+			openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700});
+			</script>
+		<!--{ / }-->
+	<!--{ / }-->
+
+	<!--[ 유료몰 : 만료일 후 1~29일 이내일때]-->
+	<!--{ ? hosting_expires == 2 }-->
+		<div class="fx15">쇼핑몰 서비스 사용기간 만료 후 <b class="red">{=number_format(abs(intval))}</b>일이 경과되었습니다.</div>
+		<div class="mt20 ml20 left fx13">
+			사용기간 만료 후 30일이 경과되면 쇼핑몰의 모든 데이타가 삭제됩니다.<br />
+			쇼핑몰 데이터가 삭제되면 복구가 불가능하니<br />
+			{=myfirstmall}에 접속하셔서 사용기간을 연장해 주시기 바랍니다.
+		</div>
+		<div class="pdt20">
+			<span class="btn large cyanblue"><input type="button" value="연장" style="width:100px" onclick="openFirstmallExtendLayer()" /></span>
+		</div>
+		
+		<script type="text/javascript">
+		openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700,'noClose':true});
+		</script>
+	<!--{ / }-->
+	
+	<!--[ 유료몰 : 만료일 후 30~60일 이내일때]-->
+	<!--{ ? hosting_expires == 3 }-->
+		<div class="fx15">쇼핑몰 서비스 사용기간 만료 후 <b class="red">{=number_format(abs(intval))}</b>일이 경과되었습니다.</div>
+		<div class="mt20 ml20 left fx13">
+			사용기간 만료 후 30일이 경과되어 삭제 대상 쇼핑몰입니다.<br />
+			쇼핑몰 삭제가 곧 진행됩니다. 지금 즉시 {=myfirstmall}에 접속하셔서 사용기간을 연장해 주시기 바랍니다.
+		</div>
+		<div class="pdt20">
+			<span class="btn large cyanblue"><input type="button" value="연장" style="width:100px" onclick="openFirstmallExtendLayer()" /></span>
+		</div>
+		
+		<script type="text/javascript">
+		openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700,'noClose':true});
+		</script>
+	<!--{ / }-->
+	
+	<!--[ 유료몰 : 만료일 후 60일 경과시]-->
+	<!--{ ? hosting_expires == 4 }-->
+		<div class="fx15">쇼핑몰 서비스 사용기간 만료 후 <b class="red">{=number_format(abs(intval))}</b>일이 경과되었습니다.</div>
+		<div class="mt20 ml20 left fx13">
+			사용기간 만료 후 60일이 경과되어 삭제 대상 쇼핑몰입니다.<br />
+			쇼핑몰 삭제가 곧 진행됩니다.<br />
+			지금 즉시 {=myfirstmall}에 접속하셔서 사용기간을 연장해 주시기 바랍니다.
+		</div>
+		<div class="pdt20">
+			<span class="btn large cyanblue"><input type="button" value="연장" style="width:100px" onclick="openFirstmallExtendLayer()" /></span>
+		</div>
+		<script type="text/javascript">
+		openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700,'noClose':true});
+		</script>
+	<!--{ / }-->
+	
+	<!--[ 무료몰 : 마지막접속일 이후 30~60일 이내일때]-->
+	<!--{ ? serviceLimit('H_FR') && substr(code,-1) == '3' && uri_string()=='admin/main/index' }-->
+	<b>관리자환경 최종 로그인일로부터 <b class="red">{=number_format(abs(intval))}</b>일만에 로그인하셨습니다.</b><br /><br />
+	쇼핑몰 사용자(소비자)화면의 접속제한이 해제되었습니다.<br />
+	아래 내용을 숙지하여 쇼핑몰 운영에 지장이 없으시길 바랍니다 <br /><br />
+	<span class="desc">- 관리자환경 최종 로그인일로부터 30일간 로그인이 한번도 없으면 
+	사전 통보 없이 쇼핑몰 사용자(소비자)화면의 접속이 제한됩니다.<br /></span>
+	<span class="desc">- 관리자환경 최종 로그인일로부터 60일간 로그인이 한번도 없으면 
+	사전 통보 없이 쇼핑몰은 삭제 됩니다.<br /></span>
+	<div class="pdt20"><span class="btn large cyanblue"><input type="button" value="확인" style="width:100px" onclick="$('#warningDialogLayer').dialog('close')" /></span></div>
+	
+	<script type="text/javascript">
+	openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700});
+	</script>
+	<!--{ / }-->
+	
+	<!--[ 무료몰 : 마지막접속일 이후 60일 경과시]-->
+	<!--{ ? serviceLimit('H_FR') && substr(code,-1) == '4'  && uri_string()=='admin/main/index' }-->
+	<b>관리자환경 최종 로그인일로부터 <b class="red">{=number_format(abs(intval))}</b>일만에 로그인하셨습니다.</b><br /><br />
+	쇼핑몰 사용자(소비자)화면의 접속제한이 해제되었습니다.<br />
+	아래 내용을 숙지하여 쇼핑몰 운영에 지장이 없으시길 바랍니다 <br /><br />
+	<span class="desc">- 관리자환경 최종 로그인일로부터 30일간 로그인이 한번도 없으면 
+	사전 통보 없이 쇼핑몰 사용자(소비자)화면의 접속이 제한됩니다.<br /></span>
+	<span class="desc">- 관리자환경 최종 로그인일로부터 60일간 로그인이 한번도 없으면 
+	사전 통보 없이 쇼핑몰은 삭제 됩니다.<br /></span>
+	<div class="pdt20"><span class="btn large cyanblue"><input type="button" value="확인" style="width:100px" onclick="$('#warningDialogLayer').dialog('close')" /></span></div>
+	
+	<script type="text/javascript">
+	openDialog("쇼핑몰 이용안내","warningDialogLayer",{'width':700});
+	</script>
+	<!--{ / }-->
+	
+</div>

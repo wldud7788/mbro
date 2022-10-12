@@ -1,0 +1,164 @@
+		<tr class="tab_area">
+			<th class="dsts-th">
+			탭 <span class="btn small cyanblue"><button type="button" id="btnDisplayTabPopup">만들기/수정</button></span>
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<div class="displayTabContainer"></div>
+				<div id="displayTabMakePopup" class="displayTabMakePopup pc_tab_popup">
+					<div class="displayTabMakePopupInner">
+
+						<ul class="displayTabKindWrap">
+							<li><label><input type="radio" name="popup_tab_design_kind" value="text" {?!data.tab_design_type || data.tab_design_type!='displayTabTypeImage'}checked{/}/> 텍스트 탭 만들기</label></li>
+							<li><label><input type="radio" name="popup_tab_design_kind" value="image" {?data.tab_design_type=='displayTabTypeImage'}checked{/}/> 이미지로 탭 만들기</label></li>
+						</ul>
+
+						<div class="displayTabKindWrapText">
+							<div class="displayTabDivisionLine">
+								<b>탭 스타일</b>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType1" {?!data.tab_design_type || data.tab_design_type=='displayTabType1'}checked{/}/>&nbsp;
+									<ul class="displayTabType1" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType3" {?data.tab_design_type=='displayTabType3'}checked{/}/>&nbsp;
+									<ul class="displayTabType3" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType4" {?data.tab_design_type=='displayTabType4'}checked{/}/>&nbsp;
+									<ul class="displayTabType4" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType5" {?data.tab_design_type=='displayTabType5'}checked{/}/>&nbsp;
+									<ul class="displayTabType5" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType6" {?data.tab_design_type=='displayTabType6'}checked{/}/>&nbsp;
+									<ul class="displayTabType6" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType7" {?data.tab_design_type=='displayTabType7'}checked{/}/>&nbsp;
+									<ul class="displayTabType7" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="popup_tab_design_type" value="displayTabType2" {?data.tab_design_type=='displayTabType2'}checked{/} />&nbsp;
+									<ul class="displayTabType2" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+							</div>
+							<br />
+							<div class="displayTabDivisionLine">
+								<b>탭 명칭</b>
+								<div class="displayTabList">
+									<!--{ ? display_tabs }-->
+										<!--{ @ display_tabs }-->
+										<div class="displayTabMakeInputs">
+											<input type="text" name="popup_tab_title[]" value="{.tab_title}" size="35" maxlength="15" /> <img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="pc" /><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="pc"/>
+										</div>
+										<!--{ / }-->
+									<!--{ :}-->
+										<div class="displayTabMakeInputs">
+											<input type="text" name="popup_tab_title[]" value="" size="35" maxlength="15" /> <img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="pc"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="pc"/>
+										</div>
+									<!--{ / }-->
+								</div>
+							</div>
+						</div>
+
+						<div class="displayTabKindWrapImage">
+							<table width="100%" class="info-table-style displayTabList">
+							<tr>
+								<th class="its-th" width="30"></th>
+								<th class="its-th-align center">탭 활성 이미지</th>
+								<th class="its-th-align center">탭 비활성 이미지</th>
+								<th class="its-th-align center" width="65">추가/삭제</th>
+							</tr>
+							<!--{ ? display_tabs }-->
+								<!--{ @ display_tabs }-->
+								<tr class="displayTabMakeImages">
+									<td class="its-td-align center">탭 <span class="strMakeTabIdx">{=(.index_+1)}</div></td>
+									<td class="its-td-align center">
+										{?.tab_title_img}<img src="/data/icon/goodsdisplay/tabs/{.tab_title_img_on}" />{/}
+										<div>
+											<input type="text" name="tab_title_img_on[]" value="{.tab_title_img_on}" class="hide" />
+											<input type="file" name="new_tab_title_img_on[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center">
+										{?.tab_title_img}<img src="/data/icon/goodsdisplay/tabs/{.tab_title_img}" />{/}
+										<div>
+											<input type="text" name="tab_title_img[]" value="{.tab_title_img}" class="hide" />
+											<input type="file" name="new_tab_title_img[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center"><img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="pc"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="pc"/></td>
+								</tr>
+								<!--{ / }-->
+							<!--{ :}-->
+								<tr class="displayTabMakeImages">
+									<td class="its-td-align center">탭 <span class="strMakeTabIdx">1</div></td>
+									<td class="its-td-align center">
+										<div>
+											<input type="text" name="tab_title_img[]" value="" class="hide" />
+											<input type="file" name="new_tab_title_img[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center">
+										<div>
+											<input type="text" name="tab_title_img_on[]" value="}" class="hide" />
+											<input type="file" name="new_tab_title_img_on[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center"><img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="pc"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="pc"/></td>
+								</tr>
+							<!--{ / }-->
+							</table>
+						</div>
+
+						<div class="pdt20 center">
+							<span class="btn small cyanblue"><button type="button" onclick="closeDialog('displayTabMakePopup')">확인</button></span>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>

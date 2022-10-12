@@ -1,0 +1,164 @@
+<table id="tmp_row_html">
+	<tbody>
+	<!--{ @ tmpData.goods }-->
+		<!--{ @ .options }-->
+	<tr class="option-row-{.goods_seq} option-rows" goodsSeq="{.goods_seq}">
+	<!--{ ? ..index_ == 0 }-->
+		<td class="goods-seq-td" rowspan="{=count(.options)}">
+				<label class='resp_checkbox'><input type="checkbox" name="goods_seq[]" class="chk" value="{.goods_seq}" /></label>
+		</td>
+		<td class="goods-code-td" rowspan="{=count(.options)}">
+				<input type="text" name="goods_code[{.goods_seq}]" class="goods_code" value="{.goods_code}" size="10" title="상품코드" onblur="domSaverSendData(this);" />
+		</td>
+		<td class="goods-name-td" rowspan="{=count(.options)}">
+			<input type="text" name="goods_name[{.goods_seq}]" class="goods_name" value="{.goods_name}" style="width:90%;" title="상품명" onblur="domSaverSendData(this);" />
+		</td>
+		<td class="goods-option-td" rowspan="{=count(.options)}">
+			<input type="hidden" name="option_use[{.goods_seq}]" class="option_use" value="{.option_use}" />
+			<button type="button" class="resp_btn v2 size_S" onclick="open_options_create_popup('create_option_popup', '{.goods_seq}', 'create_option_batch_regist', '{tmpData.tmp_seq}');">옵션</button>
+		</td>
+	<!--{ / }-->
+		<td>
+			<table>
+			<!--{ @ ..opt_values }-->
+			<tr>
+				<td width="55" height="20">{...value_}</td>
+				<td width="12" style="text-align:center;">
+				<!--{ ? ..newtype[...key_] == 'color' }-->
+					<div style="background-color:{..color};border:1px solid #c5c5c5;width:10px;height:10px;"></div>
+				<!--{ / }-->
+				</td>
+				<td class="left pdl5" height="20">{..opt_codes[...key_]}</td>
+			</tr>
+			<!--{ / }-->
+			</table>
+			<input type="hidden" name="option_seq[{.goods_seq}][]" class="option_seq" value="{..option_seq}" />
+		</td>
+		<td>
+			<input type="text" name="weight[{..option_seq}]" class="weight" size="2" value="{..weight}" onblur="domSaverSendData(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td>
+			<input type="text" size="2" name="stock[{..option_seq}][]" class="stock" value="{..stock}" onblur="domSaverSendData(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td>
+			<input type="text" size="2" name="badstock[{..option_seq}][]" class="badstock" value="{..badstock}" onblur="domSaverSendData(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td class="its-td-align left pdl5 bg-pastelred admin-box  {?tmpData.provider_seq>1}hide{/}">
+			<input type="text" size="2" name="supply_price[{..option_seq}][]" class="supply_price" value="{=get_currency_price(..supply_price)}" onblur="domSaverSendData(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td>
+			<input type="text" size="2" name="safe_stock[{..option_seq}]" class="safe_stock" value="{..safe_stock}" onblur="domSaverSendData(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td class="right">
+			<span class="commission_price_lay">{=get_currency_price(..commission_price, 1)}</span>
+		</td>
+		<td class="right">
+			<!--{ ? ..commission_type == 'SUPR' }-->{=get_currency_price(..commission_price, 1)}<!--{ : }-->{..commission_rate}%<!--{ / }-->
+		</td>
+		<td>
+			<input type="text" size="5" name="consumer_price[{..option_seq}]" class="consumer_price" value="{=get_currency_price(..consumer_price)}" onblur="calculate_commission(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td>
+			<input type="text" size="5" name="price[{..option_seq}]" class="price" value="{=get_currency_price(..price)}" onblur="calculate_commission(this);" />
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+		<td>
+			<select name="option_view[{..option_seq}]" class="option_view"  onchange="domSaverSendData(this);">
+				<option value="N" {?..option_view=='N'}selected{/}>N</option>
+				<option value="Y" {?..option_view=='Y'}selected{/}>Y</option>
+			</select>
+			<!--{ ? ..index_ == 0 && .option_use == 'Y' }-->
+			<span class="btn small gray"><button type="button" onclick="allBatchSave(this, 'goods');" class="resp_btn arrow v2">▼</button></span>
+			<!--{ / }-->
+		</td>
+	</tr>
+		<!--{ / }-->
+	<!--{ / }-->
+	</tbody>
+	</table>
+	
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+	<script type="text/javascript">
+	// 현재 옵션의 목록 HTML을 변경
+	function replace_option_list_row(){
+		option_nothing_row_del();
+		$('tr.option-row-{goods_seq}', parent.document).addClass('option-row-remove');
+		$('tr.option-row-{goods_seq}', parent.document).last().after($('table#tmp_row_html tbody').not("tr.nothing").html());
+		$('tr.option-row-remove', parent.document).remove();
+	
+		parent.areaSetDefaultText($('tr.option-row-{goods_seq}', parent.document));
+		process_result_msg();
+	}
+	
+	// 상품 입력 폼 추가/삭제
+	function add_option_list_row(){
+		option_nothing_row_del();
+		$('tbody.quick-goods-regist-tbody', parent.document).append($('table#tmp_row_html tbody').not("tr.nothing").html());
+		parent.areaSetDefaultText($('tbody.quick-goods-regist-tbody', parent.document).find('tr.option-rows').last());
+		process_result_msg();
+	}
+	
+	// 상품 삭제
+	function remove_option_list_row(){
+		<!--{ @ removeGoods }-->
+			<!--{ ? .value_ > 0 }-->
+		$('tr.option-row-{.value_}', parent.document).remove();
+			<!--{ / }-->
+		<!--{ / }-->
+		option_nothing_row_add();
+		process_result_msg();
+	}
+	
+	function option_nothing_row_del(){
+		$('tbody.quick-goods-regist-tbody tr.nothing', parent.document).remove();
+	}
+
+	function option_nothing_row_add(){
+		option_nothing_row_del();
+		$("#chkAll", parent.document).prop("checked",false);
+		if($("tr.option-rows").length == 0){
+			var html = '<tr class="nothing"><td class="center" height="30" colspan="14">항목을 추가해주세요.</td></tr>';
+			$('tbody.quick-goods-regist-tbody', parent.document).append(html);
+		}
+	}
+
+	// 초기화 후 한줄 추가
+	function reset_option_list_row(){
+		$('tbody.quick-goods-regist-tbody tr', parent.document).remove();
+		add_option_list_row();
+		process_result_msg();
+	}
+	
+	// 처리 결과 메시지가 필요한 경우
+	function process_result_msg(){
+		<!--{ ? addResultMsg }-->
+		parent.openDialogAlert('{addResultMsg.msg}', {addResultMsg.width}, {addResultMsg.height}, function(){});
+		<!--{ / }-->
+	}
+	
+	{procJS}
+	<!--{ ? popup_id }-->
+	parent.closeDialog('{popup_id}');
+	<!--{ / }-->
+	parent.loadingStop();
+	</script>

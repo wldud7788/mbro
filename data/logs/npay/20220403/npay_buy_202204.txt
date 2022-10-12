@@ -1,0 +1,10 @@
+[2022-04-03 03:36:49.155788000]
+MODE : Request
+REMOTE_IP : 180.66.255.48
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1883]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>M2Q2MzRhZmM0MWUzN2FhM2Q4MDQzNjU3ODA4MWIzMjk1MGNkZTZjN18xNjQ4OTI0NjA5</merchantCustomCode1><naverInflowCode>ct%3Dl1i62727%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D30bd9920d8d008061776a0428a9b8deba82124c3%7Ctrx%3D</naverInflowCode></interface><product><id>1883</id><merchantProductId>M2Q2MzRhZmM0MWUzN2FhM2Q4MDQzNjU3ODA4MWIzMjk1MGNkZTZjN18xNjQ4OTI0NjA5</merchantProductId><ecMallProductId>1883</ecMallProductId><name><![CDATA[미러플립톡 MIRROR FLIP TOK]]></name><basePrice>22000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1883]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1883_tmp_6f2d960c812d82afa25c429961a167578960list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt113576]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[플립톡 색상]]></name><value><id>opt113576</id><text><![CDATA[용감한 블루]]></text></value></selectedItem></option><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-04-03 03:36:49.200339000]
+MODE : Response
+REMOTE_IP : 180.66.255.48
+SUCCESS:5IYqQWXQQ9OZckVJQJnK2g:200337588
+

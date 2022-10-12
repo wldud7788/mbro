@@ -1,0 +1,612 @@
+{ #layout_header }
+
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/accountall.css?v={=date('Ymd')}" />
+
+<script type="text/javascript" >
+	var _period;
+
+	$(document).ready(function() {
+		// 정산마감일 변경이력 리스트
+		$("button[name='settinglist']").bind("click",function(){
+			var wheres		= $("input[name='wheres']").val();
+			openDialog("정산 마감일 변경 이력", "accountSettingListDiv", {"width":"650","height":"680"});
+			if($("#accountSettingListDiv").html() == "") getSettingList(wheres);
+		});
+		// 정산마감일 세팅
+		$("button[name='settingpop']").bind("click",function(){
+			openDialog("정산 마감일 변경", "accountSettingDiv", {"width":"600"});
+		});
+		// 입점사 정산주기 팝업 세팅
+		$("button[name='providerselect']").bind("click",function(){
+			openDialog("입점사 정산주기 변경", "accountProviderDiv", {"width":"960"});
+		});
+		// 입점사 리스트 셋팅 삭제
+		$("button[name='delProvider']").bind("click",function(){
+			setProviderDel();
+		});
+		// 입점사 리스트 셋팅 저장
+		$("button[name='periodSetSave']").bind("click",function(){
+			periodSettingSave();
+		});
+		// 입점사 리스트 셋팅 저장
+		$("button[name='providerSetPeriod']").bind("click",function(){
+			setProviderList();
+		});
+		// 입점사 정산주기 리스트 검색
+		$("button[name='providerCountSelect']").bind("click",function(){
+			getProviderList();
+		});
+		$("select[name='provider_period']").change(function(){
+			getProviderList();
+		});
+		// 입점사 당월 정산주기 리스트 검색
+		$("button[name='providerPreCountSelect']").bind("click",function(){
+			getProviderPreList();
+		});
+		//$("select[name='provider_pre_period']").change(function(){
+			//getProviderPreList();
+		//});
+		// 정산주기 변경
+		$("select[name='accountall_period_same']").change(function(){
+			setPeriodCount();
+		});
+		$("body").append('<div id="accountSettingListDiv" class="hide"></div>');
+		setPeriodCount();
+		getProviderList();
+
+		$("#accountPeriodProviderDiv .resetBtn").on("click", function(){		
+			$("select[name='provider_pre_period']").val("all").attr("selected", "true");	
+			$("input[type='text']").val("");
+		})
+	});
+
+//변경 이력
+function getSettingList(query_string){
+	$.ajax({
+		type: "get",
+		url: "/admin/accountall/accountall_setting_catalog",
+		data: query_string,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+		success: function(result){
+			$("#accountSettingListDiv").html(result);
+		}
+	});
+}
+function settingPaging(query_string){
+	var serialize = $("#accountSettingListForm").serialize() + query_string;
+	getSettingList(serialize);
+}
+
+//입점사 익월 정산주기 리스트
+function getProviderList(){
+	var provider_period = $('[name="provider_period"]').val();
+	var provider_name = $('[name="provider_name"]').val();
+	var provider_search_type = "last";
+	$.ajax({
+		type: "GET",
+		url: "/admin/accountall/get_accountall_setting_provider",
+		data: "provider_period=" + provider_period + "&provider_name=" + encodeURIComponent(provider_name) + "&provider_search_type=" + provider_search_type,
+		dataType: 'json',
+		success: function(result){
+			$(".providerAllCount").html("");
+			$(".providerOriginalListTable").html("");
+			$(".providerOriginalListTableExcel").html("");
+			var providerList = "<colgroup>"
+								+"<col width=\"20%\" />"
+								+"<col width=\"80%\" />"
+								+"</colgroup>"
+								+"<tr><thead>"
+								+"<th><label class=\"resp_checkbox\"><input type=\"checkbox\" id=\"orgAllChk\" name=\"orgAllChk\" onclick=\"all_checked(this)\" value=\"org\" /></label></th>"
+								+"<th>입점사명</th>"
+								+"</tr></thead>";
+			var providerListExcel = "<colgroup>"
+								+"<col width=\"20%\" />"
+								+"<col width=\"80%\" />"
+								+"</colgroup>"
+								+"<tr>"
+								+"<th>순번</th>"
+								+"<th>입점사명</th>"
+								+"</tr>";
+			for(var i=0;i<result.length;i++){
+				providerList += "<tr>"
+								+"<td class=\"center\"><label class=\"resp_checkbox\"><input type=\"checkbox\" name=\"orgchk[]\" value='"+result[i].provider_seq+"' /></label></td>"
+								+"<td class=\"left\"><span name=\"orgprovidername\">(월"+result[i].calcu_count+"회) "+result[i].provider_name+"("+result[i].provider_id+")</span></td>"
+								+"<input type=\"hidden\" name=\"provider_seq["+result[i].provider_seq+"]\" value='"+result[i].provider_seq+"' />"
+								+"<input type=\"hidden\" name=\"provider_calcu_count["+result[i].provider_seq+"]\" value='"+result[i].calcu_count+"' />"
+								+"<input type=\"hidden\" name=\"provider_id["+result[i].provider_seq+"]\" value='"+result[i].provider_id+"' />"
+								+"<input type=\"hidden\" name=\"provider_name["+result[i].provider_seq+"]\" value='"+result[i].provider_name+"' />"
+								+"</tr>";
+				providerListExcel += "<tr>"
+								+"<td class=\"center\">"+(result.length-i)+"</td>"
+								+"<td><span name=\"orgprovidername\">(월"+result[i].calcu_count+"회) "+result[i].provider_name+"("+result[i].provider_id+")</span></td>"
+								+"</tr>";
+			}
+			$(".providerAllCount").append(i);
+			$(".providerOriginalListTable").append(providerList);
+			$(".providerOriginalListTableExcel").append(providerListExcel);
+		}
+	});
+}
+
+//입점사 선택 리스트
+function setProviderList(){
+	var set_provider_period = $("input[name='set_provider_period']:checked").val();
+	if( set_provider_period == undefined || set_provider_period == "" ){
+		openDialogAlert('정산주기를 선택하여 주세요.', 400, 160);
+		return;
+	}
+	var setListTmp = "";
+	var cnt = $(".providerSetCount").html();
+	$("input[name='orgchk[]']").each(function(){
+		if($(this).is(":checked")){
+			var provider_seq = $(this).val();
+			var provider_id = $("input[name='provider_id["+provider_seq+"]']").val();
+			var provider_name = $("input[name='provider_name["+provider_seq+"]']").val();
+			if($("input[name='set_provider_seq["+provider_seq+"]']").val() == provider_seq){
+				$("input[name='set_provider_seq["+provider_seq+"]']").parent().remove();
+				cnt--;
+			}
+			setListTmp += "<tr>"
+					+"<td class=\"center\"><label class=\"resp_checkbox\"><input type=\"checkbox\" name=\"setchk[]\" value='"+provider_seq+"' /></label></td>"
+					+"<td class=\"left\"><span name=\"setprovidername\">(월"+set_provider_period+"회) "+provider_name+"("+provider_id+")</span></td>"
+					+"<input type=\"hidden\" name=\"set_provider_seq["+provider_seq+"]\" value='"+provider_seq+"' />"
+					+"<input type=\"hidden\" name=\"set_provider_calcu_count["+provider_seq+"]\" value='"+set_provider_period+"' />"
+					+"</tr>";
+			cnt++;
+		}
+	});
+	if(cnt == 0){
+		openDialogAlert('정산주기 변경할 입점사를 선택하여 주세요.', 400, 160);
+		return;
+	}else{
+		$(".providerSetCount").html("");
+		var setList = $(".providerSetListTable").html();
+		$(".providerSetListTable").html("");
+		setList += setListTmp;
+	}
+	$(".providerSetCount").append(cnt);
+	$(".providerSetListTable").append(setList);
+}
+
+//입점사 당월 정산주기 리스트
+function getperiodList(period){
+	$('[name="provider_pre_period"]').val(period);
+	$('[name="provider_pre_name"]').val("");
+	getProviderPreList();
+	openDialog("입점사 정산 주기", "accountPeriodProviderDiv", {"width":"700","height":"600"});
+	_period = period
+}
+
+
+//입점사 당월 정산주기 내역 가져오기
+function getProviderPreList(){
+	var provider_pre_period = $('[name="provider_pre_period"]').val();
+	var provider_pre_name = $('[name="provider_pre_name"]').val();
+	var provider_search_type = "pre";
+	$.ajax({
+		type: "GET",
+		url: "/admin/accountall/get_accountall_setting_provider",
+		data: "provider_period=" + provider_pre_period + "&provider_name=" + encodeURIComponent(provider_pre_name) + "&provider_search_type=" + provider_search_type,
+		dataType: 'json',
+		success: function(result){
+			if(result == "provider_name_error"){
+				openDialogAlert('입점사명을 확인해주세요.', 400, 160);
+				return;
+			}else{
+				$(".providerPreAllCount").html("");
+				$(".providerPreOriginalListTable").html("");
+				var providerPreList = "<colgroup>"
+									+"<col width=\"10%\" />"
+									+"<col width=\"30%\" />"
+									+"<col width=\"20%\" />"
+									+"<col width=\"20%\" />"
+									+"<col width=\"20%\" />"
+									+"</colgroup>"
+									+"<thead><tr>"
+									+"<th rowspan=\"2\">순번</th>"
+									+"<th rowspan=\"2\">입점사명</th>"
+									+"<th rowspan=\"2\">입점사ID</th>"
+									+"<th colspan=\"2\">정산주기</th>"
+									+"</tr>"
+									+"<tr>"
+									+"<th class='bdr_top'>당월</th>"
+									+"<th class='bdr_top'>익월</th>"
+									+"</tr></thead><tbody>";
+				for(var i=0;i<result.length;i++){
+					providerPreList += "<tr>"
+									+"<td>"+(result.length-i)+"</td>"
+									+"<td><span name=\"orgprovidername\">"+result[i].provider_name+"</span></td>"
+									+"<td><span name=\"orgproviderid\">"+result[i].provider_id+"</span></td>"
+									+"<td><span name=\"orgcalcucount\">월"+result[i].calcu_count+"회</span></td>"
+									+"<td><span name=\"orgnextcalcucount\">월"+result[i].next_calcu_count+"회</span></td>"
+									+"</tr>";
+				}
+				+"</tbody>";
+				$(".providerPreAllCount").append(i);
+				$(".providerPreOriginalListTable").append(providerPreList);
+			}
+		}
+	});
+}
+
+// 입점사 선택 리스트 삭제
+function setProviderDel(){
+	var cnt = $(".providerSetCount").html();
+	$("input[name='setchk[]']").each(function(){
+		if($(this).is(":checked")){
+			$(this).parent().parent().parent().remove();
+			cnt--;
+		}
+	});
+	$(".providerSetCount").html("");
+	$(".providerSetCount").append(cnt);
+	periodSettingSave("del");
+}
+
+// 정산주기 전체선택
+function all_checked(e){
+	var flag = $(e).is(":checked");
+	if($(e).val() == "org"){
+		$("input[name='orgchk[]']").each(function(){
+			$(this).attr("checked", flag);
+		});
+	}else{
+		$("input[name='setchk[]']").each(function(){
+			$(this).attr("checked", flag);
+		});
+	}
+}
+
+// 정산 마감일 제한
+function setPeriodCount(){
+	// CASH
+	var accountall_period_same = $("select[name='accountall_period_same']").val();
+	if(accountall_period_same == "N"){
+		$("#accountall_confirm_1").attr("checked",true);
+		$("#accountall_confirm_8").attr("disabled",true);
+		$("#accountall_confirm_11").attr("disabled",true);
+	}else{
+		$("input[name='accountall_confirm']").attr("disabled",false);
+	}
+}
+
+// 정산 주기 저장
+function periodSettingSave(saveType){
+	var cnt = $(".providerSetCount").html();
+	if(saveType!="del" && cnt == 0){
+		openDialogAlert('정산주기 변경할 입점사를 선택하여 주세요.', 400, 160);
+		return;
+	}
+	var setList = "";
+	var setcnt = 0;
+	$("input[name='setchk[]']").each(function(){
+		var provider_seq = $(this).val();
+		var provider_calcu_count = $("input[name='set_provider_calcu_count["+provider_seq+"]']").val();
+		setList += "<span>"
+				+"<input type=\"hidden\" name=\"accountall_provider_seq["+provider_seq+"]\" value='"+provider_seq+"' />"
+				+"<input type=\"hidden\" name=\"accountall_provider_calcu_count["+provider_seq+"]\" value='"+provider_calcu_count+"' />"
+				+"</span>";
+		setcnt++;
+	});
+	$("#hiddenAccountSetting").html("");
+	$("#hiddenAccountSetting").append(setList);
+	if(saveType!="del"){
+		openDialogAlert("정산 주기를 변경할 입점사 "+setcnt+"개를 선택하셨습니다. 정산 마감일 변경 설정 창에서 저장을 하셔야 최종 입점사의 정산 주기가 변경됩니다.",450,180,function(){$("#accountProviderDiv").dialog("close");});
+	}
+	/* 삭제 예정
+	$.ajax({
+		type: "post",
+		url: "../accountall_process/accountall_period_setting",
+		data: $("#accountPeriodForm").serialize(),
+		success: function(result){
+			if(result == 'ERR1'){
+				openDialogAlert('정산주기 변경할 입점사를 선택하여 주세요.', 400, 140);
+				return;
+			}else{
+				openDialogAlert("총 "+result+"개의 입점사 정산주기가 저장되었습니다.",400,140,function(){getProviderList();$("#accountProviderDiv").dialog("close");});
+			}
+		}
+	});*/
+}
+</script>
+<style>
+	.ul_list_01 .table_row_frame {border-left:1px solid #ccc;  border-right:1px solid #ccc; border-bottom:1px solid #ccc;  }
+	.ul_list_01 .table_row_frame .table_basic > tbody > tr > th:first-child, .ul_list_01 .table_row_frame .table_basic > tbody > tr > td:first-child{border-left:0;}
+	.ul_list_01 .table_row_frame .table_basic {border-right:0; }
+	.ul_list_01 .table_row_frame .dvs_top {border-left:0;}
+	.ul_list_01 .table_row_frame .scroll{overflow-y:auto; overflow-x:hidden; height:250px;}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>정산 마감일 설정</h2>
+		</div>		
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+{? acc_next_confirm}
+<div class="box_style_06 blue bold fx14 mt20">
+	{acc_next_confirm.month}월부터 입점사의 정산 횟수가 ({? acc_next_confirm.accountall_period_same == 'N'}입점사별 정산 주기 상이{:}모든 입점사 월 1회 동일{/}), 정산마감일({? acc_next_confirm.accountall_confirm == 8}익월 7일{: acc_next_confirm.accountall_confirm == 11}익월 10일{:}당월 말일{/})로 변경됩니다.
+</div>
+{/}
+
+<!-- 본문 레이아웃 영역 : 시작 -->
+<div class="contents_dvs">
+	<div class="title_dvs">
+		<div class="item-title">정산 마감일 설정</div>
+		<button type="button" name="settinglist" class="resp_btn v3">변경이력</button>
+	</div>
+
+	<table class="table_basic thl">		
+		<tr>
+			<th>정산 주기</th>
+			<td>
+				{? acc_now_confirm.accountall_period_same == 'Y'}
+					모든 입점사 월 1회 동일 ( 총 입점사 {seller_acc_cycle[1]}개 - 월 1회(<a href="#" onclick="getperiodList(1)" class="resp_btn_txt">{seller_acc_cycle[1]}</a>) )
+				{:}
+					입점사별 정산 주기 상이 ( 총 입점사 {=seller_acc_cycle[1]+seller_acc_cycle[2]+seller_acc_cycle[4]}개 - 월 1회(<a href="#" onclick="getperiodList(1)" class="resp_btn_txt">{seller_acc_cycle[1]}</a>), 월 2회(<a href="#" onclick="getperiodList(2)" class="resp_btn_txt">{seller_acc_cycle[2]}</a>), 월 4회(<a href="#" onclick="getperiodList(4)" class="resp_btn_txt">{seller_acc_cycle[4]}</a>) )
+				{/}
+			</td>
+		</tr>
+		
+		<tr>
+			<th>정산 마감</th>
+			<td>
+				{? acc_now_confirm.accountall_confirm == 8}
+					7일
+				{: acc_now_confirm.accountall_confirm == 11}
+					10일
+				{:}
+					말일
+				{/}
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="footer">
+	<button type="button" name="settingpop" class="resp_btn active size_XL">변경</button>
+</div>
+
+<div class="box_style_05 mt20">
+	<div class="title">안내</div>
+	<ul class="bullet_hyphen">					
+		<li>정산은 쇼핑몰에서 팔린 입점사 상품 매출을 별도로 정한 수수료를 제하고 입점사에게 지급하는 행위를 의미합니다.</li>		
+		<li>정산 대상은 당월 상품 매출 중 구매 확정된 매출,  전월 상품 매출 중 당월로 이월되어 구매 확정된 매출을 대상으로 합니다.</li>		
+		<li>정산 마감일은 정산 대상 매출을 확정하는 일자를 지칭하는 것으로 솔루션 상에는 당월 말일 자정 +1시간 (익월 1일 01시)을 기본 정산 마감일로 합니다.</li>		
+		<li>기본 정산마감일(당월 말일 자정+1시간)은 입점사별로 그리고 월 1회에서 월 최대 4회까지 자유롭게 정산할 수 있게 지원합니다.</li>		
+		<li>
+			기본 정산마감일 외에 익월 7일 자정+1시간(8일 01시)와 익월 10일 자정+1시간(11일 01시)로 정산마감일을 변경할 수 있습니다.</br>
+			※ 기본 정산마감일 이외의 정산마감일은 모든 입점사가 동일하게 월 1회만 정산되는 방식의 옵션입니다.
+		</li>		
+		<li>기본 정산마감일 이외의 정산 마감일은 당월 매출과 최대한 동일하게 정산하고자 할 때 유효한 정산방식입니다.</li>		
+	</ul>
+</div>	
+
+<!-- 본문 레이아웃 영역 : 끝 -->
+
+<!-- 레이어 팝업 영역 : 시작 -->
+
+<!-- 정산 마감일 변경 영역 : 시작 -->
+<div id="accountSettingDiv" class="hide">
+<form name="accountSettingForm" id="accountSettingForm" method="post" action="../accountall_process/accountall_setting" target="actionFrame">
+	<div id="hiddenAccountSetting" class="hide"></div>
+	<table class="table_basic thl">
+		<col width="30%" />
+		<col width="70%" />
+		<tr>
+			<th>정산 주기</th>
+			<td>
+				<select name="accountall_period_same" id="accountall_period_same" style="vertical-align:middle;">
+					<option value="Y" {? acc_next_confirm.accountall_period_same == 'Y'}selected{/}>모든 입점사 월 1회 동일</option>
+					<option value="N" {? acc_next_confirm.accountall_period_same == 'N'}selected{/}>입점사별 정산 주기 상이</option>
+				</select>
+				<button type="button" name="providerselect" class="resp_btn v2">입점사 선택</button>
+			</td>
+		</tr>
+		<tr>
+			<th>정산 마감</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="accountall_confirm" id="accountall_confirm_1" value="1" {? (acc_next_confirm.accountall_confirm == 1) || !acc_next_confirm }checked{/}> 당월 말일</label>
+					<label><input type="radio" name="accountall_confirm" id="accountall_confirm_8" value="8" {? acc_next_confirm.accountall_confirm == 8}checked{/}> 익월 7일</label>
+					<label><input type="radio" name="accountall_confirm" id="accountall_confirm_11" value="11" {? acc_next_confirm.accountall_confirm == 11}checked{/}> 익월 10일</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>변경 시점</th>
+			<td>
+				<span class="red">익월 1일 매출부터 변경된 정산 마감일 적용</span>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="footer">
+		<button type="submit" class="resp_btn active size_XL">확인</button>
+		<button type="button" class="resp_btn v3 size_XL"  onClick="closeDialog(accountSettingDiv);">취소</button>
+	</div>
+</form>
+</div>
+<!-- 정산 마감일 변경 영역 : 끝 -->
+<!-- 정산 주기 변경 영역 : 시작 -->
+<div id="accountProviderDiv" class="hide">
+<form name="accountPeriodForm" id="accountPeriodForm" method="post" target="actionFrame">	
+
+	<ul class="ul_list_01">
+		<li class="wp42">
+			<div class="list_info_container">
+				<div class="dvs_left">	
+					총 <span class="providerAllCount bold">0</span> 개
+									
+				</div>
+				<div class="dvs_right">
+					<select name="provider_period" class="ml5">
+						<option value="all" selected >전체</option>
+						<option value="1">월1회</option>
+						<option value="2">월2회</option>
+						<option value="4">월4회</option>
+					</select>	
+					<input type="text" name="provider_name" value="" />
+					<button type="button" name="providerCountSelect" class="resp_btn active">검색</button>
+				</div>
+			</div>
+			<div class="table_row_frame">					
+				<div class="dvs_top">					
+					<div class="dvs_right">	
+						<button type="button" onclick="divExcelDownload('provider_period_list','#providerOriginalListExcel')" value="" class="resp_btn v3 mr5"><span class="icon_excel"></span> 다운로드</button>	
+					</div>
+				</div>
+				<div class="scroll">
+					<table class="table_row_basic v2 providerOriginalListTable">
+						<colgroup>
+							<col width="20%" />
+							<col width="80%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th><label class="resp_checkbox"><input type="checkbox" id="orgAllChk" name="orgAllChk" onclick="all_checked(this)" value="org" /></div></th>
+								<th>입점사명</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			<div class="providerOriginalListExcel hide" id="providerOriginalListExcel">
+				<table class="table_row_basic v2 providerOriginalListTableExcel">
+					<colgroup>
+						<col width="20%" />
+						<col width="80%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>순번</th>
+							<th>입점사명</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</li>
+
+		<li class="wp16 center valign-middle">
+				선택한 입점사를<br/>
+				<label class="resp_radio mt5"><input type="radio" name="set_provider_period" id="set_provider_period_1" value="1"> 월1회</label><br/>
+				<label class="resp_radio"><input type="radio" name="set_provider_period" id="set_provider_period_2" value="2"> 월2회</label><br/>
+				<label class="resp_radio"><input type="radio" name="set_provider_period" id="set_provider_period_4" value="4"> 월4회</label><br/>	
+				<button type="button" name="providerSetPeriod" class="resp_btn active mt10">주기 변경</button>
+		</li>
+
+		<li class="wp42">
+			<div class="list_info_container">
+				<div class="dvs_left">
+					총 <span class="providerSetCount bold">0</span> 개
+				</div>
+			</div>
+			<div class="table_row_frame">
+				<div class="dvs_top">					
+					<div class="dvs_right">	
+						<button type="button" name="delProvider" class="resp_btn v3 mr5">선택 삭제</button>		
+					</div>
+				</div>
+				<div class="scroll">
+					<table class="table_row_basic v2 providerSetListTable">
+						<colgroup>
+							<col width="20%" />
+							<col width="80%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th><label class="resp_checkbox"><input type="checkbox" id="setAllChk" name="setAllChk" onclick="all_checked(this)" value="set" /></label></th>
+								<th>입점사명</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</li>
+	</ul>
+	
+	<div class="footer">
+		<button type="button" name="periodSetSave" class="resp_btn active size_XL">확인</button>
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog(accountProviderDiv);">취소</button>
+	</div>
+</form>
+</div>
+<!-- 정산 주기 변경 영역 : 끝 -->
+
+<!-- 당월 정산주기 리스트 영역 : 시작 -->
+<div id="accountPeriodProviderDiv" class="hide">
+	<div class="content">
+		<div id="search_container" class="search_container">
+			<table class="table_search">
+				<tr>
+					<th>정산 주기</th>
+					<td>
+						<select name="provider_pre_period" class="wx80">
+							<option value="all" selected >전체</option>
+							<option value="1">월1회</option>
+							<option value="2">월2회</option>
+							<option value="4">월4회</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<th>입점사명</th>
+					<td><input type="text" name="provider_pre_name" value="" /></td>
+				</tr>
+			</table>
+			
+			<div class="footer">
+				<button type="button" name="providerPreCountSelect" class="resp_btn active size_L">검색</button>
+				<button type="button" class="resp_btn v3 size_L resetBtn">초기화</button>
+			</div>
+		</div>
+	
+		<div class="list_info_container">
+			<div class="dvs_left">	
+				<span class="providerPreAllCount">0</span> 개
+			</div>
+			<div class="dvs_right">	
+				<button type="button" onclick="divExcelDownload('provider_period_search_list','#providerPreOriginalList')" value="" class="resp_btn v3"><span class="icon_excel"></span> 다운로드</button>
+			</div>
+		</div>
+		
+		<div class="providerPreOriginalList" id="providerPreOriginalList">
+			<table class="table_basic v7 v10 tdc providerPreOriginalListTable">
+				<colgroup>
+					<col width="10%" />
+					<col width="30%" />
+					<col width="20%" />
+					<col width="20%" />
+					<col width="20%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th rowspan="2">순번</th>
+						<th rowspan="2">입점사명</th>
+						<th rowspan="2">입점사ID</th>
+						<th colspan="2">정산주기</th>
+					</tr>				
+					<tr>
+						<th class="bdr_top">당월</th>
+						<th class="bdr_top">익월</th>
+					</tr>
+				</thead>
+			</table>
+		</div>					
+	</div>
+
+	<div class="footer">		
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog(accountPeriodProviderDiv);">닫기</button>
+	</div>
+</div>
+<!-- 당월 정산주기 리스트 영역 : 끝 -->
+
+<!-- 레이어 팝업 영역 : 끝 -->
+
+{ #layout_footer }

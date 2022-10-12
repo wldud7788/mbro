@@ -1,0 +1,12 @@
+<table width="100%" cellspacing="0" cellpadding="0">
+	{@ restockResult}		
+		<tr>
+			<td width="70" rowspan="2"><a href="/admin/goods/regist?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" width="70" height="50" onerror="/data/skin/default/images/common/noimage.gif"></a></td>
+			<td align="left" style="padding-left:5px;"><a href="/admin/goods/regist?no={.goods_seq}" target="_blank">{.goods_name}</a></td>
+		</tr>
+		<tr>
+			<td style="padding-left:5px;">{.price}</td>
+		</tr>
+		<tr><td colspan="2" height="10"></td></tr>
+	{/}
+</table>

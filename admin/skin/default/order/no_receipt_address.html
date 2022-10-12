@@ -1,0 +1,180 @@
+{ #layout_header }
+
+<style>
+	.search_label 	{display:inline-block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+	span.step_title { font-weight:normal;padding:0 5px 0 5px; }
+	span.export-list { display:inline-block;background-url("../images/common/btn_list_release.gif");width:60px;height:15px; }
+	div.btn-open-all{ position:absolute;top:3px;left:-62px;}
+	div.btn-open-all img { cursor:pointer; }
+	.ft11	{ font-size:11px; }
+
+	.barcode-btn {position:relative; top:-15px; left:5px; cursor:pointer}
+	.barcode-btn .openImg{display:block;}
+	.barcode-btn .closeImg{display:none;}
+	.barcode-btn.opened .openImg{display:none;}
+	.barcode-btn.opened .closeImg{display:block;}
+	.barcode-description {display:none; background-color:#d2d8d8; border-top:5px solid #f9fbfc; border-bottom:10px solid #f9fbfc; text-align:center}
+
+	.darkgreen { color:#009900; }
+
+	table.export_table {border-collapse:collapse;border:1px solid #c8c8c8;width:100%}
+	table.export_table th {padding:5px; border:1px solid #c8c8c8;}
+	table.export_table td {padding:5px; border:1px solid #c8c8c8;}
+	table.export_table th {background-color:#efefef;}
+
+	.price {padding-right:5px;text-align:right}
+	table.order-inner-table td,table.order-inner-table th {height:9px !important; border:0 !important;}
+	.ea {font-family:dotum; color:#a400ff;}
+	.title_order_number {font-family:dotum;font-size:13px;}
+
+	table.order-summary-table tbody td.pvtd{border:1px solid #dcdde1;text-align:center;background-color:#fff;}
+	.coupon_status{color:red}
+	.coupon_status_all{color:red}
+	.coupon_order_status{color:gray}
+	.coupon_status_use{color:blue}
+	.coupon_input_value{color:green}
+
+	.url-helper{border:1px solid #424242;background-color:#fff;line-height: 14px;}
+	.open-link a:link, .open-link a:active, .open-link a:visited{color: #a7a7a7;}
+	.open-link a:hover {color:#f63;}
+	.warehouse-info-lay { padding:5px;margin:2px 10px 5px 0;border:1px solid #c5c5c5;background-color:#fff; }
+
+	td.package-option {background-color:#F3FCFF;}
+	td.package-option span.title {color:#FF0000;}
+	td.package-option div.ea {color:#A400FF;}
+	td.package-option div.stock {color:#0066CC;}
+	td.package-option div.ablestock {color:#0066CC;}
+	#layout-container {min-width: auto;}
+	html{overflow-x: hidden;}
+
+	div.sub-choose-lay div.choose-form-lay {top:-10px;right:100px;width:200px;}
+	.resp_btn > img, .resp_btn > span {vertical-align:top;}</style>
+<script type="text/javascript">
+	/* default search */
+	var default_search_pageid	= "no_receipt_address";
+
+	/* variable for ajax list */
+	var npage					= 1;
+	var nstep					= '';
+	var nnum					= '';
+	var stepArr					= new Array();
+	var allOpenStep				= new Array();
+	var npay_use				= "{=npay_use}";
+	var talkbuy_use				= "{=talkbuy_use}";
+	var start_search_date		= "{=date('Y-m-d',strtotime('-7 day'))}";
+	var end_search_date			= "{=date('Y-m-d')}";
+	var loading_status			= 'n';
+	var searchTime				= "{=date('Y-m-d H:i:s')}";
+	var linkage_mallnames_cnt	= "{=count(linkage_mallnames_for_search)}";
+	var linkage_mallnames		= '{linkage_mallnames_for_search[0].mall_code}';
+
+	var pagemode				= '{=pagemode}';
+	var detailmode				= '{=detailmode}';
+	var shipping_provider_seq	= '{=sc.shipping_provider_seq}';
+	var bankChk					= '{bankChk}';
+	var no_receipt_address = 1;
+
+	{? _SERVER.QUERY_STRING}
+	var queryString			= '{_SERVER.QUERY_STRING}';
+	{:}
+	var queryString			= 'noquery=true';
+	{/}
+
+	/* 스타일적용 */
+	apply_input_style();
+
+	function orderView(order_seq){
+		$("input[name='keyword']").focus();
+		$("input[name='no']").val(order_seq);
+		var search = location.search;
+		search = search.substring(1,search.length);
+		$("input[name='query_string']").val(search);				
+		$("form[name='search-form']").attr('action','view');
+		$("form[name='search-form']").submit();
+	}
+</script>
+<script src="/app/javascript/js/admin-orderCatalog.js?dummy={=date('Ymd')}"></script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area" class="order_catalog_title_bar">
+	<div id="page-title-bar">		
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>배송지 미등록 주문 조회</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 주문리스트 검색폼 : 시작 -->
+<div id="order_catalog_search" class="search-form-container-new search_container">
+	<form name="search-form" method="get">
+	<input type="hidden" name="query_string"/>
+	<input type="hidden" name="no" />
+	<input type="hidden" name="callPage" value="{=pagemode}" />	
+	{#search_form}
+	</form>
+</div>
+<!-- 주문리스트 검색폼 : 끝 -->
+
+<!-- 주문리스트 테이블 : 시작 -->
+<div class="contents_dvs v2">
+	<div class="table_wrap">
+		<table class="list-table-style table_row_basic pd5" cellspacing="0">
+			<!-- 테이블 헤더 : 시작 -->
+			<colgroup>
+				<col width="50" />
+				<col width="50" />
+				<col width="50" />
+				<col width="50" />
+				<col width="50" />
+				<col width="90" />
+				<col width="50" />
+				<col width="225" />
+				<col />
+				<col width="70" />
+				<col width="70" />
+				<col width="120" />
+				<col width="120" />
+				<col width="80" />
+				<col width="80" />
+			</colgroup>
+			<thead class="lth">
+				<tr>
+					<th>선택</th>
+					<th>중요</th>
+					<th>번호</th>
+					<th>유입</th>
+					<th>마켓</th>
+					<th>주문일시</th>
+					<th>환경</th>
+					<th>주문번호</th>
+					<th>주문상품</th>
+					<th>수(종)</th>
+					<th>출고
+						<span class="helpicon2 detailDescriptionLayerBtn" title="출고"></span>
+						<div class="detailDescriptionLayer hide">해당 주문의 출고리스트를 확인합니다.</div>
+					</th>
+					<th>받는분/주문자</th>
+					<th>결제수단/일시</th>
+					<th>결제금액</th>
+					<th>주문상태</th>
+				</tr>
+			</thead>
+			<!-- 테이블 헤더 : 끝 -->
+			<!-- 리스트 : 시작 -->
+			<tbody class="ltb order-ajax-list"></tbody>
+			<!-- 리스트 : 끝 -->
+		</table>
+	</div>
+</div>
+
+<div id="batch_status_popup_layer"></div>
+<div id="excel_download_dialog" style="display:none;">
+	{#excel_dwonload}
+</div>
+<!-- 기본검색설정 -->
+<script type="text/javascript" src="/app/javascript/js/admin-searchDefaultConfig.js?dummy={=date('Ymd')}"></script>
+
+{ #layout_footer }

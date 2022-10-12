@@ -1,0 +1,180 @@
+[2022-04-19 00:36:18.719460000]
+MODE : Request
+REMOTE_IP : 180.68.33.48
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:36:18.767240000]
+REMOTE_IP : 180.68.33.48
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 00:36:18.821611000]
+MODE : Request
+REMOTE_IP : 180.68.33.48
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:36:18.862092000]
+REMOTE_IP : 180.68.33.48
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 00:36:19.584150000]
+MODE : Request
+REMOTE_IP : 125.209.251.204
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:36:19.621673000]
+REMOTE_IP : 125.209.251.204
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 00:37:49.563111000]
+MODE : Request
+REMOTE_IP : 125.209.251.195
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:37:49.604259000]
+REMOTE_IP : 125.209.251.195
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 00:37:49.724543000]
+MODE : Request
+REMOTE_IP : 125.209.251.195
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:37:49.762402000]
+REMOTE_IP : 125.209.251.195
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 00:37:57.710278000]
+MODE : Request
+REMOTE_IP : 125.209.251.204
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:37:57.747449000]
+REMOTE_IP : 125.209.251.204
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 00:45:12.895209000]
+MODE : Request
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 00:45:12.959042000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 23:41:13.440348000]
+MODE : Request
+REMOTE_IP : 124.59.123.201
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 23:41:13.532090000]
+REMOTE_IP : 124.59.123.201
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-04-19 23:41:13.574743000]
+MODE : Request
+REMOTE_IP : 124.59.123.201
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-19 23:41:13.616355000]
+REMOTE_IP : 124.59.123.201
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

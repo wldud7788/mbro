@@ -1,0 +1,94 @@
+<style>
+	<!--{ @ ssllib->valueSslConfigCertStatus['cancel'] }-->
+	.cart_status_<!--{ = .value_}--> {color:red;}
+	<!--{ / }-->
+	.cart_redirect_Y {color:blue;}
+</style>
+<table width="100%" class="table_basic multi v7">
+	<colgroup>
+		<col>
+		<col width="20%">
+		<col width="20%">
+		<col width="12%">
+		<col width="15%">
+	</colgroup>
+	<tbody>
+		<tr>
+			<th>
+				도메인
+			</th>
+			<th>
+				인증서
+			</th>
+			<th>
+				유효기간
+			</th>
+			<th>
+				상태
+			</th>
+			<th>
+				리다이렉트 설정
+			</th>
+		</tr>
+		
+		<!--{ @ loop }-->
+		<tr>
+			<td class="domain-title-favicon">
+				<!--{ @ .value_[ssllib->sslConfigColumn['domainList']] }-->
+				<div>
+					<span class="platform-domain"><!--{ = ..value_ }--></span>
+				</div>
+				<!--{ / }-->
+			</td>
+			<td class="center">
+				<!--{ ? .value_[ssllib->sslConfigColumn['certOut']] == 'Y' }-->
+				(<!--{ = ssllib->codeSslConfigCertOut[.value_[ssllib->sslConfigColumn['certOut']]] }-->)
+				<!--{ : }-->
+				(<!--{ = ssllib->codeSslConfigCertPaid[.value_[ssllib->sslConfigColumn['certPaid']]] }-->)
+				<!--{ / }-->
+				<!--{ = .value_[ssllib->sslConfigColumn['certName']] }-->
+			</td>
+			<td class="center">
+				<!--{ = .value_[ssllib->sslConfigColumn['certPeriod']] }-->
+			</td>
+			<td class="center cart_status_<!--{ = .value_[ssllib->sslConfigColumn['certStatus']] }-->">
+				<!--{ = .value_[ssllib->sslConfigColumn['certStatusText']] }-->
+			</td>
+			<td class="center">
+				<!--{ ? (
+					in_array(.value_[ssllib->sslConfigColumn['certStatus']], ssllib->valueSslConfigCertStatus['done'])
+				)}-->
+				<span class='cart_redirect_<!--{ = .value_[ssllib->sslConfigColumn['certRedirect']] }-->'>
+					<!--{ = .value_[ssllib->sslConfigColumn['certRedirectText']] }-->
+				</span>
+				
+					<button type="button"
+						data-ssl-seq="<!--{ = .value_[ssllib->sslConfigColumn['certSeq']] }-->"
+						data-redirect="<!--{ = .value_[ssllib->sslConfigColumn['certRedirect']] }-->"
+						class="btn_set_ssl_redirect btn_resp b_gray2">
+						<!--{ ? .value_[ssllib->sslConfigColumn['certRedirect']] == 'Y' }-->
+						해제
+						<!--{ : }-->
+						설정
+						<!--{ / }-->
+					</button>
+				
+				<!--{ : }-->
+				-
+				<!--{ / }-->
+			</td>
+		</tr>
+		<!--{ : }-->
+		<tr>
+			<td class="center" colspan="5">
+				설치된 보안서버 인증서(SSL)가 없습니다.
+			</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+</table>
+<!-- 페이징 -->
+
+<!--{ ? loop.size_ > 0 }-->
+<div class="paging_navigation">{pagin}</div>
+<!--{ / }-->

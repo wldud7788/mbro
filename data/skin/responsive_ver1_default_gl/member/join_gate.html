@@ -1,0 +1,134 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 회원가입 @@
+- 파일위치 : [스킨폴더]/member/join_gate.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="title_container">
+	<h2><span designElement="text">회원가입</span></h2>
+</div>
+<p class="mypage_greeting gray_06" designElement="text">회원이 되셔서 할인쿠폰/마일리지 등 다양한 서비스를 받으세요.</p>
+
+<div class="resp_login_wrap">
+	<!-- 탭 -->
+	<div id="memberSelect" class="tab_basic fullsize">
+		<ul>
+			<!--{? joinform.join_type!='business_only'}-->
+			<li class="on"><a href="javascript:void(0)"><span designElement="text">개인회원</span></a></li>
+			<!--{ / }-->
+			<!--{? joinform.join_type!='member_only'}-->
+			<li><a href="javascript:void(0)"><span designElement="text">사업자회원</span></a></li>
+			<!--{ / }-->
+		</ul>
+	</div>
+
+	<!--{? fb_invite }-->
+	<div class="join_fb_invite">
+		<span class="fb_name">{fb_invite.user_name}</span> 님으로부터 초대받으셨습니다.
+	</div>
+	<!--{ / }-->
+
+	
+
+	<!--{? joinform.join_type!='business_only'}-->
+	<div class="sub_page_tab_contents">
+		<p class="join_btns">
+			<button type="button" class="btn_resp size_c color2 Wmax" onclick="document.location.href='agreement?join_type=member'"><span designElement="text">회원가입</span></button>
+		</p>
+
+		<!--{? joinform.use_sns }-->
+		<h3 class="title_sub3 v3 Mt10"><span designElement="text">또는 SNS 회원가입</span></h3>
+		<ul class="sns_login_ul">
+			<!--{@ joinform.use_sns }-->
+				<!--{? .key_ }-->
+			<li><div class="img"><img src="../images/design/sns_icon_{=.key_}.png" onclick="document.location.href='agreement?join_type={=.value_['cd']}member'" alt=" {=.key_} 회원가입" title="{=.value_['nm']} 회원가입"></div></li>
+				<!--{ / }-->
+			<!--{ / }-->
+		</ul>
+		<!--{ / }-->
+	</div>
+	<!--{ / }-->
+
+	<!--{? joinform.join_type!='member_only'}-->
+	<div class="sub_page_tab_contents">
+		<p class="join_btns">
+			<button type="button" class="btn_resp size_c color2 Wmax" onclick="document.location.href='agreement?join_type=business'"><span designElement="text">회원가입</span></button>
+		</p>
+
+		<!--{? joinform.use_sns }-->
+		<h3 class="title_sub3 v3 Mt10"><span designElement="text">또는 SNS 회원가입</span></h3>
+		<ul class="sns_login_ul">
+			<!--{@ joinform.use_sns }-->
+				<!--{? .key_ }-->
+			<li><div class="img"><img src="../images/design/sns_icon_{=.key_}.png" onclick="document.location.href='agreement?join_type={=.value_['cd']}business'" alt=" {=.key_} 회원가입" title="{=.value_['nm']} 회원가입"></div></li>
+				<!--{ / }-->
+			<!--{ / }-->
+		</ul>
+		<!--{ / }-->
+	</div>
+	<!--{ / }-->
+
+	<!--{? emoneyapp.emoneyJoin > 0 || emoneyapp.emoneyInvitees > 0 || couponmember.coupon_seq }-->
+	<h3 class="title_sub2 Mt50"><b class="Fw400"><span designElement="text">신규회원을 위한 혜택을 놓치지 마세요!</span></b></h3>
+	<div class="join_member_benefit_detail">
+		<!--{? emoneyapp.emoneyJoin > 0 }-->
+		<ul>
+			<li class="tt"><span designElement="text">마일리지</span></li>
+			<li class="dd">
+				{=get_currency_price(emoneyapp.emoneyJoin, 2, '', '<span class="num">_str_price_</span>')}				
+			</li>
+		</ul>
+		<!--{ / }-->
+		<!--{? emoneyapp.emoneyInvitees > 0 && fb_invite}-->
+		<ul>
+			<li class="tt"><span designElement="text">추가 마일리지</span></li>
+			<li class="dd">
+				{=get_currency_price(emoneyapp.emoneyInvitees, 2, '', '<span class="num">_str_price_</span>')}
+			</li>
+		</ul>
+		<!--{ / }-->
+		<!--{@ couponmemberarray }-->
+			<!--{? .type == 'member_shipping' }-->
+			<ul>
+				<li class="tt"><span designElement="text">배송비 쿠폰</span></li>
+				<li class="dd">
+					<!--{? .shipping_type == 'free'}-->
+						<!--{? .limit_goods_price_title}-->
+						{.limit_goods_price_title}
+						<!--{ / }--> 
+						<span class="num">배송비무료</span>
+						<p class="Fs14 gray_06">(최대{=get_currency_price(.max_percent_shipping_sale,2)})</p>
+					<!--{ : }-->
+						{=get_currency_price(.won_shipping_sale, 2, '', '<span class="num">_str_price_</span>')}
+					<!--{ / }-->
+				</li>
+			</ul>
+			<!--{ : }-->
+			<ul>
+				<li class="tt"><span designElement="text">회원가입 쿠폰</span></li>
+				<li class="dd">
+					<!--{? .sale_type == 'percent' }-->
+						<span class="num">{.percent_goods_sale}</span>%
+					<!--{ : }-->
+						{=get_currency_price(.won_goods_sale, 2, '', '<span class="num">_str_price_</span>')}
+					<!--{ / }-->
+				</li>
+			</ul>
+			<!--{ / }-->
+		<!--{ / }-->
+	</div>
+	<!--{ / }-->
+
+</div>
+
+<script>
+$(function(){
+	// 탭 클릭시
+	$("#memberSelect li").each(function(i){
+		$(this).click(function(){
+			$("#memberSelect li").removeClass("on");
+			$(this).addClass("on");
+			$(".sub_page_tab_contents").hide().eq(i).show();
+		});
+	}).eq(0).click();
+});
+</script>

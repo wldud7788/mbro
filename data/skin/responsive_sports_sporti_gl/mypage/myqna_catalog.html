@@ -1,0 +1,212 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 나의 1:1 문의 List @@
+- 파일위치 : [스킨폴더]/mypage/myqna_catalog.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">나의 1:1 문의</span></h2>
+		</div>
+
+		<!-- {? viewlist != 'view' //리스트에만출력 } -->
+		<!-- {/} -->
+
+		<div id="boardlayout">
+			<script type="text/javascript">
+				//<![CDATA[
+				var board_id = '{manager.id}';
+				var boardlistsurl = '{boardurl->lists}';
+				var boardwriteurl = '{boardurl->write}';
+				var boardviewurl = '{boardurl->view}';
+				var boardmodifyurl = '{boardurl->modify}';
+				//]]>
+			</script>
+			<script type="text/javascript" src="/app/javascript/js/board.js?v=20200513"></script>
+			<script type="text/javascript" src="/app/javascript/jquery/jquery.form.js" ></script>
+			<script type="text/javascript" src="/app/javascript/plugin/validate/jquery.validate.js"  charset="utf-8"></script>
+
+			<div id="bbslist">
+				
+				<!-- 검색 -->
+				<form name="boardsearch" id="boardsearch" >
+					<input type="hidden" name="id" value="{manager.id}" >
+					<input type="hidden" name="popup" value="{_GET.popup}" >
+					<input type="hidden" name="iframe" value="{_GET.iframe}" >
+					<input type="hidden" name="goods_seq" value="{_GET.goods_seq}" >
+					<input type="hidden" name="perpage" id="perpage" value="{_GET.perpage}" >
+					<input type="hidden" name="page" id="page" value="{_GET.page}" >
+					<input type="hidden" name="category" id="category" value="{_GET.category}" >
+					<input type="hidden" name="score" id="score" value="{_GET.score}" >
+
+					<ul class="bbs_top_wrap">
+						<li class="left">
+							<!--{? categorylist}-->
+							<select name="category" id="searchcategory">
+								<option value="" selected="selected" >- 질문유형전체 -</option>
+								<!--{@ categorylist}-->
+								<option value="{.value_}" {? _GET.category == .value_} selected="selected" {/}>{.value_}</option>
+								<!--{/}-->
+							</select>
+							<!--{ / }-->
+						</li>
+						<li class="right2">
+							<span class="searchform">
+								<input type="text" name="search_text" id="search_text" class="res_bbs_search_input" value="{_GET.search_text}" title="제목, 내용" />
+								<button type="submit" class="btn_resp size_b">검색</button>
+								<button type="button" class="btn_resp size_b hide" onclick="document.location.href='{boardurl->lists}'">초기화</button>
+							</span>
+						</li>
+					</ul>
+				</form>
+
+				<div class="article_info hide">
+					{? sc.totalcount > sc.searchcount }검색 {=number_format(sc.searchcount)}개/{/}총 {=number_format(sc.totalcount)}개(현재 {? sc.total_page== 0 }0{:}{=((sc.page/sc.perpage)+1)}{/}/총 {=number_format(sc.total_page)}페이지)
+				</div>
+
+				{ ? noticeloop || loop }
+				<div class="res_table">
+					<ul class="thead">
+						<li style="width:45px;">번호</li>
+						<li style="width:80px;">상태</li>
+						<li style="width:100px;">분류</li>
+						<li>제목</li>
+						<li style="width:130px;">날짜</li>
+						<li style="width:45px;">조회</li>
+					</ul>
+					{? noticeloop }
+						{@ noticeloop }
+						<ul class="tbody notice {? .display == 1}gray{/}">
+							<li class="num"><span class="mtitle">공지</span> {.number}</li>
+							<li class="mo_hide"><strong class="pointcolor">공지</strong></li>
+							<li>{.category}</li>
+							<li class="subject">
+								<span class="hand boad_view_btn{.isperm_read}" viewlink="{boardurl->view}{.seq}" viewtype="{manager.viewtype}" pagetype="{pagetype}" board_seq="{.seq}"  board_id="{manager.id}">
+									<a>
+										{.iconmobile}{.blank} {.subjectcut} 
+										{? .comment >0 }<span class="comment">({=number_format(.comment)})</span>{/}
+										{.iconimage}{.iconfile}{.iconnew}{.iconhot}{.iconhidden}
+									</a>
+								</span>
+							</li>
+							<li>{=str_replace("-","/",.date)}</li>
+							<li><span class="mtitle">조회:</span> {.hit}</li>
+						</ul>
+						{/}
+					{/}
+					{? loop }
+						{@ loop }
+						<ul class="tbody {? .display == 1}gray{/} {? .reply_state == 'complete'}complete{/}">
+							<li class="mo_hide"><span class="mtitle">번호:</span> {.number}</li>
+							<li>{? .reply_state == 'standby'}<span class="reply_title">답변대기</span>{: .reply_state == 'complete'}<span class="reply_title pointcolor2" >답변완료</span>{/}</li>
+							<li style="order:-4;">{.category}</li>
+							<li class="subject">
+								<span class="hand boad_view_btn{.isperm_read}" viewlink="{boardurl->view}{.seq}" viewtype="{manager.viewtype}" pagetype="{pagetype}" board_seq="{.seq}" board_id="{manager.id}">
+									<a>
+										{.iconmobile}{.blank} {.subjectcut} 
+										{? .comment >0 }<span class="comment">({=number_format(.comment)})</span>{/}
+										{.iconimage}{.iconfile}{.iconnew}{.iconhot}{.iconhidden}
+									</a>
+								</span>
+							</li>
+							<li>{=str_replace("-","/",.date)}</li>
+							<li><span class="mtitle">조회:</span> {.hit}</li>
+						</ul>
+						{/}
+					{/}
+				</div>
+				{ : }
+				<div class="no_data_area2">
+					등록된 게시글이 없습니다.
+				</div>
+				{ / }
+
+				{? pagin }
+				<div id="pagingDisplay" class="paging_navigation">{pagin}</div>
+				{/}
+
+				<ul class="bbs_bottom_wrap">
+					<li class="right">
+						<button type="button" name="boad_write_btn{manager.isperm_write}" id="boad_write_btn{manager.isperm_write}" board_id="{boardid}" fileperm_read="{manager.fileperm_write}" class="btn_resp size_b color2" />{manager.name} 쓰기</button>
+					</li>
+				</ul>
+
+				<!-- 나의 1:1 문의에서는 사용되지 않는 것으로 보임 -->
+				<div id="BoardPwCk" class="hide BoardPwCk">
+					<div class="msg">
+						<h3> 비밀번호 확인</h3>
+						<div>게시물 등록시에 입력했던 비밀번호를 입력해 주세요.</div>
+					</div>
+					<form name="BoardPwcheckForm" id="BoardPwcheckForm" method="post" action="{=sslAction('../board_process')}" target="actionFrame " >
+					<input type="hidden" name="seq" id="pwck_seq" value="" />
+					<input type="hidden" name="returnurl" id="pwck_returnurl" value="" />
+					<div class="ibox">
+						<input type="password" name="pw" id="pwck_pw" class="input" />
+						<input type="submit" id="BoardPwcheckBtn" value=" 확인 " class="btnblue" />
+						<input type="button" value=" 취소 " class="bbs_btn" onclick="$('#BoardPwCk').dialog('close');" />
+					</div>
+					</form>
+				</div>
+
+				<div id="CmtBoardPwCkNew" class="hide BoardPwCk">
+					<div class="msg">
+						<h3> 비밀번호 확인</h3>
+						<div>댓글/답글 등록시에 입력했던 비밀번호를 입력해 주세요.</div>
+					</div>
+					<form name="BoardPwcheckFormNew" id="CmtBoardPwcheckFormNew" method="post" >
+					<input type="hidden" name="modetype" id="cmtmodetype_new" value="" />
+					<input type="hidden" name="seq" id="cmt_pwck_seq_new" value="" />
+					<input type="hidden" name="cmtseq" id="cmt_pwck_cmtseq_new" value="" />
+					<input type="hidden" name="cmtparentseq" id="cmt_pwck_cmtreplyseq_new" value="" />
+					<input type="hidden" name="cmtreplyidx" id="cmt_pwck_cmtreplyidx_new" value="" />
+					<div class="ibox">
+						<input type="password" name="pw" id="cmt_pwck_pw_new" class="input" />
+						<input type="button" id="CmtBoardPwcheckBtnNew" value=" 확인 " class="btnblue" />
+						<input type="button" value=" 취소 " class="btngray" onclick="$('#CmtBoardPwCkNew').dialog('close');" />
+					</div>
+					</form>
+				</div>
+				<!-- //나의 1:1 문의에서는 사용되지 않는 것으로 보임 -->
+			</div>
+		</div>
+
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+<script type="text/javascript">
+$(function() {
+	var pagingTotalNum = $('#pagingDisplay a').length;
+	if ( pagingTotalNum < 2 ) {
+		$('#pagingDisplay').hide();
+	}
+});
+</script>
+
+
+{? _GET.iframe }
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(document).resize(function(){
+		  $('#'+board_id+'_frame',parent.document).height($('#boardlayout').height()+50);
+		 }).resize();
+	});
+	function iframeset(){
+		  $('#'+board_id+'_frame',parent.document).height($('#boardlayout').height()+50);
+	}
+</script>
+{/} 

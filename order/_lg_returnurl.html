@@ -1,0 +1,22 @@
+<html>
+<head>
+	<script type="text/javascript">
+	
+		function setLGDResult() {
+			document.getElementById('LGD_PAYINFO').submit();
+		}
+		
+	</script>
+</head>
+<body onload="setLGDResult()">
+<form method="post" name="LGD_PAYINFO" id="LGD_PAYINFO" action="payres">
+<?php
+   if( is_array($_REQUEST) ) {                                                                                                                                                    
+      foreach( $_REQUEST as $name => $value) {                                                                                                                 
+        printf("<input type='hidden' name='%s' id='%s' value='%s'>\n", $name, $name, $value);                                                                                                          
+      }                                                                                                                                                                           
+    }                                                                                                                                    
+?>
+</form>
+</body>
+</html>

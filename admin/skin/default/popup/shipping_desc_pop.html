@@ -1,0 +1,37 @@
+<div class="delivery-info-lay">
+	<div class="right pdb5">
+		<input type="button" class="resp_btn" onclick="auto_info_pop();" value="자동안내 설명" />
+	</div>
+<!--{ ? desc.std || desc.add }-->
+	<table class="table_basic thl">
+	<col width="30%"/><col width="70%"/>
+	<!--{ ? desc.std }-->
+	<tr>
+		<th>기본 배송비</th>
+		<td>{desc.std}</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? desc.add }-->
+	<tr>
+		<th>추가 배송비</th>
+		<td>{desc.add}</td>
+	</tr>
+	<!--{ / }-->
+	</table>
+<!--{ : }-->
+	<div>배송그룹을 다시한번 저장해주세요.</div>
+<!--{ / }-->
+	<div class="resp_message">
+		- 상기 문구는 해당 배송그룹 해당 배송방법에서 자동안내 또는 직접입력 가능합니다.
+	</div>
+
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onclick="closeDialogEvent(this);">닫기</button>
+	</div>
+</div>
+
+<!-- 자동안내 설명 :: START -->
+<div class="hide" id="autoinfoPopup">
+{ #delivery_desc }
+</div>
+<!-- 자동안내 설명 :: END -->

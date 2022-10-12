@@ -1,0 +1,120 @@
+[2022-07-08 00:35:56.181074000]
+MODE : Request
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-07-08 00:35:56.229909000]
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-07-08 00:35:56.303463000]
+MODE : Request
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-07-08 00:35:56.347627000]
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-07-08 00:35:57.179815000]
+MODE : Request
+REMOTE_IP : 220.230.168.9
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-07-08 00:35:57.220006000]
+REMOTE_IP : 220.230.168.9
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-07-08 00:36:01.647468000]
+MODE : Request
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-07-08 00:36:01.687144000]
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-07-08 00:36:01.695167000]
+MODE : Request
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-07-08 00:36:01.742073000]
+REMOTE_IP : 59.186.249.241
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-07-08 00:36:02.142604000]
+MODE : Request
+REMOTE_IP : 220.230.168.27
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-07-08 00:36:02.184289000]
+REMOTE_IP : 220.230.168.27
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

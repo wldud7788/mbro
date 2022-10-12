@@ -1,0 +1,344 @@
+{ #layout_header }
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".tax").change(function(){
+		var msg = "";
+		switch($(this).val()){
+			case "Y": msg="발급"; break;
+			case "N": msg="미발급"; break;
+		}
+		if(!confirm(msg+"처리하시겠습니까?")) return;
+		
+		var params = "type=tax&value="+$(this).val()+"&seq="+$(this).attr("seq");
+		actionFrame.location.href = "/selleradmin/account/complete_process?"+params;
+	});
+
+	$(".pay").change(function(){
+		var msg = "";
+		switch($(this).val()){
+			case "Y": msg="지급"; break;
+			case "N": msg="미지급"; break;
+		}
+		if(!confirm(msg+"처리하시겠습니까?")) return;
+		
+		var params = "type=pay&value="+$(this).val()+"&seq="+$(this).attr("seq");
+		actionFrame.location.href = "/selleradmin/account/complete_process?"+params;
+	});
+
+	$("select[name='s_year'] option[value='{_GET.s_year}']").attr('selected',true);
+	$("select[name='s_month'] option[value='{_GET.s_month}']").attr('selected',true);
+	$("select[name='e_year'] option[value='{_GET.e_year}']").attr('selected',true);
+	$("select[name='e_month'] option[value='{_GET.e_month}']").attr('selected',true);
+
+	$(".settle_manual").click(function(){
+		openDialog("실매출", "settle_manual", {"width":600,"height":300});
+	});
+
+	$(".salescost_admin_open").click(function(){
+		var sales_list	= $(this).parent().children("span.salescost_admin_detail").text();
+		var sales_array	= sales_list.split('|');
+		var tdNum		= 0;
+		$(".admin_salescost_td").each(function(){
+			$(this).text(sales_array[tdNum]);
+			tdNum++;
+		});
+
+		openDialog("통신판매중계자 부담금액", "admin_salescost", {"width":"60%","height":200});
+	});
+
+	$(".salescost_provider_open").click(function(){
+		var sales_list	= $(this).parent().children("span.salescost_provider_detail").text();
+		var sales_array	= sales_list.split('|');
+		var tdNum		= 0;
+		$(".provider_salescost_td").each(function(){
+			$(this).text(sales_array[tdNum]);
+			tdNum++;
+		});
+
+		openDialog("판매입점사 부담금액", "provider_salescost", {"width":"30%","height":200});
+	});
+});
+</script>
+<style>
+.price {text-align:right;word-break:break-all;padding-right:2px !important;}
+.year_sel{width:60px}
+.month_sel{width:40px}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar"  >
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2><span class="darkgray">정산 리스트 (완료)</h2>
+		</div>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+
+<!-- 리스트검색폼 : 시작 -->
+<div class="search-form-container">
+	<form name="accountsearch" id="accountsearch" >
+	<table class="search-form-table">
+	<tr>
+		<td>
+		
+		<table class="sf-option-table">
+		<tr>
+			<th><span>정산기간</span></th>
+			<td>
+				<select name="s_year" class="year_sel">
+					{@ year}
+					<option value="{.value_}">{.value_}</option>
+					{ / }
+				</select>
+				<select name="s_month" class="month_sel">
+					{@ month }
+					<option value="{.value_}">{.value_}</option>
+					{ / }
+				</select>
+				&nbsp;&nbsp;<span class="gray">-</span>&nbsp;&nbsp;
+				<select name="e_year" class="year_sel">
+					{@ year}
+					<option value="{.value_}">{.value_}</option>
+					{ / }
+				</select>
+				<select name="e_month" class="month_sel">
+					{@ month }
+					<option value="{.value_}">{.value_}</option>
+					{ / }
+				</select>
+			</td>
+			<td width="50"></td>
+			<th><span>정산여부</span></th>
+			<td>
+				<select name="sc_status" class="year_sel">
+					<option value="hold" {? _GET.sc_status=='hold' }selected{ / }>보류</option>
+					<option value="carried" {? _GET.sc_status=='carried' }selected{ / }>이월</option>
+					<option value="complete" {? _GET.sc_status=='complete' }selected{ / }>정산완료</option>
+				</select>
+			</td>
+			<td width="50"></td>
+			<td><span class="btn small"><button type="submit" /><span>검색</span></button></span></td>
+		</tr>
+		</table>
+		
+		</td>
+	</tr>
+	</table>
+	</form>
+</div>
+<!-- 게시물리스트검색폼 : 끝 -->
+
+<div class="clearbox"></div>
+<div class="clearbox"></div>
+<div id="account_table">
+<table width="100%" class="info-table-style">
+	<colgroup>
+	<col /><!-- 기간 -->
+	<col /><!-- 입점사ID -->
+	<col /><!-- 판매 - 상품금액 -->
+	<col /><!-- 판매 - 통신판매 중계자 수수료 (A)-->
+	<col /><!-- 판매 - 판매입점사(가)-->
+	<col /><!-- 판매 - 배송비(나)-->
+	<col /><!-- 할인공제 - 조정금액-->
+	<col /><!-- 할인공제 - 통신판매 중계자(B) -->
+	<col /><!-- 할인공제 - 판매입점사(다)-->
+	<col /><!-- 반품/교환 배송비(라)-->
+	<col /><!-- 환불 - 환불금액 -->
+	<col /><!-- 환불 - 통신판매중계자(C)-->
+	<col /><!-- 환불 - 판매입점사(마)-->
+	<col /><!-- 마진금액 -->
+	<col /><!-- 정산금액 -->
+	<col /><!-- 정산여부-->
+	</colgroup>
+<thead>
+<tr>
+	<th class="its-th-align" rowspan="2">주기</th>
+	<th class="its-th-align" rowspan="2">기간</th>
+	
+	<th class="its-th-align" colspan="3">판매</th>	
+	<th class="its-th-align" colspan="2">할인공제</th>	
+	<th class="its-th-align" rowspan="2"><span class="red">반품/교환<br/>배송비(라)</span></th>
+	<th class="its-th-align" rowspan="2"><span class="red">위탁배송비<br/>(바)</span></th>
+	<th class="its-th-align" colspan="2">환불</th>
+	<th class="its-th-align" rowspan="2"><span class="red">정산금액</span></th>
+	<th class="its-th-align" rowspan="2">정산여부</th>
+	<th class="its-th-align" rowspan="2">세금계산서<br>발급여부</th>
+	<th class="its-th-align" rowspan="2">지급여부</th>
+</tr>
+<tr>
+	<th class="its-th-align">상품금액</th>
+	
+	<th class="its-th-align"><span class="red">판매<br/>입점사(가)</span></th>
+	<th class="its-th-align"><span class="red">배송비(나)</span></th>
+	<th class="its-th-align">조정금액</th>
+	
+	<th class="its-th-align"><span class="red">판매<br/>입점사(다)</span></th>
+	<th class="its-th-align">환불금액</th>
+	
+	<th class="its-th-align"><span class="red">판매<br/>입점사(마)</span></th>		
+</tr>
+</thead>
+
+<tbody>
+<!--{ @ loop }-->
+<tr>
+	<td class="its-td-align center"><a href="detail?export={.acc_date}&provider={.provider_seq}&pay_period={.period_type}&account_round={.account_round}&account_seq={.seq}&account_gb={=_GET.sc_status}" target="_blank">
+	{?.period_type}월 {.period_type}회{:}월 1회{/}</a></td>
+	<td class="its-td-align center"><a href="detail?export={.acc_date}&provider={.provider_seq}&pay_period={.period_type}&account_round={.account_round}&account_seq={.seq}&account_gb={=_GET.sc_status}" target="_blank">{.period}</a></td>
+	
+
+	<td class="its-td-align price">{=get_currency_price(.sell_price)}</td>
+
+	<td class="its-td-align price"><span class="red">{=get_currency_price(.sell_price-.sales_charge)}</span></td>
+	<td class="its-td-align price"><span class="red">{=get_currency_price(.sell_shipping)}</span></td>
+	<td class="its-td-align price">{ ? .tot_salescost > 0}-{ / }{=get_currency_price(.tot_salescost)}</td>
+	
+	<td class="its-td-align price"><span class="red">{ ? .salescost_provider > 0}-{ / }{=get_currency_price(.salescost_provider)}</span></td>
+	<td class="its-td-align price"><span class="red">{=get_currency_price(.ret_shipping)}</span></td>
+	<td class="its-td-align price">{ ? (.ref_price+.ref_fee) > 0}-{ / }{=get_currency_price(.ref_price+.ref_fee)}</td>	
+	<td class="its-td-align price"><span class="red">{ ? .ref_price > 0}-{ / }{=get_currency_price(.ref_price)}</span></td>
+	<td class="its-td-align price">
+		<span class="red">		
+		{ ? .total_shipping_cost_by_shop > 0}-{ / }{=get_currency_price(.total_shipping_cost_by_shop)}
+		<span class="red helpicon" title="배송비 : {=get_currency_price(.shipping_cost_by_shop)}<br/>반품배송비 : {=get_currency_price(.return_shipping_price_by_shop)}"></span>
+		</span>
+	</td>	
+	<td class="its-td-align price"><span class="red">{=get_currency_price(.acc_price)}</span></td>	
+	<td class="its-td-align center">
+		{? .acc_status=='complete' }
+		정산완료
+		{ : .acc_status=='hold' }
+		보류
+		{ : .acc_status=='carried' }
+		이월		
+		{ / }
+	</td>
+	<td class="its-td-align center">
+		{? .acc_tax_type=='N' }
+		미발급
+		{: .acc_tax_type=='Y' }
+		발급
+		{ / }		
+	</td>
+	<td class="its-td-align center">
+		{? .acc_pay_type=='N' }
+		미지급
+		{: .acc_pay_type=='Y' }
+		지급
+		{ / }		
+	</td>
+</tr>
+<!--{ / }-->
+</tbody>
+
+</table>
+</div>
+
+
+<!-- 서브 레이아웃 영역 : 끝 -->
+<br style="line-height:10px;" />
+
+
+<div id="settle_manual" class="hide">
+	<table width="100%" class="info-table-style">
+	<colgroup>
+		<col width="15%" />
+		<col />
+	</colgroup>
+	<tr>
+		<th class="its-th-align">개수</th>
+		<td class="its-td-align left pdl5">판매 개수 – 환불 개수</td>
+	</tr>
+	<tr>
+		<th class="its-th-align">매출액</th>
+		<td class="its-td-align left pdl5">판매 금액 – 환불 금액</td>
+	</tr>
+	<tr>
+		<th class="its-th-align">유료배송</th>
+		<td class="its-td-align left pdl5">판매 배송결제</td>
+	</tr>
+	<tr>
+		<th class="its-th-align">합계</th>
+		<td class="its-td-align left pdl5">실매출 매출액 + 실매출 유료배송</td>
+	</tr>
+	<tr>
+		<th class="its-th-align">수수료</th>
+		<td class="its-td-align left pdl5">실매출 매출액 x 수수료 (주문의 상품단위로 수수료가 계산되어 합산됨)</td>
+	</tr>
+	</table>
+</div>
+
+<div id="admin_salescost" class="hide">
+	<table width="100%" class="info-table-style">
+	<colgroup>
+		<col width="" /><!-- 쿠폰 -->
+		<col width="" /><!-- 등급 -->
+		<col width="" /><!-- 좋아요 -->
+		<col width="" /><!-- 모바일 -->
+		<col width="" /><!-- 코드 -->
+		<col width="" /><!-- 유입처 -->
+		<col width="" /><!-- 에누리 -->
+		<col width="" /><!-- 마일리지 -->
+		<col width="" /><!-- 예치금 -->
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th-align">쿠폰</th>
+		<th class="its-th-align">등급</th>
+		<th class="its-th-align">좋아요</th>
+		<th class="its-th-align">모바일</th>
+		<th class="its-th-align">코드</th>
+		<th class="its-th-align">유입처</th>
+		<th class="its-th-align">에누리</th>
+		<th class="its-th-align">마일리지</th>
+		<th class="its-th-align">예치금</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+		<td class="its-td-align price pdr5 admin_salescost_td"></td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+<div id="provider_salescost" class="hide">
+	<table width="100%" class="info-table-style">
+	<colgroup>
+		<col width="" /><!-- 쿠폰 -->
+		<col width="" /><!-- 코드 -->
+		<col width="" /><!-- 유입처 -->
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th-align">쿠폰</th>
+		<th class="its-th-align">코드</th>
+		<th class="its-th-align">유입처</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td class="its-td-align price pdr5 provider_salescost_td"></td>
+		<td class="its-td-align price pdr5 provider_salescost_td"></td>
+		<td class="its-td-align price pdr5 provider_salescost_td"></td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+{ #layout_footer }

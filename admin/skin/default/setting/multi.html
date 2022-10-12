@@ -1,0 +1,142 @@
+{ #layout_header }
+
+<form name="settingForm" method="post" enctype="multipart/form-data" action="../setting_process/multi" target="actionFrame">
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar" class="gray-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>상점 정보</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+<div class="sub-layout-container body-height-resizing">
+
+	<!-- 서브메뉴 탭 : 시작 -->
+	{ #setting_menu }
+	<!-- 서브메뉴 탭 : 끝 -->
+
+	<!-- 서브메뉴 바디 : 시작-->
+	<div class='slc-body-wrap'>
+		<div class="slc-body">
+
+			<!-- <div class="center top">
+				<span>쇼핑몰{config_system.admin_env_seq} {config_system.basic_currency} {language_codes[config_system.language].name},{currency_codes[config_system.basic_currency].hangul}</span>
+				<span>메뉴얼 ></span>
+			</div> -->
+
+			<div class="item-title">상점 설정</div>
+
+			<table class="table_basic">
+				
+				<colgroup>
+					<col width="11%" />					
+					<col width="21%" />
+					<col width="21%" />
+					<col width="9%" />
+					<col width="10%" />
+					<col width="10%" />
+					<col width="10%" />
+					<col width="8%" />						
+				</colgroup>
+
+				<tr>
+					<th>관리명	</th>
+					<th>관리 도메인</th>
+					<th>정식 도메인</th>
+					<th>안내 언어</th>
+					<th>기본통화</th>
+					<th>설치일</th>
+					<th>종료일</th>
+					<th>관리</th>
+				</tr>
+					
+			<!--{ @loop }-->
+				<tr>
+				
+					<!-- 관리명 -->
+					<td class="center">
+						{.admin_env_name}
+					</td>
+
+					<!-- 임시 도메인 -->
+					<td>
+						<dl class="dl_list_01 w60 v2">
+							<dt>[PC]</dt>
+							<dd>{.temp_domain}</dd>
+
+							<dt>[모바일]</dt>
+							<dd>m.{.temp_domain}</dd>
+						</dl>							
+					</td>
+
+					<!-- 정식 도메인 -->
+					<td>
+						<!--{ ? .domain }-->
+						<dl class="dl_list_01 w60 v2">
+							<dt>[PC]</dt>
+							<dd>{.domain}</dd>
+
+							<dt>[모바일]</dt>
+							<dd>m.{.domain}</dd>
+						</dl>
+						<!--{ / }-->
+
+						<!--{ ? .favicon }-->
+						<img src="//{.temp_domain}{.favicon}" border="0" style="max-width:26px;max-height:26px;">
+						<!--{ / }-->
+
+					</td>
+
+					<!-- 안내 언어 -->
+					<td class="center">						
+						{language_codes[.language].name}
+					</td>
+
+					<!-- 기본통화 -->
+					<td class="center">
+						<!--{ ? currency_codes[.currency] }-->
+						{.currency},{currency_codes[.currency].nation},{currency_codes[.currency].hangul}
+						<!--{ / }-->
+					</td>
+
+					<!-- 설치 일 -->
+					<td class="center">
+						{config_system.service.setting_date}
+					</td>
+
+					<!-- 종료 일 -->
+					<td class="center">						
+						{expireDay}
+					</td>
+
+					<!-- 관리 -->
+					<td class="center">
+						<!--{? .shopSno == config_system.shopSno }-->
+							<button class="btn_resp b_gray2" type="button" onclick="location.href='../setting/multi_basic?no={.admin_env_seq}';">설정</button>
+						<!--{:}-->
+							<button class="btn_resp b_gray2" type="button" onclick="window.open('//{.temp_domain}/admin/setting/multi_basic?no={.admin_env_seq}');" class="btn_link">설정</button>
+						<!--{/}-->
+						</td>
+					</tr>
+	<!--{ / }-->
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- 서브메뉴 바디 : 끝 -->
+
+</div>
+<!-- 서브 레이아웃 영역 : 끝 -->
+
+</form>
+
+{ #layout_footer }

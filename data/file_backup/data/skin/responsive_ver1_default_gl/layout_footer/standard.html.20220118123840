@@ -1,0 +1,230 @@
+<div id="layout_footer" class="layout_footer">
+
+	<div class="footer_a" {? preg_match('/goods\/view/',_SERVER.REQUEST_URI) }style="display:none;"{ / }>
+		<div class="resp_wrap">
+			<ul class="menu1">
+		<!-- 		<li class="foot_menu_d1 cs">
+					<h4 class="title"><a href="/service/cs" designElement="text">CS CENTER</a></h4>
+					<ul class="list v4">
+						<li class="compay_phone">
+							<a href="tel:{config_basic.companyPhone}"><img src="../images/common/icon_call_02.png" class="img_call" alt="" />{config_basic.companyPhone}</a>
+						</li>
+						<li class="compay_phone">
+							<a href="../mypage/myqna_catalog">1:1 문의 바로가기</a>
+						</li>
+						<li><span designElement="text">open : am 10:00 ~ pm 06:00 / Sat, Sun, Holiday OFF</span></li>
+						<li class="Pt2"><a href="mailto:{config_basic.companyEmail}">{config_basic.companyEmail}</a></li>
+					</ul>
+				</li> -->
+				<li class="foot_menu_d2 bank">
+					<h4 class="title"><span designElement="text">BANK INFO</span></h4>
+					<ul class="list v3 gray_03">
+						<!--{@bank_loop}-->
+						<li>
+							<p>{.bank} {.account}</p>
+							<p><span class="gray_06" designElement="text">예금주 :</span> {.bankUser}</p>
+						</li>
+						<!--{/}-->
+					</ul>
+				</li>
+				<li class="foot_menu_d3 guide">
+					<h4 class="title"><span designElement="text">SHOP MENU</span></h4>
+					<ul class="list v2 clearbox">
+						<li>
+							<a href="/mypage/index"><img src="../images/common/menu_guide_03.png" alt="" /></a>
+							<p class="desc" designElement="text">MYPAGE</p>
+						</li>
+						<li>
+							<a href="/order/cart"><img src="../images/common/menu_guide_04.png" alt="" /></a>
+							<p class="desc" designElement="text">CART</p>
+						</li>
+						<!-- <li>
+							<a href="/service/cs"><img src="../images/common/menu_guide_01.png" alt="" /></a>
+							<p class="desc" designElement="text">CS CENTER</p>
+						</li> -->
+						<li>
+							<a href="/promotion/event"><img src="../images/common/menu_guide_02.png" alt="" /></a>
+							<p class="desc" designElement="text">EVENT</p>
+						</li>
+					</ul>
+				</li>
+		<!-- 		<li class="foot_menu_d4 delivery">
+					<h4 class="title"><span designElement="text">DELIVERY INFO</span></h4>
+					<ul class="list v5">
+						<li><span designElement="text">반품주소 :</span> ({refund_address.address_zipcode}){? refund_address.address_type == "street"}{refund_address.address_street}{:}{refund_address.address}{/} {refund_address.address_detail}</li>
+						<li style="text-indent:0; padding-left:0;">
+							<span designElement="text">배송조회 : ○○○택배 1588-0000</span>
+							<a href="#" target="_blank" title="새창" class="btn_resp size_a" designElement="text" alt="택배사 배송추적 주소를 입력하세요.">배송추적</a>
+						</li>
+					</ul>
+				</li> -->
+			</ul>
+		</div>
+	</div>
+
+	<div class="footer_b">
+		<div class="resp_wrap">
+			<ul class="menu2">
+				<li><a href="/" designElement="text">HOME</a></li>
+				<li><a href="https://mubrothers.com/" designElement="text">COMPANY</a></li>
+				<li><a href="/service/agreement" designElement="text">AGREEMENT</a></li>
+				<li><a href="/service/privacy" designElement="text">PRIVACY POLICY</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="footer_c">
+		<div class="resp_wrap">
+			<ul class="menu3">
+				<li><span designElement="text">회사명 :</span> <span class="pcolor">{config_basic.companyName}</span></li>
+				<li><span designElement="text">대표자 :</span> <span class="pcolor">{config_basic.ceo} </span></li>
+				<li><span designElement="text">주소 :</span> <span class="pcolor">{? config_basic.companyAddress_type == "street"}{config_basic.companyAddress_street}{:}{config_basic.companyAddress}{/} {config_basic.companyAddressDetail}</span></li>
+				<!-- <li><span designElement="text">전화 :</span> <a href="tel:{config_basic.companyPhone}" class="pcolor">{config_basic.companyPhone}</a></li> -->
+				<!--{ ? config_basic.companyFax }-->
+				<!-- <li><span designElement="text">팩스 :</span> <span class="pcolor">{config_basic.companyFax}</span></li> -->
+				<!--{ / }-->
+				<li><span designElement="text">사업자등록번호 :</span> <span class="pcolor">{config_basic.businessLicense} {=confirmLicenseLink("[사업자정보확인]")}</span></li>
+				<li><span designElement="text">통신판매업신고번호 :</span> <span class="pcolor">{config_basic.mailsellingLicense}</span></li>
+				<li><span designElement="text">개인정보보호책임자 :</span> <span class="pcolor">{config_basic.member_info_manager} <!-- (<a class="pcolor" href="mailto:{config_basic.companyEmail}">{config_basic.companyEmail}</a>) --></span></li>
+				<li>호스팅 제공자 : <span class="pcolor">(주)가비아씨엔에스</span></li>
+			</ul>
+			<p class="copyright" designElement="text">COPYRIGHT (c) <span class="pcolor">{config_basic.companyName}</span> ALL RIGHTS RESERVED.</p>
+			<div class="escrow">{=escrow_mark(60)}</div>
+		</div>
+	</div>
+</div>
+
+<!--{?preg_match('/goods\/view/',_SERVER.REQUEST_URI)}-->
+	<!--{? navercheckout_tpl }-->
+<div class="pcHideMoShow" style="height:117px;">&nbsp;</div>
+	<!--{ / }-->
+<div class="pcHideMoShow" style="height:80px;">&nbsp;</div>
+<!--{ / }-->
+<!-- 하단영역 : 끝 -->
+
+<!-- 플로팅 - BACK/TOP(대쉬보드) -->
+<div id="floating_over">
+	<a href="javascript:history.back();" class="ico_floating_back" title="뒤로 가기"></a>
+	<a href="javascript:history.forward();" class="ico_floating_foward" title="앞으로 가기"></a>
+	<a href="#layout_header" class="ico_floating_top" title="위로 가기">TOP</a>
+	<!--{? dataRightQuicklist && !preg_match('/goods\/view/',_SERVER.REQUEST_URI) }-->
+	{? push_count_today_images}<a href="javascript:;" class="ico_floating_recently"><span designElement="text">최근본</span><br /><img src="{push_count_today_images}" onerror="this.src='../images/common/noimage.gif'"></a>{/}
+	<!--{ / }-->
+
+	<!-- 최근 본 상품(LAYER) -->
+	<div id="recently_popup">
+		<div class="recently_popup">
+			<h1>최근 본 상품</h1>
+			<div class="recently_thumb">
+				<div id="recently_slide_bottom" style="width:285px; min-height:80px;">
+					<div class="thumb">
+					<!--{ ? dataRightQuicklist }-->
+						<ul>
+							<!--{ @ dataRightQuicklist }-->
+							{? ( .index_ < 40 ) //10page까지 노출}
+								{? (.index_ && (.index_%4) == 0 )}</ul><ul>{/}
+								<li><a href="../goods/view?no={.goods_seq}" class="right_quick_goods"><img src="{.image}" onerror="this.src='../images/common/noimage_list.gif'" alt="{.goods_name}"></a><a href="javascript:rightDeleteItem('mobile_bottom_item_recent', '{.goods_seq}',$(this))" class="btn_delete cover">삭제</a></li>
+							{/}
+							<!--{ / }-->
+						</ul>
+					<!--{ : }-->
+						<h2> 최근 본 상품이 없습니다.</h2>
+					<!--{ / }-->
+					</div>
+				</div>
+				<div class="recently_page">
+					<a href="javascript:;" class="btn_page cover">선택</a>
+				</div>
+			</div>
+			<a href="javascript:;" class="btn_close">모두보기</a>
+		</div>
+		<div class="recently_bg"></div>
+	</div>
+		<!--{ ? dataRightQuicklist.size_ > 3 }-->
+	<script type="text/javascript">
+	<!--
+		$(function(){
+			/* 최근 본 상품 - LAYER(슬라이드) */
+			$("#recently_slide_bottom").touchSlider({
+				flexible:true, roll:true, paging:$("#recently_slide_bottom").next().find(".btn_page"),
+				initComplete:function(e){$("#recently_slide_bottom").next().find(".btn_page").each(function(i, el){$(this).text("page " + (i+1));});},
+				counter:function(e){$("#recently_slide_bottom").next().find(".btn_page").removeClass("on").eq(e.current-1).addClass("on");}
+			});
+		});
+	//-->
+	</script>
+		<!--{ / }-->
+</div>
+<!-- //플로팅 - BACK/TOP(대쉬보드) -->
+
+
+<script type="text/javascript">
+$(function() {
+	/* 반응형 슬라이드 배너 관련( 절대 삭제 금지 ) */
+	{? settle }
+		$('.slider_before_loading').remove();
+	{ : }
+		$('.slider_before_loading').removeClass('slider_before_loading');
+	{ / }
+
+	// 상품 색상 코드값 디자인( new 상품정보 )
+	if ( $('.displaY_color_option').length > 0 ) {
+		$('.displaY_color_option .areA').filter(function() {
+			return ( $(this).css('background-color') == 'rgb(255, 255, 255)' );
+		}).addClass('border');
+	}
+
+	$( window ).on('resize', function() {
+		if ( window.innerWidth != WINDOWWIDTH ) {
+			setTimeout(function(){ WINDOWWIDTH = window.innerWidth; }, 10);
+		}
+	});
+});
+
+/*######################## 17.12.19 gcs yjy : 앱 처리(fb 로그아웃) s */
+function logoutfb(){
+	FB.getLoginStatus(logoutfb_process);
+}
+function logoutfb_process(){
+	FB.api('/me', function(response) {
+
+		FB.logout(function(response) {
+
+		});
+
+		isLogin = false;
+		{? defined('__ISUSER__')}
+		loadingStart("body",{segments: 12, width: 15.5, space: 6, length: 13, color: '#000000', speed: 1.5});
+			$.ajax({
+			'url' : '../sns_process/facebooklogout',
+			'dataType': 'json',
+			'success': function(res) {
+
+				if(res.result == true){
+					alert("로그아웃되었습니다.");
+
+				{? mobileapp=='y'}
+				{? m_device=='iphone'}
+				window.webkit.messageHandlers.CSharp.postMessage("Logout?");
+//				window.webkit.messageHandlers.CSharp.postMessage('GoHome');
+				{:}
+				CSharp.postMessage("Logout?");
+//				CSharp.postMessage('GoHome');
+				{/}
+				{/}
+
+
+				}else{
+					document.location.reload();
+				}
+			}
+			});
+		{/}
+		if (fbId != "")  initializeFbTokenValues();
+		if (fbUid != "") initializeFbUserValues();
+
+		return false;
+	});
+}
+/*######################## 17.12.19 gcs yjy : 앱 처리(fb 로그아웃) e */
+</script>

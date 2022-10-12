@@ -1,0 +1,195 @@
+<style>
+	table.excel-export-form-table {border-collapse:collapse;border:1px solid #aaaaaa;}
+	table.excel-export-form-table tr th {padding:10px;border-bottom:1px solid #c7c7c7; background-color:#e8e8e8; font-size:14px;color:#000;font-weight:bold;text-align:left;}
+	table.excel-export-form-table tr td {padding:10px;border-left:1px solid #dadada;border-bottom:1px solid #dadada;}
+	table.excel-export-form-table tr th span.step {font-size:11px;color:#8d8d8d;font-weight:bold;}
+	table.excel-export-form-table tr td table.excel-export-info-table {border-collapse:collapse;border:1px solid #aaaaaa;}
+	table.excel-export-form-table tr td table.excel-export-info-table tr th {padding:10px;border-left:1px solid #c7c7c7;border-bottom:1px solid #c7c7c7;background-color:#e8e8e8;font-size:11px;color:#000;font-weight:normal;text-align:left;}
+	table.excel-export-form-table tr td table.excel-export-info-table tr td {padding:10px;border-left:1px solid #dadada;border-bottom:1px solid #dadada;font-size:11px;}
+	table.excel-export-form-table tr td table.excel-export-info-table tr td span.excel-highlight-link{color:#e06d18;text-decoration: underline;}
+	table.excel-export-form-table tr td table.export-form-table {border-collapse:collapse;border:2px solid #8fbcec;}
+	table.excel-export-form-table tr td table.export-form-table th { padding:5px; border-left:1px solid #8fbcec; font-size:11px; background-color:#f3f8fd; border-bottom:1px solid #8fbcec; }
+	table.excel-export-form-table tr td table.export-form-table td { padding:5px; border-left:1px solid #8fbcec;font-size:11px; border-bottom:1px solid #8fbcec;}
+	div.attention {font-size:16px;font-weight:bold;}
+</style>
+<form name="excelRegist" id="excelRegist" method="post" action="../order_process/excel_upload_check" enctype="multipart/form-data"  target="actionFrame" onsubmit="loadingStart();">
+
+<table class="excel-export-form-table" width="100%">
+	<col width="140" />
+	<col />
+	<tr>
+		<th>
+		<span class="step">STEP 1.</span> 다운로드
+		</th>
+		<td>
+			<img src="../images/design/img_excel_release.gif" />
+		</td>
+	</tr>
+	<tr>
+		<th>
+		<span class="step">STEP 2.</span> 수정
+		</th>
+		<td>
+			<table class="excel-export-info-table" width="100%">
+			<col width="120" />
+			<col />
+			<col />
+			<tr>
+				<th>중요한 셀</th>
+				<th style="text-align:center;">주문기준 엑셀파일 수정 안내</th>
+				<th style="text-align:center;">상품기준 엑셀파일 수정 안내</th>
+			</tr>
+			<tr>
+				<th>보낼수량</th>
+				<td>
+					<div class="attention">해당 주문에 속한 → 상품별 보낼수량의 합</div>
+					<div class="red">※ 다운로드 된 보낼수량으로 출고처리됨</div>
+				</td>
+				<td>
+					<div class="attention">해당 주문에 속한 → 상품별 보낼수량</div>
+					<div class="red">※ 다운로드 된 ‘보낼수량’ 이하이고 ‘0’보다 클 때 출고처리됨</div>
+					<div class="red">※ 보낼수량을 조정하여 상품별 부분출고 가능함</div>
+				</td>
+			</tr>
+			<tr>
+				<th>택배사</th>
+				<td>
+					<div class="attention">택배사 코드</div>
+					<div>※ 배송방법이 택배일 때 변경 가능 <span class="excel-highlight-link hand" onclick="view_excel_code_help();">안내)택배사</span></div>
+				</td>
+				<td>
+					<div class="attention">택배사 코드</div>
+					<div>※ 배송방법이 택배일 때 변경 가능 <span class="excel-highlight-link hand" onclick="view_excel_code_help();">안내)택배사</span></div>
+				</td>
+			</tr>
+			<tr>
+				<th>운송장번호</th>
+				<td>
+					<div class="attention">운송장번호</div>
+					<div>※ 배송방법이 택배일 때 택배사의 운송장번호</div>
+					<div>※ 단, 롯데택배(자동화) : 엑셀 입력 불필요 (자동할당됨)</div>
+					<div>※ 단, 굿스플로(자동화) : 엑셀 입력 불필요 (아래와 같이 처리)</div>
+					<div style="margin-left:15px;">① ‘출고준비’ 처리 후</div>
+					<div style="margin-left:15px;">② 굿스플로 [운송장받기/출력] 버튼 클릭하여 운송장 받은 후</div>
+					<div style="margin-left:15px;">③ ‘출고완료’ 처리함</div>
+				</td>
+				<td>
+					<div class="attention">운송장번호</div>
+					<div>※ 배송방법이 택배일 때 택배사의 운송장번호</div>
+					<div>※ 단, 롯데택배(자동화) : 엑셀 입력 불필요 (자동할당됨)</div>
+					<div>※ 단, 굿스플로(자동화) : 엑셀 입력 불필요 (아래와 같이 처리)</div>
+					<div style="margin-left:15px;">① ‘출고준비’ 처리 후</div>
+					<div style="margin-left:15px;">② 굿스플로 [운송장받기/출력] 버튼 클릭하여 운송장 받은 후</div>
+					<div style="margin-left:15px;">③ ‘출고완료’ 처리함</div>
+				</td>
+			</tr>
+			<tr>
+				<th>출고그룹<br/>/출고상품번호</th>
+				<td>
+					<div class="attention">출고그룹</div>
+					<div class="red">※ 필수값으로 출고그룹이 있어야만 출고처리가 가능함</div>
+				</td>
+				<td>
+					<div class="attention">출고상품번호</div>
+					<div class="red">※ 필수값으로 출고상품번호가 있어야만 출고처리가 가능함</div>
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<th>
+		<span class="step">STEP 3.</span> 저장
+		</th>
+		<td>
+			수정된 엑셀파일을 .csv 형식으로 저장하십시오<br/>
+			<br/>
+			※ 저장방법 : '파일'탭 클릭 → '다른 이름으로 저장' 클릭 → '파일 형식'중 'CSV(쉼표로 분리)' 선택 → [저장] 클릭<br/>
+			※ 주의사항 : .csv 파일의 특성상 .csv파일을 다시 '파일열기'하면 주문번호 등의 숫자필드를 올바르게 표현하지 못합니다.<br/>
+			<span style="display:inline-block;width:80px;"></span>수정이 필요할 경우 .xls 파일을 열어 수정 후 .csv 파일로 다시 저장해 주십시오.
+		</td>
+	</tr>
+
+	<tr>
+		<th>
+		<span class="step">STEP 4.</span> 업로드
+		</th>
+		<td>
+			<div>수정된 엑셀파일(.csv 형식)을 업로드하십시오.</div>
+			<div><input type="file" name="excel_file" id="excel_file" /></div>
+		</td>
+	</tr>
+
+	<tr>
+		<th>
+		<span class="step">STEP 5.</span> 처리
+		</th>
+		<td>
+			<table class="export-form-table" width="100%">
+				<col width="130" />
+				<col />
+				<tr>
+					<th>출고일자</th>
+					<th>출고처리</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="export_date" class="datepicker line"  maxlength="10" size="10" readonly value="{=date('Y-m-d')}"></td>
+					<td>
+						<div>
+							실물 :
+							<span class="hide">
+							<select name="stockable" id="excel_export_stockable" style="width:330px;">
+								<option value="limit">출고되는 모든 실물의 재고가 있으면</option>
+								<option value="unlimit">출고되는 모든 실물의 재고가 부족해도</option>
+							</select> → 재고 차감 → (설정 시) SMS/EMAIL 발송 →
+							</span>
+							<select name="export_step" id="excel_export_step" onchange="check_excel_stock_policy_step();">
+								<option value="55">출고완료</option>
+								<option value="45">출고준비</option>
+							</select>로 상태 처리
+							<script>check_excel_stock_policy_step();</script>
+						</div>
+						<div class="pdt5">
+							티켓 :
+							<select name="ticket_stockable" style="width:330px;">
+								<option value="limit">출고되는 모든 티켓의 재고가 있고 티켓번호가 있으면</option>
+								<option value="limit_ticket">출고되는 모든 티켓의 재고가 부족해도 티켓번호가 있으면</option>
+							</select> → 재고 차감 → (설정 시) SMS/EMAIL 발송 →
+							<select name="ticket_step" style="background-color:#efefef;">
+								<option value="55">출고완료</option>
+							</select>로 상태 처리
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<div style="width:100%;text-align:center;padding-top:10px;" id="upload_submit_layer">
+				<span class="btn large cyanblue">
+					<button type="submit" id="upload_submit" style="width:150px;">
+						출고처리 실행
+					</button>
+				</span>
+			</div>
+			<div style="width:100%;text-align:center;padding-top:10px;" id="upload_information_layer" class="hide">
+				<span class="red bold">출고처리가 진행중 입니다...</span>
+			</div>
+		</td>
+	</tr>
+	<!--
+	<tr>
+		<th>
+		<span class="step">STEP 6.</span> 확인
+		</th>
+		<td>
+		처리결과를 엑셀로 다운로드 받을 수 있습니다. 처리결과를 확인하십시오
+		</td>
+	</tr>
+	-->
+</table>
+</form>
+
+<div class="center pdt10">
+<span class="btn small gray">
+	<button type="button" onclick="closeDialog('export_upload');reset_iframe('','');">창닫기</button>
+</span>
+</div>

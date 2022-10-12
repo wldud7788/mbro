@@ -1,0 +1,550 @@
+{#layout_header_popup}
+
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_selectbox/js/jquery.selectbox-0.2.js"></script>
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/jquery_selectbox/css/jquery.selectbox.mobile.css" />
+<link rel="stylesheet" type="text/css" href="{cssPath}?time={=time()}" />
+<style id="quick_design_css"></style>
+
+<script>
+$(function(){
+
+	$("select.selectbox").selectbox().selectbox("open");
+
+	$("input[name='color_header_t1']").val(rgb2hex($("#layout_header a").css('color')));
+	$("input[name='color_header_b1']").val(rgb2hex($("#layout_header").css('background-color')));
+	$("input[name='color_header_b2']").val(rgb2hex($("#layout_header").css('border-bottom-color')));
+	
+	$("input[name='icon_ver'][value='{iconcolor}']").attr("checked",true);
+
+	$("input[name='color_side_t1']").val(rgb2hex($("#layout_side ul.top_navigation li a").css('color')));
+	$("input[name='color_side_b1']").val(rgb2hex($("#layout_side ul.top_navigation").css('background-color')));
+	$("input[name='color_side_b2']").val(rgb2hex($("#layout_side ul.top_navigation").css('border-top-color')));
+
+	$("input[name='color_subtitle_t1']").val(rgb2hex($(".sub_title_bar h2").css('color')));
+	$("input[name='color_subtitle_b1']").val(rgb2hex($(".sub_title_bar").css('background-color')));
+	$("input[name='color_subtitle_b2']").val(rgb2hex($(".sub_title_bar").css('border-bottom-color')));
+
+	$("input[name='color_tab_t1']").val(rgb2hex($(".ctg_top > ul > li a.on. .ctg_depth li a, .goods_information_tabs li.current a").css('color')));
+	$("input[name='color_tab_b1']").val(rgb2hex($(".goods_list_top ul.list_style li.current, .ctg_top > ul > li a.on .icon.on").css('background-color')));
+	$("input[name='color_tab_b2']").val(rgb2hex($(".goods_information_tabs li.current").css('border-bottom-color')));
+
+	$("input[name='color_btnimportant_t1']").val(rgb2hex($(".btn_important_large").css('color')));
+	$("input[name='color_btnimportant_b1']").val(rgb2hex($(".btn_important_large").css('background-color')));
+	$("input[name='color_btnimportant_b2']").val(rgb2hex($(".btn_important_large").css('border-bottom-color')));
+	
+	$("input[name='color_btnnormal_t1']").val(rgb2hex($(".btn_normal_large").css('color')));
+	$("input[name='color_btnnormal_b1']").val(rgb2hex($(".btn_normal_large").css('background-color')));
+	$("input[name='color_btnnormal_b2']").val(rgb2hex($(".btn_normal_large").css('border-bottom-color')));
+
+	$("input[name='color_selectbox_b1']").val(rgb2hex($(".sbOptions a.sbFocus").css('background-color')));
+	$("input[name='color_selectbox_b2']").val(rgb2hex($(".sbOptions, .sbHolderFocus").css('border-bottom-color')));
+	
+	$("input[name='color_btncancel_t1']").val(rgb2hex($(".btn_cancel_large").css('color')));
+	$("input[name='color_btncancel_b1']").val(rgb2hex($(".btn_cancel_large").css('background-color')));
+	$("input[name='color_btncancel_b2']").val(rgb2hex($(".btn_cancel_large").css('border-bottom-color')));
+	
+	$("input[name='color_btn_t1']").val(rgb2hex($(".btn_style").css('color')));
+	$("input[name='color_btn_b1']").val(rgb2hex($(".btn_style").css('background-color')));
+	$("input[name='color_btn_b2']").val(rgb2hex($(".btn_style").css('border-bottom-color')));
+
+	$("input[name='color_price_t1']").val(rgb2hex($(".total_sum_price table, .total_sum_price .sum_price").css('color')));
+	$("input[name='color_price_b1']").val(rgb2hex($(".total_sum_price").css('background-color')));
+	$("input[name='color_price_b2']").val(rgb2hex($(".total_sum_price table tbody.sub td").css('background-color')));
+
+	$("input[name='color_important_t1']").val(rgb2hex($("#total_goods_price, .total_goods_price").css('color')));
+
+	$("input[name='color_footer_t1']").val(rgb2hex($("#layout_footer ul.fcp li").css('color')));
+	$("input[name='color_footer_t2']").val(rgb2hex($("#layout_footer ul.fcp li a").css('color')));
+	$("input[name='color_footer_b1']").val(rgb2hex($("#layout_footer").css('background-color')));
+	$("input[name='color_footer_b2']").val(rgb2hex($("#layout_footer").css('border-top-color')));
+
+	$(".colorpicker").each(function(){
+		if($(this).val()=='') $(this).val('#ffffff');
+	});
+	
+	/* 컬러피커 */
+	$(".colorpicker").customColorPicker({'hide':true});
+	$(".colorpicker").change(function(){
+		quickDesignFormSubmit('view');
+	});
+
+	var defaultThemeSet = false;
+	$(".themeTabs").click(function(){
+		var themeKey = $(this).attr('theme');
+		$(".themeTabs").not(this).children(".onImg").hide();
+		$(".themeTabs").not(this).children(".offImg").show();
+		$(this).children(".onImg").show();
+		$(this).children(".offImg").hide();
+
+		if(themeKey){
+			if(defaultThemeSet) $(".themeItem[theme!='"+themeKey+"']").hide();
+			$(".themeItem[theme='"+themeKey+"']").show();
+			$(".themeItem[theme='"+themeKey+"']").eq(0).click();
+
+			if($(".themeItem[theme='"+themeKey+"']").length>2 || !defaultThemeSet){
+				$(".themeScrollLeftBtn, .themeScrollRightBtn").show();
+			}else{
+				$(".themeScrollLeftBtn, .themeScrollRightBtn").hide();
+			}
+		}else{
+			$(".themeItem").show();
+			$(".themeItem").eq(0).click();
+			$(".themeScrollLeftBtn, .themeScrollRightBtn").show();
+		}
+		$(".themeItemsContainer").scrollLeft(0);
+
+		if(!defaultThemeSet){
+			defaultThemeSet=true;
+		}
+	});
+
+	$(".themeItem").click(function(){
+		var themeValue = $(this).attr('themeValue');
+		$(".themeItemCurrent").removeClass("themeItemCurrent");
+		$(this).addClass("themeItemCurrent");
+		$("form[name='quick_design_form'] input[name='theme']").val(themeValue);
+	});
+
+	$(".themeScrollLeftBtn, .themeScrollRightBtn").click(function(){
+		var themeKey = $(".themeItemCurrent").attr('theme');
+		var currentIdx = $(".themeItem:visible").index($(".themeItemCurrent"));		
+		
+		if($(this).hasClass("themeScrollLeftBtn")){
+			currentIdx--;
+			if(currentIdx<0) currentIdx=$(".themeItem:visible").length-1;
+		}
+		
+		if($(this).hasClass("themeScrollRightBtn")){
+			currentIdx++;
+			if(currentIdx>=$(".themeItem:visible").length) currentIdx=0;
+		}
+		
+		if(currentIdx>=2){
+			var scrollLeftSum = 0;
+			for(var i=0;i<=currentIdx-2;i++){
+				scrollLeftSum += $(".themeItem:visible").eq(currentIdx).outerWidth();
+			}			
+			$(".themeItemsContainer").stop(true).animate({'scrollLeft':scrollLeftSum});
+		}else{
+			$(".themeItemsContainer").stop(true).animate({'scrollLeft':0});
+		}
+		$(".themeItem:visible").eq(currentIdx).click();
+	});
+	$(".themeTabs").eq(0).click();
+	$(".themeItemsContainer").fadeIn();
+});
+
+function quickDesignFormSubmit(mode){
+	var frm = document.quick_design_form;
+	frm.mode.value=mode;
+	frm.submit();
+}
+
+function rgb2hex(rgb){
+	if(rgb==undefined || rgb=='transparent' || !rgb) return '';
+	rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+	return "#" +
+	("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+	("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+	("0" + parseInt(rgb[3],10).toString(16)).slice(-2);
+}
+</script>
+<style type="text/css">
+html {background-color:#ddd; padding:10px; box-sizing:border-box; height:auto}
+body {background-color:#fff; height:auto; padding-bottom:20px}
+#quick_design_tab {background-color:#ddd; margin-bottom:10px}
+#quick_design_tab ul {*zoom:1}
+#quick_design_tab ul:after {content:""; display:block; clear:both}
+#quick_design_tab ul li {float:left; box-sizing:border-box; width:50%;}
+#quick_design_tab ul li a {display:block; box-sizing:border-box; width:100%; height:40px; line-height:40px; text-align:center; font-size:14px; color:#0a0a0a; border-bottom:1px solid #000}
+#quick_design_tab ul li a.current {background-color:#fff; border:1px solid #000; border-bottom:none; font-weight:bold;}
+#quick_design_wrap {background-color:#fff}
+#layout_header, #layout_side, #layout_footer {width:95%; height:40px; line-height:40px; text-align:center; font-family:arial, dotum, sans-serif; font-weight:bold;}
+#layout_header {position:relative;}
+#layout_header .top_cart {position:absolute; top:0; right:0; background:url("/data/skin/mobile_ver3_default/images/design/ver2/top_cart.png") no-repeat center; background-size:25px 24px; width:44px; height:42px; text-indent:-9999px;}
+#layout_footer ul.fcp li {float:left; width:50%;}
+.total_goods_price {font-size:15px; font-weight:bold;}
+#total_goods_price {font-size:18px;}
+.sub_title_bar {width:95%;}
+.goods_information_tabs li.current {float:left; width:47%; line-height:38px; text-align:center;}
+.goods_list_top ul.list_style li.current {float:left; width:48%; line-height:40px; text-align:center;}
+.goods_list_top ul.list_style li.current a {color:#fff;}
+.btn_style, .btn_important_large, .btn_normal_large, .btn_cancel_large {width:95%;}
+.themeTabs {cursor:pointer; padding-top:10px; padding-bottom:5px; width:60px;}
+.themeItemsContainer {width:840px; font-size:0px; margin:auto; overflow:hidden; white-space:nowrap; display:none; text-align:center; margin-top:7px; padding-top:20px; border-top:1px solid #f4f1f0}
+.themeItem {display:inline-block; padding:0 10px; cursor:pointer; text-align:center;}
+.themeItem img {border:3px solid #fff}
+.themeItemCurrent img {border:3px solid #000 !important}
+.themeScrollLeftBtn {position:absolute; left:17px; top:-220px; cursor:pointer}
+.themeScrollRightBtn {position:absolute; right:17px; top:-220px; cursor:pointer}
+.quick_design_view {padding:20px;}
+.quick_design_view .fl {}
+.quick_design_view .fr {width:calc(100% - 280px);}
+</style>
+
+<div id="quick_design_tab">
+	<ul>
+		<li><a href="?tpl_path={=urlencode(_GET.tpl_path)}&kind=theme" {?_GET.kind != 'direct'}class="current"{/}>테마로 세팅하기</a></li>
+		<li><a href="?tpl_path={=urlencode(_GET.tpl_path)}&kind=direct" {?_GET.kind == 'direct'}class="current"{/}>직접 세팅하기</a></li>
+	</ul>
+</div>
+<div>
+	<!--{?_GET.kind != 'direct'}-->
+	<table border="0" cellpadding="0" cellspacing="0" style="margin:0 auto">
+	<tr>
+		<td class="themeTabs center">
+			<img src="../css/images/quick_design/mqc_all.png" vspace="7" class="offImg" />
+			<img src="../css/images/quick_design/mqc_all_on.png" vspace="7" class="onImg" />
+		</td>
+		<!--{@themes}-->
+		<td class="themeTabs center" theme="{.key_}">
+			<img src="../css/images/quick_design/mqc_{.key_}.png" vspace="7" class="offImg" />
+			<img src="../css/images/quick_design/mqc_{.key_}_on.png" vspace="7" class="onImg" />
+		</td>
+		<!--{/}-->
+	</tr>
+	</table>
+	<div class="themeItemsContainer clearbox">
+		<!--{@themes}-->
+		<!--{@.childs}-->
+			<span class="themeItem" theme="{.key_}" themeValue="{..value_}"><img src="../css/images/quick_design/m_q3_{..value_}.jpg" /></span>
+		<!--{/}-->
+		<!--{/}-->
+	</div>
+	<div class="relative">
+		<div class="themeScrollLeftBtn"><img src="../images/design/m_q_arw_l.gif" /></div>
+		<div class="themeScrollRightBtn"><img src="../images/design/m_q_arw_r.gif" /></div>
+	</div>
+	<form name="quick_design_form" action="../design_process/mobile_quick_design" method="post" target="actionFrame" onsubmit="loadingStart()">
+		<input type="hidden" name="tpl_path" value="{_GET.tpl_path}" />
+		<input type="hidden" name="skin" value="{designWorkingSkin}" />
+		<input type="hidden" name="kind" value="theme" />
+		<input type="hidden" name="mode" value="save" />
+		<input type="hidden" name="theme" value="" />
+		<div class="pdt20 center">
+			현재 디자인작업용 스킨(<span class="red">{designWorkingSkin}</span>)에 적용하시겠습니까?
+		</div>
+		<div class="pdt20 center">
+			<span class="btn large cyanblue"><input type="button" value="적용" onclick="quickDesignFormSubmit('save')" /></span>
+		</div>
+	</form>
+	<!--{/}-->
+	<!--{?_GET.kind == 'direct'}-->
+	<div class="quick_design_view clearbox">
+		<div class="fl">
+		{? skintheme }<img src="../css/images/quick_design/m_q3_{skintheme}.jpg" />{:}<img src="../css/images/quick_design/m_q3_red1.jpg" />{/}
+		</div>
+		<div class="fr">
+			<form name="quick_design_form" action="../design_process/mobile_quick_design" method="post" target="actionFrame" onsubmit="loadingStart()">
+			<input type="hidden" name="tpl_path" value="{_GET.tpl_path}" />
+			<input type="hidden" name="skin" value="{designWorkingSkin}" />
+			<input type="hidden" name="kind" value="direct" />
+			<input type="hidden" name="mode" value="save" />
+			<table class="info-table-style" width="100%" border="0" cellpadding="0" cellspacing="0">
+				<colgroup>
+					<col><col style="width:40%"><col><col style="width:13%">
+				</colgroup>
+				<tr>
+					<th class="its-th-align bold">적용 부분</th>
+					<th class="its-th-align bold">샘플</th>
+					<th class="its-th-align bold" colspan="2">현재 세팅 변경</th>
+				</tr>			
+				<tr>
+					<td class="its-td" rowspan="3">헤더</td>
+					<td class="its-td" rowspan="3">
+						<div id="layout_header">
+							<h1><a>Firstmall</a></h1>
+							<span class="top_cart">장바구니</span>						
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_header_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/하단라인</td>
+					<td class="its-td">
+						<input type="text" name="color_header_b1" value="" class="colorpicker" />
+						<input type="text" name="color_header_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">아이콘</td>
+					<td class="its-td">
+						<label><input type="radio" name="icon_ver" checked="checked" value="2" /> 흰색</label><br />
+						<label><input type="radio" name="icon_ver" value="3" /> 검정색</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">왼쪽 메뉴</td>
+					<td class="its-td" rowspan="2">
+						<div id="layout_side">
+							<ul class="top_navigation">
+								<li><a>장바구니</a></li>
+							</ul>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_side_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/상단라인</td>
+					<td class="its-td">
+						<input type="text" name="color_side_b1" value="" class="colorpicker" />
+						<input type="text" name="color_side_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">페이지 타이틀</td>
+					<td class="its-td" rowspan="2">
+						<div class="sub_title_bar">
+							<h2>상품상세</h2>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_subtitle_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/하단라인</td>
+					<td class="its-td">
+						<input type="text" name="color_subtitle_b1" value="" class="colorpicker" />
+						<input type="text" name="color_subtitle_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">탭 메뉴<br /><span class="orange">상품리스트/상품상세 등</span></td>
+					<td class="its-td" rowspan="2">
+						<div class="goods_information_tabs">
+							<ul>
+								<li class="current"><a><strong>카테고리</strong></a></li>
+							</ul>
+						</div>
+						<div class="goods_list_top">
+							<ul class="list_style">
+								<li class="current"><a>카테고리</a></li>
+							</ul>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_tab_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/하단라인</td>
+					<td class="its-td">
+						<input type="text" name="color_tab_b1" value="" class="colorpicker" />
+						<input type="text" name="color_tab_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">페이지 하단 주요 버튼 1<br /><span class="orange">검색창/구매/확인/저장/결제 등</span></td>
+					<td class="its-td" rowspan="2">
+						<button type="button" class="btn_important_large">바로구매</button>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_btnimportant_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/외곽라인</td>
+					<td class="its-td">
+						<input type="text" name="color_btnimportant_b1" value="" class="colorpicker" />
+						<input type="text" name="color_btnimportant_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">페이지 하단 주요 버튼 2<br /><span class="orange">장바구니/전체선택 등</span></td>
+					<td class="its-td" rowspan="2">
+						<button type="button" class="btn_normal_large">장바구니</button>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_btnnormal_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/외곽라인</td>
+					<td class="its-td">
+						<input type="text" name="color_btnnormal_b1" value="" class="colorpicker" />
+						<input type="text" name="color_btnnormal_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td">셀렉트박스<br /><span class="orange">필수/추가 옵션 등</span></td>
+					<td class="its-td">
+						<div style="width:95%; height:90px; display:inline-block;">
+							<select class="selectbox" >
+							<option>사이즈</option>
+							</select>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">바탕/외곽라인</td>
+					<td class="its-td">
+						<input type="text" name="color_selectbox_b1" value="" class="colorpicker" />
+						<input type="text" name="color_selectbox_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">기타 버튼 1<br /><span class="orange">옵션수정/자세히/취소 등</span></td>
+					<td class="its-td" rowspan="2">
+						<button type="button" class="btn_cancel_large">옵션수정</button>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_btncancel_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/외곽라인</td>
+					<td class="its-td">
+						<input type="text" name="color_btncancel_b1" value="" class="colorpicker" />
+						<input type="text" name="color_btncancel_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">그외 일반 버튼<br /><span class="orange">우편번호찾기/목록버튼 등</span></td>
+					<td class="its-td" rowspan="2">
+						<button type="button" class="btn_style">우편번호찾기</button>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_btn_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/외곽라인</td>
+					<td class="its-td">
+						<input type="text" name="color_btn_b1" value="" class="colorpicker" />
+						<input type="text" name="color_btn_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">금액 정보 안내</td>
+					<td class="its-td" rowspan="2">
+						<div class="total_sum_price" style="width:95%; box-sizing:border-box;">
+							<table width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<th align="left">상품금액</th>
+								<td align="right">
+									<span class="sum_price">71,000 원</span>
+								</td>
+							</tr>
+							<tr>
+								<th align="left">배송비</th>
+								<td align="right">
+									<span class="sum_price">(+) <span>9,900</span> 원</span>
+								</td>
+							</tr>
+							<tr>
+								<th align="left">할인금액</th>
+								<td align="right">
+									<span class="sum_price">(-) <span>0</span> 원</span>
+								</td>
+							</tr>
+							<tbody class="sub">
+							<tr>
+								<th align="left">- 쿠폰</th>
+								<td align="right">
+									<span class="sum_price">10,000원</span>
+								</td>
+							</tr>
+							<tr>
+								<th align="left">- 에누리</th>
+								<td align="right">
+									<span class="sum_price">0원</span>
+								</td>
+							</tr>
+							</tbody>
+							<tr>
+								<td colspan="2" height="15">
+									<div style="width:100%; margin:auto; height:1px; background-color:#000; opacity:0.2"></div>
+									<div style="width:100%; margin:auto; height:1px; background-color:#fff; opacity:0.2"></div>
+								</td>
+							</tr>
+							<tr>
+								<th align="left">합계</th>
+								<td align="right">
+									<span class="sum_price"><span class="settle_price">70,000</span> 원</span>
+								</td>
+							</tr>
+							</table>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_price_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕</td>
+					<td class="its-td">
+						<input type="text" name="color_price_b1" value="" class="colorpicker" />
+						<input type="text" name="color_price_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td">주요 텍스트 (강조)</td>
+					<td class="its-td" height="35">
+						<div class="goods_price_area">
+							<table align="right" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td valign="bottom" class="fx12"><b>총 상품금액</b></td>
+								<td width="10"></td>
+								<td class="total_goods_price">
+									<span id="total_goods_price">16,600</span>원
+								</td>
+								<td width="10"></td>
+							</tr>
+							</table>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트</td>
+					<td class="its-td">
+						<input type="text" name="color_important_t1" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-td" rowspan="2">풋터</td>
+					<td class="its-td" rowspan="2">
+						<div id="layout_footer">
+							<ul class="fcp">
+								<li>Firstmall</li>
+								<li><a>Firstmall</a></li>
+							</ul>
+						</div>
+					</td>
+					<td class="its-th-sub-align pdl10">텍스트/링크</td>
+					<td class="its-td">
+						<input type="text" name="color_footer_t1" value="" class="colorpicker" />
+						<input type="text" name="color_footer_t2" value="" class="colorpicker" />
+					</td>
+				</tr>
+				<tr>
+					<td class="its-th-sub-align pdl10">바탕/상단라인</td>
+					<td class="its-td">
+						<input type="text" name="color_footer_b1" value="" class="colorpicker" />
+						<input type="text" name="color_footer_b2" value="" class="colorpicker" />
+					</td>
+				</tr>
+			</table>
+
+			<div class="pdt20 center">
+				현재 디자인작업용 스킨(<span class="red">{designWorkingSkin}</span>)에 적용하시겠습니까?
+			</div>
+			<div class="pdt20 center"><span class="btn large cyanblue"><input type="button" value="적용" onclick="quickDesignFormSubmit('save')" /></span></div>
+			</form>
+		</div>
+	</div>
+	<!--{/}-->
+</div>
+
+{#layout_footer_popup}

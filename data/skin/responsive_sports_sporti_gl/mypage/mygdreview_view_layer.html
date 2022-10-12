@@ -1,0 +1,190 @@
+<!-- 본문내용 시작 t-->
+<link type="text/css" rel="stylesheet" charset="utf-8" href="../css/mypage_board.css" />
+<script type="text/javascript">
+//<![CDATA[
+var pagemode = 'layer';
+var board_id = '{manager.id}';
+var board_seq = '{_GET.seq}';
+var boardlistsurl = '{boardurl->lists}';
+var boardwriteurl = '{boardurl->write}';
+var boardviewurl = '{boardurl->view}';
+var boardmodifyurl = '{boardurl->modify}';
+var boardreplyurl = '{boardurl->reply}';
+//]]>
+</script>
+
+<div id="boardlayout" >
+	<div id="bbsview" class="x2">
+		<form name="form1" id="form1" method="post" action="{=sslAction('../board_process')}"  target="actionFrame">
+			<input type="hidden" name="mode" id="mode" value="{mode}" />
+			<input type="hidden" name="board_id" id="board_id" value="{manager.id}" />
+			<input type="hidden" name="reply" id="reply" value="{_GET.reply}" />
+			{? seq }
+				<input type="hidden" name="seq" id="board_seq" value="{seq}" />
+			{/}
+			<input type="hidden" name="popup" value="{_GET.popup}" >
+			<input type="hidden" name="iframe" value="{_GET.iframe}" >
+			<input type="hidden" name="goods_seq" value="{_GET.goods_seq}" >
+
+			<div class="title_l2">
+				{? datacategory }[{datacategory}]{/} {iconmobile}{iconaward} {subject} {iconnew} {iconhot} {iconhidden}
+			</div>
+			<div class="box_bbs_r2">
+				<ul>
+					{? strstr(manager.list_show,'[writer]') }<li>{name}</li>{/}
+					{? strstr(manager.list_show,'[date]') }<li class="gray_06">{r_date}</li>{/}
+					{? strstr(manager.list_show,'[order_seq]') }<li class="gray_06">{buyertitle}</li>{/}
+				</ul>
+				<ul>
+					<li>
+						{scorelay}{? score_avg_lay }/100{/}
+						{? reviewcategorylist},&nbsp;&nbsp;
+							{@ reviewcategorylist}
+								{.title} {? .score }{=getGoodsScore(.score, manager, 'view', .idx)} {:} 0 {/}
+							{? count(reviewcategorylist)-1 > .index_ },&nbsp;&nbsp;{/}
+							{/}
+						{/}
+					</li>
+					{? goodsreview_sub }
+					{@ goodsreview_sub}
+					{? .used == 'Y' }
+					<li>{.label_title} : {.label_view}</li>
+					{/}
+					{/}
+					{/}
+					{? strstr(manager.list_show,'[hit]') }<li class="gray_06">조회 : {=number_format(hit)}</li>{/}
+					{? filelist}
+					<li>
+						첨부파일 :
+						{@ filelist}
+							<span class="realfilelist hand highlight-link" realfiledir="{.realfiledir}" realfilename="{.orignfile}"  realfilename="{.orignfile}" board_id="goods_qna" filedown="../board_process?mode=board_file_down&board_id=goods_qna&realfiledir={.realfiledir}&realfilename={.orignfile}">{.orignfile} (<span class="size">{.realsizefile}</span>) <button type="button"  class="bbs_btn">down</button></span>
+							{? .is_image }
+								<span class="hand" imgsrc="{.realfile}" onclick="board_file_review('{.realfile}','{.imagesize[0]}','{.imagesize[1]}');" ><img src="../images/icon/icon_zoom.gif" hspace="1" title="미리보기"/></span>
+							{/}
+						{/}
+					</li>
+					{/}
+				</ul>
+			</div>
+
+			<div class="board_detail_contents">
+				{contents}
+			</div>
+
+			<!--{? managerview.auth_recommend_use == 'Y' }-->
+			<!-- 게시글평가 -->
+			<div class="board_score">
+				<!-- 게시글 평가 인클루드. 파일위치 : [스킨폴더]/board/_score.html -->
+				{#scoreskin}
+				<!-- //게시글 평가 인클루드 -->
+			</div>
+			<!--{/}-->
+
+			{? goodsview}
+			<div class="goods_origin_info">
+				<h4 class="title">상품 정보</h4>
+				{goodsview}
+			</div>
+			{/}
+			
+			<div class="board_sns_link">
+				{=snslinkurl('board', subject)}
+			</div>
+
+			<div class="content">
+				<!--{? file_key_i && uccdomain_fileurl}-->
+				<div class="content" >
+					<iframe   width="{? manager.video_size_mobile0 }{manager.video_size_mobile0}{:}200{/}" height="{? manager.video_size_mobile1 }{manager.video_size_mobile1}{:}150{/}" src="{uccdomain_fileurl}&g=tag&width={manager.video_size_mobile0}&height={manager.video_size_mobile1}" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<!--{: file_key_w && uccdomain_fileurl}-->
+				<div class="content" >
+					<iframe   width="{? manager.video_size_mobile0 }{manager.video_size_mobile0}{:}200{/}" height="{? manager.video_size_mobile1 }{manager.video_size_mobile1}{:}150{/}" src="{uccdomain_fileurl}&g=tag&width={manager.video_size_mobile0}&height={manager.video_size_mobile1}" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<!--{/}-->
+			</div>
+
+			<!-- 모바일등록시 첨부파일의 이미지다운 -->
+			{? filelistimages && insert_image == 'none' && editor != 1 }
+			<div class="content">
+				{@ filelistimages}
+				<span class="realfilelist hand highlight-link" realfiledir="{.realfiledir}" realfilename="{.orignfile}"  realfilename="{.orignfile}" board_id="{boardid}" filedown="../board_process?mode=board_file_down&board_id={boardid}&realfiledir={.realfiledir}&realfilename={.orignfile}">{.orignfile} (<span class="size">{.realsizefile}</span>) <button type="button"  class="bbs_btn">down</button></span>
+							{/}
+			</div>
+			{/}
+			<!-- 모바일등록시 첨부파일의 이미지다운 -->
+		</form>
+
+		<!--{? commentlay == 'Y' || comment > 0 // 댓글 사용여부, 댓글수 }-->
+		<a name="cmtlist"></a>
+		<div class="board_comment_area" id="comment_container">
+			<!-- 게시글 댓글/덧글 인클루드. 파일위치 : [스킨폴더]/board/_comment.html -->
+			{#commentskin}
+			<!-- //게시글 댓글/덧글 인클루드 -->
+		</div>
+		<!--{/}-->
+
+		<!-- 하단 각종 버튼 -->
+		<ul class="board_detail_btns">
+			<li class="left"><button type="button" name="boardviewclose" class="btn_resp size_b color5">목록</button></li>
+			<li class="right">
+				{? display == 0 && managerview.isperm_moddel != "_mbno" } <button type="button"  name="boad_modify_btn{managerview.isperm_moddel}" board_seq="{seq}"  board_id="{boardid}" class="btn_resp size_b">수정</button>{/}
+				{? display == 0 && replylay == 'Y' && managerview.isperm_write != "_no" } <button type="button"  name="boad_reply_btn" board_seq="{seq}"  board_id="{boardid}" class="btn_resp size_b">답변</button>{/}
+				{? ((display == 0 || (display == 1 && replyor == 0 && comment ==0) ) ) && managerview.isperm_moddel != "_mbno"  } <button type="button"  name="boad_delete_btn{managerview.isperm_moddel}"  board_seq="{seq}"  board_id="{boardid}" class="btn_resp size_b" >삭제</button>{/}
+				{? managerview.viewtype=='layer'}
+					<button type="button" board_seq="{seq}"  class="viewerlay_close_btn btn_resp size_b color2">닫기</button>
+				{:}
+					{? managerview.isperm_write != "_no" }<button type="button"  name="boad_write_btn{managerview.isperm_write}" id="boad_write_btn{managerview.isperm_write}"  board_id="{boardid}" class="btn_resp size_b color2">글쓰기</button>{/}
+				{/}
+			</li>
+		</ul>
+		<!-- //하단 각종 버튼 -->
+	</div>
+</div>
+
+{? managerview.viewtype=='layer'}
+	<a href="javascript:void(0)" class="viewerlay_close_btn btn_pop_close"  board_seq="{seq}"></a>
+{/}
+
+<script type="text/javascript">
+	$(".content img").load(function() {
+		//이미지 가로가 큰경우
+		$(".content img").each(function() {
+			var default_width = '290';//(본문레이아웃사이즈-50) 또는 직접값변경
+			if( $(this).width() > default_width || $(this).height() > default_width ) {
+				imageResize(this,default_width);
+			}
+		});
+	});
+</script>
+
+<!-- 댓글관리 end  -->
+{? _GET.iframe }
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(document).resize(function(){miframeset();}).resize();
+		setInterval(function(){miframeset();},1000);
+
+		// 댓글 등록
+		$("#board_commentsend").bind("click",function(){
+			var comment_btn_seq = $(this).attr("seq");
+			$("form[name=cmtform_"+comment_btn_seq+"]").submit();
+		});
+
+		// 댓글 수정
+		$("#board_commentsend_mod").bind("click",function(){
+			var comment_btn_seq = $(this).attr("board_cmt_seq");
+			$("form[name=cmtform_mod_"+comment_btn_seq+"]").submit();
+		});
+	});
+	function miframeset(){
+		//이미지 가로가 큰경우
+		$(".content img").each(function() {
+			var default_width = '290';//(본문레이아웃사이즈-50) 또는 직접값변경
+			if( $(this).width() > default_width || $(this).height() > default_width ) {
+				imageResize(this,default_width);
+			}
+		});
+		  $('#'+board_id+'_frame',parent.document).height($('#boardlayout').height()+50);
+	}
+</script>
+{/}

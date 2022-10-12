@@ -1,0 +1,729 @@
+	<div class="mobile_tab_div display_set_wrap">
+		<input type="hidden" class="displayImageIconPopupLimit"/>
+
+		<div class="mobile_list_use_box"><label><input type="checkbox" name="m_list_use" value="y" class="m_list_use" {?m_data.m_list_use == 'y'}checked{/} skinVersion="{skinVersion}"/><img src="/admin/skin/default/images/design/mobile_txt.png" align="absmiddle"/></label></div>
+		<table class="design-simple-table-style mobile_list_division {?m_data.m_list_use != 'y'}hide{/}" width="100%" align="center">
+		<!--{? category_flag }-->
+		<col width="140" />
+		<tr>
+			<th class="dsts-th">
+			기본 스타일
+			</td>
+			<td class="dsts-td left" colspan="2">
+				<div class="imageCheckboxContainer">
+					{@mobilestyles_list}
+						<div class="imageCheckboxItem mr5"><label><input type="radio" name="m_style" value="{.key_}" {?.key_==m_data.m_style}checked="checked"{/} /><img src="../images/design/m_img_display_{.key_}.gif" title="{.name}" /></label></div>
+					{/}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">노출 개수</th>
+			<td class="dsts-td left" colspan="2">
+				<table>
+				<col width="100" /><col /><col width="30" /><col width="90" /><col />
+				<tr>
+					<td height="24">격자형(개수고정)</td>
+					<td>가로 <input type="text" name="m_count_w" value="{m_data.m_count_w}" class="line" size="2" maxlength="2" />개</td>
+					<td align="center">X</td>
+					<td>세로 <input type="text" name="m_count_h" value="{?m_data.m_count_h}{m_data.m_count_h}{:}1{/}" class="line" size="3" maxlength="3" />개</td>
+					<td>= 총 <b><span class="m_count_total"></span></b> 개 상품
+					</td>
+				</tr> 
+				<tr>
+					<td height="24">격자형(반응형)</td>
+					<td>가로 자동 개</td>
+					<td align="center">X</td>
+					<td>세로 자동 개</td>
+					<td>= 총 <input type="text" name="m_count_r" value="{?m_data.m_count_r}{m_data.m_count_r}{:}4{/}" class="line" size="2" maxlength="2" /> 개 상품</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<!--{ : }-->
+		<col width="120" />
+		<tr>
+			<th class="dsts-th">
+			기본 스타일
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<div class="imageCheckboxContainer">
+					<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="m_style" value="newswipe" {?m_data.style=='newswipe'}checked="checked"{/} limit="{mobile_styles.newmatrix.limit_func}"/><img src="../images/design/m_img_display_newswipe.gif" title="슬라이드형(개수고정)" /></label></div>
+						</td>
+						<td width="5"></td>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="m_style" value="sizeswipe" {?m_data.style=='sizeswipe'}checked="checked"{/} limit="{mobile_styles.sizeswipe.limit_func}"/><img src="../images/design/m_img_display_sizeswipe.gif" title="슬라이드형(크기고정)" /></label></div>
+						</td>
+					</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">노출 개수</th>
+			<td class="dsts-td left" colspan="2">
+				<table>
+				<col width="150" /><col /><col width="30" /><col width="80" /><col width="30" /><col />
+				<tr>
+					<td height="24">슬라이드형(개수고정)</td>
+					<td>가로 <input type="text" name="count_w_swipe" value="{?m_data.count_w_swipe}{m_data.count_w_swipe}{:}2{/}" class="line" size="2" maxlength="2" />개</td>
+					<td align="center">X</td>
+					<td>세로 <input type="text" name="count_h_swipe" value="{?m_data.count_h_swipe}{m_data.count_h_swipe}{:}1{/}" class="line" size="2" maxlength="3" />개</td>
+					<td align="center">=</td>
+					<td>총 <b><span class="count_total_swipe"></span></b>개 상품씩 총 <input type="text" name="count_max_swipe" value="{?m_data.count_max_swipe}{m_data.count_max_swipe}{:}8{/}" size="2" maxlength="3" />개의 상품이 스와이프 됨 <br />(탭이 존재할 경우 다음 탭으로 스와이프)</td>
+				</tr>
+				<tr>
+					<td height="24">슬라이드형(크기고정)</td>
+					<td>가로 자동</td>
+					<td align="center">X</td>
+					<td>세로 1 개</td>
+					<td align="center">=</td>
+					<td>최대 <b>20</b>개 상품</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<!--{ / }-->
+
+		<!-- 상품디스플레이 꾸미기 영역 : 시작 -->
+		<tbody class="goodsDisplayDecorationContainer mobile_tab">
+		<input type="hidden" name="m_info_settings" class="info_settings" value='{?m_data.info_settings}{=m_data.info_settings}{:}{}{/}' />
+		<input type="hidden" name="m_image_decoration" class="image_decoration" value="" />
+		<input type="hidden" class="image_decoration_icon_type" value="{m_image_decorations->image_icon_type}" />
+		<tr>
+			<th class="dsts-th">이미지 사이즈</th>
+			<td class="dsts-td left" colspan="2">
+				<select name="m_image_size" class="image_size">
+				{@goodsImageSizes}
+					<option value="{.key_}" width="{.width}" height="{.height}" {?.key_==m_data.m_image_size || (!m_data.m_image_size && .key_=='list2')}selected="selected"{/} >{.value_.name}</option>
+				{/}
+				</select>
+				<span class="height_auto">
+				가로 자동조절 X 세로(가로대비) <input type="text" name="mobile_h" size="3" value="{?m_data.mobile_h}{m_data.mobile_h}{:}100{/}"/> %
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th" rowspan="2">
+				<p class="mb5">이미지 꾸미기</p>
+				<span class="btn small orange"><input type="button" value="안내) 상품 정보 노출" onclick="top.openDialogPopup('상품 정보 노출','goodsDisplayDescLayer',{'url':'/admin/design/display_desc_layer','width':950})" /></span>
+			</th>
+			<td class="dsts-td left pdt10" width="680" colspan="2">
+				<div class="clearbox">
+					<label class="mr30"><input type="radio" class="decoration_type" name="m_image_decoration_type" value="favorite"  id="m_image_favorite"{?m_data.image_decoration_type == 'favorite'}checked{/}/> 자주쓰는 꾸미기</label>
+					<label><input type="radio" class="decoration_type" name="m_image_decoration_type" value="quality" id="m_image_quality"{?!m_data.image_decoration_type || m_data.image_decoration_type == 'quality'}checked{/}/> 고급설정 꾸미기</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="dsts-td left">
+				<div class="clearbox m_image_decoration_favorite decoration_favorite mt10" json="{=base64_encode(json_encode(m_image_favorite))}" use_key="{m_data.image_decoration_favorite_key}" platform="mobile" favorite_type="image_decoration">
+				</div>
+				<div class="mt20">
+					
+				</div>
+				<div class="clearbox m_image_decoration_quality decoration_quality mt10 ml20 {?m_data.image_decoration_type == 'favorite'}hide{/}" >
+					<!-- 테두리 -->
+					<table class="image_decoration_table fl" width="50%" height="130">
+					<tr>
+						<td height="25" valign="top">							
+							<input type="checkbox" id="border_mobile" class="use_image_border image_decorate_chk" {?m_image_decorations->image_border1}checked="checked"{/} />							
+							<select class="image_border_type image_decorate_chk" onchange="display_set_border_mobile(this);"><option value="image" {?m_image_decorations->image_border_type != 'all'}selected{/}>상품테두리</option><option value="all" {?m_image_decorations->image_border_type == 'all'}selected{/}>전체테두리</option></select>
+							<input type="text" value="{?m_image_decorations->image_border1}{m_image_decorations->image_border1}{:}#000000{/}" class="image_border1 colorpicker isMobile" />
+							<input type="text" value="{m_image_decorations->image_border1_width}" size="3" maxlength="2" class="image_border1_width line input-text-small onlynumber" /><label for="border_mobile"><span>px</span></label>							
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+							<img src="../images/design/img_effect_rollover_border.gif" class="img_effect_border_img_m" attr="goods"/>
+							<img src="../images/design/img_effect_rollover_border.gif" class="img_effect_border_img_m" attr="all"/>
+						</td>
+					</tr>
+					</table>
+
+					<!-- 보내기,찜하기 버튼 -->
+					<table class="image_decoration_table fl" width="50%" height="50">
+					<tr>
+						<td  valign="top">
+							<input type="checkbox" id="zzim_mobile" class="use_image_zzim image_decorate_chk" {?m_image_decorations->image_zzim}checked="checked"{/} />
+
+							<input type="hidden" class="image_zzim" value="{?m_image_decorations->image_zzim}{m_image_decorations->image_zzim}{:}icon_zzim.png{/}" />
+							{?m_image_decorations->image_zzim}
+							<img src="/data/icon/goodsdisplay/zzim/{m_image_decorations->image_zzim}" border="0" vspace="4" class="image_zzim_select hand" align="absmiddle">
+							{:}
+							<img src="/data/icon/goodsdisplay/zzim/icon_zzim.png" border="0" vspace="4" class="image_zzim_select hand" align="absmiddle">
+							{/}
+
+							<input type="hidden" class="image_zzim_on" value="{?m_image_decorations->image_zzim_on}{m_image_decorations->image_zzim_on}{:}icon_zzim_on.png{/}" />
+							{?m_image_decorations->image_zzim_on}
+							<img src="/data/icon/goodsdisplay/zzim_on/{m_image_decorations->image_zzim_on}" border="0" vspace="4" class="image_zzim_on_select hand" align="absmiddle">
+							{:}
+							<img src="/data/icon/goodsdisplay/zzim_on/icon_zzim_on.png" border="0" vspace="4" class="image_zzim_on_select hand" align="absmiddle">
+							{/}
+
+							<label for="zzim_mobile"><span class="desc" style="color:#f6731b">이미지를 클릭하면 변경 가능</span></label>
+						</td>
+					</tr>
+					</table>
+
+					<!-- 아이콘 -->
+					<table class="image_decoration_table fl" width="50%" height="90">
+					<tr>
+						<td width="15" valign="top">
+							<input type="checkbox" id="icon_mobile" class="use_image_icon image_decorate_chk" {?m_image_decorations->image_icon}checked="checked"{/} />	
+						</td>
+						<td height="25" valign="top">
+							<div style="float:left;width:65px">
+								<input type="hidden" class="image_icon" value="{?m_image_decorations->image_icon}{m_image_decorations->image_icon}{:}icon_best.png{/}" />
+								<input type="hidden" class="image_icon_condition" value="{m_image_decorations->image_icon_condition}" />
+								<input type="hidden" class="image_icon_type" value="{m_image_decorations->image_icon_type}" />
+								<input type="hidden" class="image_icon_condition_cnt" value="{m_image_decorations->image_icon_condition_cnt}" />
+								{?m_image_decorations->image_icon}
+								<img src="/data/icon/goodsdisplay/{m_image_decorations->image_icon}" border="0" class="image_icon_select hand {?m_image_decorations->image_icon_type == 'condition'}hide{/}" align="absmiddle">
+								{:}
+								<img src="/data/icon/goodsdisplay/icon_best.png" border="0" class="image_icon_select hand {?m_image_decorations->image_icon_type == 'condition'}hide{/}" align="absmiddle">
+								{/}
+								<span class="image_icon_select image_icon_select_condition hand {?m_image_decorations->image_icon_type != 'condition'}hide{/}">아이콘</span>
+							</div>
+							<div style="float:left;width:200px">
+								<label for="icon_mobile">
+									<div class="icon_type_txt {? image_decorations->image_icon_type == 'condition' }hide{/}" attr="no">
+										<span>조건 없이 노출</span>
+									</div>
+									<div class="icon_type_txt {? image_decorations->image_icon_type != 'condition' }hide{/}" attr="condition">
+										조건(<span class="icon_condition_cnt">{m_image_decorations->image_icon_condition_cnt}</span>개) 만족 시 노출
+									</div>
+									<div class="mt5">
+										<select class="image_icon_location">
+											<option value="left" {?m_image_decorations->image_icon_location=='left'}selected="selected"{/}>좌측상단</option>
+											<option value="right" {?m_image_decorations->image_icon_location=='right'}selected="selected"{/}>우측상단</option>
+										</select>
+										<select class="image_icon_over hide">
+											<option value="n" selected>오버 시</option>
+										</select>
+									</div>
+									<div class="mt5">
+										<span class="desc" style="color:#f6731b">이미지를 클릭하면 변경 가능</span>
+									</div>
+								</label>
+							</div>
+						</td>
+					</tr>
+					</table>
+					<table class="image_decoration_table fl pdt30" width="100%">
+						<tr>
+							<td>
+								<div class="center pdr30">
+									<span class="btn small cyanblue favorite_btn"><input type="button" value="자주쓰는 꾸미기로 등록" onclick="open_decoration_save(this, 'mobile', 'm_image_decoration')"></span>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+			<td class="dsts-td" style="padding:0px;">
+				<table class="goodsDisplayImageTable" width="220" align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+					<tr>
+						<td valign="top" class="pd10">
+							<table class="goodsDisplayItemWrap" width="100%" align="right" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									<div class="goodsDisplayImageWrap" goodsInfo="{=base64_encode(json_encode(sampleGoodsInfo))}">
+										<a href="javascript:;"><span><img src="../images/design/img_effect_sample.gif" width="100%"  designElement /></a>
+									</div>
+									<div class="pd20 center">상품정보 영역</div>
+								</td>
+							</tr>
+							</table>							
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th" rowspan="2">
+				<p class="mb5">상품 정보
+				<br />
+				<span class="desc" style="font-weight:normal;">노출순서변경</span> <span class="helpicon" title="마우스로 드래그&드랍해서 조정합니다."></span></p>
+				<span class="btn small orange"><input type="button" value="안내) 노출 정보" onclick="openDialog('노출 정보','#displayInfoDescLayer', {'width':'800','show' : 'fade','hide' : 'fade'});" /></span>
+			</th>
+			<td class="dsts-td left pdt10" colspan="2">
+				<div class="clearbox">
+					<label class="mr30"><input type="radio" class="decoration_type" name="m_goods_decoration_type" value="favorite" id="m_goods_favorite"{?data.goods_decoration_type == 'favorite'}checked{/}/> 자주쓰는 상품정보</label>
+					<label><input type="radio" class="decoration_type" name="m_goods_decoration_type" value="quality" id="m_goods_quality"{?!m_data.goods_decoration_type || m_data.goods_decoration_type == 'quality'}checked{/}/> 고급설정 상품정보</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="dsts-td left pdt10" colspan="2" width="">
+				<div class="clearbox m_goods_decoration_favorite decoration_favorite mt10" json="{=base64_encode(json_encode(m_goods_favorite))}" use_key="{m_data.goods_decoration_favorite_key}" platform="mobile" favorite_type="goods_decoration">
+				</div>
+				<div class="mt20">
+				</div>
+				<div class="clearbox m_goods_decoration_quality decoration_quality mt10 ml15 {?data.goods_decoration_type == 'favorite'}hide{/}">
+					<div class="pd5">
+						<img src="../images/design/icon_design_plus.gif" align="absmiddle" onclick="add_new_info_item(this)" class="hand" />
+						<label class="mr10"><input type="radio" name="m_text_align" class="text_align" value="left" title="좌측정렬" {?m_data.text_align=='left'}checked="checked"{/} /> 좌측정렬</label>
+						<label class="mr10"><input type="radio" name="m_text_align" class="text_align" value="center" title="중앙정렬" {?m_data.text_align=='center' || !m_data.text_align}checked="checked"{/} /> 중앙정렬</label>
+						<label><input type="radio" name="m_text_align" class="text_align" value="right" title="우측정렬" {?m_data.text_align=='right'}checked="checked"{/} /> 우측정렬</label>
+					</div>
+					<div class="info_item_container"></div>
+
+					<div class="info_item_default info_item hide" style="min-height:30px">
+						<div>
+							<img src='../images/common/icon_move.gif' align='absmiddle' style="margin-left:5px" class="move" />
+							<img src="../images/design/icon_design_minus.gif" align="absmiddle" onclick="remove_info_item(this)" class="hand" />
+
+							<span class="info_item_cell_kind info_item_cell">
+								<select class="info_item_kind info_item_selector" style="width:130px;">
+									<option value="brand_title">브랜드명</option>
+									<option value="goods_name">상품명</option>
+									<option value="summary">짧은 설명</option>
+									<option value="consumer_price">정가</option>
+									<option value="price">판매가</option>
+									<option value="sale_price">(혜택적용)판매가</option>
+									<option value="count">판매수량,남은시간</option>
+									{?eventpage}
+									<option value="event_text">이벤트내용</option>
+									{/}
+									<option value="icon">아이콘</option>
+									<option value="status_icon">상태 아이콘</option>
+									<option value="score">상품평</option>
+									<!--{ ? serviceLimit('H_AD') }-->
+									<option value="provider_name">판매자명</option>
+									<!--{ / }-->
+									<option value="color">컬러 옵션</option>
+									<option value="bigdata" {?serviceLimit('H_FR')}disabled{/}>빅데이터 큐레이션</option>
+									<option value="shipping">배송비</option>
+									<option value="pageview">페이지뷰, 찜</option>
+								</select>
+							</span>
+
+							<span class="info_item_cell_font_decoration info_item_cell">
+								<input type="text" value="" class="info_item_font_decoration info_item_selector customFontDecoration hide" />
+							</span>
+
+							<span class="info_item_cell_position info_item_cell"> 
+								<select class="info_item_position info_item_selector">
+									<option value="">=노출심볼=</option>
+									<option value="before">금액앞</option>
+									<option value="after">금액뒤</option>
+								</select>
+							</span>
+							<span class="info_item_cell_postfix info_item_cell"> 
+								<select class="info_item_postfix info_item_selector">
+									<option value="">=노출심볼=</option>
+									{@ currency_symbol_list[basic_currency]['0']['value'] }
+									{? strstr(.value_,"&") }
+									<option value="symbol">{=.value_}</option>
+									{ : }
+									<option value="{=.value_}">{=.value_}</option>
+									{ / }
+									{ / }
+									<option value=""></option>
+								</select>
+							</span>
+
+							<span class="info_item_cell_wrapper info_item_cell">
+								<select class="info_item_wrapper info_item_selector">
+									<option value="">&nbsp; = 괄호 = &nbsp;</option>
+									<option value="[]">[]</option>
+									<option value="()">()</option>
+									<option value="<>">&lt;&gt;</option>
+									<option value="{}">{}</option>
+								</select>
+							</span>
+
+							<span class="info_item_cell_list_icon_desc info_item_cell"  >
+								<label><input type="checkbox" checked disabled /> 상품아이콘</label>
+							</span>
+							<!--
+							<span class="info_item_cell_list_icon_cpn info_item_cell ml5"  >
+								<label><input type="checkbox" name="list_icon_cpn" class="info_item_list_icon_cpn info_item_selector" value="1"  /> 쿠폰 <img src="/data/icon/goods_status/icon_list_cpn.gif" align="absmiddle" /></label>
+							</span>
+							<span class="info_item_cell_list_icon_freedlv info_item_cell ml5"  >
+								<label><input type="checkbox" name="list_icon_freedlv" class="info_item_list_icon_freedlv info_item_selector" value="1"  /> 무료배송 <img src="/data/icon/goods_status/icon_list_freedlv.gif" align="absmiddle" /></label>
+							</span>
+							-->
+							<span class="info_item_cell_list_icon_video info_item_cell ml5"  >
+								<label><input type="checkbox" name="list_icon_video" class="info_item_list_icon_video info_item_selector" value="1"  /> 동영상 <img src="/data/icon/goods_status/icon_list_video.gif" align="absmiddle" /></label>
+							</span>
+
+							<span class="info_item_cell_status_icon_runout info_item_cell"  >
+								<label><input type="checkbox" name="status_icon_runout" class="info_item_status_icon_runout info_item_selector" value="1"  /> 품절 <img src="/data/icon/goods_status/icon_list_soldout.gif" align="absmiddle" /></label>
+							</span>
+							<span class="info_item_cell_status_icon_purchasing info_item_cell ml5"  >
+								<label><input type="checkbox" name="status_icon_purchasing" class="info_item_status_icon_purchasing info_item_selector" value="1"  /> 재고확보중 <img src="/data/icon/goods_status/icon_list_warehousing.gif" align="absmiddle" /></label>
+							</span>
+							<span class="info_item_cell_status_icon_unsold info_item_cell ml5"  >
+								<label><input type="checkbox" name="status_icon_unsold" class="info_item_status_icon_unsold info_item_selector" value="1"  /> 판매중지 <img src="/data/icon/goods_status/icon_list_stop.gif" align="absmiddle" /></label>
+							</span>
+
+							<span class="info_item_cell_status_icon_desc info_item_cell helpicon ml5" title="해당 상품 디스플레이에 있는 상품의 상태가<br />품절, 재고확보중, 판매중지일 때 체크된 아이콘이 나타납니다."></span>
+
+							<span class="info_item_cell_buy_count info_item_cell">
+								<label class="mr5"><input type="checkbox" name="buy_count" class="info_item_buy_count info_item_selector" value="1"  /> 현재 11,905개 구매</label>
+							</span>
+
+							<span class="info_item_cell_time_count info_item_cell">
+								<label><input type="checkbox" name="time_count" class="info_item_time_count info_item_selector" value="1"  /> 남은시간 : 05일  10:22:43</label>
+							</span>
+
+							<span class="info_item_cell_score_desc info_item_cell desc">
+								(예시) &nbsp;<font style="font-weight:bold; color:#fff; background-color:#ee6600; padding:0 3px; font-family:tahoma">4.5</font> <font color="#eeaa00">★★★★</font><font color="#999999">★</font> 상품평 (<span class="red">16</span>)
+							</span>
+
+							<span class="info_item_cell_color_desc info_item_cell desc">
+								(예시) &nbsp;<font color="#54a6ad">■</font> <font color="#74a6bd">■</font> <font color="#74b6ed">■</font> <font color="#a476bd">■</font>
+							</span>
+
+							<span class="info_item_cell_bigdata info_item_cell desc">
+								<div style="margin-left:183px;">
+									<div class="pdt5">
+										<input type="text" class="info_item_bigdata info_item_selector" value="다른 사람은 뭘살까?" size="53"/>
+									</div>
+									<div class="pdt5" style="line-height:15px !important">
+										※ 링크 클릭 시 빅데이터 큐레이션 전용페이지로 새창 이동됩니다.<br/>
+										빅데이터 큐레이션 전용페이지 설정은 빅데이터 > <a href="/admin/bigdata/catalog" target="top" style="color:#f63 !important;">전용페이지 설정</a>에서 하십시오
+									</div>
+								</div>
+							</span>
+
+							<span class="info_item_cell_shipping_free info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_free" class="info_item_shipping_free info_item_selector" value="1"/> 무료배송</label>
+							</span>
+
+							<span class="info_item_cell_shipping_fixed info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_fixed" class="info_item_shipping_fixed info_item_selector" value="1"/> 고정배송비</label>				
+							</span>
+
+							<span class="info_item_cell_shipping_iffree info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_iffree" class="info_item_shipping_iffree info_item_selector" value="1"/> 조건부 무료배송</label>				
+							</span>
+
+							<span class="info_item_cell_shipping_ifpay info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_ifpay" class="info_item_shipping_ifpay info_item_selector" value="1"/> 조건부 차등배송</label>				
+							</span>
+
+							<span class="info_item_cell_shipping_overseas info_item_cell">
+								<label><input type="checkbox" name="info_item_shipping_overseas" class="info_item_shipping_overseas info_item_selector" value="1"/> 해외배송</label>
+							</span>
+
+							<span class="info_item_cell_shipping_desc info_item_cell">
+								<p class="desc" style="margin-left:183px;line-height:15px">
+									※ 상품별 배송비를 안내합니다. 무료배송 상품이더라도 무료배송을 체크하지 않으면 안내되지 않습니다.<br />
+									※ 5가지(무료배송~해외배송) 경우에 대한 배송비 안내문구는 각각의 배송그룹에서 입력할 수 있습니다.
+								</p>
+							</span>
+
+							<span class="info_item_cell_pageview_desc info_item_cell desc">
+								(예시)&nbsp; 페이지뷰 9,999+ &nbsp;찜 327
+							</span>
+
+							<input type="text" name="m_info_setting[]" value="" class="info_setting hide" disabled="disabled" />
+						</div>
+					
+						<div>
+							<span class="info_item_cell_compare info_item_cell">
+								<input type="text" value="" class="info_item_compare info_item_selector customCompare " style="width:100%;"/>
+							</span>
+						</div>
+					</div>
+					<div class="center pdr30">
+						<span class="btn small cyanblue favorite_btn"><input type="button" value="자주쓰는 상품정보로 등록" onclick="open_decoration_save(this, 'mobile', 'm_goods_decoration')"></span>
+					</div>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+		<!--{ ? display_tab_flag }-->
+		<tr class="tab_area">
+			<th class="dsts-th">
+			탭 <span class="btn small cyanblue"><button type="button" id="m_btnDisplayTabPopup">만들기</button></span>
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<div class="displayTabContainer"></div>
+				<div id="m_displayTabMakePopup" class="displayTabMakePopup mobile_tab_popup">
+					<div class="m_displayTabMakePopupInner">
+
+						<ul class="displayTabKindWrap">
+							<li><label><input type="radio" name="m_popup_tab_design_kind" value="text" {?!m_data.tab_design_type || m_data.tab_design_type!='displayTabTypeImage'}checked{/}/> 텍스트 탭 만들기</label></li>
+							<li><label><input type="radio" name="m_popup_tab_design_kind" value="image" {?m_data.tab_design_type=='displayTabTypeImage'}checked{/}/> 이미지로 탭 만들기</label></li>
+						</ul>
+
+						<div class="m_displayTabKindWrapText">
+							<div class="displayTabDivisionLine">
+								<b>탭 스타일</b>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType1" {?!m_data.tab_design_type || m_data.tab_design_type=='displayTabType1'}checked{/}/>&nbsp;
+									<ul class="displayTabType1" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType3" {?m_data.tab_design_type=='displayTabType3'}checked{/}/>&nbsp;
+									<ul class="displayTabType3" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType4" {?m_data.tab_design_type=='displayTabType4'}checked{/}/>&nbsp;
+									<ul class="displayTabType4" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType5" {?m_data.tab_design_type=='displayTabType5'}checked{/}/>&nbsp;
+									<ul class="displayTabType5" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType6" {?m_data.tab_design_type=='displayTabType6'}checked{/}/>&nbsp;
+									<ul class="displayTabType6" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType7" {?m_data.tab_design_type=='displayTabType7'}checked{/}/>&nbsp;
+									<ul class="displayTabType7" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+								<div class="pdt5">
+									<label><input type="radio" name="m_popup_tab_design_type" value="displayTabType2" {?m_data.tab_design_type=='displayTabType2'}checked{/} />&nbsp;
+									<ul class="displayTabType2" style="display:inline-block;vertical-align:middle">
+										<li class="current">탭1</li>
+										<li>탭2</li>
+										<li>탭3</li>
+										<li>탭4</li>
+									</ul>
+									</label>
+								</div>
+							</div>
+							<br />
+							<div class="displayTabDivisionLine">
+								<b>탭 명칭</b>
+								<div class="displayTabList">
+									<!--{ ? m_display_tabs }-->
+										<!--{ @ m_display_tabs }-->
+										<div class="displayTabMakeInputs">
+											<input type="text" name="m_popup_tab_title[]" value="{.tab_title}" size="35" maxlength="15" /> <img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="mobile"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="mobile"/>
+										</div>
+										<!--{ / }-->
+									<!--{ :}-->
+										<div class="displayTabMakeInputs">
+											<input type="text" name="m_popup_tab_title[]" value="" size="35" maxlength="15" /> <img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="mobile"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="mobile"/>
+										</div>
+									<!--{ / }-->
+								</div>
+							</div>
+						</div>
+
+						<div class="m_displayTabKindWrapImage">
+							<table width="100%" class="info-table-style displayTabList">
+							<tr>
+								<th class="its-th" width="30"></th>
+								<th class="its-th-align center">탭 활성 이미지</th>
+								<th class="its-th-align center">탭 비활성 이미지</th>
+								<th class="its-th-align center" width="65">추가/삭제</th>
+							</tr>
+							<!--{ ? m_display_tabs }-->
+								<!--{ @ m_display_tabs }-->
+								<tr class="displayTabMakeImages">
+									<td class="its-td-align center">탭 <span class="strMakeTabIdx">{=(.index_+1)}</div></td>
+									<td class="its-td-align center">
+										{?.tab_title_img}<img src="/data/icon/goodsdisplay/tabs/{.tab_title_img_on}" />{/}
+										<div>
+											<input type="text" name="m_tab_title_img_on[]" value="{.tab_title_img_on}" class="hide" />
+											<input type="file" name="m_new_tab_title_img_on[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center">
+										{?.tab_title_img}<img src="/data/icon/goodsdisplay/tabs/{.tab_title_img}" />{/}
+										<div>
+											<input type="text" name="m_tab_title_img[]" value="{.tab_title_img}" class="hide" />
+											<input type="file" name="m_new_tab_title_img[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center"><img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="mobile"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="mobile"/></td>
+								</tr>
+								<!--{ / }-->
+							<!--{ :}-->
+								<tr class="displayTabMakeImages">
+									<td class="its-td-align center">탭 <span class="strMakeTabIdx">1</div></td>
+									<td class="its-td-align center">
+										<div>
+											<input type="text" name="m_tab_title_img[]" value="" class="hide" />
+											<input type="file" name="m_new_tab_title_img[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center">
+										<div>
+											<input type="text" name="m_tab_title_img_on[]" value="}" class="hide" />
+											<input type="file" name="m_new_tab_title_img_on[]" size="20" />
+										</div>
+									</td>
+									<td class="its-td-align center"><img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="mobile"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="mobile"/></td>
+								</tr>
+							<!--{ / }-->
+							</table>
+						</div>
+
+						<div class="pdt20 center">
+							<span class="btn small cyanblue"><button type="button" onclick="closeDialog('m_displayTabMakePopup')">확인</button></span>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		<!--{ / }-->
+		<!-- 상품디스플레이 꾸미기 영역 : 끝 -->
+
+		<!--{? display_condition_flag }-->
+		<!--{ ? m_display_tabs }-->
+			<!--{ @ m_display_tabs }-->
+			<tbody class="displayTabGoodsContainer" tabIdx="{.index_}">
+			<tr>
+				<th class="dsts-th">
+					<span class="strTab">[탭 <span class="strTabIdx">{=.index_+1}</span>]</span><br />
+					<select name="m_contents_type[]" class="contents_type">
+					<option value="auto" {?.contents_type=='auto'}selected{/}>상품 자동 노출</option>
+					<option value="auto_sub" {?.contents_type=='auto_sub'}selected{/}>상품 자동 노출(2)</option>
+					<option value="select" {?.contents_type=='select'}selected{/}>선택 상품 노출</option>
+					</select>
+					<div class="displayTypeInfo">고객의 최근 행동<br />또는 관리자 지정<br />기준</div>
+					<div class="displayTypeInfo">고객의 현재<br />보고 있는 상품<br />기준</div>
+					<div class="displayTypeInfo">관리자가<br />지정한 상품</div>
+					<div class="displayTypeInfo">관리자가<br />해당 영역을 꾸밈</div>
+				</th>
+				<td class="dsts-td left" colspan="2">
+
+					<div class="displayTabAutoTypeContainer" type="auto">
+						<span class="btn small gray"><button type="button" class="displayCriteriaButton displayCriteriaType" attr="mobile" auto_type="auto">조건 선택</button></span>
+
+						<div class="clearbox" style="height:5px;"></div>
+
+						<input type='hidden' class="displayCriteria" id="m_displayCriteria{.index_}" name='m_auto_criteria[]' value="{.auto_criteria}" />
+						<input type='hidden' class="m_auto_condition_use" id="m_auto_condition_use{.index_}" name='m_auto_condition_use[]' value="{.auto_condition_use}" />
+
+						<div class="displayCriteriaDesc pdt10"></div>
+					</div>
+					<div class="displayTabAutoTypeContainer" type="select">
+						<span class="btn small gray"><button type="button" class="displayGoodsButton" attr="mobile">상품 검색</button></span>
+						<span class="desc">↓ 아래의 상품을 드래그하여 노출순서를 변경할 수도 있습니다.</span>
+
+						<div class="clearbox" style="height:5px;"></div>
+						<input type='hidden' name='m_auto_goods_seqs[]' />
+
+						<div id="m_displayGoods{.index_}" class="displayGoods">
+							{@.items}
+							<div class='goods fl move'>
+							<div align='center' class='image'><img src="{..image}" class="goodsThumbView" width="50" height="50" alt="{=htmlspecialchars(..goods_name)}" onerror="this.src='../images/common/noimage_list.gif'" /></div>
+							<div align='center' class='name' style='width:70px;overflow:hidden;white-space:nowrap;'>{=htmlspecialchars(..goods_name)}</div>
+							<div align='center' class='price'>{=get_currency_price(..price)}</div>
+							<input type='hidden' name='m_displayGoods{.index_}[]' value='{..goods_seq}' />
+							</div>
+							{/}
+
+						</div>
+					</div>
+
+				</td>
+			</tr>
+			</tbody>
+			<!--{/}-->
+		<!--{:}-->
+			<tbody class="displayTabGoodsContainer" tabIdx="0">
+			<tr>
+				<th class="dsts-th">
+					<span class="strTab">[탭 <span class="strTabIdx">1</span>]</span><br />
+					<select name="m_contents_type[]" class="contents_type">
+					<option value="auto" selected>상품 자동 노출</option>
+					<option value="auto_sub">상품 자동 노출(2)</option>
+					<option value="select">선택 상품 노출</option>
+					</select>
+					<div class="displayTypeInfo">고객의 최근 행동<br />또는 관리자 지정<br />기준</div>
+					<div class="displayTypeInfo">고객의 현재<br />보고 있는 상품<br />기준</div>
+					<div class="displayTypeInfo">관리자가<br />지정한 상품</div>
+					<div class="displayTypeInfo">관리자가<br />해당 영역을 꾸밈</div>
+				</th>
+				<td class="dsts-td left" colspan="2">
+
+					<div class="displayTabAutoTypeContainer" type="auto">
+						<span class="btn small gray"><button type="button" class="displayCriteriaButton displayCriteriaType" attr="mobile" auto_type="auto">조건 선택</button></span>
+
+						<div class="clearbox" style="height:5px;"></div>
+
+						<input type='hidden' class="displayCriteria" id="m_displayCriteria0" name='m_auto_criteria[]' value="admin∀type=select_auto,provider=all,month=1,act=recently,min_ea=1" />
+
+						<input type='hidden' class="m_auto_condition_use" id="m_auto_condition_use0" name='m_auto_condition_use[]' value="1" />
+
+						<div class="displayCriteriaDesc pdt10"></div>
+					</div>
+					<div class="displayTabAutoTypeContainer" type="select">
+						<span class="btn small gray"><button type="button" class="displayGoodsButton" attr="mobile">상품 검색</button></span>
+						<span class="desc">↓ 아래의 상품을 드래그하여 노출순서를 변경할 수도 있습니다.</span>
+
+						<div class="clearbox" style="height:5px;"></div>
+						<input type='hidden' name='m_auto_goods_seqs[]' />
+
+						<div id="m_displayGoods0" class="displayGoods"></div>
+					</div>
+
+				</td>
+			</tr>
+			</tbody>
+		<!--{/}-->
+		{/}
+		<tr class="navigation_paging_area">
+			<th class="dsts-th">
+			네비게이션 <span class="btn small cyanblue"><button type="button" onclick="$('#navigation_paging_dialog').dialog('open')">선택</button></span>
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="50%">
+						<span class="navigation_paging_prn"></span>
+					</td>
+					<td>
+						노출 상품이 <span class="count_total_swipe"></span>개를 초과하면 자동으로 네비게이션이 보여집니다.
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<!--s:상품노출, 인기순 정렬-->
+		<!--{?display_select_flag}-->
+		<!--{#display_edit_select_m}-->
+		<!--{/}-->
+		<!--e:상품노출, 인기순 정렬-->
+		</table>
+	</div>

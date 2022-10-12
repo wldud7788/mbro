@@ -1,0 +1,9 @@
+			<select name="sms_form_group" id="sms_form_group">
+				<option value="">= 그룹을 선택하세요 =</option>
+				{@ sms_loop}
+				{? .category != "전체보기"}
+				<option value="{.category}">{.category}</option>
+				{/}
+				{ / }
+			</select> <span class="btn small gray"><button type="button" id="add_sms_group">그룹추가</button></span>
+			<span id="sms_form_id" class="hide"><input type="text" name="sms_form_name"> <span class="btn small gray"><button type="button" id="del_sms_group">취소</button></span></span>

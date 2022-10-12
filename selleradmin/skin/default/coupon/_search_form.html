@@ -1,0 +1,147 @@
+<div id="search_container" class="search_container">
+	<form name="couponsearch" id="couponsearch" class="search_form">
+	<input type="hidden" name="pageid" value="coupon_catalog" data-search_mode='{=sc.search_mode}' data-select_date='{=sc.select_date}' />
+	<input type="hidden" name="no" value="" >
+	<input type="hidden" name="query_string"/>
+	<input type="hidden" name="perpage" id="perpage" value="{sc.perpage}" >
+	<input type="hidden" name="page" id="page" value="{sc.page}" data-defaultPage=0 >
+	<input type="hidden" name="orderby" id="orderby" value="{sc.orderby}" >
+	
+	<table class="table_search">
+		<tr {? !in_array('sc_keyword',sc_form.default_field)}class='hide'{/} >
+			<th><span>쿠폰명</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_keyword" class="hide"></label></th>
+			<td>
+				<input type="text" name="search_text" id="search_text" value="{sc.search_text}" size="100" title="" />
+			</td>
+		</tr>
+
+		<tr {? !in_array('sc_coupon_category',sc_form.default_field)}class='hide'{/} >
+			<th><span>혜택 구분</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_coupon_category" class="hide"></label></th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sc_coupon_category" value=""  {=sc['checkbox']['sc_coupon_category']['all']}> 전체</label>
+				{@ sc_form['coupon_category'] }
+					<label><input type="radio" name="sc_coupon_category" value="{.key_}"  {=sc['checkbox']['sc_coupon_category'][.key_]} > {.value_}
+					{? count(sc_form['coupon_category_sub'][.key_]) > 1 && .key_ != 'order' }
+					<select name="sc_coupon_category_sub[]" onClick="$(this).parent().find('input:radio').prop('checked',true)">
+					<option value="">전체</option>
+					{@ sc_form['coupon_category_sub'][.key_] } 
+						<option value="{=..key_}" {? in_array(..key_,sc.sc_coupon_category_sub)}selected{/}>{..value_}</option>
+					{ / }
+					</select>
+					{ / }
+					</label>
+				{ / }
+				</div>
+			</td>
+		</tr>
+
+		<tr {? !in_array('sc_regist_date',sc_form.default_field)}class='hide'{/} >
+			<th><span>등록일</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_regist_date" class="hide"></label></th>
+			<td>
+				<div class="date_range_form" >
+					<input type="text" name="sdate" value="{sc.sdate}" class="datepicker sdate"  maxlength="10" />
+					-
+					<input type="text" name="edate" value="{sc.edate}" class="datepicker edate" maxlength="10"  />
+
+					<div class="resp_btn_wrap">
+						<input type="button" range="today" value="오늘" class="select_date resp_btn" />
+						<input type="button" range="3day" value="3일간" class="select_date resp_btn" />
+						<input type="button" range="1week" value="일주일" class="select_date resp_btn" />
+						<input type="button" range="1month" value="1개월" class="select_date resp_btn" />
+						<input type="button" range="3month" value="3개월" class="select_date resp_btn" />
+						<input type="button" range="select_date_all"  value="전체" class="select_date resp_btn"/>
+						<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden" />
+					</div>
+				</div>
+			</td>							
+		</tr>
+
+		<input type="hidden" name="provider_seq_selector" value="{sc.provider_seq}" />
+		<input type="hidden" name="provider_seq" value="{sc.provider_seq}" />
+
+		<tr {? !in_array('sc_issue_stop',sc_form.default_field)}class='hide'{/} >
+			<th><span>발급 상태</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_issue_stop" class="hide"></label></th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="issue_stop" value=""  {=sc['checkbox']['issue_stop']['all']} /> 전체</label>
+					<label><input type="radio" name="issue_stop" value="1"  {=sc['checkbox']['issue_stop']['1']} /> 발급 중</label>
+					<label><input type="radio" name="issue_stop" value="2"  {=sc['checkbox']['issue_stop']['2']} /> 발급 정지</label>
+				</div>
+			</td>
+		</tr>
+
+		<tr {? !in_array('sc_use_type',sc_form.default_field)}class='hide'{/} >
+			<th><span>온/오프라인</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_use_type" class="hide"></label></th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_type" value=""  {=sc['checkbox']['use_type']['all']} /> 전체</label>
+					<label><input type="radio" name="use_type" value="online"  {=sc['checkbox']['use_type']['online']} /> 온라인 전용</label>
+					<label>
+						<input type="radio" name="use_type" value="offline"  {=sc['checkbox']['use_type']['offline']} /> 오프라인 전용
+
+						<!--{ ? checkO2OService && salestoreitemloop }-->
+						<select name="sale_store_item" class="wx150" onClick="$(this).parent().find('input[name=\'use_type\'][value=\'offline\']').prop('checked',true)">
+							<option value="">전체</option>
+							<!--{ @ salestoreitemloop }-->
+								<option value="<!--{ = .o2o_store_seq }-->" <!--{ = sc['selected']['sale_store_item'][.o2o_store_seq] }--> /> <!--{ = .pos_name }--></option>
+							<!--{ / }-->
+						<!--{ / }-->
+						</select>
+					</label>
+				</div>
+			</td>
+		</tr>
+
+		<!--{ ? serviceLimit('H_AD') }-->
+		<tr {? !in_array('sc_cost_start',sc_form.default_field)}class='hide'{/} >
+			<th><span>할인 혜택 부담</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_cost_start" class="hide"></label></th>
+			<td>
+				<select name="cost_type" class="search_select">
+					<option value="admin" {? sc.cost_type=='admin'}selected{/}>본사 부담률</option>
+					<option value="provider" {? sc.cost_type=='provider'}selected{/}>입점사 부담률</option>
+				</select>
+
+				<input type="text" name="search_cost_start" size="4" maxlength="3" value="{sc.search_cost_start}"  defaultValue='0' class="onlynumber right" />%
+				~
+				<input type="text" name="search_cost_end" size="4" maxlength="3" value="{sc.search_cost_end}"  defaultValue='100' class="onlynumber right" />%
+				<span class="desc">(0~100사이)</span>
+
+			</td>
+		</tr>
+		<!--{ / }-->
+
+		<tr {? !in_array('sc_limit_goods_price',sc_form.default_field)}class='hide'{/} >
+			<th><span>최소 주문 금액</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_limit_goods_price" class="hide"></label></th>
+			<td>
+				<input type="text" name="limit_goods_price" value="{sc.limit_goods_price}" size="7" class="line"/> {=basic_currency_info['currency_symbol']} 이상
+			</td>
+		</tr>
+
+		<tr {? !in_array('sc_sale_agent',sc_form.default_field)}class='hide'{/} >
+			<th><span>사용 가능 환경</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_sale_agent" class="hide"></label></th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sale_agent" value=""  {=sc['checkbox']['sale_agent']['all']} /> 전체</label>
+					<label><input type="radio" name="sale_agent" value="m"  {=sc['checkbox']['sale_agent']['m']} /> 모바일</label>
+					<label><input type="radio" name="sale_agent" value="app"   {=sc['checkbox']['sale_agent']['app']} /> 쇼핑몰앱</label>
+				</div>
+			</td>
+		</tr>
+
+		<tr {? !in_array('sc_sale_payment',sc_form.default_field)}class='hide'{/} >
+			<th><span>결제 가능 수단</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_sale_payment" class="hide"></label></th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sale_payment" value=""  {=sc['checkbox']['sale_payment']['all']}  /> 전체</label>
+					<label><input type="radio" name="sale_payment" value="b"  {=sc['checkbox']['sale_payment']['b']} /> 무통장</label>
+				</div>
+			</td>
+		</tr>
+
+	</table>
+
+	<div class="footer search_btn_lay"></div>
+</form>
+</div>
+<div class="cboth"></div>

@@ -1,0 +1,18 @@
+@charset "utf-8"; 
+
+@import url('/admin/skin/default/css/jqueryui/jquery-ui.css');
+@import url('/admin/skin/default/css/jqueryui/black-tie/jquery-ui-1.8.16.custom.css');
+@import url('/admin/skin/default/css/poshytip/style.css');
+@import url('/admin/skin/default/css/common.css?n=20220216');
+@import url('/admin/skin/default/css/layout.css?n=20220216');
+@import url('/admin/skin/default/css/buttons.css?n=20220216');
+@import url('/admin/skin/default/css/boardnew.css?n=20220216');
+@import url('/admin/skin/default/css/page.css?n=20220216');
+
+
+
+
+/*
+.page-title .status-isY {margin:-8px 0 0 5px;}
+#page-title-bar-area #page-title-bar.flyingMode {border:0;}
+#page-title-bar-area #page-title-bar.flyingMode {background:#3e424e; opacity:0.94}*/

@@ -1,0 +1,26 @@
+<script>
+	gl_not_match_goods_order = '{not_match_goods_order}';
+</script>
+
+<div class="contents_dvs">
+	<div class="item-title">
+		오프라인 주문
+		<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/order', '#tip22', 'sizeM')"></span>
+	</div>
+	<table class="table_basic thl">
+		<tr>
+			<th>
+				미매칭 상품의<br/>
+				매칭 설정
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/order', '#tip23', 'sizeM')"></span>
+			</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="not_match_goods_order" value="y" /> 매칭함</label>
+					<label><input type="radio" name="not_match_goods_order" value="n" /> 매칭 안 함</label>
+				</div>
+			</td>
+		</tr>				
+	</table>
+	<div class="resp_message">- ‘매칭 안 함’ 선택 후, 미매칭 상품을 출고하는 경우 상품, 재고, 정확한 상품 통계 확인이 불가하오니 주의하시기 바랍니다.</div>
+</div>

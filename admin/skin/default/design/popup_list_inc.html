@@ -1,0 +1,48 @@
+{ @ popup_list }
+	<tr>
+		<td class="dlts-td center"><input type="checkbox" name="delete_popup_seq[]" value="{.popup_seq}" /> {.popup_seq}</td>
+		<td class="dlts-td center">{popup_styles[.style]}</td>
+		<td class="dlts-td center">
+			<div>{.regdate}</div>
+		</td>
+		<td class="dlts-td center">
+			{?.style == 'layer'||.style == 'mobile_layer'||.style == 'window'}
+			{?.contents_type == 'image'}
+			스타일1(이미지)
+			{:.contents_type == 'text'}
+			스타일2(텍스트)
+			{:.contents_type == 'pc_style_5'}
+			스타일3(슬라이드)
+			{:.contents_type == 'pc_style_4'}
+			스타일4(슬라이드)
+			{:.contents_type == 'pc_style_3'}
+			스타일5(슬라이드)
+			{:.contents_type == 'pc_style_2'}
+			스타일6(슬라이드)
+			{/}
+			{:}
+			{?.contents_type == 'image'}
+			이미지
+			{:.contents_type == 'text'}
+			텍스트
+			{/}
+			{/}
+		</td>
+		<td class="dlts-td center">
+			<div class="admin_comment" popup_seq="{.popup_seq}">{=htmlspecialchars(.admin_comment)}</div>
+			<div><font color=red>({.status_msg})</font></div>
+		</td>
+		<td class="dlts-td center">
+			<p>치환코드 삽입 및</p>
+			<p>노출조건 만족 시</p>
+		</td>
+		<td class="dlts-td center">
+			<span id="tag_popup_{.popup_seq}">{=showDesignPopup({.popup_seq})}</span> <span class="btn small"><input type="button" value="태그복사" id="copy_popup_{.popup_seq}" onclick="tag_copy(this);" seq="{.popup_seq}" /></span>
+		</td>
+		<td class="dlts-td center">
+			<span class="btn small red"><input type="button" value="선택" onclick="select_popup('{.popup_seq}','{.image}','{.contents_type}')" /></span>
+			<span class="btn small"><input type="button" value="수정" onclick="edit_popup('{.popup_seq}')" /></span>
+			<span class="btn small"><input type="button" value="복사" onclick="copy_popup('{.popup_seq}')" /></span>
+		</td>
+	</tr>
+{ / }

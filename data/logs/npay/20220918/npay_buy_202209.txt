@@ -1,0 +1,35 @@
+[2022-09-18 12:52:45.60686000]
+MODE : Request
+REMOTE_IP : 115.21.218.193
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4956]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MjZhMjE1ZDEzNTdhOWExNDQ3ODEwMzE3MTk0NTRmZmFhNzllZjk1ZF8xNjYzNDczMTY1</merchantCustomCode1><naverInflowCode>ct%3Dl86sxy8b%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D8ac40864e5b680a244b2c7575f1dbc154ecd99e9%7Ctrx%3D</naverInflowCode></interface><product><id>4956</id><merchantProductId>MjZhMjE1ZDEzNTdhOWExNDQ3ODEwMzE3MTk0NTRmZmFhNzllZjk1ZF8xNjYzNDczMTY1QG9wdDE0NzE0NA==</merchantProductId><ecMallProductId>4956</ecMallProductId><name><![CDATA[곰돌이 케이크 캔들]]></name><basePrice>19800</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4956]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/120/2022/09/_tmp_6f2575c34d9315347371f7bfcacecec41262list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>1567_1548_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>30000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-09-18 12:52:45.105822000]
+MODE : Response
+REMOTE_IP : 115.21.218.193
+SUCCESS:9WujJKhQTU6sTU6dCAaa1Q:200337588
+
+[2022-09-18 12:52:50.696786000]
+MODE : Request
+REMOTE_IP : 115.21.218.193
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4956]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MjZhMjE1ZDEzNTdhOWExNDQ3ODEwMzE3MTk0NTRmZmFhNzllZjk1ZF8xNjYzNDczMTcw</merchantCustomCode1><naverInflowCode>ct%3Dl86sxy8b%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D8ac40864e5b680a244b2c7575f1dbc154ecd99e9%7Ctrx%3D</naverInflowCode></interface><product><id>4956</id><merchantProductId>MjZhMjE1ZDEzNTdhOWExNDQ3ODEwMzE3MTk0NTRmZmFhNzllZjk1ZF8xNjYzNDczMTcwQG9wdDE0NzE0NA==</merchantProductId><ecMallProductId>4956</ecMallProductId><name><![CDATA[곰돌이 케이크 캔들]]></name><basePrice>19800</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4956]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/120/2022/09/_tmp_6f2575c34d9315347371f7bfcacecec41262list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>1567_1548_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>30000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-09-18 12:52:50.738141000]
+MODE : Response
+REMOTE_IP : 115.21.218.193
+SUCCESS:H-m1DWspSOC5tXY5m-aLuQ:200337588
+
+[2022-09-18 14:09:48.186124000]
+MODE : Request
+REMOTE_IP : 211.244.223.65
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=4954]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YTk3NzcwOWE3NjYwNDY4N2ExYTM2MjMyNThiNDQyNGEzMmYzNzQ5M18xNjYzNDc3Nzg4</merchantCustomCode1><naverInflowCode>ct%3Dl86vcp7z%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D82bd87dc7851baf1db80e00e1a2850baf4b67f93%7Ctrx%3D</naverInflowCode></interface><product><id>4954</id><merchantProductId>YTk3NzcwOWE3NjYwNDY4N2ExYTM2MjMyNThiNDQyNGEzMmYzNzQ5M18xNjYzNDc3Nzg4</merchantProductId><ecMallProductId>4954</ecMallProductId><name><![CDATA[[논스케일스튜디오] 메이메이 파우치 (2 color)]]></name><basePrice>9000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=4954]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/92/2022/09/_tmp_9c2cf24b9538c791a8aa5a958a6d0d031776list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt147140]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[색상]]></name><value><id>opt147140</id><text><![CDATA[메이블루]]></text></value></selectedItem></option><shippingPolicy><groupId>1375_1331_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice></shippingPolicy></product></order>
+
+[2022-09-18 14:09:51.615748000]
+MODE : Request
+REMOTE_IP : 211.244.223.65
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=4954]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YTk3NzcwOWE3NjYwNDY4N2ExYTM2MjMyNThiNDQyNGEzMmYzNzQ5M18xNjYzNDc3Nzkx</merchantCustomCode1><naverInflowCode>ct%3Dl86vcp7z%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D82bd87dc7851baf1db80e00e1a2850baf4b67f93%7Ctrx%3D</naverInflowCode></interface><product><id>4954</id><merchantProductId>YTk3NzcwOWE3NjYwNDY4N2ExYTM2MjMyNThiNDQyNGEzMmYzNzQ5M18xNjYzNDc3Nzkx</merchantProductId><ecMallProductId>4954</ecMallProductId><name><![CDATA[[논스케일스튜디오] 메이메이 파우치 (2 color)]]></name><basePrice>9000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=4954]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/92/2022/09/_tmp_9c2cf24b9538c791a8aa5a958a6d0d031776list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt147140]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[색상]]></name><value><id>opt147140</id><text><![CDATA[메이블루]]></text></value></selectedItem></option><shippingPolicy><groupId>1375_1331_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice></shippingPolicy></product></order>
+
+[2022-09-18 14:09:51.664041000]
+MODE : Response
+REMOTE_IP : 211.244.223.65
+SUCCESS:w_GCt6rdSAuXYtWrbC6TFw:200337588
+

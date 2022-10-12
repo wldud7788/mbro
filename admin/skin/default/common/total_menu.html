@@ -1,0 +1,59 @@
+<script>
+$(function(){
+	var docW = $(document).width();
+	var marginW = 200;
+	$(".pannel").css('width', docW - marginW);
+	$(".pannel").css('left', marginW/2);
+
+	$(".closeBtn").on("click", function(){
+		$(this).closest("body").find(".dialog").hide();
+		$("html").css('overflow-y', 'auto');
+	})
+});
+</script>
+
+<div class="dim"></div>
+<div class="pannel">
+	<div class="closeBtn"><img src="../images/common/dialog_close.png"/></div>
+	<div class="menu_wrap">	
+		<ul>
+			<!--{ @ adminMenu }-->				
+			<li>
+				<ul class="menu">								
+					<li class="depth1"><a href="{.url}">{.name}</a></li>
+			<!--{ @ .submenu }-->	
+					<!--{ ? ..childs[1] }-->	
+					<li class="depth2">{..name }</li>													
+					<!--{ @ ..childs }-->											
+					<!--{ ? ...index_ > 0 }-->										
+					<li class="depth3">									
+						<!--{ ? ..value_.limit && serviceLimit(...value_.limit,'return') }-->
+						<a href="#" onclick="{=serviceLimit(...value_.limit)}">- {...value_.name}</a>
+						<!--{ : }-->
+						<a href="{...value_.url}">- {...value_.name}</a>
+						<!--{ / }-->
+					</li>
+					<!--{ / }-->
+					<!--{ / }-->																										
+				<!--{ : }-->
+				<!--{ @ ..childs }-->	
+														
+					<li class="depth2">									
+						<!--{ ? ..value_.limit && serviceLimit(...value_.limit,'return') }-->
+						<a href="#" onclick="{=serviceLimit(...value_.limit)}">{...value_.name}</a>
+						<!--{ : }-->
+						<a href="{...value_.url}">{...value_.name}</a>
+						<!--{ / }-->
+					</li>
+					<!--{ / }-->
+				
+				<!--{ / }-->
+			<!--{ / }-->						
+				</ul>
+			</li>
+			<!--{ / }-->		
+		</ul> 
+	</div>
+</div>
+
+

@@ -1,0 +1,11 @@
+<style  type="text/css">
+	#{categoryNavigationKey} .categoryDepth1 {position:relative; text-align:center;}
+</style>
+
+<ul class="clearbox">
+<!--{ @ category }-->
+	<li class="categoryDepth1" width="{=100/count(category)}%">
+		<a href="/goods/catalog?code={.category_code}">{.name}</a>
+	</li>
+<!--{ / }-->
+</ul>

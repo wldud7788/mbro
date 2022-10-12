@@ -1,0 +1,64 @@
+<div style="border:1px solid #000;">
+	<table width="100%" class="info-table-style">
+		<colgroup>
+			<col width="55" />
+			<col width="150" />
+			<col width="" />
+			<col width="" />
+			<col width="240" />
+			<col width="130" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">
+					<label><input type="checkbox" name="chkall" value="" onclick="list_all_chk(this);" /> 번호</label>
+				</th>
+				<th class="its-th-align center">생성 일시</th>
+				<th class="its-th-align center">관리용 타이틀 (노출여부)</th>
+				<th class="its-th-align center">스타일</th>
+				<th class="its-th-align center">치환코드</th>
+				<th class="its-th-align center">관리</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--{ ? popup_list }-->
+			<!--{ @ popup_list }-->
+			<tr>
+				<td class="its-td-align center"><input type="checkbox" class="chk_display" name="delete_popup_seq[]" value="{=.popup_seq}" /> {=.popup_seq}</td>
+				<td class="its-td-align center">{=.regdate}</td>
+				<td class="its-td-align left">
+					<span class="admin_comment" popup_seq="{.popup_seq}">{=htmlspecialchars(.admin_comment)}</span> {.status_msg}
+				</td>
+				<td class="its-td-align left">
+					<!--{ ? .style == 'layer' }-->
+					[팝업]
+						<!--{ ? .contents_type == 'image' }-->
+					Light Image Popup
+						<!--{ : .contents_type == 'text' }-->
+					Light Editor Popup
+						<!--{ : .contents_type == 'slider' }-->
+					Light Slider Popup
+						<!--{ / }-->
+					<!--{ : }-->
+					[띠배너] Light Image LineBanner
+					<!--{ / }-->
+				</td>
+				<td class="its-td-align center">
+					&#123;=showDesignLightPopup({.popup_seq})&#125;
+					<span class="btn small"><input type="button" value="태그복사" onclick="tag_clipboard_copy({.popup_seq});" /></span>
+				</td>
+				<td class="its-td-align center">
+					<span class="btn small"><input type="button" value="복사" onclick="copy_popup('{.popup_seq}')" /></span>
+					<span class="btn small"><input type="button" value="수정" onclick="edit_popup('{.popup_seq}','{=.style}')" /></span>
+					<span class="btn small red"><input type="button" value="삽입" onclick="insert_popup('{.popup_seq}','{.image}','{.contents_type}')" /></span>
+				</td>
+			</tr>
+			<!--{ / }-->
+		<!--{ : }-->
+			<tr>
+				<td class="its-td-align center" colspan="6">등록된 띠배너/팝업 이 없습니다.</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,102 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 쿠폰 선택( 결제시 '쿠폰사용' 클릭시 뜨는 레이어 콘텐츠 ) @@
+- 파일위치 : [스킨폴더]/order/_coupon.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{ + cartlist }
+<li>
+	<h5 class="stitle v2 Pb4 gray_01">ㆍ상품 쿠폰</h5>
+<!--{ ? provider_cart }-->
+	<ul class="list_01 v2">
+	<!--{ @ provider_cart }-->
+		<!--{ @ .cart_list }-->
+		<li>
+			<p class="stitle v3">{..goods_name}</p>
+			<!--{ ? ..option1!=null }-->
+			<span class="option_info">
+			{?..title1}{..title1} : { / }{..option1}
+			{ ? ..option2!=null }{?..title2}{..title2} : { / }{..option2} { / }
+			{ ? ..option3!=null }{?..title3}{..title3} : { / }{..option3} { / }
+			{ ? ..option4!=null }{?..title4}{..title4} : { / }{..option4} { / }
+			{ ? ..option5!=null }{?..title5}{..title5} : { / }{..option5} { / }
+			</span> 
+			( {=number_format(..ea)}개 )
+			<!--{ / }-->
+			<div class="sel_area Pt5">
+				<select name="coupon[{..cart_seq}]" class="coupon_select" id="coupon_{..cart_seq}_{..cart_option_seq}"  onchange="changeCouponSelectbox(this, 'goods')" style="width:100%;{?!..coupons}background-color:#D9D9D9;{/}" {?!..coupons}disabled{/}>
+				<!--{ ? ..coupons }-->
+					<option value="" selected>--쿠폰 선택--</option>
+					<!--{ @ ..coupons }-->
+					<option value="{...download_seq}" couponsametime="{...coupon_same_time}"  duplication="{...duplication_use}" sale="{...goods_sale}"  {? ...download_seq == ..download_seq } selected="selected" {/} ><!--{?...couponsametimetitle}-->[{...couponsametimetitle}] <!--{/}-->{...coupon_name} ({=get_currency_price(...goods_sale,2)} 할인)</option>
+					<!--{ / }-->
+				<!--{ : }-->
+				<option value="" selected>적용 대상 쿠폰이 없습니다.</option>
+				<!--{ / }-->
+				</select>
+			</div>
+		</li>
+		<!--{ / }-->
+	<!--{ / }-->
+	</ul>
+<!--{ : }-->
+	<ul>
+		<li class="pdb10">
+			보유하고 있는 상품 쿠폰이 없습니다.
+		</li>
+	</ul>
+<!--{ / }-->
+</li>
+
+<script>
+$.cookie( "couponsametimeuse", null );
+</script>
+
+{ + shippincoupon }
+<li>
+	<h5 class="stitle v2 gray_01 Pb4 Mt20">ㆍ배송비 쿠폰</h5>
+	<ul class="list_01 v2">
+<!--{ ? provider_cart && total_shipping_price }-->
+	<!--{ ? checkshippingcoupons }-->
+		<!--{ @ provider_cart }-->
+			<!--{ @ .cart_list }-->
+				<!-- { ? ..shipping_provider_division && ..index_ == 0 } -->
+		<li>
+			<div class="coupon_provider_info pointcolor2 Pt10">
+				<!--{? serviceLimit('H_AD') }-->
+				<span class="provider_name">[{..shipping['provider_name']}]</span>
+				<!--{ / }-->
+				<span class="shipping_method">{..shipping_method_name}</span>
+				<span id="price_{..shipping_group}">{=get_currency_price(.grp_shipping_price,2)}</span>
+			</div>
+			<div class="coupon_selecter Pt5">
+				<select name="coupon_shipping[{..shipping_group}]" id="shippingcoupon_{..shipping_group}" class="shipping_coupon_select" onchange="changeCouponSelectbox(this, 'shipping')"  style="width:100%;{?!..shipping_coupon}background-color:#D9D9D9;{/}"> 
+					<!--{ ? ..event['use_coupon_shipping'] != 'n' &&  ..shipping_coupon }-->
+					<option value="" selected>--배송비 쿠폰 선택--</option>
+						<!--{ @ ..shipping_coupon }-->
+					<option value="{...download_seq}"  couponsametime="{...coupon_same_time}"   sale="{...shipping_sale}" {? ...download_seq == _POST.download_seq } selected="selected" {/}>{...coupon_name} ({=get_currency_price(...shipping_sale,2)} 할인)</option>
+						<!--{ / }-->
+					<!--{ : }-->
+					<option value="" selected>적용 대상 쿠폰이 없습니다.</option>
+					<!--{ / }-->
+				</select>
+			</div>
+		</li>
+				<!--{ / }-->
+			<!--{ / }-->
+		<!--{ / }-->
+	<!--{ : }-->
+		<li>
+			보유하고 있는 배송비 쿠폰이 없습니다.
+		</li>
+	<!--{ / }-->
+<!--{ : }-->
+		<li>
+			주문 시 결제하셔야 하는 배송비가 없습니다.
+		</li>
+<!--{ / }-->
+	</ul>
+</li>
+<script>
+$.cookie( "couponsametimeuse", null );
+$(".coupon_select, .shipping_coupon_select").each(function(){ resetCouponSelect(this); });
+</script>

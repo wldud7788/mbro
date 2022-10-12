@@ -1,0 +1,277 @@
+<style type="text/css">
+.{display_key} .goods_list ol.gli_contents { text-align:{text_align};}
+</style>
+
+<!--{ ? perpage }-->
+<div class="goods_list_top pdt10">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td align="left">
+				<span class="list_summary">TOTAL <b>{=number_format(page.totalcount)}</b> ITEMS</span>
+			</td>
+			<td align="right">
+				<span class="sort_item">
+					<!--{ @ orders }-->
+						<!--{ ? in_array(.key_,array('popular','low_price','newly')) }-->
+							<!--{ ? .index_ }-->
+							&nbsp;|&nbsp;
+							<!--{ / }-->
+							<!--{ ? .key_ == sort }-->
+								<a href="?sort={.key_}{sortUrlQuerystring}" sort_key="{.key_}"><b>{.value_}</b></a>
+							<!--{ : }-->
+								<a href="?sort={.key_}{sortUrlQuerystring}" sort_key="{.key_}">{.value_}</a>
+							<!--{ / }-->
+						<!--{ / }-->
+					<!--{ / }-->
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<!--{ / }-->
+
+<!--{ ? count(displayTabsList)>1 }-->
+<ul class="displayTabContainer {tab_design_type}">
+	<!--{ @ displayTabsList }-->
+		<li {?.index_==0}class="current"{/} style="width:{=100/count(displayTabsList)}%">{.tab_title}</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+
+<!--{ @ displayTabsList }-->
+<div class="{display_key} display_mobile_center_class displayTabContentsContainer {?count(displayTabsList)>1}displayTabContentsContainerBox{/}">
+	<!--{ ? .contents_type == 'text' }-->
+	<div>
+			{?mobileMode || storemobileMode}{.tab_contents_mobile}{:}{.tab_contents}{/}
+	</div>
+	<!--{ : }-->
+		<ul class="goods_list">
+		<!--{ @ .record }-->
+		<li class="gl_item">
+			<div class="gl_inner_item_wrap">
+			<a href="/goods/view?no={..goods_seq}">
+				<span class="gli_image goodsDisplayImageWrap" decoration="{image_decorations}" goodsInfo="{=base64_encode(json_encode(..value_))}"><img src="{..image}" onerror="this.src='../../images/common/noimage.gif'" /></span>
+			</a>
+			<ol class="gli_contents">
+				<!--{ @ info_settings.list }-->
+
+					<!--{? ...value_->kind == 'brand_title' && ..brand_title }-->
+					<li class="goods_brand_area">
+						<span {...value_->name_css}>
+						{?...value_->wrapper}{=substr(...value_->wrapper,0,1)}{/}{..brand_title}{?...value_->wrapper}{=substr(...value_->wrapper,1,1)}{/}
+						</span>
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'goods_name' }-->
+					<li class="goods_name_area"><span class="goods_name" {...value_->name_css}>{..goods_name}</span></li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'icon' && ..icons }-->
+					<li class="goods_icon_area">
+						<!--{ @ ..icons }--><img src="/data/icon/goods/{....value_}.gif" border="0"><!--{ / }-->
+					</li>
+					<!--{ / }-->
+
+					<!--{? ...value_->kind == 'summary' && ..summary}-->
+					<li class="goods_summary_area"><span class="goods_summary" {...value_->name_css}>{..summary}</span></li>
+					<!--{/}-->
+
+					<!-- {? ...value_->kind == 'consumer_price' && ..consumer_price>..sale_price} -->
+					<li class="goods_consumer_price_area">
+						<span {...value_->name_css}>
+						<!--{?..string_price}-->
+							{..string_price}
+						<!--{:}-->
+							{?...value_->position == "before" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+							{=get_currency_price(..consumer_price)}{?...value_->position == "after" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+						<!--{/}-->
+						</span>
+						<!--{? ..sale_per > 0 //할인율 }-->
+						<span class="sale_per">(<strong>{..sale_per}</strong>%)</span>
+						<!--{ / }-->
+					</li>
+					<!-- {/} -->
+
+					<!--{? ...value_->kind == 'price' }-->
+					<li class="gli_goodsprice">
+						<div class="goods_price" {...value_->name_css}>
+						<!--{?..string_price}-->
+							{..string_price}
+						<!--{:}-->
+							{?...value_->position == "before" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+							{=get_currency_price(..price)}{?...value_->position == "after" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+						<!--{/}-->
+						</div>
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'sale_price' }-->
+					<li class="goods_sale_price_area">
+						<span {...value_->name_css}>
+							{?..string_price}
+								{..string_price}
+							{:}
+								{?...value_->position == "before" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+								{=get_currency_price(..sale_price)}{?...value_->position == "after" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+							{/}
+						</span>
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'fblike' && APP_USE == 'f' && APP_LIKE_TYPE != 'NO'}-->
+					<li class="goods_fblike_area">{=snsLikeButton(..goods_seq,...value_->fblike)}</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'status_icon' }-->
+					<li class="goods_status_icon_area">
+						<!--{ ? ...value_->status_icon_runout && ..goods_status == 'runout' }-->
+						<img src="/data/icon/goods_status/{goodsStatusImage.icon_runout}" />
+						<!--{ / }-->
+						<!--{ ? ...value_->status_icon_purchasing && ..goods_status == 'purchasing' }-->
+						<img src="/data/icon/goods_status/{goodsStatusImage.icon_purchasing}" />
+						<!--{ / }-->
+						<!--{ ? ...value_->status_icon_unsold && ..goods_status == 'unsold' }-->
+						<img src="/data/icon/goods_status/{goodsStatusImage.icon_unsold}" />
+						<!--{ / }-->
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'score' }-->
+					<li class="goods_score_area">
+						<font class="font1">
+						<!--{? number_format(round(..review_divide)) == 0 }-->
+						0
+						<!--{ : }-->
+						{=round(..review_divide)}
+						<!--{ / }-->
+						</font>
+						<span class="font2">{=str_repeat('★',round(..review_divide))}</span>
+						<span class="font3">{=str_repeat('★',5-number_format(round(..review_divide)))}</span>
+						(<span class="font4">{=number_format(..review_count)}</span>)
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'provider_name' }-->
+					<li class="goods_provider_name_area"><a href="/mshop/?m={..provider_seq}" target="{target}"><span class="goods_name" {...value_->name_css}>{..provider_name}</span></a></li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'color' }-->
+					<li class="goods_color_area">
+						{@(..colors)}
+						<span style="background:{....value_}; color:{....value_};" class="color">■</span>
+						{/}
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'count' && ..eventEnd && (...value_->time_count || ...value_->buy_count) }-->
+						<!--{? ...value_->time_count }-->
+						<!--{? ..eventEnd }-->
+						<li class="goods_solo_event_area soloEventTd_{display_key}_{..index_}_{..goods_seq}">
+							<img src="../../images/common/icon_clock.gif" class="img1"> <span class="style1"><span id="soloday_{display_key}_{..index_}_{..goods_seq}" class="style2"></span>일 <span id="solohour_{display_key}_{..index_}_{..goods_seq}" class="style3"></span>:<span id="solomin_{display_key}_{..index_}_{..goods_seq}" class="style4"></span>:<span id="solosecond_{display_key}_{..index_}_{..goods_seq}" class="style5"></span></span>
+						<script>
+						$(function() {
+							timeInterval_{display_key}_{..index_}_{..goods_seq} = setInterval(function(){
+								var time_{display_key}_{..index_}_{..goods_seq} = showClockTime('text', '{..eventEnd.year}', '{..eventEnd.month}', '{..eventEnd.day}', '{..eventEnd.hour}', '{..eventEnd.min}', '{..eventEnd.second}', 'soloday_{display_key}_{..index_}_{..goods_seq}', 'solohour_{display_key}_{..index_}_{..goods_seq}', 'solomin_{display_key}_{..index_}_{..goods_seq}', 'solosecond_{display_key}_{..index_}_{..goods_seq}', '{..goods_seq}');
+								if(time_{display_key}_{..index_}_{..goods_seq} == 0){
+									clearInterval(timeInterval_{display_key}_{..index_}_{..goods_seq});
+									$("..soloEventTd_{display_key}_{..index_}_{..goods_seq}").html("단독 이벤트 종료");
+								}
+							},1000);
+						});
+						</script>
+						</li>
+						<!--{/}-->
+						<!--{/}-->
+						<!--{? ...value_->buy_count }-->
+						<li class="goods_buy_count_area">현재 <font color="#c61515"><u><b>{=number_format(..event_order_ea)}</b></u></font>개 구매</li>
+						<!--{/}-->
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'event_text' }-->
+					<li class="goods_event_text_area">
+						<span {...value_->name_css}>
+							{?is_numeric(..event_text)}
+								{=number_format(..event_text)}
+								{?...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+							{:}
+								{..event_text}
+							{/}
+						</span>
+					</li>
+					<!--{/}-->
+
+					<!--{? ...value_->kind == 'bigdata' }-->
+					<li class="goods_bigdata_area">
+						<span>
+							<a href="/bigdata/catalog?no={..goods_seq}"><u {...value_->name_css}>{...value_->bigdata}</u></a>
+						</span>
+					</li>
+					<!--{ / }-->
+
+					<!--{? ...value_->kind == 'shipping' && ..shipping_group}-->
+					<li class="goods_shipping_area">
+						<!--{? ...value_->shipping_free && ..shipping_group.default_type == 'free' && ..shipping_group.default_type_code.free}-->
+						<ul class="shipping"><li>{..shipping_group.default_type_code.free}</li></ul>
+						<!--{/}-->
+						<!--{? ...value_->shipping_fixed && ..shipping_group.default_type == 'fixed' && ..shipping_group.default_type_code.fixed}-->
+						<ul class="shipping"><li>{..shipping_group.default_type_code.fixed}</li></ul>
+						<!--{/}-->
+						<!--{? ...value_->shipping_iffree && ..shipping_group.default_type == 'iffree' && ..shipping_group.default_type_code.iffree}-->
+						<ul class="shipping"><li>{..shipping_group.default_type_code.iffree}</li></ul>
+						<!--{/}-->
+						<!--{? ...value_->shipping_ifpay && ..shipping_group.default_type == 'ifpay' && ..shipping_group.default_type_code.ifpay}-->
+						<ul class="shipping"><li>{..shipping_group.default_type_code.ifpay}</li></ul>
+						<!--{/}-->
+						<!--{? ...value_->shipping_overseas && ..shipping_group.gl_shipping_yn == 'Y' && ..shipping_group.default_type_code.overseas}-->
+						<div class="shipping_overseas">{..shipping_group.default_type_code.overseas}</div>
+						<!--{/}-->
+					</li>
+					<!-- //배송그룹 -->
+					<!--{ / }-->
+
+					<!--{?...value_->kind == 'pageview'}-->
+					<li class="goods_pageview_area">
+						<span class="goods_list_page_view">
+							<img class="goods_list_page_view_img" src="/data/icon/goodsdisplay/preview/icon_pageview.png" alt="페이지뷰" />
+							<span class="goods_list_page_view_count">{?..page_view > 9999}9,999+{:}{=number_format(..page_view)}{/}</span>
+						</span>
+						<span class="goods_list_goods_zzim">
+							<label onclick="display_goods_zzim(this, '{..goods_seq}');"><img class="goods_list_goods_zzim_img" src="/data/icon/goodsdisplay/preview/icon_zzim_{?..wish==1}on{:}off{/}.png" alt="찜" />
+							찜 <span class="goods_list_goods_zzim_count">{=number_format(..wish_count)}</span></label>
+						</span>
+					</li>
+					<!-- //페이지뷰, 찜 -->
+					<!--{ / }-->
+				<!--{ / }-->
+			</ol>
+			</div>
+		</li>
+		<!--{ / }-->
+		</ul>
+	<!--{ / }-->
+</div>
+<!--{ / }-->
+
+
+<!--{? !ajax_call }-->
+<!--{ ? perpage }-->
+{#paging}
+<!--{ / }-->
+<!--{ / }-->
+
+<!--{ ? page.totalpage > 1 }-->
+<div class="paging_navigation">
+    <!--{ ? page.first }--><a href="?page={page.first}&amp;{page.querystring}" class="first">◀ 처음</a><!--{ / }-->
+    <!--{ ? page.prev }--><a href="?page={page.prev}&amp;{page.querystring}" class="prev">◀ 이전</a><!--{ / }-->
+    <!--{ @ page.page }-->
+        <!--{ ? page.nowpage ==  .value_ }-->
+            <a href="?page={.value_}&amp;{page.querystring}" class="on">{.value_ }</a>
+        <!--{ : }-->
+            <a href="?page={.value_}&amp;{page.querystring}">{.value_ }</a>
+        <!--{ / }-->
+    <!--{ / }-->
+    <!--{ ? page.next }--><a href="?page={page.next}&amp;{page.querystring}" class="next">다음 ▶</a><!--{ / }-->
+    <!--{ ? page.last }--><a href="?page={page.last}&amp;{page.querystring}" class="last">마지막 ▶</a><!--{ / }-->
+</div>
+<!--{ / }-->

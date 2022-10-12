@@ -1,0 +1,111 @@
+<!-- 2019-05-21 기준 차월 데이터는 노출하지 않음 by hed -->
+	
+				{? overdrawloopview }
+					{? overdrawloop}
+						{@ overdrawloop }
+						<tr>
+						{? !_GET.account_hidden_sales }
+							<td  class="{? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg acc_left">{? ( .minus_sale == '1' )&& .out_ea>0 }-{/}{.out_ea}<!-- 수량 --></td>
+							<td class="right {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg">{? ( .minus_sale == '1' )&& .out_price>0 }-{/}{=number_format(.out_price)}<!-- 판매금액 --></td>
+							<td class="right {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg">
+								{? ( .minus_sale == '1' )&& .out_salescost_admin>0 }-{/}{=number_format(.out_salescost_admin)}<!-- 할인(본사) -->
+							</td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg">{? ( .minus_sale == '1' )&& .out_pg_sale_price>0 }-{/}{=number_format(.out_pg_sale_price)}<!-- 제휴사(무통장:0/pg) --></td>
+							<td class="right {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg">
+								{? ( .minus_sale == '1' )&& .out_salescost_provider>0 }-{/}{=number_format(.out_salescost_provider)}<!-- 할인(입점사) -->
+							</td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg">{? ( .minus_sale == '1' )&& (.out_sale_price + .out_cash_use)>0  }-{/}{=number_format(.out_sale_price + .out_cash_use)}<!-- 결제금액(A) --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg">{? ( .minus_sale == '1' )&& .out_sale_price>0  }-{/}{=number_format(.out_sale_price)}<!-- 실결제액 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/} {? .index_ == 0 && !loop }acc_top{/} acc_bg acc_right">{? ( .minus_sale == '1' )&& .out_cash_use>0 }-{/}{=number_format(.out_cash_use)}<!-- 이머니 --></td>
+						{ / }
+						{? !_GET.account_hidden_cal }
+							<td class=" {? ( .minus_sale == '1' )}red{/}">{.out_exp_ea}
+							<!-- 정산수량 --></td>
+							<td class="right {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_total_ac_price>0  }-{/}0
+							<!-- {=number_format(.out_total_ac_price)} -->
+							<!-- 정산대상금액 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_pg_default_price>0  }-{/}0
+							<!-- {=number_format(.out_pg_default_price)} -->
+							<!-- 정산대상금액-결제금액 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_ac_salescost_admin>0  }-{/}0
+							<!-- {=number_format(.out_ac_salescost_admin)} -->
+							<!-- 정산대상금액-본사할인 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_ac_pg_price>0  }-{/}0
+							<!-- {=number_format(.out_ac_pg_price)} -->
+							<!-- 정산대상금액-제휴사할인 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_pg_add_price>0  }-{/}0
+							<!-- {=number_format(.out_pg_add_price)} -->
+							<!-- 공급금액 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_ac_cash_use>0 }-{/}0
+							<!-- {=number_format(.out_ac_cash_use)} -->
+							<!-- 수수료율(%) --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}" title="({.sales_unit_feeprice}*{.out_ea})+{.sales_unit_minfee}+{.sales_feeprice_rest}">{? ( .minus_sale == '1' )&& (.out_sales_unit_feeprice)>0  }-{/}0
+							<!-- {=number_format(.out_sales_unit_feeprice)} -->
+							<!-- 수수료 --></td>
+							<td class="right  {? ( .minus_sale == '1' )}red{/}"  >{? ( .minus_sale == '1' )}-{/}0
+							<!-- {=number_format(.out_commission_price)} -->
+							<!-- 정산금액(B) -->
+							<!-- {=number_format(.commission_price)}*{=.out_ea}-{=number_format(.commission_price_rest)}-->
+							 <!-- <p class="{? ((.out_sales_unit_feeprice)+(.out_commission_price)) != .out_pg_default_price }blue bold{/}">
+								{=number_format((.out_sales_unit_feeprice)+(.out_commission_price))}</p>  -->
+							</td>
+						{ / }
+							<td class="left"  style="mso-number-format:'@';" >{=getstrcut(.out_pg_ordernum,24)}	<!-- <br/>{.order_seq} --></td>
+							<td>{.out_order_referer_viewer}</td>
+							<td>{=getstrcut(.out_payment,7)}</td>
+						</tr>
+						{ / }
+						<tr  class="its_tr_looptotal">
+						{? !_GET.account_hidden_sales }
+							<td  class=" acc_bottom acc_bg acc_left">{=number_format(overdrawtot.out_ea-overdrawtot.refund_out_ea)}<!-- 수량 --></td>
+							<td class="right acc_bottom acc_bg">{=number_format(overdrawtot.out_price-overdrawtot.refund_out_price)}<!-- ={=number_format(overdrawtot.out_price)}-{overdrawtot.refund_out_price} --><!-- 판매금액 --></td>
+							<td class="right acc_bottom acc_bg">{=number_format(overdrawtot.out_salescost_admin-overdrawtot.refund_salescost_admin)}<!-- 할인>본사 --></td>
+							<td class="right acc_bottom acc_bg">{=number_format(overdrawtot.out_pg_sale_price-overdrawtot.refund_pg_sale_price)}<!-- 할인>제휴사 --></td>
+							<td class="right acc_bottom acc_bg">{=number_format(overdrawtot.out_salescost_provider-overdrawtot.out_salescost_provider)}<!-- 할인>입점사 --></td>
+							<td class="right acc_bottom acc_bg">{=number_format((overdrawtot.out_sale_price+overdrawtot.out_cash_use)-(overdrawtot.refund_out_sale_price+overdrawtot.refund_out_cash_use))}<!-- 결제금액(A) --></td>
+							<td class="right acc_bottom acc_bg">{=number_format(overdrawtot.out_sale_price-overdrawtot.refund_out_sale_price)}<!-- 실결제액 --></td>
+							<td class="right acc_bottom acc_bg acc_right">{=number_format(overdrawtot.out_cash_use-overdrawtot.refund_out_cash_use)}<!-- 이머니 --></td>
+						{ / }
+						{? !_GET.account_hidden_cal }
+							<td class="">-
+							<!-- 정산수량 --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_total_ac_price-overdrawtot.refund_out_total_ac_price)} -->
+							<!-- 정산대상(수수료방식) --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_pg_default_price-overdrawtot.refund_out_pg_default_price)} -->
+							<!-- 정산대상(수수료방식)-결제금액 --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_salescost_admin-overdrawtot.refund_out_salescost_admin)} -->
+							<!-- 정산대상(수수료방식)-본사할인 --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_ac_pg_price-overdrawtot.refund_out_out_ac_pg_price)} -->
+							<!-- 정산대상(수수료방식)-제휴사할인 --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_pg_add_price-overdrawtot.refund_out_pg_add_price)} -->
+							<!-- 정산대상(공급가방식) --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_ac_cash_use-overdrawtot.refund_out_ac_cash_use)} -->
+							<!-- 수수료율(%) --></td>
+							<td class="right">-
+							<!-- {=number_format(overdrawtot.out_sales_unit_feeprice-overdrawtot.refund_sales_unit_feeprice)} -->
+							<!-- 수수료 --></td>
+							<td class="right">-
+							<!--
+							{=number_format(overdrawtot.out_commission_price-overdrawtot.refund_out_commission_price)}
+							{=number_format(overdrawtot.out_commission_price)}-{overdrawtot.refund_out_commission_price}
+							<br/>
+								{=number_format((overdrawtot.out_sales_unit_feeprice-overdrawtot.refund_sales_unit_feeprice)+overdrawtot.out_commission_price)}
+								-->
+							<!-- 정산금액(B) --></td>
+						{ / }
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					{ : }
+						<tr>
+							<td colspan="{=(totalcolspan-8)}" class="nodata"><!-- 조회 내역이 없습니다. --></td>
+						</tr>
+					{ / }
+				{ / }

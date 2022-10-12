@@ -1,0 +1,74 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	$(function(){
+		$("#display_quantity").on("change", function(){
+			$("#memberForm").submit();
+		});
+		// SMS
+		$(".smsBtn").click(function(){
+			<!--{? !auth_send }-->
+			alert("권한이 없습니다.");
+			return;
+			<!--{ : }-->
+			var screenWidth;
+			var screenHeight;
+
+			screenWidth = 1200;
+			screenHeight = 850;
+			
+			window.open('../member/sms_form_dormancy',"sms_form_dormancy","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=yes,width=" + screenWidth + ", height=" + screenHeight);
+			<!--{ / }-->
+		});
+		// email
+		$(".emailBtn").click(function(){
+			<!--{? !auth_send }-->
+			alert("권한이 없습니다.");
+			return;
+			<!--{ : }-->
+			var screenWidth;
+			var screenHeight;
+
+			screenWidth = 1200;
+			screenHeight =  $( window ).height();	
+			
+			window.open('../member/email_form_dormancy',"email_form_dormancy","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=yes,width=" + screenWidth + ", height=" + screenHeight);
+			<!--{ / }-->
+		});
+	});
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+     <div id="page-title-bar">         
+          <!-- 타이틀 -->
+          <div class="page-title">
+               <h2>휴면 회원 조회</h2>
+          </div>
+     </div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div id="search_container">
+	<form name="memberForm" id="memberForm" class='search_form'>
+	<input type="hidden" name="member_seq" />
+	<input type="hidden" name="orderby" value="{sc.orderby}" defaultValue="{sc.orderby}"/>
+	<input type="hidden" name="sort" value="{sc.sort}" defaultValue="{sc.sort}"/>
+	<input type="hidden" name="searchcount" value="{sc.searchcount}"/>
+	<input type="hidden" name="type" />
+	<input type="hidden" name="perpage"  id="perpage" value="{sc.perpage}" />
+	<input type="hidden" name="query_string" value="{query_string}"/>
+		{# dormancy_search }
+		<div class="contents_dvs v2">
+			{# dormancy_list }
+		</div>
+		<!-- 페이징 -->
+		<div class="paging_navigation">{pagin}</div>
+	</form>
+</div>
+
+<div>
+<iframe name="container" id="container" style="display:none;width:100%;" frameborder="0"></iframe>
+</div>
+
+{ #layout_footer }

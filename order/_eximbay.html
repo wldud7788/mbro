@@ -1,0 +1,471 @@
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Eximbay</title>
+<link href="/pg/eximbay/BasicProcessor/2.x/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="/pg/eximbay/BasicProcessor/2.x/css/layout.css" rel="stylesheet" type="text/css">
+<link href="/pg/eximbay/BasicProcessor/2.x/css/web.css" rel="stylesheet" type="text/css">
+</meta>
+<script type="text/javascript">
+	<!--
+	//Eximbay 팝업
+		function payForm(){
+			var frm = document.regForm;
+			//frm.target = "payment2";
+			frm.submit();
+		}
+
+	
+	{? _POST['mobilenew'] == 'y' }
+		function closeStep1(){
+			self.close();
+		}
+	{:}
+		function closeStep1(){
+			parent.document.getElementById("payprocessing").style.display = "none";
+			parent.document.getElementById("layer_pay").style.display = "none";
+			parent.document.querySelectorAll(".pay_layer")[0].style.display = "block";
+			parent.document.querySelectorAll(".pay_layer")[1].style.display = "block";
+		}
+	{/}
+	//-->
+</script>
+<body ondragstart="return false" oncontextmenu="return false" onload='this.focus();'>
+<div id="wrap">
+	<header id="header">
+	<div class="header_top">
+
+		<h1 style="overflow: hidden; white-space: nowrap; -ms-text-overflow: ellipsis;">{config_basic.shopName}</h1>
+		<div class="language_box">
+			<div class="btn-group"></div>
+		</div>
+	</div>
+	<!---------가격----------->
+	<div class="header_price">
+		<span class="name">
+			{data_option[0].item.goods_name}
+<!--{?data_option[0].option1}-->
+			{data_option[0].option1}
+<!--{/}-->
+<!--{?data_option[0].option2}-->
+			{data_option[0].option2}
+<!--{/}-->
+<!--{?data_option[0].option3}-->
+			{data_option[0].option3}
+<!--{/}-->
+<!--{?data_option[0].option4}-->
+			{data_option[0].option4}
+<!--{/}--
+<!--{?data_option[0].option5}-->
+			{data_option[0].option5}
+<!--{/}-->
+<!--{ ? count(data_option)>1}-->
+			{=(count(data_option)-1)}more.
+<!--{/}-->
+		</span>
+		<span class="red">{payment_config.eximbay_cur} {data_order.payment_price}</span>
+	</div>
+	</header>
+	<form name="regForm" method="post" action="../eximbay/request" target="_parent">
+	<div style="display:none;">
+		<table>
+		<!-- 결제에 필요 한 필수 파라미터 -->
+		<tr>
+			<td>ver : </td>
+			<td>
+				<input type="text" name="ver" value="210" /><!-- 연동 버전 -->
+			</td>
+		</tr>
+		<tr>
+			<td>txntype : </td>
+			<td>
+				<input type="text" name="txntype" value="PAYMENT" /><!-- 거래 타입 -->
+			</td>
+		</tr>
+		<tr>
+			<td>charset : </td>
+			<td>
+				<input type="text" name="charset" value="UTF-8" /><!-- 기본 값 : UTF-8 -->
+			</td>
+		</tr>
+
+		<!-- statusurl(필수 값) : 결제 완료 시 Back-end 방식으로 Eximbay 서버에서 statusurl에 지정된 가맹점 페이지를 Back-end로 호출하여 파라미터를 전송. -->
+		<!-- 스크립트, 쿠키, 세션 사용 불가 -->
+		<tr>
+			<td>statusurl : </td>
+			<td>
+				<input type="text" name="statusurl" value="<?=get_connet_protocol()?>{_SERVER.HTTP_HOST}/eximbay/status" />
+			</td>
+		</tr>
+		<!-- 추가 필수 파라미터 : Buyer, email, amt -->
+		<!-- 위 파라미터와 request.php의 mid, secretkey, ref 값 설정만으로 Eximbay 연동 결제 가능  -->
+
+		<!-- 배송지 관련 파라미터(선택) -->
+		<tr>
+			<td>shipTo_country : </td>
+			<td>
+				<input type="text" name="shipTo_country" value="{data_order.shipTo_country}" />
+			</td>
+		</tr>
+		<tr>
+			<td>shipTo_city : </td>
+			<td>
+				<input type="text" name="shipTo_city" value="{data_order.shipTo_city}" />
+			</td>
+		</tr>
+		<tr>
+			<td>shipTo_state : </td>
+			<td>
+				<input type="text" name="shipTo_state" value="{data_order.shipTo_state}" />
+			</td>
+		</tr>
+		<tr>
+			<td>shipTo_street1 : </td>
+			<td>
+				<input type="text" name="shipTo_street1" value="{data_order.shipTo_street1}" />
+			</td>
+		</tr>
+		<tr>
+			<td>shipTo_postalCode : </td>
+			<td>
+				<input type="text" name="shipTo_postalCode" value="{data_order.shipTo_postalCode}" />
+			</td>
+		</tr>
+		<tr>
+			<td>shipTo_phoneNumber : </td>
+			<td>
+				<input type="text" name="shipTo_phoneNumber" value="{data_order.shipTo_phoneNumber}" />
+			</td>
+		</tr>
+		<tr>
+			<td>shipTo_firstName : </td>
+			<td>
+				<input type="text" name="shipTo_firstName" value="{data_order.shipTo_firstName}" />
+		<tr>
+			<td>shipTo_lastName : </td>
+			<td>
+				<input type="text" name="shipTo_lastName" value="{data_order.shipTo_lastName}" />
+			</td>
+		</tr>
+
+		<!-- 청구지 관련 파라미터 (선택) -->
+		<tr>
+			<td>billTo_city : </td>
+			<td>
+				<input type="text" name="billTo_city" value="{data_order.shipTo_city}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_country : </td>
+			<td>
+				<input type="text" name="billTo_country" value="{data_order.shipTo_country}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_firstName : </td>
+			<td>
+				<input type="text" name="billTo_firstName" value="{data_order.shipTo_firstName}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_lastName : </td>
+			<td>
+				<input type="text" name="billTo_lastName" value="{data_order.shipTo_lastName}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_phoneNumber : </td>
+			<td>
+				<input type="text" name="billTo_phoneNumber" value="{data_order.shipTo_phoneNumber}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_postalCode : </td>
+			<td>
+				<input type="text" name="billTo_postalCode" value="{data_order.shipTo_postalCode}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_state : </td>
+			<td>
+				<input type="text" name="billTo_state" value="{data_order.shipTo_state}" />
+			</td>
+		</tr>
+		<tr>
+			<td>billTo_street1 : </td>
+			<td>
+				<input type="text" name="billTo_street1" value="{data_order.shipTo_street1}" />
+			</td>
+		</tr>
+
+		<!-- 추가 항목 관련 파라미터 (선택) -->
+		<tr>
+			<td>surcharge_0_name : </td>
+			<td>
+				<input type="text" name="surcharge_0_name" value="shipping_fee" />
+			</td>
+		</tr>
+		<tr>
+			<td>surcharge_0_quantity : </td>
+			<td>
+				<input type="text" name="surcharge_0_quantity" value="1" />
+			</td>
+		</tr>
+		<tr>
+			<td>surcharge_0_unitPrice : </td>
+			<td>
+				<input type="text" name="surcharge_0_unitPrice" value="{data_order.delivery_cost}" />
+			</td>
+		</tr>
+
+		<!-- 가맹점 정의 파마리터 (선택) -->
+		<tr>
+			<td>param1 : </td>
+			<td>
+				<input type="text" name="param1" value="{order_seq}" />
+			</td>
+		</tr>
+		<tr>
+			<td>param2 : </td>
+			<td>
+				<input type="text" name="param2" value="" />
+			</td>
+		</tr>
+		<tr>
+			<td>param3 : </td>
+			<td>
+				<input type="text" name="param3" value="" />
+			</td>
+		</tr>
+
+		<!-- 한국 결제 수단 관련 변수 (선택) -->
+		<tr>
+			<td>issuercountry : </td>
+			<td>
+				<input type="text" name="issuercountry" value="{=substr(payment_config.eximbay_cur,0,2)}" /><!-- KR 값 지정 시 한국 결제 수단 선택. 그 외 해외 결제 수단 -->
+			</td>
+		</tr>
+		<tr>
+			<td>supplyvalue : </td>
+			<td>
+				<input type="text" name="supplyvalue" value="{data_order.supplyvalue}" /><!-- 전체 결제금액의 결제금액의 공급가액 issuercountry가 KR인 경우 필수 값 -->
+			</td>
+		</tr>
+		<tr>
+			<td>taxamount : </td>
+			<td>
+				<input type="text" name="taxamount" value="{data_order.taxamount}" /><!-- 전체 결제금액의 결제금액의 세액 issuercountry가 KR인 경우 필수 값 -->
+			</td>
+		</tr>
+
+		<!-- 그 외 생략 가능 파라미터 (연동 문서 참고)-->
+		<tr>
+			<td>returnurl : </td>
+			<td>
+				<input type="text" name="returnurl" value="<?=get_connet_protocol()?>{_SERVER.HTTP_HOST}/eximbay/receive" /><!--결제 완료 시 Front-end 방식으로 사용자 브라우저 상에 호출되어 보여질 가맹점 페이지 -->
+			</td>
+		</tr>
+		<tr>
+			<td>displaytype : </td>
+			<td>
+				<input type="text" name="displaytype" value="P" /><!-- P : popup(기본값), I : iframe(layer), R : page redirect -->
+			</td>
+		</tr>
+		<tr>
+			<td>shop : </td>
+			<td>
+				<input type="text" name="shop" value="{config_basic.shopName}" /><!-- 상점명 : 가맹점명과 다른 경우 사용 -->
+			</td>
+		</tr>
+		<tr>
+			<td>ostype : </td>
+			<td>
+				<input type="text" name="ostype" value="{data_order.ostype}" /><!-- P: PC 버전(기본값), M : Mobile 버전-->
+			</td>
+		</tr>
+		<tr>
+			<td>tel : </td>
+			<td>
+				<input type="text" name="tel" value="{data_order.recipient_phone}" />
+			</td>
+		</tr>
+		<tr>
+			<td>mobiletype : </td>
+			<td>
+				<input type="text" name="mobiletype" value="" />
+			</td>
+		</tr>
+		<tr>
+			<td>appscheme : </td>
+			<td>
+				<input type="text" name="appscheme" value="" />
+			</td>
+		</tr>
+		<tr>
+			<td>autoclose : </td>
+			<td>
+				<input type="text" name="autoclose" value="" />
+			</td>
+		</tr>
+		<tr>
+			<td>siteforeigncur : </td>
+			<td>
+				<input type="text" name="siteforeigncur" value="" />
+			</td>
+		</tr>
+		<!-- 결제 응답 값 처리 파라미터 -->
+		<tr>
+			<td>rescode : </td>
+			<td>
+				<input type="text" name="rescode" />
+			</td>
+		</tr>
+		<tr>
+			<td>resmsg : </td>
+			<td>
+				<input type="text" name="resmsg" />
+			</td>
+		</tr>
+		<tr>
+			<td>authcode : </td>
+			<td>
+				<input type="text" name="authcode" />
+			</td>
+		</tr>
+		<tr>
+			<td>cardco : </td>
+			<td>
+				<input type="text" name="cardco" />
+			</td>
+		</tr>
+		</table>
+		<table>
+			<!-- 결제에 필요한 필수 파라미터 -->
+			<tr>
+				<td>Buyer Name : </td>
+				<td><input type="text" name="buyer" value="{data_order.order_user_name}" /></td>
+			</tr>
+			<tr>
+				<td>Buyer Email : </td>
+				<td><input type="text" name="email" value="{data_order.order_email}" /></td>
+			</tr>
+			<!-- 테스트 시 통화 USD 권장 -->
+			<tr>
+				<td>Currency : </td>
+				<td><input type="text" name="cur" value="{payment_config.eximbay_cur}"/></td>
+			</tr>
+			<tr>
+				<td>Amount : </td>
+				<td><input type="text" name="amt" value="{data_order.payment_price}" /></td>
+			</tr>
+
+			<tr>
+				<td> Optional </td>
+				<td></td>
+			</tr>
+			<!-- lang 기본 값 : EN -->
+			<tr>
+				<td> Language : </td>
+				<td>
+					<select name = "lang">
+						<option value="EN" { ? config_system.language == 'US' }selected{ / } >EN</option>
+						<option value="KR" { ? config_system.language == 'KR' }selected{ / }>KR</option>
+						<option value="JP" { ? config_system.language == 'JP' }selected{ / }>JP</option>
+						<option value="CN" { ? config_system.language == 'CN' }selected{ / }>CN</option>
+					</select>
+			</tr>
+
+			<!-- 주문 상품 관련 파라미터 (선택) : 실제 결제 정보에 사용 되지 않음-->
+<!--{ @ data_option }-->
+			<tr>
+				<td> Product : </td>
+				<td><input type="text" name="item_{.index_}_product" value="{.item.goods_name} {.option1}{?.option2}/{.option2}{/}{?.option3}/{.option3}{/}{?.option4}/{.option4}{/}{?.option5}/{.option5}{/}" /></td>
+			</tr>
+			<tr>
+				<td> Quantity : </td>
+				<td><input type="text" name="item_{.index_}_quantity" value="{.ea}" /></td>
+			</tr>
+			<tr>
+				<!-- 실제 결제 정보에 이용되는 결제금액은 amt. item_0_unitPrice는 참고용으로 사용. -->
+				<td> UnitPrice : </td>
+				<td><input type="text" name="item_{.index_}_unitPrice" value="{.price}" /></td>
+			</tr>
+	<!--{ @ .suboptions }-->
+			<tr>
+				<td> Product2 : </td>
+				<td><input type="text" name="item_{.index_ + ..index_}_product" value="{.item.goods_name}{?..suboption}/{..suboption}{/}" /></td>
+			</tr>
+			<tr>
+				<td> Quantity2 : </td>
+				<td><input type="text" name="item_{.index_ + ..index_}_quantity" value="{.ea}" /></td>
+			</tr>
+			<tr>
+				<!-- 실제 결제 정보에 이용되는 결제금액은 amt. item_0_unitPrice는 참고용으로 사용. -->
+				<td> UnitPrice2 : </td>
+				<td><input type="text" name="item_{.index_ + ..index_}_unitPrice" value="{.price}" /></td>
+			</tr>
+	<!--{ / }-->
+<!--{ / }-->
+		</table>
+		</div>
+		<section class="wrap01">
+		<article class="cardinfo_box align_left">
+					<fieldset>
+					<legend>결제수단 선택</legend>
+					<table class="wrap_table" summary="결제수단 선택을 위해 구성된 표">
+						<caption class="hideClass">결제수단 선택테이블</caption>
+						<colgroup>
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+							</colgroup>
+							<tbody>
+							<tr>
+<!--{ @ payment_config.paymethod }-->
+	<!--{ ? .code == 'P000'  }-->
+									<td colspan="4">
+										<div class="inp_wrap web_wrap">
+											<input name="paymethod" id="{.code}" type="radio" checked="checked" value="{.code}">
+											<label class="web_card" for="{.code}"> {.name}&nbsp;&nbsp;
+											<img alt="visa" src="/pg/eximbay/BasicProcessor/2.x/images/visa.png">
+											<img alt="master" src="/pg/eximbay/BasicProcessor/2.x/images/master.png">
+											<img alt="jcb" src="/pg/eximbay/BasicProcessor/2.x/images/jcb.png">
+											</label>
+										</div>
+									</td>
+								</tr>
+								<tr>
+	<!--{ : }-->
+									<td>
+										<div class="inp_wrap web_wrap">
+											<input name="paymethod" id="{.code}" type="radio" value="{.code}">
+											<label class="web_card" for="{.code}">&nbsp;{.name}</label>
+										</div>
+									</td>
+		<!--{ ?.index_ %4==0 && .index_ != 1 }-->
+								</tr>
+								<tr>
+		<!--{ / }-->
+	<!--{ / }-->
+<!--{ / }-->
+								</tr>
+							</tbody>
+						</table>
+					</fieldset>
+			</article>
+		</section>
+		<footer>
+			<!------버튼----->
+			<div class="footer_btn">
+				<a title="결제" class="next" href="javascript:payForm()" alt="결제">Next</a>
+				<a title="취소" class="cancel blue" href="javascript:closeStep1()" alt="취소">Cancel</a>
+			</div>
+			<div class="footer_info">
+				<p><img src="/pg/eximbay/BasicProcessor/2.x/images/f_logo2.png"></p>
+				<p>© 2014 KRPartners, Co., Ltd. All rights reserved</p>
+				<p class="mail"><a title="mail_send" href="mailto:onlinesupport@eximbay.com"><i class="icon-envelope-alt"></i> onlinesupport@eximbay.com</a></p>
+			</div>
+		</footer>
+		</div>
+		</form>

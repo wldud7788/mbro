@@ -1,0 +1,126 @@
+<script type="text/javascript">
+
+	$(document).ready(function() {	
+		// 무료화 활성화
+		$(".calcul_type_box").unbind().bind('change', function(){
+			free_chk_enr($(this));
+		});	
+
+		{ @ sc.shipping_calcul_type }
+		free_chk_enr($("input[name='shipping_calcul_type[{.key_}]']"));
+		{ / }
+	});
+
+	// 무료화 활성화 함수
+	function free_chk_enr(obj){
+		if($(obj).is(':checked')){
+			$(obj).closest(".chkbox_item").find(".calcul_free").attr('disabled',false);
+		}else{
+			$(obj).closest(".chkbox_item").find(".calcul_free").attr('disabled',true);
+		}
+	}
+</script>
+
+<div class="search_container">				
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td>
+				<select name="searchType">
+					<option value="all">배송그룹명</option>		
+					<option value="id">배송그룹번호</option>					
+				</select>
+				<input type="text" name="keyword" value="{sc.keyword}" title="" size="80"/>
+			</td>
+		</tr>
+		<tr>
+			<th>배송비 계산</th>
+			<td>
+				<div class="resp_checkbox">
+					<span class="chkbox_item">
+						<label><input type="checkbox" class="calcul_type_box"  name="shipping_calcul_type[1]" value="bundle" {?sc['shipping_calcul_type'][1]=='bundle'}checked{/} /> 묶음계산-묶음배송</label> (<label><input type="checkbox" class="calcul_free" name="shipping_calcul_free_yn[1]" value="Y" {?sc['shipping_calcul_free_yn'][1]=='Y'}checked{/} disabled />무료화</label>)
+					</span>
+					<span class="chkbox_item">
+						<label><input type="checkbox" class="calcul_type_box" name="shipping_calcul_type[2]" value="each" {?sc['shipping_calcul_type'][2]=='each'}checked{/} /> 개별계산-개별배송</label> (<label><input type="checkbox" class="calcul_free" name="shipping_calcul_free_yn[2]" value="Y" {?sc['shipping_calcul_free_yn'][2]=='Y'}checked{/} disabled />무료화</label>)
+					</span>
+					<span class="chkbox_item">
+						<label><input type="checkbox" class="calcul_type_box" name="shipping_calcul_type[3]" value="free" {?sc['shipping_calcul_type'][3]=='free'}checked{/} /> 무료계산-묶음배송</label>
+					</span>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>대한민국 배송방법</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="kr_method" value="all" checked /> 모든 배송방법</label>				
+					<label><input type="radio" name="kr_method" value="default" /> 기본 배송방법</label>
+				</div>
+				<br/>
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="kr_set_code[]" value="delivery"/> 택배</label>
+					<label><input type="checkbox" name="kr_set_code[]" value="direct_delivery"/> 직접배송</label>
+					<label><input type="checkbox" name="kr_set_code[]" value="quick"/> 퀵서비스</label>
+					<label><input type="checkbox" name="kr_set_code[]" value="freight"/> 화물배송</label>
+					<label><input type="checkbox" name="kr_set_code[]" value="direct_store"/> 매장수령</label>
+					<label><input type="checkbox" name="kr_set_code[]" value="custom"/> 직접입력</label>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>해외국가 배송방법</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="gl_method" value="all" checked/> 모든 배송방법</label>				
+					<label><input type="radio" name="gl_method" value="default"/> 기본 배송방법</label>
+				</div>
+				<br/>
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="gl_set_code[]" value="delivery"/> 택배</label>
+					<label><input type="checkbox" name="gl_set_code[]" value="direct_delivery"/> 직접배송</label>
+					<label><input type="checkbox" name="gl_set_code[]" value="quick"/> 퀵서비스</label>
+					<label><input type="checkbox" name="gl_set_code[]" value="freight"/> 화물배송</label>
+					<label><input type="checkbox" name="gl_set_code[]" value="direct_store"/> 매장수령</label>
+					<label><input type="checkbox" name="gl_set_code[]" value="custom"/> 직접입력</label>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>기본 배송비</th>
+			<td>
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="default_type[]" value="free"/> 무료배송</label>
+					<label><input type="checkbox" name="default_type[]" value="fixed"/> 고정 배송비</label>
+					<label><input type="checkbox" name="default_type[]" value="iffree"/> 조건부  무료배송</label>
+					<label><input type="checkbox" name="default_type[]" value="ifpay"/> 조건부  차등배송비</label>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>추가 배송비</th>
+			<td>
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="add_opt_type[]" value="Y"/> 있음</label>
+					<label><input type="checkbox" name="add_opt_type[]" value="N"/> 없음</label>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>적용상품</th>
+			<td>
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="shipping_etc_search[]" value="goods"/> 연결된 상품이 없는 그룹</label>
+					<!--{ ? serviceLimit('H_AD') }-->				
+					<label><input type="checkbox" name="shipping_etc_search[]" value="trust_ship"/> 입점사 상품이 연결된 배송그룹(본사위탁배송)</label>
+					<!--{ / }-->
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="search_btn_lay"></div>
+</div>

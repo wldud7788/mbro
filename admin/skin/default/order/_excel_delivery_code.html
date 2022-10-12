@@ -1,0 +1,28 @@
+<table class="info-table-style table_basic v7" class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="28%" />
+		<col width="24%" />
+		<col width="24%" />
+		<col width="24%" />
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th-align center">택배사</th>		
+		<th class="its-th-align center">택배사</th>
+		<th class="its-th-align center">택배사</th>		
+		<th class="its-th-align center">택배사</th>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<!--{ @ array_merge(get_invoice_company(), config_load('delivery_url')) }-->
+		{? .index_%4==0 && .index_!=0 }</tr><tr>{ / }
+		<td class="its-td-align center">{.company}</td>		
+		{? .size_%4!=0 && .index_ == .size_- 1}
+		<td class="its-td-align center" colspan="{.size_%4}"></td>	
+		{ / }
+		<!--{ / }-->	
+	</tr>
+	</tbody>
+</table>
+<br/><br/>

@@ -1,0 +1,156 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 구매확정 @@
+- 파일위치 : [스킨폴더]/mypage/buy_confirm.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<style>
+.goods_list li.gl_item {padding:10px 8px; border:2px solid #ccc; margin-bottom:5px; background-color:#fff;}
+.goods_list span.gli_image {float:left; width:20%;}
+.goods_list ol.gli_contents {float:left; width:60%; padding-left:10px;}
+.goods_list ol.gli_contents .goods_name {display:block; font-size:15px; font-weight:bold; letter-spacing:-1px;}
+</style>
+
+<script>
+$(function(){
+	$("form[name='buyconfirm_form']").submit(function(){
+		var order_seq	= "{export.order_seq}";
+		var export_code = "{export.export_code}";
+		var return_url	= "{_GET.return_url}";
+
+		{ ? buy_confirm }
+		if($("input[name='export_buy_confirm_agree']").length){
+			if(!$("input[name='export_buy_confirm_agree'][value='y']").is(":checked")){
+				//상품수령여부에 체크해주세요
+				openDialogAlert(getAlert('mo022'),'450','140',function(){
+					$("input[name='export_buy_confirm_agree']").eq(0).focus();
+				});
+				return false;
+			}
+		}
+		{ / }
+
+		loadingStart('body');
+		$.ajax({
+			'url' : '../mypage_process/buy_confirm',
+			'data' : {'export_code':export_code},
+			'type' : 'get',
+			'dataType' : 'json',
+			'success' : function(data) {
+				loadingStop('body',1);
+				if(data.result) {
+					if(return_url){
+						openDialogAlert(data.msg,'450','200',function(){document.location.replace(return_url);});
+					}else{
+						openDialogAlert(data.msg,'450','200',function(){document.location.replace("../mypage/order_view?no="+order_seq);});
+					}
+				}else if(data.msg){
+					openDialogAlert(data.msg,'450','200');
+				}
+			}
+		});
+
+		return false;
+	});
+});
+</script>
+
+<!-- 타이틀 -->
+<div class="sub_title_bar">
+	<h2>구매확정</h2>
+	<a href="javascript:history.back();" class="stb_back_btn"><img src="../images/design/btn_back.png" width="22" height="22" /></a>
+</div>
+
+<form name="buyconfirm_form">
+
+
+<div class="agreement_header">
+	<div class="agreement_title">구매 확정 및 포인트 지급</div>
+</div>
+
+<div style="padding:10px 10px 0 10px;color:#565656">구매 확정 및 포인트 지급을 받으시기 전에 반드시 아래사항을 확인하여 주세요. 확인 버튼 클릭 시 구매 확정 및 포인트가 지급됩니다.</div>
+<div class="agreement_contents">
+	* 주문 상품을 수령하셨고, 고객 변심 및 착오에 의한  교환 또는 환불의 의사가 없으실 경우 확인해주세요. 확인 후 즉시 포인트가 지급됩니다.<br /><br />
+	* 동일 주문건의 상품 중 일부 만 교환 또는 반품을 원하실 경우 주문 번호 클릭 후 세부 주문내역에서  개별 상품에  대한 구매확정을 해주셔야 합니다.<br /><br />
+	* 구매 확정으로 포인트가 지급된 이후 또는 제품 착용 시  교환 또는 환불이 불가합니다.<br /><br />
+	{? cfg_order.save_type == 'exist' }
+		* 구매 확정을 하시지 않으시면 출고 완료 후  {cfg_order.save_term}일 후에는  자동으로 구매 확정 처리되지만 마일리지/포인트는 소멸됩니다.
+	{: }
+		* 구매 확정을 하시지 않으시더라도 출고 완료 후  {cfg_order.save_term}일 후에는  자동으로 구매 확정 및 마일리지/포인트가 지급됩니다.
+	{/}
+</div>
+
+<!--{ ? export.buy_confirm!='none' && buy_confirm}-->
+<div class="export_buy_confirm_agree_container" style="padding:5px 10px 20px 10px; font-size:13px; color:#000">
+	구매를 확정하기 위해 상품수령을 확인해 주세요.<br />
+	상품을 수령하셨습니까?<br />
+	<div class="pdt20 center">
+		<label><input type="radio" name="export_buy_confirm_agree" value="y" /> 예</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label><input type="radio" name="export_buy_confirm_agree" value="n" checked /> 아니오</label>
+	</div>
+</div>
+<!--{ / }-->
+
+<div class="agreement_header">
+	<div class="agreement_title">구매 확정 상품</div>
+</div>
+
+<div class="bg_gray pd5">
+	<ul class="goods_list">
+		{@export_item}
+		<li class="gl_item clearbox">
+			<span class="gli_image"><img src="{.image}" width="100%" onerror="this.src='../images/common/noimage.gif'" /></span>
+			<ol class="gli_contents">
+				<li><span class="goods_name">{.goods_name}</span></li>
+				<li class="pdt5">
+					<img src="../images/common/icon_option.gif" align="absmiddle" />
+					<!-- { ? .option1 } -->
+						{ ? .title1 }{ .title1 }:{ / }{ .option1 }
+					<!-- { / } -->
+					<!-- { ? .option2 } -->
+						{ ? .title2 }{ .title2 }:{ / }{ .option2 }
+					<!-- { / } -->
+					<!-- { ? .option3 } -->
+						{ ? .title3 }{ .title3 }:{ / }{ .option3 }
+					<!-- { / } -->
+					<!-- { ? .option4 } -->
+						{ ? .title4 }{ .title4 }:{ / }{ .option4 }
+					<!-- { / } -->
+					<!-- { ? .option5 } -->
+						{ ? .title5 }{ .title5 }:{ / }{ .option5 }
+					<!-- { / } -->
+					<!--{ ? .inputs }-->
+						<!--{ @ .inputs }-->
+							<!--{ ? ..value }-->
+							<div class="goods_input">
+								<img src="../images/common/icon_input.gif" />
+								<!--{?..title}-->{..title}:<!--{ / }-->
+								<!--{?..type=='file'}-->
+								<a href="/mypage_process/filedown?file={..value}" target="actionFrame" style="color:#848484;"><img src="/mypage_process/filedown?file={..value}" width="13" height="13" title="크게 보기" align="absmiddle" /></a>
+								<!--{:}-->{..value}<!--{ / }-->
+							</div>
+							<!--{ / }-->
+						<!--{ / }-->
+					<!--{ / }-->
+				</li>
+				<li class="pdt5"><span style="color:#999">└ </span><span style="color:#4a4a4a">수량 : {=number_format(.ea)}개</span></li>
+			</ol>
+		</li>
+		{/}
+	</ul>
+	<table width="100%" cellpadding="0" cellspacing="5" border="0">
+	<tr>
+		<td width="50%"><button type="button" class="btn_cancel_large" style="width:100%" onclick="history.go(-1)">취소</button></td>
+		<td width="50%">
+		<!--{ ? export.buy_confirm!='none' && buy_confirm}-->
+			<!--이미 구매확정한 상품입니다.-->
+			<button type="button" class="btn_cancel_large" style="width:100%" onclick="alert(getAlert('mo144'));">구매확정</button>
+		<!--{ : }-->
+			<button type="submit" class="btn_important_large" style="width:100%">구매확정</button>
+		<!--{ / }-->
+		</td>
+	</tr>
+	</table>
+</div>
+
+</form>

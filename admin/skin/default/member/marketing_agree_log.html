@@ -1,0 +1,42 @@
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="7%" /></col>
+		<col width="15%" /></col>
+		<col width="20%" /></col>
+		<col width="25%" /></col>
+		<col width="25%" /></col>
+		<col width="8%" /></col>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="its-td-align center">번호</th>
+			<th class="its-td-align center">수신동의 매체</th>
+			<th class="its-td-align center">발송일시</th>
+			<th class="its-td-align center">보내는 사람</th>
+			<th class="its-td-align center">받는 사람</th>
+			<th class="its-td-align center">결과</th>
+		</tr>
+		{? count(res) <= 0}
+		<tr>
+			<td colspan="6" class="its-td-align center">발송 내역이 없습니다.</td>
+		</tr>
+		{:}
+		{@ res }
+		<tr>
+			<td class="its-td-align center">{.no}</td>
+			<th class="its-td-align center">{? .type == 'm'}Email{: .type == 's'}SMS{: .type == 'a'}Email/SMS{/}</th>
+			<td class="its-td-align center">{.send_date}</td>
+			<td class="its-td-align center">{.send_addr}</td>
+			<td class="its-td-align center">{.receive_addr}</td>
+			<td class="its-td-align center">{? .res == 's'}성공{:}실패{/}</td>
+		</tr>
+		{/}
+		{/}
+	</tbody>
+</table>
+<div style="padding:18px;">
+	<ul style="list-style-type : disc;">
+		<li style="line-height: 120%;padding-bottom:5px;">정보통신망법 이용 촉진 및 정보보호에 관한 법률 50조 제 8항 및 동법 시행령 제 62조에 따라 수신자의 수신동의를 받아 광고성 정보를 전송하는 자는 수신동의를 받은 날부터 매 2년마다 확인하여야 합니다.</li>
+		<li style="line-height: 120%;padding-bottom:5px;">2년마다 최대 3천만원의 과태료가 부과될 수 있습니다.</li>
+	</ul>
+</div>

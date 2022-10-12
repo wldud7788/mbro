@@ -1,0 +1,132 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/plugin/validate/jquery.validate.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.form.js" charset="euc-kr"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/couponComm.js?v={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?v={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/couponList.js?v={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gCouponIssued.js?v={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var _search_options = function(){
+		return {
+			'pageid':$("form[name='couponsearch'] input[name='pageid']").val(),
+			'search_mode':$("form[name='couponsearch'] input[name='pageid']").attr('data-search_mode'),
+			'defaultPage':$("form[name='couponsearch'] input[name='page']").attr('data-defaultPage'),
+			'select_date':$("form[name='couponsearch'] input[name='pageid']").attr('data-select_date'),
+			'sc':{=scObj}
+			};
+	}
+
+		gSearchForm.init(_search_options());
+	});
+</script>
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar"  >
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>할인 쿠폰</h2>
+		</div>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+<!-- 리스트검색폼 : 시작 -->
+{#searchForm}
+<!-- 리스트검색폼 : 끝 -->
+
+<div class="contents_dvs v2">
+	<div class="list_info_container">
+		<div class="dvs_left">
+			<div class="left-btns-txt">검색 <b>{=number_format(sc.searchcount)}</b> 개 (총 <b>{=number_format(sc.totalcount)}</b> 개)</div>
+		</div>
+		<div class="dvs_right"><div class="display_quantity" perpage="{=sc.perpage}"></div></div>
+	</div>	
+
+	<table class="table_row_basic tdc">
+	<colgroup>
+		<col width="5%" />
+		<col width="7%" />
+		<col width="8%" />
+		<col width="16%" />
+		<col width="12%" />
+		<col width="10%" />
+		<col width="11%" />
+		<col width="7%" />
+		<col width="8%" />
+		<col width="10%" />	
+	</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>혜택 구분</th>
+				<th>쿠폰 유형</th>
+				<th>쿠폰명</th>
+				<th>혜택</th>
+				<th>유효기간</th>
+				<th>내역</th>
+				<th>발급상태</th>
+				<th>등록일</th>
+				<th>관리</th>
+			</tr>
+		</thead>
+		<tbody>
+		{? record }
+			{@ record }
+			<tr  {? .issue_stop == 1}class="stop-tr-background"{/} >
+				<td>{._no}</td>
+				<td>{.coupon_category_name}</td>
+				<td>{.coupon_type}</td>
+				<td class="left">
+					<a href="../coupon/regist?no={.coupon_seq}" class="resp_btn_txt v2">{.coupon_name}</a>
+				</td>
+				<td>
+					{.salepricetitle}
+					{? .type != 'offline_emoney' }<br>
+					<input type="button" class="coupongoodsreviewbtn resp_btn" coupon_type="{? .type == 'offline_coupon' }offline{:}online{/}" coupon_seq="{.coupon_seq}"  use_type="{.use_type}"  issue_type="{.issue_type}"   coupon_name="{.coupon_name}" value="보기" />
+					{/}
+				</td>
+				<td>{.issuedate}</td> 
+				<td>
+					{? .type == 'offline_emoney' }
+					인증 {.downloadtotal}건 / - 
+					{: .type == 'offline_coupon' }
+					인증 {.downloadtotal}건 / 사용 {.usetotal}
+					{:}
+					발급 {.downloadtotal}건 / 사용 {.usetotal}
+					{/}
+				</td>
+				<td>{.issue_stop_title}</td>
+				<td>{.date}</td>
+
+
+				<td nowrap="nowrap" >
+					<input type="button" name="modify{.issueimg}_btn" class="cpmodifybtn resp_btn v2" coupon_seq="{.coupon_seq}" value="상세" modifytype="regist" />
+				</td>
+			</tr>
+			{/}
+		{:}
+			<tr>
+				<td colspan="10">
+					{ ? search_text }
+						'{search_text}' 검색된 쿠폰이 없습니다.
+					{:}
+						등록된 쿠폰이 없습니다.
+					{/}
+				</td>
+			</tr>
+		{/}
+		</tbody>
+	</table>
+</div>
+<!-- 서브 레이아웃 영역 : 끝 -->
+
+<!-- 페이징 -->
+<div class="paging_navigation">{=page.html}</div>
+
+{ #coupongoodslayer }
+
+
+{ #layout_footer }

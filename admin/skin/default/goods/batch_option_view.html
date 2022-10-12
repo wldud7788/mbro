@@ -1,0 +1,100 @@
+<table class="list-table-style" cellspacing="0" border="0">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col /><!--옵션-->
+		<!--col width="120" /><!--공급가-->
+		<!--col width="90" /><!--수수료율-->
+		<col width="115" /><!--현재매입가-->
+		<col width="115" /><!--정가-->
+		<col width="160" /><!--마진-->
+		<col width="50" /><!--부가세-->
+		<!--col width="90" /--><!--재고-->
+		<col width="100" /><!--지급마일리지-->
+		<col width="100" /><!--배송비-->
+		<!--col width="80" /--><!--노출-->
+	</colgroup>
+	<!--{ @ loop }-->
+	<!--{ ? .default_option == 'y'}-->
+	<tr style="height:30px;" class="default_option bg-dot-line">
+	<!--{ : }-->
+	<tr style="height:30px;">
+	<!--{ / }-->
+		<td class="pdl5">
+		<span class="detail_default_option_select">
+		<!--{ ? .option_divide_title[0] }-->
+		{.option_divide_title[0]} :
+		<!--{ / }-->
+		{? .goods_code }<div class="goods_option fx11 goods_code_icon">[상품코드: {.goods_code}]</div>{/}
+		{.option1}
+		<!--{ ? .option2 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[1] }-->
+		{.option_divide_title[1]} :
+		<!--{ / }-->
+		{.option2}
+		<!--{ / }-->
+		<!--{ ? .option3 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[2] }-->
+		{.option_divide_title[2]} :
+		<!--{ / }-->
+		{.option3}
+		<!--{ / }-->
+		<!--{ ? .option4 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[3] }-->
+		{.option_divide_title[3]} :
+		<!--{ / }-->
+		{.option4}
+		<!--{ / }-->
+		<!--{ ? .option5 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[4] }-->
+		{.option_divide_title[4]} :
+		<!--{ / }-->
+		{.option5}
+		<!--{ / }-->
+		</span>
+		</td>
+		<!--td align="center">
+			{? .commission_type == 'SACO'}-{:}
+			{=number_format(.commission_rate)}{?.commission_type == 'SUPR'}원{:}%{/}
+			{/}
+		</td>
+		<td align="center">
+			{? .commission_type != 'SACO' || .provider_seq=='1'}-{:}
+			{=number_format(.commission_rate)}%
+			{/}
+		</td-->
+		<td align="right" style="padding-right:5px;">
+		{? .commission_type != 'SACO' || .provider_seq!='1'}-{:}
+			{=get_currency_price(.supply_price)}
+		{/}
+		</td>
+		<td align="right" style="padding-right:5px;">{=get_currency_price(.consumer_price)}</td>
+		<td align="right" style="padding-right:5px;"><!-- {=get_currency_price(.price-.supply_price)} /  -->{=get_currency_price(.price)}</td>
+		<td align="right" style="padding-right:5px;">{=get_currency_price(.price - (.price / 1.1))}</td>
+		<!--td align="center">{.stock} / ({.able_stock})</td-->
+		<td align="center">
+		<!--{ ? .key_ == 0 }-->
+		<!--{ ? .reserve_policy == 'shop' }
+		기본
+		<!--{ : .reserve_policy == 'goods' }
+		개별
+		{ / }
+		<!--{ / }-->
+		<!--{ ? .reserve_policy == 'goods' }-->
+		<!--{ ? .reserve_unit=='percent'}-->
+		{.reserve_rate}%
+		<!--{ : }-->
+		{=get_currency_price(.reserve,2)}
+		<!--{ / }-->
+		<!--{ : }-->
+		-
+		<!--{ / }-->
+		</td>
+		<td align="center">-</td>
+		<!--td align="center">-</td-->
+	</tr>
+	<!--{ / }-->
+</table>

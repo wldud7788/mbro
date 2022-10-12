@@ -1,0 +1,96 @@
+<script type="text/javascript" src="/app/javascript/jquery/jquery.form.js" charset="utf8"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_pagination/jquery.pager.js" charset="utf8"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	getAjaxpromotionList();
+
+	$("#submitbtn").click(function() {
+		getAjaxpromotionList();
+	});
+
+});
+
+/**
+ * 상품을 ajax로 검색한다.
+ * @param int page 페이지번호
+ */
+function getAjaxpromotionList(page) {
+	var pageNumber = page ? page : 1;
+   $("#getpage").val(pageNumber);
+	var queryString = $('#promotionpromotion_search').formSerialize();
+	var perpage = 10;
+	$.ajax({
+		type: 'post',
+		url: '/admin/promotion_process/promotion_code_list',
+		data: queryString + '&perpage=' + perpage,
+		dataType: 'json',
+		success: function(data) {
+			$('#ajaxTable').html(data.content);
+			$('#searchcount').html(setComma(data.searchcount));
+			$('#totalcount').html(setComma(data.totalcount));
+			$('#nowpage').html(setComma(data.nowpage));
+			$('#total_page').html(setComma(data.total_page));
+			$("#pager").pager({ pagenumber: data.page, pagecount: data.pagecount, buttonClickCallback: pageClick });
+		}
+	});
+}
+
+/**
+ * 페이징 클릭시 페이지를 로딩한다.
+ * @param int page 페이지번호
+ */
+function pageClick(page) {
+	$("#getpage").val(page);
+	getAjaxpromotionList(page);
+}
+
+</script>
+
+<form name="promotionpromotion_search" id="promotionpromotion_search"  method="post" >
+<input type="hidden" name="no" value="{promotion.promotion_seq}" >
+<input type="hidden" name="page" id="getpage" value="{_GET.page}" >
+<input type="hidden" name="orderby" id="orderby" value="{_GET.orderby}" >
+<!-- 리스트검색폼 : 시작 -->
+
+<div class="search_container">
+	<div class="item-title">할인 코드 검색</div>
+	<table class="table_search">	
+		<tr>
+			<th>할인 코드</th>
+			<td>
+				<input type="text" name="search_text" id="search_text" value="{_GET.search_text}" title="할인코드" />					
+				<button type="button" class="resp_btn active " id="submitbtn">검색</button>	
+			</td>
+		</tr>
+	</table>
+</div>
+</form>
+<!-- 리스트검색폼 : 끝 -->
+
+<div class="list_info_container mt10">
+	<div class="dvs_left">	
+		검색 <span id="searchcount" class="bold">{sc.searchcount}</span>개 (총 <span id="totalcount" class="bold"></span>개)
+	</div>	
+</div>
+
+<div class="table_row_frame">	
+	<table class="table_row_basic">		
+		<colgroup>
+			<col width="30%" />
+			<col width="70%" />
+		
+		</colgroup>
+		
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>할인 코드(<span class="red" >사용</span> or <span class="blue" >발급</span>)</th>						
+			</tr>
+		</thead>		
+		<tbody id="ajaxTable"></tbody>
+	</table>
+</div>
+
+<!-- 서브 레이아웃 영역 : 끝 -->
+
+<div id="pager"></div>

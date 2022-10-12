@@ -1,0 +1,45 @@
+<div class="gon_resp_wrap">
+	<div class="res_col_table">
+		<ul class="thead">
+			<li style="width:90px;">상태</li>
+			<li style="width:110px;">방송 시간</li>
+			<li style="width:140px;">쇼핑몰</li>
+			<li>방송 상품</li>
+			<li style="width:100px;">방송 알림</li>
+			<li style="width:100px;">총 시청자</li>
+			<li style="width:150px;">등록일자</li>
+		</ul>
+		<!--{? loop}-->
+			<!--{@ loop }-->
+			<ul class="calendar-day-row tbody hand {=.class}" bs-seq="{.bs_seq}" onclick="getDetail({.bs_seq}, '{date}');">
+				<li><span class="air_status"><!--{.status}--></span></li>
+				<li><!--{.time}--></li>
+				<li><span class="language_country_img language_country_img_KR">퍼스트몰 반응형</span></li>
+				<li class="subject mo_end">
+					<ul class="board_goods_list">
+						<li class="pic">
+							<img src="{=.img}" alt="" />
+						</li>
+						<li class="info"><!--{=.title}--></li>
+					</ul>
+				</li>
+				<li class="mo_hide"><!--{=.noti}--></li>
+				<li class="mo_hide"><!--{=.stat.total_viewer}--></li>
+
+				<li class="mo_hide"><!--{=.regist_date}--></li>
+			</ul>			
+			<!--{ / }-->
+		<!--{ : }-->
+	</div>
+	<p class="no_data_area">방송 일정이 없습니다.</p>
+	<!--{ / }-->
+	<!-- 하단 버튼 -->
+</div>
+
+<div>
+	<div class="btn_area">
+		<button type="button" class="btn_resp size_c color2" onclick="location.href='/admin/broadcast/regist?date={date}'">등록</button> &nbsp;
+		<button type="button" class="btn_resp size_c" onclick="location.href='/admin/broadcast/catalog?date={date}'">전체 일정</button>
+	</div>
+</div>
+

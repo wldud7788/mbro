@@ -1,0 +1,211 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	loadSmsForm("");
+
+	$(".mod_form").live("click",function(){
+		openDialog("보관 메시지 수정", "add_sms_popup", {"width":"300","show" : "fade","hide" : "fade"});
+		$("#sms_form_group").val($(this).parents().find("textarea").attr("codecd"));
+		$("input[name='album_seq']").val($(this).attr("seq"));
+		$("#sms_form_text").val($(this).parents().find("textarea").val());
+		send_byte_chk($("#sms_form_text"));
+	});
+	
+	
+	// ADD SMS FORM
+	$("#add_sms_form").click(function(){
+		openDialog("SMS 추가", "add_sms_popup", {"width":"300","show" : "fade","hide" : "fade"});
+		$("#sms_form_group").val('');
+		$("input[name='album_seq']").val('');
+		$("#sms_form_text").val('');
+		send_byte_chk($("#sms_form_text"));
+	});
+
+	// POPUP SMS ADD FORM
+	$("#add_sms_group").click(function(){
+		$("#sms_form_id").show();
+		$("select[name='sms_form_group']").attr('disabled',true);
+		$("input[name='sms_form_name']").attr('disabled',false);
+	});
+	$("#del_sms_group").click(function(){
+		$("#sms_form_id").hide();
+		$("select[name='sms_form_group']").attr('disabled',false);
+		$("input[name='sms_form_name']").attr('disabled',true);
+	});
+	
+});
+
+//
+function loadSmsForm(value){
+	if(value)  {
+		value = decodeURI(value);
+	}
+	$("input[name='category']").val(value);
+	$("input[name='page']").val('');
+	
+	$('.tdCategoryList').each(function(){
+		if($(this).attr("category_name") == value){
+			$(this).css("font-weight","bold");
+		}else if(value == "" && $(this).attr("category_name") == "전체보기"){
+			$(this).css("font-weight","bold");
+		}else{
+			$(this).css("font-weight","");
+		}
+	});
+
+	sms_form_container("8");
+}
+
+function searchSMSPaging(query_string) {
+	sms_form_container(query_string, "query");
+}
+
+function sms_form_container(pageNumber, querytype){
+
+	var sms_search = $("input[name='sms_search']").val();
+	var category = $("input[name='category']").val();	
+	var query = 'category='+category+'&sms_search='+sms_search+'&perpage='+pageNumber;
+
+	if(typeof querytype != "undefined")	{
+		query = pageNumber;
+	}
+	
+	$.ajax({
+		type: 'get',
+		url: '../member_process/getSmsForm',
+		data: query,
+		dataType: 'json',
+		success: function(data) {		
+			$('#sms_form_container').html(data);
+			
+			if($('#sms_form_container .sms_contents').length==0) {
+				$(".categoryList").hide();
+			} else {
+				$(".categoryList").show();
+			}
+
+			$('#sms_form_container .sms_contents').each(function(){		
+				send_byte_chk(this);
+			});
+
+			 $(".smsItem").on("click", function()
+			{
+				$(".smsItem.on").removeClass("on");
+				$(this).addClass("on");
+			});
+			
+			$(".del_form").on("click",function(){
+				deleteSmsForm(this);
+			});
+
+			$(".mod_form").on("click",function(){
+				//modifySmsForm(this);
+			});
+		}
+	});
+	//sendMemberSum();		
+}
+
+
+function deleteSmsForm(el) {
+	$.ajax({
+		type: 'GET',
+		url: '../member_process/delete_smsform',
+		data: 'seq='+ $(el).attr("seq"),
+		success: function() {
+			$(el).parents("li").remove();
+
+			if($('#sms_form_container .sms_contents').length==0) {
+				$(".categoryList").hide();
+			} else {
+				$(".categoryList").show();
+			}
+		}
+	});
+}
+
+function setSelectSMS()
+{
+	$('#send_message').val( $(".smsItem.on .sms_contents").val());
+	send_byte_chk($('#send_message')); 	
+	closeDialog('smsFormListPopup')
+}
+
+</script>
+
+<style>
+#sms_form_group {width:150px;}
+.sms_form_name {width:134px;}
+
+</style>
+
+<div class="contents_container sms_form">
+	<div class="content">
+	<div class="list_info_container">
+		<div class="dvs_left">
+			<input type="text" name="sms_search"/>
+			<button type="button" id="sms_form" onclick="sms_form_container('8');" class="resp_btn v2">검색</button>
+		</div>
+		<div class="dvs_right">	
+			<button type="button" id="add_sms_form" class="resp_btn active">SMS 추가</button>
+		</div>
+	</div>
+
+	<ul class="section_dvs_lattice v2 ea5 mb15 categoryList">		
+		{@ sms_loop}
+		<li class="tdCategoryList" category_name="{.category}">	
+			<a href="javascript:loadSmsForm({? .index_==0 }''{ : }encodeURI('{.category}'){/});">{.category}</a>
+		</li>
+		{ / }		
+	</ul>
+
+	<div id="sms_form_container"></div>
+	</div>
+
+	<div class="footer">
+		<button type="button" class="resp_btn active size_XL" onclick="setSelectSMS()">적용</button>
+		<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('smsFormListPopup')">취소</button>
+	</div>
+</div>
+
+<div id="add_sms_popup" class="hide">
+<form name="popForm" method="post" action="../member_process/sms_process" target="actionFrame">
+	<input type="hidden" name="mode" value="dormancy"/>
+	<input type="hidden" name="album_seq"/>
+	
+	<div class=" sms_area">
+		<div id="selectCategoryList">
+			<div class="mb5">
+				<select name="sms_form_group" id="sms_form_group" class="wx110">
+					<option value="">그룹 선택</option>
+					{@ sms_loop}
+					{? .category != "전체보기"}
+					<option value="{.category}">{.category}</option>
+					{/}
+					{ / }
+				</select> 
+				<button type="button" id="add_sms_group" class="resp_btn v2">그룹 추가</button>
+			</div>
+			<span id="sms_form_id" class="hide">
+				<input type="text" name="sms_form_name" class="sms_form_name wx110"> 
+				<button type="button" id="del_sms_group" class="resp_btn">취소</button>
+			</span>
+		</div>
+		
+		<div class="center mt10">
+			<div class="sms-define-form mt10" >		
+				<div class="sdf-body-wrap">
+					<div class="sdf-body ">
+						<textarea name="sms_form_text" id="sms_form_text"  class="sms_contents"></textarea>				
+					</div>
+				</div>		
+			</div>
+			<div class="right mr30"><b id="send_byte" class="send_byte">0</b>byte</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		<button type="button" onclick="document.popForm.submit();" class="resp_btn active size_L">추가</button>
+		<button type="button" onclick="closeDialog('add_sms_popup')" class="resp_btn v3 size_L">취소</button>
+	</div>
+</form>
+</div>

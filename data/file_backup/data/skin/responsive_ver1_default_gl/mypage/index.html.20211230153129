@@ -1,0 +1,270 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 마이페이지 index @@
+- 파일위치 : [스킨폴더]/mypage/index.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<ul class="my_index_top mycs_fcont_margin">
+			<li>
+				<p class="my_greeting">
+					<span class="name">{user_name}</span><span designElement="text">님</span> <span class="Dib" designElement="text">반갑습니다.</span>
+				</p>
+				<ul class="my_msub1">
+					<li>{userInfo.group_name}<span designElement="text"> 등급</span></li>
+					<li><a href="/mypage/myinfo" designElement="text">회원정보 수정</a></li>
+				</ul>
+			</li>
+			<li>
+				<ul class="my_msub2">
+					<li>
+						<a href="/mypage/emoney">
+							<span class="title" designElement="text">마일리지</span>
+							<span class="cont">
+								<span class="num">{=number_format(emoney)}</span>
+							<span>
+						</a>
+					</li>
+					<li>
+						<a href="/mypage/coupon">
+							<span class="title" designElement="text">쿠폰</span>
+							<span class="cont">
+								<span class="num">{=summary.coupondownloadtotal}</span>장
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="/mypage/wish">
+							<span class="title" designElement="text">위시리스트</span>
+							<span class="cont">
+								<span class="num">{=showMycartTop('wish')}</span>개
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="/goods/recently">
+							<span class="title" designElement="text">최근 본 상품</span>
+							<span class="cont">
+								<span class="num">{=showMycartTop('recently')}</span>개
+							</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+
+		<!-- 최근 주문 내역 -->
+		<div class="title_container2 Bbx Pb0 Mt80">
+			<h3 class="title_sub6"><span designElement="text">최근 주문 내역</span></h3>
+			<a class="btn_thebogi" href="/mypage/order_catalog" designElement="text">전체조회</a>
+		</div>
+		<ul class="my_order_step">
+			<li class="step1"><a href="../mypage/order_catalog?step_type=order"><span designElement="text">주문접수</span>{?counts['15']}<span class="pushCount">{counts['15']}</span>{/}</a></li>
+			<li class="step2"><a href="../mypage/order_catalog?step_type=deposit_only"><span designElement="text">결제확인</span>{?counts['25']}<span class="pushCount">{counts['25']}</span>{/}</a></li>
+			<li class="step3"><a href="../mypage/order_catalog?step_type=ready_only"><span designElement="text">상품준비중</span>{?(counts['35']+counts['40']+counts['45'])}<span class="pushCount">{(counts['35']+counts['40']+counts['45'])}</span>{/}</a></li>
+			<li class="step4"><a href="../mypage/order_catalog?step_type=delivery_ing"><span designElement="text">배송중</span>{? (counts['50']+counts['55']+counts['60']+counts['65']+counts['70']) }<span class="pushCount">{counts['50']+counts['55']+counts['60']+counts['65']+counts['70']}</span>{/}</a></li>
+			<li class="step5"><a href="../mypage/order_catalog?step_type=delivery_complete"><span designElement="text">배송완료</span>{?counts['75']}<span class="pushCount">{counts['75']}</span>{/}</a></li>
+		</ul>
+
+		<!-- 최근 주문 상품 리스트 -->
+		<!--{ ? orders }-->
+		<div id="OcList" class="res_table v2">
+			<ul class="thead">
+				<li class="buy_date"><span designElement="text">날짜</span></li>
+				<li class="order_seq"><span designElement="text">주문번호</span></li>
+				<li class="item_info"><span designElement="text">상품</span></li>
+				<li class="order_price"><span designElement="text">주문금액</span></li>
+				<li class="order_status"><span designElement="text">상태</span></li>
+			</ul>
+			<!--{ @ orders }-->
+			<ul class="tbody">
+				<li class="sjb_top">{=date('Y.m.d',strtotime(.regist_date))}</li>
+				<li class="sjb_top order_seq"><span class="motle" designElement="text">주문번호 : </span><a href="/mypage/order_view?no={.order_seq}">{.order_seq}</a></li>
+				<li class="item_info">
+				<!--{@.items}-->
+					<!--{@..options}-->
+					<ul class="oc_item_info_detail">
+						<li class="img_link" {? ..goods_type != 'gift'}style="cursor:pointer" title="상품 상세" onclick="location.href='../goods/view?no={..goods_seq}';"{/}>
+							<img src="{=viewImg(..goods_seq, 'thumbCart')}" class="goods_thumb" onerror="this.src='../images/common/noimage_list.gif'" alt="" />
+						</li>
+						<li class="detail_spec">
+							<!--{? ..eventEnd }-->
+							<div class="oc_event_area">
+								<span class="soloEventTd{...item_option_seq}">
+									<img src="../images/common/icon_clock.gif" class="img_clock" alt=""> 남은시간
+									<span class="time_area">
+										<span id="soloday{...item_option_seq}">0</span>일
+										<span id="solohour{...item_option_seq}">00</span>:
+										<span id="solomin{...item_option_seq}">00</span>:
+										<span id="solosecond{...item_option_seq}">00</span>
+									</span>
+								</span>
+								<script>
+								$(function() {
+									timeInterval{...item_option_seq} = setInterval(function(){
+										var time{...item_option_seq} = showClockTime('text', '{..eventEnd.year}', '{..eventEnd.month}', '{..eventEnd.day}', '{..eventEnd.hour}', '{..eventEnd.min}', '{..eventEnd.second}', 'soloday{...item_option_seq}', 'solohour{...item_option_seq}', 'solomin{...item_option_seq}', 'solosecond{...item_option_seq}', '{...item_option_seq}');
+										if(time{...item_option_seq} == 0){
+											clearInterval(timeInterval{...item_option_seq});
+											$("..soloEventTd{...item_option_seq}").html("단독 이벤트 종료");
+										}
+									},1000);
+								});
+								</script>
+							</div>
+							<!--{/}-->
+
+							{? ..goods_type == 'gift'}<img src="../images/common/icon_gift.gif" alt="사은품" vspace=3 />{/}
+							{? ...cancel_type == '1' }<span class="order-item-cancel-type">[청약철회불가]</span>{/}
+
+							<div class="goods_name">{..goods_name}</div>
+
+							<!--{ ? ..adult_goods == 'Y' || ..option_international_shipping_status == 'y' || ..cancel_type == '1' || ..tax == 'exempt' }-->
+							<div class="goods_type">
+								<!--{ ? ..adult_goods == 'Y' }-->
+								<img src="../images/common/auth_img.png" class="icon1" alt="성인" height="17" />
+								<!--{ / }-->
+								<!--{ ? ..option_international_shipping_status == 'y' }-->
+								<img src="../images/common/plane.png" class="icon1" alt="해외배송상품" height="16" />
+								<!--{ / }-->
+								<!--{ ? ..cancel_type == '1' }-->
+								<img src="../images/common/nocancellation.gif" class="icon1" alt="청약철회"  />
+								<!--{ / }-->
+								<!--{ ? ..tax == 'exempt' }-->
+								<img src="../images/common/taxfree.gif" class="icon1" alt="비과세" />
+								<!--{ / }-->
+							</div>
+							<!--{ / }-->
+
+							<div class="oc_res_block">
+								<!--{ ? ...option1 != '' }-->
+								<ul class="goods_options">
+									<!--{ ? ...option1 }-->
+									<li>{ ? ...title1 }<span class="xtle">{ ...title1 }</span>{ / } { ...option1 }</li>
+									<!--{ / }-->
+									<!--{ ? ...option2 }-->
+									<li>{ ? ...title2 }<span class="xtle">{ ...title2 }</span>{ / } { ...option2 }</li>
+									<!--{ / }-->
+									<!--{ ? ...option3 }-->
+									<li>{ ? ...title3 }<span class="xtle">{ ...title3 }</span>{ / } { ...option3 }</li>
+									<!--{ / }-->
+									<!--{ ? ...option4 }-->
+									<li>{ ? ...title4 }<span class="xtle">{ ...title4 }</span>{ / } { ...option4 }</li>
+									<!--{ / }-->
+									<!--{ ? ...option5 }-->
+									<li>{ ? ...title5 }<span class="xtle">{ ...title5 }</span>{ / } { ...option5 }</li>
+									<!--{ / }-->
+								</ul>
+								<!--{ / }-->
+
+								{? ..goods_type != 'gift'}
+								<div class="goods_quantity pointcolor">
+									<span class="xtle">수량</span> <strong class="num">{=number_format(...ea)}</strong>개
+								</div>
+								{ / }
+							</div>
+
+							<!--{ ? ...inputs }-->
+							<ul class="goods_inputs">
+								<!--{ @ ...inputs }-->
+								<li>
+									<!--{ ? ....value }-->
+										<!--{?....title}--><span class="xtle v2">{....title}</span><!--{ / }-->
+										<!--{?....type=='file'}-->
+										<a href="/mypage_process/filedown?file={....value}" target="actionFrame"><img src="/mypage_process/filedown?file={....value}" class="input_img" title="크게 보기" /></a>
+										<!--{:}-->
+										{....value}
+										<!--{ / }-->
+									<!--{ / }-->
+								</li>
+								<!--{ / }-->
+							</ul>
+							<!--{ / }-->
+
+							<!--{?...index_==0 && ..suboptions}-->
+							<ul class="goods_suboptions">
+								<!--{@(..suboptions)}-->
+								<li>{ ? ....title }<span class="xtle v3">{ ....title }</span>{ / } { ....suboption } - {=number_format(....ea)}개</li>
+								<!--{ / }-->
+							</ul>
+							<!--{ / }-->
+						</li>
+					</ul>
+					<!--{ / }-->
+				<!--{ / }-->
+				</li>
+				<li class="order_price">
+					<!-- 금액 -->
+					{? .gift_cnt==.opt_cnt }
+					<div>마일리지 교환</div>
+					<b>{=get_currency_price(.emoney,2)}</b>
+					{:}
+					<b class="pointcolor">{=get_currency_price(.settleprice,2)}</b>
+					{ / }
+					<!-- //금액 -->
+				</li>
+				<li class="order_status">
+					<p class="status pointcolor">
+						<!--{ ? .payment != 'pos_pay' }-->
+							{.mstep}
+						<!--{ : }-->
+							오프라인<br/>매장 주문
+						<!--{ / }-->
+					</p>
+				</li>
+			</ul>
+			<!--{ / }-->
+		</div>
+		<!--{ : }-->
+		<div class="no_data_area2">
+			최근 1개월내 내역이 없습니다.
+		</div>
+		<!--{ / }-->
+		
+		<!-- 최근 반품 정보-->
+		<div class="mypage_list_sec0 mt30">
+			<ul>
+				<li class="th hand" onclick="document.location.href='../mypage/return_catalog?step_type=return'"><p designElement="text">반품/교환</p></li>
+				<li class="td hand amount" onclick="document.location.href='../mypage/return_catalog?step_type=return'">
+					<!--{? counts['return'] > 0}-->
+					<span class="common_count"><span class="num">{=number_format(counts['return'])}</span>건</span>
+					<!--{:}-->
+					<span class="gray_06">최근 1개월 내역이 <span class="Dib">없습니다.</span></span>
+					<!--{/}-->
+				</li>
+
+				<li class="th hand" onclick="document.location.href='../mypage/refund_catalog?step_type=cancel'"><p designElement="text">취소/환불</p></li>
+				<li class="td hand amount" onclick="document.location.href='../mypage/refund_catalog?step_type=cancel'">
+					<!--{? counts['refund'] > 0}-->
+					<span class="common_count"><span class="num">{=number_format(counts['refund'])}</span>건</span>
+					<!--{:}-->
+					<span class="gray_06">최근 1개월 내역이 <span class="Dib">없습니다.</span></span>
+					<!--{/}-->
+				</li>
+			</ul>
+		</div>
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+</div>
+
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+<script type="text/javascript">
+$(document).ready(function() {
+	//기존멤버-통합하기
+	$("#facebookmbconnectalert").click(function(){
+		//facebook 친구들을 쇼핑몰에 초대하기 위해서는 facebook계정으로 쇼핑몰을 이용해 주셔야 합니다.<br>회원정보수정에서 "SNS계정사용"을 수락해 주세요. <br>친구들을 초대하시면 다양한 혜택을 받으실 수 있습니다.<br>지금 회원정보수정 화면으로 이동하시겠습니까?
+		openDialogConfirm(getAlert('mp107'),'650','200',function(){document.location.href='../mypage/myinfo'},function(){});
+	});
+});
+</script>

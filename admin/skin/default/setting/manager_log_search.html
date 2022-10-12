@@ -1,0 +1,116 @@
+<table class="table_search">
+	<tr>
+        <th>처리일시</th>
+        <td>
+            <input type="text" name="regist_date[]" value="{?_GET.regist_date[0]}{=_GET.regist_date[0]}{:}{=sdate}{/}"  class="datepicker line sdate"  maxlength="10" size="10" default_none/>
+				-
+            <input type="text" name="regist_date[]" value="{?_GET.regist_date[1]}{=_GET.regist_date[1]}{:}{=edate}{/}"  class="datepicker line edate" maxlength="10" size="10" default_none />
+            <div class="resp_btn_wrap">
+                <input type="button" value="오늘" id="today" class="select_date resp_btn{? !_GET.select_date_regist || _GET.select_date_regist == 'today'} on{/}"{? _GET.select_date_regist || !_GET.select_date_regist == 'today'} style="position:relative; z-index: 998;"{/} settarget="regist_date"/>
+                <input type="button" value="3일간" id="3day" class="select_date resp_btn{? _GET.select_date_regist == '3day'} on{/}" {? _GET.select_date_regist == '3day'} style="position:relative; z-index: 998;"{/} settarget="regist_date"/>
+                <input type="button" value="일주일" id="1week" class="select_date resp_btn{? _GET.select_date_regist == '1week'} on{/}"{? _GET.select_date_regist == '1week'} style="position:relative; z-index: 998;"{/} settarget="regist_date"/>
+                <input type="button" value="1개월" id="1month" class="select_date resp_btn{? _GET.select_date_regist == '1month'} on{/}"{? _GET.select_date_regist == '1month'} style="position:relative; z-index: 998;"{/} settarget="regist_date"/>
+                <input type="button" value="3개월" id="3month" class="select_date resp_btn{? _GET.select_date_regist == '3month'} on{/}"{? _GET.select_date_regist == '3month'} style="position:relative; z-index: 998;"{/}settarget="regist_date"/>
+                <!--<input type="button" value="6개월" id="6month" class="select_date resp_btn" settarget="regist_date" />
+                <input type="button" value="전체" id="all" class="select_date resp_btn" settarget="regist_date" />-->
+				<input name="select_date_regist" class="select_date_input" type="hidden" value="{_GET.select_date_regist}" />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>처리자</th>
+        <td>
+            <span class="ui-widget">			
+				{ ? serviceLimit('H_AD') }			
+					{? pagemode == "company_catalog" }
+					<input type="hidden" class="shipping_provider_seq" name="provider_seq" value="1" default_none />
+					{ : }
+					
+						<select name="provider_seq_selector" style="vertical-align:middle;" default_none>
+							<option value="0">- 입점사 전체 -</option>
+							<option value="1" {? _GET.provider_seq == 1}selected{/}>본사</option>
+							{@ provider}
+							<option value="{.provider_seq}" provider_id="{=.provider_id}" {? _GET.provider_seq == .provider_seq}selected{/}>{.provider_name}{?.provider_seq > 1}({.provider_id}){/}</option>
+							{/}
+						</select>
+						<input type="hidden" name="provider_seq" value="{=_GET.provider_seq}" default_none />
+						<script type="text/javascript">
+							$(function(){
+								$( "select[name='provider_seq_selector']" )
+								.combobox()
+								.change(function(){
+									if( $(this).val() > 0 ){
+										$("input[name='provider_seq']").val($(this).val());
+										$("input[name='provider_name']").val($("option:selected",this).attr("provider_id"));
+										if	($(this).val() > 1){
+											$(this).closest('td').find('span.ptc-charges').html('(입점사 위탁배송상품 제외)').show();
+										}else{
+											$(this).closest('td').find('span.ptc-charges').html('(입점사 위탁배송상품 포함)').show();
+										}
+									}else{
+										$("input[name='provider_seq']").val('');
+										$("input[name='provider_name']").val('');
+										$(this).closest('td').find('span.ptc-charges').html('').hide();
+									}
+								})
+								.next(".ui-combobox").children("input")
+								.bind('focus',function(){
+									if($(this).val()==$( "select[name='provider_seq_selector'] option:first-child" ).text()){
+										$(this).val('');
+									}
+								})
+								.bind('mouseup',function(){
+									if($(this).val()==''){
+										$( "select[name='provider_seq_selector']").next(".ui-combobox").children("a.ui-combobox-toggle").click();
+									}
+								});
+							});
+						</script>
+					
+					{ / }				
+				{ / }						
+            </span>
+			<select name="manager_seq" >
+				{ ? serviceLimit('H_AD') && !_GET.provider_seq }
+				<option value="0" selected>- 처리자 전체 -</option>
+				{ : }
+				<option value="0" selected>- 처리자 전체 -</option>
+				{ @ managers }
+				<option value="{managers.value_.manager_seq}" { ? _GET.manager_seq == managers.value_.manager_seq } selected{/}>{managers.value_.manager_id} ({managers.value_.mname})</option>
+				{ / } { / }
+			</select>		
+            <span class="ptc-charges hide"></span>
+        </td>
+    </tr>
+
+    <tr>
+        <th>구분/업무</th>
+        <td>
+            <div class="ui-widget">
+                <select name="action_type" style="width:160px;">
+                    <option value="0" { ? !_GET.action_type } selected{/}>- 구분 전체 -</option>
+                    { @ action_type }
+                    <option value="{action_type.key_}" { ? _GET.action_type == action_type.key_ } selected{/}>{action_type.value_}</option>
+                    { / }
+                </select>
+                
+                <select name="action_menu" style="width:350px;">
+                    { ? !_GET.action_type }
+                    <option value="0" selected>- 메뉴 전체 -</option>
+                    { : }
+                    <option value="0" selected>- 메뉴 전체 -</option>
+                    { @ action_menu }
+                    <option value="{action_menu.key_}" { ? _GET.action_menu == action_menu.key_ } selected{/}>{action_menu.value_}</option>
+                    { / } { / }
+                </select>
+            </div>
+            <span class="ptc-charges hide"></span>
+        </td>
+    </tr>
+</table>
+<div class="footer">
+    <div>
+        <button type="submit" class="search_submit resp_btn active size_XL">검색</button>
+        <button type="button" class="search_reset resp_btn v3 size_XL" onclick="search_init();">초기화</button>
+    </div>
+</div>

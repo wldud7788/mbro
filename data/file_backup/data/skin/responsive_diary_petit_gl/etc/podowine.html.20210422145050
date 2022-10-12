@@ -1,0 +1,135 @@
+
+<style type="text/css">
+	.podo_logo{text-align: center; margin: 35px 0px;}
+	.podo_logo>a>img{max-width: 220px; max-height: 220px;}
+
+	.top_title_box{padding:20px 0px; text-align: center; margin-bottom: 70px;}
+	.top_title_box>ul{margin: 50px 0px;}
+	.top_title_box>ul>li{display: inline-block; width: 33%; text-align: center; padding:50px 10px; box-sizing: border-box; border: 1px solid #DEDEDE;}
+	.top_title_box>ul>li>p:nth-of-type(1){color: rgb(96, 18, 107); font-size: 20px; font-weight: bold;}
+	.top_title_box>ul>li>p:nth-of-type(2){font-size: 45px; font-weight: bold; }
+
+	.top_title_box>p:nth-of-type(1){font-size: 45px; margin-top: 30px;}
+	.top_title_box>p:nth-of-type(2){font-size: 45px; font-weight: bold;}
+	.top_title_box>p:nth-of-type(3){font-size: 20px;}
+	.top_title_box>p:nth-of-type(4){font-size: 20px;}
+
+	.video-container {
+		position: relative;
+		padding-bottom: 56.25%;
+		padding-top: 30px;
+		height: 0;
+		overflow: hidden;
+	}
+
+	.video-container iframe,
+	.video-container object,
+	.video-container embed {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.podo_link_wrap{text-align: center;}
+	.podo_link_wrap>p:nth-of-type(1){font-size: 30px; font-weight: bold;}
+	.podo_link_wrap>p:nth-of-type(2){font-size: 35px; font-weight: bold; margin-bottom: 50px; color: rgb(96, 18, 107);}
+	.podo_link_btn{font-size: 16px;background-color: #60126B;border-color: #60126B;color: #FAFAFA; display: inline-block; padding:20px 35px; border-radius: 30px; font-weight: bold; transition: all 0.3s;}
+	.podo_link_btn:hover{opacity: 0.7;}
+
+	.podo_contents_box{padding: 30px 0px; margin-bottom: 50px; text-align: center;}
+	.podo_contents_box>p:nth-of-type(1){color: rgb(96, 18, 107); font-size: 20px; font-weight: bold;}
+	.podo_contents_box>p:nth-of-type(2){font-size: 45px; font-weight: bold; margin-bottom: 30px;}
+	.podo_contents_box>p:nth-of-type(3){font-size: 20px;}
+	.podo_contents_box>p:nth-of-type(4){font-size: 20px; margin-bottom: 30px;}
+
+	.code_text{font-size: 20px; font-weight: bold; margin: 40px 0px; text-align: center;}
+
+	.imp_text{font-size: 20px; font-weight: bold; margin: 40px 0px; text-align: center;}
+
+
+	@media only screen and (max-width:967px) {
+        .podo_logo>a>img{max-width: 100px;}
+        .top_title_box>p:nth-of-type(1){font-size: 25px;}
+        .top_title_box>p:nth-of-type(2){font-size: 35px;}
+        .top_title_box>ul>li{width: 100%;}
+     }
+</style>
+
+<div class="podo_logo">
+	<a href="https://podoclub.kr/">
+		<img src="image_1612758306744.jpg" alt="">
+	</a>
+</div>
+
+<p class="code_text">'뮤직브로 할인코드'로 좀더 저렴한 와인을 만나보실 수 있습니다. <br> ( 뮤직브로 코드 하단에서 확인 가능 )</p>
+
+<p class="imp_text">좀더 빠르게 받아보고 싶으시다면 구매 후 지정된 매장 <span style="font-weight: 400; color: rgb(96, 18, 107);">( 서울특별시 강남구 선릉로121길 8 1층 )</span>에 방문하여 구매한 와인을 수령하실 수 있습니다.<br> ( 자세한 내용은 고객센터로 문의 바랍니다 )</p>
+
+<div class="video-container">
+
+
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/6aoSMK_3fDw?rel=0&mute=1&controls=0&autoplay=1&enablejsapi=1&amp;loop=1&amp;playlist=6aoSMK_3fDw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+
+<div class="top_title_box">
+	<p>당신을 위해 고르고 고른 와인</p>
+	<p>포토클럽 3가지 서비스</p>
+
+	<ul>
+		<li>
+			<p>당신을 위함 와인클럽</p>
+			<p>이달의 클럽</p>
+		</li>
+		<li>
+			<p>당신을 위해 고르고 고른</p>
+			<p>포도구매</p>
+		</li>
+		<li>
+			<p>매주 기다려지는</p>
+			<p>포도 시음회</p>
+		</li>
+	</ul>
+
+	<p>어떻게 하면 좋은 와인을 싼 가격에 먹을 수 있을까? 모든 와인 마니아들의 고민입니다.</p> 
+	<p>포도클럽은 와이너리와의 직거래를 통해 가장 합리적인 가격에 판매합니다.</p>
+</div>
+
+<div class="podo_contents_box">
+	<p>당신의 위한 와인클럽</p>
+	<p>이달의 클럽</p>
+
+	<p>와인을 선택하기 어렵거나 다양한 와인들을 경험해 보고 싶은 분들을 위해 포도클럽이 성심성의껏 준비한 와인 3병을 즐겨보세요.</p>
+	<p>포도클럽의 추천 와인은 매달 업데이트되며 레드 와인 2병, 화이트 와인 1병으로 구성되어 있는 훌륭한 와인들을 합리적인 가격으로 즐기실 수 있습니다.</p>
+
+	<img src="podo_img01.PNG" alt="이달의 클럽">
+</div>
+
+<div class="podo_contents_box">
+	<p>당신을 위해 고르고 고른</p>
+	<p>포도구매</p>
+
+	<p>전 세계 와인 산지에서 직접 먹어보고 고르고 고른 와인을 직접 수입하여 합리적인 가격으로 판매합니다. </p>
+	<p>정해져 있는 와인이 아닌 원하시는 와인을 한 병씩 직접 골라서 구매하실 수 있습니다.</p>
+
+	<img src="podo_img02.PNG" alt="포도구매">
+</div>
+
+<div class="podo_contents_box">
+	<p>매주 기다려지는</p>
+	<p>포도 시음회</p>
+
+	<p>매년 봄과 가을에 열리는 호텔 와인 페스티벌 매주 금요일 밤 8시에 열리는 </p>
+	<p>포도클럽 시음회에 신청해서 포도클럽의 프리미엄 와인을 즐겨보세요.</p>
+
+	<img src="podo_img03.PNG" alt="포도 시음회">
+</div>
+
+<div class="podo_link_wrap">
+	<p>뮤직브로 할인 코드 </p>
+	<p> < mubro ></p>
+	<a class="podo_link_btn" href="https://podoclub.kr/">포도클럽 바로가기</a>
+</div>

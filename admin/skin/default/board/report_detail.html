@@ -1,0 +1,95 @@
+<div class="content">
+	<div class="item-title">
+		<span>게시글</span>
+	</div>
+	<table class="table_basic thl">
+		<tbody>
+			<tr>
+				<th>게시판명</th>
+				<td>{=manager.name}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>{=board.name}</td>
+			</tr>
+			<tr>
+				<th>날짜</th>
+				<td>{=report.boardregist_date} ({=report.boardupdate_date})</td>
+			</tr>
+			<!--{? report.boardtype === 'board'}-->
+			<tr>
+				<th>제목</th>
+				<td>
+					<a href="{report.viewlink}" target="_blank" class="resp_btn_txt v2">{=report.boardsubject}</a>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>{=report.boardcontents}</td>
+			</tr>
+			<!--{:}-->
+			<tr>
+				<th>댓글내용</th>
+				<td>
+					<a href="{report.viewlink}" target="_blank" class="resp_btn_txt v2">
+						{=report.boardcontents}
+					</a>
+				</td>
+			</tr>
+			<!--{/}-->
+		</tbody>
+	</table>
+
+	<div class="item-title">
+		<span>신고 내용</span>
+		<!--{? !report.report_date }-->
+		<span class="fr">
+			<button type="button" onclick="boardReportDetail.do_ignore('{report.seq}')"  class="resp_btn v2">신고 무시</button>
+			<!--{? report.boardtype === 'board'}-->
+			<button type="button" onclick="boardReportDetail.do_board_delete('{report.boardid}','{report.boardseq}')"  class="resp_btn v3">신고글 삭제</button>
+			<!--{:}-->
+			<button type="button" onclick="boardReportDetail.do_comment_delete('{report.boardid}','{report.boardseq}','{report.boardparent}')"  class="resp_btn v3">댓글 삭제</button>
+			<!--{/}-->
+		</span>
+		<!--{/}-->
+	</div>
+	<table class="table_basic thl">
+		<tbody>
+			<tr>
+				<th>신고자</th>
+				<td onclick="open_crm_summary(this,'{report.user_info.member_seq}','','right');">
+					<!--{? report.user_info.member_seq }-->
+					<!--{? report.user_info.mbinfo_business_seq}-->
+					<img src="../images/common/icon/icon_besiness.gif" vspace="0" align="absmiddle" />
+					<!--{:}-->
+					<img src="../images/common/icon/icon_personal.gif" vspace="0" align="absmiddle" />
+					<!--{/}-->
+					<span>{report.user_info.user_name}</span>
+					(<span style="color:#d13b00;">{report.user_info.userid}</span>/<span class="blue">{report.user_info.group_name}</span>)
+					<!--{ / }-->
+				</td>
+			</tr>
+			<tr>
+				<th>신고일</th>
+				<td>{=report.regist_date}</td>
+			</tr>
+			<tr>
+				<th>신고내용</th>
+				<td>{=report.contents}</td>
+			</tr>
+			<tr>
+				<th>처리 여부</th>
+				<td>
+					<!--{? report.report_date }-->
+					{=report.report_date} {report.mname}({report.manager_id})가 {report.boardtype_txt}을 삭제 처리 했습니다. (IP : {report.report_ip})
+					<!--{ : }-->
+					-
+					<!--{ / }-->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="footer">
+	<button class="resp_btn v3 size_XL" type="reset" onclick="$(this).closest('.ui-dialog').find('.ui-dialog-content').dialog('close')">닫기</button>
+</div>

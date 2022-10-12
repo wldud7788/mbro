@@ -1,0 +1,351 @@
+{ #layout_header }
+
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/multiple-select.css" />
+<script src="/app/javascript/plugin/multiple-select.js"></script>
+<script language="javascript" type="text/javascript" src="/app/javascript/js/o2o/admin-o2o.js?dummy={=date(Ymd)}"></script>
+<script>
+var shipping_address_regist_able_yn = '<!--{ = shipping_address_regist_able_yn }-->';
+var shipping_address_max = '<!--{ = shipping_address_max }-->';
+</script>
+<style>
+	a.pg-link { color: rgb(205, 80, 11); }
+	table.multi tr td.domain-title-favicon {vertical-align:top;}
+	table.curr-simbol tr td.curr_amout {text-align:right;}
+	table.curr-simbol tr td.curr_exchange {text-align:left;}	
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<input type="hidden" id="chkSMS_chk" value="<!--{ = chk }-->"/>
+	<input type="hidden" id="chkSMS_sms_auth" value="<!--{ = sms_auth }-->"/>
+	<input type="hidden" id="chkSMS_send_phone" value="<!--{ = send_phone }-->"/>
+	<input type="hidden" id="ssl_pay_is_alive" value="<!--{ = ssl_pay_is_alive }-->"/>
+	
+	<div id="page-title-bar">	
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>매장 {? shipping_address.shipping_address_seq }수정{:}등록{/}</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button type="button" class="btnSaveO2OSetting resp_btn active size_L">저장</button></li>
+		</ul>
+
+		<!-- // 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li><button type="button" id="btnO2OList" class="resp_btn v3 size_L">매장 리스트</button></li>
+		</ul>
+		<!-- // 좌측 버튼 -->
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+<!-- 추가 수정 레이어 : start -->
+<div id="o2oConfigLayer">
+	<form name="settingConfigForm" id="settingConfigForm" method="post" target="actionFrame" action="../o2o/o2osetting_process/save">
+	<input type="hidden" name="o2o_store_seq" id="o2o_store_seq" value="<!--{ = shipping_address.store_o2o_info.o2o_store_seq }-->" />
+	<input type="hidden" name="shipping_address_seq" value="<!--{ = shipping_address.shipping_address_seq }-->" />
+	<input type="hidden" name="address_provider_seq" value="<!--{ = shipping_address.address_provider_seq }-->" />
+	
+	<div class="contents_dvs">
+		<div class="item-title">매장 정보</div>
+		<table class="table_basic thl">				
+			<tr>
+				<th>분류<span class="required_chk"></span> <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/o2o', '#tip2')"></span></th>
+				<td>
+					<select name="address_category" id="address_category" onchange="category_chg();">
+						<option value="direct_input">직접입력</option>
+						<!--{ @ category }-->
+						<option value="{.address_category}" <!--{ = .selected }-->>{.address_category}</option>
+						<!--{ / }-->
+					</select>
+					<input type="text" name="address_category_direct" id="address_category_direct" class="line" title="분류명" value="<!--{ = shipping_address.address_category_direct }-->" />
+				</td>
+			</tr>
+			<tr>
+				<th>매장명<span class="required_chk"></span></th>
+				<td>
+					<len><input class="cal-len" type="text" name="address_name" value="<!--{ = shipping_address.address_name }-->" title="매장명" class="line" maxlength="8" onkeyup="calculate_input_len(this);" onblur="calculate_input_len(this);"/> <span class="view-len">0</span></len>
+				</td>
+			</tr>
+			<tr>
+				<th>주소<span class="required_chk"></span></th>
+				<td>
+					<input type="text" name="zoneZipcode[]" value="<!--{ = shipping_address.zoneZipcode }-->" size="7" title="우편번호" class="line" readonly="readonly" />
+					<select name="address_nation" onchange="international_chg();">
+						<option value="korea" <!--{ ? shipping_address.address_nation == 'korea' }--> selected <!--{ / }-->>대한민국</option>
+						<option value="global" <!--{ ? shipping_address.address_nation == 'global' }--> selected <!--{ / }-->>해외국가</option>
+					</select>
+					<span class="inter_area international_korea"><input type="button" value="검색" onclick="openDialogZipcode('zone');" class="resp_btn"/></span>
+
+					<div class="inter_area international_korea mt5">
+						<input type="hidden" name="zoneAddress_type" value="<!--{ = shipping_address.address_type }-->" />
+						<input type="text" name="zoneAddress" value="<!--{ = shipping_address.address }-->" size="65" title="주소" class="line <!--{? shipping_address.address_type !== 'zibun'}-->hide<!--{/}-->" readonly="readonly"/>
+						<input type="text" name="zoneAddress_street" value="<!--{ = shipping_address.address_street }-->" size="65" title="주소" class="line <!--{? shipping_address.address_type === 'zibun'}-->hide<!--{/}-->" readonly="readonly" /><br />
+						<input type="text" name="zoneAddressDetail" value="<!--{ = shipping_address.address_detail }-->" size="65" title="상세주소" class="mt5" />
+					</div>
+					<div class="inter_area international_global mt5 hide">
+						<input type="text" name="international_country" value="<!--{ = shipping_address.international_country }-->" size="25" title="국가" class="line" />
+						<input type="text" name="international_town_city" value="<!--{ = shipping_address.international_town_city }-->" size="25" title="도시" class="line" />
+						<input type="text" name="international_county" value="<!--{ = shipping_address.international_county }-->" size="60" title="주/도" class="line" />
+						<input type="text" name="international_address" value="<!--{ = shipping_address.international_address }-->" size="60" title="주소" class="line" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>매장 전화번호</th>
+				<td>
+					<input type="text" name="shipping_phone" value="<!--{ = shipping_address.shipping_phone }-->" title="전화번호" class="line" />
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="contents_dvs">
+		<div class="item-title">매장 안내</div>
+		<table class="table_basic thl">				
+			<tr>
+				<th>매장 안내 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/o2o', '#tip3')"></span></th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="store_info_display_yn" value="Y" <!--{ ? shipping_address.store_info_display_yn == 'Y' }--> checked <!--{ / }-->> 노출</label>	
+						<label><input type="radio" name="store_info_display_yn" value="N" <!--{ ? shipping_address.store_info_display_yn != 'Y' }--> checked <!--{ / }-->> 미노출</label>	
+					</div>
+				</td>
+			</tr>
+			<tr class="area_store_info">
+				<th>대표 매장 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/o2o', '#tip4')"></span></th>
+				<td>
+					<label class="resp_checkbox"><input type="checkbox" name="default_yn" id="default_yn" value="Y" <!--{ ? shipping_address.default_yn == 'Y' }--> checked <!--{ / }-->> 사용</label>	
+					<input type="hidden" name="origin_default_yn" id="origin_default_yn" value="<!--{ = shipping_address.default_yn }-->"/>
+					<div class="gray">- 대표 매장은 1곳만 설정 가능합니다. 대표 매장으로 설정된 매장은 메인 페이지(홈페이지 스킨 사용 시)에 노출됩니다. </div>
+				</td>
+			</tr>
+			<tr class="area_store_info">
+				<th>영업시간</th>
+				<td>
+					<select name="sel_store_term_week" id="sel_store_term_week">
+						<option value="">요일 선택</option>
+						<!--{ @ store_term_week }-->
+						<option value="{.key_}">{.value_}</option>
+						<!--{ / }-->
+					</select>
+					<select name="sel_store_term_time" id="sel_store_term_time">
+						<!--{ @ store_term_time }-->
+						<option value="{.key_}">{.value_}</option>
+						<!--{ / }-->
+					</select>
+					<span class="sel_store_term_detail">
+						<input type="text" name="sel_store_term_hour1" id="sel_store_term_hour1" value="00" class="line" maxlength="2" size="2">
+						<span class="gray">:</span>
+						<input type="text" name="sel_store_term_min1" id="sel_store_term_min1" value="00" class="line" maxlength="2" size="2">
+						<span class="gray" style="margin:0 1px;">~</span>
+						<input type="text" name="sel_store_term_hour2" id="sel_store_term_hour2" value="23" class="line" maxlength="2" size="2">
+						<span class="gray">:</span>
+						<input type="text" name="sel_store_term_min2" id="sel_store_term_min2" value="59" class="line" maxlength="2" size="2">
+					</span>							
+					<button type="button" class="btnAddStoreTerm btn_plus"></button>
+				
+					<span class="draw_store_term">
+						<!--{ @ shipping_address.store_term_list }-->
+						<span class="row_store_term">		
+							<br>							
+							<input type="hidden" name="store_term_week[]"	value="<!--{ = .store_term_week }-->">
+							<input type="hidden" name="store_term_time[]"	value="<!--{ = .store_term_time }-->">
+							<input type="hidden" name="store_term_hour1[]"	value="<!--{ = .store_term_hour1 }-->">
+							<input type="hidden" name="store_term_min1[]"	value="<!--{ = .store_term_min1 }-->">
+							<input type="hidden" name="store_term_hour2[]"	value="<!--{ = .store_term_hour2 }-->">
+							<input type="hidden" name="store_term_min2[]"	value="<!--{ = .store_term_min2 }-->">
+							<span class="row_store_term_text"><!--{ = .text }--></span>
+							
+							<span>
+								<button type="button" class="btnDelStoreTerm btn_minus"></button>
+							</span>
+						</span>
+						<!--{ / }-->
+					</span>
+				</td>
+			</tr>
+			<tr class="area_store_info">
+				<th>매장 소개</th>
+				<td>
+					<len>
+						<textarea 
+							class="cal-len" 
+							name="store_description" 
+							style="width:100%" 
+							rows="5"
+							maxlength="500"
+							onkeyup="calculate_input_len(this);" 
+							onblur="calculate_input_len(this);"
+						><!--{ = shipping_address.store_description }--></textarea> 
+						<span class="view-len">0</span>
+					</len>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="contents_dvs">
+		<div class="item-title">POS 연동</div>
+		<table class="table_basic thl">					
+			<tr>
+				<th>POS 연동 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/o2o', '#tip5')"></span></th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="store_o2o_use_yn" value="Y" <!--{ ? shipping_address.store_o2o_use_yn == 'Y' }--> checked <!--{ / }-->> 사용함</label>		
+						<label><input type="radio" name="store_o2o_use_yn" value="N" <!--{ ? shipping_address.store_o2o_use_yn != 'Y' }--> checked <!--{ / }-->> 사용 안 함</label>
+					</div>
+					
+					<ul class="bullet_hyphen">
+						<li>
+							보안서버 인증서(SSL) 설치된 경우에만 정상 작동됩니다. 
+							<a class="link_blue_01" href="../setting/protect">보안서버</a>
+						</li>	
+						<li>
+							오프라인(POS) 회원가입 시 휴대폰인증 절차가 추가됩니다. SMS 설정이 완료된 경우에만 정상 작동됩니다. 
+							<a class="link_blue_01" href="../member/sms_auth">SMS발송관리</a>
+						</li>								
+					</ul>							
+				</td>
+			</tr>
+			<tr class="area_store_o2o">
+				<th>연동정보 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/o2o', '#tip6')"></span></th>
+				<td class="clear">
+					<table class="table_basic thl v3">								
+						<tr>
+							<th>점포코드 <span class="required_chk"></span></th>
+							<td>
+								<span class="text_show" id="span_store_seq"></span>
+								<div class="text_show">
+									<input type="text" class="line" style="width: 300px;" 
+										   name="store_seq" id="store_seq" value="<!--{ = shipping_address.store_o2o_info.store_seq }-->" />
+									<p class="desc pdt5">
+										- 반드시 계약 시 발급받은 점포 코드를 입력하세요.
+									</p>
+								</div>
+							</td>
+						</tr>
+						<tr class="hide">
+							<th>POS 업체</th>
+							<td>
+								<span class="text_show" id="span_pos_code"></span>
+								<div class="text_hide">
+									<select class="line"  style="width: 310px;" 
+											name="pos_code" id="pos_code" >
+										<!--{@o2o_pos_info}-->
+										<option value="<!--{=.key_}-->"
+												<!--{?.index_==0}-->selected<!--{/}-->
+												><!--{=.name}--></option>
+										<!--{:}-->
+										<option value="">사용 가능한 POS 업체가 없습니다.</option>
+										<!--{/}-->
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>포스키<span class="required_chk"></span></th>
+							<td>
+								<input type="text" class="line" style="width: 300px;" 
+									   name="tmp_pos_seq" id="tmp_pos_seq" value="" title="POS 계약 시 발급받은 포스키를 입력하세요."/>
+								<button type="button" class="btnO2OPosAdd btn_plus"></button>
+								<span class="draw_pos_key">
+									<!--{ @ shipping_address.store_o2o_info.o2o_config_pos }-->
+									<span class="row_pos_key">
+										<br/>
+										<input type="hidden" name="o2o_pos_seq[]"		value="<!--{ = .o2o_pos_seq }-->">
+										<input type="hidden" name="del_o2o_pos_seq[]"	value="">
+										<input type="hidden" name="pos_seq[]"			value="<!--{ = .pos_seq }-->">
+										<!--{ = .pos_seq }-->
+										<span>
+											<button type="button" class="btnO2OPosDelete btn_minus"></button>
+										</span>
+									</span>
+									<!--{ / }-->
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>연동키</th>
+							<td>
+								<!--{ ? shipping_address.store_o2o_info.pos_key }-->
+									<span id="span_pos_key"><!--{ = shipping_address.store_o2o_info.pos_key }--></span>
+									<span class="btnPublishInfoPosKey">											
+										<button type="button" class="resp_btn v2">재발급</button>												
+									</span>
+								<!--{ : }-->
+									<p class="desc pdt5">
+										저장 후 자동생성 됩니다. 
+									</p>
+								<!--{ / }-->										
+								<input type="hidden" class="line" style="width: 300px;" 
+									   name="pos_key" id="pos_key" value="<!--{ = shipping_address.store_o2o_info.pos_key }-->" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr id="div_scm_store" class="<!--{? scm_cfg['use']=='Y'}-->area_store_o2o<!--{:}-->hide<!--{/}-->">
+				<th>퍼스트몰 연결 창고</th>
+				<td>
+					<div>
+						<select class="line"  style="width: 310px;" 
+								name="scm_store" id="scm_store" >
+							<!-- 자동생성은 신규 생성시에만 처리 -->
+							<!--{ ? empty(shipping_address.store_o2o_info) }-->
+							<option value="auto" selected>자동생성</option>
+							<!--{ / }-->
+							<option value="" <!--{ ? shipping_address.store_o2o_info.scm_store == '' && !empty(shipping_address.store_o2o_info) }--> selected <!--{ / }-->>미연결</option>
+							<!--{ @warehouses }-->
+							<option value="<!--{=.wh_seq}-->"
+									<!--{?.wh_seq == shipping_address.store_o2o_info.scm_store }-->selected<!--{/}-->
+									>{.wh_name}</option>
+							<!--{:}-->
+							<option value="">창고가 없습니다.</option>
+							<!--{/}-->
+						</select>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</form>
+</div>
+<!-- 추가 수정 레이어 : end -->
+							
+<!-- 재발급 안내 레이어 : start -->
+<div class="hide" id="o2oPublishInfoLayer">			
+	<ul>
+		<li>※ 재발급이 필요한 경우</li>
+		<li>- 현재 POS연동에 오류 발생 시 예) 주문수집, 오프라인회원가입불가 등</li>				
+	</ul>
+
+	<ul class="red mt10">
+		<li>※ 재발급 시 주의 사항</li>
+		<li>- 재발급 받은 연동키는 반드시 POS 설치 담당자에게 전달하세요.</li>
+	</ul>				
+
+	<div class="mt20 mb10">재발급 시 주의 사항에 대해 충분히 인지하셨다면 아래 [동의]에 체크하시고 재발급을 진행해 주시기 바랍니다.</div>
+
+	<div class="mt20 mb10 center"><label><input type="checkbox" name="agree_yn" id="agree_yn" value="Y">상기 내용에 동의합니다.</label></div>
+	
+	<div class="mt20 center">
+		<button type="button" class="btnPublishPosKey btn_resp b_gray size_a" >재발급</button>
+		<button type="button" class="btnCancelPublishPosKey btn_resp b_gray size_a" >취소</button>
+	</div>			
+</div>
+<!-- 재발급 안내 레이어 : end -->
+
+<div class="box_style_05 mt20">
+	<div class="title">안내</div>
+	<ul class="bullet_hyphen">	
+		<li>매장 안내 노출 설정을 통해 쇼핑몰 스킨에서 매장 정보를 제공할 수 있습니다. (현재 홈페이지 스킨만 반영, 추후 모든 반응형 스킨 반영 예정)</li>
+		<li>매장 POS 사용을 원하시는 고객은 먼저 POS를 신청해주시기 바랍니다. <a href="https://www.firstmall.kr/introduce/firstmall/offline" class="link_blue_01" target="_blank">바로가기</a></li>				
+	</ul>
+</div>
+
+{ #layout_footer }

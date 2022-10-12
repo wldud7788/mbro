@@ -1,0 +1,61 @@
+{#layout_header_popup}
+<style>
+	div.instagram_msg{display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; text-align: center;} 
+</style>
+<script type="text/javascript">
+	$(function(){
+		parent.DM_window_title_set("center","{layout_config.tpl_desc}({layout_config.tpl_path})에 선택한 ");
+	});
+</script>
+
+<!--{? instagram.use == 'Y' }-->
+<form name="instagramFeedManagerForm" action="../design_process/instagramFeed_insert" method="post" enctype="multipart/form-data" target="actionFrame">
+<input type="hidden" name="template_path" value="{template_path}" />
+
+<div style="padding:15px;">	
+	<table class="design-simple-table-style" width="100%" align="center">
+		<col width="140" />
+		<tr>
+			<th class="dsts-th">
+				타이틀
+			</th>
+			<td class="dsts-td left">
+				<input type="text" name="title" value="인스타그램" class="line" size="50" maxlength="100">
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">
+				삽입 페이지
+			</th>
+			<td class="dsts-td left">
+				{layout_config.tpl_desc} ({layout_config.tpl_path})
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">
+				삽입 위치
+			</th>
+			<td class="dsts-td left">
+				<div class="imageCheckboxContainer">
+					<div class="imageCheckboxItem"><label><input type="radio" name="location" value="top" checked="checked" /><img src="../images/design/{up_image_name}.gif" /></label></div>
+					<div class="imageCheckboxItem"><label><input type="radio" name="location" value="bottom" /><img src="../images/design/{down_image_name}.gif" /></label></div>
+				</div>
+			</td>
+		</tr>
+	</table>	
+	<div style="height:15px"></div>
+	
+	<div class="center">
+		<span class="btn large cyanblue"><input type="submit" value="적용" /></span>
+	</div>
+	<div style="height:15px"></div>
+</div>
+</form>
+<!--{ : }-->
+<div class="instagram_msg">
+	<span>인스타그램 연동 설정이 되어있지 않습니다.<br>
+	설정>회원 설정>SNS 연동에서 인스타그램 연동 설정을 진행해 주시기 바랍니다.</span>
+</div>
+<!--{ / }-->
+
+{#layout_footer_popup}

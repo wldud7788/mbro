@@ -1,0 +1,154 @@
+<script type="text/javascript" src="/app/javascript/js/admin-shipping.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var otpHtml = "<option value=\"direct_input\">직접입력</option>";
+	$("#address_category").empty().data('options');
+	$("#address_category").append(otpHtml);
+	otpHtml = "<option value=\"\">전체분류</option>";
+	$("#src_address_category").empty().data('options');
+	$("#src_address_category").append(otpHtml);
+
+	<!--{ ? category }-->
+		<!--{ @ category }-->
+		otpHtml = "<option value=\"{.address_category}\">{.address_category}</option>";
+		$("#address_category").append(otpHtml);
+		$("#src_address_category").append(otpHtml);
+		<!--{ / }-->
+	<!--{ / }-->
+
+	<!--{ ? sc.address_category }-->
+	$("#src_address_category").val("{=sc.address_category}").attr("selected", "selected");
+	<!--{ / }-->
+	<!--{ ? msg }-->
+	$(".control-btn").hide();
+	<!--{ : }-->
+	$(".control-btn").show();
+	<!--{ / }-->
+});
+
+// 전체 체크
+function chkAll(){
+	var chk_status = $("#allchk").attr('checked');
+	if(chk_status == 'checked'){
+		$("input[name='add_chk[]']").prop('checked',true);
+	}else{
+		$("input[name='add_chk[]']").prop('checked',false);
+	}
+}
+</script>
+<form name="settingForm" method="GET" target="actionFrame">
+<table class="table_basic tdc v7 mt10">
+<colgroup>
+	<col width="5%" />
+	<col width="5%" />
+	<col width="" />
+	<col width="" />
+	<col width="" />
+	<col width="40%"/>
+	<col width="" />
+	<col width="" />
+</colgroup>
+<thead>
+<tr>
+	<th><label class="resp_checkbox"><input type="checkbox" name="allchk" id="allchk" onclick="chkAll();"/></label></th>
+	<th>번호</th>
+	<th>분류</th>
+	<th>매장명</th>
+	<th>해외</th>
+	<th>주소</th>
+	<th>매장 전화번호</th>
+	<!--{ ? tabtype == 'input' }-->
+	<th>관리</th>
+	<!--{ / }-->
+</tr>
+</thead>
+<tbody>
+<!--{ ? loop }-->
+	<!--{ @ loop }-->
+<tr class="address_tr_{.shipping_address_seq}" add_type="{.add_type}">
+	<td class="nonpd" height="30">
+		<label class="resp_checkbox">
+			<input type="checkbox" name="add_chk[]" value="{.shipping_address_seq}" {?.is_selected=='Y'}disabled{/}
+				<!--{ ? .refund_address_seq}-->
+				data-refund_address="1"
+				<!--{ / }-->
+				<!--{ ? .shipping_store_seq == 1}-->
+				data-shipping_store="1"
+				<!--{ / }-->
+			/>
+		</label>
+	</td>
+	<td class="nonpd">{._rno}</td>
+	<td class="nonpd category">{.address_category}</td>
+	<td class="nonpd address_name">{.address_name}</td>
+	<td class="nonpd nation">{?.address_nation=='korea'}N{:}Y{/}</td>
+	<td class="left address">
+	<!--{ ? .address_zipcode }-->
+		<!--{ ? .address_nation == 'korea' }-->
+		({.address_zipcode})
+			<!--{ ? .address_type == 'street' }-->
+			{.address_street}
+			<!--{ : }-->
+			{.address}
+			<!--{ / }-->
+			{.address_detail}
+		<!--{ : }-->
+		({.international_postcode}) {.international_address} {.international_town_city} {.international_county} {.international_country}
+		<!--{ / }-->
+	<!--{ / }-->
+	</td>
+	<td class="nonpd shipping_phone">{.shipping_phone}</td>
+	<!--{ ? tabtype == 'input' }-->
+	<td class="nonpd">
+		<button type="button" onclick="insert_address_pop('{.shipping_address_seq}');" class="resp_btn">수정</button>
+	</td>
+	<!--{ / }-->
+</tr>
+	<!--{ / }-->
+<!--{ : }-->
+<tr>
+	<td colspan="8" class="center">
+		<!--{ ? sc }-->
+		검색된 장소리스트가 없습니다.
+		<!--{ : }-->
+		설정된 장소리스트가 없습니다.
+		<!--{ / }-->
+	</td>
+</tr>
+<!--{ / }-->
+</tbody>
+</table>
+</form>
+<button type="button" class="btnStoreDelete resp_btn v3 mt10">삭제</button>
+
+<div class="paging_navigation" style="padding-top:10px; margin:auto;">{page.html}</div>
+
+<!-- 삭제 안내 레이어 : start -->
+<div class="hide" id="deleteInfoLayer">
+	<div style="padding-top:5px;">
+		<ul class="red mt10">
+			<li>매장 삭제 전 아래 유의사항을 반드시 확인하시기 바랍니다.</li>
+		</ul>
+		<ul class="mt10">
+			<li class="bold">1. 반송지 해당하는 경우 </li>
+			<li>배송정책><a class="link_blue_01" href="../setting/shipping_group">배송비</a>에 반송지 설정을 먼저 변경 후 삭제 가능합니다.</li>
+		</ul>
+		<ul class="mt10">
+			<li class="bold">2. 매장 수령 사용하는 경우</li>
+			<li>배송정책><a class="link_blue_01" href="../setting/shipping_group">배송비</a>에 수령 매장 설정을 먼저 변경 후 삭제 가능합니다.</li>
+		</ul>
+
+		<div style="padding-top:10px;text-align:center;">
+			<ul class="mt10 mb10">
+				<li>선택한 매장을 삭제하시겠습니까?</li>
+			</ul>
+			<span class="btn large">
+				<button type="button" class="btn_resp b_white btnDelSetting" >예</button>
+			</span>
+			<span class="btn large">
+				<button type="button" class="btn_resp b_white btnCancelDelSetting" >아니오</button>
+			</span>
+		</div>
+	</div>
+</div>
+<!-- 삭제 안내 레이어 : end -->

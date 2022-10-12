@@ -1,0 +1,96 @@
+###############################################
+######## 상품디스플레이 주요 치환코드 안내 ########
+###############################################
+
+** 상품명 **
+<!--{ .goods_name }-->
+
+** 상품명과 상품상세 페이지로 링크 **
+<a href="/goods/view?no={= .goods_seq}"><!--{ .goods_name }--></a>
+
+** 상품 짧은 설명 **
+<!--{= .summary }-->
+
+** 브랜드명 **
+<!--{ .brand_title }-->
+
+** 브랜드명과 브랜드 리스트 페이지로 링크 **
+<a href="/goods/brand?code={= .brand_code}"><!--{ .brand_title }--></a>
+
+** 정가 **
+{=get_currency_price(.consumer_price, 2)} 혹은
+{=get_currency_price(.consumer_price, 2, '', '<span class="nuM">_str_price_</span>')} ( 가격 부분에만 "nuM" 클래스를 주고싶은 경우의 예 )
+
+** (할인혜택)판매가 **
+{=get_currency_price(.sale_price, 2)} 혹은
+{=get_currency_price(.sale_price, 2, '', '<span class="nuM">_str_price_</span>')} ( 가격 부분에만 "nuM" 클래스를 주고싶은 경우의 예 )
+
+** 할인율 **
+<!--{= .sale_per}-->%
+
+** 기본 할인 금액 **
+{=get_currency_price(.default_discount, 2)}
+
+** 무료배송인 경우 "무료배송" 노출 **
+<!--{ ? .shipping_group.free_shipping_use == 'Y' }-->
+무료배송
+<!--{ / }-->
+
+** 해외배송인 경우 "해외배송" 노출 **
+<!--{ ? .shipping_group.gl_shipping_yn == 'Y' }-->
+해외배송
+<!--{ / }-->
+
+** 판매수량 **
+<!--{= number_format(.purchase_ea)}-->
+
+** 상품후기 작성수 **
+<!--{= number_format(.review_count)}-->
+
+** 입점몰인 경우 and 판매자가 있는 경우 "판매자 이름", "판매자 등급" 정보 노출 **
+<!--{ ? serviceLimit('H_AD') }-->
+	<!--{ ? .provider_seq > 1}-->
+		<!--{= .provider_name // 판매자 이름 }-->
+		<!--{= .pgroup_name // 판매자 등급 }-->
+	<!--{ / }-->
+<!--{ / }-->
+
+** 컬러옵션 **
+<!--{ @ .colors }-->
+	<!--{ ? ..value_ }-->
+		<span style="background-color: #{= ..value_ };"></span>
+	<!--{ / }-->
+<!--{ / }-->
+
+** 상품 아이콘 **
+<!--{ @ .icons }-->
+	<img src="/data/icon/goods/{= ..value_}.gif" alt="">
+<!--{ / }-->
+
+** 상품후기 평가점수( 5점 만점 ) **
+<!--{= number_format(.review_divide, 1)}-->
+
+** 상품후기 가장 좋은 평가정보( 확률 ) **
+<!--{= number_format(.review_toprate)}-->%
+
+** 상품후기 가장 좋은 평가정보( 사람수 ) **
+<!--{= number_format(.review_usercnt)}-->명
+
+** 상품후기 정보 노출, 만족도, 제목, 상세(일부) **
+<!--{@ .review_info}-->
+	<!--{= ..toplabel // 만족도}-->
+	<!--{= ..subject // 제목}-->
+	<!--{= ..contents //상세(일부)}-->
+<!--{/}-->
+
+** 상품 상태 -- "정상", "품절", "재고확보중", "판매중지" **
+<!--{ ? .goods_status == 'normal' }-->정상<!--{ / }-->
+<!--{ ? .goods_status == 'runout' }-->품절<!--{ / }-->
+<!--{ ? .goods_status == 'purchasing' }-->재고확보중<!--{ / }-->
+<!--{ ? .goods_status == 'unsold' }-->판매중지<!--{ / }-->
+
+** 페이지뷰 **
+<!--{= .wish_count }-->
+
+** 찜 개수 **
+<!--{= .page_view }-->

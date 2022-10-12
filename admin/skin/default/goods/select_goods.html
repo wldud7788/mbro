@@ -1,0 +1,149 @@
+<script type="text/javascript" src="/app/javascript/plugin/jquery.search.keyword.dropdown.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#src_keyword_lay").fmsrckeyword({
+		'border'		: '1px solid #3385d4', 
+		'color'			: '#666', 
+		'defaultStype'	: '{_GET.selectKeyword_sType}'
+	});
+
+	$(".btnSort").bind("click", function(){
+		var sort	= $(this).attr("sort");
+		var orderby = sort+"_"+$(this).attr("orderby");
+		var sort_ext = "";
+		if(sort == "asc"){
+			sort = "desc"; sort_ext = "▲";
+		}else if(sort == "desc" || sort == ""){
+			sort = "asc"; sort_ext = "▼";
+		}
+		$(".orderby").each(function(){ $(this).html(""); });
+
+		$(".orderby."+$(this).attr("orderby")).html(sort_ext);
+		$(this).attr("sort",sort);
+		$("input[name='orderby']").val(orderby);
+		//$("input[name='selectKeyword']").focus();
+		$("form[name='goodsForm']").submit();
+	});
+
+	$("form[name='goodsForm']").submit(function(){
+		var serialize = $("#rel_goods").find(".rel_goods_list").serialize();
+		$("input[name='rel_goods_tmp']").val(serialize);
+	});
+	
+	$("form[name='goodsForm']").submit();
+});
+</script>
+
+<script type="text/javascript" src="/app/javascript/js/admin-layout.js?dummy={=date('Ymd')}&krdomain=http://{config_system.subDomain}"></script>
+<script type="text/javascript">
+function targetList_null(){
+	var obj = '<div class="tmp_cart_item null" list_num="0" style="height:94px"><span style="line-height:80px;" class="fx12">선택된 상품이 없습니다.</span></div>';
+	$("#targetList").html(obj);
+}
+
+function searchformchange(){
+
+	$(".orderby").each(function(){ $(this).html(""); });
+	$("input[name='selectKeyword']").focus();
+	$("form[name='goodsForm']").submit();
+}
+
+// 상품 선택 추가
+function goods_select(goods_seq){
+	var already_goods = $("#rel_goods").find(".seq_"+goods_seq).val();
+	if(already_goods){
+		alert('이미 선택한 상품입니다.');
+	}else{
+		var rel_goods_cnt = $("#rel_goods_cnt").html();
+		$("#rel_goods").append('<input type="hidden" name="rel_goods_seq[]" class="rel_goods_list seq_'+goods_seq+'" value="'+goods_seq+'" />');
+		$("#rel_goods_cnt").html(Number(rel_goods_cnt) + 1);
+	}
+}
+
+// 내역 레이어 팝업 열기
+function open_sale_price_layer(obj){
+	$(obj).closest('div').find(".sale_price_layer").show();
+}
+// 내역 레이어 팝업 닫기
+function close_sale_price_layer(obj){
+	$(obj).closest('div').find(".sale_price_layer").hide();
+}
+</script>
+<style>
+	#goodsSelectorSearch { 
+		width:900px; 
+		border:0px solid red;
+		text-align:center;margin:auto;
+	}
+	.selectedGoods{ background-color:#e7f2fc; }
+	.targetGoods {padding:4px; overflow:hidden; cursor:pointer}
+	.targetGoods .image {padding-right:4px;}
+	.targetGoods .name {display:block; width:300px; overflow:hidden; white-space:nowrap;}
+	.rborder { border-right:1px solid #ddd;
+</style>
+
+<div id="goodsSelectorSearch">
+
+	<form name="goodsForm" action="/admin/goods/select_list_goods" method="get" target="select_{_GET.displayId}">
+	<input type="hidden" name="rel_goods_tmp" value="" />
+	<input type="hidden" name="cart_table" value="{_GET.cart_table}" />
+	<input type="hidden" name="member_seq"	value="{_GET.member_seq}" />
+	<input type="hidden" name="goods_review" value="{_GET.goods_review}" />
+	<input type="hidden" name="inputGoods" value="{_GET.inputGoods}" />
+	<input type="hidden" name="displayId" value="{_GET.displayId}" />
+	<input type="hidden" name="orderby"  >
+	{?_GET.relation_goods_seq}
+	<!-- 상품의 대표 카테고리,브랜드,지역 가져와서 관련상품출력할때 사용-->
+	<input type="hidden" name="relation_goods_seq" value="{_GET.relation_goods_seq}" />
+	{/}
+
+	<!-- 상품 검색폼 : 시작 -->
+	{ #goods_search_form }
+	<!-- 상품 검색폼 : 끝 -->
+
+	</form>
+
+	<div style="height:5px;"></div>
+
+	<div>
+	<!-- 주문리스트 테이블 : 시작 -->
+	<table class="list-table-style" cellspacing="0">
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>
+			<col width="70" />
+			<col />
+			<col width="90" />
+			<col width="90" />
+			<col width="90" />
+			<col width="70" />
+			<col width="60" />
+			<col width="60" />
+		</colgroup>
+		<thead class="lth">
+		<tr>
+			<th colspan="2">
+				<span class="btnSort hand" sort="asc" orderby="goods_name" title="[상품명]으로 정렬">상품명<span class="orderby goods_name"></span>
+			</th>
+			<th>
+				<span class="btnSort hand" sort="asc" orderby="consumer_price" title="[정가]로 정렬">정가<span class="orderby consumer_price"></span>
+			</th>
+			<th>
+				<span class="btnSort hand" sort="asc" orderby="price" title="[할인가]로 정렬">할인가<span class="orderby price"></span>
+			</th>
+			<th>
+				<span class="btnSort hand" sort="asc" orderby="tot_stock" title="[재고] 정렬">재고<span class="orderby tot_stock"></span></span>/가용
+			</th>
+			<th>상태</th>
+			<th>노출</th>
+			<th style="border-right:1px solid #CCC;"><span style="margin-right:18px;">선택</span></th>
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+	</table>
+	</div>
+	<div>
+		<iframe width="100%" height="{containerHeight}" frameborder="0" name="select_{_GET.displayId}" scroll="yes"></iframe>
+	</div>
+	<br />
+	<br />
+</div>

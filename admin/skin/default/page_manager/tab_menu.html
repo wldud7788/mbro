@@ -1,0 +1,37 @@
+<script>
+$(function(){
+	
+	$(".tabpagetype > li > a").on('click',function(){
+		var page_type = $(this).attr('data-page_type');
+		var skin_type = window.Firstmall.Config.Environment.OperationType;
+
+		if(window.Firstmall.Config.Environment.serviceLimit.H_FR == true && (page_type == "location" || page_type == "bigdata_criteria")){
+			{=serviceLimit('A1')}
+		}else{
+			// 서브 메뉴 클릭시 탭정보가 비어있음
+			var paramterTab = '';			
+
+			if(skin_type == "light") {
+				switch (page_type) {
+				case 'brand' :
+					paramterTab = '&tab=main'
+					break;
+				default :
+					paramterTab = ''
+					break;
+				}
+			}
+
+			document.location.href='/admin/page_manager/page_layout?cmd='+page_type + paramterTab;
+		}
+	});
+});
+</script>
+<div>
+	<ul class="tab_02 tabpagetype">
+		{ @ page_type_arr }
+		<li><a href="javascript:void(0);" data-page_type="{=.key_}" {? .key_ === page_type }class='current'{/}>{=.value_}</a></li>
+		{ / }
+	</ul>
+	
+</div>

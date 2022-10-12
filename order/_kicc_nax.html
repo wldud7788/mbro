@@ -1,0 +1,37 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>KICC input -> settle 로 form 전송</title>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+	// PC와 mobile에 따라서 실행되는 스크립트가 달라 컨트롤러 영역에서 구성해서 실행
+	<!--{ = javascript_callPgDelay }-->
+
+	function setPayInfo(){
+		var inputTag = '<form method="post" name="kicc_frm_pay" id="kicc_frm_pay">';
+
+		$('#PAYINFO > input').each(function(index){
+			inputTag += '<input type="' + $(this).attr('type') + '" name="' + $(this).attr('name')  + '" id="' + $(this).attr('id')  + '" value="' + $(this).val()  + '" />';
+		});
+		
+		inputTag += '</form>';
+
+		// getScript 한번만 호출하기 위해서 javascript_callPgDelay(kicclib) 으로 위치 이동 2020-04-01
+
+		callPgDelay(inputTag);
+	}
+</script>
+</head>
+<body>
+<form method="post" name="PAYINFO" id="PAYINFO">
+<!--{ ? jsonParam }-->
+	<input type='hidden' name='jsonParam' id='jsonParam' value='<!--{ = jsonParam }-->'>
+<!--{ / }-->
+
+<!--{ @ param}-->
+	<input type='hidden' name='{.key_}' id='{.key_}' value='{.value_}'>
+<!--{ / }-->
+</form>
+</body>
+<script type="text/javascript">setPayInfo()</script>
+</html>

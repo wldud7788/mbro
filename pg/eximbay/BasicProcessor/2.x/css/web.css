@@ -1,0 +1,455 @@
+@charset "utf-8";
+
+html,
+body{height: 100%;}
+
+body{
+	overflow-y: visible !important;
+	width: 100%;
+	font-size: 100%; 
+	-webkit-text-size-adjust: none;
+	-webkit-user-select:none;
+	-webkit-touch-callout:none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	background-color: #fff;
+}
+
+#wrap{
+	width: 400px;
+	height: auto !important;
+	margin: auto;
+	text-align: center;
+	border: 1px solid #bababc;
+}
+
+/*약관----------------------------------*/
+#terms_box{
+   width:400px;
+   font-size:12px;
+   text-align:left;
+   background:#fff;
+   border: 1px solid #bababc;
+   margin: auto;
+}
+#terms_box header{
+   border-bottom: 1px solid #bababc;
+   padding: 10px 0 10px 10px;
+   line-height: 30px;
+   text-align:center;
+}
+#terms_box header h3{font-size:16px;}
+#terms_box .terms_cont{
+   overflow-y:scroll;
+   height:400px;
+   padding:20px;
+   border-bottom: 1px solid #bababc;
+}
+#terms_box .terms_cont ol,ul{
+   padding:10px 0 10px 15px;
+}
+#terms_box .terms_cont ol li,.terms_box .terms_cont ul li{margin-bottom:8px;}
+#terms_box .terms_cont h4{
+   color:#3ea8e4;
+   margin-top:10px;
+   font-size:12px;
+}
+#terms_box .terms_cont p{ padding:10px 0;}
+#terms_box .terms_cont a{color:#3ea8e4;}
+#terms_box footer{
+   padding:10px 0;
+   text-align:center;
+}
+
+#terms_box footer a{
+   width: 135px;
+   height: 39px;
+   line-height: 39px;
+   margin:auto;
+   display:block;
+   color: #fff;
+   background-color: #3ea8e4;
+   border-radius: 8px;
+   font-weight: bold;
+   background: url("../images/btn_bg.png") top left repeat-x;
+}
+#terms_box footer a:hover{
+   background: #3299df;
+   text-decoration: none;
+}
+
+
+/*header----------------------------------*/
+#header {
+	height:117px;
+	background: url("/Gateway/BasicProcessor/2.x/images/herder_bg.png") top left repeat-x;
+	border-bottom: 1px solid #bababd;
+}
+
+#header div.header_top{
+	height: 70px;
+	position: relative;
+	min-height: 30px;
+	border-bottom: 1px solid #bababd;
+}
+#header div.header_top h1{
+	font-size: 20px;
+	line-height: 70px;
+	text-align: center;
+}
+#header div.header_top div.language_box{
+	position: absolute;	
+	right: 4px;
+	bottom: 2px;
+}
+#header div.header_top div.language_box select{
+	font-size: 10px;
+	text-align: center;
+}
+#header div.header_top a.close_btn{
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	display: block;
+	width: 18px;
+	height: 18px;
+	background: url("/Gateway/BasicProcessor/2.x/images/close_btn.png") top left no-repeat;
+}
+
+#header div.header_price{
+	width: 350px;
+	height: 29px;
+	line-height: 29px;
+	font-size: 14px;
+	border-top: 1px solid #ffffff;
+	text-align: center;
+	margin:auto;
+}
+#header div.header_price span{
+	height: 22px;
+	line-height: 22px;
+	display: block;
+	font-weight: bold;
+}
+#header div.header_price span.name{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#header div.header_price span.red{
+	overflow: hidden;
+}
+
+/*contents----------------------------------*/
+section.wrap01{
+	clear:both;
+	padding:20px;
+}
+section.wrap01:after{
+	content: '';
+	display: block;
+	clear: both;	
+}
+section.wrap02{
+	clear:both;
+	padding:0 20px 20px 20px;
+}
+
+section.wrap03{
+	clear:both;
+	padding: 20px;
+}
+section.text01{
+	border-top: 1px solid #d0d0d0;
+	font-size: 12px;
+	word-break: break-all;
+	padding: 20px 5px 0 5px;
+}
+section.text01 h3{
+	font-size: 15px;
+	margin-bottom: 10px;
+}
+section.text01 p{
+	text-align: left;
+	margin-bottom: 11px;
+}
+
+/*table-----------------------------------*/
+.wrap_table{
+	width: 100%;
+	border-collapse: collapse;
+}
+.wrap_table td.border{
+	border-right: 1px solid #d0d0d0;
+}
+.wrap_table td.margin{
+	margin-right:10px;
+}
+.item_fact td {
+	 border-bottom:1px solid #CCCCCC;
+}
+/*��������--------------------------------*/
+section .payment_method{
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	border:1px solid #d0d0d0;
+	border-radius:5px;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 3px 3px rgba(0,0,0,.05);
+	margin-bottom: 10px;
+}
+section .payment_method:hover,
+section .payment_method.selected{
+	border:1px solid black;
+}
+
+section .payment_method label.css_label img{
+	/* margin: -7px 10px 0 13px; */
+	line-height: 0;
+}
+
+/*ī������--------------------------------*/
+section article.cardinfo_box{
+	border: 1px solid #d0d0d0;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 3px 3px rgba(0,0,0,.05);
+}
+section article.cardinfo_box .s_box{
+	z-index: 2000;
+}
+section article.cardinfo_box .s_box02{
+	z-index: 3000;
+}
+section article.cardinfo_box .i_box{
+	z-index: 100;
+}
+section article.cardinfo_box .i_box02{
+	z-index: 200;
+}
+section article.cardinfo_box .inp_wrap{
+	position: relative;
+	height: 40px;
+	line-height: 40px;
+}
+
+section article tr{
+	border-bottom: 1px solid #d0d0d0;
+}
+
+section article.cardinfo_box .inp_wrap02{
+	position: relative;
+	height: auto;
+	padding: 10px;
+	border-bottom: 1px solid #d0d0d0;
+	word-break: break-all;
+	font-size: 11px;
+	line-height: 18px;
+}
+section article.cardinfo_box .inp_wrap span.card{
+	position: absolute;	
+	right: 11px;
+	top: -1px;
+	.top: 10px;
+	width: auto;
+	height: 100%;
+	line-height: 40px;
+}
+section article.cardinfo_box .inp_wrap span.card img{
+	width: 33px;
+	height: 20px;
+}
+section article.cardinfo_box .inp_wrap span.cvc{
+	position: absolute;	
+	right: -2px;
+	top: 0;
+}
+section article.cardinfo_box .inp_wrap span.cvc img{
+	width: 70%;
+	margin-bottom: 4px;
+}
+section article.cardinfo_box .inp_wrap i{
+	position: absolute;	
+	top: 13px;
+	left: 10px;
+	font-size: 15px;
+	color:#C0BEBE;
+}
+section article.cardinfo_box .inp_wrap i:focus,
+section article.cardinfo_box .inp_wrap i.selected{
+	color:#737373;
+}
+section article.cardinfo_box .web_wrap{
+	text-indent: 10px;
+}
+section article.cardinfo_box .web_wrap02{
+	height: 40px;
+	font-size: 13px;
+	text-align: center;
+}
+section article.cardinfo_box .web_wrap02 a:hover{
+	text-decoration: underline;
+}
+section article.cardinfo_box .web_wrap label.web_card{
+	font-size: 12px;
+}
+section article.cardinfo_box .web_wrap label.web_card img{
+	width: 10%;
+	margin: 0 5px;
+}
+
+/*ī��cvc--------------------------------------------------*/
+.question_box{
+	position: absolute;
+	top: 0px;
+	right: 9px;
+}
+.question_box .question_box02{
+	position: absolute;
+    top: 40px;
+    right: -19px;
+    display: none;
+}
+.question_box .question_cvc{
+	width: 65px;
+	height: 47px;
+	line-height: 45px;
+	border: 1px solid #808080;
+	background: #fff;
+	box-shadow: 1px 1px 4px rgba(185, 184, 184, 0.8);
+}
+
+.question_box02 span.arr{
+	position: absolute;
+	top: -9px;
+	left: 27px;
+	z-index: 4000;
+	width: 13px;
+	height: 14px;
+	background: url("/Gateway/BasicProcessor/2.x/images/arr.png") top left no-repeat;
+}
+/*.question_box .question_cvc img{
+	width: 55px;
+	height: 39px;
+}*/
+
+.question_box:hover div.question_box02{
+	display: block;
+}
+
+.login{
+	display: block;
+	background: url("/pg/eximbay/BasicProcessor/2.x/images/btn_bg.png") top left repeat-x;
+	color:#fff;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.login:hover{
+	color:#fff;
+	background: #3299df;
+	text-decoration: none;
+}
+.logout{
+	display: block;
+	text-align: right;
+	margin-right: 10px;
+	font-size: 12px;
+	text-decoration: underline;
+
+}
+
+.finish_body{
+	height: 153px;
+	line-height: 153px;
+	font-size: 15px;
+}
+
+/*btn-----------------------------*/
+.view-btn{
+	color:#8d6d57;
+	font-weight:bold;
+	font-size:.9em;
+}
+.footer_btn{
+	position: relative;
+	height: 58px;
+	text-align: center;
+	font-size: 14px;
+}
+.footer_btn a{
+	display:inline-block;
+	font-weight:bold;
+}
+
+.footer_btn .cancel{
+	position: absolute;
+	top: 23px;
+	left: 20px;
+}
+.footer_btn .cancel:hover{
+	color: #525252;
+	text-decoration: underline;
+}
+.footer_btn a.next{
+	width: 135px;
+	height: 39px;
+	line-height: 39px;
+	color: #fff;
+	background-color: #3ea8e4;
+	border-radius: 8px;
+	background: url("/pg/eximbay/BasicProcessor/2.x/images/btn_bg.png") top left repeat-x;
+}
+.footer_btn a.next:hover{
+	background: #3299df;
+	text-decoration: none;
+}
+
+/*footer------------------------------*/
+footer{
+	text-align: center;
+}
+footer div.footer_info{
+	font-size: 10px;
+	padding: 5px 10px 4px 10px;
+	background: url("/pg/eximbay/BasicProcessor/2.x/images/footer_bg.png") top left repeat-x;
+	border-top: 1px solid #bababd;
+}
+footer div.footer_info p{
+	line-height: 12px;
+}
+footer div.footer_info p.mail a{
+	color: #3ea8e4;
+}
+footer div.footer_info p.mail a:hover{
+	text-decoration: underline;
+}
+
+
+
+/*media------------------------------*/
+@media screen and (max-width: 479px) { 
+	
+
+	.payment_method label.css_label img{
+		width: 50px;
+		margin: -4px 0 0 15px;
+	}
+	.pay_img label.css_label img{
+		width: 30px;
+		margin: -6px 5px 0 5px;
+	}
+
+}
+
+
+@media screen and (min-width: 480px) { 
+	
+
+	.payment_method label.css_label img{
+		width: 80px;
+		margin-top: -8px;
+	}
+	.pay_img label.css_label img{
+		width: 40px;
+		margin: -9px 5px 0 5px;
+	}
+
+}

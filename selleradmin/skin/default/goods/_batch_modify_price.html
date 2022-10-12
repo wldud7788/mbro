@@ -1,0 +1,177 @@
+<table class="table_row_basic">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="28"/><!--체크-->
+		<col width="63"/><!--상품이미지-->
+		<col width="*"/><!--상품명-->
+		<col width="70"/><!--옵션-->
+		<col style="width:100px"/><!--공급가-->
+		<col width="150"/><!--정가--->
+		<col width="150"/><!--판매가-->
+		<col width="150"/><!--마일리지-->
+		<col width="110"/><!--옵션노출-->
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+		<th colspan="2">상품명</th>
+		<th>옵션</th>
+		<!--{? providerInfo.commission_type == "SACO" }-->
+		<th>수수료율</th>
+		<!--{ : }-->
+		<th>공급가(공급율)</th>
+		<!--{ / }-->
+		<th>정가</th>
+		<th>판매가</th>
+		<th>마일리지</th>
+		<th>옵션노출</th>
+	</tr>
+	<tr style="background-color:#e3e3e3" height="55">
+		<th></th>
+		<th colspan="2"></th>
+		<th><a class="btn_open_all click-lay">모두 열기</a></th>
+		<th></th>
+		<th class="center">
+			<input type="text" name="all_consumer_price" class="all_consumer_price_value onlyfloat" size="10" apply_target="consumer_price" style="text-align:right;">
+			<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type='all_consumer_price'>▼</button></span>
+		</th>
+		<th class="center">
+			<input type="text" name="all_price" class="all_price_value onlyfloat" apply_target="price" size="10"  style="text-align:right;">
+			<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type='all_price'>▼</button></span>
+		</th>
+		<th></th>
+		<th>
+			<select class="all_option_view_value line" apply_target="option_view">
+				<option value="Y">노출</option>
+				<option value="N">미노출</option>
+			</select>
+			<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type='all_option_view'>▼</button></span>
+		</th>
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<!--{@ loop }-->
+	<tbody class="ltb goods_list">
+		<tr class="list-row" goods_seq='{.goods_seq}'>
+			<td class="center">
+				<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+				<input type="hidden" name="default_option_seq[{.option_seq}]" value="{.goods_seq}" class="default_option{ ? count(.options)>1 } option_use{ / }" goods_seq="{.goods_seq}"/>
+			</td>
+			<td class="center">
+				<a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" style="width:50px"></a>
+			</td>
+			<td class="left pdl10">
+				{=showBatchGoodsData(.value_)}
+			</td>
+			<td class="center">
+				{ ? .options[0].option_title}<a class="txt-direct-open click-lay" goods_seq='{.goods_seq}'>열기</a>{ / }
+			</td>
+			<td class="pdr10 right">
+				<!--{? providerInfo.commission_type == "SACO" }-->
+				{ ? .options[0].commission_type == 'SACO' && .provider_seq > 1 }{=.options[0].commission_rate} %{ / }
+				<!--{ : }-->
+					<!--{ ? .options[0].commission_type != 'SACO' && .provider_seq > 1 }-->
+					{=.options[0].commission_rate}{ ? .options[0].commission_type != 'SUPR'}%{ : } {=config_system['basic_currency']}{ / }
+					<!--{ / }-->
+				<!--{ / }-->
+			</td>
+			<td class="pdl10 center">
+				<input type="text" name="consumer_price[{.option_seq}]" value="{.consumer_price}" size="10" class="consumer_price consumer_price{.goods_seq}_value onlyfloat" apply_target="consumer_price" style="text-align:right;"/>
+				{ ? .options[0].option_title }<span class="btn small gray" style="display:none;"><button type="button" class="applyOptionsBtn" goods_seq='{.goods_seq}' apply_type='consumer_price{.goods_seq}'>▼</button></span>{ / }
+			</td>
+			<td class="pdl10 center">
+				<input type="text" name="price[{.option_seq}]" value="{.price}"  size="10" class="price price_{.goods_seq}_value onlyfloat" apply_target="price" style="text-align:right;"/>
+				{ ? .options[0].option_title }<span class="btn small gray" style="display:none;"><button type="button" class="applyOptionsBtn" goods_seq='{.goods_seq}' apply_type='price_{.goods_seq}'>▼</button></span>{ / }
+			</td>
+			<td class="center">
+				<!--{ ? .reserve_policy != 'goods' }-->
+				통합정책
+				<!--{ : }-->
+				개별정책<br/>
+				{=number_format(.reserve_rate)}
+				{ ? .reserve_unit == 'percent' }%{ : }{=config_system['basic_currency']}{ / }
+				<!--{ / }-->
+			</td>
+			<td class="center">
+				<!--{ ? .options[0].option_title }-->
+				<div class="openAddOptionSet hide" goods_seq='{.goods_seq}'>
+					<select name="option_view[{.option_seq}]"  class="option_view option_view_{.goods_seq}_value line" apply_target="option_view">
+						<option value="Y" selected>노출</option>
+						<option value="N">미노출</option>
+					</select>
+					<span class="btn small gray" style="display:none;"><button type="button" class="applyOptionsBtn" goods_seq='{.goods_seq}' apply_type='option_view_{.goods_seq}'>▼</button></span>
+				</div>
+				<div class="closeAddOptionSet" goods_seq='{.goods_seq}'>노출</div>
+				<!--{ : }-->
+				노출
+				<!--{ / }-->
+			</td>
+		</tr>
+	</tbody>
+		<!--{ ? .options[0].option_title}-->
+	<tbody id='option_{.goods_seq}' class="optionLay bg-dot-linem hide">
+		<!--{ @ .options }-->
+		<tr goods_seq='{.goods_seq}'>
+			<td>
+				<input type="hidden" name="option_seq[{..option_seq}]" value="{.goods_seq}" disabled/>
+			</td>
+			<td class="center bgcolorgray">{ ? ..default_option == 'y' }대표{ / }</td>
+			<td class="pdl10 left bgcolorgray" colspan="2">
+				<span class="detail_default_option_select hand">
+					{ ? ..option_divide_title[0] }{..option_divide_title[0]} : {..option1}{ / }
+					{ ? ..option_divide_title[1] }&nbsp;{..option_divide_title[1]} : {..option2}{ / }
+					{ ? ..option_divide_title[2] }&nbsp;{..option_divide_title[2]} : {..option3}{ / }
+					{ ? ..option_divide_title[3] }&nbsp;{..option_divide_title[3]} : {..option4}{ / }
+					{ ? ..option_divide_title[4] }&nbsp;{..option_divide_title[4]} : {..option5}{ / }
+				</span>
+			</td>
+			<td class="pdr10 right bgcolorgray">
+				<!--{? providerInfo.commission_type == "SACO" }-->
+				{ ? ..commission_type == 'SACO' && .provider_seq > 1 }{=..commission_rate} %{ / }
+				<!--{ : }-->
+					<!--{ ? ..commission_type != 'SACO' && .provider_seq > 1 }-->
+					{=..commission_rate}{ ? ..commission_type != 'SUPR'}%{ : } {=config_system['basic_currency']}{ / }
+					<!--{ / }-->
+				<!--{ / }-->
+			</td>
+			<td class="pdl10 center bgcolorgray">
+				<input type="text" name="detail_consumer_price[{..option_seq}]" value="{..consumer_price}" size="10" class="consumer_price onlyfloat" defalult_option="{..default_option}" style="text-align:right;" disabled/>
+			</td>
+			<td class="pdl10 center bgcolorgray">
+				<input type="text" name="detail_price[{..option_seq}]" value="{..price}" size="10" class="price onlyfloat" defalult_option="{..default_option}" style="text-align:right;" disabled/>
+			</td>
+			<td class="center bgcolorgray">
+				<!--{ ? .reserve_policy != 'goods' }-->
+				통합정책
+				<!--{ : }-->
+				{=number_format(..reserve_rate)}
+				{ ? ..reserve_unit == 'percent' }%{ : }{=config_system['basic_currency']}{ / }
+				<!--{ / }-->
+			</td>
+			<td class="center bgcolorgray">
+				<!--{ ? ..default_option == 'y' }-->
+				노출
+				<!--{ : }-->
+				<select name="detail_option_view[{..option_seq}]" defalult_option="{..default_option}" class="option_view">
+					<option value="Y" {? ..option_view != 'N' }selected{/}>노출</option>
+					<option value="N" {? ..option_view == 'N'}selected{/}>미노출</option>
+				</select>
+				<!--{ / }-->
+			</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+		<!--{ / }-->
+	<!--{ : }-->
+	<tbody class="ltb goods_list">
+		<tr class="list-row">
+			<td class="center" colspan="9">
+				{ ? search_text }'{search_text}' 검색된 상품이 없습니다.{ : }등록된 상품이 없습니다.{ / }
+			</td>
+		</tr>
+	</tbody>
+	<!--{ / }-->
+</table>
+<!-- 주문리스트 테이블 : 끝 -->

@@ -1,0 +1,1379 @@
+[2022-06-30 19:48:25.894490000]
+REMOTE_IP : 220.230.168.21
+Array
+(
+    [product] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 2919
+                    [merchantProductId] => MzU4NDYwYTMyYjQ0Y2M2MTE0ODBhMGJkMTRmZTQ3OWYwYzI4NWVhZF8xNjU2NTg2MDcw
+                    [optionManageCodes] => opt117288
+                )
+
+            [1] => Array
+                (
+                    [id] => 2805
+                    [merchantProductId] => MzU4NDYwYTMyYjQ0Y2M2MTE0ODBhMGJkMTRmZTQ3OWYwYzI4NWVhZF8xNjU2NTg2MDcw
+                    [optionManageCodes] => opt116480
+                )
+
+            [2] => Array
+                (
+                    [id] => 2923
+                    [merchantProductId] => MzU4NDYwYTMyYjQ0Y2M2MTE0ODBhMGJkMTRmZTQ3OWYwYzI4NWVhZF8xNjU2NTg2MDcw
+                    [optionManageCodes] => opt116442
+                )
+
+        )
+
+    [supplementSearch] => true
+    [optionSearch] => true
+    [merchantCustomCode1] => MzU4NDYwYTMyYjQ0Y2M2MTE0ODBhMGJkMTRmZTQ3OWYwYzI4NWVhZF8xNjU2NTg2MDcw
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-06-30 19:48:25.897458000]
+REMOTE_IP : 220.230.168.21
+Array
+(
+    [2805] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2805
+            [goods_name] => 인생닭 닭가슴살 소시지 혼합 100g 9팩
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 16480
+            [price] => 16000
+            [commission_rate] => 10
+            [commission_type] => SACO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 19800.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 45
+            [provider_name] => 더베네푸드
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 971
+            [trust_shipping] => N
+            [shipping_group_seq] => 971
+            [shipping_set_seq] => 925
+            [shipping_set_code] => delivery
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 27050
+            [choice] => 
+            [cart_seq] => 23836
+            [option1] => 9팩
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 제품
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 2
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 925
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/45/2022/04/2805_tmp_79fb2dc773263b669c2eab0faacab66c3916thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0012
+                    [1] => 00120012
+                    [2] => 001200120003
+                    [3] => 0012001200030001
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0012
+                    [1] => 00120012
+                    [2] => 001200120003
+                    [3] => 0012001200030001
+                )
+
+            [r_brand] => Array
+                (
+                    [0] => 0073
+                )
+
+            [package_error] => 
+            [org_price] => 16000.00
+            [tot_ori_price] => 32000
+            [basic_sale] => 3800
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 16000
+            [tot_price] => 32000
+            [first] => 1
+            [cart_suboptions] => 
+            [cart_inputs] => 
+            [shipping_provider_seq] => 45
+            [goods_shipping] => 0
+            [shipping_group] => 971_925_delivery
+            [shipping_method_name] => 택배
+            [shipping_provider_division] => 1
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1725
+                                    [shipping_group_seq] => 971
+                                    [shipping_set_seq] => 925
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => free
+                                    [shipping_provider_seq] => 45
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 2305
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1726
+                                    [shipping_group_seq] => 971
+                                    [shipping_set_seq] => 925
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 45
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 2306
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1725
+                            [shipping_group_seq] => 971
+                            [shipping_set_seq] => 925
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => free
+                            [shipping_provider_seq] => 45
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 0
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => delivery
+                            [shipping_cost] => 0.00
+                            [shipping_cost_seq] => 2305
+                        )
+
+                    [shipping_group_id] => 971_925_delivery
+                    [shipping_std_group_free] => Y
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/45/2022/04/2805_tmp_79fb2dc773263b669c2eab0faacab66c3916list1.jpg
+            [tot_stock] => 39995
+            [base_price] => 16000
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 971_925_delivery
+                    [shipping_type] => FREE
+                    [shipping_paytype] => FREE
+                    [shipping_price] => 0
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 0
+                    [apiSupport] => true
+                    [return_sellername] => 더베네푸드
+                    [return_address1] => 서울특별시 성동구 성수일로 10 (서울숲 ITCT 지식산업센터)
+                    [return_address2] => 809호
+                    [return_contact1] => 1577-0914
+                    [return_contact2] => 1577-0914
+                    [return_zipcode] => 04780
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [제품] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116480
+                                            [text] => 9팩
+                                            [status] => true
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116481
+                                            [text] => 30팩
+                                            [status] => true
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116482
+                                            [text] => 60팩
+                                            [status] => true
+                                        )
+
+                                    [3] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116483
+                                            [text] => 90팩
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt116480] => Array
+                        (
+                            [option_seq] => 16483
+                            [goods_seq] => 2805
+                            [code_seq] => direct
+                            [default_option] => n
+                            [option_type] => direct
+                            [option_title] => 제품
+                            [option1] => 90팩
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 198000.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 10
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 16471
+                            [commission_type] => SACO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 9998
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 제품
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 90팩
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 36
+                            [tax] => 11364
+                            [net_profit] => 125000
+                            [rstock] => 9999
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 제품
+                                            [id] => opt116480
+                                            [value] => 9팩
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => 
+        )
+
+    [2919] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2919
+            [goods_name] => 인생닭 스팀 닭가슴살 마늘맛 200g 5팩
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 17288
+            [price] => 15500
+            [commission_rate] => 10
+            [commission_type] => SACO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 18500.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 45
+            [provider_name] => 더베네푸드
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 971
+            [trust_shipping] => N
+            [shipping_group_seq] => 971
+            [shipping_set_seq] => 925
+            [shipping_set_code] => delivery
+            [shipping_hop_date] => 
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 27049
+            [choice] => 
+            [cart_seq] => 23835
+            [option1] => 5팩
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 제품
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 925
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/45/2022/04/2919_tmp_5341f95e8562867636c1aa43e868f8cb0037thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0012
+                    [1] => 00120012
+                    [2] => 001200120003
+                    [3] => 0012001200030001
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0012
+                    [1] => 00120012
+                    [2] => 001200120003
+                    [3] => 0012001200030001
+                )
+
+            [r_brand] => Array
+                (
+                    [0] => 0073
+                )
+
+            [package_error] => 
+            [org_price] => 15500.00
+            [tot_ori_price] => 15500
+            [basic_sale] => 3000
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 15500
+            [tot_price] => 15500
+            [first] => 1
+            [cart_suboptions] => 
+            [cart_inputs] => 
+            [shipping_provider_seq] => 45
+            [goods_shipping] => 0
+            [shipping_group] => 971_925_delivery
+            [shipping_method_name] => 택배
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1725
+                                    [shipping_group_seq] => 971
+                                    [shipping_set_seq] => 925
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => free
+                                    [shipping_provider_seq] => 45
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 2305
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1726
+                                    [shipping_group_seq] => 971
+                                    [shipping_set_seq] => 925
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 45
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 2306
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1725
+                            [shipping_group_seq] => 971
+                            [shipping_set_seq] => 925
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => free
+                            [shipping_provider_seq] => 45
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 0
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => delivery
+                            [shipping_cost] => 0.00
+                            [shipping_cost_seq] => 2305
+                        )
+
+                    [shipping_group_id] => 971_925_delivery
+                    [shipping_std_group_free] => Y
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/45/2022/04/2919_tmp_5341f95e8562867636c1aa43e868f8cb0037list1.jpg
+            [tot_stock] => 3996
+            [base_price] => 15500
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 971_925_delivery
+                    [shipping_type] => FREE
+                    [shipping_paytype] => FREE
+                    [shipping_price] => 0
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 0
+                    [apiSupport] => true
+                    [return_sellername] => 더베네푸드
+                    [return_address1] => 서울특별시 성동구 성수일로 10 (서울숲 ITCT 지식산업센터)
+                    [return_address2] => 809호
+                    [return_contact1] => 1577-0914
+                    [return_contact2] => 1577-0914
+                    [return_zipcode] => 04780
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [제품] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt117288
+                                            [text] => 5팩
+                                            [status] => true
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt117289
+                                            [text] => 15팩
+                                            [status] => true
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt117290
+                                            [text] => 25팩
+                                            [status] => true
+                                        )
+
+                                    [3] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt117291
+                                            [text] => 50팩
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt117288] => Array
+                        (
+                            [option_seq] => 17291
+                            [goods_seq] => 2919
+                            [code_seq] => direct
+                            [default_option] => n
+                            [option_type] => direct
+                            [option_title] => 제품
+                            [option1] => 50팩
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 185000.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 10
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 16425
+                            [commission_type] => SACO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 999
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 제품
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 50팩
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 32
+                            [tax] => 11364
+                            [net_profit] => 125000
+                            [rstock] => 999
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 제품
+                                            [id] => opt117288
+                                            [value] => 5팩
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => 
+        )
+
+    [2923] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2923
+            [goods_name] => 인생닭 저염 스팀 닭가슴살 오리지널 200g 5팩
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 16442
+            [price] => 14900
+            [commission_rate] => 10
+            [commission_type] => SACO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 18500.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 45
+            [provider_name] => 더베네푸드
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 971
+            [trust_shipping] => N
+            [shipping_group_seq] => 971
+            [shipping_set_seq] => 925
+            [shipping_set_code] => delivery
+            [shipping_hop_date] => 
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 27048
+            [choice] => 
+            [cart_seq] => 23834
+            [option1] => 5팩
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 제품
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 925
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/45/2022/04/2923_tmp_2c23a64bd83ef7c97432dc55bf37ac784936thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0012
+                    [1] => 00120012
+                    [2] => 001200120003
+                    [3] => 0012001200030001
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0012
+                    [1] => 00120012
+                    [2] => 001200120003
+                    [3] => 0012001200030001
+                )
+
+            [r_brand] => Array
+                (
+                    [0] => 0073
+                )
+
+            [package_error] => 
+            [org_price] => 14900.00
+            [tot_ori_price] => 14900
+            [basic_sale] => 3600
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 14900
+            [tot_price] => 14900
+            [first] => 1
+            [cart_suboptions] => 
+            [cart_inputs] => 
+            [shipping_provider_seq] => 45
+            [goods_shipping] => 0
+            [shipping_group] => 971_925_delivery
+            [shipping_method_name] => 택배
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1725
+                                    [shipping_group_seq] => 971
+                                    [shipping_set_seq] => 925
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => free
+                                    [shipping_provider_seq] => 45
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 2305
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1726
+                                    [shipping_group_seq] => 971
+                                    [shipping_set_seq] => 925
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 45
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => delivery
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 2306
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1725
+                            [shipping_group_seq] => 971
+                            [shipping_set_seq] => 925
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => free
+                            [shipping_provider_seq] => 45
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 0
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => delivery
+                            [shipping_cost] => 0.00
+                            [shipping_cost_seq] => 2305
+                        )
+
+                    [shipping_group_id] => 971_925_delivery
+                    [shipping_std_group_free] => Y
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/45/2022/04/2923_tmp_2c23a64bd83ef7c97432dc55bf37ac784936list1.jpg
+            [tot_stock] => 39995
+            [base_price] => 14900
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 971_925_delivery
+                    [shipping_type] => FREE
+                    [shipping_paytype] => FREE
+                    [shipping_price] => 0
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 0
+                    [apiSupport] => true
+                    [return_sellername] => 더베네푸드
+                    [return_address1] => 서울특별시 성동구 성수일로 10 (서울숲 ITCT 지식산업센터)
+                    [return_address2] => 809호
+                    [return_contact1] => 1577-0914
+                    [return_contact2] => 1577-0914
+                    [return_zipcode] => 04780
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [제품] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116442
+                                            [text] => 5팩
+                                            [status] => true
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116443
+                                            [text] => 15팩
+                                            [status] => true
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116444
+                                            [text] => 25팩
+                                            [status] => true
+                                        )
+
+                                    [3] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt116445
+                                            [text] => 50팩
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt116442] => Array
+                        (
+                            [option_seq] => 16445
+                            [goods_seq] => 2923
+                            [code_seq] => direct
+                            [default_option] => n
+                            [option_type] => direct
+                            [option_title] => 제품
+                            [option1] => 50팩
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 185000.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 10
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 16445
+                            [commission_type] => SACO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 9999
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 제품
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 50팩
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 35
+                            [tax] => 10864
+                            [net_profit] => 119500
+                            [rstock] => 9999
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 제품
+                                            [id] => opt116442
+                                            [value] => 5팩
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => 
+        )
+
+)
+
+

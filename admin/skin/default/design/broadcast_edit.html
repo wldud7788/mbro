@@ -1,0 +1,196 @@
+{#layout_header_popup}
+
+<script type="text/javascript">
+	var gl_template_path			= '{template_path}';
+	var gl_tpl_desc					= '{layout_config.tpl_desc}';
+	var gl_tpl_path					= '{layout_config.tpl_path}';
+	var gl_platform					= '{platform}';
+	var gl_operation_type			= '{config_system.operation_type}';
+	var dataObj						= {=dataObj};
+
+		
+	function broadcast_edit_display_setting() {
+		var frm = $("form[name='displayManagerForm']");
+		var status = frm.find("select[name='status']");
+		var sort = frm.find("select[name='sort']");
+		
+		if(status.val() == 'vod') {
+			sort.find("option[value='new']").hide();
+
+			sort.find("option[value='visitors']").show();
+			sort.find("option[value='likes']").show();
+			if($.inArray( sort.val() , [ "visitors", "likes", "direct"] ) < 0) {
+				sort.val('visitors');
+			}
+		} else {
+			sort.find("option[value='new']").show();
+
+			sort.find("option[value='visitors']").hide();
+			sort.find("option[value='likes']").hide();
+			if($.inArray( sort.val() , [ "new", "direct"] ) < 0) {
+				sort.val('new');
+			}
+		}
+
+		if(sort.val() == 'direct') {
+			$(".direct_tr").removeClass('hide');
+		} else {
+			$(".direct_tr").addClass('hide');
+		}
+	}
+
+	$(function(){
+
+		broadcast_edit_display_setting();
+		$("form[name='displayManagerForm']").find('select').on('change',broadcast_edit_display_setting);
+
+		$(".btnSelectBroadcast").on("click",function(){
+			gBroadcastSelect.open({'service_h_ad':window.Firstmall.Config.Environment.serviceLimit.H_AD, 'sellerAdminMode':true});
+		});
+		if(dataObj!= null && dataObj.status) {
+			$("form[name='displayManagerForm']").find("select[name='status']").val(dataObj.status).prop('selected',true).trigger('change');
+			$("form[name='displayManagerForm']").find("select[name='sort']").val(dataObj.sort).prop('selected',true).trigger('change');
+			$("form[name='displayManagerForm']").find("input[name='style'][value='"+dataObj.style+"']").trigger('click');
+		}
+	});
+	
+</script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/mobile_pagination.css" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/admin_goods_display.css" />
+<script type="text/javascript" src="/app/javascript/plugin/jquery.bxslider.js"></script>
+<script type="text/javascript" src="/app/javascript/js/base64.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gBroadcastSelectList.js?mm={=date('YmdHis')}"></script>
+<form name="displayManagerForm" action="../design_process/broadcast_edit" method="post" target="actionFrame" enctype="multipart/form-data">
+<input type="hidden" name="template_path" value="{template_path}" />
+<input type="hidden" name="display_seq" value="{data.display_seq}" />
+<input type="hidden" name="platform" value="{platform}" />
+
+<div style="padding:15px;">
+	<div class="pc_tab_div imageCheckboxContainer display_set_wrap">
+		<table class="design-simple-table-style" width="100%" align="center">
+			<col width="130" />
+			<tr>
+				<th class="dsts-th">
+					번호
+				</th>
+				<td class="dsts-td left" colspan="2">
+				<!--{ ? data.display_seq  }-->
+					{=data.display_seq}
+				<!--{ : }-->
+					자동 생성
+				<!--{ / }-->
+				</td>
+			</tr>
+
+			<tr>
+				<th class="dsts-th">타이틀</th>
+				<td class="dsts-td left" colspan="2">
+					<input type="text" name="title" value="{data.title}" title="타이틀을 입력하세요. 예) 베스트상품, 신상품, New arrival, Best Items" class="line" size="100" maxlength="200" />
+				</td>
+			</tr>
+
+			<tr>
+				<th class="dsts-th">방송 유형</th>
+				<td class="dsts-td left" colspan="2">
+					<select name="status">
+						<option value="vod">지난 방송</option>
+						<option value="live">라이브/방송 예약</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<th class="dsts-th">노출 기준</th>
+				<td class="dsts-td left" colspan="2">
+					<select name="sort">
+						<option value="visitors">조회 순</option>
+						<option value="likes">좋아요 순</option>
+						<option value="new">최신 순</option>
+						<option value="direct">직접 선정</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr class="direct_tr hide">
+				<th class="dsts-th">방송 선택</th>
+				<td class="dsts-td left" colspan="2">
+					<button type="button" class="btnSelectBroadcast resp_btn active">방송 검색</button> (최대 10개)
+					<div class="wx700 pdt10">
+						<div class="broadcast_list_header">
+						<table class="table_basic tdc">
+							<colgroup>
+								<col width="35%" />
+								<!--{ ? isBroadcastVersion('2.0') && serviceLimit('H_AD') }-->
+								<col width="15%" />
+								<!--{ / }-->
+								<col width="*" />
+								<col width="10%" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>방송제목</th>
+									<!--{ ? isBroadcastVersion('2.0') && serviceLimit('H_AD') }-->
+									<th>입점사</th>
+									<!--{/}-->
+									<th>대표상품명</th>
+									<th>삭제</th>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+						<div class="broadcast_list">
+						<table class="table_basic tdc fix">
+							<colgroup>
+								<col width="35%" />
+								<!--{ ? isBroadcastVersion('2.0') && serviceLimit('H_AD') }-->
+								<col width="15%" />
+								<!--{ / }-->
+								<col width="*" />
+								<col width="10%" />
+							</colgroup>
+							<tbody>
+								<tr rownum=0 {? count(data.sch) == 0 }class="show"{:}class="hide"{/}>
+									<td colspan="{ ? serviceLimit('H_AD') }3{:}3{/}">방송을 선택하세요</td>
+								</tr>
+							<!--{ @ data.sch }-->
+								<tr rownum="{=.bs_seq}">
+									<td>
+										<div class="list_thumb fl"><img src="{=.image}" /></div>
+										<div class="valign-middle left pdl55">{=.title}</div>
+									</td>
+									<td>{=.goods_name}</td>
+									<td>
+										<button type="button" class="btn_minus" onclick="gBroadcastSelect.select_delete('minus',$(this))"></button>
+										<input type="hidden" name="issueBroadcast[]" value="{=.bs_seq}">
+									</td>
+								</tr>
+							<!--{ / }-->
+							</tbody>
+						</table>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<!--s:스타일-->
+			<!--{#broadcast_edit_style}-->
+			<!--e:스타일-->
+			
+		</table>
+	</div>
+	
+	<div class="center mt15">
+		<label><input type="checkbox" name="removeDesignDisplayArea" value="Y" /> 이 페이지의 라이브 방송 영역을 없앰 (설정 정보는 삭제되지 않음)</label>
+	</div>
+
+	<div class="center pd20">
+		<span class="btn large cyanblue"><input type="submit" value="적용" /></span>
+		<span class="btn large"><input type="button" value="목록" onclick="parent.DM_window_broadcast_insert('{template_path}','{data.kind}')"/></span>
+	</div>
+	
+	<div style="height:30px;"></div>
+</div>
+</form>
+
+<div id="lay_broadcast_select"></div>
+{#layout_footer_popup}

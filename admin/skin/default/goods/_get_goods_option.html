@@ -1,0 +1,96 @@
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<!--{ ? options[0].option_divide_title }-->
+	<th colspan="{=count(options[0].option_divide_title)}">필수옵션</th>
+<!--{ / }-->
+<!--{ ? options[0].package_count}-->
+	<th colspan="{options[0].package_count}" rowspan="2">패키지 복합 상품</th>
+<!--{ : }-->
+	<th rowspan="2">재고</th>
+	<th rowspan="2">가용</th>
+<!--{ / }-->
+</tr>
+<tr>
+<!--{ @ options[0].option_divide_title }-->
+	<th>{.value_}</th>
+<!--{ / }-->
+</tr>
+<!--{ @ options }-->
+<tr>
+	<!--{ ? count(.opts) > 1 }-->
+		<!--{ @ .opts }-->
+		<td>{..value_}</td>
+		<!--{ / }-->
+	<!--{ : }-->
+		<!--{ @ .opts }-->
+		<td>{..value_}</td>
+		<!--{ / }-->
+	<!--{ / }-->
+	<!--{ ? .package_count }-->
+		<!--{ ? .package_option_seq1 }-->
+	<td>
+		<div class="package_goods_name"><a href="goods/view?no={.package_goods_seq1}" target="blank">{.package_goods_name1}</a></div>
+		<div class="package_option"><a href="goods/view?no={.package_goods_seq1}" target="blank">{.package_option1}</a></div>
+		<div class="package_stock">
+		{=number_format(.package_stock1)}
+		({=number_format(.package_badstock1)}) /
+		{=number_format(.package_ablestock1)} /
+		{=number_format(.package_safe_stock1)}
+		</div>
+	</td>
+		<!--{ / }-->
+		<!--{ ? .package_option_seq2 }-->
+	<td>
+		<div class="package_goods_name"><a href="goods/view?no={.package_goods_seq2}" target="blank">{.package_goods_name2}</a></div>
+		<div class="package_option"><a href="goods/view?no={.package_goods_seq2}" target="blank">{.package_option2}</a></div>
+		<div class="package_stock">
+		{=number_format(.package_stock2)}
+		({=number_format(.package_badstock2)}) /
+		{=number_format(.package_ablestock2)} /
+		{=number_format(.package_safe_stock2)}
+		</div>
+	</td>
+		<!--{ / }-->
+		<!--{ ? .package_option_seq3 }-->
+	<td>
+		<div class="package_goods_name"><a href="goods/view?no={.package_goods_seq3}" target="blank">{.package_goods_name3}</a></div>
+		<div class="package_option"><a href="goods/view?no={.package_goods_seq3}" target="blank">{.package_option3}</a></div>
+		<div class="package_stock">
+		{=number_format(.package_stock3)}
+		({=number_format(.package_badstock3)}) /
+		{=number_format(.package_ablestock3)} /
+		{=number_format(.package_safe_stock3)}
+		</div>
+	</td>
+		<!--{ / }-->
+		<!--{ ? .package_option_seq4 }-->
+	<td>
+		<div class="package_goods_name"><a href="goods/view?no={.package_goods_seq4}" target="blank">{.package_goods_name4}</a></div>
+		<div class="package_option"><a href="goods/view?no={.package_goods_seq4}" target="blank">{.package_option4}</a></div>
+		<div class="package_stock">
+		{=number_format(.package_stock4)}
+		({=number_format(.package_badstock4)}) /
+		{=number_format(.package_ablestock4)} /
+		{=number_format(.package_safe_stock4)}
+		</div>
+	</td>
+		<!--{ / }-->
+		<!--{ ? .package_option_seq5 }-->
+	<td>
+		<div class="package_goods_name"><a href="goods/view?no={.package_goods_seq5}" target="blank">{.package_goods_name5}</a></div>
+		<div class="package_option"><a href="goods/view?no={.package_goods_seq5}" target="blank">{.package_option5}</a></div>
+		<div class="package_stock">
+		{=number_format(.package_stock5)}
+		({=number_format(.package_badstock5)}) /
+		{=number_format(.package_ablestock5)} /
+		{=number_format(.package_safe_stock5)}
+		</div>
+	</td>
+		<!--{ / }-->
+	<!--{ : }-->
+	<td>{=number_format(.stock)}</td>
+	<td>{=number_format(.rstock)}</td>
+	<!--{ / }-->
+</tr>
+<!--{ / }-->
+</table>

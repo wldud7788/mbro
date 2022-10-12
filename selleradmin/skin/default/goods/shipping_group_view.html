@@ -1,0 +1,68 @@
+<!--{ ? shipping_info }-->
+<!--{ @ shipping_info }-->
+	<!--{ ? .shipping_provider_seq == '1' }-->
+<tr>
+	<td class="its-td-align center" style="height:30px;">위탁</td>
+	<td class="its-td-align center" colspan="10">본사가 배송합니다.</td>
+	<!--{ : }-->
+<tr>
+	<td class="its-td-align center" {?.setting_cnt}rowspan="{.setting_cnt}"{/}>
+		{.shipping_group_name} ({.shipping_group_seq})
+		<!--{ ? .default_yn == 'Y' }-->
+		<span class="basic_black_box">기본</span>
+		<!--{ / }-->
+	</td>
+	<td class="its-td-align center" {?.setting_cnt}rowspan="{.setting_cnt}"{/}>
+		{.calcul_type_txt}계산
+		<!--{ ? .shipping_calcul_free_yn == 'Y' }-->
+		<br/>(무료화)
+		<!--{ / }-->
+	</td>
+		<!--{ @ .setting }-->
+	<td class="its-td-align center"  rowspan="{=count(..value_)}">
+				<!--{?..key_=='korea'}-->대한민국<!--{ : }-->해외국가<!--{ / }-->
+	</td>
+			<!--{ @ ..value_ }-->
+				<!--{ ? ...index_ > 0 }-->
+<tr>
+				<!--{ / }-->
+	<td class="its-td ship-bg" height="45px">
+				<!--{ ? ...shipping_set_code == 'direct_store' }-->
+		<input type="hidden" class="direct_store_use" value="1" />
+				<!--{ / }-->
+		{=...shipping_set_name}
+				<!--{ ? ...set_code_txt }-->
+		({=...set_code_txt})
+				<!--{ / }-->
+				<!--{ ? ...default_yn == 'Y' }-->
+		<span class="basic_black_box">기본</span>
+				<!--{ / }-->
+	</td>
+	<td class="its-td-align center ship-bg">
+				<!--{ ? ...shipping_set_code != 'direct_store' }-->
+		<span class="highlight-link hand" onclick="ship_desc_pop('{...shipping_set_seq}');">배송안내</span>
+				<!--{ : }-->
+		<span class="gray">배송안내</span>
+				<!--{ / }-->
+	</td>
+	<td class="its-td ship-bg">{...stdtxt}</td>
+	<td class="its-td ship-bg">{...addtxt}</td>
+	<td class="its-td ship-bg">{...hoptxt}</td>
+	<td class="its-td ship-bg">{...storetxt}</td>
+	<td class="its-td ship-bg">{...prepay_info_txt}</td>
+				<!--{ ? ..index_ == 0 && ...index_ == 0 }-->
+	<td class="its-td-align center" rowspan="{=(count(.setting['korea']) + count(.setting['global']))}">
+		<span class="btn small valign-middle"><input name="modify_btn" onclick="window.open('../goods/package_catalog?ship_grp_seq={=.shipping_group_seq}');" type="button" value="패키지 : {=.package_cnt}개" style="width:85px;"></span>
+		<div style="height:5px;"></div>
+		<span class="btn small valign-middle"><input name="modify_btn" onclick="window.open('../goods/catalog?ship_grp_seq={=.shipping_group_seq}');" type="button" value="실물상품 : {=.goods_cnt}개" style="width:85px;"></span>
+		<div style="height:5px;"></div>
+		<span class="btn small valign-middle"><input name="modify_btn" onclick="window.open('../setting/shipping_group_regist?shipping_group_seq={.shipping_group_seq}');" type="button" value="상세" style="width:85px;"></span>
+	</td>
+				<!--{ / }-->
+</tr>
+			<!--{ / }-->
+		<!--{ / }-->
+	<!--{ / }-->
+</tr>
+<!--{ / }-->
+<!--{ / }-->

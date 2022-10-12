@@ -1,0 +1,26 @@
+<!-- 탭 -->
+<div class="resp_login_wrap">
+	<div id="loginTab" class="tab_basic fullsize Pt20">		
+	</div>
+</div>
+<? if(!$_SESSION[user][member_seq]) { ?>
+	<div id="member" class="loginTabContetns resp_login_wrap Mt0">
+		<form name="loginmove" target="actionFrame" method="post" action="{=sslAction('../coin/loginmove')}">
+			<fieldset>
+					<li>
+						<button type="submit" class="btn_resp size_login1"><span designElement="text">마일리지 충전(BMP)</span></button>
+					</li>
+			</fieldset>
+		</form>
+	</div>
+<?	} else { ?>
+	<div id="member" class="loginTabContetns resp_login_wrap Mt0">
+		<form name="pagemove" target="actionFrame" method="post" action="{=sslAction('../coin/pagemove')}">
+			<fieldset>
+					<li>
+						<button type="submit" class="btn_resp size_login1"><span designElement="text">마일리지 충전(BMP)</span></button>
+					</li>
+			</fieldset>
+		</form>
+	</div>
+<? } ?>

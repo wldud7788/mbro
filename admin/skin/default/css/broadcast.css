@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+#calendar-container {
+	padding-left:20px;
+	padding-right:20px;
+}
+#calendar {
+	max-width: 100%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+/* 날짜에 hover될때 색 변경 */
+.fc-bg .fc-day:hover, .fc-event-container:hover{
+	background:#ddd;
+	cursor: pointer;
+}
+
+/* 달력 상단 header 수직 중앙 정렬 */
+.fc-toolbar .fc-center > h2 {
+	display: inline-block;
+	min-width: 140px;
+	text-align: center;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.fc-event-container .fc-event .fc-content {	display:inline; }
+#calendar > div.fc-view-container > div > table > tbody > tr > td > div { overflow:hidden !important; }
+
+/* 주말 표시 CSS */
+.fc-sat { color:#2a81b8;}
+.fc-sun { color:#c83636;}
+
+/* 방송 상태별 텍스트 색 */
+.fc-event-status-schedule, .fc-event-status-schedule:hover,
+.fc-event-status-standby, .fc-event-status-standby:hover { color:#2540e6; }
+.fc-event-status-cancel, .fc-event-status-cancel:hover { color:#767676; }
+.fc-event-status-onair, .fc-event-status-onair:hover { color:#f00; }
+.fc-event-status-end, .fc-event-status-end:hover { color:#29ad14; }
+
+.fc-event .fc-content .fc-title { font-size: 13px }
+.fc-event .fc-content .fc-title:before { display:inline-block; content:''; vertical-align:middle; margin-right:4px; width:12px; height:12px; border-radius:50%; }
+.fc-event-status-schedule .fc-title:before,
+.fc-event-status-standby .fc-title:before { background-color:#2540e6; }
+.fc-event-status-cancel .fc-title:before { background-color:#767676; }
+.fc-event-status-onair .fc-title:before { background-color:#f00; }
+.fc-event-status-end .fc-title:before { background-color:#29ad14; }
+
+
+/* Fullcalendar CSS 커스터마이징 - 191211 - sjg */
+.fc-toolbar.fc-header-toolbar { margin-bottom:30px; }
+.fc-unthemed th { height:40px; vertical-align:middle; font-size:15px; background-color:#f8f8f8; color:#333; }
+.fc-unthemed th.fc-sun { color:#c83636; }
+.fc-unthemed th.fc-sat { color:#2a81b8; }
+.fc-dayGrid-view .fc-day-number { padding:9px; font-size:14px; }
+.fc-day-grid-event { margin:2px 9px; overflow:hidden; text-overflow:ellipsis; -o-text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; }

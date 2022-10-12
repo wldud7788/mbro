@@ -1,0 +1,111 @@
+{ #layout_header_popup }
+<style>
+	html{overflow:hidden;}
+	.tx-canvas iframe {height:460px !important;}
+</style>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var mode = getParameterByName('mode');
+		$("#btn_replace").on("click",function(event){		
+			$.get('replace_pop?mode=' + mode, function(data) {
+				$('#replace_pop').html(data);
+				openDialog("사용 가능한 치환코드", "replace_pop", {"width":"450","height":"580"});
+			});
+		});
+
+		getMailForm(mode);
+		$("input[name='mail_form']").val([mode]);
+	})
+
+	function info_code(id){
+		$.get('../member/replace_pop?mode=curation&id='+id, function(data) {
+			$('#replace_pop').html(data);
+			openDialog("사용 가능한 치환코드", "replace_pop", {"width":"400","height":"500"});
+		});
+	}
+
+	function getMailForm(id) {
+		$.get('../member_process/getPersonalReservation?id='+id, function(response) {
+			var data = eval(response)[0];
+			$("#personal_sms").html(data.personal_sms);
+			$("#personal_email").html(data.personal_email);
+			if(data.personal_talk){
+				$("#personal_talk").html(data.personal_talk);
+				$(".talk_area").show();
+			}else{
+				$(".talk_area").hide();
+			}
+			Editor.switchEditor($("#contents").data("initializedId"));
+			Editor.modify({"content" : data.contents});
+		});
+	}
+</script>
+
+<div class="contents_container">
+<form name="memberForm" id="memberForm" method="post" target="actionFrame" action="../member_process/curation_info" class="hx100">
+<input type="hidden" name="mail_form" />
+	<div class="content">
+	<!-- 수신동의 고객 : SMS발송 -->
+	<div class="item-title">SMS</div>
+	<table class="table_basic thl">	
+		<colgroup>
+			<col width="15%" />					
+			<col width="85%" />		
+		</colgroup>
+		<tr>
+			<th>SMS</th>
+			<td><div id="personal_sms"></div></td>
+		</tr>		
+	</table>
+	
+	<!-- 수신동의 고객 : 메일발송 -->
+	<div class="item-title">이메일</div>
+	<table class="table_basic thl">	
+		<colgroup>
+			<col width="15%" />					
+			<col width="85%" />		
+		</colgroup>
+		<tr>
+			<th>제목</th>
+			<td>				
+				<div id="personal_email"></div>					
+			</td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td><textarea name="contents" id="contents" class="daumeditor"></textarea></td>
+		</tr>
+		<!--{? mode == 'personal_birthday'}-->
+		<tr>
+			<td colspan="2">
+				<ul class="bullet_hyphen">
+					<li>발급 중인 생일 쿠폰이 있을 경우 SMS, 이메일 리마인드를 발송하세요.</li>
+					<li>생일 쿠폰 정보가 이메일에서 제공됩니다. (유효한 생일 쿠폰이 여러 개인 경우 모두 제공)</li>
+				</ul>
+			</td>
+		</tr>
+		<!--{: mode == 'personal_anniversary'}-->
+		<tr>
+			<td colspan="2">
+				<ul class="bullet_hyphen">
+					<li>발급 중인 기념일 쿠폰이 있을 경우 SMS, 이메일 리마인드를 발송하세요.</li>
+					<li>기념일 쿠폰 정보가 이메일에서 제공됩니다. (유효한 기념일 쿠폰이 여러 개인 경우 모두 제공)</li>
+				</ul>
+			</td>
+		</tr>
+		<!--{/}-->
+	</table>
+	</div>
+
+	<div class="footer">
+		<button type="submit" onclick="submitEditorForm(document.memberForm)" class="resp_btn active size_XL">저장</button>
+		<button type="button" onclick="window.close();" class="resp_btn v3 size_XL">취소</button>
+	</div>
+	</form>
+</div>
+<div class="mt20"></div>
+
+<div id="replace_pop" class="hide"></div>
+{ #layout_footer_popup }

@@ -1,0 +1,13 @@
+<div class="sub_title_bar">
+	<h2>나의 활동</h2>
+	<a href="javascript:history.back();" class="stb_back_btn"><img src="../../images/design/btn_back.png" width="22" height="22" /></a>
+</div>
+<div class="sub_title_button_bar">
+	<table class="sub_title_button_tb" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="33.3%" onclick="location.href='/mypage/myqna_catalog'" {? preg_match('/mypage\/myqna/', _SERVER.REQUEST_URI) }class="sel"{ / } >나의 1:1문의</td>
+		<td width="33.3%" onclick="location.href='/mypage/mygdqna_catalog'" {? preg_match('/mypage\/mygdqna/', _SERVER.REQUEST_URI) }class="sel"{ / } >나의 상품문의</td>
+		<td width="33.3%" onclick="location.href='/mypage/mygdreview_catalog'" {? preg_match('/mypage\/mygdreview/', _SERVER.REQUEST_URI) }class="sel"{ / } >나의 상품후기</td>
+	</tr>
+	</table>
+</div> 

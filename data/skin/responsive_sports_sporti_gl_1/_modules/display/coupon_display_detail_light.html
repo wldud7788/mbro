@@ -1,0 +1,62 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ [반응형] 쿠폰 템플릿 @@
+- 파일위치 : [스킨폴더]/_modules/display/coupon_display_detail_light.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{? couponloop }-->
+<ul class="resp_coupon_list">
+	<!--{@ couponloop }-->
+	<li class="couponDownload resStyle">
+		<ul>
+			<li class="text">
+				<div class="title">{.coupon_name}</div>
+				<div class="descr">{.issue_enddatetitle}</div>
+			</li>
+			<li class="sales">
+				<div class="coupon_img">
+					<!--{ ? .sale_type == 'percent' }-->
+					<span class="num">{=.percent_goods_sale}</span>%
+					<!--{ : }-->
+					{=get_currency_price(.won_goods_sale,2,'','<span class="num">_str_price_</span>')}
+					<!--{ / }-->
+				</div>
+			</li>
+			<li class="bul"></li>
+		</ul>
+	</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+<div id="couponDownloadDialog" style="display:none"></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	<!--{ ? !goods_view }-->
+	$('.couponDownload').bind("click",function() {
+		var memberSeq = "{=userInfo.member_seq}";
+		var gl_request_uri = "{=urlencode(_SERVER.REQUEST_URI)}";
+
+		if( !memberSeq ){
+			location.href="/member/login?return_url="+gl_request_uri;
+			return false;
+		}
+		var gl_goods_seq = "{_GET.no}";
+
+		if ( $(this).hasClass('resStyle') ) { // 반응형인 경우 껍데기 변경
+			coupondownlist_res(gl_goods_seq,gl_request_uri);
+		} else {
+			coupondownlist(gl_goods_seq,gl_request_uri);
+		}
+	});
+
+	$("button[name='couponDownloadButton']").live('click',function(){
+		var url = '../coupon/download?goods='+$(this).attr('goods')+'&coupon='+$(this).attr('coupon');
+		actionFrame.location.href = url;
+	});
+	<!--{ / }-->
+});
+function getCouponDownlayerclose(){
+	$('#couponDownloadDialog').dialog('close');
+}
+</script>

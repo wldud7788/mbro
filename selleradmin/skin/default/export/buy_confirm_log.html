@@ -1,0 +1,33 @@
+
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/common.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/layout.css?v={=date('Ymd')}" />
+<table class="info-table-style">
+    <colgroup width="120">
+    <colgroup width="120">
+    <colgroup width="100">
+    <colgroup width="100">
+    <colgroup width="100">
+        <tr>
+            <th class="its-th-align">일시</th>
+            <th class="its-th-align">행위자</th>
+            <th class="its-th-align">구매확정수량</th>
+            <th class="its-th-align">지급수량</th>
+            <th class="its-th-align">소멸수량</th>
+        </tr>
+        {? data_log }
+        <!--{@ data_log }-->
+        <tr>
+            <td class="its-td-align center">{=substr(.regdate,0,16)}</td>
+            <td class="its-td-align center">{? .member_seq }구매자:{/}{.doer}</td>
+            <td class="its-td-align center">{.ea}개</td>
+            <td class="its-td-align center">{? .emoney_status == "pay"}{.ea}{:}0{/}개</td>
+            <td class="its-td-align center">{? .emoney_status == "destroy"}{.ea}{:}0{/}개</td>
+        </tr>
+        <!--{ / }-->
+        { : }
+        <tr>
+            <td class="its-td-align center" colspan="5">처리로그가 없습니다.</td>
+        </tr>
+        { / }
+</table>
+<br />

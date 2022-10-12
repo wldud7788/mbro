@@ -1,0 +1,13 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-connectorSetting.js?dummy={=date('Ymd')}"></script>
+<form id="shoplinkerAddinfoForm" method="post">
+	<input type="hidden" name="mode" id="mode" value="{linkMode}"/>
+	<input type="hidden" name="customer_id" id="customer_id" value="{postVal.customer_id}"/>
+	<input type="hidden" name="market" id="market" value="{postVal.market}"/>
+	<input type="hidden" name="user_id" id="user_id" value="{postVal.user_id}"/>
+	<input type="hidden" name="mall_id" id="mall_id" value="{postVal.mall_id}"/>
+	<input type="hidden" name="group_type" id="group_type" value="{groupType}"/>
+	<input type="hidden" name="group_id" id="group_id" value="{groupId}"/>
+</form>
+<script>getAddinfo();</script>

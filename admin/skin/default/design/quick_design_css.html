@@ -1,0 +1,206 @@
+
+/* ====================================== Quick Design CSS ============================================ */
+{?colors.gnb_active_line !== 'default'}
+/* ======== 카테고리 네비게이션 ======== */
+.layout_header .nav_wrap .respCategoryList .categoryDepth1.on .categoryDepthLink>em,
+.layout_header .nav_wrap .respCategoryList .custom_nav_link.on .categoryDepthLink>em,
+.quick_gnb_active_line {
+	border-bottom-color:{colors.gnb_active_line} !important; /* 활성화 메뉴 - 라인 */
+}
+.layout_header .nav_wrap .respCategoryList .categoryDepthLink>em:after,
+.quick_gnb_active_line:after {
+	background:{colors.gnb_active_line} !important; /* 활성화 메뉴 - 라인 */
+}
+{/}
+{?colors.gnb_active_text !== 'default'}
+.layout_header .nav_wrap .respCategoryList .categoryDepth1.on .categoryDepthLink,
+.layout_header .nav_wrap .respCategoryList .custom_nav_link.on .categoryDepthLink,
+.all_list_contents .all_list_depth1>li:hover>a,
+.all_list_contents .all_list_depth2>li:hover>a,
+.all_list_contents .all_list_depth3>li:hover>a,
+.quick_gnb_active_text {
+	color:{colors.gnb_active_text} !important; /* 활성화 메뉴 - 텍스트 */
+}
+{/}
+{?colors.gnb_submenu !== 'default'}
+.layout_header .nav_wrap .respCategoryList .custom_nav_link .categoryDepthLink,
+.quick_gnb_submenu {
+	color:{colors.gnb_submenu} !important; /* 서브 메뉴 */
+}
+{/}
+{?colors.lnb_active_text !== 'default'}
+/* ======== 어사이드/마이쇼핑/고객센터 - LNB 활성화 메뉴 ======== */
+.subpage_lnb .lnb_sub>li.on>a,
+.aside_navigation_wrap ul.menu.board>li.on a,
+.aside_navigation_wrap ul.menu li.mitem.category.on a.mitem_goodsview,
+.aside_navigation_wrap ul.menu li.mitem_subcontents ul.submenu li.submitem.category.on a.mitem_goodsview,
+.quick_lnb_active_text {
+	color:{colors.lnb_active_text} !important;
+}
+{/}
+{?colors.sale_price !== 'default'}
+/* ======== 판매가/할인적용 금액/총 결제금액 ======== */
+.goods_spec_sections .deatil_price_area .sale_price,
+.searched_item_display .item_info_area .goods_price_area .sale_price,
+.goods_price_area .total_goods_price,
+.displaY_sales_price,
+.order_price_total>ul.total>li.td,
+.cart_list .cgd_contents .block2 .total_p,
+.total_sum_price .settle_price,
+.total_sum_price .settle_price .num,
+.recent_wrap .recent_list .recent_price .nomal_price>b,
+.wish_wrap .wish_list .wish_price .nomal_price>b,
+.quick_sale_price {
+	color:{colors.sale_price} !important;
+}
+{/}
+{?colors.basic_sale_rate !== 'default'}
+/* ======== 할인율 ======== */
+.displaY_sales_percent,
+.searched_item_display .item_info_area .goods_price_area .discount_rate,
+.quick_basic_sale_rate {
+	color:{colors.basic_sale_rate} !important;
+}
+{/}
+{?colors.solo_event_icon !== 'default'}
+/* ======== 단독이벤트 ======== */
+.spec_solo_event .remain_time .title,
+.displaY_event_time .title,
+.cart_list .cgd_contents .event_area .title,
+.quick_solo_event_icon {
+	background-color:{colors.solo_event_icon} !important; /* 아이콘 */
+}
+{/}
+{?colors.solo_event_bg !== 'default' && colors.solo_event_text !== 'default'}
+.spec_solo_event .event_datetime_box,
+.displaY_event_time .time_container,
+.cart_list .cgd_contents .event_area .time {
+	background-color:{colors.solo_event_bg} !important; /* 배경 */
+	color:{colors.solo_event_text} !important; /* 텍스트 */
+}
+{/}
+{?colors.solo_event_bg !== 'default'}
+.quick_solo_event_bg { background-color:{colors.solo_event_bg} !important; }
+{/}
+{?colors.solo_event_text !== 'default'}
+.quick_solo_event_text { color:{colors.solo_event_text} !important; }
+{/}
+{?colors.review_score !== 'default'}
+/* ======== 평점 별 색상 ======== */
+.displaY_review_score_a .ev_active2>b,
+.goods_spec_customer_ev .ev_active2>b,
+.quick_review_score {
+	background-color:{colors.review_score} !important;
+}
+{/}
+{?colors.deatil_sale_rate_bg !== 'default' && colors.deatil_sale_rate_text !== 'default'}
+/* ======== 상품상세 할인율 ======== */
+.deatil_sale_rate {
+	background-color:{colors.deatil_sale_rate_bg} !important; /* 할인율 - 배경 */
+	color:{colors.deatil_sale_rate_text} !important; /* 할인율 - 텍스트 */
+}
+{/}
+{?colors.deatil_sale_rate_bg !== 'default'}
+.quick_deatil_sale_rate_bg { background-color:{colors.deatil_sale_rate_bg} !important; }
+{/}
+{?colors.deatil_sale_rate_text !== 'default'}
+.quick_deatil_sale_rate_text { color:{colors.deatil_sale_rate_text} !important; }
+{/}
+{?colors.coupon_btn !== 'default'}
+/* ======== 쿠폰 버튼 컬러 ======== */
+.resp_coupon_list>li>ul>li.bul,
+.detail_relation_event>li>a:after,
+.quick_coupon_btn {
+	background-color:{colors.coupon_btn} !important; /* 쿠폰 버튼 컬러 */
+}
+{/}
+{?colors.major_button_line !== 'default' && colors.major_button_bg !== 'default' && colors.major_button_text !== 'default'}
+/* ======== 주요 버튼 컬러 ======== */
+.btn_resp.color2.size_c,
+.btn_resp.color2.size_extra,
+.btn_resp.color2.size_extra2,
+.resp_login_wrap .btn_resp.size_login1 {
+	outline:none;
+	border-color:{colors.major_button_line} !important; /* 라인 */
+	background-color:{colors.major_button_bg} !important; /* 배경 */
+	color:{colors.major_button_text} !important; /* 텍스트 */
+}
+{/}
+{?colors.major_button_line !== 'default'}
+.quick_major_button_line { border-color:{colors.major_button_line} !important; }
+{/}
+{?colors.major_button_bg !== 'default'}
+.quick_major_button_bg { background-color:{colors.major_button_bg} !important; }
+{/}
+{?colors.major_button_text !== 'default'}
+.quick_major_button_text { color:{colors.major_button_text} !important; }
+{/}
+{?colors.push_count_bg !== 'default' && colors.push_count_text !== 'default'}
+/* ======== 푸시 카운트 ======== */
+.layout_header .cart_cnt1,
+.layout_header .cart_cnt2,
+.asie_main_menu .push_count,
+.my_order_step .pushCount,
+#layout_header .benefit {
+	background:{colors.push_count_bg} !important; /* 배경 */
+	color:{colors.push_count_text} !important; /* 텍스트 */
+}
+{/}
+{?colors.push_count_bg !== 'default'}
+#layout_header .benefit .arrow {
+	color:{colors.push_count_bg} !important;
+}
+{/}
+{?colors.push_count_bg !== 'default'}
+.quick_push_count_bg { background:{colors.push_count_bg} !important; }
+{/}
+{?colors.push_count_text !== 'default'}
+.quick_push_count_text { color:{colors.push_count_text} !important; }
+{/}
+{?colors.best_rank1_bg !== 'default' && colors.best_rank1_text !== 'default'}
+/* ======== BEST 페이지 랭크 ======== */
+.best_page_ranking>ul>li:nth-child(1) .item_rank {
+	background-color:{colors.best_rank1_bg} !important; /* 1위 - 배경 */
+	color:{colors.best_rank1_text} !important; /* 1위 - 텍스트 */
+}
+{/}
+{?colors.best_rank2_bg !== 'default' && colors.best_rank2_text !== 'default'}
+.best_page_ranking>ul>li:nth-child(2) .item_rank {
+	background-color:{colors.best_rank2_bg} !important; /* 2위 - 배경 */
+	color:{colors.best_rank2_text} !important; /* 2위 - 텍스트 */
+}
+{/}
+{?colors.best_rank3_bg !== 'default' && colors.best_rank3_text !== 'default'}
+.best_page_ranking>ul>li:nth-child(3) .item_rank {
+	background-color:{colors.best_rank3_bg} !important; /* 3위 - 배경 */
+	color:{colors.best_rank3_text} !important; /* 3위 - 텍스트 */
+}
+{/}
+{?colors.board_list_active_line !== 'default'}
+/* ======== 게시판 상세 - 현재글 ======== */
+.res_table>.tbody.now_list {
+	outline-color:{colors.board_list_active_line} !important; /* 라인 */
+}
+{/}
+{?colors.board_list_active_text !== 'default'}
+.res_table>.tbody.now_list .now {
+	color:{colors.board_list_active_text} !important; /* 텍스트 */
+}
+{/}
+{?colors.paging_active_line !== 'default' && colors.paging_active_text !== 'default'}
+/* ======== 페이징 - 현재 페이지 ======== */
+.paging_navigation a.red,
+.paging_navigation a.on,
+.paging_navigation_pop a.red,
+.paging_navigation_pop a.on {
+	border-color:{colors.paging_active_line} !important; /* 라인 */
+	color:{colors.paging_active_text} !important; /* 텍스트 */
+}
+{/}
+/* ======== 상세설정 컬러 지정 버튼 ========= */
+{@colors}{?.value_ !== 'default'}
+div.{.key_} { background: {.value_} }
+{/}
+{/}
+/* ====================================== //Quick Design CSS ============================================ */
+

@@ -1,0 +1,359 @@
+		<!-- 상품디스플레이 꾸미기 영역 : 시작 -->
+		<tbody class="goodsDisplayDecorationContainer">
+			<input type="hidden" name="info_settings" class="info_settings" style="border:2px solid red; width:100%;" value='{?data.info_settings}{=data.info_settings}{:}{}{/}' />
+			<input type="hidden" name="image_decoration" class="image_decoration" value="" />
+			<input type="hidden" class="image_decoration_icon_type" value="{image_decorations->image_icon_type}" />
+			<tr>
+				<th class="dsts-th" rowspan="2">
+					<p class="mb5">이미지 꾸미기</p>
+					<span class="btn small orange"><input type="button" value="안내) 상품 정보 노출" onclick="top.openDialogPopup('상품 정보 노출','goodsDisplayDescLayer',{'url':'/admin/design/display_desc_layer','width':950})" /></span>
+				</th>
+				<td  class="dsts-td left pdt10" colspan="2">
+					<div class="clearbox">
+						<label class="mr30"><input type="radio" class="decoration_type" name="image_decoration_type" value="favorite"  id="image_favorite" {?data.image_decoration_type == 'favorite'}checked{/}/> 자주쓰는 꾸미기</label>
+						<label><input type="radio" class="decoration_type" name="image_decoration_type" value="quality" id="image_quality" {?!data.image_decoration_type || data.image_decoration_type == 'quality'}checked{/}/> 고급설정 꾸미기</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="dsts-td left pdt10" width="680">
+					<div class="clearbox image_decoration_favorite decoration_favorite mt10" json="{=base64_encode(json_encode(image_favorite))}" use_key="{data.image_decoration_favorite_key}" platform="pc" favorite_type="image_decoration">
+					</div>
+					<div class="mt20">
+					</div>
+					<div class="clearbox image_decoration_quality decoration_quality mt10 ml20 {?data.image_decoration_type == 'favorite'}hide{/}" style="width:620px">
+						<!-- 테두리 -->
+						<table class="image_decoration_table fl" width="50%" height="150">
+							<tr>
+								<td height="25" valign="top">
+									<input type="checkbox" id="border_view" class="use_image_border image_decorate_chk" {?image_decorations->image_border}checked="checked"{/} /> 									
+									<select class="image_border_type image_decorate_chk" onchange="display_set_border(this);"><option value="image" {?image_decorations->image_border_type != 'all'}selected{/}>상품테두리</option><option value="all" {?image_decorations->image_border_type == 'all'}selected{/}>전체테두리</option></select>
+									<input type="text" value="{?image_decorations->image_border1}{image_decorations->image_border1}{:}#000000{/}" class="image_border1 colorpicker" />
+									<input type="text" value="{image_decorations->image_border1_width}" size="3" maxlength="2" class="image_border1_width line input-text-small onlynumber" /><label for="border_view"><span>px
+									→</span></label>
+									<input type="text" value="{?image_decorations->image_border}{image_decorations->image_border}{:}#000000{/}" class="image_border colorpicker" />
+									<input type="text" value="{image_decorations->image_border_width}" size="3" maxlength="2" class="image_border_width line input-text-small onlynumber" onchange="display_chk_border(this);" /><label for="border_view"><span>px</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top">
+									<img src="../images/design/img_effect_rollover_border.gif" class="img_effect_border_img" attr="goods"/>
+									<img src="../images/design/img_effect_rollover_border.gif" class="img_effect_border_img" attr="all"/>
+								</td>
+							</tr>
+						</table>
+						<!-- 투명도 -->
+						<table class="image_decoration_table fl" width="50%" height="150">
+							<tr>
+								<td height="25" valign="top">
+									<label><input type="checkbox" class="use_image_opacity image_decorate_chk" {?image_decorations->image_opacity}checked="checked"{/} /> <span>투명도</span>
+									<input type="text" value="{image_decorations->image_opacity}" size="4" maxlength="3" class="image_opacity line input-text-small" /><span>%</span> <span class="desc">(0%투명도없음)</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><img src="../images/design/img_effect_rollover_opacity.gif" /></td>
+							</tr>
+						</table>
+
+						<!-- 아이콘 -->
+						<table class="image_decoration_table fl" width="50%" height="130">
+							<tr valign="top">
+								<td width="15" class="pdt5">
+									<input type="checkbox" id="icon_view" class="use_image_icon image_decorate_chk" {?image_decorations->image_icon}checked="checked"{/} />
+								</td>
+								<td>
+									<div style="float:left;width:65px">
+										<input type="hidden" class="image_icon_condition" value="{image_decorations->image_icon_condition}" />
+										<input type="hidden" class="image_icon_type" value="{image_decorations->image_icon_type}" />
+										<input type="hidden" class="image_icon_condition_cnt" value="{image_decorations->image_icon_condition_cnt}" />
+										<input type="hidden" class="image_icon" value="{?image_decorations->image_icon}{image_decorations->image_icon}{:}icon_best.png{/}" />
+										{?image_decorations->image_icon}
+										<img src="/data/icon/goodsdisplay/{image_decorations->image_icon}" border="0" class="image_icon_select hand {?image_decorations->image_icon_type == 'condition'}hide{/}" align="absmiddle">
+										{:}
+										<img src="/data/icon/goodsdisplay/icon_best.png" border="0" class="image_icon_select hand {?image_decorations->image_icon_type == 'condition'}hide{/}" align="absmiddle">
+										{/}
+										<span class="image_icon_select image_icon_select_condition hand {?image_decorations->image_icon_type != 'condition'}hide{/}">아이콘</span>
+									</div>
+									<div style="float:left; width:200px">
+										<label for="icon_view">
+											<div class="icon_type_txt {? image_decorations->image_icon_type == 'condition' }hide{/}" attr="no">
+												<span>조건 없이 노출</span>
+											</div>
+											<div class="icon_type_txt {? image_decorations->image_icon_type != 'condition' }hide{/}" attr="condition">
+												<span>조건(</span><span class="icon_condition_cnt">{image_decorations->image_icon_condition_cnt}</span><span>개) 만족 시 노출</span>
+											</div>
+											<div class="mt5">
+												<select class="image_icon_location">
+													<option value="left" {?image_decorations->image_icon_location=='left'}selected="selected"{/}>좌측상단</option>
+													<option value="right" {?image_decorations->image_icon_location=='right'}selected="selected"{/}>우측상단</option>
+												</select>
+												<select class="image_icon_over">
+													<option value="n" {?image_decorations->image_icon_over=='n'}selected="selected"{/}>고정</option>
+													<option value="y" {?image_decorations->image_icon_over=='y'}selected="selected"{/}>오버 시</option>
+												</select>
+											</div>
+											<div class="mt5">
+												<span class="desc" style="color:#f6731b">이미지를 클릭하면 변경 가능</span>
+											</div>
+										</label>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<!-- 보내기/찜하기 버튼/빠른 쇼핑 버튼 -->
+						<table class="image_decoration_table fl" width="50%" height="130">
+							<tr>
+								<td valign="top" colspan="2">
+									<input type="checkbox" class="use_image_send image_decorate_chk" {?image_decorations->image_send}checked="checked"{/} />
+									<input type="hidden" class="image_send" value="{?image_decorations->image_send}{image_decorations->image_send}{:}icon_send.png{/}" />
+									{?image_decorations->image_send}
+									<img src="/data/icon/goodsdisplay/send/{image_decorations->image_send}" border="0" class="image_send_select hand" align="absmiddle">
+									{:}
+									<img src="/data/icon/goodsdisplay/send/icon_send.png" border="0" class="image_send_select hand" align="absmiddle">
+									{/}
+									<select class="image_send_location">
+										<option value="right" {?image_decorations->image_send_location=='right'}selected="selected"{/}>우측상단</option>
+										<option value="left" {?image_decorations->image_send_location=='left'}selected="selected"{/}>좌측상단</option>
+									</select>
+									<select class="image_send_over">
+										<option value="n" {?image_decorations->image_send_over=='n'}selected="selected"{/}>고정</option>
+										<option value="y" {?image_decorations->image_send_over=='y'}selected="selected"{/}>오버 시</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td  valign="top" colspan="2">
+									<input type="checkbox" id="zzim_view" class="use_image_zzim image_decorate_chk" {?image_decorations->image_zzim}checked="checked"{/} />
+									<input type="hidden" class="image_zzim" value="{?image_decorations->image_zzim}{image_decorations->image_zzim}{:}icon_zzim.png{/}" />
+									{?image_decorations->image_zzim}
+									<img src="/data/icon/goodsdisplay/zzim/{image_decorations->image_zzim}" border="0" vspace="4" class="image_zzim_select hand" align="absmiddle">
+									{:}
+									<img src="/data/icon/goodsdisplay/zzim/icon_zzim.png" border="0" vspace="4" class="image_zzim_select hand" align="absmiddle">
+									{/}
+									<input type="hidden" class="image_zzim_on" value="{?image_decorations->image_zzim_on}{image_decorations->image_zzim_on}{:}icon_zzim_on.png{/}" />
+									{?image_decorations->image_zzim_on}
+									<img src="/data/icon/goodsdisplay/zzim_on/{image_decorations->image_zzim_on}" border="0" vspace="4" class="image_zzim_on_select hand" align="absmiddle">
+									{:}
+									<img src="/data/icon/goodsdisplay/zzim_on/icon_zzim_on.png" border="0" vspace="4" class="image_zzim_on_select hand" align="absmiddle">
+									{/}
+									<label for="zzim_view"><span class="desc" style="color:#f6731b">이미지를 클릭하면 변경 가능</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td width="15" valign="top">
+									<input type="checkbox" id="quick_view" class="use_quick_shopping image_decorate_chk" {?image_decorations->quick_shopping}checked="checked"{/} />
+									<input type="hidden" name="quick_shopping" value="{?image_decorations->quick_shopping}{image_decorations->quick_shopping}{:}['newwin','quickview','send','zzim']{/}" />
+								</td>
+								<td valign="top">
+									<table class="quick_shopping_container" style="width:150px; margin-bottom:3px;"><tr></tr></table>
+									<div class="mt5">
+										<label for="quick_view"><span class="desc" style="color:#f6731b">이미지를 클릭하면 변경 가능</span></label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">&nbsp;</td>
+							</tr>
+						</table>
+
+						<!-- 이미지 확대 효과 -->
+						<table class="image_decoration_table fl" width="50%" height="150">
+							<tr>
+								<td height="20" valign="top">
+									<label><input type="checkbox" class="use_image_zoom image_decorate_chk" {?image_decorations->use_image_zoom}checked="checked"{/} />
+									<span>이미지 확대 효과</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><img src="../images/design/img_effect_rollover_zoom.gif" /></td>
+							</tr>
+						</table>
+						<!-- 이미지 입체 효과 -->
+						<table class="image_decoration_table fl" width="50%" height="150">
+							<tr>
+								<td valign="top">
+									<label><input type="checkbox" class="use_image_3d image_decorate_chk" {?image_decorations->use_image_3d}checked="checked"{/} />
+									<span>상품영역 입체 효과</span></label><br />
+									<img src="../images/design/img_effect_rollover_3d.gif" />
+								</td>
+							</tr>
+						</table>
+
+						<!-- 미리보기,옵션보기,관심상품 버튼 -->
+						<table class="image_decoration_table fl" width="50%" height="145">
+							<tr>
+								<td height="20" valign="top">
+									<label><input type="checkbox" class="use_review_option_like image_decorate_chk" {?image_decorations->use_review_option_like}checked="checked"{/} />
+									<span>미리보기/옵션보기/SNS보내기/찜하기</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><img src="../images/design/img_effect_rollover_review.gif" /></td>
+							</tr>
+						</table>
+						<!-- 상품 후면컷 버튼 -->
+						<table class="image_decoration_table fl" width="50%" height="145">
+							<tr>
+								<td height="20" valign="top">
+									<label><input type="checkbox" class="use_seconde_image image_decorate_chk" {?image_decorations->use_seconde_image}checked="checked"{/} />
+									<span>첫번째 컷 → 두번째 컷</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><img src="../images/design/img_effect_rollover_2cut.gif" /></td>
+							</tr>
+						</table>
+
+						<!-- 오버레이 -->
+						<table class="image_decoration_table fl" width="50%" height="150">
+							<tr>
+								<td height="32">
+									<input type="checkbox" class="use_image_overay image_decorate_chk" {?image_decorations->image_overay1 || image_decorations->image_overay1_text || image_decorations->image_overay2 || image_decorations->image_overay2_text || image_decorations->image_overay_plus1 || image_decorations->image_overay_plus2}checked="checked"{/} />&nbsp;
+									<label class="mr10"><input type="radio" name="image_overay_type" class="image_overay_type" value="" {?image_decorations->image_overay_type != 'all'}checked{/}/> <span>이미지 하단</span></label>
+									<label><input type="radio" name="image_overay_type" class="image_overay_type" value="all" {?image_decorations->image_overay_type == 'all'}checked{/}/> <span>이미지 전체</span></label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="../images/design/img_effect_rollover_text.gif" class="img_effect_rollover {?image_decorations->image_overay_type == 'all'}hide{/}" attr="bottom"/>
+									<img src="../images/design/img_effect_rollover_text_all.gif" class="img_effect_rollover {?image_decorations->image_overay_type != 'all'}hide{/}" attr="all"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="pdt10">
+									<div class="overay_bottom">
+										<span class="overay_btn" onclick="overay_set_open('image_overay_plus1')">설정</span>
+										<input type="hidden" class="image_overay1" before_value="{image_decorations->image_overay1}"/>
+										<input type="hidden" class="image_overay1_text" before_value="{image_decorations->image_overay1_text}"/>
+										<input type="hidden" class="image_overay_plus1" value="{image_decorations->image_overay_plus1}"/>
+										<input type="hidden" class="image_overay_plus1_main" value="{image_decorations->image_overay_plus1_main}"/>
+										<input type="hidden" class="image_overay_plus1_title" value="{image_decorations->image_overay_plus1_title}"/>
+										<ul class="mt10">
+											{?image_decorations->image_overay1_text}
+											<li>직접입력</li>
+											{:image_decorations->image_overay1}
+											{?image_decorations->image_overay1=='brand_title'}
+											<li>브랜드명</li>
+											{:image_decorations->image_overay1=='goods_name'}
+											<li>상품명</li>
+											{:image_decorations->image_overay1=='consumer_price'}
+											<li>정가</li>
+											{:image_decorations->image_overay1=='price'}
+											<li>판매가</li>
+											{:image_decorations->image_overay1=='sale_price'}
+											<li>(혜택적용)판매가</li>
+											{:image_decorations->image_overay1=='count'}
+											<li>판매수량,남은시간</li>
+											{:image_decorations->image_overay1=='event_text'}
+											<li>이벤트내용</li>
+											{:image_decorations->image_overay1=='discount'}
+											<li>정가→판매가</li>
+											{:image_decorations->image_overay1=='sale_discount'}
+											<li>정가→(혜택적용)판매가</li>
+											{:image_decorations->image_overay1=='related_goods'}
+											<li>관련상품보기</li>
+											{/}
+											{:image_decorations->image_overay_plus1_title}
+											{=base64_decode(image_decorations->image_overay_plus1_title)}
+											{/}
+										</ul>
+									</div>
+									<div class="overay_all">
+										<span class="overay_btn" onclick="overay_set_open('image_overay_plus2')">설정</span>
+										<input type="hidden" class="image_overay2" before_value="{image_decorations->image_overay2}"/>
+										<input type="hidden" class="image_overay2_text" before_value="{image_decorations->image_overay2_text}"/>
+										<input type="hidden" class="image_overay_plus2" value="{image_decorations->image_overay_plus2}"/>
+										<input type="hidden" class="image_overay_plus2_main" value="{image_decorations->image_overay_plus2_main}"/>
+										<input type="hidden" class="image_overay_plus2_title" value="{image_decorations->image_overay_plus2_title}"/>
+										<ul class="mt10">
+											{?image_decorations->image_overay2_text}
+											<li>직접입력</li>
+											{:image_decorations->image_overay2}
+											{?image_decorations->image_overay2=='brand_title'}
+											<li>브랜드명</li>
+											{:image_decorations->image_overay2=='goods_name'}
+											<li>상품명</li>
+											{:image_decorations->image_overay2=='consumer_price'}
+											<li>정가</li>
+											{:image_decorations->image_overay2=='price'}
+											<li>판매가</li>
+											{:image_decorations->image_overay2=='sale_price'}
+											<li>(혜택적용)판매가</li>
+											{:image_decorations->image_overay2=='count'}
+											<li>판매수량,남은시간</li>
+											{:image_decorations->image_overay2=='event_text'}
+											<li>이벤트내용</li>
+											{:image_decorations->image_overay2=='discount'}
+											<li>정가→판매가</li>
+											{:image_decorations->image_overay2=='sale_discount'}
+											<li>정가→(혜택적용)판매가</li>
+											{:image_decorations->image_overay2=='related_goods'}
+											<li>관련상품보기</li>
+											{/}
+											{:image_decorations->image_overay_plus2_title}
+											{=base64_decode(image_decorations->image_overay_plus2_title)}
+											{/}
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<!-- 이미지더보기 버튼 -->
+						<table class="image_decoration_table fl" width="50%" height="150">
+							<tr>
+								<td valign="top">
+									<input type="checkbox" id="more_view" class="use_image_slide image_decorate_chk" {?image_decorations->image_slide}checked="checked"{/} />
+									<input type="hidden" class="image_slide" value="{?image_decorations->image_slide}{image_decorations->image_slide}{:}icon_slide.png{/}" />
+									{?image_decorations->image_slide}
+									<img src="/data/icon/goodsdisplay/slide/{image_decorations->image_slide}" border="0" class="image_slide_select hand" align="absmiddle">
+									{:}
+									<img src="/data/icon/goodsdisplay/slide/icon_slide.png" border="0" class="image_slide_select hand" align="absmiddle">
+									{/}
+									<label for="more_view"><span>더 많은 이미지를</span>
+									<select class="image_slide_type">
+										<option value="bottom" {?image_decorations->image_slide_type=='bottom'}selected="selected"{/}>가로형</option>
+										<option value="right" {?image_decorations->image_slide_type=='right'}selected="selected"{/}>세로형</option>
+									</select>
+									<span>보기</span></label><br />
+									<img src="../images/design/img_effect_rollover_h.gif" class="image_slide_sample_bottom" />
+									<img src="../images/design/img_effect_rollover_v.gif" class="image_slide_sample_right hide" />
+								</td>
+							</tr>
+						</table>
+						 <table class="image_decoration_table fl" width="100%" >
+                            <tr>
+								<td>
+									<div class="center pdr30">
+										<span class="btn small cyanblue favorite_btn center"><input type="button" value="자주쓰는 꾸미기로 등록" onclick="open_decoration_save(this, 'pc', 'image_decoration')"></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+				<td class="dsts-td">
+					<table class="goodsDisplayImageTable" width="220" align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+						<tr>
+							<td valign="top" class="pd10">
+								<div class="goodsDisplayItemWrap">
+									<div class="goodsDisplayImageWrap" goodsInfo="{=base64_encode(json_encode(sampleGoodsInfo))}" version="display_edit">
+										<a href="javascript:;">
+											<img src="../images/design/img_effect_sample.gif" class="goodsDisplayImage" width="100%" designElement />
+											<div class="goodsDisplayBottomFuncWrap">
+												<div class="goodsDisplayBottomFunc">
+													<div class="display_newwin hide" onclick="alert('새창보기');"><img src='/data/icon/goodsdisplay/preview/thumb_newwin.png' alt="새창보기" /></div>
+													<div class="display_quickview" onclick="alert('미리보기');"><img src='/data/icon/goodsdisplay/preview/thumb_quickview.png' alt="미리보기" /></div>
+													<div class="display_option" onclick="display_goods_show_opt(this,1)" goods_seq="{displayGoods.goods_seq}"><img src='/data/icon/goodsdisplay/preview/thumb_option.png' alt="옵션보기" /><div class="hide display_opt_bak"></div></div>
+													<div class="display_send" onclick="display_goods_send(this,'bottom')"><img src='/data/icon/goodsdisplay/preview/thumb_send.png' alt="SNS보내기" /></div>
+													<div class="display_zzim" onclick="alert('찜하기');" {?displayGoods.wish=='1'}act="stay"{/}><img src='/data/icon/goodsdisplay/preview/thumb_zzim_off.png' class='zzimOffImg' {?displayGoods.wish=='1'}style="display:none"{/} alt="찜하기" /><img src='/data/icon/goodsdisplay/preview/thumb_zzim_on.png' class='zzimOnImg' {?displayGoods.wish!='1'}style="display:none"{/} alt="찜하기"/></div>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div class="pd20 center">상품정보 영역</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>

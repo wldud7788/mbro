@@ -1,0 +1,92 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "판매자 미니샵" 페이지 @@
+- 파일위치 : [스킨폴더]/mshop/index.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<script type="text/javascript">
+var gl_skin = '{skin}';
+</script>
+<script type="text/javascript" src='../common/minishop.js'></script>
+
+<div id="itemstmplayer" class="hide"></div>
+
+<div id="mshop_page">
+	<div class="search_nav">
+		<a class="home" href="/main/index">홈</a>
+		<span class="navi_linemap">
+			<span designElement="text">미니샵</span>&nbsp;
+			<select name="navi_{.index_}" onchange="location.href='/mshop/?m='+this.value;">
+			<!--{ @ showMyMinishopLight() }-->
+				<!--{ ? aProvider.provider_seq == .provider_seq }-->
+				<option value="{.provider_seq}" selected>{.provider_name}</option>
+				<!--{ : }-->
+				<option value="{.provider_seq}">{.provider_name}</option>
+				<!--{ / }-->
+			<!--{ / }-->
+			</select>
+		</span>
+	</div>
+
+	<!-- 타이틀 -->
+	<div id="mshoptitle" class="resp_mshop_top">
+		<ul class="resp_mshop_section">
+			<li class="name">
+				<!--{ ? aProvider.info_name }-->
+				<h3 class="title"><a href="?m={aProvider.provider_seq}" >{aProvider.info_name}</a></h3>
+				<!--{ : }-->
+				<h3 class="title"><span designElement="text">MINISHOP</span></h3>
+				<!--{ / }-->
+				<div class="info">
+					<span class="point">{aProvider.provider_name}</span> &nbsp; <span class="gray_07">|</span> &nbsp;
+					<span designElement="text">단골</span> <span class="point">{aProvider.cnt}</span>
+				</div>
+				<!--{ ? aProvider.minishop_introdution }-->
+				<div class="descr">{aProvider.minishop_introdution}</div>
+				<!--{ / }-->
+			</li>
+			<li class="sns">
+				<button class="reg_minishop { ? aProvider.thisshop == 'y' }on{ / }" data-shop='{aProvider.provider_seq}' onclick="mshopadd(this, '{member_seq}');"><span designElement="text">찜</span></button>
+				<a href="javascript:void(0)" class="btn_sns_share" onclick="snsLink();"><span designElement="text">공유</span></a>
+				<div class="snsbox_area" style="display:none;">
+					{=snslinkurl('event', providerinfo.provider_name)}
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 즐겨찾기 레이어 -->
+	<div id="myshop_favorite_alert" class="myshop_favorite_alert">
+		<div class="cfa_on"></div>
+		<div class="cfa_off"></div>
+		<div class="cfa_msg"></div>
+	</div>
+
+	<!-- ------- 추천상품( 추천상품 디스플레이 편집 : EYE-design을 켜고 클릭하여 수정 ) ------- -->
+	<!-- 상품디스플레이 파일들 폴더 위치 : /data/design/ ( ※ /data 폴더는 /skin 폴더 상위 폴더입니다. ) -->
+	{= providerRecommendGoodsList}
+	<!-- ------- //추천상품 ------- -->
+
+	<!-- ------- 검색필터, 상품정렬( 파일위치 : [스킨폴더]/goods/_search_form_light.html ) ------- -->
+	{=showGoodsSearchFormLight()}
+	<!-- ------- //검색필터, 상품정렬 ------- -->
+
+	<!-- ------- 상품 영역( data-displaytype : "lattice", "list" ), 파일위치 : [스킨폴더]/goods/search_list_template.html ------- -->
+	<div id="searchedItemDisplay" class="searched_item_display" data-displaytype="lattice"></div>
+	<!-- ------- //상품 영역 ------- -->
+</div>
+
+<div id="wish_alert">
+	<div class="wa_on"></div>
+	<div class="wa_off"></div>
+	<div class="wa_msg"></div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	// 검색 페이지 -> 디폴트 검색박스 open
+	$('#searchModule #searchVer2').show();
+
+	// 컬러 필터 - 255, 255, 255 --> border
+	colorFilter_white( '#searchFilterSelected .color_type' );
+});
+</script>

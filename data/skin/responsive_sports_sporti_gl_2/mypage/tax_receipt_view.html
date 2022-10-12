@@ -1,0 +1,52 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 세금계산서 발급정보 @@
+- 파일위치 : [스킨폴더]/mypage/tax_receipt_view.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="mypage_wrap">
+	<div style="padding-bottom:10px;">
+	이메일을 통해 발급된 세금계산서를 확인할 수 있습니다.<br/>
+	발급정보는 아래와 같습니다.
+	</div>
+	<table class="list_table_style" width="100%" border="0" cellpadding="0" cellspacing="0">
+		<colgroup>
+			<col width="20%" /><col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>상호명</td>
+				<td>{tax_receipt_row.co_name}</td>
+			</tr>
+			<tr>
+				<td>대표자</td>
+				<td>{tax_receipt_row.co_ceo}</td>
+			</tr>
+			<tr>
+				<td>업태/업종</td>
+				<td>{tax_receipt_row.co_status} / {tax_receipt_row.co_type}</td>
+			</tr>
+			<tr>
+				<td>사업자번호</td>
+				<td>{tax_receipt_row.busi_no}</td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td>
+					({tax_receipt_row.zipcode}) {? tax_receipt_row.address_type=='street'}{tax_receipt_row.address_street}{:}{tax_receipt_row.address}{/}<br/>{tax_receipt_row.address_detail}
+				</td>
+			</tr>
+			<tr>
+				<td>담당자</td>
+				<td>{tax_receipt_row.person}</td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td>{tax_receipt_row.email}</td>
+			</tr>
+			<tr>
+				<td>연락처</td>
+				<td>{tax_receipt_row.phone}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

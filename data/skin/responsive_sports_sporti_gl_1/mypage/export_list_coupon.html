@@ -1,0 +1,142 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 티켓 사용/내역 @@
+- 파일위치 : [스킨폴더]/mypage/export_list_coupon.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">티켓 사용/내역</span></h2>
+		</div>
+
+		<div class="res_table">
+			<ul class="thead">
+				<li>상품</li>
+				<li style="width:70px;">주문수량</li>
+				<li style="width:90px;">발송수량</li>
+				<li style="width:90px;">상품후기</li>
+				<li style="width:180px;">발송정보</li>
+			</ul>
+			<!--{ @ export }-->
+			<ul class="tbody">
+				<li class="subject">
+					<ul class="board_goods_list">
+						<li class="pic">
+							<img src="{.items[0].image}" onerror="this.src='../images/common/noimage_list.gif'" alt="" />
+						</li>
+						<li class="info">
+							<div class="title">{ .items[0].goods_name }</div>
+							<div class="cont3">{ .items[0].social_start_date } ~ { .items[0].social_end_date }</div>
+							<!--{?.items[0].option1}-->
+							<div class="cont3">
+								<!--{?.items[0].option1 }--><span class="res_option_inline"><!--{?.items[0].title1}--><span class="xtle">{.items[0].title1}</span><!--{ / }-->{.items[0].option1}</span><!--{ / }-->
+								<!--{?.items[0].option2 }--><span class="res_option_inline"><!--{?.items[0].title2}--><span class="xtle">{.items[0].title2}</span><!--{ / }-->{.items[0].option2}</span><!--{ / }-->
+								<!--{?.items[0].option3 }--><span class="res_option_inline"><!--{?.items[0].title3}--><span class="xtle">{.items[0].title3}</span><!--{ / }-->{.items[0].option3}</span><!--{ / }-->
+								<!--{?.items[0].option4 }--><span class="res_option_inline"><!--{?.items[0].title4}--><span class="xtle">{.items[0].title4}</span><!--{ / }-->{.items[0].option4}</span><!--{ / }-->
+								<!--{?.items[0].option5 }--><span class="res_option_inline"><!--{?.items[0].title5}--><span class="xtle">{.items[0].title5}</span><!--{ / }-->{.items[0].option5}</span><!--{ / }-->
+							</div>
+							<!--{ / }-->
+						</li>
+					</ul>
+				</li>
+				<li><span class="mtitle">주문:</span> {.items[0].opt_ea}</li>
+				<li class="mo_end">
+					<span class="mtitle">발송:</span> {.ea}
+					<div class="m_dib">({=number_format(.coupon_use_value)}{?.items[0].coupon_value_type=='pass'}회{:}원{/}/{=number_format(.coupon_input)}{?.items[0].coupon_value_type=='pass'}회{:}원{/})</div>
+				</li>
+				<li>
+					<button class="btn_resp res_board_boxad2" onclick="goods_review_write('{.items[0].goods_seq}','{.order_seq}');">상품후기</button>
+				</li>
+				<li class="besong_group2 left" >
+					<div class="rcont">
+						<!--{ ? .provider_name }-->
+						<span class="gray_06">[{ .provider_name }]</span>
+						<!--{ / }-->
+						<div class="Dib">{ .export_date } 발송</div>
+						<div>[{ .mstatus_arr[0] } (<span class="red">{ .mstatus_arr[1] }</span>)]</div>
+						<div>{ .items[0].recipient_cellphone }</div>
+						<div>{ .items[0].recipient_email }</div>
+						<div class="btn_area_mx1">
+							<button type="button" class="btn_resp" onclick="coupon_history('{.export_code}','{.items[0].coupon_serial}');">사용내역</button>
+							<!--{ ? .coupon_check_use['result'] == 'success' }-->
+							<button type="button" class="btn_resp color2" onclick="coupon_use('{.export_code}','{.items[0].coupon_serial}');">티켓사용</button>
+							<!--{ : }-->
+							[티켓사용]
+							<!--{ / }-->
+						</div>
+					</div>
+				</li>
+			</ul>
+			<!--{ / }-->
+		</div>
+
+		<div class="btn_area_c">
+			<a href="/mypage/order_catalog" class="btn_resp size_c color5">주문/배송 내역</a>
+		</div>
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+<div id="coupon_use_lay" class="resp_layer_pop hide">
+	<h4 class="title">티켓 사용 내역</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5"></div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<script type="text/javascript">
+// 쿠폰 사용내역 조회
+function coupon_history(exportCode,serial){
+	$("#coupon_use_lay .layer_pop_contents").html('');
+	$.ajax({
+		type: "get",
+		url: "./coupon_view?code="+exportCode+"&scode="+serial+"&popup=1",
+		data: "code="+exportCode,
+		success: function(result){
+			if	(result.search(/error\:/) != -1){
+				openDialogAlert(result.replace('error:', ''), 400, 150);
+			}else{
+				$("#coupon_use_lay .layer_pop_contents").html(result);
+				showCenterLayer('#coupon_use_lay');
+				//openDialog('티켓 사용내역 - <span class="desc" style="color:#0083a9" >'+serial+'</span>', "#coupon_use_lay", {"width":"500","height":"550"});
+			}
+		}
+	});
+}
+// 쿠폰 사용하기
+function coupon_use(exportCode,serial){
+	if ( window.innerWidth > 767 ) {
+		window.open("./coupon_use?code="+exportCode+"&scode="+serial+"&popup=1",'coupon_use', 'width=500, height=600, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=yes, scrollbar=yes');
+	} else {
+		window.open("./coupon_use?code="+exportCode+"&scode="+serial+"&popup=1", "_blank");
+	}
+}
+
+function goods_review_write(goodsseq,order_seq){
+	if(goodsseq){
+		{ ? defined('__ISUSER__') }
+			window.open( '/mypage/mygdreview_write?goods_seq='+goodsseq+'&order_seq='+order_seq);
+		{:}
+			window.open('/board/write?id=goods_review&goods_seq='+goodsseq+'&order_seq='+order_seq);
+		{/} 
+	}
+}
+</script>
+

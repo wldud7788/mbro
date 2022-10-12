@@ -1,0 +1,259 @@
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/goods-display.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		{? !chkBigdata }
+		openDialog('업그레이드 안내', 'nostorfreeServiceBigdata', {"width":"80%","show" : "fade","hide" : "fade","noClose":"true"});
+		{/}
+		
+		// 구분 변경
+		$("select.tkind").change(function(){
+			var kind	= $(this).closest("div.set-bigdata-lay").attr('kindName');
+			$("span."+kind+"-title-text").html($(this).find('option:selected').html());
+		}).change();
+
+		// 저장
+		$("button.submit-form").click(function(){
+			if	(!$(this).closest('span').hasClass('btn-disable'))
+				$("form#bigdataFrm").submit();
+		});
+
+		$("button.bigdataCriteriaButton").live("click",function(){
+			var displayResultId = $(this).attr('dp_id');
+			var criteria = $("#"+displayResultId).val();
+			var kind = $(this).attr('kind');
+			open_criteria_condition(displayResultId,'',criteria,kind);
+		});
+
+		if(typeof batchModify == 'undefined') {
+			batchModify = false;
+		}
+		setCriteriaDescription_bigdata('goodsview');
+
+		$("#bigdata_test_btn").on("click", function() {
+			bigdata_test();
+		});
+	});	
+
+	function bigdata_test() {
+		if($("#bigdataCriteria").val() == ''){
+			alert('설정된 조건이 없습니다.');
+			return false;
+		}
+		if($("#goods_seq").val() == '') {
+			alert('상품 번호를 입력해주세요.');
+			$("#goods_seq").focus();
+			return false;
+		}
+
+		bigdata_display_show(0,'test');
+	}
+
+	function bigdata_display_show(idx,mode) {	
+
+		var goods_seq		= $("#goods_seq").val();
+		var condition		= $("#bigdataCriteria").val();
+
+		if(typeof mode == 'undefined') mode = '';
+
+		condition_arr 	= condition.split('Φ');
+
+		if(mode == 'test'){
+			$(".tabEvent > li").remove();
+		}
+		var criteria_str_arr = new Array();
+		$.each( condition_arr , function(e,v) {
+
+			var criteria_arr = v.split('∀');
+			criteria_str_arr[e] = criteria_arr[0];
+
+			if(mode == 'test'){
+
+				var seq = e+1;
+				var li = $('<li><a href="javascript:void(0);" data-showcontent="tabCon1" onClick="bigdata_display_show(\''+e+'\')" class="current">조건</a></li>');
+				if(e > 0) {
+					li.find('a').removeClass('current');
+				}
+				li.find('a').attr("data-showcontent", "tabCon"+(seq));
+				li.find('a').html('조건'+(seq));
+
+				$(".tabEvent").append(li);
+			}
+		});
+		if(mode == 'test'){
+			addtabEvent();
+		}
+
+		bigdata_test_show('bigdata_'+criteria_str_arr[idx], condition_arr[idx], goods_seq,'tab');
+	}
+
+	function open_criteria_condition(displayResultId,auto_condition_use_id,criteria,kind){
+		openDialog("추천 상품 조건선택", "#displayGoodsSelectPopup", {"width":"700","show" : "fade","hide" : "fade"});
+		set_goods_list_auto("displayGoodsSelect",displayResultId,criteria,auto_condition_use_id,kind);
+	};
+
+	function set_goods_list_auto(displayId,inputGoods,criteria,auto_condition_use_id,kind){
+		$.ajax({
+			type: "get",
+			url: "../goods/select_auto",
+			data: "inputGoods="+inputGoods+"&displayKind="+kind+"&displayId="+displayId+"&criteria="+encodeURIComponent(criteria),
+			success: function(result){
+				$("div#"+displayId).html(result);
+				$("#"+displayId+"Popup").show();
+			}
+		});
+	}
+</script>
+
+<div class="contents_dvs">
+	<div class="item-title">추천 상품</div>
+	<table class="table_basic thl">
+		<!-- 리스트 : 시작 -->
+		<tbody class="ltb">
+			<!--
+			<tr>
+				<th>주소</th>
+				<td class="its-td">
+					<span class="link_url">{=data.link_url}</span>
+				</td>
+			</tr>
+			-->
+			<tr>
+				<th>조건</th>
+				<td class="its-td">				
+					<div id="condition_change_option"></div><!-- 상세 조건 선택용(공통) -->
+					<div id="bigdataGoodsAutoContainer" class="bigdataGoodsContainer">					
+						<div class="clearbox">
+							<button type="button" class="bigdataCriteriaButton displayCriteriaType resp_btn v2" dp_id='bigdataCriteria' kind='bigdata_catalog' auto_type="bigdata">조건 설정</button>
+						</div>					
+						<input type='hidden' class="displayCriteria displayLayout" value="" />
+						<input type='hidden' class="displayCriteriaBigdata bigdataCriteria condition" id="bigdataCriteria" name='condition' value="{data.condition}" />
+						<table class="table_basic thl mt10 wx400">
+							<colgroup>
+								<col width="20%" />
+								<col width="80%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>순위</th>
+									<th>조건</th>
+								</tr>
+							</thead>
+							<tbody class="displayCriteriaBigdataDesc">
+								<tr>
+									<td colspan="2" class="center">
+										<div class="nothing">설정된 조건이 없습니다.</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>결과 테스트
+					<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/page_manager', '#bigdatatest', 'sizeS')"></span>
+				</th>
+				<td class="its-td">
+					<input type="text" id="goods_seq" placeholder="상품번호" class="resp_text onlynumber"> <button type="button" class="resp_btn" id="bigdata_test_btn">보기</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!--{? config_system.operation_type == 'light'}-->
+<div class="contents_dvs">
+	<div class="item-title">상세 페이지</div>
+	<table class="table_basic thl">
+		<!-- 리스트 : 시작 -->
+		<tbody class="ltb">
+			<tr>
+				<th>배너</th>
+				<td class="its-td">
+					{ #bannerlist}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					상품 정보
+					<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/page_manager', '#goodsInfoStyle', 'sizeS')"></span>
+				</th>
+				<td class="its-td">
+					{#goods_info_style}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<div class="mb10">이미지 사이즈</div>
+				</th>
+				<td>
+					<select name="goods_info_image">
+				<!--{ @ config_load('goodsImageSize') }-->
+					<!--{ ? data.goods_info_image == .key_ }-->
+						<option value="{.key_}" selected>{.value_.name}</option>
+					<!--{ : }-->
+						<option value="{.key_}">{.value_.name}</option>
+					<!--{ / }-->
+				<!--{ / }-->
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<!--{/}-->
+
+<div id="displayGoodsSelectPopup">
+	<div id="displayGoodsSelect"></div>
+</div>
+
+<div id="bigdata_test" class="hide table_basic">
+	<ul class="tab_01 tabEvent ">
+		
+	</ul>
+	<div class="content">
+		<div class="goods_list_header">
+		<table class="table_basic tdc ">
+			<colgroup>
+				<!--{ ? serviceLimit('H_AD') }-->
+				<col width="25%" />
+				<col width="45%" />
+				<!--{ : }-->
+				<col width="70%" />
+				<!--{ / }-->
+				<col width="30%" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<!--{ ? serviceLimit('H_AD') }-->
+					<th>입점사명</th>
+					<!--{ / }-->
+					<th>상품명</th>
+					<th>판매가</th>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="goods_list long" style="border:1px solid #ccc;">
+			<table class="table_basic" style="border:0px">
+				<colgroup>
+					<!--{ ? serviceLimit('H_AD') }-->
+					<col width="25%" />
+					<col width="45%" />
+					<!--{ : }-->
+					<col width="70%" />
+					<!--{ / }-->
+					<col width="30%" />
+				</colgroup>
+				<tbody>
+					
+				</tbody>
+			</table>	
+		</div>
+	</div>
+	<div class="footer">
+		<button class="resp_btn v3 size_XL" onClick="closeDialog('bigdata_test')">닫기</button>
+	</div>
+</div>

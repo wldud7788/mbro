@@ -1,0 +1,107 @@
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$("button[type='submit'").on("click",function(){
+		$("form[name='navigationSettingForm']").submit();
+	});
+	search_use();
+	$("input[name='search_use']").on('click', function(){search_use()});
+});
+function search_use() {
+	if($("input[name='search_use'][value='N']").is(":checked")) {
+		$(".search_use_layout").hide();
+	} else {
+		$(".search_use_layout").show();
+	}
+}
+</script>
+
+<div class="content">
+
+	<form name="navigationSettingForm" id="navigationSettingForm" method="post" target="actionFrame" action="../page_manager_process/extra_{=page_tab}_setting" class="hx100">
+		<input type="hidden" name="page_type" value="{=page_type}" />
+		<input type="hidden" name="page_tab" value="{=page_tab}" />
+	<table width="100%" class="table_basic">
+	<col width="160" />
+	<tr>
+		<th>검색 필터 사용 여부</th>
+		<td><div class='resp_radio'>
+			<label><input type="radio" name="search_use" id="search_use" value="Y" {? !navigation_use || navigation_use == 'Y'}checked{/} /> 사용</label>
+			<label><input type="radio" name="search_use" id="search_use" value="N" {? navigation_use == 'N'}checked{/} /> 사용 안 함</label>
+		</div>
+		</td>
+	</tr>
+	<tr class="search_use_layout">
+		<th>네비게이션의<br />해당 카테고리</th>
+		<td>
+			<div class="pd5"></div>
+
+			<div><label class='resp_radio'><input type="radio" name="navigation_depth" value="single" {? navigation_type == 'single'}checked="checked"{/}/> 현재 차수의 다음 차수만 보여줌. 단, 하위가 없을 경우 현재 차수를 보여줌</label></div>
+			<table border="0" cellpadding="0" cellspacing="5">
+			<tr>
+				<td class="center">
+					<img src="../images/design/img_category_1_2.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_single_w[]" value="{= navigation_count_single[0]}" size="2" maxlength="2" />개
+				</td>
+				<td width="20"></td>
+				<td class="center">
+					<img src="../images/design/img_category_2_3.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_single_w[]" value="{= navigation_count_single[1]}" size="2" maxlength="2" />개
+				</td>
+				<td width="20"></td>
+				<td class="center">
+					<img src="../images/design/img_category_3_4.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_single_w[]" value="{= navigation_count_single[2]}" size="2" maxlength="2" />개
+				</td>
+				<td width="20"></td>
+				<td class="center">
+					<img src="../images/design/img_category_4_4.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_single_w[]" value="{= navigation_count_single[3]}" size="2" maxlength="2" />개
+				</td>
+			</tr>
+			</table>
+
+			<div class="pd10"></div>
+
+			<div><label class='resp_radio'><input type="radio" name="navigation_depth" value="double" {? navigation_type == 'double'}checked="checked"{/}/> 현재 차수의 다음 차수와 다다음 차수를 보여줌. 단, 하위가 없을 경우 현재 차수를 보여줌</label></div>
+			<table border="0" cellpadding="0" cellspacing="5">
+			<tr>
+				<td class="center">
+					<img src="../images/design/img_category_1_2_3.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_double_w[]" value="{= navigation_count_double[0]}" size="2" maxlength="2" />개
+				</td>
+				<td width="20"></td>
+				<td class="center">
+					<img src="../images/design/img_category_2_3_4.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_double_w[]" value="{= navigation_count_double[1]}" size="2" maxlength="2" />개
+				</td>
+				<td width="20"></td>
+				<td class="center">
+					<img src="../images/design/img_category_3_4.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_double_w[]" value="{= navigation_count_double[2]}" size="2" maxlength="2" />개
+				</td>
+				<td width="20"></td>
+				<td class="center">
+					<img src="../images/design/img_category_4_4.gif" vspace="5" /><br />
+					가로 <input type="text" name="navigation_double_w[]" value="{= navigation_count_double[3]}" size="2" maxlength="2" />개
+				</td>
+			</tr>
+			</table>
+
+			<div class="pd10"></div>
+		</td>
+	</tr>
+	<tr class="search_use_layout">
+		<th>네비게이션에서<br />해당 카테고리의<br />브랜드</th>
+		<td>
+			가로 <input type="text" name="naviation_sub_w" value="{= naviation_sub_w}" class='resp_text' size="2" maxlength="2" /> 개
+		</td>
+	</tr>
+	</table>
+</form>
+</div>
+
+<div class="footer">
+	<button type="submit" class="resp_btn active size_XL">저장</button>
+	<button type="button" class="btnLayClose resp_btn size_XL v3" onClick="closeDialog('setCtrlLayer');">취소</button>
+</div>

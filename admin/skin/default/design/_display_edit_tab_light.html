@@ -1,0 +1,40 @@
+		<tr class="tab_area">
+			<th class="dsts-th">
+				탭 <span class="btn small cyanblue"><button type="button" id="btnDisplayTabPopup">만들기/수정</button></span>
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<div class="displayTabContainer"></div>
+				<div id="displayTabMakePopup" class="displayTabMakePopup pc_tab_popup">
+					<input type="radio" class="hide" name="popup_tab_design_type" value="displayTabType1" checked/>
+					<div class="displayTabMakePopupInner">
+
+						<ul class="displayTabKindWrap hide">
+							<input type="radio" name="popup_tab_design_kind" value="text" checked/>
+						</ul>
+
+						<div class="displayTabKindWrapText">
+							<div class="displayTabDivisionLine" style="border-top:0;">
+								<b>탭 명칭</b>
+								<div class="displayTabList">
+									<!--{ ? display_tabs }-->
+										<!--{ @ display_tabs }-->
+										<div class="displayTabMakeInputs">
+											<input type="text" name="popup_tab_title[]" value="{.tab_title}" size="35" maxlength="15" /> <img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="pc" /><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="pc"/>
+										</div>
+										<!--{ / }-->
+									<!--{ :}-->
+										<div class="displayTabMakeInputs">
+											<input type="text" name="popup_tab_title[]" value="" size="35" maxlength="15" /> <img src="../images/design/icon_design_plus.gif" align="absmiddle" class="tabPlusBtn" attr="pc"/><img src="../images/design/icon_design_minus.gif" align="absmiddle" class="tabMinusBtn" attr="pc"/>
+										</div>
+									<!--{ / }-->
+								</div>
+							</div>
+						</div>
+
+						<div class="pdt20 center">
+							<span class="btn small cyanblue"><button type="button" onclick="closeDialog('displayTabMakePopup')">확인</button></span>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>

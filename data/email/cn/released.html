@@ -1,0 +1,329 @@
+<table align="center" width="696" border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<tr>
+			<td style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><img src="/data/email/cn/img/logo.gif"></td>
+		</tr>
+		<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<tr><td height="2" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;" bgcolor="#000000"></td></tr>
+		<tr><td height="60" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<!-- 내용시작 -->
+		<tr>
+			<td style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><img src="/data/email/cn/img/txt_delivery.gif"></td>
+		</tr>
+		<tr><td height="35" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+		<tr><td class="texts" style="color: rgb(97, 106, 116); line-height: 22px; padding-left: 10px; font-family: 돋움, Dotum; font-size: 12px;">您的订单已运出。</td></tr>
+		<tr><td class="texts" style="color: rgb(97, 106, 116); line-height: 22px; padding-left: 10px; font-family: 돋움, Dotum; font-size: 12px;">您可以查看退款记录我的账户。</td></tr>
+		<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	</tbody>
+</table>
+<table width="696" align="center" border="0" cellspacing="0" cellpadding="0">
+<colgroup><col width="48%">
+<col style="width: 4%;">
+<col width="48%">
+<tbody><tr>
+	<td><span style="color: rgb(0, 0, 0); letter-spacing: -1px; font-size: 12px; font-weight: bold;">订单信息</span></td>
+	<td></td>
+	<td><span style="color: rgb(0, 0, 0); letter-spacing: -1px; font-size: 12px; font-weight: bold;">支付信息</span></td>
+</tr>
+<tr>
+	<td><div style="width: 100%; height: 1px; border-top-color: rgb(84, 84, 84); border-top-width: 1px; border-top-style: solid;"></div></td>
+	<td></td>
+	<td><div style="width: 100%; height: 1px; border-top-color: rgb(84, 84, 84); border-top-width: 1px; border-top-style: solid;"></div></td>
+</tr>
+<tr>
+	<td>
+		<table width="100%">
+			<tbody><tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">订单号</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{order.order_seq}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">订购日期</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{order.regist_date}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">订单客户</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{order.order_user_name}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">电话号码</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{order.order_phone}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">手机号码</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{order.order_cellphone}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">电子邮件地址</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{order.order_email}</td>
+			</tr>
+		</tbody></table>
+	</td>
+	<td></td>
+	<td>
+		<table width="100%">
+			<tbody><tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">价钱</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{=get_currency_price(items_tot.price,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">运输费用</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{=get_currency_price(shipping_tot.goods_shipping_cost + shipping_tot.shipping_cost,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">折扣</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{=get_currency_price( items_tot.event_sale + items_tot.multi_sale + items_tot.coupon_sale + items_tot.member_sale + items_tot.mobile_sale + items_tot.promotion_code_sale + items_tot.referer_sale + shipping_tot.shipping_coupon_sale + shipping_tot.shipping_promotion_code_sale + order.enuri ,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">兑换里程/ E钱</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">{=get_currency_price(order.emoney,2)} / {=get_currency_price(order.cash,2)}</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">总</th>
+				<td style="padding: 7px 0px; text-align: right;">
+				{?order.deposit_yn!='y'}<span>(存款之前)</span>{/}
+				<span style="color: rgb(255, 0, 0); font-size: 11px; font-weight: bold;" "="">{=get_currency_price(order.settleprice,2)}</span>
+				</td>
+			</tr>
+			<tr>
+				<th style="padding: 7px 0px; text-align: left; color: rgb(139, 139, 139); font-size: 11px; font-weight: bold;">付款方法</th>
+				<td style="padding: 7px 0px; text-align: right; font-size: 11px;">
+				<!--{ ?order.payment=='bank' }-->
+				{order.bank_account}
+				<!--{ : }-->
+				{order.mpayment}
+				<!--{ / }-->
+				</td>
+			</tr>
+		</tbody></table>
+	</td>
+</tr>
+</tbody></table>
+<div style="height: 10px;"></div>
+<table width="696" align="center">
+<tbody><tr>
+	<td class="left"><span style="color: rgb(0, 0, 0); letter-spacing: -1px; font-size: 12px; font-weight: bold;">产品调度</span></td>
+</tr>
+<tr>
+	<td><div style="width: 100%; height: 2px; border-top-color: rgb(84, 84, 84); border-top-width: 1px; border-top-style: solid;"></div></td>
+</tr>
+</tbody></table>
+<!--{ @ shipping_group_items }-->
+<!--{ ? .index_ == 0 && .items }-->
+<table width="696" align="center" style="border: 1px solid rgb(188, 191, 193); border-collapse: collapse !important;">
+	<colgroup><col width="80">
+	<col width="260">
+	<col width="80">
+	<col>
+	<tbody><tr>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">发行版本号</th>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			{data_export.export_code}
+		</td>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">发布日期</th>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			{data_export.export_date}
+		</td>
+	</tr>
+	<tr>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">邮寄方式</th>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			{data_export.out_shipping_method}
+		</td>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">追踪号码</th>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			{data_export.mdelivery} {data_export.delivery_number}
+		</td>
+	</tr>
+	<tr>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">收件人地址</th>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;" colspan="3">
+			{order.recipient_user_name}
+		{? order.international == 'domestic' }
+			({order.recipient_zipcode})
+			{ ?order.recipient_address_type=='street' }{order.recipient_address_street}{:}{order.recipient_address}{/} {order.recipient_address_detail}
+		{:}
+			[{order.international_country}] ({order.international_postcode}) {order.international_address} {order.international_town_city} {order.international_county}
+		{/}
+			{?order.recipient_phone}/{ / } {order.recipient_phone}
+			{?order.recipient_cellphone}/{ / } {order.recipient_cellphone}
+		</td>
+	</tr>
+	<tr>
+		<th style="padding: 7px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">传递邮件</th>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;" colspan="3">
+		{order.memo}
+		</td>
+	</tr>
+
+</tbody></table>
+<!--{ / }-->
+<!--{ ? .items }-->
+<div style="height: 6px;"></div>
+<table width="696" align="center" style="border: 1px solid rgb(188, 191, 193); border-collapse: collapse !important;">
+	<colgroup><col>
+	<col width="35">
+	<col width="70">
+	<col width="50">
+	<col width="70">
+	<col width="60">
+	<col width="70">
+	<col width="35">
+	<col width="35">
+	<tbody><tr>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">产品</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">订购</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">价钱</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">折扣</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">折扣价</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">赚</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">交货</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">取消</th>
+		<th style="padding: 7px 0px; color: rgb(77, 77, 77); font-size: 11px; font-weight: bold; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid; background-color: rgb(239, 239, 239);">발송</th>
+	</tr>
+	<!--{ @ .items }-->
+	<!--{ @ ..arr_options }-->
+	<tr>
+		<td style="padding: 7px; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tbody><tr>
+					<td>
+						<img style="max-height: 50px; max-width: 50px;" src="{..image}">
+					</td>
+					<td style="font-size: 11px;">
+						{..goods_name}
+						{ ? ...option1!=null }
+						<div style="padding: 5px 0px 0px 10px; font-size: 11px;">
+							{...title1}:{...option1}
+							{ ? ...option2!=null } {...title2}:{...option2}{ / }
+							{ ? ...option3!=null } {...title3}:{...option3}{ / }
+							{ ? ...option4!=null } {...title4}:{...option4}{ / }
+							{ ? ...option5!=null } {...title5}:{...option5}{ / }
+						</div>
+						{ / }
+						<div style="padding: 5px 0px 0px 10px; color: rgb(255, 0, 0); font-size: 11px;">
+						{...goods_code}
+						</div>
+						{ ? ...inputs }
+						<div style="padding: 0px 0px 0px 10px; color: rgb(116, 116, 116); letter-spacing: -1px;">
+						{ @ ...inputs }
+							{ ? ....value }
+							<div class="goods_input">
+								<img src="/admin/skin/default/images/common/icon_input.gif">
+								{?....title}{....title}:{ / }
+								{?....type=='file'}
+								<a href="../order_process/filedown?file={....value}" target="actionFrame">{....value}</a>
+								{:}{....value}{ / }
+							</div>
+							{ / }
+						{ / }
+						</div>
+						{ / }
+					</td>
+				</tr>
+			</tbody></table>
+		</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{...ea}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{=get_currency_price(...out_price)}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{=get_currency_price(...out_tot_sale)}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{=get_currency_price(...out_price - ...out_tot_sale,2)}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			{=get_currency_price(...reserve * ...export_ea,2)}
+			{ ? ...point }
+			<br>{=get_currency_price(...point * ...export_ea)}<span style="width: 10px; display: inline-block;">P</span>
+			{ / }
+		</td>
+		<!--{ ? ..index_ == 0}-->
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;" rowspan="{=.rowspan}">
+			<div style="color: rgb(117, 117, 117); font-size: 11px;">
+				{?.shipping.provider_seq==1}总公司{:}{.shipping.provider_name}{/}
+			</div>
+			<div>
+				{ ? preg_match('/each/',.shipping.shipping_method) }
+				个别航运
+				{ : }
+				一般收货
+				{ / }
+			</div>
+			<div>
+				{.shipping.shipping_method_name}
+			</div>
+
+			<div>
+				{? .shipping.shipping_cost }
+					{=get_currency_price(.shipping.shipping_cost-.shipping.add_delivery_cost,2)}
+				{:.shipping.postpaid}
+					{=get_currency_price(.shipping.postpaid,2)}
+				{: .goods_shipping_cost }
+					{=get_currency_price(.goods_shipping_cost,2)}
+				{: .shipping.shipping_method == 'delivery'}
+					免费送货
+				{ / }
+			</div>
+
+			{? .shipping.add_delivery_cost }
+			<div>+ {=get_currency_price(.shipping.add_delivery_cost,2)}</div>
+			{ / }
+
+			{ ? .shipping.shipping_coupon_sale > 0 }
+			<div style="padding: 10px 0px 0px 10px; font-size: 11px;">-{=get_currency_price(.shipping.shipping_coupon_sale,2)} 优惠券</div>
+			{ / }
+			{ ? .shipping.shipping_promotion_code_sale  > 0 }
+			<div style="padding: 10px 0px 0px 10px; font-size: 11px;">-{=get_currency_price(.shipping.shipping_promotion_code_sale ,2)} 码</div>
+			{ / }
+		</td>
+		<!--{ / }-->
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{...step85}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{...export_ea}</td>
+	</tr>
+
+	<!--{ @ ...sub }-->
+	<tr>
+		<td style="padding: 7px; text-align: left; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			<div style="color: rgb(117, 117, 117); padding-left: 10px; font-size: 11px;">
+			{....title} : sub {....suboption}
+			</div>
+			<div style="padding: 5px 0px 0px 10px; color: rgb(255, 0, 0); font-size: 11px;">
+			{....goods_code}
+			</div>
+		</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{....ea}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{=get_currency_price(....out_price)}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{=get_currency_price(....out_tot_sale)}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{=get_currency_price(....out_price - ....out_tot_sale,2)}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">
+			{=get_currency_price(....reserve * ....export_ea,2)}
+			{ ? ....point }
+			<br>{=get_currency_price(....point * ....export_ea)}<span style="width: 10px; display: inline-block;">P</span>
+			{ / }
+		</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{....step85}</td>
+		<td style="padding: 7px; text-align: right; font-size: 11px; border-top-color: rgb(188, 191, 193); border-left-color: rgb(188, 191, 193); border-top-width: 1px; border-left-width: 1px; border-top-style: solid; border-left-style: solid;">{....export_ea}</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ / }-->
+	<!--{ / }-->
+</tbody></table>
+<!--{ / }-->
+<!--{ / }-->
+
+<table width="696" align="center" style="border: 0px currentColor;">
+	<tbody><tr><td height="50" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td align="center" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><a href="{basic.domain}" target="_blank"><img src="/data/email/cn/img/btn_go.gif" border="0"></a></td>
+	</tr>
+	<tr><td height="30" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr><td height="2" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;" bgcolor="#000000"></td></tr>
+	<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td class="company" style="text-align: center; color: rgb(151, 158, 165); line-height: 22px; font-family: 돋움, Dotum; font-size: 11px;">
+			公司业务号码 : {config_basic.businessLicense}&nbsp;&nbsp;&nbsp;&nbsp;通信供应商编号 : {config_basic.mailsellingLicense}&nbsp;&nbsp;&nbsp;&nbsp;表示 : {config_basic.ceo}
+		</td>
+	</tr>
+	<tr>
+		<td class="company" style="text-align: center; color: rgb(151, 158, 165); line-height: 22px; font-family: 돋움, Dotum; font-size: 11px;">
+			表示 :{config_basic.companyAddress} {config_basic.companyAddressDetail}&nbsp;&nbsp;&nbsp;&nbsp;代表电话 : {config_basic.companyPhone}&nbsp;&nbsp;&nbsp;&nbsp;传真 : {config_basic.companyFax}
+		</td>
+	</tr>
+</tbody></table>

@@ -1,0 +1,98 @@
+/* 메세지 종류 Tab 메뉴 CSS */
+div.sms-group-tab-lay {width:100%; border-bottom:1px solid #727b99;}
+table.sms-group-tab {width:600px;}
+table.sms-group-tab td {font-size:13px;text-align:center;height:26px;font-weight:normal;}
+table.sms-group-tab td.tab-start {width:1px;background:url('../images/common/tab_bg.gif') no-repeat;background-position:0;}
+table.sms-group-tab td.tab-end {width:0px;background:url('../images/common/tab_bg.gif') no-repeat;background-position:-598px 0;}
+table.sms-group-tab td.tab-item {min-width:100px; cursor:pointer;padding:0 0 0 10px;color:#7b7b7b;background-color:#ffffff;border-top:1px solid #727b99;border-right:1px solid #727b99;}
+table.sms-group-tab td.nolinknone {cursor:pointer;padding:0 0 0 10px;color:#7b7b7b;background-color:#ffffff;border-top:1px solid #727b99;border-right:1px solid #727b99;}
+table.sms-group-tab td.tab-item span.current-arrow {padding:0 5px;margin-left:12px;}
+table.sms-group-tab td.tab-item:hover {color:#727b99;background-color:#e8e9ee;}
+table.sms-group-tab td.tab-item.current {color:#ffffff;font-weight:bold;background-color:#727b99;}
+table.sms-group-tab td.tab-item.current:hover {color:#ffffff;font-weight:bold;background-color:#727b99;}
+table.sms-group-tab td.tab-item.current span.current-arrow {padding:0 5px;margin-left:5px;background:url('../images/common/icon_arw.gif') no-repeat;background-position:0 5px;}
+/* --- 메세지 종류 Tab 메뉴 CSS */
+
+/* 알림톡 발송 메시지 */
+.kakao_wrap {margin:10px 0;}
+.kakao_wrap > ul > li {float:left; width:20%; height:340px;}
+
+.kakao_message {display:block; margin:0; border:1px solid #d5d5d5; background:#fff; margin-left:-1px;}
+.kakao_message .stit {height:34px; line-height:36px; padding-left:10px; background:#f6f6f6; border-bottom: 1px solid #ccc; text-align:left; font-size:13px; color:#333;}
+.kakao_message .stit span {display:inline-block; vertical-align:middle; width:17px; height:18px; margin:-4px 7px 0 0; background:url('../images/design/k_icon01.png') no-repeat; text-indent:-9999px;}
+.kakao_message .stit span.helpicon2 {display:inline-block; width:14px; height:14px; cursor:pointer; background:url('/admin/skin/default/images/common/bg_icon.png'); vertical-align:middle;margin-bottom:2px; margin-left:2px;}
+.kakao_message .stit input[type="checkbox"] { margin-top:-2px;}
+.kakao_message .cont {padding:5px;}
+.kakao_message .cont textarea {width:100%; height:100px; box-sizing:border-box; border:none; padding:10px; line-height:1.6; overflow-y:auto;}
+.kakao_message .btns {position:relative; padding:0 5px 5px;}
+.kakao_message .btns .link {position:relative; /*height:135px;*/}
+.kakao_message .btns .link ul {position:relative; bottom:0; left:0; width:100%;}
+.kakao_message .btns .link li {float:none; width:100%; margin-bottom:5px;}
+.kakao_message .btns .link li a {display:block; height:20px; line-height:22px; border:1px solid #d5d5d5; background:#fff; text-align:center; font-size:11px; color:#5583dd; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.kakao_message .btns ul li {float:left; width:50%;}
+.kakao_message .btns .use, .kakao_message .btns .mod, .kakao_message .btns .disuse, .kakao_message .btns .refuse, .kakao_message .btns .stay p {display:block; height:30px; line-height:32px; border:1px solid #d5d5d5; background:#f7f8fa; text-align:center; font-size:11px; color:#333;}
+.kakao_message .btns .mod-left-non {border-left:none;}
+.kakao_message .btns span, .kakao_message .btns .stay p span {display:inline-block; vertical-align:middle; text-indent:-9999px;}
+.kakao_message .btns .use span {width:18px; height:18px; margin:-2px 7px 0 0; background:url('../images/design/k_icon02.png') no-repeat;}
+.kakao_message .btns .disuse span {width:18px; height:18px; margin:-2px 7px 0 0; background:url('../images/design/k_icon05.png') no-repeat;}
+.kakao_message .btns .refuse span {width:13px; height:13px; margin:-2px 7px 0 0; background:url('../images/design/k_icon07.png') no-repeat;}
+.kakao_message .btns .mod span {width:13px; height:13px; margin:-4px 7px 0 0; background:url('../images/design/k_icon03.png') no-repeat;}
+.kakao_message .btns .stay {position:absolute; left:5px; right:5px; bottom:5px;}
+.kakao_message .btns .stay span {width:10px; height:14px; margin:-2px 7px 0 0; background:url('../images/design/k_icon06.png') no-repeat;}
+.kakao_guide {margin:0 10px; border:1px solid #d5d5d5; background:#fafafa; padding:20px;}
+.kakao_guide .stit {margin-bottom:10px; background:url('../images/design/k_icon04.png') no-repeat; padding-left:20px; font-weight:600;}
+.kakao_guide .cont li {background:url('../images/design/k_icon_list.png') no-repeat 5px 10px ; padding-left:18px; font-size:11px; color:#333; line-height:2.0;}
+.kakao_guide .cont li a {color:#5583dd;}
+.kakao_guide .cont li a:hover {text-decoration:underline;}
+
+/* 아이콘 */
+.icon_wrap {padding:10px;}
+.ico_kakao_on {border:1px solid #fe9b00; background:#fff; padding:1px 3px; font-size:11px; color:#fe7800;}
+.ico_kakao_off, .ico_kakao_x, .ico_sms_off {border:1px solid #b2b3b3; background:#c1c1c2; padding:1px 3px; font-size:11px; color:#fff;}
+.ico_sms_on {border:1px solid #91b8e8; background:#fff; padding:1px 3px; font-size:11px; color:#598ed2;}
+					
+/* 높이값 추가 */
+.kakao_message.num5 .cont textarea {height:100px;}
+.kakao_message.num5 .btns .link {height:135px;}
+.kakao_message.num4 .cont textarea {height:125px;}
+.kakao_message.num4 .btns .link {height:110px;}
+.kakao_message.num3 .cont textarea {height:155px;}
+.kakao_message.num3 .btns .link {height:80px;}
+.kakao_message.num2 .cont textarea {height:180px;}
+.kakao_message.num2 .btns .link {height:55px;}
+.kakao_message.num1 .cont textarea {height:210px;}
+.kakao_message.num1 .btns .link {height:30px;}
+.kakao_message.num0 .cont textarea {height:235px;}
+.kakao_message.num0 .btns .link {height:0;}
+
+/* 알림톡 메시지 수정 */
+.kakao_popup .list {margin-bottom:15px;}
+.kakao_popup .list li {background:url('../images/design/k_icon_list.png') no-repeat 5px 10px; padding-left:18px; color:#333; line-height:2.0;}
+.kakao_popup .cont > li:first-child {float:left; width:66%; padding-left:5px;}
+.kakao_popup .cont li.preview {float:right; position:relative; padding:0 10px;}
+.kakao_popup .cont li.preview .kakao_id {position:absolute; top:77px; left:0; width:100%; text-align:center; font-size:13px; font-weight:bold;}
+.kakao_popup .cont li.preview .kakao_message {position:absolute; top:128px; left:40px; right:40px;}
+.kakao_popup .cont li.preview:after {display:block; content:''; position:absolute; top:115px; right:40px; width:31px; height:31px; background:url('../images/design/k_icon.png') no-repeat;}
+.kakao_popup .cont li.preview .kakao_message .btns {padding:0 5px;}
+.kakao_popup .info-table-style .its-th-align {padding-left:16px; text-align:left;}
+.kakao_popup .info-table-style .its-td-align {padding:10px 16px;}
+.kakao_popup .form {width:100%; margin:0 auto;}
+.kakao_popup .form td {padding:5px 0;}
+.kakao_popup .form .inputbox {border:1px solid #ccc; padding:5px;}
+.kakao_popup .form .inputbox textarea {width:100%; height:105px; box-sizing:border-box; border:none; background:#fff; line-height:1.6; overflow-y:auto;}
+.kakao_popup .form .inputbox .use {padding-top:5px; text-align:right;}
+.kakao_popup .form .ship {width:73%; margin-right:4px; text-indent:5px; color:#666;}
+
+/* 높이값 추가 */
+.kakao_message .num5 .cont textarea {height:100px;}
+.kakao_message .num5 .btns .link {height:135px;}
+.kakao_message .num4 .cont textarea {height:125px;}
+.kakao_message .num4 .btns .link {height:110px;}
+.kakao_message .num3 .cont textarea {height:155px;}
+.kakao_message .num3 .btns .link {height:80px;}
+.kakao_message .num2 .cont textarea {height:180px;}
+.kakao_message .num2 .btns .link {height:55px;}
+.kakao_message .num1 .cont textarea {height:205px;}
+.kakao_message .num1 .btns .link {height:30px;}
+.kakao_message .num0 .cont textarea {height:235px;}
+.kakao_message .num0 .btns .link {height:0;}

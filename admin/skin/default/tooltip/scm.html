@@ -1,0 +1,348 @@
+<div id="tip1" class="tip_wrap">
+	<h1>거래처 미지급 잔액</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>거래처별 미지급 잔액이 있는 경우 입력합니다. </li>	
+			<li>미지급 잔액 입력 시 정산 금액을 맞출 수 있습니다.</li>	
+			<li class="red">미지급잔액은 거래처 최초 등록 시 등록 가능하며, 등록 후 수정이 불가합니다.</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip2" class="tip_wrap">
+	<h1>사용 창고</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>해당 매장에서 판매할 수 있는 재고는 선택한 창고의 재고입니다. </li>	
+			<li class="red">사용 창고 변경 시 해당 매장에서 판매되는 상품의 재고가 변경한 사용 창고 기준으로 재계산됩니다.</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip3" class="tip_wrap">
+	<h1>기본 출고 창고</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>해당 매장에서 판매된 상품을 출고처리 할 때 선택한 창고가 기본으로 선택되어 있습니다.</li>	
+			<li>다른 창고로 변경도 가능합니다. 당연히 해당 창고의 재고가 감소합니다.</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip4" class="tip_wrap">
+	<h1>기본 반품 창고</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>해당 매장에서 판매된 상품을 반품처리 할 때 선택한 창고가 기본으로 선택되어 있습니다. </li>	
+			<li>다른 창고로 변경도 가능합니다. 당연히 해당 창고의 재고가 증가합니다.</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip5" class="tip_wrap">
+	<h1>재고</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_circle list_01">
+			<li>창고의 재고
+				<ul class="ul_list_05">
+					<li><select ><option>재고</option></select> <input type="text" size="3" value="5" />-<input type="text" size="3" value="" />
+					: 해당 창고에서 재고(옵션기준)가 '5'이상인 상품을 검색</li>
+					<li><select ><option>재고</option></select> <input type="text" size="3" value="" />-<input type="text" size="3" value="5" />
+					: 해당 창고에서 재고(옵션기준)가 '5'이하인 상품을 검색</li>
+					<li><select ><option>재고</option></select> <input type="text" size="3" value="1" />-<input type="text" size="3" value="5" />
+					: 해당 창고에서 재고(옵션기준)가 '1'이상 ~ '5'이하인 상품을 검색</li>
+				</ul>
+
+				<ul class="ul_list_05 mt5">
+					<li><select ><option>불량</option></select> <input type="text" size="3" value="5" />-<input type="text" size="3" value="" />
+					: 해당 창고에서 불량재고(옵션기준)가 '5'이상인 상품을 검색</li>
+					<li><select ><option>불량</option></select> <input type="text" size="3" value="" />-<input type="text" size="3" value="5" />
+					: 해당 창고에서 불량재고(옵션기준)가 '5'이하인 상품을 검색</li>
+					<li><select ><option>불량</option></select> <input type="text" size="3" value="1" />-<input type="text" size="3" value="5" />
+					: 해당 창고에서 불량재고(옵션기준)가 '1'이상 ~ '5'이하인 상품을 검색</li>
+				</ul>
+			</li>	
+			<li>
+				쇼핑몰 재고
+				<ul class="ul_list_05">
+					<li><select><option>안전재고보다 재고 부족</option></select>
+					: 해당 쇼핑몰에서 재고(옵션기준)가 안전재고보다 부족한 상품을 검색</li>
+					<li><select><option>안전재고보다 몇 개 많은</option></select>
+					<input type="text" size="3" value="5" />
+					: 해당 쇼핑몰에서 재고(옵션기준)가 안전재고보다 '5'이상 많은 상품을 검색</li>
+					<li><select><option>입력범위의 재고 검색</option></select>
+					<input type="text" size="3" value="1" />-<input type="text" size="3" value="5" />
+					: 해당 쇼핑몰에서 재고(옵션기준)가 '1'이상 ~ '5'이하인 상품을 검색</li>
+					<li><select><option>입력범위의 재고 검색</option></select>
+					<input type="text" size="3" value="1" />-<input type="text" size="3" value="5" />
+					: 해당 쇼핑몰에서 재고(옵션기준)가 '1'이상 ~ '5'이하인 상품을 검색</li>
+					<li><select><option>입력범위의 안전재고 검색</option></select>
+					<input type="text" size="3" value="1" />-<input type="text" size="3" value="5" />
+					: 해당 쇼핑몰에서 안전재고(옵션기준)가 '1'이상 ~ '5'이하인 상품을 검색</li>
+				</ul>
+			</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip6" class="tip_wrap">
+	<h1>상품번호/바코드</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>상품번호: 상품번호(red color)와 옵션번호의 조합 </li>	
+			<li>바코드: 기본코드와 옵션코드의 조합해당 매장에서 판매된 상품을 반품처리 할 때 선택한 창고가 기본으로 선택되어 있습니다.</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip7" class="tip_wrap">
+	<h1>정보</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>재고(불량) : 해당 쇼핑몰 사용창고(N개)의 재고수량, 재고 中 불량수량</li>	
+			<li>안전재고 : 해당 쇼핑몰의 적정재고수량</li>
+			<li>정가 : 해당 쇼핑몰에서의 정가(부가세 포함)</li>	
+			<li>판매가 : 해당 쇼핑몰에서의 판매가(부가세 포함)</li>
+		</ul>
+	</div>
+</div>
+
+<div id="tip8" class="tip_wrap">
+	<h1>공급처 배송</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>공급처 배송을 체크하시면 상품의 재고가 없는 상태로 상품출고가 가능하며 출고 시 출고수량 만큼 자동입고 후 출고됩니다.(단, 하단의 발주 정보 등록은 필수입니다.)</li>				
+		</ul>
+	</div>
+</div>
+
+<div id="tip9" class="tip_wrap">
+	<h1>분류 코드</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>재고관리용 상품 분류입니다.</li>				
+		</ul>
+	</div>
+</div>
+
+<div id="tip10" class="tip_wrap">
+	<h1>구분</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>기초조정 : 시스템 도입 시 기초재고</li>	
+			<li>입고조정 : 전산재고 실물재고와 상이할 때</li>	
+			<li>출고조정 : 전산재고 실물재고와 상이할 때</li>	
+			<li>불량폐기 : 불량재고 폐기 시</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip11" class="tip_wrap">
+	<h1>불량 폐기</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>재고수량 감소 (자산 감소)</li>	
+			<li>표시용 ‘불량수량’이 있을 경우 → ‘0’으로 초기화</li>	
+			<li>불량 폐기 수량 입력 시 표시용 ‘불량수량’을 참고하세요</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip12" class="tip_wrap">
+	<h1>재고</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>입고조정 창고의 현재재고</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip13" class="tip_wrap">
+	<h1>금액(KRW)</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>원가 반영 금액</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip14" class="tip_wrap">
+	<h1>이동전</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>출고 창고의 현재재고</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip15" class="tip_wrap">
+	<h1>이동전</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>입고 창고의 현재재고</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip16" class="tip_wrap">
+	<h1>이동후</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>출고 창고의 이동 후 재고</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip17" class="tip_wrap">
+	<h1>이동후</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>입고 창고의 이동 후 재고</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip18" class="tip_wrap">
+	<h1>총평균법</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>총평균법은 재고자산의 원가를 평가하는 방법 중 하나로 기초자산 금액에 일정기간의 매입합계금액을 합하고 이를 총수량(기초재고+매입수량)으로 나누어 평균원가를 산출하는 방식입니다.</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip19" class="tip_wrap">
+	<h1>미마감</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>상하반기 수불은 해당 월이 마감된 후 다음달부터 확인 가능합니다.</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip20" class="tip_wrap">
+	<h1>미마감</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>분기별 수불은 해당 월이 마감된 후 다음달부터 확인 가능합니다.</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip21" class="tip_wrap">
+	<h1>미마감</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>월별 수불은 해당 월이 마감된 후 다음달부터 확인 가능합니다.</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip22" class="tip_wrap">
+	<h1>미마감</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>평균원가는 해당기간 기말에 산출되며 이후 확인 가능합니다.</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip23" class="tip_wrap">
+	<h1>쇼핑몰 안전재고</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>주문이 발생한 해당 쇼핑몰 해당 상품의  안전재고</li>			
+		</ul>
+	</div>
+</div>
+
+<div id="tip24" class="tip_wrap">
+	<h1>거래처명</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>거래처 선택에 따라 아래와 같이 거래 유형이 정의됩니다.</li>	
+			<li>원화 거래처 : 대한민국 거래</li>	
+			<li>외화 거래처 : 수입 거래 (FOB, CFR, CIF 등)</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip25" class="tip_wrap">
+	<h1>납기 일자</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>원화: 납기일자</li>	
+			<li>외화: SHIPPING_DATE</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip26" class="tip_wrap">
+	<h1>결제 조건</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>원화: 결제조건</li>	
+			<li>외화: PAYMENT_DATE</li>	
+		</ul>
+	</div>
+</div>
+
+<div id="tip27" class="tip_wrap">
+	<h1>부가세</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>매입 부가가치세</li>				
+		</ul>
+	</div>
+</div>
+
+<div id="tip28" class="tip_wrap">
+	<h1>재계산</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>부가세가 있는 상품의 상품가액에 부가세 포함가격을 입력하였을 때 발주가액을 재 계산합니다.</li>				
+		</ul>
+	</div>
+</div>
+
+<div id="tip29" class="tip_wrap">
+	<h1>구분</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>정규 : 자동 발주 상품을 기초로 한 발주서</li>		
+			<li>비정규 : 수동으로 상품을 발주한 비정규 발주서</li>		
+			<li>비정규[임] : 발주서 없이 입고된 예외처리 시 생성된 임의 발주서</li>		
+		</ul>
+	</div>
+</div>
+
+

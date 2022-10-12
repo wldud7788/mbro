@@ -1,0 +1,303 @@
+<div class="title_dvs">
+	<div class="item-title">댓글 ({comment})</div>	
+	<button type="button" name="board_cmt_seldelete_btn" board_seq="{seq}" board_id="{boardid}" class="resp_btn v3">선택 삭제</button>	
+</div>
+<table class="table_basic">
+	<colgroup>
+		<col width="1">
+		<col width="150">
+		<col>
+		<col width="130">
+		<col width="160">
+	</colgroup>
+	<thead>
+		<tr>
+			<th>
+				<label class="resp_checkbox">
+					<input type="checkbox" id="checkboxcmtAll" name="checkboxcmtAll" value>
+				</label>
+			</th>
+			<th>작성자</th>
+			<th>내용</th>
+			<th>등록일</th>
+			<th>관리</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!--{@ cmtloop }-->
+		<tr>
+			<td class="center">
+				<label class="resp_checkbox">
+					<input type="checkbox" name="cmtdel[]" value="{.seq}" class="cmtcheckeds hand" cmt="parent"{ ? number_format(.mseq) != (0 - providerInfo.provider_seq) } disabled{/}>
+				</label>
+			</td>
+			<td>
+				<p>
+					{.iconhidden}
+					{.name}
+					{.iconnew}
+				</p>
+				<p>(IP: {.ip})</p>
+			</td>
+			<td>
+				<p>
+					<span style="white-space:pre-line">{.content}</span>
+				</p>
+				<div class="center">
+					<!--{? .cmtaward && .best != "checked" }-->
+					<input type="button" name="cmt_award_btn"value="당첨 {? .best == 'checked' }해제하기{:}해주기{/}" class="bbs_btn cmt_award_btn {.best} " board_cmt_seq="{.seq}" board_cmt_idx="{.idx}" board_seq="{_GET.seq}" returnurl="{boardurl->cmtview}" board_id="{boardid}">
+					<!--{/}-->
+					<!--{? managerview.auth_cmt_recommend_use == 'Y' }-->
+					<!-- 댓글평가 -->
+					<span class="scorelay" style="margin: 15px 0 5px">
+						<!--{? managerview.auth_cmt_recommend_use == 'Y' }-->
+						<span >
+							<!--{? managerview.cmt_recommend_type == '2' }--> 
+								{? managerview.icon_cmt_recommend_src && managerview.icon_cmt_none_rec_src }
+								<span style="width:50px;margin:auto;border:0px dashed black;padding:5px">  
+									<span class="icon_cmt_recommend_{seq}_{.seq}_lay{.is_cmt_recommend} icon_cmt_recommend_lay{.is_cmt_recommend} hand" board_recommend="recommend" board_cmt_seq="{.seq}" board_seq="{_GET.seq}" board_id="{boardid}"><img src="{managerview.icon_cmt_recommend_src}" class="icon_cmt_recommend_img"></span>
+									<span class="idx-cmt-recommend-{seq}-{.seq} ">{=number_format(.recommend)}</span>
+									<span class="icon_cmt_none_rec_{seq}_{.seq}_lay{.is_cmt_recommend} icon_cmt_none_rec_lay{.is_cmt_recommend} hand" board_recommend="none_rec" board_cmt_seq="{.seq}" board_seq="{_GET.seq}" board_id="{boardid}"><img src="{managerview.icon_cmt_none_rec_src}" class="icon_cmt_none_rec_img"></span>
+									<span class="idx-cmt-none_rec-{seq}-{.seq}">{=number_format(.none_rec)}</span>
+								</span> 
+								{/}
+							<!--{: managerview.cmt_recommend_type == '1' }-->
+								{? managerview.icon_cmt_recommend_src }
+								<span style="width:50px;margin:auto;border:0px dashed black;padding:5px">  
+									<span class="icon_cmt_recommend_{seq}_{.seq}_lay{.is_cmt_recommend} icon_cmt_recommend_lay{.is_cmt_recommend} hand" board_recommend="recommend" board_cmt_seq="{.seq}" board_seq="{_GET.seq}" board_id="{boardid}"><img src="{managerview.icon_cmt_recommend_src}" class="icon_cmt_recommend_img"></span>
+									<span class="idx-cmt-recommend-{seq}-{.seq}">{=number_format(.recommend)}</span> 
+								</span> 
+								{/}
+							<!--{/}-->
+						</span>
+						<!--{/}--> 
+					</span>
+					<!-- 댓글평가 -->
+					<!--{/}-->
+				</div>
+			</td>
+			<td class="center">
+				<nobr>{=implode('</nobr> <nobr>', explode(' ', .date))}</nobr>
+			</td>
+			<td>
+				<nobr>
+					<button type="button" name="boad_cmt_reply_btn{managerview.isperm_write}" board_cmt_seq="{.seq}" board_cmt_idx="{.idx}" class="resp_btn v2">댓글</button>
+					<!--{ ? number_format(.mseq) == (0 - providerInfo.provider_seq) }-->
+					<button type="button" name="boad_cmt_modify_btn{.isperm_moddel}" board_cmt_seq="{.seq}" board_id="{boardid}" class="resp_btn v2 {.isperm_hide}">수정</button>
+					<button type="button" name="boad_cmt_delete_btn{.isperm_moddel}" board_cmt_seq="{.seq}" board_id="{boardid}" class="resp_btn v3 {.isperm_hide}">삭제</button>
+					<!--{ : }-->
+					<button type="button" onclick="alert('본사의 댓글은 수정할 수 없습니다.');" class="resp_btn v2">수정</button>
+					<button type="button" onclick="alert('본사의 댓글은 삭제할 수 없습니다.');" class="resp_btn v3">삭제</button>
+					<!--{ / }-->
+				</nobr>
+			</td>
+		</tr>
+		<!--{@ .cmtreplyloop }-->
+		<tr>
+			<td class="center">
+				<label class="resp_checkbox">
+					<input type="checkbox" name="cmtdel[]" value="{..seq}" class="cmtcheckeds hand" cmt="reply"{ ? number_format(.mseq) != (0 - providerInfo.provider_seq) } disabled{/}>
+				</label>
+			</td>
+			<td>
+				<p>
+					{..iconhidden}
+					{..name}
+					{..iconnew}
+				</p>
+				<p>(IP: {..ip})</p>
+			</td>
+			<td>
+				<p>
+					<span>
+						<img src="../images/board/icon/icon_comment_reply.gif">
+						<span style="font-weight:bold;color:#4472c4">RE:</span>
+					</span>
+					<span style="white-space:pre-line">{..content}</span>
+				</p>
+				<div class="center">
+					<!--{? managerview.auth_cmt_recommend_use == 'Y' }-->
+					<!-- 댓글평가 -->
+					<span class="scorelay" style="margin: 15px 0 5px">
+						<!--{? managerview.auth_cmt_recommend_use == 'Y' }-->
+						<span >
+							<!--{? managerview.cmt_recommend_type == '2' }--> 
+								{? managerview.icon_cmt_recommend_src && managerview.icon_cmt_none_rec_src }
+								<span style="width:50px;margin:auto;border:0px dashed black;padding:5px">  
+									<span class="icon_cmt_recommend_{seq}_{..seq}_lay{..is_cmt_recommend} icon_cmt_recommend_lay{..is_cmt_recommend} hand " board_recommend="recommend" board_cmt_seq="{..seq}" board_seq="{_GET.seq}" board_id="{boardid}"><img src="{managerview.icon_cmt_recommend_src}" class="icon_cmt_recommend_img"></span>
+									<span class="idx-cmt-recommend-{seq}-{..seq} ">{=number_format(.recommend)}</span>
+									<span class="icon_cmt_none_rec_{seq}_{..seq}_lay{..is_cmt_recommend} icon_cmt_none_rec_lay{..is_cmt_recommend} hand" board_recommend="none_rec" board_cmt_seq="{..seq}" board_seq="{_GET.seq}" board_id="{boardid}"><img src="{managerview.icon_cmt_none_rec_src}" class="icon_cmt_none_rec_img"></span>
+									<span class="idx-cmt-none_rec-{seq}-{..seq}">{=number_format(.none_rec)}</span>
+								</span> 
+								{/}
+							<!--{: managerview.cmt_recommend_type == '1' }-->
+								{? managerview.icon_cmt_recommend_src }
+								<span style="width:50px;margin:auto;border:0px dashed black;padding:5px">  
+									<span class="icon_cmt_recommend_{seq}_{..seq}_lay{..is_cmt_recommend} icon_cmt_recommend_lay{..is_cmt_recommend} hand " board_recommend="recommend" board_cmt_seq="{..seq}" board_seq="{_GET.seq}" board_id="{boardid}"><img src="{managerview.icon_cmt_recommend_src}" class="icon_cmt_recommend_img"></span>
+									<span class="idx-cmt-recommend-{seq}-{..seq}">{=number_format(.recommend)}</span> 
+								</span> 
+								{/}
+							<!--{/}-->
+						</span>
+						<!--{/}--> 
+					</span>
+					<!-- 댓글평가 -->
+					<!--{/}-->  
+				</div>
+			</td>
+			<td class="center">
+				<nobr>{=implode('</nobr><nobr>', explode(' ', ..date))}</nobr>
+			</td>
+			<td>
+				<nobr>
+					<!--{ ? number_format(.mseq) == (0 - providerInfo.provider_seq) }-->
+					<button type="button" name="boad_cmt_modify_btn{.isperm_moddel}" board_cmt_seq="{.seq}" board_id="{boardid}" board_cmt_reply_seq="{..seq}" board_cmt_idx="{.idx}" class="resp_btn v2 {.isperm_hide}">수정</button>
+					<button type="button" name="boad_cmt_delete_btn{.isperm_moddel}" board_cmt_seq="{.seq}" board_id="{boardid}" board_cmt_reply_seq="{..seq}" board_cmt_idx="{.idx}" class="resp_btn v3 {.isperm_hide}">삭제</button>
+					<!--{ : }-->
+					<button type="button" onclick="alert('본사의 댓글은 수정할 수 없습니다.');" class="resp_btn v2">수정</button>
+					<button type="button" onclick="alert('본사의 댓글은 삭제할 수 없습니다.');" class="resp_btn v3">삭제</button>
+					<!--{ / }-->
+				</nobr>
+				
+			</td>
+		</tr>
+		<!--{/}-->
+		<tr class="cmtreplylay cmtreplyform{.idx} hide">
+			<td class="left" colspan="5">
+				<div class="wbox" id="cmtreplyform{.idx}">
+					<!--{? managerview.isperm_write == "_no" }-->
+						<div class="box center hand" style="width:100%;color:gray;margin:5px">로그인 후 댓글권한이 있을 경우 등록하실 수 있습니다</div>
+					<!--{:}-->
+						<table class="box" style="width:100%; line-height:2;">
+							<colgroup>
+								<col>
+								<col width="1">
+							</colgroup>
+							<tbody>
+								<tr>
+									<td colspan="2">
+										{commentmanager.writetitle} (IP: {_SERVER.REMOTE_ADDR})
+										<input type="hidden" name="name" id="cmtname{.seq}" board_cmt_seq="{.seq}" value="{cmt_name}">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<textarea name="content" id="cmtcontent{.seq}" class="resp_textarea" board_cmt_seq="{.seq}" style="width:calc(100% - .6em);box-sizing:border-box" required></textarea>
+									</td>
+									<td valign="top">
+										<nobr>
+											<button type="button" name="board_commentsend_reply" id="board_commentsend_reply{.seq}" board_cmt_seq="{.seq}" board_cmt_reply_seq="" board_cmt_idx="{.idx}" board_id="{boardid}" class="resp_btn active">등록</button>
+										</nobr>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<span class="{cmthiddenlay}">
+											<label class="resp_checkbox">
+												<input type="checkbox" name="hidden" id="cmthidden{.seq}" value="1" {hiddenckeck}>
+												<span>비밀 댓글</span>
+											</label>
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					<!--{/}-->
+				</div>
+			</td>
+		</tr>
+		<!--{:}-->
+		<tr>
+			<td class="center" colspan="5">등록된 댓글이 없습니다.</td>
+		</tr>
+		<!--{/}-->
+	</tbody>
+</table>
+<div id="cmtpager" class="paging_navigation center">{cmtpagin}</div>
+
+<a name="cwriteform"></a>
+<div id="cwrite{managerview.isperm_write}" class="{? commentlay == 'N' }hide{/}">
+	<form name="cmtform1" id="cmtform1" method="post" action="/selleradmin/board_comment_process" target="actionFrame">
+		<input type="hidden" name="mode" id="cmtmode" value="board_comment_write">
+		<input type="hidden" name="board_id" value="{_GET.id}">
+		<input type="hidden" name="seq" value="{seq}">
+		<input type="hidden" name="cmtseq" id="cmtseq" value="{cmtseq}">
+		<input type="hidden" name="returnurl" id="cmtreturnurl" value="{boardurl->cmtview}&cmtpage={_GET.cmtpage}">
+		<input type="hidden" id="cmtname" name="name" value="{cmt_name}">
+		<table class="box" style="width:100%; line-height:2;">
+			<colgroup>
+				<col>
+				<col width="1">
+			</colgroup>
+			<tbody>
+				<tr>
+					<td colspan="2">
+						{commentmanager.writetitle} (IP: {_SERVER.REMOTE_ADDR})
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<textarea name="content" id="cmtcontent" class="resp_textarea" rows="2" comment="true" style="width:calc(100% - .30em);box-sizing:border-box" required></textarea>
+					</td>
+					<td valign="top">
+						<nobr>
+							<button type="submit" name="board_commentsend" id="board_commentsend" board_id="{boardid}" class="resp_btn size_XL active" style="height:50px !important;">등록</button>
+						</nobr>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span class="{cmthiddenlay}">
+							<label class="resp_checkbox">
+								<input type="checkbox" name="hidden" id="cmthidden" value="1" {hiddenckeck}>
+								<span>비밀 댓글</span>
+							</label>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<script>
+$(function() {
+	EditorJSLoader.ready(function(Editor) {
+		DaumEditorLoader.init(".daumeditor");
+	});
+
+	//댓글등록및 수정
+	$('#cmtform1').validate({
+		onkeyup: false,
+		rules: {
+			name: { required:true},
+			content: { required:true}
+		},
+		messages: {
+			name: { required:'입력해 주세요.'},
+			captcha_code: { required:'입력해 주세요.'},
+			pw: { required:''},
+			content: { required:'입력해 주세요.'}
+		},
+		errorPlacement: function(error, element) {
+			error.appendTo(element.parent());
+		},
+		submitHandler: function(f) {
+			if(readyEditorForm(f)){
+				if(!$("#cmtname").val() || $("#cmtname").val() == "이름을 입력해 주세요." ) {
+					alert('이름을 입력해 주세요.');
+					$("#cmtname").focus();
+					return false;
+				}
+
+				if(!$("#cmtcontent").val() || $("#cmtcontent").val() == "<p>&nbsp;</p>" || $("#cmtcontent").val() == "내용을 입력해 주세요."){
+					alert('내용을 입력해 주세요.');
+					$("#cmtcontent").focus();
+					return false;
+				}
+				f.submit();
+			}
+		}
+	});
+
+});
+</script>

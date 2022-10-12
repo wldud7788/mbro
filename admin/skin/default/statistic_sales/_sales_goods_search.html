@@ -1,0 +1,117 @@
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		gSearchForm.init({'pageid':'sales_sales','sc':{=scObj}});			
+	})
+</script>
+<div class="search_container">				
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td>
+				<select name="searchType" class="wx110">
+					<option value="all">전체</option>		
+					<option value="id">상품명</option>			
+					<option value="code">상품 코드</option>	
+					<option value="code">매입용 상품명</option>	
+				</select>
+				<input type="text" name="keyword" value="{_GET.keyword}" size="80"/>
+			</td>
+		</tr>		
+		<tr>
+			<th>구분</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sc_type" value="goods" {? sc.sc_type=="goods"}checked{/}/> 상품별</label>
+					<label><input type="radio" name="sc_type" value="daily" {? sc.sc_type=="month"}daily{/}/> 일별</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>결제확인 기간</th>
+			<td>
+				<span class="dateType sdaily {?_GET.sc_type == 'goods'}hide{/} ">				
+					<select name="year" class="wx80" defaultValue="{=date('Y')}">					
+					{@range(date('Y'),2010)}
+						<option value="{.value_}">{.value_}</option>
+					{/}
+					</select>					
+					
+					<select name="month" class="wx80" defaultValue="{=date('m')}">					
+					{@range(1,12)}					
+						<option value="{? .value_<10 }0{.value_}{:}{.value_}{/}" {? sc.month==.value_}selected{/}>{? .value_<10 }0{.value_}{:}{.value_}{/}</option>
+					{/}
+					</select>	
+									
+					<input type="button" value="이번달" class="resp_btn v3 thisMonthBtn"/>						
+				</span>
+
+				<span class="sgoods {?_GET.sc_type == 'daily'}hide{/}">
+					<div class="date_range_form" defaultValue="{=date('Y')}">
+						<input type="text" name="sdate" value="{sc.sdate}" class="datepicker sdate"  maxlength="10" />
+						-
+						<input type="text" name="edate" value="{sc.edate}" class="datepicker edate" maxlength="10"  />
+
+						<div class="resp_btn_wrap">
+							<input type="button"  range="today" value="오늘" class="select_date resp_btn" />
+							<input type="button"  range="3day" value="3일간" class="select_date resp_btn" />
+							<input type="button"  range="1week" value="일주일" class="select_date resp_btn" />
+							<input type="button"  range="1month" value="1개월" class="select_date resp_btn" />
+							<input type="button"  range="3month" value="3개월" class="select_date resp_btn" />
+							<input type="button"  range="thatmonth"  value="당월" class="select_date resp_btn"/>
+							<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden">
+						</div>
+					</div>  
+				</span>
+			</td>
+		</tr>
+		<!--{ ? serviceLimit('H_AD') }-->
+		<tr {? !in_array('sc_provider',sc_form.default_field)}class='hide'{/} >
+			<th><span>입점사</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_provider" class="hide"></label></th>
+			<td>
+				<div class="ui-widget">
+					<select name="provider_seq_selector" style="vertical-align:middle;">
+					</select>
+					<input type="hidden" class="provider_seq" name="provider_seq" value="{sc.provider_seq}" />
+				</div>
+			</td>
+		</tr>
+		<!--{ / }-->
+		<tr>
+			<th>카테고리</th>
+			<td>
+				<select class="wx110" name="category1" size="1"><option value="">1차 분류</option></select>
+				<select class="wx110" name="category2" size="1"><option value="">2차 분류</option></select>
+				<select class="wx110" name="category3" size="1"><option value="">3차 분류</option></select>
+				<select class="wx110" name="category4" size="1"><option value="">4차 분류</option></select>
+			</td>
+		</tr>
+		<tr>
+			<th>브랜드</th>
+			<td>
+				<select class="wx110" name="brands1" size="1"><option value="">1차 분류</option></select>
+				<select class="wx110" name="brands2" size="1"><option value="">2차 분류</option></select>
+				<select class="wx110" name="brands3" size="1"><option value="">3차 분류</option></select>
+				<select class="wx110" name="brands4" size="1"><option value="">4차 분류</option></select>
+			</td>
+		</tr>
+	</table>
+	<div class="search_btn_lay"></div>
+</div>
+
+<script class="code" type="text/javascript">
+	$(document).ready(function(){
+		$("input[name='sc_type']").live('click', function(){
+			chgSearchForm();
+		});
+	});
+	function chgSearchForm(){
+		if	($("input[name='sc_type']:checked").val() == 'daily'){
+			$(".sgoods").addClass('hide');
+			$(".sdaily").removeClass('hide');
+		}else{
+			$(".sgoods").removeClass('hide');
+			$(".sdaily").addClass('hide');
+		}
+	}
+</script>

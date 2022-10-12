@@ -1,0 +1,38 @@
+<table width="100%" class="table_basic v7" style="margin:auto;">
+<tr>
+	<th>항목</th>
+	{@dataForChart['before_total']}
+	<th align="center">{.value_[0]}</th>
+	{/}
+</tr>
+<tr>
+	<td align="center">전월(년) 이월</td>
+	{@dataForChart['before_total']}
+	<td align="center">{=get_currency_price(.value_[1])}</td>
+	{/}
+</tr>
+<tr>
+	<td align="center">지급</td>
+	{@dataForChart['plus']}
+	<td align="center">{=get_currency_price(.value_[1])}</td>
+	{/}
+</tr>
+<tr>
+	<td align="center">사용</td>
+	{@dataForChart['minus']}
+	<td align="center">{=get_currency_price(.value_[1])}</td>
+	{/}
+</tr>
+<tr>
+	<td align="center">소멸</td>
+	{@dataForChart['limits']}
+	<td align="center">{=get_currency_price(.value_[1])}</td>
+	{/}
+</tr>
+<tr>
+	<td align="center">당월 누적합계</td>
+	{@dataForChart['after_total']}
+	<td align="center">{=get_currency_price(.value_[1])}</td>
+	{/}
+</tr>
+</table>

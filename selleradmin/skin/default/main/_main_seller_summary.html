@@ -1,0 +1,63 @@
+<script>
+$(function(){
+
+	var idx = $(".mseller-menu td").index($(".mseller-menu td.selected"));
+
+	$("table.mqs-seller-table").eq(idx).show();
+
+})
+
+</script>
+<style>
+#main-seller-summary .mqs-seller-table	{display:none; margin-top:8px;width:319px;}
+#main-seller-summary .mqs-seller-row 	{padding:2px 0px}
+#main-seller-summary .mqs-seller-title	{color:#7b8085; font-size:12px;}
+#main-seller-summary .mqs-seller-date	{color:#999999; font-size:11px;}
+.mqs-seller-title .subject {display:inline-block;white-space:nowrap;overflow:hidden;width:219px;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+</style>
+
+<!-- 입점사공지 -->
+<table class="mqs-seller-table" width="100%">
+<!-- 리스트데이터 : 시작 -->
+{? sellernoticeloop }
+	{@ sellernoticeloop }
+	<tr>
+		<td class="mqs-seller-row mqs-seller-title left">
+			{.iconmobile}
+			<span class="subject">{.subject}</span>
+			{.iconnew}
+			{.iconhot}
+			{.iconfile}
+			{.iconhidden}
+		</td>
+		<td class="mqs-seller-row mqs-seller-date right">{=str_replace("-",".",substr(.date,5,5))}</td>
+	</tr>
+	{/}
+{:}
+	<tr ><td colspan="2"  class="mqs-seller-row mqs-seller-title left"> 등록된 게시글이 없습니다. </td><tr>
+{/}
+</table>
+
+<!-- 입점사문의 -->
+<table class="mqs-seller-table" width="100%">
+<!-- 리스트데이터 : 시작 -->
+{? sellerqnaloop }
+	{@ sellerqnaloop }
+	<tr>
+		<td class="mqs-seller-row mqs-seller-title left">
+			{.iconmobile}
+			<span class="subject">{.subject}</span>
+			{.iconnew}
+			{.iconhot}
+			{.iconfile}
+			{.iconhidden}
+			{? !(.re_contents) }<img src="../images/common/icon_yet_unattended.gif" align="absmiddle" />{/}
+
+		</td>
+		<td class="mqs-seller-row mqs-seller-date right">{=str_replace("-",".",substr(.date,5,5))}</td>
+	</tr>
+	{/}
+{:}
+	<tr ><td colspan="2"  class="mqs-seller-row mqs-seller-title left"> 등록된 게시글이 없습니다. </td><tr>
+{/}
+</table>

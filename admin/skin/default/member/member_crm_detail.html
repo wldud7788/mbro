@@ -1,0 +1,102 @@
+<script>
+$(function(){
+	// sns 계정 정보 확인
+	$(".btnsnsdetail").bind("click",function(){
+		var snscd	= $(this).attr("snscd");
+		var member_seq	= $(this).attr("member_seq");
+		var obj		= $("div#snsdetailPopup_"+snscd);
+		obj.css("left","20%");
+		var disp	= obj.css("display");
+		$(".snsdetailPopup").hide();
+		if(obj.html() == ''){
+			$.get('/admin/member/sns_detail?snscd='+snscd+'&member_seq='+member_seq, function(data) {
+				obj.html(data);
+			});
+		}
+		if(disp == "none"){ obj.show(); }
+
+	});
+});
+</script>
+<div class="memberInfoWrap">
+	<div class="memberDetialCloseBtn" onclick='$("#member_info_layer").hide();'><img src="../images/common/btn_close_popup2.gif"></div>
+	<table width="330" cellspacing="0" cellpadding="0" class="memberInfoTable">
+		<colgroup>
+			<col style="width:70px" />
+			<col style="width:*" />
+			<col style="width:120px" />
+			<col style="width:50px" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th colspan="4">고객CRM</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th><a href="/admincrm/main/user_detail?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}>악성도</a></th>
+				<td class="{? blacklist}blueText bold{/}">{? blacklist}{blacklist}{:}없음{/}</td>
+				<th>SNS 정보</th>
+				<td class="snsList">
+					{? snslist}
+					<!--{@ snslist }-->
+						<!--{? .rute == 'facebook' && .sns_f_type == 0}-->
+						<img src="../images/sns/sns_f00.gif" align="absmiddle" class="btnsnsdetail hand" snscd="{.rute}" title="{.rute_nm} 정보확인" member_seq="{member_seq}">
+						<!--{ : .rute == 'twitter' && .sns_t_type == 0}-->
+						<img src="../images/sns/sns_t0_gray.gif" align="absmiddle" class="btnsnsdetail hand" snscd="{.rute}" title="{.rute_nm} 정보확인" member_seq="{member_seq}">
+						<!--{ : }-->
+						<img src="../images/sns/sns_{=substr(.rute,0,1)}0.gif" align="absmiddle" class="btnsnsdetail hand" snscd="{.rute}" title="{.rute_nm} 정보확인" member_seq="{member_seq}">
+						<!--{ / }-->	
+						<div id="snsdetailPopup_{.rute}" class="snsdetailPopup absolute hide"></div>
+					<!--{ / }-->			
+					{:}
+					없음
+					{/}
+				</td>
+			</tr>
+			<tr>
+				<th><a href="/admincrm/main/user_detail?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}>회원정보</a></th>
+				<td></td>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.order_view == "Y"}href="/admincrm/order/catalog?chk_step%5B15%5D=1&member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>입금대기</a></th>
+				<td class="{? orderData.order}blueText bold{/}">{orderData.order}</td>
+			</tr>
+			<tr>
+				<th><a href="/admincrm/member/activity?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}>활동정보</a></th>
+				<td></td>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.order_view == "Y"}href="/admincrm/order/catalog?chk_step%5B25%5D=1&chk_step%5B35%5D=1&chk_step%5B40%5D=1&chk_step%5B45%5D=1&chk_step%5B50%5D=1&chk_step%5B60%5D=1&chk_step%5B70%5D=1&member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>미처리 출고</a></th>
+				<td class="{? orderData.settle}blueText bold{/}">{orderData.settle}</td>
+			</tr>
+			<tr>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.member_promotion == "Y"}href="/admincrm/member/emoney_list?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>마일리지</a></th>
+				<td class="{? emoney}blueText bold{/}">{=get_currency_price(emoney)}</td>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.refund_view == "Y"}href="/admincrm/order/return_catalog?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>미처리 반품/교환</a></th>
+				<td class="{? orderSummary['101'].count}blueText bold{/}">{orderSummary['101'].count}</td>
+			</tr>
+			<tr>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.member_promotion == "Y"}href="/admincrm/member/point_list?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>포인트</a></th>
+				<td class="{? point}blueText bold{/}">{=get_currency_price(point)}</td>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.refund_view == "Y"}href="/admincrm/order/refund_catalog?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>미처리 환불(취소)</a></th>
+				<td class="{? orderSummary['102'].count}blueText bold{/} bdbottom">{orderSummary['102'].count}</td>
+			</tr>
+			<tr>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.member_promotion == "Y"}href="/admincrm/member/cash_list?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>예치금</a></th>
+				<td class="{? cash}blueText bold{/}">{=get_currency_price(cash)}</td>
+				<th><a {? managerInfo.manager_yn == 'Y' || boardAuth.goods_qna == "Y"}href="/admincrm/board/qna_catalog?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>미처리 상품문의</a></th>
+				<td class="{? gdqna_sum}blueText bold{/}">{gdqna_sum}</td>
+			</tr>
+			<tr>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.coupon_view == "Y"}href="/admincrm/member/member_coupon_list?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>쿠폰</a></th>
+				<td class="{? unusedcount}blueText bold{/}">{=number_format(unusedcount)}장</td>
+				<th><a {? managerInfo.manager_yn == 'Y' || boardAuth.mbqna == "Y"}href="/admincrm/board/mbqna_catalog?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>미처리 1:1문의</a></th>
+				<td class="{? mbqna_sum}blueText bold{/}">{=mbqna_sum}</td>
+			</tr>
+			<tr>
+				<th><a {? managerInfo.manager_yn == 'Y' || auth.coupon_view == "Y"}href="/admincrm/member/member_coupon_list?tab=3&member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}{:}href="javascript:alert('권한이 없습니다.');"{/}>코드</a></th>
+				<td class="{? promotionCount}blueText bold{/}">{=number_format(promotionCount)}장</td>
+				<th><a href="/admincrm/board/counsel_catalog?member_seq={member_seq}" {? _GET.crmPage != "y"}target="_blank"{/}>미처리 상담</a></th>
+				<td class="{? counsel_sum}blueText bold{/}">{counsel_sum}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="btn_crm_search pdt5"><button type="button" style="width:100%;" onclick="window.open('/admincrm/board/counsel_catalog?member_seq={member_seq}');">상담등록<span class="arrow"></span></button></div>	
+</div>

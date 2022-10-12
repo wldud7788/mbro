@@ -1,0 +1,234 @@
+<style type="text/css">
+    .kakao_chat_icon{position: fixed; right: 20px; bottom: 20px; width: 50px; z-index:9999;}
+  /*.kakao_chat_icon{animation-duration: 2s; animation-name: kakao; animation-iteration-count: infinite;}*/
+  .ico_floating_recently{display: none;}
+  .delay_text{display: none; position: absolute; right: 0; top: -20px; width: 500%; background: black; color: white; padding: 5px;}
+  .kakao_chat_icon:hover .delay_text{display: block;}
+  .escrow>img{display: none; width: 50px;}
+  .layout_footer .escrow{position: relative; top: auto; right: auto; margin-top: 10px;}
+
+   @keyframes kakao {
+    50%{opacity: 0.2;}
+
+  }
+    @media only screen and (max-width: 767px){
+      .kakao_chat_icon{display: none;}
+    }
+</style>
+
+
+<div class="kakao_chat_icon">
+  <p>문의하기</p>
+    <a href="https://pf.kakao.com/_QjdiK" target="_blank">
+      <img src="../images/kakao_chat.png" alt="">
+    </a>
+    <p class="delay_text">문의량이 많아 답변이 다소 늦을 수 있습니다.(평균 3시간)</p>
+</div>
+
+
+<div id="layout_footer" class="layout_footer" style="margin-top: 50px;">
+  <div class="footer_b">
+    <div class="resp_wrap">
+      <ul class="menu2">
+        <li><a href="/service/company" designElement="text">COMPANY</a></li>
+        <li><a href="/service/agreement" designElement="text">AGREEMENT</a></li>
+        <li class="bold"><a href="/service/privacy" designElement="text">PRIVACY POLICY</a></li>
+                <li><a href="/service/guide" designElement="text">SHOP GUIDE</a></li>
+                <li><a href="/service/partnership" designElement="text">PARTNERSHIP</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer_a">
+    <div class="resp_wrap">
+      <ul class="menu1">
+      <!--  <li>
+          <span designElement="text">CUSTOMER CENTER</span>
+          <a href="tel:{config_basic.companyPhone}" class="pcolor phone">{config_basic.companyPhone}</a>
+        </li> -->
+        <li>
+          <span designElement="text">MON-FRI</span>
+          <span designElement="text" class="pcolor">AM 10:30 - PM 06:00</span>
+        </li>
+        <li>
+          <span designElement="text">LUNCH</span>
+          <span designElement="text" class="pcolor">PM 12:30 - PM 02:00 (SAT, SUN, HOLIDAY CLOSED)</span>
+        </li>
+        <li>
+          <span designElement="text">BANK INFO</span>
+          <!--{@bank_loop}-->
+          <span class="pcolor mr20">{.bank} {.account}</span>
+                    <span designElement="text">HOLDER</span> <span class="pcolor">{.bankUser}</span>
+          <!--{/}-->
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer_c">
+    <div class="resp_wrap">
+      <ul class="menu3">
+        <li><span designElement="text">COMPANY</span> <span class="pcolor">{config_basic.companyName}</span></li>
+        <li><span designElement="text">OWNER</span> <span class="pcolor">{config_basic.ceo} </span></li>
+        <li><span designElement="text">ADDRESS</span> <span class="pcolor">{? config_basic.companyAddress_type == "street"}{config_basic.companyAddress_street}{:}{config_basic.companyAddress}{/} {config_basic.companyAddressDetail}</span></li>
+        <li><span designElement="text">TEL</span> <a href="tel:{config_basic.companyPhone}" class="pcolor">{config_basic.companyPhone}</a></li>
+        <!--{ ? config_basic.companyFax }-->
+        <!-- <li><span designElement="text">FAX</span> <span class="pcolor">{config_basic.companyFax}</span></li> -->
+        <!--{ / }-->
+        <li><span designElement="text">BUSINESS LICENCE</span> <span class="pcolor">{config_basic.businessLicense} {=confirmLicenseLink("[사업자정보확인]")}</span></li>
+        <li><span designElement="text">MAIL-ORDER LICENSE</span> <span class="pcolor">{config_basic.mailsellingLicense}</span></li>
+        <li><span designElement="text">대표메일</span> <span class="pcolor"> <a class="pcolor ml0" href="mailto:{config_basic.companyEmail}">{config_basic.companyEmail}</a>&nbsp;</span></li>
+        <!-- <li><span designElement="text">HOSTING PROVIDER</span> <span class="pcolor">(주)가비아씨엔에스</span></li> -->
+      </ul>
+      <p class="copyright" designElement="text">COPYRIGHT (c) {config_basic.companyName}&nbsp; ALL RIGHTS RESERVED.</p>
+      
+      <ul class="social">
+        <li><a title="페이스북" href="/"><img src="../images/design_resp/ico_facebook.png" alt="페이스북"></a></li>
+        <li><a title="트위터" href="/"><img src="../images/design_resp/ico_twitter.png" alt="트위터"></a></li>
+        <li><a title="인스타그램" href="https://www.instagram.com/mubro_official/"><img src="../images/design_resp/ico_instagram.png" alt="인스타그램"></a></li>
+        <li><a title="네이버블로그" href="/"><img src="../images/design_resp/ico_naverblog.png" alt="네이버블로그"></a></li>
+        <li><a title="카카오스토리" href="/"><img src="../images/design_resp/ico_kakaostory.png" alt="카카오스토리"></a></li>
+      </ul>
+      <div class="escrow" >
+        {=escrow_mark(60)}
+        <img src="/data/icon/escrow_mark/kicc.png" style="cursor:pointer; display: block;" onclick="f_escrowKicc();">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--{?preg_match('/goods\/view/',_SERVER.REQUEST_URI)}-->
+  <!--{? navercheckout_tpl }-->
+<div class="pcHideMoShow" style="height:117px;">&nbsp;</div>
+  <!--{ / }-->
+<div class="pcHideMoShow" style="height:80px;">&nbsp;</div>
+<!--{ / }-->
+<!-- 하단영역 : 끝 -->
+
+<!-- 플로팅 - BACK/TOP(대쉬보드) -->
+<div id="floating_over">
+  <a href="javascript:history.back();" class="ico_floating_back" title="뒤로 가기">back</a>
+  <a href="javascript:history.forward();" class="ico_floating_foward" title="앞으로 가기">forward</a>
+  <a href="#none" onclick="$('html,body').animate({scrollTop:0},'slow');" class="ico_floating_top" title="위로 가기">top</a>
+  <!--{? (preg_match('/main\/index/',_SERVER.REQUEST_URI) || preg_match('/goods\/catalog/',_SERVER.REQUEST_URI) || preg_match('/goods\/brand/',_SERVER.REQUEST_URI) || preg_match('/goods\/location/',_SERVER.REQUEST_URI) || preg_match('/goods\/search/',_SERVER.REQUEST_URI) || preg_match('/bigdata\/catalog/',_SERVER.REQUEST_URI)) && dataRightQuicklist && !preg_match('/goods\/view/',_SERVER.REQUEST_URI) }-->
+  {? push_count_today_images}<a href="javascript:;" class="ico_floating_recently"><span designElement="text">최근본</span><br /><img src="{push_count_today_images}" onerror="this.src='../images/common/noimage.gif'"></a>{/}
+  <!--{ / }-->
+
+  <!-- 최근 본 상품(LAYER) -->
+  <!--{ ? (preg_match('/main\/index/',_SERVER.REQUEST_URI) || preg_match('/goods\/catalog/',_SERVER.REQUEST_URI) || preg_match('/goods\/brand/',_SERVER.REQUEST_URI) || preg_match('/goods\/location/',_SERVER.REQUEST_URI) || preg_match('/goods\/search/',_SERVER.REQUEST_URI) || preg_match('/bigdata\/catalog/',_SERVER.REQUEST_URI)) && dataRightQuicklist }-->
+  <div id="recently_popup">
+    <div class="recently_popup">
+      <h1>최근 본 상품</h1>
+      <div class="recently_thumb">
+        <div id="recently_slide_bottom" style="width:285px; min-height:80px;">
+          <div class="thumb">
+          <!--{ ? dataRightQuicklist }-->
+            <ul>
+              <!--{ @ dataRightQuicklist }-->
+              {? ( .index_ < 40 ) //10page까지 노출}
+                {? (.index_ && (.index_%4) == 0 )}</ul><ul>{/}
+                <li><a href="../goods/view?no={.goods_seq}" class="right_quick_goods"><img src="{.image}" onerror="this.src='../images/common/noimage_list.gif'" alt="{.goods_name}"></a><a href="javascript:rightDeleteItem('mobile_bottom_item_recent', '{.goods_seq}',$(this))" class="btn_delete cover">삭제</a></li>
+              {/}
+              <!--{ / }-->
+            </ul>
+          <!--{ : }-->
+            <h2> 최근 본 상품이 없습니다.</h2>
+          <!--{ / }-->
+          </div>
+        </div>
+        <div class="recently_page">
+          <a href="javascript:;" class="btn_page cover">선택</a>
+        </div>
+      </div>
+      <a href="javascript:;" class="btn_close">모두보기</a>
+    </div>
+    <div class="recently_bg"></div>
+  </div>
+    <!--{ ? dataRightQuicklist.size_ > 3 }-->
+  <script type="text/javascript">
+  <!--
+    $(function(){
+      /* 최근 본 상품 - LAYER(슬라이드) */
+      $("#recently_slide_bottom").touchSlider({
+        flexible:true, roll:true, paging:$("#recently_slide_bottom").next().find(".btn_page"),
+        initComplete:function(e){$("#recently_slide_bottom").next().find(".btn_page").each(function(i, el){$(this).text("page " + (i+1));});},
+        counter:function(e){$("#recently_slide_bottom").next().find(".btn_page").removeClass("on").eq(e.current-1).addClass("on");}
+      });
+    });
+  //-->
+  </script>
+    <!--{ / }-->
+  <!--{ / }-->
+</div>
+<!-- //플로팅 - BACK/TOP(대쉬보드) -->
+
+
+
+<script type="text/javascript">
+$(function() {
+  /* 반응형 슬라이드 배너 관련( 절대 삭제 금지 ) */
+  {? settle }
+    $('.slider_before_loading').remove();
+  { : }
+    $('.slider_before_loading').removeClass('slider_before_loading');
+  { / }
+
+  // 상품 색상 코드값 디자인( new 상품정보 )
+  if ( $('.displaY_color_option').length > 0 ) {
+    $('.displaY_color_option .areA').filter(function() {
+      return ( $(this).css('background-color') == 'rgb(255, 255, 255)' );
+    }).addClass('border');
+  }
+
+  $( window ).on('resize', function() {
+    if ( window.innerWidth != WINDOWWIDTH ) {
+      setTimeout(function(){ WINDOWWIDTH = window.innerWidth; }, 10);
+    }
+  });
+});
+
+/*######################## 17.12.19 gcs yjy : 앱 처리(fb 로그아웃) s */
+function logoutfb(){
+  FB.getLoginStatus(logoutfb_process);
+}
+function logoutfb_process(){
+  FB.api('/me', function(response) {
+
+    FB.logout(function(response) {
+
+    });
+
+    isLogin = false;
+    {? defined('__ISUSER__')}
+    loadingStart("body",{segments: 12, width: 15.5, space: 6, length: 13, color: '#000000', speed: 1.5});
+      $.ajax({
+      'url' : '../sns_process/facebooklogout',
+      'dataType': 'json',
+      'success': function(res) {
+
+        if(res.result == true){
+          alert("로그아웃되었습니다.");
+
+        {? mobileapp=='y'}
+        {? m_device=='iphone'}
+        window.webkit.messageHandlers.CSharp.postMessage("Logout?");
+//        window.webkit.messageHandlers.CSharp.postMessage('GoHome');
+        {:}
+        CSharp.postMessage("Logout?");
+//        CSharp.postMessage('GoHome');
+        {/}
+        {/}
+
+
+        }else{
+          document.location.reload();
+        }
+      }
+      });
+    {/}
+    if (fbId != "")  initializeFbTokenValues();
+    if (fbUid != "") initializeFbUserValues();
+
+    return false;
+  });
+}
+/*######################## 17.12.19 gcs yjy : 앱 처리(fb 로그아웃) e */
+</script>

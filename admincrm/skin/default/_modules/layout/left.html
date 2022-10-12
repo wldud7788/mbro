@@ -1,0 +1,234 @@
+<style type="text/css">
+	.crmLeftName {border-bottom:1px solid #2c3240; background:#53565f; text-align:center; font-weight:bold; color:#ffffff; line-height:40px;}
+	.crmLeftName .group {border-radius:50px; padding:5px; background:#fff;}
+	.crmLeftMenu {background:#696b77; color:#fff; padding:10px;}
+	.crmLeftMenuTitle {font-size:12px; color:#fff; line-height:20px; position:relative;}
+	.crmLeftMenuTitle a {font-size:12px; color:#fff; line-height:20px; position:relative;}
+	.crmLeftMenuTitleOn {font-size:12px; font-weight:bold; color:#78e4ff; line-height:20px; position:relative;}
+	.crmLeftMenuTitleOn a {font-size:12px; font-weight:bold; color:#78e4ff; line-height:20px; position:relative;}
+	.crmLeftMenuIcon {font-size:8px; color:#fff; line-height:20px;}
+	.crmLeftMenuIconOn {font-size:8px; line-height:20px; color:#78e4ff;}
+	.crmLeftMenuCount {background-color:#5D5E67; text-align:center; width:43px; top:0px; right:0px; position:absolute; font-size:12px; margin-top:0; color:#fff;}
+	.crmLeftMenuCount2 {background-color:#5D5E67; text-align:center; width:43px; top:0px; right:47px; position:absolute; font-size:12px; margin-top:0; color:#fff;}
+</style>
+<table cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+	<td class="crmLeftName">
+		{? leftStatus == "done" && leftUserIcon}
+		<span class="group">{? leftUserIcon}<img src="../../data/icon/common/{leftUserIcon}" align="absmiddle">{/}</span>
+		{/}
+		{leftUserName} :
+		{? _SESSION.member_seq}
+			{? leftUser_type == "business" || leftBusinessSeq}
+			기업
+			{:}
+			개인
+			{/}
+			{? leftStatus_nm == "휴면"}
+			<span class="yellow">(휴면)</span>
+			{: leftStatus == "hold"}
+			<span class="yellow">(미승인)</span>
+			{/}
+		{:}
+			<span class="yellow">비회원</span>
+		{/}
+	</td>
+</tr>
+<tr>
+	<td class="crmLeftMenu" valign="top">
+	{? _SESSION.member_seq}
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr style="cursor:pointer;" onclick="location.href='../main/user_detail?member_seq={=_GET.member_seq}';">
+				<td width="12" height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/main/user_detail'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/main/user_detail'}On{/}">회원정보
+				{?mall_t_check == 'Y'}<span style="position:relation;padding:0px 5px 0px 5px;float:right;color:#FFBB00;border:1px solid;">TEST</span>{/}
+				</td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/activity?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/activity'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/activity'}On{/}">활동정보</td>
+			</tr>
+			<tr >
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/order/catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/order/catalog'}On{/}"><a href="../order/catalog?member_seq={=_GET.member_seq}">주문</a><div id="orderCount" class="crmLeftMenuCount" title="미출고완료 주문건" style="cursor:pointer;" onclick="location.href='../order/catalog?member_seq={=_GET.member_seq}&chk_step%5B25%5D=1&chk_step%5B35%5D=1&chk_step%5B40%5D=1&chk_step%5B45%5D=1&chk_step%5B50%5D=1&chk_step%5B60%5D=1&chk_step%5B70%5D=1'">{leftExportReady}</div>
+				<div id="exportCount" class="crmLeftMenuCount2" title="입금대기 주문건" style="cursor:pointer;" onclick="location.href='../order/catalog?member_seq={=_GET.member_seq}&chk_step%5B15%5D=1';">{orderSummary[15].count}</div>
+				</td>
+			</tr>
+			<tr>
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/order/return_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/order/return_catalog'}On{/}"><a href="../order/return_catalog?member_seq={=_GET.member_seq}">반품/교환내역</a><div id="orderCount" class="crmLeftMenuCount" style="cursor:pointer;" onclick="location.href='../order/return_catalog?member_seq={=_GET.member_seq}&return_status%5B%5D=request';" title="미처리 반품/교환건">{orderSummary[101].count+orderSummary[111].count}</div></td>
+			</tr>
+			<tr>
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/order/refund_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/order/refund_catalog'}On{/}"><a href="../order/refund_catalog?member_seq={=_GET.member_seq}">환불 내역</a><div id="orderCount" class="crmLeftMenuCount" style="cursor:pointer;" onclick="location.href='../order/refund_catalog?member_seq={=_GET.member_seq}&refund_status%5B%5D=request';" title="미처리 환불건">{orderSummary[102].count}</div></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="1" bgcolor="#7d7f8b" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/emoney_list?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/emoney_list'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/emoney_list'}On{/}">마일리지 내역<div class="crmLeftMenuCount" style="width:80px !important; text-align:right; padding-right:10px;">{=get_currency_price(userEmoney)}</div></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/point_list?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/point_list'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/point_list'}On{/}">포인트 내역<div class="crmLeftMenuCount" style="width:80px !important; text-align:right; padding-right:10px;">{=get_currency_price(userPoint)}</div></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/cash_list?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/cash_list'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/cash_list'}On{/}">예치금<div class="crmLeftMenuCount" style="width:80px !important; text-align:right; padding-right:10px;">{=get_currency_price(userCash)}</div></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/member_coupon_list?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/member_coupon_list'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/member_coupon_list'}On{/}">쿠폰/코드<div class="crmLeftMenuCount">{unusedcount}/{promotionCount}</div></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="1" bgcolor="#7d7f8b" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../board/review_catalog?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/board/review_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/board/review_catalog'}On{/}">상품후기<div class="crmLeftMenuCount">{goodsreviewCount}</div></td>
+			</tr>
+			<tr>
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/board/qna_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/board/qna_catalog'}On{/}"><a href="../board/qna_catalog?member_seq={=_GET.member_seq}">상품문의</a><div id="orderCount" class="crmLeftMenuCount" onclick="location.href='../board/qna_catalog?member_seq={=_GET.member_seq}&searchreply=y'" style="cursor:pointer;">{goodsqnaCount}</div></td>
+			</tr>
+			<tr>
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/board/mbqna_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/board/mbqna_catalog'}On{/}"><a href="../board/mbqna_catalog?member_seq={=_GET.member_seq}">1:1문의</a><div id="orderCount" class="crmLeftMenuCount" style="cursor:pointer;" onclick="location.href='../board/mbqna_catalog?member_seq={=_GET.member_seq}&searchreply=y'">{mbqnaCount}</div></td>
+			</tr>
+			<tr>
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/board/counsel_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/board/counsel_catalog'}On{/}"><a href = "../board/counsel_catalog?member_seq={=_GET.member_seq}">상담</a><div id="orderCount" class="crmLeftMenuCount" style="cursor:pointer;" onclick="location.href='../board/counsel_catalog?member_seq={=_GET.member_seq}&counsel_status%5B%5D=request';" title="미처리 상담건">{counselCount}</div></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="1" bgcolor="#7d7f8b" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/log_memo?member_seq={=_GET.member_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/log_memo'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/log_memo'}On{/}">로그/메모</td>
+			</tr>
+			{? leftStatus == "done"}
+			<tr>
+				<td colspan="2" class="pdt20"><span class="btn_crm_search"><button type="button" style="width:180px;" onclick="select_sms('{_SESSION.member_seq}');">SMS 발송<span class="arrow"></span></button></span></td>
+			</tr>
+			<tr><td height="5" colspan="2"></td></tr>
+			<tr>
+				<td colspan="2"><span class="btn_crm_search"><button type="button" style="width:180px;" onclick="select_email('{_SESSION.member_seq}');">이메일 발송<span class="arrow"></span></button></span></td>
+			</tr>
+			{/}
+			<tr>
+				<td colspan="2" class="pdt20"><span class="btn_crm_search"><button type="button" style="width:180px;" onclick="location.href='../member/detail?member_seq={=_GET.member_seq}'">회원정보수정<span class="arrow"></span></button></span></td>
+			</tr>
+			<tr><td height="5" colspan="2"></td></tr>
+			<tr>
+				<td colspan="2"><span class="btn_crm_search"><button type="button" style="width:180px; color:#fff66a !important;" onclick="with_pop('{leftStatus}');">회원탈퇴처리<span class="arrow"></span></button></span></td>
+			</tr>
+		</table>
+	{:}
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr style="cursor:pointer;" onclick="location.href='../order/catalog?member_seq={=_GET.member_seq}&order_seq={_GET.order_seq}';">
+				<td width="12" height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/order/catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/order/catalog'}On{/}">주문<div id="orderCount" class="crmLeftMenuCount">出{orderSummary[25].count+orderSummary[35].count+orderSummary[45].count}</div>
+				<div id="exportCount" class="crmLeftMenuCount2">확{orderSummary[15].count}</div>
+				</td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../order/return_catalog?member_seq={=_GET.member_seq}&order_seq={_GET.order_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/order/return_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/order/return_catalog'}On{/}">반품/교환내역<div id="orderCount" class="crmLeftMenuCount">{orderSummary[101].count+orderSummary[111].count}</div></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../order/refund_catalog?member_seq={=_GET.member_seq}&order_seq={_GET.order_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/order/refund_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/order/refund_catalog'}On{/}">환불 내역<div id="orderCount" class="crmLeftMenuCount">{orderSummary[102].count}</div></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="1" bgcolor="#7d7f8b" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../board/counsel_catalog?member_seq={=_GET.member_seq}&order_seq={_GET.order_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/board/counsel_catalog'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/board/counsel_catalog'}On{/}">상담 <div id="orderCount" class="crmLeftMenuCount" title="미처리 상담건">{counselCount}</div></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="1" bgcolor="#7d7f8b" colspan="2"></td>
+			</tr>
+			<tr>
+				<td height="10" colspan="2"></td>
+			</tr>
+			<tr style="cursor:pointer;" onclick="location.href='../member/log_memo?member_seq={=_GET.member_seq}&order_seq={_GET.order_seq}';">
+				<td height="25"><span class="crmLeftMenuIcon{? uri_string() == 'admincrm/member/log_memo'}On{/}">ㆍ</span></td>
+				<td class="crmLeftMenuTitle{? uri_string() == 'admincrm/member/log_memo'}On{/}">로그/메모</td>
+			</tr>
+		</table>
+	{/}
+	</td>
+</tr>
+</table>
+
+<script>
+function with_pop(status){
+	if (status == 'withdrawal') {
+		alert('이미 탈퇴 처리한 회원입니다.');
+	} else {
+		openDialog("회원 탈퇴", "withdrawalPopup", {"width":"500","height":"300"});
+	}
+}
+</script>
+<div id="withdrawalPopup" class="hide">
+	<form name="withdrawalForm" id="withdrawalForm" method="post" target="actionFrame" action="../member_process/member_withdrawal">
+	<input type="hidden" name="member_seq" value="{_SESSION.member_seq}"/>
+	<table class="info-table-style" style="width:100%">
+		<tbody>
+			<tr>
+				<th class="its-th-align center" width="80">탈퇴사유</th>
+				<td class="its-td">
+					{@ withdrawal_arr }
+						{?.index_%3==0 && .index_!=0}<br>{/}
+						<label><input type="radio" name="reason" value="{.value_}"/>{.value_}</label>&nbsp;&nbsp;
+					{ / }
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align center">내용</th>
+				<td class="its-td">
+					<input type="text" name="memo" class="line" size="40">
+				</td>
+			</tr>
+			<tr>
+				<td class="its-td-align center" colspan="2">
+					<div>회원 탈퇴 시 회원의 모든 정보가 바로 삭제되어집니다!</div>
+					<div>정말로 회원({? leftUserId==leftSnsN }{leftConvSnsN}{:}{leftUserId}{/})을 탈퇴시키시겠습니까?</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div style="width:100%;text-align:center;padding-top:10px;">
+		<span class="btn large cyanblue"><button type="submit" id="send_submit">확인</button></span>
+	</div>
+	</form>
+</div>

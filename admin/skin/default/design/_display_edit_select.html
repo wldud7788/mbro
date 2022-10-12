@@ -1,0 +1,59 @@
+		<tr>
+			<th class="dsts-th">상품 노출</th>
+			<td class="dsts-td left" colspan="2">
+				<table class="info-table-style" width="95%">
+					<col width="100" /><col />
+					<tr>
+						<td class="its-th-align center">상태</td>
+						<td class="its-td">
+						<!--{ ? in_array(kind, array('category','brand','location')) }-->
+							<label class="mr10"><input type="hidden" name="list_goods_status[]" value="normal" checked="checked" /> 정상</label>
+						<!--{ : }-->
+							<label class="mr10"><input type="checkbox" name="list_goods_status[]" value="normal" {?in_array('normal',data.goods_status)}checked="checked"{/} /> 정상</label>
+						<!--{ / }-->
+							<label class="mr10"><input type="checkbox" name="list_goods_status[]" value="runout" {?in_array('runout',data.goods_status)}checked="checked"{/} /> 품절</label>
+							<label class="mr10"><input type="checkbox" name="list_goods_status[]" value="purchasing" {?in_array('purchasing',data.goods_status)}checked="checked"{/} /> 재고확보중</label>
+							<label class="mr10"><input type="checkbox" name="list_goods_status[]" value="unsold" {?in_array('unsold',data.goods_status)}checked="checked"{/} /> 판매중지</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="its-th-align center">기본 정렬</td>
+						<td class="its-td">
+							{@orders}
+								<label class="mr10">
+								<input type="radio" name="list_default_sort" value="{.key_}" {?.key_==data.default_sort || (!data.default_sort && .key_=='popular')}checked="checked"{/}/>
+								{.value_}
+								</label>
+							{/}
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	<!--{? sub_kind != 'batch'}-->
+		<!--{? kind != 'search' }-->
+		<tr>
+			<th class="dsts-th">
+				<p class="mb5">인기순 - 상품 순서</p>
+				<span class="desc normal">노출순서변경</span> <span class="helpicon" title="상품을 마우스로 드래그&드랍해서 조정합니다.<br />또는 상.하단에 있는 순서조정 버튼을 이용해 주세요."></span>
+				<div class="goods-all-sort hide">
+					<br /><span class='btn small cyanblue'><input type='button' value='전체 상품 재정렬' class='goodsSortAll' /></span>
+				</div>
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<span class="btn small cyanblue"><input type="button" value="변경" onclick="show_goods_sort_popup('{kind}','{category_code}',$('input[name=count_w]').val(),$('input[name=count_h]').val());" /></span>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">
+				상품 페이징
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<select name="list_paging_use">
+					<option value="y" {?data.paging_use=='y'}selected{/}>페이징 하여 보입니다.</option>
+					<option value="n" {?data.paging_use=='n'}selected{/}>페이징이 없습니다.</option>
+				</select>
+			</td>
+		</tr>
+		<!--{/}-->
+	<!--{/}-->

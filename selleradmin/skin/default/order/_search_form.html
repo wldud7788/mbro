@@ -1,0 +1,280 @@
+<script type="text/javascript">
+
+	var search_type				= "{=sc.search_type}";
+	var keyword					= "{=sc.keyword}";
+	var search_type				= "{=sc.search_type}";
+	</script>
+	<script type="text/javascript" src="/app/javascript/js/admin-searchForm.js?dummy={=date('Ymd')}"></script>
+	<style>
+		table.helpicon_table{padding:0px;margin:0px;border-top:1px solid #ddd !important;}
+		table.helpicon_table th,table.helpicon_table td {font-weight:normal;padding:3px;margin:0px;border-right:1px solid #ddd !important;border-bottom:1px solid #ddd !important;text-align:center;}
+		table.helpicon_table th:first-child,table.helpicon_table td:first-child {border-left:1px solid #ddd !important;}
+	</style>
+	
+	<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/searchform.css?v={=date('Ymd')}" />
+	
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td>
+				<div class="relative">
+					<input type="text" name="keyword" id="search_keyword" value="{=sc.keyword}" title="{=implode(',',arr_search_keyword)}" size="100" autocomplete='off'/>
+					<!-- 검색어 입력시 레이어 박스 : start -->
+					<div class="search_type_text hide">{=sc.keyword}</div>
+					<div class="searchLayer hide">
+						<input type="hidden" name="search_type" id="search_type" value="" /> 
+						<ul class="searchUl">
+							<li><a class="link_keyword" s_type="all" href="#"><span class="txt_keyword"></span> <span class="txt_title">-전체검색</span></a></li>
+							{@ arr_search_keyword }
+							<li><a class="link_keyword" s_type="{=.key_}" href="#">{=.value_}: <span class="txt_keyword"></span> <span class="txt_title">-{=.value_}로 찾기</span></a></li>
+							{ / }
+						</ul>
+					</div>
+					<!-- 검색어 입력시 레이어 박스 : end -->
+				</div>																			
+			</div>
+			</td>
+		</tr>
+	</table>
+
+<!-- 상세검색 시작 -->
+<div class="search-detail-lay">
+	<table class="search-form-table" id="search_detail_table" >
+	<tr>
+		<td>
+			<table class="sf-option-table table_search" width="100%" border=0>
+			<!-- 배송책임 -->
+			<tr>
+				<th>배송책임</th>
+				<td colspan="5">
+					{? pagemode == "company_catalog" }
+					<span class="red bold">
+						{? sc.shipping_provider_seq == 1}본사 (입점사 위탁배송 포함)
+						{:}
+						{=providerInfo.provider_name} (입점사 위탁배송상품 제외)
+						{/}
+					</span>
+					<input type="hidden" class="shipping_provider_seq" name="shipping_provider_seq" value="{sc.shipping_provider_seq}" default_none />
+					{ : }
+					<div class="ui-widget">
+						<select name="shipping_provider_seq_selector" default_none>
+						<option value="0">- 검색 -</option>
+						<option value="1" provider_id="본사" {? sc.provider_seq == 1 }selected{/}>본사</option>
+						{@ provider}
+						{? providerInfo.provider_name == .provider_name}
+						<option value="{.provider_seq}" provider_id="{=.provider_id}" {? sc.shipping_provider_seq == .provider_seq}selected{/}>{.provider_name}</option>
+						{/}
+						{/}
+						</select>						
+						<input type="hidden" class="shipping_provider_seq" name="shipping_provider_seq" value="{=sc.shipping_provider_seq}" default_none />
+						<input type="text" name="shipping_provider_name" value="{=sc.shipping_provider_name}" readonly class="disabled"  default_none />
+					</div>
+
+					<!--<div style="float:left;padding:7px 0px 0px 5px;;"><label><input type="checkbox" name="base_inclusion" value="1" {?_GET.base_inclusion}checked{/}  default_none /> 본사상품 주문</label></div>-->
+					<span class="ptc-charges hide"></span>
+					{ / }
+				</td>
+			</tr>
+			<!-- 날짜 -->
+			<tr>
+				<th>날짜</th>
+				<td colspan="5">
+					<input type="hidden" name="regist_date_type" value="{=sc.regist_date_type}" default_none />
+					<select name="date_field">
+						<option value="regist_date" {?_GET.date_field=='regist_date' || !_GET.date_field}selected{/}>주문일</option>
+						<option value="deposit_date" {?_GET.date_field=='deposit_date'}selected{/}>입금일</option>
+					</select>
+					<input type="text" name="regist_date[]" value="{=sc.regist_date[0]}" class="datepicker"  maxlength="10" size="10" default_none />
+					&nbsp;<span class="gray">-</span>&nbsp;
+					<input type="text" name="regist_date[]" value="{=sc.regist_date[1]}" class="datepicker" maxlength="10" size="10" default_none />
+				
+					<span class="resp_btn_wrap">
+						<span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn" settarget="regist_date"/></span>
+						<span class="btn small"><input type="button" value="3일간" id="3day" class="select_date resp_btn" settarget="regist_date"/></span>
+						<span class="btn small"><input type="button" value="일주일" id="1week" class="select_date resp_btn" settarget="regist_date"/></span>
+						<span class="btn small"><input type="button" value="1개월" id="1month" class="select_date resp_btn" settarget="regist_date"/></span>
+						<span class="btn small"><input type="button" value="3개월" id="3month" class="select_date resp_btn" settarget="regist_date"/></span>
+						<span class="btn small"><input type="button" value="6개월" id="6month" class="select_date resp_btn" settarget="regist_date" /></span>
+						<span class="btn small"><input type="button" value="1년" id="1year" class="select_date resp_btn" settarget="regist_date" /></span>
+					</span>
+				</td>
+			</tr>
+			<!-- 주문상태 출고 전 -->
+			<tr>
+				<th><span class='red'>상품상태</span> 출고 전</th>
+				<td colspan="5">
+					
+					<!--{ @config_load('step') }-->
+					<!--{ ? .key_ !=  15  && (.key_ < 50 || .key_ >  80) }-->
+					<label class="search_label resp_checkbox"><input type="checkbox" name="chk_step[{.key_}]" value="1" {? sc.chk_step[.key_]}checked{/} /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+					<!--{ / }-->
+					<!--{ / }-->
+					
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			<!-- 주문상태 출고 후 -->
+			<tr>
+				<th><span class='red'>상품상태</span> 출고 후</th>
+				<td colspan="5" style="position:relative;">
+					
+					<!--{ @config_load('step') }-->
+					<!--{ ? .key_ !=  15  && (.key_ >= 50 && .key_ <  80) }-->
+					<label class="search_label resp_checkbox"><input type="checkbox" name="chk_step[{.key_}]" value="1" {? sc.chk_step[.key_]}checked{/}/> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+					<!--{ / }-->
+					<!--{ / }-->
+				
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			<!--{? detailmode != "trust"}-->
+			<!-- 배송방법 -->
+			<tr>
+				<th>배송방법
+					<span class="helpicon2 detailDescriptionLayerBtn" title="배송방법"></span>
+					<!-- 배송방법 설명 -->
+					<div class="detailDescriptionLayer hide">선택된 배송국가의 배송방법으로 주문된 주문 조회</div>
+				</th>
+				<td colspan="5">
+					<div class="">
+						<label class="search_label resp_checkbox" style="width:75px;"><input type="checkbox" name="nation[]" value="domestic" {? in_array('domestic',sc.nation)}checked{/}/> 대한민국</label>
+						(
+						<!--{ @ ship_set_code }-->
+						<label class="resp_checkbox"><input type="checkbox" name="shipping_set_code[domestic][]" value="{.key_}" groupset='domestic' grouplast="{? count(ship_set_code)-1 == .index_ }y{:}n{/}" {? in_array(.key_,sc.shipping_set_code.domestic)}checked{/} /><span  class="fx11">{.value_}</span></label>
+						<!--{ / }-->
+						)
+
+						<label class="search_label ml10 resp_checkbox" style="width:75px;"><input type="checkbox" name="nation[]" value="international" br='y'
+						{? in_array('international',sc.nation)}checked{/}/> 해외국가</label>
+						(
+						<!--{ @ ship_set_code }-->
+						<label class="resp_checkbox"><input type="checkbox" name="shipping_set_code[international][]" value="{.key_}"  groupset='international' grouplast="{? count(ship_set_code)-1 == .index_ }y{:}n{/}" {? in_array(.key_,sc.shipping_set_code.international)}checked{/} /><span  class="fx11">{.value_}</span></label>
+						<!--{ / }-->
+						)
+
+						&nbsp;|&nbsp;
+						<label class="search_label resp_checkbox" style="width:auto;letter-spacing:-1px;"><input type="checkbox" name="shipping_set_code[ticket]" value="ticket" br='y' {? sc.shipping_set_code.ticket == 'ticket'}checked{/} /> 문자/이메일(티켓발송)</label>
+					</div>
+				</td>
+			</tr>
+			<!-- 배송예정 -->
+			<tr>
+				<th>배송예정
+					<span class="helpicon2 detailDescriptionLayerBtn" title="배송예정"></span>
+					<!-- 배송방법 설명 -->
+					<div class="detailDescriptionLayer wx300 hide">희망배송일이 입력기간인 주문조회<br />예약상품발송일이 입력기간인 주문조회</div>
+				</th>
+				<td colspan="5">
+
+					<label class="search_label resp_checkbox" ><input type="checkbox" name="shipping_hop_use" value="y" { ? sc.shipping_hop_use == 'y' }checked{/}/> 희망배송일</label>
+
+					<input type="text" name="shipping_hope_sdate" value="{=sc.shipping_hope_sdate}" class="datepicker"  maxlength="10" size="10" default_none />
+					<span class="gray">-</span>
+					<input type="text" name="shipping_hope_edate" value="{=sc.shipping_hope_edate}" class="datepicker" maxlength="10" size="10" default_none />
+					&nbsp;<span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn v3 size_S" settarget="shipping_hope" /></span>
+
+					<label class="search_label resp_checkbox ml20" style="width:110px;"><input type="checkbox" name="shipping_reserve_use" value="y" { ? sc.shipping_reserve_use == 'y' }checked{/}/> 예약상품발송일</label>
+
+					<input type="text" name="shipping_reserve_sdate" value="{=sc.shipping_reserve_sdate}" class="datepicker"  maxlength="10" size="10" default_none />
+					<span class="gray">-</span>
+					<input type="text" name="shipping_reserve_edate" value="{=sc.shipping_reserve_edate}" class="datepicker" maxlength="10" size="10" default_none />
+					&nbsp;<span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn size_S v3" settarget="shipping_reserve"/></span>
+
+				</td>
+			</tr>
+			<!-- 주문상품 -->
+			<tr>
+				<th>주문상품
+					<span class="helpicon2 detailDescriptionLayerBtn" title="주문상품"></span>
+					<!-- 배송방법 설명 -->
+					<div class="detailDescriptionLayer hide">
+						<table class='helpicon_table' cellpadding=0 cellspacing=0>
+						<tr><th>구분</th><th>주문상품</th><th>주문 조회 결과</th></tr>
+						<tr><td>일반/티켓</td><td>성인상품</td><td class='red left'>성인상품이 있는 주문 조회</td></tr>
+						<tr><td>일반/티켓</td><td>청약철회불가</td><td class='red left'>청약철회불가상품이 있는 주문 조회</td></tr>
+						<tr><td>일반/티켓</td><td>구매대행</td><td class='red left'>구매대행상품이 있는 주문 조회</td></tr>
+						<tr><td>일반</td><td>예약상품</td><td class='red left'>예약상품이 있는 주문 조회</td></tr>
+						<tr><td>일반</td><td>패키지/복합상품</td><td class='red left'>패키지/복합상품이 있는 주문 조회</td></tr>
+						<tr><td>일반</td><td>사은품</td><td class='red left'>사은품이 있는 주문 조회</td></tr>
+						<tr><td>티켓</td><td>티켓</td><td class='red left'>티켓이 있는 주문 조회</td></tr>
+						<tr><td>일반</td><td>위탁배송상품</td><td class='red left'>위탁배송이 있는 주문 조회</td></tr>
+						</table>
+					</div>
+				</th>
+				<td colspan="5">
+					
+					{@ arr_order_goods_type }
+					{? .key_ == "package"} |&nbsp;&nbsp;&nbsp;{ / }
+					<label class="search_label resp_checkbox" no="1" {? .key_ == "withdraw" || .key_ == "package"}style="width:130px;"{/}>
+						<input type="checkbox" name="goodstype[]" value="{=.key_}" row_group="주문상품" {? in_array(.key_,sc.goodstype)}checked{/}  /> <img src="../images/design/icon_order_{=.key_}.gif" align="absmiddle" />
+						{=.value_}
+					</label>
+					{ / }
+					</div>
+				</td>
+			</tr>
+			<!-- 마켓 연동 주문 -->
+			<!--{ ? connectorUse == true }-->
+			<tr>
+				<th>
+					오픈마켓 주문
+					<span class="helpicon2 detailDescriptionLayerBtn" title="오픈마켓 주문서 검색"></span>
+				</th>
+				<td colspan="5">
+					<div class="resp_checkbox">
+					<!--{ @ marketList }-->
+					<label class="search_label">
+						<input type="checkbox" name="selectMarkets[]" value="{.key_}" { ? in_array(.key_, sc.selectMarkets) }checked{ / }/> <span>{.name}</span>
+					</label>
+					<!--{ / }-->
+					</div>
+				</td>
+			</tr>
+			<!--{ / }-->
+			<tr>
+				<th>
+					주문유형
+					<span class="helpicon2 detailDescriptionLayerBtn" title="주문유형 검색"></span>
+					<!-- 주문유형 검색 -->
+					<div class="detailDescriptionLayer hide">
+						<table class='helpicon_table' cellpadding=0 cellspacing=0>
+						<tr><th>주문유형</th><th>주문 조회 결과</th></tr>
+						<tr><td>교환 주문</td><td class='red left'>교환 상품이 있는 주문</td></tr>
+						<tr><td>관리자 주문</td><td class='red left'>관리자가 직접 주문을 생성한 주문</td></tr>
+						<tr><td>개인결제</td><td class='red left'>관리자가 생성한 개인결제건에 대하여 구매자가 결제를 완료한 주문</td></tr>
+						<tr><td>선물하기</td><td class='red left'>선물하기 상품 주문</td></tr>
+						</table>
+					</div>
+				</th>
+				<td>
+					<label class="search_label resp_checkbox" ><input type="checkbox" name="ordertype[]" value="change" {? in_array('change',sc.ordertype)}checked{/} /> <img src="../images/design/icon_order_exchange.gif" align="absmiddle" /> 교환주문</label>
+					<label class="resp_checkbox"><input type="checkbox" name="ordertype[]" value="admin"  {? in_array('admin',sc.ordertype)}checked{/} /> <img src="../images/design/icon_order_admin.gif" align="absmiddle" /> 관리자주문</label>
+					<label class="resp_checkbox"><input type="checkbox" name="ordertype[]" value="personal" {? in_array('personal',sc.ordertype)}checked{/}  /> <img src="../images/design/icon_order_personal.gif" align="absmiddle" /> 개인결제</label>
+					<label class="resp_checkbox"><input type="checkbox" name="ordertype[]" value="present" {? in_array('present',sc.ordertype)}checked{/}  /> <img src="../images/design/icon_order_present.gif" align="absmiddle" width="14" /> 선물하기</label>
+				</td>
+
+			</td>
+			<!--{ / }-->
+			</table>
+		</td>
+	</tr>
+	</table>
+</div>
+<!-- 상세검색 끝 -->
+
+<div class="footer search_btn_lay">
+	<div>	
+		<span class="sc_edit">
+			<button type="button" id="set_default_setting_button" class="resp_btn v3">기본검색설정</button>
+			<button type="button" id="set_default_apply_button" onclick="set_search_form('order')" class="resp_btn v3">기본검색적용</button>		
+		</span>	
+		<span class="search">	
+			<button type="submit" class="resp_btn active size_XL"><span>검색</span></button>	
+			<button type="button" id="search_reset_button" class="resp_btn v3 size_XL">초기화</button>		
+		</span>				
+		<span class="detail">	
+			<button type="button" id="search_detail_button" class="close resp_btn v3" value="open">상세검색닫기</button>	
+		</span>			
+	</div>
+</div>
+

@@ -1,0 +1,328 @@
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "카테고리" 리스트 페이지 @@
+- 파일위치 : [스킨폴더]/goods/catalog.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div id="itemstmplayer" class="hide"></div>
+
+	
+
+
+
+	<div class="jinji_top_banner">
+		{=showDesignBanner(23)}
+	</div>
+
+	<script type="text/javascript">
+        $(function () {
+            $(".jinji_top_banner .light_style_1_23").slick({
+                dots: true, // 도트 페이징 사용( true 혹은 false )
+                autoplay: true, // 슬라이드 자동( true 혹은 false )
+                speed: 800, // 슬라이딩 모션 속도 ms( 밀리세컨드, ex. 800 == 0.8초 )
+                autoplaySpeed: 4000, // autoplay 사용시 슬라이드간 시간 ms( 밀리세컨드, ex. 4000 == 4초 )
+            });
+            // 이 외 slick 슬라이더의 자세한 옵션사항은 http://kenwheeler.github.io/slick/ 참고
+        });
+	</script>
+
+
+
+
+<div id="catalog_page">
+   
+	<div class="search_nav"></div>
+
+	<!--[ 상단 꾸미기 HTML ]-->
+	<!--{? categoryData.top_html }-->
+	<div class="category_edit_area mobile_img_adjust">
+	{categoryData.top_html}
+	</div>
+
+
+	
+	<!--{ / }-->
+
+	<!-- ------- 검색필터, 추천상품, 상품정렬( 파일위치 : [스킨폴더]/goods/_search_form_light.html ) ------- -->
+	{=showGoodsSearchFormLight()}
+	<!-- ------- //검색필터, 추천상품, 상품정렬 ------- -->
+
+	<!-- ------- 상품 영역( data-displaytype : "lattice", "list" ), 파일위치 : [스킨폴더]/goods/search_list_template.html ------- -->
+    
+    <style type="text/css">
+    	.music_mdpick, .goods_mdpick, .fashion_mdpick, .beauty_mdpick, .food_mdpick, .sports_mdpick, .style_mdpick, .life_mdpick, .digital_mdpick, .toy_mdpick, .bravegirls_notice{display: none; }
+        .mdpick_box{display:none;}
+
+        .jinji_top_banner{display: none;}
+
+        @media screen and (max-width: 768px) { 
+        	.bravegirls_notice>h1 { font-size: 16px !important; } 
+        }
+
+    </style>
+
+    <script type="text/javascript">
+    	$(function() {
+              $(".mdpick_box").hide();
+            
+    		if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0008&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0008&per=40&sorting=ranking&filter_display=lattice") {
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".music_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0013&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0013&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".goods_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0010&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0010&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".fashion_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0009&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0009&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".beauty_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0012&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0012&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".food_mdpick").show();
+
+				$(".jinji_top_banner").show();
+			}
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0019&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0019&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".sports_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0017&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0017&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".style_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0034&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0034&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".digital_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".toy_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0021&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0021&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".life_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".digital_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0011&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c0011&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".life_mdpick").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c00130008&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c00130008&per=40&sorting=ranking&filter_display=lattice") {
+				$(".music_mdpick").hide();
+				$(".goods_mdpick").hide();
+				$(".fashion_mdpick").hide();
+				$(".beauty_mdpick").hide();
+				$(".food_mdpick").hide();
+				$(".sports_mdpick").hide();
+				$(".style_mdpick").hide();
+				$(".toy_mdpick").hide();
+				$(".digital_mdpick").hide();
+                $(".mdpick_box").show();
+				$(".life_mdpick").hide();
+				$(".bravegirls_notice").show();
+
+				$(".jinji_top_banner").hide();
+			}
+
+
+			// 진지 배너
+			if (window.location=="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c00120006&per=40&sorting=ranking&filter_display=lattice" || window.location=="http://music-brother.firstmall.kr/goods/catalog?page=1&searchMode=catalog&category=c00120006&per=40&sorting=ranking&filter_display=lattice") {
+				$(".jinji_top_banner").show();
+
+			}
+
+
+			
+
+    	});
+
+    </script>
+
+
+
+    <!-- 상품디스플레이 -->
+    <div class="mdpick_box">
+        <div class="title_group1">
+            <h3 class="title1"><span designElement="text"><strong>MD’</strong>s Pick</span></h3>
+        </div>
+        <div class="music_mdpick">
+            {=showDesignDisplay(10319)}
+        </div>
+        <div class="goods_mdpick">
+            {=showDesignDisplay(10320)}
+        </div>
+        <div class="fashion_mdpick">
+            {=showDesignDisplay(10321)}
+        </div>
+        <div class="beauty_mdpick">
+            {=showDesignDisplay(10322)}
+        </div>
+        <div class="food_mdpick">
+            {=showDesignDisplay(10323)}
+        </div>
+        <div class="sports_mdpick">
+            {=showDesignDisplay(10324)}
+        </div>
+        <div class="style_mdpick">
+            {=showDesignDisplay(10325)}
+        </div>
+        <div class="toy_mdpick">
+            {=showDesignDisplay(10341)}
+        </div>
+        <div class="digital_mdpick">
+            {=showDesignDisplay(10342)}
+        </div>
+        <div class="life_mdpick">
+            {=showDesignDisplay(10343)}
+        </div>
+        <div class="bravegirls_notice" style="text-align: center;">
+            <h1 style="font-weight: bold;">< 브레이브걸스 굿즈 상품은 12일 낮 12시부터 구매가능합니다!!></h1>
+        </div>
+        <div class="title_group1">
+		<h3 class="title1"><span designElement="text"><strong>ALL</strong></span></h3>
+	</div>
+    </div>
+
+	<!-- //상품디스플레이 -->
+    
+    
+	<div id="searchedItemDisplay" class="searched_item_display" data-displaytype="lattice">
+		
+	</div>
+    
+
+    
+	<!-- ------- //상품 영역 ------- -->
+</div>
+
+<div id="wish_alert">
+	<div class="wa_on"></div>
+	<div class="wa_off"></div>
+	<div class="wa_msg"></div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	// 검색 페이지 -> 디폴트 검색박스 open
+	$('#searchModule #searchVer2').show();
+
+	// 컬러 필터 - 255, 255, 255 --> border
+	colorFilter_white( '#searchFilterSelected .color_type' );
+});
+</script>
+

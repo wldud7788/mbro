@@ -1,0 +1,278 @@
+<html xmlns:v='urn:schemas-microsoft-com:vml'
+	xmlns:o='urn:schemas-microsoft-com:office:office'
+	xmlns:x='urn:schemas-microsoft-com:office:excel'
+	xmlns='http://www.w3.org/TR/REC-html40'>
+	<head>
+	<!--[if gte mso 9]>
+	<xml>
+	 <x:ExcelWorkbook>
+	  <x:ExcelWorksheets>
+	   <x:ExcelWorksheet>
+		<x:Name>{file_type}</x:Name>
+		<x:WorksheetOptions>
+		 <x:DefaultRowHeight>270</x:DefaultRowHeight>
+		 <x:Selected/>
+		 <x:DoNotDisplayGridlines/>
+		 <x:ProtectContents>False</x:ProtectContents>
+		 <x:ProtectObjects>False</x:ProtectObjects>
+		 <x:ProtectScenarios>False</x:ProtectScenarios>
+		</x:WorksheetOptions>
+	   </x:ExcelWorksheet>
+	  </x:ExcelWorksheets>
+	  <x:WindowHeight>12825</x:WindowHeight>
+	  <x:WindowWidth>18945</x:WindowWidth>
+	  <x:WindowTopX>120</x:WindowTopX>
+	  <x:WindowTopY>30</x:WindowTopY>
+	  <x:ProtectStructure>False</x:ProtectStructure>
+	  <x:ProtectWindows>False</x:ProtectWindows>
+	 </x:ExcelWorkbook>
+	</xml>
+	<![endif]-->
+<style>
+	td {text-align:center;}
+	.title {background-color:#efefef;}
+	.red {color:red}
+	.number {text-align:right; mso-number-format:"@";}
+	.left {text-align:left;}
+	.center {text-align:center;mso-number-format:"@";}
+	.right {text-align:right;}
+</style>
+</head>
+<body>
+
+
+	<table width="100%" border=1>
+	<thead>
+	<tr>
+		<th class="title" rowspan="2"></th>
+		<th class="title" rowspan="2">주문번호(환불번호)</th>
+		<th class="title" rowspan="2">출고번호(반품번호)</th>
+		<th class="title" rowspan="2">상태/배송완료일(환불일)(반품일)</th>
+		<th class="title" rowspan="2">상품</th>
+		<th class="title" rowspan="2">옵션</th>
+		<th class="title" rowspan="2">수량</th>
+		<th class="title" colspan="3">주문자</th>
+		<th class="title" rowspan="2">결제방법</th>
+		<th class="title" colspan="4">판매</th>
+		<th class="title" colspan="2">할인공제</th>
+		<th class="title" rowspan="2">위탁배송비</th>
+		<th class="title" rowspan="2">마진금액</th>
+		<th class="title" rowspan="2">마진율</th>
+		<th class="title" rowspan="2">정산금액</th>
+	</tr>
+	<tr>
+		<th class="title">이름</th>
+		<th class="title">아이디</th>
+		<th class="title">등급</th>
+		<th class="title">상품금액</th>
+		<th class="title">통신판매/중계자/수수료</th>
+		<th class="title">판매 입점사</th>
+		<th class="title">배송비</th>
+		<th class="title">통신판매/중계자</th>
+		<th class="title">판매/입점사</th>
+	</tr>
+	</thead>
+
+	<tbody>
+
+	<tr style='background-color:#ccffff'>
+		<td class="right" colspan="6">합계&nbsp;</td>
+		<td class="center">{=number_format(tot.ea)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="number">{=get_currency_price(tot.price)}</td>
+		<td class="number">{=get_currency_price(tot.fee)}</td>
+		<td class="number">{=get_currency_price(tot.price-tot.fee)}</td>
+		<td class="number">{=get_currency_price(tot.shipping_price)}</td>
+		<td class="number">{=get_currency_price(tot.tot_salescost_admin)}</td>
+		<td class="number">{=get_currency_price(tot.tot_salescost_provider)}</td>
+		<td class="number">
+			{? (tot.shipping_cost_by_shop + tot.return_shipping_price_by_shop) > 0 }-{/}{=get_currency_price(tot.shipping_cost_by_shop + tot.return_shipping_price_by_shop)}
+		</td>
+		<td class="number">{=get_currency_price(tot.margin)}</td>
+		<td class="number">{tot.margin_percent}%</td>
+		<td class="number">{=get_currency_price(tot.account_price)}</td>
+	</tr>
+
+	<!--{ @ loop }-->
+	<tr>
+		<td class="center">{.index_+1}</td>
+		<td class="center">{.order_seq}</td>
+		<td class="center">{.export_code}</td>
+		<td class="center">{.mstep}({.shipping_date})</td>
+		<td class="center">{.goods_name}</td>
+		<td class="center">
+			{.option1} {.option2} {.option3} {.option4} {.option5}
+			{? .option1  && .suboption }/{/}{.suboption}
+		</td>
+		<td class="center">{=number_format(.ea)}</td>
+		<td class="center">{ ? .member_type }[{=.member_type}]{/}{ .order_user_name }</td>
+		<td class="center">{ ? .member_seq }{.userid}{ : }비회원{ / }</td>
+		<td class="center">{ ? .member_seq }{.group_name}{ : }-{ / }</td>
+		<td class="center">{=.mpayment} {? .admin_order }/ 관{ / }</td>
+		<td class="number">{=get_currency_price(.price)}</td>
+		<td class="number">{=get_currency_price(.fee)}</td>
+		<td class="number">{=get_currency_price(.price-.fee)}</td>
+		<td class="number">{=get_currency_price(.shipping_cost + .goods_shipping_cost)}</td>
+		<td class="number">{=get_currency_price(.tot_salescost_admin)}</td>
+		<td class="number">{=get_currency_price(.tot_salescost_provider)}</td>
+		<td class="number">
+			{ ? .shipping_cost_by_shop>0 }
+			-{=get_currency_price(.shipping_cost_by_shop)}
+			{ : }
+			0
+			{ / }
+		</td>
+		<td class="number">{=get_currency_price(.margin)}</td>
+		<td class="number">{.margin_percent}%</td>
+		<td class="number">{=get_currency_price(.account_price)}</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? loop }-->
+	<tr style='background-color:#ffcc99'>
+		<td class="right" colspan="6">소계</td>
+		<td class="center" >{=number_format(tot_export.ea)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="number">{=get_currency_price(tot_export.price)}</td>
+		<td class="number">{=get_currency_price(tot_export.fee)}</td>
+		<td class="number">{=get_currency_price(tot_export.price-tot_export.fee)}</td>
+		<td class="number">{=get_currency_price(tot_export.shipping_cost + tot_export.goods_shipping_cost)}</td>
+		<td class="number">{=get_currency_price(tot_export.tot_salescost_admin)}</td>
+		<td class="number">{=get_currency_price(tot_export.tot_salescost_provider)}</td>
+		<td class="number">
+			{ ? tot_export.shipping_cost_by_shop > 0 }
+			-{=get_currency_price(tot_export.shipping_cost_by_shop)}
+			{ : }
+			0
+			{ / }
+		</td>
+		<td class="number">{=get_currency_price(tot_export.margin)}</td>
+		<td class="number">{tot_export.margin_percent}%</td>
+		<td class="number">{=get_currency_price(tot_export.account_price)}</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ @ loop2 }-->
+	<tr>
+		<td class="center">{.index_+1}</td>
+		<td class="center">{.order_seq}</td>
+		<td class="center">{.return_code}</td>
+		<td class="center">반품완료({.return_date})</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">{ ? .member_type }[{=.member_type}]{/}{ .order_user_name }</td>
+		<td class="center">{ ? .member_seq }{.userid}{ : }비회원{ / }</td>
+		<td class="center">{ ? .member_seq }{.group_name}{ : }-{ / }</td>
+		<td class="center">{=.mpayment}{? .admin_order }/ 관{ / }</td>
+		<td class="center"></td>
+		<td class="center"></td>
+		<td class="center"></td>
+		<td class="number">{=get_currency_price(.return_shipping_price)}</td>
+		<td class="center"></td>
+		<td class="center"></td>
+		<td class="number">{?.return_shipping_price_by_shop>0}-{/}{=get_currency_price(.return_shipping_price_by_shop)}</td>
+		<td class="center"></td>
+		<td class="center"></td>
+		<td class="center"></td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? loop2 }-->
+	<tr style='background-color:#ffcc99'>
+		<td class="right" colspan="6">소계</td>
+		<td class="center">{=number_format(tot_return.ea)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">{=get_currency_price(tot_return.return_shipping_price)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="number ">&nbsp;</td>
+		<td class="number">{?tot_return.return_shipping_price_by_shop>0}-{/}{=get_currency_price(tot_return.return_shipping_price_by_shop)}</td>
+		<td class="number ">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="number">{=get_currency_price(tot_return.account_price)}</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ @ loop3 }-->
+	<tr style='background-color:'>
+		<td class="center">{.index_+1}</td>
+		<td class="center">{.order_seq}</td>
+		<td>{.refund_code}</td>
+		<td class="center">환불완료({.refund_date})</td>
+		<td class="center">{.goods_name}</td>
+		<td class="center">
+			{.option1} {.option2} {.option3} {.option4} {.option5}
+			{? .option1  && .suboption }/{/}{.suboption}
+		</td>
+		<td class="center">{=number_format(.ea)}</td>
+		<td class="center">{ ? .member_type }[{=.member_type}]{/}{ .order_user_name }</td>
+		<td class="center">{ ? .member_seq }{.userid}{ : }비회원{ / }</td>
+		<td class="center">{ ? .member_seq }{.group_name}{ : }-{ / }</td>
+		<td class="center">{=.mpayment}{? .admin_order }/ 관{ / }&nbsp;</td>
+		<td class="number">{=get_currency_price(.price * -1)}</td>
+		<td class="number">{=get_currency_price(.fee * -1)}</td>
+		<td class="number">{=get_currency_price((.price - .fee) * -1)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">
+		{ ? .account_price != 0 }-{=get_currency_price(.account_price)}{ : }0{ / }
+		</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? loop3 }-->
+	<tr style='background-color:#ffcc99'>
+		<td class="right" colspan="6">소계</td>
+		<td class="center" >{=number_format(tot_refund.ea)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="number">{=get_currency_price(tot_refund.price)}</td>
+		<td class="number">{=get_currency_price(tot_refund.fee)}</td>
+		<td class="number">{=get_currency_price(tot_refund.price-tot_refund.fee)}</td>
+		<td class="number">&nbsp;</td>
+		<td class="rate">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">&nbsp;</td>
+		<td class="number">{=get_currency_price(tot_refund.account_price)}</td>
+	</tr>
+	<!--{ / }-->
+	<tr style='background-color:#ccffff'>
+		<td class="right" colspan="6">합계&nbsp;</td>
+		<td class="center">{=number_format(tot.ea)}</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="center">&nbsp;</td>
+		<td class="number">{=get_currency_price(tot.price)}</td>
+		<td class="number">{=get_currency_price(tot.fee)}</td>
+		<td class="number">{=get_currency_price(tot.price-tot.fee)}</td>
+		<td class="number">{=get_currency_price(tot.shipping_price)}</td>
+		<td class="number">{=get_currency_price(tot.tot_salescost_admin)}</td>
+		<td class="number">{=get_currency_price(tot.tot_salescost_provider)}</td>
+		<td class="number">
+			{? (tot.shipping_cost_by_shop + tot.return_shipping_price_by_shop) > 0 }-{/}{=get_currency_price(tot.shipping_cost_by_shop + tot.return_shipping_price_by_shop)}
+		</td>
+		<td class="number">{=get_currency_price(tot.margin)}</td>
+		<td class="number">{tot.margin_percent}%</td>
+		<td class="number">{=get_currency_price(tot.account_price)}</td>
+	</tr>
+	</tbody>
+	</table>
+
+</body>
+</html>
+
+

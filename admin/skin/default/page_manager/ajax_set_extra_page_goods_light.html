@@ -1,0 +1,60 @@
+<script>
+	// 판매상태의 '정상' 은 항상 체크. 해제 불가.
+	$("form#navigationSettingForm input[name='status[]'][value='normal']").on("click",function(){ $(this).prop("checked",true); });
+</script>
+<form name="navigationSettingForm" id="navigationSettingForm" method="post" target="actionFrame" action="../page_manager_process/save_subpage" class="hx100">
+<input type="hidden" name="page_type" value="{= page_type}"/>
+<div class="content">
+	<div class="item-title">검색 항목</div>
+	<table class="table_basic">
+		<colgroup><col width='25%'><col width='75%'></colgroup>
+	<!--{@ data.filter_col}-->
+		<tr>
+			<th>{.title}</th>
+			<td>
+			<!--{@ .item }-->
+				<label class='resp_checkbox mr10'><input type="checkbox" name="{.field}[]" value="{= ..key_ }" {? in_array( ..key_, data.search_filter) || (.key_ == 'status' && in_array( ..key_, data.status.chk)) }checked{/}/> {= ..value_ }</label>
+			<!--{/}-->
+			</td>
+		</tr>
+	<!--{/}-->
+	</table>
+
+	<div class="item-title">상품 노출</div>
+	<table class="table_basic">
+	<colgroup><col width='25%'><col width='75%'></colgroup>
+	<!--{? in_array('status',data.allow) }-->
+			<tr>
+				<th>판매 상태</th>
+				<td>
+					<div>
+					<!--{@ data.status['col'] }-->
+						<label class='resp_checkbox mr10'><input type="checkbox" name="status[]" value="{= .key_}" {? in_array( .key_ , data.status.chk) || .key_ == 'normal'}checked{/}/> {= .value_}</label>
+					<!--{ / }-->
+					</div>
+					<ul class="resp_message  mt0">
+						<li>- 선택한 판매상태의 상품만 노출됩니다.</li>
+					</ul>
+				</td>
+			</tr>
+	<!--{ / }-->
+	<!--{? in_array('orderby',data.allow) }-->
+		<tr>
+			<th>정렬 순서</th>
+			<td>
+			<!--{? is_array(data.order_col) }-->
+				<!--{@ data.order_col}-->
+					<label class='resp_radio mr10'><input type="radio" name="orderby" value="{= .key_}" {? in_array( .key_ , data.orderby)}checked{/}/> {= .value_}</label>
+				<!--{ / }-->
+			<!--{ / }-->
+			</td>
+		</tr>
+	<!--{ / }-->
+	</table>
+</div>
+
+<div class="footer">
+	<button type="submit" class="resp_btn active size_XL">저장</button>
+	<button type="button" class="btnLayClose resp_btn v3 size_XL" onClick="closeDialog('setCtrlLayer');">취소</button>
+</div>
+</form>

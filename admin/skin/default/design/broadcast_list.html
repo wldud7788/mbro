@@ -1,0 +1,54 @@
+<div style="border:1px solid #333;">
+	<table width="100%" class="info-table-style">
+		<colgroup>
+			<col width="80" />
+			<col width="80" />
+			<col width="150" />
+			<col width="" />
+			<col width="250" />
+			<col width="130" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">
+					<label><input type="checkbox" name="chkall" value="" onclick="list_all_chk(this);" /></label>
+				</th>
+				<th class="its-th-align center">번호</th>
+				<th class="its-th-align center">생성 일시</th>
+				<th class="its-th-align center">관리용 타이틀</th>
+				<th class="its-th-align center">치환코드</th>
+				<th class="its-th-align center">관리</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--{ @ broadcast_list }-->
+			<tr>
+				<td class="its-td-align center"><input type="checkbox" class="chk_display" name="delete_display_seq[]" value="{.display_seq}" /></td>
+				<td class="its-td-align center">{=.display_seq}</td>
+				<td class="its-td-align center">{.regist_date}</td>
+				<td class="its-td-align left">
+					<span>{.title}</span>
+				</td>
+				<td class="its-td-align center">
+					&#123;=showDesignBroadcast({.display_seq})&#125;
+					<span class="btn small"><input type="button" value="태그복사" onclick="tag_clipboard_copy('{.display_seq}');" /></span>
+				</td>
+				<td class="its-td-align center">
+					<span class="btn small"><input type="button" value="복사" onclick="copy_broadcast('{.display_seq}')" /></span>
+					<span class="btn small"><input type="button" value="수정" onclick="edit_broadcast('{.display_seq}', '{.kind}')" /></span>
+					<span class="btn small red">
+						<input type="button" value="삽입" onclick="select_broadcast('{.display_seq}',$(this))" data-title="{.title}" data-status="{.status}" />
+					</span>
+				</td>
+			</tr>
+		<!--{ : }-->
+			<tr>
+				<td class="its-td-align center" colspan="5">검색된 결과가 없습니다.</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+<!--{? pagin }-->
+<div class="paging_navigation" style="margin-bottom:0;">{pagin}</div>
+<!--{ / }-->

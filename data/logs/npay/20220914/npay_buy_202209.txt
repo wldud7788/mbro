@@ -1,0 +1,20 @@
+[2022-09-14 11:43:52.972466000]
+MODE : Request
+REMOTE_IP : 14.52.8.95
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1879]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>Nzc1ZmRiNDU3NGZhYzA1ZDc5ZGM2YjVjYWVlZTk3ODU5ZWUxYmQwNF8xNjYzMTIzNDMy</merchantCustomCode1><naverInflowCode>ct%3Dl810q3y2%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D6f7e63f5181981ce53ababbf6788b60c7b7163ec%7Ctrx%3D</naverInflowCode></interface><product><id>1879</id><merchantProductId>Nzc1ZmRiNDU3NGZhYzA1ZDc5ZGM2YjVjYWVlZTk3ODU5ZWUxYmQwNF8xNjYzMTIzNDMyQG9wdDExMzU2OQ==</merchantProductId><ecMallProductId>1879</ecMallProductId><name><![CDATA[포토카드 세트 PHOTOCARD SET]]></name><basePrice>8000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1879]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1879_tmp_32ccc0f471e84018394441bacb6c975f3000list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-09-14 11:43:53.20264000]
+MODE : Response
+REMOTE_IP : 14.52.8.95
+SUCCESS:5acIEgpORI22R4-MNbeIxg:200337588
+
+[2022-09-14 19:55:08.40549000]
+MODE : Request
+REMOTE_IP : 211.36.142.20
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4824]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MDAwYjdmNTE0OWUwMTM2NGI3ZTMzNjkzNDBmOGY2NzE1NWRkNTMxMl8xNjYzMTUyOTA4</merchantCustomCode1><naverInflowCode>ct%3Dl81i7s0u%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D0c83011504f0238e7782e67cca09021873818c9b%7Ctrx%3D</naverInflowCode></interface><product><id>4824</id><merchantProductId>MDAwYjdmNTE0OWUwMTM2NGI3ZTMzNjkzNDBmOGY2NzE1NWRkNTMxMl8xNjYzMTUyOTA4QG9wdDE0NTUyNw==</merchantProductId><ecMallProductId>4824</ecMallProductId><name><![CDATA[❣️9월 할인❣️뇨끼밀키트 트러플 버섯크림]]></name><basePrice>14500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4824]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/75/2022/09/4824_tmp_ed157616bf6a8c529141c943361dd4585720list1.png]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>1301_1341_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-09-14 19:55:08.87402000]
+MODE : Response
+REMOTE_IP : 211.36.142.20
+SUCCESS:1w5-6IEYTte0ZQeJztGp9Q:200337588
+

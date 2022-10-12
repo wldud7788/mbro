@@ -1,0 +1,28 @@
+<!-- Start Script for ga4 (제품 / 품목 상세보기) -->
+<script type='text/javascript'>
+    try {
+        var currency = '{ data.currency }';
+        var value = '{ data.value }';
+        if (value != '' && typeof value != 'undefined' && value != null) {
+            value = check_number(value);
+        }
+        var items = '{ data.items }';
+        if (items != '' && typeof items != 'undefined' && items != null ){
+            items = JSON.parse(items);
+        };
+
+        // 새로고침일 경우 수집하지 않는다.
+        if (performance.navigation.type === 0 && typeof gtag != 'undefined'){
+            gtag("event", "view_item", {
+                currency: currency, // 통화
+                value: value,
+                items: [items]
+        });
+        }
+
+    } catch(e) {
+        console.log('GA4 view_item 이벤트 발생 에러 :',e);
+    }
+
+</script>
+<!-- End Script for channeltalk -->

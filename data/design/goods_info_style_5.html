@@ -1,0 +1,187 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ goods_info_style_5 @@
+- 파일 위치 : /data/design/goods_info_style_5.html
+- CSS 경로 : /data/design/goods_info_style.css
+- 상품정보 관련 CSS 수정 및 추가는 다음의 CSS파일에서 작업하시기 바랍니다.
+/data/design/goods_info_user.css
+※ /data 폴더는 /skin 폴더 상위 폴더입니다.
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{? !issample && style == 'responsible'}-->
+	<style>
+		.{display_key}.goods_list li.gl_item{ width:{goodsImageSize.width}px; }
+	</style>
+	<ul class="goods_list {display_key} goods_info_style_5">
+<!--{/}-->
+<!--{ @ goodsList }-->
+<!--{? !issample && style == 'sizeswipe'}--><ul class="goods_list swiper-slide"><!--{/}-->
+<!--{? !issample}-->
+	<li class="gl_item">
+	<div class="gl_inner_item_wrap">
+
+		<!--상품이미지-->
+		<div class="gli_image goodsDisplayImageWrap">
+			<a href="javascript:void(0);" class="respItemImageArea" onclick="display_goods_view('{.goods_seq}','{target}',this,'goods_view')">
+			<!--{ ? decorations.use_seconde_image }-->
+				<img src="{.image}" data-src="{.image}" class="goodsDisplayImage lazyload item1cut" onerror="this.src='/data/skin/{skin}/images/common/noimage.gif';" alt="{.goods_name}" />
+				<img src="{? .image2}{.image2}{:}{.image}{/}" data-src="{? .image2}{.image2}{:}{.image}{/}" class="goodsDisplayImage lazyload item2cut" onerror="this.src='/data/skin/{skin}/images/common/noimage.gif';" alt="{.goods_name}"  />
+			<!--{ : }-->
+				<img src="{.image}" data-src="{.image}" class="goodsDisplayImage lazyload" onerror="this.src='/data/skin/{skin}/images/common/noimage.gif'" alt="{.goods_name}"/>
+			<!--{ / }-->
+			</a>
+
+			<!-- 반응형 icon new -->
+			<!--{? decorations.use_image_icon}-->
+				
+				<!--{? decorations.image_icon_type == 'condition'}-->
+
+				<!-- 텍스트형 아이콘-->
+				<!--{? .text_icon}-->
+				<div class="respGoodsIcon typeText {= .text_icon_type}" style="background: {= .text_background}">
+					<div class="respGoodsIconInner">
+						<div class="iconArea">
+							<span class="nuM"><!--{= .text_icon[0]}--></span><span class="secondMessage"><!--{= .text_icon[1]}--></span>
+							<span class="nextMessage"><!--{= .text_icon[2]}--></span><!-- 부가 텍스트 있는 경우, 없으면 항목 미노출 -->
+						</div>
+					</div>
+				</div>
+				<!--{/}-->
+
+				<!--{:}-->
+
+				<!-- 이미지형 아이콘 -->
+				<div class="respGoodsIcon typeImage">
+					<div class="iconArea">
+						<img src="/data/icon/goodsdisplay/{decorations.image_icon}" alt="" />
+					</div>
+				</div>
+
+				<!--{/}-->
+
+			<!--{/}-->
+
+			<!-- 반응형 zzim -->
+			<!--{? decorations.use_image_zzim}-->
+			<div class="respGoodsZzim">
+				<a class="zzimArea" href="javascript:void(0)" onclick="display_goods_zzim(this, {= .goods_seq})">
+					<img src="/data/icon/goodsdisplay/zzim/{decorations.image_zzim}" class="zzimImage normal {? .wish == 1}hide{/}" alt="찜하기" title="찜하기" />
+					<img src="/data/icon/goodsdisplay/zzim_on/{decorations.image_zzim_on}" class="zzimImage active {? .wish != 1}hide{/}" alt="찜한 상품" title="찜한 상품" />
+				</a>
+			</div>
+			<!--{/}-->
+
+			<!-- 미리보기/옵션보기/SNS보내기 -->
+			<!--{? decorations.use_review_option_like }-->
+			<div class="respGoodsFuncMenu">
+				<ul class="goodsDisplayItemWrap">
+					<li class="funcMenu_quickview"><a href="javascript:void(0)" onclick="display_goods_quickview(this, {= .goods_seq});"><span class="txt">미리보기</span></a></li>
+					<li class="funcMenu_option"><a href="javascript:void(0)" onclick="display_goods_show_opt(this, {= .goods_seq});"><span class="txt">옵션보기</span></a></li>
+					<li class="funcMenu_send"><a href="javascript:void(0)" onclick="display_goods_send(this,'bottom', '{= .goods_seq}', '{= .goods_name}' );"><span class="txt">SNS보내기</span></a></li>
+				</ul>
+			</div>
+			<!--{/}-->
+
+			<!-- 상품 상태 표시 -->
+			<!--{ ? .goods_status != 'normal' }-->
+			<div class="respGoodsStatus">
+				<a href="/goods/view?no={.goods_seq}" class="area">
+					<!--{ ? .goods_status == 'runout' }-->
+					<span class="status_style type1"><em>SOLD OUT!</em></span>
+					<!--{ : .goods_status == 'purchasing' }-->
+					<span class="status_style type2"><em>재고확보중</em></span>
+					<!--{ : .goods_status == 'unsold' }-->
+					<span class="status_style type3"><em>판매중지</em></span>
+					<!--{/}-->
+				</a>
+			</div>
+			<!--{/}-->
+		</div>
+<!--{/}-->
+
+<div class="resp_display_goods_info infO_style_5">
+<!-- +++++++++++++++++++++++++++++++++ NEW 상품 정보 ++++++++++++++++++++++++++++++++ -->
+	<!-- 상품명-->
+	<!--{ ? .goods_name}-->
+	<div class="goodS_info displaY_goods_name">
+		<span class="areA"><a href="/goods/view?no={= .goods_seq}"><!--{ .goods_name }--></a></span>
+	</div>
+	<!--{ / }-->
+
+	<!-- 비회원 대체문구 -->
+	<!--{ ? .string_price }-->
+	<div class="infO_group">
+		<div class="goodS_info">
+			<span class="areA warning_text">
+			{=.string_price}
+			</span>
+		</div>
+	</div>
+	<!--{ : }-->
+	<div class="infO_group">
+		<!-- 정가 -->
+		<!--{ ? .consumer_price > .sale_price }-->
+		<div class="goodS_info displaY_consumer_price">
+			<span class="areA">				
+				{=get_currency_price(.consumer_price, 2, '', '<span class="nuM">_str_price_</span>')}
+			</span>
+		</div>
+		<!--{ / }-->
+
+		<!-- (할인혜택)판매가 -->
+		<!--{ ? .sale_price >= 0 }-->
+		<div class="goodS_info displaY_sales_price">
+			<span class="areA">				
+				{=get_currency_price(.sale_price, 2, '', '<span class="nuM">_str_price_</span>')}
+			</span>
+		</div>
+		<!--{ / }-->
+	</div>
+	<!--{ / }-->
+
+	<!--{? .review_divide || .review_usercnt}-->
+	<div class="infO_group">
+		
+		<!--{ ? .review_divide }-->
+		<!-- 상품후기 평가점수( 별점 ) -->
+		<div class="goodS_info displaY_review_score_a">
+			<span class="areA">
+				<span class="ev_active2"><b style="width:{=round(.review_divide/5*100,1)}%;"></b></span>
+			</span>
+		</div>
+
+		<!-- 상품후기 평가점수( 점수 ) -->
+		<div class="goodS_info displaY_review_score_b">
+			<span class="areA"><span class="nuM"><!--{= number_format(.review_divide, 1)}--></span>점</span>
+		</div>
+		<!--{ / }-->
+
+		<!-- 상품후기 가장 좋은 평가정보( 사람수 ) -->
+		<!--{? .review_usercnt}-->
+		<div class="goodS_info displaY_review_score_b">
+			<span class="areA"><span class="nuM"><!--{= number_format(.review_usercnt)}--></span>명</span>
+		</div>
+		<!--{ / }-->
+	</div>
+	<!--{ / }-->
+	
+	<!-- 리뷰 영역 -->
+	<!--{? .review_info}-->
+		<!--{@ .review_info}-->
+		<div class="goodS_info displaY_best_review">
+			<span class="areA titlE">
+				<!--{= ..subject}-->
+			</span>
+			<span class="areB desC"><!--{= ..contents}--></span>
+		</div>
+		<!--{/}-->
+	<!--{/}-->
+<!-- +++++++++++++++++++++++++++++++++ //NEW 상품 정보 ++++++++++++++++++++++++++++++++ -->
+</div>
+
+<!--{? !issample}-->
+	</div>
+  </li>
+<!--{/}-->
+<!--{? !issample && style == 'sizeswipe'}--></ul><!--{/}-->
+<!--{ / }-->
+<!--{? !issample && style == 'responsive'}--></ul><!--{/}-->

@@ -1,0 +1,48 @@
+<script type="text/javascript" src="/app/javascript/plugin/jquery_selectbox/js/jquery.selectbox-0.2.js"></script>
+<link href="/app/javascript/plugin/jquery_selectbox/css/jquery.selectbox.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript">
+$(document).ready(function(){
+	$('button#change_cart').bind('click', function(){
+		{? _GET['mode'] == "tmp" }
+			var data = $('form#optional_changes_form').serialize();
+			cart_tmp('{=cart_table}','tmp',data,'{_GET.tmp_cart}','{goods.goods_seq}');
+		{ : }
+			$('form#optional_changes_form').submit();
+		{ / }
+	});
+});
+</script>
+<form name="optional_changes_form" id="optional_changes_form" method="post" enctype="multipart/form-data" action="/order/optional_modify" target="actionFrame">
+<input type='hidden' name='mode'		value='{_GET.mode}'>
+{? _GET.tmp_cart}<input type='hidden' name='tmp_cart'		value='{_GET.tmp_cart}'>{/}
+<!--{ ? _GET.old_option_seq }--> <!--재매칭 수량 체크용-->
+<input type='hidden' name='old_option_seq'		value='{_GET.old_option_seq}'>
+<!--{ / }-->
+<input type='hidden' name='cart_option_seq'		value='{cart_options[0].cart_option_seq}'>
+<!--{ ? cart_table }-->
+<input type='hidden' name='cart_table' value='{cart_table }'>
+<!--{ / }-->
+
+<div style="height:450px; overflow:auto;">
+	<div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td width="60"><a href="/goods/view?no={goods.goods_seq}" target="_blank"><img src="{goods.image}" width="60" onerror="this.src='../images/common/noimage.gif'" /></a></td>
+			<td valign="top" style="padding:10px 0 0 10px;">{goods.goods_name}</td>
+		</tr>
+		</table>
+	</div>
+	<div>
+		{ # OPTION_SELECT }
+	</div>
+</div>
+
+<div style="position:absolute;left:0px;bottom:0px;width:100%">
+	<table width="100%" style="background-color:#ececec" cellpadding="0" cellspacing="12" border="0">
+	<tr>
+		<td style="padding-left:10px;" class="fx12"><strong>총 상품금액 : </strong>{=get_currency_price(goods.price,2,'','<span id="total_goods_price">_str_price_</span>')}</td>
+		<td align='right'><span class="btn large black"><button id="change_cart" type="button">변경하기</button></span></td>
+	</tr>
+	</table>
+</div>
+</form>

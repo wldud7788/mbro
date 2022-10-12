@@ -1,0 +1,604 @@
+
+<style>
+span.goods_name1 {display:inline-block;white-space:nowrap;overflow:hidden;width:250px;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+span.goods_name2 {display:inline-block;white-space:nowrap;overflow:hidden;width:500px;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+.price {padding-right:5px;text-align:right}
+div.left {float:left;padding-right:10px}
+span.option {padding-right:10px;}
+span.coupon_serial {margin-left:10px;}
+table.order-inner-table td,table.order-inner-table th {border:0 !important;height:9px !important;}
+.warehouse-info-lay { padding:5px;margin:2px 10px 5px 0;border:1px solid #c5c5c5;background-color:#fff; }
+.ea {font-size:12px; font-family:dotum; color:#a400ff; font-weight:bold;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 사은품 지급 조건 상세
+	$(".gift_log").bind('click', function(){
+		$.ajax({
+			type: "post",
+			url: "../event/gift_use_log",
+			data: "order_seq="+$(this).attr('order_seq')+"&item_seq="+$(this).attr('item_seq'),
+			success: function(result){
+				if	(result){
+					$("#gift_use_lay").html(result);
+					openDialog("사은품 이벤트 정보", "gift_use_lay", {"width":"500","height":"330"});
+				}
+			}
+		});
+	});
+	chk_small_goods_image();
+});
+</script>
+<div class="contents_dvs v2">
+	<div class="item-title">출고상품</div>
+	<table class="order-view-table table_row_basic v2" width="100%" border=0>
+		<colgroup>
+			<col />
+			<col width="4%" />
+			<col width="8%" />
+			<col width="6%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="5%" />
+			<col width="5%" />
+			<col width="5%" />
+			<col width="5%" />
+			<col width="5%" />
+			<col width="5%" />
+		</colgroup>
+		<thead class="oth">
+			<tr>
+				<th class="dark" rowspan="2">출고상품</th>
+				<th class="dark" rowspan="2">주문<br />수량</th>
+				<th class="dark" rowspan="2">재고/가용
+					<!--{ @config_load('order','ableStockStep') }-->
+					<!--{ ? .value_ == '25' }-->
+					<span class="helpicon" title="가용 = 재고-출고예약량<br/>출고예약량 = 결제확인+상품준비+출고준비"></span>
+					<!--{ : }-->
+					<span class="helpicon" title="가용 = 재고-출고예약량<br/>출고예약량 = 주문접수+결제확인+상품준비+출고준비"></span>
+					<!--{ / }-->
+					<!--{ / }--></th>
+				<th class="dark" rowspan="2">
+					<!--{ ? data_export.wh_name }-->
+					<div style="color:red;">{ data_export.wh_name }</div>
+					<!--{ / }-->
+					출고수량
+				</th>
+				<th class="dark" rowspan="2">예상마일리지<span class="helpicon" title="해당 출고건의 마일리지/포인트가 지급(배송완료 시 또는 구매확정 시)될 때<br />지급되어야 하는 잔여 마일리지/포인트입니다."></span><br/><span class="desc">(예상포인트)</span></th>
+				<th class="dark" rowspan="2">지급마일리지<br/><span class="desc">(지급포인트)</span></th>
+				<th class="dark" colspan="6">
+					현재 출고 외 상태
+				</th>
+			</tr>
+			<tr>
+				<th class="dark">준비</th>
+				<th class="dark">출고<br/>준비</th>
+				<th class="dark">출고<br/>완료</th>
+				<th class="dark">배송<br/>중</th>
+				<th class="dark">배송<br/>완료</th>
+				<th class="dark">취소</th>
+			</tr>
+		</thead>
+
+		<tbody class="otb">
+			<!--{ @ data_export_item }-->
+				<!--{?.opt_type=='sub'||.goods_type == 'gift'}-->
+			<tr class="order-item-row" bgcolor="#f6f6f6">
+				<!--{:}-->
+			<tr class="order-item-row">
+				<!--{/}-->
+				<td class="info left">
+					<table width="100%" border="0" cellpadding="0" cellspacing="0">
+						<col width="40" /><col />
+						<tr>
+							<td align="center" style="border:none;">
+								<a href='/goods/view?no={.goods_seq}' target='_blank'>
+								<span class="order-item-image"><img class="small_goods_image" src="{.image}" /></span>
+								</a>
+							</td>
+							<td style="border:none;">
+							<div>
+							{? .npay_product_order_id}<div class="ngray bold">{.npay_product_order_id}<span style="font-size:11px;font-weight:normal"> (Npay상품주문번호)</span></div>{/}
+							<!--{? .goods_type == "gift" }-->
+							<img src="/admin/skin/default/images/common/icon_gift.gif" />
+							<!--{ / }-->
+							<!--{?.goods_kind == 'coupon'}-->
+							<a href='../goods/social_regist?no={.goods_seq}' target='_blank'>
+							<!--{:.goods_type == 'gift'}-->
+							<a href='../goods/gift_regist?no={.goods_seq}' target='_blank'>
+							<!--{:}-->
+							<!--{? .is_bundle_export == 'Y'}--><span class="bold red">[{.order_seq}]</span><br/><!--{/}-->
+							<a href='../goods/regist?no={.goods_seq}' target='_blank'>
+							<!--{/}-->{.goods_name}</a>
+							</div>
+
+							<!--{ ? .adult_goods == 'Y' || .option_international_shipping_status == 'y' || .cancel_type == '1' || .tax == 'exempt' }-->
+							<div style="padding-top:3px">
+								<!--{ ? .adult_goods == 'Y' }-->
+								<img src="../images/common/auth_img.png" alt="성인" style="vertical-align: middle;"/>
+								<!--{ / }-->
+								<!--{ ? .option_international_shipping_status == 'y' }-->
+								<img src="../images/common/icon/plane_on.png" alt="해외배송상품" style="vertical-align: middle;" height="19" />
+								<!--{ / }-->
+								<!--{ ? .cancel_type == '1' }-->
+								<img src="../images/common/icon/nocancellation.gif" alt="청약철회" style="vertical-align: middle;"/>
+								<!--{ / }-->
+								<!--{ ? .tax == 'exempt' }-->
+								<img src="../images/common/icon/taxfree.gif" alt="비과세" style="vertical-align: middle;"/>
+								<!--{ / }-->
+							</div>
+							<!--{ / }-->
+
+							<!-- { ? .goods_kind == 'coupon' } -->
+							<div style="padding-top:3px">
+							<span class="coupon_serial">{.coupon_serial}</span> /
+							<span class="coupon_input">{?socialcp_input_type=='price'}{=get_currency_price(.coupon_input,3)}{:}{=number_format(.coupon_input)}회{/}</span> /
+							<span class="coupon_remain_value red">잔여{?socialcp_input_type=='price'}{=get_currency_price(.coupon_remain_value,3)}{:}{=number_format(.coupon_remain_value)}회{/}</span>
+							<span class="btn"><img src="../images/common/btn_ok_use.gif" class="excoupon_use_btn" order_seq="{data_export.order_seq}" onclick="excoupon_use_btn(this)" /></span>
+							</div>
+							<!-- { / } -->
+							<!--{ ? .event_seq && .event_title }-->
+							<div style="padding-top:3px">
+							<a href="/admin/event/{? .event_type =='solo' }solo{/}regist?event_seq={.event_seq}" target='_blank'><span class="btn small gray"><button type="button" class="goods_event hand resp_btn v2">{.event_title}</button></span></a>
+							</div>
+							<!--{ / }-->
+
+							<!--{ ? .option1!=null || .option2!=null || .option3!=null || .option4!=null || .option5!=null }-->
+							<div style="padding-top:3px">
+								<!--{ ? .opt_type == 'sub' }-->
+								<img src="../images/common/icon_add.gif" />
+								<!--{:}-->
+								<img src="/admin/skin/default/images/common/icon_option.gif" />
+								<!--{/}-->
+								<!--{ ? .option1!=null }-->
+								<span class="option">{.title1} : {.option1}</span>
+								<!--{ / }-->
+								<!--{ ? .option2!=null }-->
+								<span class="option">{.title2} : {.option2}</span>
+								<!--{ / }-->
+								<!--{ ? .option3!=null }-->
+								<span class="option">{.title3} : {.option3}</span>
+								<!--{ / }-->
+								<!--{ ? .option4!=null }-->
+								<span class="option">{.title4} : {.option4}</span>
+								<!--{ / }-->
+								<!--{ ? .option5!=null }-->
+								<span class="option">{.title5} : {.option5}</span>
+								<!--{ / }-->
+							</div>
+							<!--{/}-->
+							<!--{ ? .inputs }-->
+								<!--{ @ .inputs }-->
+									<!--{ ? ..value }-->
+							<div class="goods_input">
+								<img src="/admin/skin/default/images/common/icon_input.gif" />
+								<!--{?..title}-->{..title}:<!--{ / }-->
+								<!--{?..type=='file'}-->
+								<a href="../order_process/filedown?file={..value}" target="actionFrame">{..value}</a>
+								<!--{:}-->{..value}<!--{ / }-->
+							</div>
+									<!--{ / }-->
+								<!--{ / }-->
+							<!--{ / }-->
+
+							<!--{? .goods_type == "gift" }-->
+								{? .gift_title }<div><span class="fx11">{.gift_title}</span> <span class="btn small gray"><button type="button" class="gift_log resp_btn v2" order_seq="{=data_export.order_seq}" item_seq="{.item_seq}">자세히</button></span></div>{/}
+							<!--{ / }-->
+							<!--{ ? .package_yn != 'y'}-->
+							<div class="warehouse-info-lay">
+								<ul>
+									<!--{ ? .whinfo.wh_name }-->
+									<li>
+									{.whinfo.wh_name} {?.whinfo.location_code}({.whinfo.location_code}){ / } : {=number_format(.whinfo.ea)}({=number_format(.whinfo.badea)})
+									</li>
+									<!--{ / }-->
+									<li>상품코드 : {.goods_code}</li>
+								</ul>
+							</div>
+							<!--{ / }-->
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="info center ea">{ ? .package_yn == 'y'}[{ / }{.opt_ea}{ ? .package_yn == 'y' }]{ / }</td>
+
+				<td class="info center">
+				{ ? .package_yn == 'y' }
+					<span class="blue">실제상품▼</span>
+				{ : }
+				<!--{ ? .real_stock > 0 }-->
+				<span class="blue">{=number_format(.real_stock)}</span>
+				<!--{ : }-->
+				<span class="red">{=number_format(.real_stock)}</span>
+				<!--{ / }-->
+				<br/>
+				<!--{ ? .stock > 0 }-->
+				<span class="blue">{=number_format(.stock)}</span>
+				<!--{ : }-->
+				<span class="red">{=number_format(.stock)}</span>
+				<!--{ / }-->
+
+				<div class="center">
+					<span class="wh_option hand" onclick="goods_option_btn('{.goods_seq}',this,{ ? scm_cfg['use'] == 'Y'}'{.provider_seq}'{ : }'2'{ / })">
+						<span class="option-stock" optType="option" optSeq="{.whinfo.option_seq}"></span>
+						<span class="btn-administration goodsOptionBtn" goods_seq="{.goods_seq}"><span class="hide">옵션</span>
+					</span>
+				</div>
+				{ / }
+				</td>
+
+				<td class="info center">
+				<!--{ ? data_export.status == 45 }-->
+				<form method="post" action="../export_process/ea_modify?export_code={data_export.export_code}" target="actionFrame">
+				<input type="text" name="ea[{.export_item_seq}]" size="3" class="onlynumber line" value="{.ea}" {? npay_use && .npay_product_order_id}disabled{/}/>
+				{? !npay_use || !.npay_product_order_id}
+				<span class="btn small cyanblue"><button type="submit" class="ea_modify">변경</button></span>
+				{ / }
+				</form>
+				<!--{ : }-->
+				{ ? .package_yn == 'y'}[{ / }{.ea}{ ? .package_yn == 'y'}]{ / }
+				<!--{ / }-->
+				</td>
+
+				<td class="price info right">
+					{=get_currency_price(.out_reserve)}<br/>
+					<span class="desc">({=get_currency_price(.out_point)})</span>
+				</td>
+				<td class="price info right">
+					{=get_currency_price(.in_reserve)}<br/>
+					<span class="desc">({=get_currency_price(.in_point)})</span>
+				</td>
+
+				<td class="info center ea">
+				{ ? .package_yn == 'y'}[{ / }{=number_format(.ready_ea)}{ ? .package_yn == 'y'}]{ / }
+				</td>
+				<td class="info center ea">
+				{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step45)}{ ? .package_yn == 'y'}]{ / }
+				</td>
+				<td class="info center ea">
+				{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step55)}{ ? .package_yn == 'y'}]{ / }
+				</td>
+				<td class="info center ea">
+				{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step65)}{ ? .package_yn == 'y'}]{ / }
+				</td>
+				<td class="info center ea">
+				{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step75)}{ ? .package_yn == 'y'}]{ / }
+				</td>
+				<td class="info center ea">
+				{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step85)}{ ? .package_yn == 'y'}]{ / }
+				</td>
+
+
+			</tr>
+				{ ? .package_yn == 'y' && .opt_type=='opt'  }
+					{ @ .packages }
+			<tr class="order-item-row">
+				<td style="padding-left:45px;">
+					<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:0px">
+						<tr>
+							<td valign="top" style="border:none;" width="14"><img src="../images/common/icon/ico_package.gif" border="0" /></td>
+							<td style="border:0px;width:50px;text-align:center">
+								<span class="order-item-image"><img class="small_goods_image" src="{..image}" /></span>
+							</td>
+							<td style="font-size:11px;border:0px;">
+								<span class="red">
+								[실제상품 {..index_+1}]
+								{..goods_name}
+								</span>
+								{ ? ..option1!=null }
+								<div style="padding:5px 0px 0px 10px;">
+									{..title1}:{..option1}
+									{ ? ..option2!=null } {..title2}:{..option2}{ / }
+									{ ? ..option3!=null } {..title3}:{..option3}{ / }
+									{ ? ..option4!=null } {..title4}:{..option4}{ / }
+									{ ? ..option5!=null } {..title5}:{..option5}{ / }
+								</div>
+								{ / }
+
+								{ ? ..inputs }
+								<div style="padding:0px 0px 0px 10px;">
+								{ @ ..inputs }
+									{ ? ...value }
+									<div class="goods_input">
+										<img src="/admin/skin/default/images/common/icon_input.gif" />
+										{?...title}{...title}:{ / }
+										{?...type=='file'}
+										<a href="../order_process/filedown?file={...value}" target="actionFrame">{...value}</a>
+										{:}{...value}{ / }
+									</div>
+									{ / }
+								{ / }
+								</div>
+								{ / }
+								<div class="warehouse-info-lay">
+								<ul>
+									<!--{ ? ..whinfo.wh_name }-->
+									<li>
+									{..whinfo.wh_name} {?..whinfo.location_code}({..whinfo.location_code}){ / } : {=number_format(..whinfo.ea)}({=number_format(..whinfo.badea)})
+									</li>
+									<!--{ / }-->
+									<li>상품코드 : {..goods_code}</li>
+								</ul>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="info center ea">
+					{ ? .package_yn == 'y'}[{ / }{.opt_ea}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.opt_ea}
+					<div class="center">
+						<span class="helpicon" title="해당 판매상품 주문수량 1개일때 해당 실제상품의 발송수량"></span>
+					</div>
+				</td>
+				<td class="info center">
+					<!--{ ? ..real_stock > 0 }-->
+					<span class="blue">{=number_format(..real_stock)}</span>
+					<!--{ : }-->
+					<span class="red">{=number_format(..real_stock)}</span>
+					<!--{ / }-->
+					<br/>
+					<!--{ ? ..stock > 0 }-->
+					<span class="blue">{=number_format(..stock)}</span>
+					<!--{ : }-->
+					<span class="red">{=number_format(..stock)}</span>
+					<!--{ / }-->
+					<div class="center">
+						<span class="wh_option hand" onclick="goods_option_btn('{..goods_seq}',this,{ ? scm_cfg['use'] == 'Y'}'{.provider_seq}'{ : }'2'{ / })">
+							<span class="option-stock" optType="option" optSeq="{..whinfo.option_seq}"></span>
+							<span class="btn-administration goodsOptionBtn" goods_seq="{..goods_seq}"><span class="hide">옵션</span>
+						</span>
+					</div>
+				</td>
+				<td class="info center">
+					{ ? .package_yn == 'y'}[{ / }{.ea}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.ea}
+				</td>
+				<td class="info center">-</td>
+				<td class="info center">-</td>
+				<td class="info center ea">
+				<!--{ ? .ready_ea }-->
+					{ ? .package_yn == 'y'}[{ / }{.ready_ea}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.ready_ea}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step45 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step45}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step45}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step55 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step55}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step55}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step65 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step65}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step65}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step75 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step75}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step75}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step85 }-->
+					{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step85)}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step85}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+			</tr>
+					{ / }
+				{ / }
+				{ ? .package_yn == 'y' && .opt_type=='sub' }
+					{ @ .packages }
+			<tr class="order-item-row" bgcolor="#f6f6f6">
+				<td style="padding-left:45px;">
+					<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:0px">
+						<tr>
+							<td valign="top" style="border:none;" width="14"><img src="../images/common/icon/ico_package.gif" border="0" /></td>
+							<td style="border:0px;width:50px;text-align:center">
+								<span class="order-item-image"><img class="small_goods_image" src="{..image}" /></span>
+				</td>
+
+							<td style="font-size:11px;border:0px;">
+								<span class="red">
+								[실제상품]
+								{..goods_name}
+								</span>
+								{ ? ..option1!=null }
+								<div style="padding:5px 0px 0px 10px;">
+									{..title1}:{..option1}
+									{ ? ..option2!=null } {..title2}:{..option2}{ / }
+									{ ? ..option3!=null } {..title3}:{..option3}{ / }
+									{ ? ..option4!=null } {..title4}:{..option4}{ / }
+									{ ? ..option5!=null } {..title5}:{..option5}{ / }
+								</div>
+								{ / }
+
+								{ ? exportPrintGoodsBarcode }
+								<div style="padding:2px 0px 0px 10px;">
+								<img src="../order/order_barcode_image?order_seq={..goods_code}" />
+								</div>
+								{ / }
+								{ ? ..inputs }
+								<div style="padding:0px 0px 0px 10px;">
+								{ @ ..inputs }
+									{ ? ...value }
+									<div class="goods_input">
+										<img src="/admin/skin/default/images/common/icon_input.gif" />
+										{?...title}{...title}:{ / }
+										{?...type=='file'}
+										<a href="../order_process/filedown?file={...value}" target="actionFrame">{...value}</a>
+										{:}{...value}{ / }
+									</div>
+									{ / }
+								{ / }
+								</div>
+								{ / }
+
+								<div class="warehouse-info-lay">
+								<ul>
+									<!--{ ? ..whinfo.wh_name }-->
+									<li>
+									{..whinfo.wh_name} {?..whinfo.location_code}({..whinfo.location_code}){ / } : {=number_format(..whinfo.ea)}({=number_format(..whinfo.badea)})
+									</li>
+									<!--{ / }-->
+									<li>상품코드 : {..goods_code}</li>
+								</ul>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="info center ea">
+					{ ? .package_yn == 'y'}[{ / }{.opt_ea}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.opt_ea}
+					<div class="center">
+						<span class="helpicon" title="{..unit_ea}개 / 주문수량당"></span>
+					</div>
+				</td>
+				<td class="info center">
+					<!--{ ? ..real_stock > 0 }-->
+					<span class="blue">{=number_format(..real_stock)}</span>
+					<!--{ : }-->
+					<span class="red">{=number_format(..real_stock)}</span>
+					<!--{ / }-->
+					<br/>
+					<!--{ ? ..stock > 0 }-->
+					<span class="blue">{=number_format(..stock)}</span>
+					<!--{ : }-->
+					<span class="red">{=number_format(..stock)}</span>
+					<!--{ / }-->
+
+					<div class="center">
+						<span class="wh_option hand" onclick="goods_option_btn('{..goods_seq}',this,{ ? scm_cfg['use'] == 'Y'}'{.provider_seq}'{ : }'2'{ / })">
+							<span class="option-stock" optType="option" optSeq="{..option_seq}"></span>
+							<span class="btn-administration goodsOptionBtn" goods_seq="{..goods_seq}"><span class="hide">옵션</span>
+						</span>
+					</div>
+				</td>
+				<td class="info center">
+					{ ? .package_yn == 'y'}[{ / }{.ea}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.ea}
+				</td>
+				<td class="info center">-</td>
+				<td class="info center">-</td>
+				<td class="info center ea">
+				<!--{ ? .ready_ea }-->
+					{ ? .package_yn == 'y'}[{ / }{.ready_ea}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.ready_ea}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step45 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step45}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step45}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step55 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step55}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step55}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step65 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step65}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step65}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step75 }-->
+					{ ? .package_yn == 'y'}[{ / }{.exp_step75}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step75}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+				<td class="info center ea">
+				<!--{ ? .exp_step85 }-->
+					{ ? .package_yn == 'y'}[{ / }{=number_format(.exp_step85)}{ ? .package_yn == 'y'}]{ / }x{..unit_ea}={..unit_ea*.exp_step85}
+				<!--{ : }-->
+					0
+				<!--{ / }-->
+				</td>
+			</tr>
+					{ / }
+				{ / }
+			<!--{ / }-->
+
+			<tr class="order-item-row">
+				<td style="padding-left:10px; border-right:0px;" class="left">
+				{orders.recipient_user_name}
+				{ ? data_export_item[0].goods_kind == 'coupon' }
+					{?orders.recipient_cellphone} / {(orders.recipient_cellphone)}{/}
+					{?orders.recipient_email} / {(orders.recipient_email)}{/}
+				{ : }
+					{?orders.recipient_zipcode}({orders.recipient_zipcode}){/}
+					{? orders.recipient_address_type != "street"}
+						{orders.recipient_address} {orders.recipient_address_detail}<br/>
+					{ : }
+						{orders.recipient_address_street} {orders.recipient_address_detail}<br/>
+					{ / }
+					{?orders.recipient_phone}{(orders.recipient_phone)}{/}
+					{?orders.recipient_cellphone} / {(orders.recipient_cellphone)}{/}
+					{?orders.hope_date} / {orders.hope_date}{/}
+				{ / }
+				</td>
+				<td class="info ea center"><strong>{tot.opt_ea}</strong></td>
+				<td  class="info center">
+				<!--{ ? tot.real_stock > 0 }-->
+				<span class="blue bold">{=number_format(tot.real_stock)}</span>
+				<!--{ : }-->
+				<span class="red bold">{=number_format(tot.real_stock)}</span>
+				<!--{ / }-->
+				<br/>
+				<!--{ ? tot.stock > 0 }-->
+				<span class="blue bold">{=number_format(tot.stock)}</span>
+				<!--{ : }-->
+				<span class="red bold">{=number_format(tot.stock)}</span>
+				<!--{ / }-->
+				</td>
+				<td class="info center"><strong>{tot.ea} ({tot.goods_cnt}종)</strong></td>
+				<td class="price info bold right">
+					{=get_currency_price(tot.reserve)}<br/>
+					<span class="desc">({=get_currency_price(tot.point)})</span>
+				</td>
+				<td class="price info bold right">
+					{=get_currency_price(tot.in_reserve)}<br/>
+					<span class="desc">({=get_currency_price(tot.in_point)})</span>
+				</td>
+				<td class="info ea bold center">{=number_format(tot.ready_ea)}</td>
+				<td class="info ea bold center">{=number_format(tot.exp_step45)}</td>
+				<td class="info ea bold center">{=number_format(tot.exp_step55)}</td>
+				<td class="info ea bold center">{=number_format(tot.exp_step65)}</td>
+				<td class="info ea bold center">{=number_format(tot.exp_step75)}</td>
+				<td class="info ea bold center">{=number_format(tot.step85)}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+$(".helpicon").poshytip({
+	className: 'tip-darkgray',
+	bgImageFrameSize: 8,
+	alignTo: 'target',
+	alignX: 'right',
+	alignY: 'center',
+	offsetX: 10,
+	allowTipHover: false,
+	slide: false,
+	showTimeout : 0
+});
+</script>

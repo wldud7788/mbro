@@ -1,0 +1,84 @@
+<button class="btnSlideBannerPopup resp_btn v2 mt5 mb10" type="button" >슬라이드 배너</button>
+<table class="table_basic v7 wx800">
+	<colgroup>
+		<col width="20%">
+		<col width="*">
+		<col width="30%">
+		<col width="15%">
+	</colgroup>
+	<tbody>
+	<tr>
+		<th class="center">만든 날짜</th>
+		<th class="center">배너명</th>
+		<th class="center">스타일</th>
+		<!--th class="center">치환코드</th-->
+		<th class="center">관리</th>
+	</tr>
+	<!--{? data.banner.banner_seq }-->
+		<tr>
+			<td class="center">{=substr(data.banner.regdate,0,10)}</td>
+			<td class="center">{=data.banner.name}</td>
+			<td class="center">{=data.banner.styles[data.banner.style].name}</td>
+			<!--td class="its-td-align">{=showDesignBanner({data.banner.banner_seq})}</td-->
+			<td class="center">
+				<!-- <input type="hidden" name="banner" value="{= json_encode(data.banner)}" /> -->
+				<button type="button" class='resp_btn v3' onclick="del_banner('{=data.banner.banner_seq}')">삭제</button>
+			</td>
+		</tr>
+	<!--{:}-->
+	<tr>
+		<td colspan="4" class="center">등록된 슬라이드 배너가 없습니다.</th>
+	</tr>
+	<!--{/}-->
+</tbody></table>
+<div id="banner_popup">
+	<iframe id="banner_frame" src="" ></iframe>
+</div>
+<style type="text/css">
+	#banner_popup { display: none; }
+	#banner_frame { width: 100%; height: 100%; border: none; }
+</style>
+<script type="text/javascript">
+	// 페이지 로딩 후 div의 값들을 serialize 후 전역변수로만 사용함 (부모 form 안에 있기때문)
+	var url_params = '';
+	$(document).ready(function(){
+		$('.btnSlideBannerPopup').click(function(){
+			showBannerControl();	
+		});	
+
+		url_params = $('#bannerFrm input').serialize();
+		$('#bannerFrm').remove();
+	});
+
+	function showBannerControl(){
+		var popup_url = '/admin/design/banner_edit?' + url_params;
+
+		$('#banner_frame').attr('src', popup_url);
+		openDialog('슬라이드 배너', "banner_popup", {"width":1000,"height":600});
+	}
+
+	// 슬라이드 배너 삭제
+	function del_banner(seq){
+		$.ajax({
+			type	: 'POST',
+			url		: '../page_manager_process/delete_design_banner',
+			data	: {'mode':'ajax', 'banner_seq':seq},
+			dataType: 'json',
+			success	: function(res){
+				alert(res.msg);
+				document.location.reload();
+			}
+		});
+	}
+</script>
+<div id="bannerFrm">
+	<input type="hidden" name="setMode" value="responsive" />
+	<input type="hidden" name="popup" value="1" />
+	<input type="hidden" name="page" value="1" />
+	<input type="hidden" name="platform" value="responsive" />
+	<input type="hidden" name="template_path" value="" />
+	<input type="hidden" name="direct" value="1" />
+	<input type="hidden" name="banner_seq" value="{=data.banner.banner_seq}" />
+	<input type="hidden" name="page_type" value="{=_GET.cmd}" />
+	<input type="hidden" name="tab" value="{=_GET.tab}" />
+</div>

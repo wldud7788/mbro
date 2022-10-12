@@ -1,0 +1,20 @@
+[2022-02-18 12:11:49.170626000]
+MODE : Request
+REMOTE_IP : 210.181.60.142
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-02-18 12:11:49.210948000]
+REMOTE_IP : 210.181.60.142
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

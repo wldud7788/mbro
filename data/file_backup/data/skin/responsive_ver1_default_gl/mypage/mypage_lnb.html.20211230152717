@@ -1,0 +1,46 @@
+		<div id="mypageLnbBasic">
+		<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+		@@ 마이페이지 LNB 공통 @@
+		- 파일위치 : [스킨폴더]/mypage/mypage_lnb.html
+		++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+			<h2 class="title1"><a href="/mypage" designElement="text">MY SHOPPING</a></h2>
+			<h3 class="title2"><a href="/mypage/order_catalog" designElement="text">나의 쇼핑</a></h3>
+			<ul class="lnb_sub">
+				<li><a href="/mypage/order_catalog" designElement="text">주문/배송</a></li>
+				<li><a href="/mypage/return_catalog" designElement="text">반품/교환</a></li>
+				<li><a href="/mypage/refund_catalog" designElement="text">취소/환불</a></li>
+				<li><a href="/mypage/wish" designElement="text">위시리스트</a></li>
+				<li><a href="/goods/recently" designElement="text">최근 본 상품</a></li>
+				<li><a href="/mypage/delivery_address?tab=1" designElement="text">배송주소록</a></li>
+				<li><a href="/mypage/taxinvoice" designElement="text">세금계산서</a></li>
+				<li><a href="/mypage/personal" designElement="text">개인결제</a></li>
+			</ul>
+			<h3 class="title2"><a href="/mypage/emoney" designElement="text">나의 혜택</a></h3>
+			<ul class="lnb_sub">
+				<li><a href="/mypage/emoney" designElement="text">마일리지</a></li>
+				<li><a href="/mypage/coupon" designElement="text">쿠폰</a></li>
+				<!--{? cash_use == 'Y'}--><li><a href="/mypage/cash" designElement="text">예치금</a></li><!--{/}-->
+				<!--{? point_use == 'Y'}--><li><a href="/mypage/point" designElement="text">포인트</a></li><!--{/}-->
+				<!--{ ? serviceLimit('H_NFR') }-->
+					<!--{ ? emoney_exchange_use == 'y' }-->
+					<li><a href="/mypage/point_exchange" designElement="text">혜택 교환</a></li>
+					<!--{ : }-->
+					<li><a href="/mypage/promotion" designElement="text">혜택 교환</a></li>
+					<!--{ / }-->
+				<!--{ / }-->
+			</ul>
+			<h3 class="title2"><a href="/mypage/myqna_catalog" designElement="text">나의 활동</a></h3>
+			<ul class="lnb_sub">
+				<li><a href="/mypage/myqna_catalog" designElement="text">나의 1:1문의</a></li>
+				<li><a href="/mypage/mygdqna_catalog" designElement="text">나의 상품문의</a></li>
+				<li><a href="/mypage/mygdreview_catalog" designElement="text">나의 상품후기</a></li>
+				<!--{ ? serviceLimit('H_AD') }-->
+				<li><a href="/mypage/my_minishop" designElement="text">나의 단골 미니샵</a></li>
+				<!--{ / }-->
+			</ul>
+			<h3 class="title2"><a href="/mypage/myinfo" designElement="text">나의 정보</a></h3>
+			<ul class="lnb_sub">
+				<li><a href="/mypage/myinfo" designElement="text">회원정보 수정</a></li>
+				<li><a href="/mypage/withdrawal" designElement="text">회원 탈퇴</a></li>
+			</ul>
+		</div>

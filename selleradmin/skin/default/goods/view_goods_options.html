@@ -1,0 +1,307 @@
+<!-- 필수옵션 > 옵션 생성 > 팝업에서 생성 후 확인 시 부모창에 노출 -->
+<div id="optionLayer">
+
+	<table class="table_basic mt5 v7">
+		<input type="hidden" name="optionAddPopup" value="y" />
+		<input type="hidden" name="reserve_policy" value="{options[0].tmp_policy}" />
+		<input type="hidden" name="goodsCode" id="goodsCode" value="{goods.goods_code}" />
+		<thead>
+		<tr>
+			<th style="width:40px">기준</th>
+			<!--{ ? package_yn != 'y' }-->
+				<!--{ @ options[0].option_divide_title }-->
+				<th style="min-width:60px">
+				{.value_}
+				<input type="hidden" name="optionTitle[]" value="{.value_}" />
+				<input type="hidden" name="optionType[]" value="{options[0].option_divide_type[.index_]}" />
+				</th>
+				<!--{ / }-->
+				<th style="min-width:50px">상품코드 <span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_code', 'sizeS')"></span></th>
+				
+				<!--{ ? sc.socialcp_input_type }-->
+				<th style="min-width:50px" class="couponinputtitle"><span class="couponinputsubtitle">{? sc.socialcp_input_type =='price' }금액{:}횟수{/}</span></th>
+				<!--{ : }-->
+					<th style="min-width:40px">무게(kg)</th>
+				<!--{ / }-->
+			<!--{ : }-->
+				{ @ options[0].option_divide_title }<th style="min-width:50px">{.value_}</th>{ / }
+			<!--{ / }-->
+
+			<!--{ ? package_yn == 'y' }-->
+				<!--{ @ range(1,package_count) }-->
+				<th class="reg_package_option_title_tbl" style="min-width:40px">상품{.value_}</th>
+				<!--{ / }-->
+			<!--{ : }-->
+			<th style="min-width:40px">재고 <span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_stock', 'sizeS')"></span></th>
+			<th style="min-width:40px">불량 <span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_bedstock', 'sizeS')"></span></th>
+			<th style="min-width:40px">가용 <span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_availablestock', 'sizeS')"></span></th>
+			<th style="width:70px">
+				안전재고
+				<!--{ ? (goods.provider_seq == '1' || sc.provider == 'base') && scm_cfg['use'] }-->
+				<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_safestock', 'sizeS')"></span>
+				<input type="hidden" class="safestock_text" title="{scm_cfg['admin_env_name']}"/>
+				<!--{ : }-->
+				<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_safestock', 'sizeS')"></span>
+				<input type="hidden" class="safestock_text" title="{ ? (goods.provider_seq == '1' || sc.provider == 'base') }기본매장{ : }입점사{ / }"/>
+				<!--{ / }-->
+			</th>
+
+		<!--{ / }-->
+			<th style="min-width:60px" class="{? sc.provider_seq == 1}hide{/}">정산 금액</th>
+			<th style="min-width:60px" class="{? sc.provider_seq == 1}hide{/}">
+				<!--{? default_charge.commission_type == 'SACO' || default_charge.commission_type == ''}-->
+				수수료
+				<!--{:}-->
+				<span class="SUCO_title">공급가</span>
+				<!--{/}-->
+			</th>
+			<th style="min-width:60px">정가</th>
+			<th style="min-width:60px">판매가 <span class="required_chk"></span></th>
+			<th style="min-width:50px">부가세</th>
+			<th style="min-width:60px">마일리지 지급</th>
+			<th style="min-width:40px" class="optionStockSetText">옵션 노출</th>
+			<th style="width:40px">설명</th>
+		</tr>
+		</thead>
+	<!--{ ? options }-->
+		<tbody>
+		<!--{ @ options }-->
+			<!--{ ? !config_goods.option_view_count || config_goods.option_view_count > .index_ || islimit != 'limit' }-->
+		<tr class="optionTr">
+			<td class="center">
+				<!--{ ?.default_option == 'y' }-->●<!--{ / }-->
+				<input type="hidden" name="optionSeq[]" value="{.option_seq}" />
+			</td>
+
+				<!--{ @ .opts }-->
+			<td class="center optionTitle" >
+				{..value_}
+				{? .optcodes[..index_] && package_yn != 'y' }<br/><span class="desc">[{.optcodes[..index_]}]</span>{/}
+				<input type="hidden" name="optionNames[]" value="{..value_}" />
+				<!--{? .divide_newtype[..key_] }-->
+				<input type="hidden"  name="optnewtype[]" value="{.divide_newtype[..key_]}">
+				<br/>
+					<!--{? .divide_newtype[..key_] == 'color' }-->
+					<input type="hidden"  name="optcolor[]" value="{.color}">
+					<button type="button" class="colorPickerBtn helpicon1" opttype="{.option_divide_type[..key_]}" style="background-color:{.color}" ></button>
+					<!--{: .divide_newtype[..key_] == 'address'  }-->
+					<button type="button" class="addrhelpicon helpicon resp_btn" opttype="{.option_divide_type[..key_]}" title="{? .zipcode }[{.zipcode}]  <br> (지번) {.address} {.addressdetail}<br>(도로명) {.address_street} {.addressdetail} {/} {? .biztel}업체 연락처:{.biztel}{/}<br/>수수료 : {.address_commission} %">지역</button>
+					<!--{: .divide_newtype[..key_] == 'date'  }-->
+					<input type="hidden"  name="codedate[]" value="{.codedate}">
+					<button type="button" class="codedatehelpicon helpicon resp_btn" opttype="{.option_divide_type[..key_]}" title="{? .codedate && .codedate !='0000-00-00' }{.codedate}{/}">날짜</button>
+					<!--{: .divide_newtype[..key_] == 'dayinput'  }-->
+					<input type="hidden"  name="sdayinput[]" value="{.sdayinput}">
+					<input type="hidden"  name="fdayinput[]" value="{.fdayinput}">
+					<button type="button" class="dayinputhelpicon helpicon resp_btn" opttype="{.option_divide_type[..key_]}" title="{? .sdayinput && .fdayinput }{.sdayinput} ~ {.fdayinput}{/}">수동기간</button>
+					<!--{: .divide_newtype[..key_] == 'dayauto'  }-->
+					<button type="button" class="dayautohelpicon helpicon resp_btn"  opttype="{.option_divide_type[..key_]}" title="{? .dayauto_type }'결제확인' {.dayauto_type_title} {.sdayauto}일 {? .dayauto_type == 'day' }이후{/}부터 + {.fdayauto}일{.dayauto_day_title}{/}">자동기간</button>
+					<!--{ / }-->
+				<!--{ / }-->
+			</td>
+				<!--{ / }-->
+			{ ? package_yn != 'y' && isplusfreenot }<td class="center"><span class="goodsCode"></span>{.optioncode}</td>{ / }
+			{ ? package_yn != 'y' && !sc.socialcp_input_type }<td class="right pdr10">{.weight}</td>{ / }
+			<!--{ ? sc.socialcp_input_type }-->
+			<td class="right pdr10 couponinputtitle">{=get_currency_price(.coupon_input)}</td>
+			<!--{ / }-->
+
+		<!--{ ? package_count }-->
+			<!--{ @ range(1,package_count) }-->
+				<td class="reg_package_option_tbl">
+				<!--{? ..value_ == 1}-->
+					<input type="hidden" name="stock[]" value="{.stock}" />
+					<!--{ ? cfg_order.ableStockStep == 15 }-->
+					<input type="hidden" name="unUsableStock[]" value="{=(.badstock + .reservation15)}" />
+					<!--{ / }-->
+					<!--{ ? cfg_order.ableStockStep == 25 }-->
+					<input type="hidden" name="unUsableStock[]" value="{=(.badstock + .reservation25)}" />
+					<!--{ / }-->
+				<!--{ / }-->
+				<!--{ ? .package_error_code[..value_] }-->
+				<div class="package_error">
+					<script>package_error_msg('{.package_error_code[.key_+1]}');</script>
+				</div>
+				<!--{ / }-->
+						<div>
+				<!--{ ? .package_goods_seq[..value_] }-->
+						<a href="../goods/regist?no={.package_goods_seq[..value_]}" target="_blank">
+						<span class="reg_package_goods_seq{=..value_}">[{.package_goods_seq[..value_]}]</span>
+				<!--{ / }-->
+						<span class="reg_package_goods_name{=..value_}">{.package_goods_name[..value_]}</span>
+				<!--{ ? .package_goods_seq[..value_] }-->
+							</a>
+					<!--{ / }-->
+							</div>
+					<div class="reg_package_option{=..value_}">{.package_option[..value_]}</div>
+					<div class="reg_package_option_code{=..value_}">{.package_option_code[..value_]} {? .package_option_code[..value_]}|{/} {.package_weight[..value_]}kg</div>
+					<div class="reg_package_unit_ea{=..value_}">
+						{? .package_unit_ea[..value_] }주문당 {.package_unit_ea[..value_]}
+						발송
+						<input type="hidden" name="package_unit_ea{=..value_}[]" size="3" value="{.package_unit_ea[..value_]}"> 
+						<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_package_ea')" ></span>
+						</div>
+					<div class="reg_package_option_seq{=..value_}">
+				<!--{ ? .package_option_seq[..value_]  }-->
+					{=number_format(.package_stock[..value_])}
+					({=number_format(.package_badstock[..value_])})
+							/
+					{=number_format(.package_ablestock[..value_])}
+							/
+					{=number_format(.package_safe_stock[..value_])}
+					<!--{ / }-->
+							</div>
+					<input type="hidden" name="reg_package_option_seq{=..value_}[]" value="{.package_option_seq[..value_]}">
+						</td>
+				<!--{ / }-->
+					<!--{ / }-->
+		<!--{ : }-->
+			<!--{ ? scm_cfg['use'] == 'Y' && provider_seq == 1 && goods.goods_seq > 0 && .org_option_seq > 0 }-->
+			<td class="right pdr10 hand">
+				<span class="option-stock" optType="option" optSeq="{.org_option_seq}">{=number_format(.stock)}</span>
+				<input type="hidden" name="stock[]" value="{.stock}" />
+						</td>
+		<!--{ : }-->
+			<td class="right pdr10">
+				{=number_format(.stock)}
+				<input type="hidden" name="stock[]" value="{.stock}" />
+			</td>
+			<!--{ / }-->
+			<td class="right pdr10">
+				{=number_format(.badstock)}
+				<input type="hidden" name="badstock[]" value="{.badstock}" />
+			</td>
+			<td class="right pdr10">
+				<input type="hidden" name="reservation15[]" value="{.reservation15}" />
+				<input type="hidden" name="reservation25[]" value="{.reservation25}" />
+				<!--{ ? cfg_order.ableStockStep == 15 }-->
+				<input type="hidden" name="unUsableStock[]" value="{.badstock + .reservation15}" />
+				<span class="optionUsableStock">{=number_format(.stock - .badstock - .reservation15)}</span>
+				<!--{ / }-->
+				<!--{ ? cfg_order.ableStockStep == 25 }-->
+				<input type="hidden" name="unUsableStock[]" value="{.badstock + .reservation25}" />
+				<span class="optionUsableStock">{=number_format(.stock - .badstock - .reservation25)}</span>
+				<!--{ / }-->
+			</td>
+			<td class="right pdr10">
+				{=number_format(.safe_stock)}
+				<input type="hidden" name="safe_stock[]" value="{.safe_stock}" />
+			</td>
+
+		<!--{ / }-->
+			<td class="right pdr10">{=get_currency_price(.commission_price,'','KRW')}</td>
+			<td class="right pdr10">
+				<!--{?.commission_rate}-->
+				{?.commission_type == 'SUPR'}{=get_currency_price(.commission_rate,2,'basic')}{:}{.commission_rate}%{/}
+				<!--{:}-->
+				0
+				<!--{/}-->
+			</td>
+			<td class="right pdr10 pricetd">{=get_currency_price(.consumer_price)}</td>
+			<td class="right pdr10 pricetd">
+				<span class="priceSpan">{=get_currency_price(.price)}</span>
+				<input type="hidden" name="consumerPrice[]" value="{.consumer_price}">
+				<input type="hidden" name="price[]" value="{.price}" />
+			</td>
+			<td class="right pdr10">
+				<!--{ ? goodsTax == 'exempt' }-->0<!--{ : }-->{=get_currency_price(.tax)}<!--{ / }-->
+			</td>
+			<td class="right pdr10 ">
+				<!--{? .reserve_unit == 'percent' }-->
+				{=.reserve_rate}% ({=get_currency_price(.reserve,2)})
+				<!--{ : }-->
+				{=get_currency_price(.reserve,2)}
+				<!--{ / }-->
+			</td>
+			<td class="center">{ ? .option_view == 'N' }미노출{ : }노출{ / }</td>
+			<td class="center">
+				<!--{ ? .infomation }-->
+				<span class="underline hand" onclick="viewOptionInfomation(this);">보기</span>
+				<textarea class="optionInfomation" style="display:none;">{.infomation}</textarea>
+				<!--{ : }-->
+				<span class="desc">미입력</span>
+				<!--{ / }-->
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ / }-->
+		</tbody>
+	<!--{ / }-->
+	</table>
+</div>
+
+
+<div id="preview_option_divide">
+	<div class="content">
+	{ ? options }
+	<table class="table_basic">
+	{ @ options[0].option_divide_title }
+	<tr>
+		<th>{.value_}</th>
+		<td><select style='width:200px;'><option>- 선택 -</option>
+		{ @ options[0].optionArr[.index_] }
+			<option>{..value_}</option>
+		{/}
+		</select>
+		</td>
+	</tr>
+	{/}
+	</table>
+	{/}
+	</div>
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog('popPreviewOpt')">닫기</button>
+	</div>
+</div>
+<div id="preview_option_sum">
+	<div class="content">
+	{ ? options }
+	<table class="table_basic">
+	<tr>
+		<th>옵션</th>
+		<td><select style='width:200px;'><option>- 선택 -</option>
+		{ @ options }
+			<option>{ @ .opts }{ ? ..index_ > 0 } / { / }{..value_}{ / }</option>
+		{/}
+		</select>
+		</td>
+	</tr>
+	</table>
+	{/}
+	</div>
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog('popPreviewOpt')">닫기</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+{ ? isAddr == 'Y' }
+parent.show_mapView();
+{ : }
+parent.hide_mapView();
+{ / }
+
+{ ? reload == 'y' }
+location.replace('?provider_seq={provider_seq}&mode=view&tmp_seq={tmp_seq}&tmp_policy={tmp_policy}&goodsTax={goodsTax}&goods_seq={goods_seq}&socialcp_input_type={sc.socialcp_input_type}&islimit={islimit}');
+{ : }
+	{ ? options }
+		parent.document.goodsRegist.tmp_option_seq.value	= '{tmp_seq}';
+		parent.document.getElementById("optionLayer").innerHTML	= document.getElementById("optionLayer").innerHTML;
+		parent.document.getElementById("preview_option_divide").innerHTML	= document.getElementById("preview_option_divide").innerHTML;
+		parent.document.getElementById("preview_option_sum").innerHTML	= document.getElementById("preview_option_sum").innerHTML;
+		parent.help_tooltip();
+		parent.set_option_select_layout();
+		parent.openall_change('{= islimit}');
+	{ / }
+{ / }
+
+var goodsCode	= parent.document.getElementById('goodsCode').value;
+
+var optionList	= parent.document.getElementsByClassName("goodsCode");
+
+
+for (i = 0, cnt = optionList.length; i < cnt; i++) {
+	optionList[i].innerHTML	= goodsCode;
+} 
+
+//parent.setOptionStockSetText();
+</script>

@@ -1,0 +1,19 @@
+<!-- Start Script for ga4 (쇼핑몰 제품 목록 조회) -->
+<script type='text/javascript'>
+    try {
+        var items = '{ data.items }';
+        if (items != '' && typeof items != 'undefined' && items != null ){
+            items = JSON.parse(items);
+        }
+        // 새로고침일 경우 값 수집 안함
+        if (performance.navigation.type === 0 && typeof gtag != 'undefined') {
+            gtag("event", "view_item_list", {
+                items: items
+            });
+        }
+
+    } catch(e) {
+        console.log('GA4 view_item_list 이벤트 발생 에러 :',e);
+    }
+</script>
+<!-- End Script for ga4 -->

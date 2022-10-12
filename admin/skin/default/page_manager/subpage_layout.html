@@ -1,0 +1,277 @@
+{ #layout_header }
+<script type="text/javascript">
+$(document).ready(function() {
+	// 바로가기 selectbox
+	$(".pageselect").click(function(){
+		$(this).toggleClass('opened');
+	});
+});
+</script>
+{? page_type == 'event' && operation_type == "heavy"}
+<form name="event_view_modify" id="event_view_modify" method="post" enctype="multipart/form-data" action="../event_process/event_view_modify" target="actionFrame">
+{:}
+<form name="subPageFrm" action="../page_manager_process/save_subpage" method="post" target="actionFrame" {? page_type == 'bigdata_criteria' }enctype="multipart/form-data"{/}>
+{/}
+<input type="hidden" name="page_type" value="{=page_type}{?page_type =='brand' && page_tab=='main'}_main{/}" />
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>{=page_name} 페이지</h2>
+		</div>
+		
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button type="submit" class="resp_btn active size_L">저장</button></li>
+		</ul>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			{? in_array(page_type,array('category','brand','location'))}
+			<li><a href="../{=page_type}/catalog" target="_blank" class="resp_btn v3 size_L">{=page_name} 바로가기</a></li>
+			{/}
+		</ul>
+
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 페이지 구분 Tab Mane : 시작 -->
+<div style="margin:20px 0;">
+	{#tab_menu}
+</div>
+
+<!--{? (page_type == 'event' && operation_type == "heavy" ) || page_type != 'bigdata_criteria'}-->
+<div class="contents_dvs {? tab_menu_sub_use == 'y' }v2{/}">
+<!--{ / }-->
+
+	<!-- 페이지 관리 검색바 : 시작 -->
+	<!--{? tab_menu_sub_use == 'y' }-->
+	<div style="margin:0 0 10px 0;">
+		{#tab_menu_sub}
+		</div>
+		<!--{/}-->
+	<!-- 페이지 관리 검색바 : 끝 -->
+
+	<!--{ ? page_tab == 'goods_info' }-->
+	<!-- 안내문구 :: 시작 -->
+	<div class="fl  pd10 hide">
+	{=page_desc}
+	</div>
+	<!-- 안내문구 :: 끝 -->
+	<!--{ / }-->
+
+	<!--{? page_type == 'event' && operation_type == "heavy"}-->
+	<div class="item-title">전체 이벤트 페이지 설정</div>
+	{#heavy_event_tpl}
+
+	<!--{: page_type != 'bigdata_criteria' }-->
+	<!-- 페이지 관리 테이블 : 시작 -->
+	<div class="item-title">상품 정보</div>
+	<table class="table_basic thl">
+		<!-- 테이블 헤더 : 시작 -->
+		<!-- 테이블 헤더 : 끝 -->
+		
+		<!-- 리스트 : 시작 -->
+		<tbody class="ltb">
+			<!--{? in_array('link_url', data.allow) }-->
+			<tr>
+				<th>주소</th>
+				<td class="its-td">
+					<span class="link_url">{=data.link_url}</span>
+					<button type="button" class="btn_view_link resp_btn " data-type="{=page_type}" data-href="{=data.link_url}" >보기</button></span>
+				</td>
+			</tr>
+			<!--{ / }-->
+
+			<!--{? in_array('banner', data.allow) }-->
+			<tr>
+				<th>배너</th>
+				<td class="its-td">
+					{ #bannerlist}
+				</td>
+			</tr>
+			<!--{ / }-->
+
+			<!--{? in_array('search_filter', data.allow) }-->
+				<!--{@ data.filter_col}-->
+					<tr>
+						<!--{? .index_ == 0  }-->
+						<th rowspan="{= .size_ }">검색 필터</th>
+						<!--{ / }-->
+						<td class="its-td">
+						<!--{@ .item }-->
+							<span class="pdr20"><label class="resp_checkbox"><input type="checkbox" name="search_filter[]" value="{= ..key_ }" {? in_array( ..key_, data.search_filter)}checked{/}/> {= ..value_ }</label></span>
+						<!--{ / }-->
+						</td>
+					</tr>
+				<!--{ / }-->
+			<!--{ / }-->
+
+			<!--{? in_array('orderby', data.allow) }-->
+			<tr>
+				<th>정렬</th>
+				<td class="its-td">
+				<!--{? is_array(data.order_col) }-->
+					<!--{@ data.order_col}-->
+						<label class='resp_radio mr10'><input type="radio" name="orderby" value="{= .key_}" {? in_array( .key_ , data.orderby)}checked{/}/> {= .value_}</label>
+					<!--{ / }-->
+				<!--{ : }-->
+					<!--{= data.order_col}-->
+				<!--{ / }-->
+				</td>
+			</tr>
+			<!--{ / }-->
+
+			<!--{? in_array('rank', data.allow) }-->
+			<tr>
+				<th>순위</th>
+				<td class="its-td">
+					<select name="rank">
+						<option value="">== 선택 ==</option>
+						<option value="30"   {? data.rank == '30'}selected{/}>30위까지</option>
+						<option value="50"   {? data.rank == '50'}selected{/}>50위까지</option>
+						<option value="100"  {? data.rank == '100'}selected{/}>100위까지</option>
+					</select>
+				</td>
+			</tr>
+			<!--{ / }-->
+
+			<!--{? in_array('status', data.allow) }-->
+			<tr>
+				<th>상태</th>
+				<td class="its-td">
+					<span class="pdr10"><!--{= data.status.desc}--></span>
+					<!--{@ data.status.col}-->
+						{? .key_ != 'normal' }
+						<label class="resp_checkbox"><input type="checkbox" name="status[]" value="{= .key_ }" {? in_array( .key_, data.status.chk)}checked{/}/> {= .value_ }</label>
+						{ / }
+					<!--{ / }-->
+				</td>
+			</tr>
+			<!--{ / }-->
+
+			<!--{? in_array('goods_info_style', data.allow) }-->
+			<tr>
+				<th>
+					상품 정보
+					<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/page_manager', '#goodsInfoStyle', 'sizeS')"></span>
+				</th>
+				<td>
+					{#goods_info_style}
+				</td>
+			</tr>
+			<!--{ / }-->
+			<!--{? in_array('goods_info_image', data.allow) }-->
+			<tr>
+				<th>
+					<div class="mb10">이미지 사이즈</div>
+				</th>
+				<td>
+					<select name="goods_info_image">
+				<!--{ @ config_load('goodsImageSize') }-->
+					<!--{ ? data.goods_info_image == .key_ }-->
+						<option value="{.key_}" selected>{.value_.name}</option>
+					<!--{ : }-->
+						<option value="{.key_}">{.value_.name}</option>
+					<!--{ / }-->
+				<!--{ / }-->
+					</select>
+				</td>
+			</tr>
+			<!--{ / }-->
+
+		</tbody>
+		<!-- 리스트 : 끝 -->
+	</table>
+	<!--{ : }-->
+
+	{#condition}
+	<!--{ / }-->
+	<!-- 페이지 관리 테이블 : 끝 -->
+
+<!--{? (page_type == 'event' && operation_type == "heavy") || page_type != 'bigdata_criteria'}-->
+</div>
+<!--{ / }-->
+
+<!--{? page_type == 'bigdata_criteria' }-->
+<div class="box_style_05 mt20">
+	<div class="title">안내</div>
+	<ul class="bullet_circle black">
+		<li>빅데이터 저장기간 : 최근 6개월의 데이터가 저장됩니다. 6개월 이상의 데이터 구축은 고객센터(또는 홈페이지 1:1게시판)로 별도 문의해주세요.</li>
+		<li>빅데이터 상품 추천 페이지 화면 예시 <a href="https://www.firstmall.kr/customer/faq/1333" target="_blank" class="resp_btn_txt">자세히 보기 > </a></li>
+	</ul>
+</div>
+<!--{ / }-->
+
+</form>
+
+<div class="hide">
+	<form id="ajaxFileUploadFrm" name="ajaxFileUploadFrm" method="post" enctype="multipart/form-data" target="actionFrame" action="../page_manager_process/save_banner_image"></form>
+</div>
+
+<div id="searchLinkForm" class="hide">
+	<form name="searchFrm" method="get" target="_blank" action="/goods/search">
+	<div class="search-wrap">
+		<input type="text" id="keyword" name="" value="" placeholder="Search" />
+		<span class="btn large black"><button type="button" class="btn_golink">보기</button></span>
+	</div>
+	</form>
+</div>
+
+<style type="text/css">
+	.search-wrap { height: 100%; display: flex; flex-direction: column; align-items: center;  }
+	.search-wrap input { width: 300px; height: 25px; line-height: 25px; margin: 7px 0px 15px 0px; font-size: 12pt }
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn_view_link').click(function(){
+		var page_type	= $(this).attr('data-type');
+		var link		= $(this).attr('data-href');
+
+		$('#searchLinkForm form').attr('target', '_blank');
+		$('#searchLinkForm form').attr('action', link);
+
+		switch(page_type){
+			case 'search_result':
+				$('#keyword').prop('name', 'osearchtext');
+				$('#keyword').prop('placeholder','Search');
+
+				openDialog('검색', 'searchLinkForm', {'width': 400, 'height': 220});
+
+				$('.btn_golink').unbind('click');
+				$('.btn_golink').click(function(){	golink(page_type, link);	});
+
+				break;
+
+			case 'bigdata_criteria':
+				$('#keyword').prop('name', 'no');
+				$('#keyword').prop('placeholder','상품번호');
+
+				openDialog('검색', 'searchLinkForm', {'width': 400, 'height': 220});
+				$('.btn_golink').unbind('click');
+				$('.btn_golink').click(function(){	golink(page_type, link);	});
+
+				break;
+			default:
+				window.open(link, '_blank');
+				break;
+		}
+	});
+});
+
+function golink(page_type, link){
+	if($('#keyword').val() == ''){
+		alert('검색어를 입력하세요!');
+	}else{
+		
+		$('#searchLinkForm form').submit();
+	}
+}
+
+
+</script>
+{ #layout_footer }

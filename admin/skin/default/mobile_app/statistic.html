@@ -1,0 +1,128 @@
+{ #layout_header }
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	
+
+	})
+
+	
+	function formMoveSub(gb, no){
+		$(".ctab-on").addClass("ctab");
+		$(".ctab-on").removeClass("ctab-on");
+		$(".t"+no).addClass("ctab-on");
+		location.href = gb;
+	}
+
+
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>앱 통계</h2>
+		</div>	
+		
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 상단 단계 링크 : 시작 -->
+<div class="left" id="rn_join">
+	<br style="line-height:40px;" />	
+	<div style="position:absolute;">
+		<table cellpadding="0" cellspacing="0">
+			<tr>		
+				<td class="ctab{tab1} t1"><span class="hand" onclick="formMoveSub('statistic?osType=android',1);">Android 앱</span></td>
+				<td class="ctab{tab2} t2"><span class="hand" onclick="formMoveSub('statistic?osType=ios',2);">iOS 앱</span></td>				
+			</tr>
+		</table>
+	</div>
+	<table height="32" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #d6d6d6;">
+		<tr>
+			<td align="center"></td>
+		</tr>
+	</table>
+</div>
+<!-- 상단 단계 링크 : 끝 -->
+
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+<div class="sub-layout-container body-height-resizing" style="background-color:#FFF;">
+	<div class="slc-body">
+		<div style="width:100%; margin:auto;">				
+			<div class="item-title">{?_GET.osType=='android'}Android 앱 현황{:}iOS 앱 현황{/} </div>				
+			<br style="line-height:10px" />
+
+			<div class="statistic_goods pd20 center">
+				<form>				
+					<select name="year">
+						<option value="">연도 선택</option>
+						{@range(date('Y'),2018)}
+						<option value="{.value_}" {?_GET.year==.value_}selected{/}>{.value_} 년</option>
+						{/}
+					</select>
+						
+					<span class="scMonth">
+						<select name="month">
+							<option value="">월 선택</option>
+							{@range(1,12)}
+							<option value="{.value_}" {?_GET.month==.value_}selected{/}>{.value_} 월</option>
+							{/}
+						</select>
+					</span>
+
+					
+					<span class="btn medium cyanblue"><input type="submit" value="검색" /></span>
+									
+				</form>
+			</div>	
+		</div>
+
+		<div id="visitor_daily_table">
+					<table width="100%" class="simpledata-table-style" style="margin:auto;">
+						<colgroup>
+							<col width="20%" />
+							<col width="20%" />
+							<col width="20%" />
+							<col width="20%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>일자</th>
+								<th>앱 다운로드</th>
+								<th>앱 삭제</th>
+								<th>앱 설치회원</th>
+								<th>푸시발송</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="center">합계</td>
+								<td align="center"><font color="#445ebc">{=number_format(total.t_download)}</font></td>
+								<td align="center"><font color="#445ebc">{=number_format(total.t_cancel)}</font></td>
+								<td align="center"><font color="#445ebc">{=number_format(total.t_member)}</font></td>
+								<td align="center"><font color="#445ebc">{=number_format(total.t_push)}</font></td>
+							</tr>
+							{ @ statlist }
+							<tr>
+								<td align="center">{.key_}일</td>
+								<td align="center"><font color="#445ebc">{=number_format(.download)}</font></td>
+								<td align="center"><font color="#445ebc">{=number_format(.cancel)}</font></td>
+								<td align="center"><font color="#445ebc">{=number_format(.member)}</font></td>
+								<td align="center"><font color="#445ebc">{=number_format(.push)}</font></td>
+							</tr>
+							{ / }
+						</tbody>
+					</table>
+				</div>
+					
+	</div>
+</div>
+
+

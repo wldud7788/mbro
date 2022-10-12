@@ -1,0 +1,22 @@
+{
+  "name": "firstmall-multilang",
+  "version": "1.0.0",
+  "description": "퍼스트몰 다국어",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "sheet-router": "^4.2.3",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.1"
+  },
+  "scripts": {
+    "build-admin": "browserify app/javascript/js/admin-bundles.cjs -o app/javascript/js/admin-bundles.js",
+    "clean": "rm -rf _compile && mkdir _compile && chown nobody:nobody _compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.gabiacns.com:gabiacnsDev/solution.git"
+  },
+  "author": "Gabia C&S"
+}

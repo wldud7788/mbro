@@ -1,0 +1,248 @@
+{ #layout_header }
+<style>
+.goods_name {display:inline-block;white-space:nowrap;overflow:hidden;width:290px;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+.search_label 	{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+span.step_title { font-weight:normal;padding-right:5px }
+</style>
+<script type="text/javascript">
+	var search_type				= "{=sc.search_type}";
+	//기본검색설정
+	var default_search_pageid	= "refund";
+	var default_obj_width		= 750;
+	var default_obj_height		= 260;
+
+	/* variable for ajax list */
+	var npage					= 1;
+	var nstep					= '';
+	var nnum					= '';
+	var stepArr					= new Array();
+	var start_search_date		= "{=date('Y-m-d',strtotime('-7 day'))}";
+	var end_search_date			= "{=date('Y-m-d')}";
+	var loading_status			= 'n';
+	var searchTime				= "{=date('Y-m-d H:i:s')}";
+
+	{? _SERVER.QUERY_STRING}
+	var queryString			= '{_SERVER.QUERY_STRING}';
+	{:}
+	var queryString			= 'noquery=true';
+	{/}
+
+	$(document).ready(function() {
+
+		// 체크박스 색상
+		$("input[type='checkbox'][name='refund_code[]']").live('change',function(){
+			if($(this).is(':checked')){
+				$(this).closest('tr').addClass('checked-tr-background');
+			}else{
+				$(this).closest('tr').removeClass('checked-tr-background');
+			}
+		}).change();
+
+		$(window).css('overflow', 'scroll');
+		$(window).scroll(function(){
+			if	((($(document).height() - $(window).height()) - $(window).scrollTop()) < 100 ){
+				get_catalog_ajax();
+			}
+		});
+	});
+
+	get_catalog_ajax();
+
+	// 페이징을 위한 데이터 로드
+	function get_catalog_ajax(){
+
+		if	(loading_status == 'n'){
+			loading_status	= 'y';
+			var stepArrCnt			= stepArr.length;
+			var addParam			= '';
+			for (var s = 0; s < stepArrCnt; s++ ){
+				if	(stepArr[s]){
+					addParam	+= '&stepBox%5B'+s+'%5D='+stepArr[s];
+				}
+			}
+
+			$("#ajaxLoadingLayer").ajaxStart(function() { loadingStop(this); });
+			$.ajax({
+				type: 'post',
+				url: 'catalog_ajax',
+				data: queryString +'&page='+npage+'&bfStep='+nstep+'&nnum='+nnum+'&searchTime='+searchTime+addParam,
+				dataType: 'html',
+				success: function(result) {
+					$(".refund-ajax-list").append(result);
+					$(".custom-select-box").customSelectBox();
+					$(".custom-select-box-multi").customSelectBox({'multi':true});
+
+					nstep	= $("#"+npage+"_step").val();
+					nnum	= $("#"+npage+"_no").val();
+					npage++;
+
+					$("tr.pageoverflow").hide();
+					if(nnum>0) loading_status	= 'n';
+					help_tooltip();
+				}
+			});
+			if(nnum>0)$("tr.pageoverflow:last").show();
+		}
+	}
+</script>
+
+<script type="text/javascript" src="/app/javascript/js/admin-searchForm.js?v={=date('Ymd')}"></script>
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/searchform.css?v={=date('Ymd')}" />
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>환불 조회</h2>
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+		</ul>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<form name="orderForm" id="orderForm">
+
+<!-- 주문리스트 검색폼 : 시작 -->
+<div class="search-form-container-new search_container">
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td><input type="text" name="keyword" value="{_GET.keyword}" title="환불번호, 아이디, 회원명, 주문자명, 수령자명, 상품명(매입상품명,사은품명), 상품코드" size="100"/></td>
+		</tr>
+	</table>
+
+	<div class="search-detail-lay">
+		<table class="search-form-table" id="search_detail_table">
+			<tr id="goods_search_form">
+			<tr>
+				<td>
+					<table class="sf-option-table table_search" style="width:680px;">
+					<colgroup>
+						<col width="80" />
+						<col width="" />
+						{? npay_use }
+						<col width="120" />
+						<col width="35%" />
+						{/}
+					</colgroup>
+					<tr>
+						<th>환불신청일</th>
+						<td {? npay_use }colspan="3"{/}>
+							<input type="text" name="sdate" value="{_GET.sdate}" class="datepicker"  maxlength="10" size="10" default_none />
+							&nbsp;&nbsp;<span class="gray">-</span>&nbsp;&nbsp;
+							<input type="text" name="edate" value="{_GET.edate}" class="datepicker" maxlength="10" size="10" default_none />			
+							<span class="resp_btn_wrap">
+								<span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn"/></span>
+								<span class="btn small"><input type="button" value="3일간" id="3day" class="select_date resp_btn"/></span>
+								<span class="btn small"><input type="button" value="일주일" id="1week" class="select_date resp_btn"/></span>
+								<span class="btn small"><input type="button" value="1개월" id="1month" class="select_date resp_btn"/></span>
+								<span class="btn small"><input type="button" value="3개월" id="3month" class="select_date resp_btn"/></span>
+								<span class="btn small"><input type="button" value="전체" id="all" class="select_date resp_btn"/></span>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>상태</th>
+						<td>
+							<span class="resp_checkbox">
+								<label class="search_label"><input type="checkbox" name="refund_status[]" value="request" {?_GET.refund_status && in_array('request',_GET.refund_status)}checked{/}/>환불신청</label>
+								<label class="search_label"><input type="checkbox" name="refund_status[]" value="ing" {?_GET.refund_status && in_array('ing',_GET.refund_status)}checked{/}/>환불처리중</label>
+								<label class="search_label"><input type="checkbox" name="refund_status[]" value="complete" {?_GET.refund_status && in_array('complete',_GET.refund_status)}checked{/} row_check_all />환불완료</label>
+							</span>
+							<span class="icon-check hand all-check ml10"><b>전체</b></span>
+						</td>
+						{? npay_use }
+						<th>Npay 취소요청</th>
+						<td no=1>
+							<label class="resp_checkbox"><input type="checkbox" name="search_npay_order_cancel" value=1 {? _GET.search_npay_order_cancel}checked{/}> 조회</label>
+						</td>
+						{ / }
+					</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="footer search_btn_lay">
+		<div>	
+			<span class="sc_edit">
+				<button type="button" id="set_default_setting_button" class="resp_btn v3">기본검색설정</button>
+				<button type="button" id="set_default_apply_button" onclick="set_search_form('refund')" class="resp_btn v3">기본검색적용</button>		
+			</span>	
+			<span class="search">	
+				<button type="submit" class="resp_btn active size_XL"><span>검색</span></button>	
+				<button type="button" id="search_reset_button" class="resp_btn v3 size_XL">초기화</button>		
+			</span>			
+				
+		</div>
+	</div>
+</div>
+<!-- 주문리스트 검색폼 : 끝 -->
+
+<!-- 주문리스트 테이블 : 시작 -->
+<div class="contents_dvs v2">
+	<table class="list-table-style table_row_basic v2" cellspacing="0">
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>
+			<col width="50" /><!--번호-->
+			<col width="150" /><!--환불 접수 일시-->
+			<col width="160" /><!--주문번호-->
+			<col /><!--주문자-->
+			<col width="60" /><!--결제-->
+			<col width="50" /><!--주문수량-->
+			<col width="60" /><!--반품-->
+			<col width="80" /><!--결제취소-->
+			<col width="60" /><!--배송비-->
+			<col width="80" /><!--환불 방법-->
+			<col width="80" /><!--환불 금액-->
+			<col width="130" /><!--환불완료 일시-->
+			<col width="80" /><!--환불-->
+			<col width="80" /><!--반품-->
+		</colgroup>
+		<thead class="lth">
+		<tr class="double-row th">
+			<th rowspan="2">번호</th>
+			<th rowspan="2">환불 접수 일시</th>
+			<th rowspan="2">주문번호</th>
+			<th rowspan="2">주문자</th>
+			<th rowspan="2">결제</th>
+			<th rowspan="2">주문<br />수량</th>
+			<th colspan="3">환불 종류</th>
+			<th rowspan="2">환불 방법</th>
+			<th rowspan="2">환불 금액</th>
+			<th rowspan="2">환불완료 일시</th>
+			<th colspan="2">처리 상태</th>
+		</tr>
+		<tr class="double-row th">
+			<th>반품</th>
+			<th>결제취소</th>
+			<th>배송비</th>
+			<th>환불</th>				
+			<th>반품</th>
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+		<!-- 리스트 : 시작 -->
+		<tbody class="ltb refund-ajax-list"></tbody>
+		<!-- 리스트 : 끝 -->
+	</table>
+</div>
+<!-- 주문리스트 테이블 : 끝 -->
+
+</form>
+
+<!-- 기본검색설정 -->
+<script type="text/javascript" src="/app/javascript/js/admin-searchDefaultConfig.js?mm={=date('Ymd')}"></script>
+
+
+{ #layout_footer }

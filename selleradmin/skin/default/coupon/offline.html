@@ -1,0 +1,836 @@
+{ #layout_header }
+<style>
+div .connectCategory { width:97%; float:left; cursor:hand; }
+span.divcostper	{ color:red; }
+.selectedseller	{width:100%;height:100px;text-align:left;overflow-x:hidden;}
+</style>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#coupongoodsreviewbtn").click(function() {
+		{? _GET.no }
+			var coupon_seq = "{_GET.no}";
+			var coupon_name = "{coupons.coupon_name}";  
+			var use_type = "{coupons.use_type}";   
+			var issue_type = "{coupons.issue_type}";
+			
+			var coupongoodsreviewerurl = '../coupon/coupongoodsreviewer?no='+coupon_seq+'&coupon_type=online';
+			if( use_type == 'offline' ) {
+				addFormDialog(coupongoodsreviewerurl, '650', '', '쿠폰 사용 가능한 상품 확인하기','false');
+			}else{
+				addFormDialog(coupongoodsreviewerurl, '450', '', '쿠폰 사용 가능한 상품 확인하기','false');
+			}
+		{:}
+			alert("쿠폰 생성 후 조회가 가능합니다.");
+		{/}
+	});
+
+	//상품 조회후 상품검색창
+	$("input:button[name=goodssearchbtn]").live("click",function(){
+		var goods_seq		= $("#coupongoods_goods_seq").val();
+		var coupon_seq	= $(this).attr("coupon_seq");
+
+		if(!goods_seq) {
+				openDialogAlert("상품번호를 정확히 입력해 주세요.",'260','140',function(){$("#coupongoods_goods_seq").focus();return;});
+		}else{ 
+			$.ajax({
+				'url' : '../coupon/coupongoodssearch',
+				'data' : {'coupon':coupon_seq,'goods':goods_seq},
+				'type' : 'post',
+				'dataType': 'json',
+				'success' : function(res){ 
+					$(".coupongoodsreviewerno").hide();//상품사용불가
+					$(".coupongoodsrevieweryes").hide();//쿠폰사용가능
+					if( res.result == 'goodsyes' ) {  
+						var imgsrc = (eval("res.goods.src"))?res.goods.src:"/admin/skin/default/images/common/noimage_list.gif";
+						$(".coupongoodsrevieweryes").show(); 
+						$(".coupongoodsrevieweryes .issueGoods").find(".image").html('<img class="goodsThumbView" alt="" src="'+imgsrc+'" width="50" height="50">'); 
+						$(".coupongoodsrevieweryes .issueGoods").find(".name").html(res.goods.name);
+						$(".coupongoodsrevieweryes .issueGoods").find(".price").html(res.goods.price);
+						$(".coupongoodsrevieweryes .issueGoods").attr("goods_seq",goods_seq); 
+						
+						openDialog('상품번호 찾기',"coupongoodsreviewerpopup",{"width":"480","height":"250"});
+					}else if( res.result == 'goodsno' ) {  
+						var imgsrc = (eval("res.goods.src"))?res.goods.src:"/admin/skin/default/images/common/noimage_list.gif";
+						$(".coupongoodsreviewerno").show();
+						$(".coupongoodsrevieweryes .issueGoods").find(".image").html('<img class="goodsThumbView" alt="" src="'+imgsrc+'" width="50" height="50">'); 
+						$(".coupongoodsrevieweryes .issueGoods").find(".name").html(res.goods.name);
+						$(".coupongoodsrevieweryes .issueGoods").find(".price").html(res.goods.price);
+						$(".coupongoodsrevieweryes .issueGoods").attr("goods_seq",goods_seq); 
+						
+						openDialog('상품번호 찾기',"coupongoodsreviewerpopup",{"width":"400","height":"250"});
+					}else{
+						openDialogAlert("상품을 찾을 수 없습니다.<br/>확인 후 다시 입력하시기 바랍니다.",'250','160'); 
+					}
+				}
+			});
+		}
+	});
+	
+	//상품상세보기
+	$('.coupongoodsdetail').live("click",function(){ 
+		window.open("/goods/view?no="+$(".coupongoodsrevieweryes .issueGoods").attr("goods_seq"),'','');
+	});
+
+	<!--{ ? coupons.sale_agent }-->
+		$("input[name='sale_agent'][value='{coupons.sale_agent}']").attr('checked',true);
+	<!--{ / }-->
+
+	<!--{ ? coupons.sale_payment }-->
+		$("input[name='sale_payment'][value='{coupons.sale_payment}']").attr('checked',true);
+	<!--{ / }-->
+
+	<!--{ ? coupons.sale_referer }-->
+		$("input[name='sale_referer'][value='{coupons.sale_referer}']").attr('checked',true);
+	<!--{ / }-->
+
+	<!--{ ? coupons.sale_referer_type }-->
+		$("input[name='sale_referer_type_tmp'][value='{coupons.sale_referer_type}']").attr('checked',true);
+	<!--{ / }-->
+
+	<!--{ ? coupons.coupon_seq }--> 
+		var offlinecptype = "{coupons.type}";  
+		$("#couponType").val(offlinecptype);
+		$('.offlinecptypetr').hide();
+		$('.'+offlinecptype+'tbllay').show();
+		$("input[name='couponType'][value='"+offlinecptype+"']"); 
+		if( offlinecptype == "offline_emoney" ) {
+			$("#offlinetypetitle").text("마일리지"); 
+		}else{
+			$("#offlinetypetitle").text("쿠폰"); 
+		}
+		set_coupon_form();
+	<!--{ / }-->
+ 
+	<!--{ ? coupons.download_limit }-->
+	$("form#offlineRegist select[name='downloadLimit_{coupons.type}']").val(['{coupons.download_limit}']);
+	<!--{ / }-->
+
+	<!--{ ? coupons.download_limit_ea }-->
+	$("form#offlineRegist input[name='downloadLimitEa_{coupons.type}']").val('{coupons.download_limit_ea}');
+	<!--{ / }-->
+
+	<!--{ ? coupons.sale_type == 'won'}-->
+			$("input:radio[name='saleType']").eq(1).attr("checked","checked");
+	<!--{ : coupons.sale_type == 'percent'}-->
+			$("input:radio[name='saleType']").eq(0).attr("checked","checked");
+	<!--{ / }-->
+
+	<!--{ ? coupons.shipping_type }-->
+		$("input[name='shippingType'][value='{coupons.shipping_type}']").attr('checked',true);
+	<!--{ / }-->
+
+	<!--{ ? coupons.coupon_same_time }-->
+		$("input[name='couponsametime'][value='{coupons.coupon_same_time}']").attr('checked',true);
+		<!--{ ? coupons.coupon_same_time == "N" }-->
+			$(".couponsametimen").show();
+			$(".couponsametimey").hide();
+		<!--{ :}-->
+			$(".couponsametimey").show();
+			$(".couponsametimen").hide();
+		<!--{ / }-->
+	<!--{ / }-->
+
+	<!--{ ? coupons.issue_type }-->
+		$("input[name='issue_type'][value='{coupons.issue_type}']").attr('checked',true);
+		<!--{ ? coupons.issue_type == 'issue' }-->
+
+			$('.issuetypelay').show();
+			$('#issuesgoodslay').show();
+			$('#exceptgoodslay').hide();
+			$('#issuescategorylay').show();
+			$('#exceptcategorylay').hide();
+		<!--{: coupons.issue_type == 'except' }-->
+
+			$('.issuetypelay').show();
+			$('#issuesgoodslay').hide();
+			$('#exceptgoodslay').show();
+			$('#issuescategorylay').hide();
+			$('#exceptcategorylay').show();
+		<!--{:}-->
+			$('.issuetypelay').hide();
+			$('#issuesgoodslay').hide();
+			$('#exceptgoodslay').hide();
+			$('#issuescategorylay').hide();
+			$('#exceptcategorylay').hide();
+		<!--{ / }-->
+	<!--{ / }-->
+
+
+	<!--{ ? coupons.duplication_use==1 }-->
+	$("input[name='duplicationUse']").attr('checked',true);
+	<!--{ / }-->
+	<!--{ ? coupons.coupon_img }-->
+		$("input[name='couponImg'][value='{coupons.coupon_img}']").attr('checked',true);
+	<!--{ / }-->
+
+	<!--{ ? coupons.issue_priod_type == 'day'}-->
+			$("input:radio[name='issuePriodType']").eq(1).attr("checked","checked");
+	<!--{ : coupons.issue_priod_type == 'date'}-->
+			$("input:radio[name='issuePriodType']").eq(0).attr("checked","checked");
+	<!--{ / }-->
+
+	<!--{ ? coupons.issue_stop }-->
+	$("select[name='{coupons.type}_issue_stop']").val(['{coupons.issue_stop}']);
+	//$("form#offlineRegist input[name='issue_stop']").val('{coupons.issue_stop}');
+	//$("input[name='issue_stop']").attr("checked","checked");
+	<!--{ / }-->
+
+
+	//set_coupon_form();
+
+	<!--{ ? !couponGroups ||  (coupons.type != 'download') }-->
+		groupsMsg('download');
+	<!--{ / }-->
+	<!--{ ? !couponGroups || (coupons.type != 'birthday') }-->
+		groupsMsg('birthday');
+	<!--{ / }-->
+	<!--{ ? !couponGroups ||  (coupons.type != 'shipping') }-->
+		groupsMsg('shipping');
+	<!--{ / }-->
+	<!--{ ? !couponGroups ||  (coupons.type != 'memberGroup') }-->
+		groupsMsg('memberGroup');
+	<!--{ / }-->
+
+	$(".salecost_info_btn").live("click", function() {
+		var url = "/selleradmin/popup/salecost_info";
+		$.get(url, function(data) {
+			$("div#salecost_info").html(data);
+		});
+		openDialog("할인금액 부담이란?", "salecost_info", {"width":1100,"height":700});
+	});
+
+
+	$(".btn_seller_select").live("click", function() {
+		var url = "../provider/salescost";
+		var shippingtype	= 0;
+		var couponType = $("form#offlineRegist input[name='couponType']").val();
+		if	( couponType == 'shipping')
+			shippingtype	= 1;
+
+		$.get(url, {'salescost_provider':$("input[name='salescost_provider']").val(),'provider_seq_list':$("input[name='provider_seq_list']").val(),'shippingtype':shippingtype}, function(data) {
+			$("div#seller_select").html(data);
+		});
+		openDialog("할인금액 부담율 - 입점판매자", "seller_select", {"width":600,"height":500});
+	}); 
+
+});
+
+
+function set_salescost(couponType){
+	if	(couponType == 'offline_coupon'){
+		$("#btn_seller_select_area").show();		
+	}else{
+		$("#btn_seller_select_area").hide();		
+		$("input[name='provider_seq_list']").val('');
+		$("#selectedseller").removeClass('selectedseller');
+		$("#selectedseller").html('');
+		$("#salescost_admin").html(100);
+		$("input[name='salescost_admin']").val(100);
+		$(".divcostper").html('0%');
+		$("input[name='salescost_provider']").val(0);
+		$(".costdiv_company").show();
+		$(".costdiv_provider").hide();
+		$(".costdiv_provider_sel").hide();
+		$("#salescost_admin").html('100');
+		$(".divper").html(0);		
+	}
+}
+
+function groupsMsg(type){
+	var str = "";
+	var tag = "";
+	$("#groupsMsg_"+type).html("이 쿠폰의 다운로드 권한 제한은 없습니다.");
+	$("input[type='checkbox'][name='memberGroup']:checked").each(function(){
+		var clone = $(this).parent().clone();
+		clone.find("input").remove();
+		str += clone.html() + ' , ';
+		tag += "<input type='hidden' name='memberGroups_"+type+"["+$(this).val()+"]' value='"+$(this).val()+"'>";
+	});
+	if(str){
+		var msg = "이 쿠폰의 다운로드 권한은 <strong>" + str.substr(0,str.length-3) + "</strong> 회원에게 있습니다." + tag;
+		$("#groupsMsg_"+type).html(msg);
+	}
+}
+
+function set_coupon_form(){ 
+	$(".offlinebaseinfolay").show();
+	var couponType = $("form#offlineRegist input[name='couponType']").val(); 
+	$(".download, .birthday, .shipping, .memberGroup, .member, .admin, .offline_coupon, .offline_emoney").hide();
+	$("."+couponType).show(); 
+	set_salescost(couponType);
+}
+function set_goods_list(displayId,inputGoods){
+	$.ajax({
+		type: "get",
+		url: "../goods/select_for_provider",
+//		url: "../goods/select",
+		data: "page=1&inputGoods="+inputGoods+"&displayId="+displayId+"&provider_list="+$("input[name='provider_seq_list']").val()+"&salescost="+$("input[name='salescost_provider']").val(),
+//		data: "page=1&inputGoods="+inputGoods+"&displayId="+displayId,
+		success: function(result){
+			$("div#"+displayId).html(result);
+		}
+	});
+	openDialog("상품 검색", displayId, {"width":"1000","height":"700","show" : "fade","hide" : "fade"});
+}
+function regist_category(targetCategory){
+	$("div#categoryDialog input[name='targetCategory']").val(targetCategory);
+	openDialog("카테고리 등록", "categoryDialog", {"width":900,"height":300});
+}
+
+</script>
+
+<!--{ ? coupons.coupon_seq }-->
+<form name="offlineRegist" id="offlineRegist" method="post" enctype="multipart/form-data" action="../coupon_process/offline_modify" target="actionFrame">
+<input type="hidden" name="couponSeq" value="{coupons.coupon_seq}" />
+<!--{ : }-->
+<form name="offlineRegist" id="offlineRegist" method="post" enctype="multipart/form-data" action="../coupon_process/offline" target="actionFrame">
+<!--{ / }-->
+<input type="hidden" name="couponType"  id="couponType" value="{coupons.type}" >
+<input type="hidden" name="sale_referer_item"  id="sale_referer_item" value="{coupons.sale_referer_item}" >
+<input type="hidden" name="sale_referer_type"  id="sale_referer_type" value="{coupons.sale_referer_type}" >
+<input type="hidden" class="line onlynumber" name="downloadLimitEa" value="1" />
+
+<input type="hidden" name="query_string" value="{query_string}"/>
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area"  class="gray-bar">
+	<div id="page-title-bar">
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li><span class="btn large white"><button type="button" onclick="document.location.href='../coupon/catalog?{query_string}';">쿠폰리스트<span class="arrowright"></span></button></span></li>
+		</ul>
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>인쇄 배포용 쿠폰 보기</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		{? coupons.downloadtotal < 1 }
+		<ul class="page-buttons-right">
+			{? _GET.no }
+				{? coupons.type == 'offline_emoney' }
+					<li>인증 [{coupons.downloadtotalbtn}건] / - </li>
+				{:}
+					<li>인증 [{coupons.downloadtotalbtn}건] / 사용 [{coupons.usetotalbtn}건]</li>
+				{/}
+			{/}
+		</ul>
+		{/}
+	</div>
+</div>
+
+<div style="display:none;">
+<div style="height:20px;"></div>
+<div class="item-title">쿠폰 사용처</div>
+<table class="info-table-style" style="width:100%" >
+<colgroup>
+	<col width="15%"/>
+	<col width="85%"/>
+</colgroup>
+<tbody>
+<tr>
+	<th class="its-th">사용처</th>
+	<td class="its-td">
+		인쇄된 티켓번호를 받은 후 온라인에서 티켓번호 인증 후 판매되는 상품(실물, 쿠폰)에 사용하여 쿠폰 혜택을 받음
+		<div><img src="../images/common/img_cpn_offline.gif" /></div>
+	</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div style="height:20px;"></div>
+<div class="item-title">
+	쿠폰 종류  
+
+</div>
+<table class="info-table-style" style="width:100%">
+<colgroup> 
+	<col width="20%" />
+	<col width="70%" />
+	<col width="10%" />
+</colgroup>
+<thead>
+<tr>
+	<th class="its-th-align center" >종류</th> 
+	<th class="its-th-align center" >발급 방식</th> 
+	<th class="its-th-align center" >인증 여부</th> 
+</tr>
+</thead>
+<tbody> 
+
+<tr class="offlinecptypetr offline_coupontbllay hide" offlinecptype="offline_coupon" >
+	<td class="its-td left">인쇄용 쿠폰</label></td>
+	<td class="its-td left">오프라인으로 배포된 인증번호를 온라인에서 회원이 인증 받으면  → <span class="blue">쿠폰 자동 제공</span></td>
+	<td class="its-td left">
+		{? coupons.issue_stop =='1'  } 인증하지 않습니다.
+		{:}인증합니다.
+		{/} 
+	</td>
+</tr>
+
+<tr class="offlinecptypetr offline_emoneytbllay hide" offlinecptype="offline_emoney" >
+	<td class="its-td left">인쇄용 쿠폰</label></td>
+	<td class="its-td left">오프라인으로 배포된 인증번호를 온라인에서 회원이 인증 받으면  → <span class="blue">마일리지 자동 제공</span></td>
+	<td class="its-td left">
+		{? coupons.issue_stop =='1'  } 인증하지 않습니다.
+		{:}인증합니다.
+		{/} 
+	</td>
+</tr>
+</tbody>
+</table>
+
+
+<div class="offlinebaseinfolay hide" >
+	<div>
+	<div style="height:20px;"></div>
+	<div class="item-title"><span id="offlinetypetitle">쿠폰</span> 제공 : <span class="blue" >인증->자동</span> 
+	</div>
+	<table class="info-table-style" style="width:100%">
+	<colgroup> 
+		<col width="65%" /> 
+		<col width="25%" />
+	</colgroup>
+	<thead> 
+	<tr>
+		<th class="its-th-align center" >인증 횟수 제한</th>
+		<th class="its-th-align center" >인증 기간 제한</th> 
+	</tr>
+	</thead>
+	<tbody> 
+	<tr class="offlinecptypetr offline_coupontbllay hide"> 
+		<td class="its-td "> 
+		동일 회차의 쿠폰을 여러 장 받았을 경우 
+		{coupons.download_limit_ea}회만 인증 허용
+		</td>
+		<td class="its-td ">  
+			{coupons.download_startdate}
+			~
+			{coupons.download_enddate}
+		</td>
+	</tr>
+	<tr class="offlinecptypetr offline_emoneytbllay hide"> 
+		<td class="its-td "> 
+		동일 회차의 쿠폰을 여러 장 받았을 경우 
+		{coupons.download_limit_ea}회만 인증 허용
+		</td>
+		<td class="its-td ">
+			{coupons.download_startdate}
+			~
+			{coupons.download_enddate}
+		</td>
+	</tr>
+	</table>
+ 
+
+<div style="height:20px;"></div>
+
+<div id="salecost_area">
+	<div style="height:20px;"></div>
+	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td><div class="item-title" style="margin:0;">쿠폰 할인금액 부담</div></td>
+		<td width="20%" align="right"><span class="btn small orange"><input type="button" value="할인금액 부담이란?" class="salecost_info_btn" /></span></td>
+	</tr>
+	</table>
+	<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="15%"/>
+		<col width="15%"/>
+		<col width="30%"/>
+		<col />
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th center"></th>
+		<th class="its-th center">통신판매중계자</th>
+		<th class="its-th center">
+			입점판매자
+		</th>
+		<th class="its-th center">결과</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th class="its-th">할인금액 부담율</th>
+		<td class="its-td center">
+			<span id="salescost_admin">{ ? coupons.coupon_seq > 0 }{coupons.salescost_admin}{:}100{/}</span>%
+		</td>
+		<td class="its-td center">
+			<span class="divper">{ ? coupons.coupon_seq > 0 }{coupons.salescost_provider}{:}0{/}</span>%
+		</td>
+		<td class="its-td">
+			<div class="offline_coupon">
+				<div class="costdiv_company { ? !coupons.provider_list }{:}hide{/}">
+					- 할인 적용 가능 상품 : <span style="color:red;">본사 상품</span>
+				</div>
+				<div class="costdiv_provider { ? !coupons.salescost_provider && coupons.provider_list}{:}hide{/}">
+					- 할인 적용 가능 상품 : <span style="color:red;">선정된 입점판매자의 상품</span>
+				</div>
+				<div class="costdiv_provider_sel { ? coupons.salescost_provider > 0 }{:}hide{/}">
+					- 할인 적용 가능 상품 : <span style="color:red;">선정된 입점판매자의 상품</span>
+					<br/>
+					- 선정된 입점판매자 : 할인금액의 <span class="divcostper">{coupons.salescost_provider}%</span> 부담하며, 부담금액은 정산 시 공제됩니다.
+				</div>
+			</div>
+			<div class="offline_emoney red">온라인 인증 시 마일리지 지급</div>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<div id="salecost_info"></div>
+<div id="seller_select"></div>
+
+<div style="height:20px;"></div>
+<div class="item-title">쿠폰정보</div>
+<table class="info-table-style" style="width:100%">
+<colgroup>
+	<col width="15%"/>
+	<col width="35%"/>
+	<col width="15%"/>
+	<col width="35%"/>
+</colgroup>
+<tbody>
+
+<tr>
+	<th class="its-th">생성일</th>
+	<td class="its-td">
+		{? coupons.regist_date }
+			{coupons.regist_date}
+		{:}
+			{=date("Y-m-d H:i:s")}
+		{/}
+	</td>
+	<th class="its-th">수정일</th>
+	<td class="its-td">
+		{? coupons.update_date }
+			{coupons.update_date}
+		{:}
+			{=date("Y-m-d H:i:s")}
+		{/}
+	</td>
+</tr>
+
+<tr>
+	<th class="its-th">쿠폰명</th>
+	<td class="its-td">
+		{coupons.coupon_name}
+	</td>
+	<th class="its-th">쿠폰설명</th>
+	<td class="its-td">
+		{coupons.coupon_desc}
+	</td>
+</tr>
+
+<tr>
+	<th class="its-th"  >인증번호 <span class="helpicon" title="인증번호란 오프라인에서 배포되는 쿠폰 인쇄물에 찍히는 번호로,<br />
+인쇄용 쿠폰 수령자는 쇼핑몰의 MY페이지에서 인증번호를 기입하여 쿠폰의 혜택을 받을 수 있습니다."></span>
+	</th>
+	<td class="its-td" colspan="3"> 
+		<table class="info-table-style" style="width:100%">
+		{? coupons.offline_type == 'random' || coupons.offline_type == 'one' }
+		<tr>
+			<th class="its-th">자동 생성</th>
+			<td  class="its-td" >
+				{? coupons.offline_type == 'random' }
+					<input type="hidden" name="offline_type" value="random" >
+					<input type="hidden" name="offline_random_num" value="{coupons.offline_random_num}" >
+					<div class="offline_type1"  style="padding:5px 0 0 0;">
+						서로 다른(랜덤) 인증번호  {=number_format(coupons.offline_random_num)}개 자동 생성
+					</div>
+				{: coupons.offline_type == 'one' }
+					<input type="hidden" name="offline_type" value="one" >
+					<input type="hidden" name="offlineLimit_one" value="{coupons.offline_limit}" >
+					<input type="hidden" name="offlineLimitEa_input" value="{coupons.offline_limit_ea}" >
+					<div class="offline_type2"  style="padding:5px 0 0 0;">
+						<label for="offline_type2">동일 인증번호 1개를 자동 생성 [{coupons.offline_input_serialnumber}]하여 (인증기간 동안) </label>
+						{? coupons.offline_limit == 'unlimit'}
+							제한없이 쿠폰인증 허용
+						{:}
+							 {=number_format(coupons.offline_limit_ea)}번까지 쿠폰 인증 허용
+						{/}
+					</div>
+				{/}
+			</td>
+		</tr>
+		{: coupons.offline_type == 'file' || coupons.offline_type == 'input' }
+		<tr>
+			<th class="its-th">수동 생성<br>(권장 안함)</th>
+			<td  class="its-td" >
+			{? coupons.offline_type == 'file'}
+					<input type="hidden" name="offline_type" value="file" >
+				<div class="offline_type3"  style="padding:5px 0 0 0;"> 인증번호 수동등록 [총 {=number_format(coupons.offlinecoupontotal)}건]
+				</div>
+			{: coupons.offline_type == 'input' }
+				<input type="hidden" name="offline_type" value="input" >
+				<input type="hidden" name="offlineLimit_input" value="{coupons.offline_limit}" >
+				<input type="hidden" name="offlineLimitEa_input" value="{coupons.offline_limit_ea}" >
+				<input type="hidden" name="offline_input_num" value="{coupons.offline_input_serialnumber}" >
+				<div class="offline_type4"  style="padding:5px 0 0 0;">
+				동일 인증번호 [{coupons.offline_input_serialnumber}]로 (인증기간 동안) </label>
+				{? coupons.offline_limit == 'unlimit'}
+					제한없이 쿠폰인증 허용
+				{:}
+					 {=number_format(coupons.offline_limit_ea)}번까지 쿠폰 인증 허용
+				{/}
+				</div>
+			{/}
+			</td>
+		</tr>
+		{/}
+		</table> 
+	</td>
+</tr>
+<tr>
+	<th class="its-th" height="55">혜택</th>
+	<td class="its-td" colspan="3">
+	<div class="relative">
+		<div class="fl"> 
+			<div  class="download birthday memberGroup member admin offline_coupon {? coupons.type =='shipping' }hide{/}" style="padding:5px 0 0 0;">
+				{? coupons.sale_type == 'won' }
+					<label>상품판매가격의 {=get_currency_price(coupons.won_goods_sale,3)} 할인</label>
+				{:}
+					<label>상품판매가격의 {coupons.percent_goods_sale}% 할인,</label>
+					<label><span>최대 {=get_currency_price(coupons.max_percent_goods_sale,3)}</span></label>
+				{/}
+			</div> 
+
+			<div class="shipping {? coupons.type !='shipping' }hide{/}" style="padding:5px 0 0 0;">
+				{? coupons.shipping_type == 'won' }
+					배송비 {=get_currency_price(coupons.won_shipping_sale,3)} 할인
+				{:}
+					<label>
+					기본 배송비 무료,
+					</label>
+					<span>최대 {=get_currency_price(coupons.max_percent_shipping_sale,3)}</span> (개별 배송 상품 제외)
+				{/}
+			</div>
+
+			{? coupons.duplication_use == '1' && coupons.type =='download'  }
+				<div style="padding:10px 0 0 0;" class="download"><label>여러 번 사용 가능</label></div>
+			{/} 
+		</div>
+
+		<div class="fl pdl30">
+			{? coupons.duplication_use == '1' }
+				<div style="" class="offline_coupon">
+					<label>중복할인</label>
+					<div class="duplicationuselay fx11 lsp-1" >
+						- 중복할인 : 주문상품이 2종 이상일 때 상품에 중복해서 쿠폰 할인<br />
+						&nbsp;└ 예시) A상품10,000원x10개 - (10%할인쿠폰x10개) + B상품10,000원x10개 - (10%할인쿠폰x10개) = 180,000원<br/>
+						- 중복할인 : 주문상품의 수량이 2개 이상일 때 수량에 비례해서 쿠폰 할인<br />
+						&nbsp;└ 예시) A상품10,000원x10개 - (10%할인쿠폰x10개) = 90,000원
+					</div>
+				</div>
+			{/} 
+		</div>
+	</div>
+	</td>
+</tr>
+
+
+<tr  class="offline_coupon" >
+	<th class="its-th">유효 기간</th>
+	<td class="its-td" colspan="3"> 
+		<div>
+			{? coupons.issue_priod_type =='day' }
+				<label>발급일로부터 {coupons.after_issue_day}일 동안 사용 가능</label>
+			{:}
+				<label>{coupons.issue_startdate}~{coupons.issue_enddate}</label>
+			{/}
+		</div>  
+	</td>
+</tr>
+
+<tr class="offline_coupon">
+	<th class="its-th">사용제한-단독</th>
+	<td class="its-td">
+		<!--{? coupons.coupon_same_time =='Y' || !coupons.coupon_same_time }-->
+		이 쿠폰은 주문할 때 다른 쿠폰과 함께 사용할 수 있습니다.
+		<!--{ : }-->
+		이 쿠폰은 주문할 때 다른 쿠폰과 함께 사용할 수 없는 ‘단독사용쿠폰’입니다.
+		<br/>
+		&nbsp;<span class="desc">└ 다른 쿠폰이 적용된 상태에서 본 쿠폰을 적용하게 되면 다른 쿠폰은 적용이 해제됨</span>
+		<!--{ / }-->
+	</td>
+	<td class="its-td-align"  colspan="2" style="border-left:0px;">
+		<img src="../images/design/coupon_sametimey.gif" class="couponsametimey " >
+		<img src="../images/design/coupon_sametimen.gif" class="couponsametimen {? !coupons.coupon_same_time } hide{/}" >
+	</td>
+</tr>
+
+
+<tr class="offline_coupon" >
+	<th class="its-th">사용제한 - 금액</th>
+	<td class="its-td" colspan="3">
+		<span style="color:red;">&#123;상품 할인가(판매가) x 수량&#125;+&#123;좌동&#125;+&#123;좌동&#125;</span>…이
+		{coupons.limit_goods_price}원 이상이면 사용가능.<span class="desc"> (예시 - 2만원이상 구매시)</span>
+	</td>
+</tr>
+
+<tr  class="download member memberGroup admin birthday offline_coupon {? coupons.type=='shipping' }hide{/}">
+	<th class="its-th">사용제한 - 상품</th>
+	<td class="its-td" colspan="3">
+	<div class="costdiv_company { ? !coupons.provider_list }{:}hide{/}">
+		<span style="color:red;">할인 적용 가능 상품 : 본사 상품</span>
+	</div>
+	<div class="costdiv_provider { ? !coupons.salescost_provider && coupons.provider_list}{:}hide{/}">
+		<span style="color:red;">할인 적용 가능 상품 : 선정된 입점판매자의 상품</span>
+	</div>
+	<div class="costdiv_provider_sel { ? coupons.salescost_provider > 0 }{:}hide{/}">
+		<span style="color:red;">할인 적용 가능 상품 : 선정된 입점판매자의 상품
+		( 할인금액의 <span class="divcostper">{coupons.salescost_provider}%</span> 부담 )</span>
+	</div>
+
+	<table class="info-table-style" style="width:100%">
+	<tbody>
+	<tr><td>{? coupons.issue_type =='issue' }특정 상품/카테고리에서만 쿠폰사용 가능
+			{: coupons.issue_type =='except' }특정 상품/카테고리에서는 쿠폰사용 불가
+			{:}전체상품에 쿠폰사용 가능&nbsp;&nbsp;&nbsp;
+		{/}</td> 
+	</tr>
+	<tr class="issuetypelay"><td colspan="3" class="its-td" >
+			<div id="issuesgoodslay"  >
+				<div style="margin:10px;" >
+					<div id="issueGoods" >
+					<!--{ @ issuegoods }-->
+					<!--{ ? .type == 'issue' }-->
+					<div class='goods fl move'>
+					<div align='center' class='image'>
+						<img class="goodsThumbView" alt="" src="{.image}" width="50" height="50">
+					</div>
+					<div align='center' class='name' style='width:70px;overflow:hidden;white-space:nowrap;'>{.goods_name}</div>
+					<div align='center' class='price'>{=get_currency_price(.price)}</div>
+					<input type="hidden" name='issueGoods[]' value='{.goods_seq}' />
+					<input type="hidden" name="issueGoodsSeq[{.goods_seq}]" value="{.issuegoods_seq}" />
+					</div>
+					<!--{ / }-->
+					<!--{ / }-->
+					</div>
+					<div id="issueGoodsSelect" class="hide"></div>
+				</div>
+			</div>
+		<div style="clear: both"></div>
+			<div id="issuescategorylay" >
+				<div  style="margin:10px;">
+					<div id="issueCategory" >
+					<!--{ @ issuecategorys }-->
+					<!--{ ? .type == 'issue' }-->
+					<div style='padding:5px;'>
+					<span style='display:inline-block;width:300px'>{.category}</span>
+					{? coupons.downloadtotal < 1 }<!-- <span class='btn-minus'><button type='button' class='delCategory'></button></span> -->{/}
+					<input type="hidden" name='issueCategoryCode[]' value='{.category_code}' />
+					<input type="hidden" name="issueCategoryCodeSeq[{.category_code}]" value="{.issuecategory_seq}" />
+					</div>
+					<!--{ / }-->
+					<!--{ / }-->
+					</div>
+				</div>
+			</div>
+
+		<div style="clear: both"></div>
+			<div   id="exceptgoodslay"  >
+				<div  style="margin:10px;">
+					<div id="exceptIssueGoods">
+					<!--{ @ issuegoods }-->
+					<!--{ ? .type == 'except' }-->
+					<div class='goods fl move'>
+					<div align='center' class='image'>
+						<img class="goodsThumbView" alt="" src="{.image}" width="50" height="50">
+					</div>
+					<div align='center' class='name' style='width:70px;overflow:hidden;white-space:nowrap;'>{.goods_name}</div>
+					<div align='center' class='price'>{=get_currency_price(.price)}</div>
+					<input type="hidden" name='exceptIssueGoods[]' value='{.goods_seq}' />
+					<input type="hidden" name="exceptIssueGoodsSeq[{.goods_seq}]" value="{.issuegoods_seq}" />
+					</div>
+					<!--{ / }-->
+					<!--{ / }-->
+					</div>
+					<div id="exceptIssueGoodsSelect" class="hide"></div>
+				</div>
+			</div>
+
+		<div style="clear: both"></div>
+
+			<div id="exceptcategorylay"   >
+				<div  style="margin:10px;">
+					<div id="exceptIssueCategory">
+					<!--{ @ issuecategorys }-->
+					<!--{ ? .type == 'except' }-->
+					<div style='padding:5px;'>
+					<span style='display:inline-block;width:300px'>{.category}</span>
+					{? coupons.downloadtotal < 1 }<!-- <span class='btn-minus'><button type='button' class='delCategory'></button></span> -->{/}
+					<input type="hidden" name='exceptIssueCategoryCode[]' value='{.category_code}' />
+					<input type="hidden" name="exceptIssueCategoryCodeSeq[{.category_code}]" value="{.issuecategory_seq}" />
+					</div>
+					<!--{ / }-->
+					<!--{ / }-->
+					</div>
+				</div>
+			</div>
+	</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+
+<tr  class="offline_coupon">
+	<th class="its-th">사용제한 - 사용환경</th>
+	<td class="its-td" colspan="3">
+		{? coupons.sale_agent =='m' }
+			{? coupons.use_type && coupons.use_type=='offline' }모바일/태블릿 환경에서만 쿠폰 다운로드 가능 (모바일/태블릿 전용 쿠폰){:}모바일/태블릿 환경에서만 쿠폰 사용 가능 (모바일/태블릿 전용 쿠폰){/}
+		{:}모든 환경에서 쿠폰 사용 가능
+		{/}
+	</td>
+</tr>
+
+<tr  class="offline_coupon">
+	<th class="its-th">사용제한 - 결제수단</th>
+	<td class="its-td" colspan="3">
+			{? coupons.sale_payment =='b' }가능한 결제수단으로 쿠폰 사용 가능 (권장)
+			{:}무통장 입금수단으로만 쿠폰 사용 가능
+			{/}
+	</td>
+</tr>
+
+
+<tr  class="offline_coupon">
+	<th class="its-th">사용제한 - 유입경로</th>
+	<td class="its-td" colspan="3">
+		{? coupons.sale_referer =='n' }유입경로 할인이 있을 때 쿠폰 사용 가능
+			<span class="salserefereritemtmplay">
+			{? coupons.sale_referer == 'y'} 
+				{? coupons.sale_referer_type == 's'} 
+					{? salserefereritemloop } 
+						{@ salserefereritemloop }
+							<span class="left">{.referersale_name}</span> {? count(salserefereritemloop)-1 > .index_ },{/}
+						{/}
+					{/} 
+				{:}
+				모든 유입경로
+				{/} 
+			{/}
+			</span>
+		{: coupons.sale_referer =='y' }유입경로 할인이 없을 때 쿠폰 사용 가능 (바로 접속 시)
+		{:}유입경로와 무관하게 쿠폰 사용 가능
+		{/} 
+	</td>
+</tr>
+<tr> 
+	<td class="its-td" colspan="4">
+	<div><span class="desc">※ 프로모션/쿠폰  &gt;<span class="highlight-link">할인 이벤트</span> 설정에 따라 쿠폰 사용이 제한될 수 있습니다.  즉, 할인 이벤트를 진행 중인 상품에는 쿠폰 사용을 제한할 수 있습니다.</span></div>
+	</td>
+</tr>
+
+</tbody>
+</table>
+<div style="height:30px;"></div>
+</form>
+
+{ #coupongoodslayer }
+
+{ #layout_footer }

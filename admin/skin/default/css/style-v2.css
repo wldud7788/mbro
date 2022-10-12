@@ -1,0 +1,189 @@
+@charset "utf-8"; 
+
+@import url('../css/jqueryui/jquery-ui.css');
+@import url('../css/jqueryui/black-tie/jquery-ui-1.8.16.custom.css');
+@import url('../css/poshytip/style.css');
+@import url('../css/common.css');
+@import url('../css/layout-v2.css');
+@import url('../css/buttons.css');
+@import url('../css/boardnew.css');
+@import url('../css/page.css');
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.spacer-2 {
+    margin: 0 2px;
+}
+
+.preview.icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 5px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.preview.icon.left {
+    width: 50px;
+	height: auto;
+	vertical-align: middle;
+	overflow: hidden;
+	border: 0px;
+	display: inline-block;
+}
+
+.preview.icon > img {
+    max-width: 100%
+}
+.preview.icon.left > img {
+    max-height: 28px;
+}
+
+.table_basic.sms {
+    width: auto;
+}
+
+.table_basic.sms td {
+    vertical-align: top;
+}
+
+[data-text-counts-at] {
+    font-weight: bold;
+}
+
+table th.min-width,
+table td.min-width,
+table.min-width th,
+table.min-width td {
+    white-space: nowrap;
+    width: 1px;
+}
+
+table th.stretch,
+table td.stretch {
+    white-space: normal;
+    width: auto;
+}
+
+.board-comment-reply:before {
+    content: '┖ RE:';
+    color: #4472c4;
+    font-weight: bold;
+}
+
+.board-dashboard-table .table-col-subject {
+    text-align: left;
+}
+
+.board-dashboard-table .table-col-name,
+.board-dashboard-table .table-col-date,
+.board-dashboard-table .table-col-reply_title {
+    width: 20%;
+}
+
+.board-dashboard-table a[href^="/admin/board/view"] {
+    color: #000 !important;
+    text-decoration: underline;
+}
+
+.board-main .item-title a[href^="./board?"] {
+    line-height: 30px;
+    display: block;
+    color: #0f4897;
+}
+
+.board-main .item-title a[href^="./board?"] .more {
+    float: right;
+    color: black;
+    font-size: 9pt;
+    font-weight: normal;
+}
+
+#popup-board-dashboard-configure button#add_element,
+#popup-board-dashboard-configure button#del_element,
+#popup-board-dashboard-configure button#upMove,
+#popup-board-dashboard-configure button#downMove {
+    border: 1px solid;
+    height: 15px;
+    padding: 0 7px;
+    color: #525f78;
+    border-color: #525f78;
+    background-color: #fff;
+}
+
+
+/** board/index */
+.page-manual-btn {
+    display: inline-block;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    line-height: 24px;
+    vertical-align: middle;
+    margin-top: -5px; 
+    margin-left: 7px !important;
+    top: 14px !important;
+    padding: 0 !important;
+    height: 25px !important;
+}
+
+.page-manual-btn a {
+    display: inline-block;
+    margin-top: 1px !important;
+    border: 0 !important;
+    background-color: #FFF !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    box-shadow: none !important;
+    padding: 0 5px 0 20px !important;
+    color: #000 !important;
+    height: 24px !important;
+    line-height: 24px !important;
+    background: url(/admin/skin/default/images/common/ico_manual.png) 6px 4px no-repeat !important;
+}
+
+.board-main {
+    margin: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.board-main-title {
+    flex: 0 100%;
+    border-bottom: 1px solid #aaa;
+}
+
+.board-main .item-title {
+    margin: 0;
+}
+
+.board-dashboard-item {
+	width:49.2%;
+	margin:30px 3px 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#counsel_contents {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+#counselModify input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#board-list tr.notice td {
+    background-color: aliceblue;
+}

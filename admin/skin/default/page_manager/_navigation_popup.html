@@ -1,0 +1,98 @@
+
+<form name="targerForm" id="targerForm" method="post" action="../page_manager_process/modify_{= page_tab}" target="actionFrame" class="hx100">
+	<div class="hide" id="sel_chk"></div>
+	<input type="hidden" name="page_type" value="{=page_type}" />
+	<input type="hidden" name="mode" value="" />
+	<input type="hidden" name="style_type" value="image" />
+
+<div class="content">
+	<table class="table_basic">
+		<colgroup><col width="20%"><col width="80%"></colgroup>		
+		<tr>
+			<th class="left">이미지/텍스트</th>
+			<td>
+				<label class="subtab mr10 resp_radio" ><input type='radio' name='subtab' value='image' checked> 이미지</label>
+				<label class="subtab resp_radio" ><input type='radio' name='subtab' value='text'> 텍스트</label>
+			</td>
+		</tr>
+		<tr>
+			<th class="left">기본</th>								
+			<td>
+				<div class="navitab navitab_text hide">
+					<input type="text" name="text_normal" value="" class="customFontDecoration" />
+				</div>
+				<div class="navitab navitab_image webftpFormItem">
+					<label class="resp_btn v2"><input type="file" id="image_type_normal" class="uploadify">파일선택</label>
+					<input type="hidden" class="webftpFormItemInput" name="image_type_normal" size="30" maxlength="255" />									
+					<div class="preview_image"></div>
+				</div>
+			</td>
+		</tr>	
+		<tr>
+			<th class="left">마우스 오버</th>								
+			<td>
+				<div class="navitab navitab_text hide">
+					<input type="text" name="text_over" value="" class="customFontDecoration" />
+				</div>
+				<div class="navitab navitab_image webftpFormItem">
+					<label class="resp_btn v2"><input type="file" id="image_type_over" class="uploadify">파일선택</label>
+					<input type="hidden" class="webftpFormItemInput" name="image_type_over" size="30" maxlength="255" />
+					<div class="preview_image"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="footer">
+	<button type="button" class="saveAccessLimit resp_btn active size_XL" onClick="submit_target_update($(this).closest('#targerForm'),'modify');">저장</button>
+	<button type="button" class="btnLayClose resp_btn size_XL v3" onClick="closeDialog('popModifyLayer_{=page_tab}');">취소</button>
+</div>
+</form>
+
+<!-- 이미지 팝업 -->
+<div id="imgPopupWrap" class="hide"></div>
+
+
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-font-decoration.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js"></script>
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// 상단 탭 영역 이벤트 정의
+		$('.subtab input:radio').click(function(){
+			$('.navitab').addClass('hide');
+			$('.navitab_'+$(this).attr('value')).removeClass('hide');
+			if($(this).attr('value') == "text"){
+				$(".navitab_file").hide();
+			}else{
+				$(".navitab_file").show();
+			}
+			$('input[name="style_type"]').val($(this).attr('value'));
+		});
+
+		$('#image_type_normal').createAjaxFileUpload(uploadConfig, uploadCallback);
+		$('#image_type_over').createAjaxFileUpload(uploadConfig, uploadCallback);
+		
+		$(".customFontDecoration").customFontDecoration();
+
+		// 기본값을 지정해줘야 함 2019-05-23
+		var font_decoration_default	= "{'color':'#000000','font':'','size':'','bold':'normal','underline':'none'}";
+		$(".customFontDecoration").val(font_decoration_default).change();
+
+	});
+
+	function formInit(){
+		$('#preview_image').empty();	
+		$('.navitab').addClass('hide');
+		$('.subtab input[name="subtab"][value="image"]').prop("checked",true);
+		$('.navitab input[name="image_type"][value="normal"]').prop("checked",true);
+		$('.navitab_image').removeClass('hide');
+		$('input[name="style_type"]').val('image');
+		$('input[name="tmp_image"]').val('');
+		$(".customFontDecoration").customFontDecoration().change();
+	}
+</script>

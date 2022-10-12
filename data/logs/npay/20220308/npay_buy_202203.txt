@@ -1,0 +1,140 @@
+[2022-03-08 00:17:15.371619000]
+MODE : Request
+REMOTE_IP : 1.221.200.43
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>M2JjZmRlN2UwOGYzOGExYTI1YWI0YjE4ZjIzNzVkYmZjNjE3M2IxYV8xNjQ2NjY2MjM1</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>M2JjZmRlN2UwOGYzOGExYTI1YWI0YjE4ZjIzNzVkYmZjNjE3M2IxYV8xNjQ2NjY2MjM1</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>30</quantity><price>0</price><manageCode><![CDATA[opt114676]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114676</id><text><![CDATA[포스터 (지관통 미포함/접어서 출고)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 00:17:15.410235000]
+MODE : Response
+REMOTE_IP : 1.221.200.43
+SUCCESS:fcPVl_bpTQSd4rVA2mh8ZA:200337588
+
+[2022-03-08 00:17:36.942636000]
+MODE : Request
+REMOTE_IP : 1.221.200.43
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>M2JjZmRlN2UwOGYzOGExYTI1YWI0YjE4ZjIzNzVkYmZjNjE3M2IxYV8xNjQ2NjY2MjU2</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>M2JjZmRlN2UwOGYzOGExYTI1YWI0YjE4ZjIzNzVkYmZjNjE3M2IxYV8xNjQ2NjY2MjU2</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>30</quantity><price>0</price><manageCode><![CDATA[opt114676]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114676</id><text><![CDATA[포스터 (지관통 미포함/접어서 출고)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 00:17:36.980775000]
+MODE : Response
+REMOTE_IP : 1.221.200.43
+SUCCESS:b6WKxAfbQiqGT-U5flT3fw:200337588
+
+[2022-03-08 00:20:11.527192000]
+MODE : Request
+REMOTE_IP : 61.102.202.219
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MTA3ODk4YmEzNzUyOTM0MzcyZDQ5Y2Y0NzE5OTdjMTIwYzU3ODE2ZF8xNjQ2NjY2NDEx</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>MTA3ODk4YmEzNzUyOTM0MzcyZDQ5Y2Y0NzE5OTdjMTIwYzU3ODE2ZF8xNjQ2NjY2NDEx</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>2</quantity><price>0</price><manageCode><![CDATA[opt114676]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114676</id><text><![CDATA[포스터 (지관통 미포함/접어서 출고)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 00:20:11.585563000]
+MODE : Response
+REMOTE_IP : 61.102.202.219
+SUCCESS:F470pTsFTXCRqd9C3QLGVw:200337588
+
+[2022-03-08 00:20:26.46572000]
+MODE : Request
+REMOTE_IP : 61.102.202.219
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MTA3ODk4YmEzNzUyOTM0MzcyZDQ5Y2Y0NzE5OTdjMTIwYzU3ODE2ZF8xNjQ2NjY2NDI2</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>MTA3ODk4YmEzNzUyOTM0MzcyZDQ5Y2Y0NzE5OTdjMTIwYzU3ODE2ZF8xNjQ2NjY2NDI2</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>2</quantity><price>0</price><manageCode><![CDATA[opt114676]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114676</id><text><![CDATA[포스터 (지관통 미포함/접어서 출고)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 00:20:26.92365000]
+MODE : Response
+REMOTE_IP : 61.102.202.219
+SUCCESS:hJ3QQ8c9ToWAJzFGY1PVaw:200337588
+
+[2022-03-08 00:21:19.945048000]
+MODE : Request
+REMOTE_IP : 61.102.202.219
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MTA3ODk4YmEzNzUyOTM0MzcyZDQ5Y2Y0NzE5OTdjMTIwYzU3ODE2ZF8xNjQ2NjY2NDc5</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>MTA3ODk4YmEzNzUyOTM0MzcyZDQ5Y2Y0NzE5OTdjMTIwYzU3ODE2ZF8xNjQ2NjY2NDc5</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>5</quantity><price>0</price><manageCode><![CDATA[opt114676]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114676</id><text><![CDATA[포스터 (지관통 미포함/접어서 출고)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 00:21:19.994856000]
+MODE : Response
+REMOTE_IP : 61.102.202.219
+SUCCESS:NmgEFyL6Q5Otp7Trq7Ra-g:200337588
+
+[2022-03-08 01:02:31.516142000]
+MODE : Request
+REMOTE_IP : 121.174.126.52
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[http://music-brother.firstmall.kr/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NjkzNjM5Y2Q1Yjc1NzRiY2FmYTMwNjg2ZmMwZDY0MjU1ZGY4OWY5OF8xNjQ2NjY4OTUx</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>NjkzNjM5Y2Q1Yjc1NzRiY2FmYTMwNjg2ZmMwZDY0MjU1ZGY4OWY5OF8xNjQ2NjY4OTUx</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[http://music-brother.firstmall.kr/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[http://music-brother.firstmall.kr/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>1</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 01:02:31.577702000]
+MODE : Response
+REMOTE_IP : 121.174.126.52
+SUCCESS:3OXGQrahQGqPdYBsC0wQxQ:200337588
+
+[2022-03-08 01:29:37.131034000]
+MODE : Request
+REMOTE_IP : 220.95.2.247
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NjU2NDU4YmYwZWFmZDUzM2QyZGIwYThlNzA5OWM3ZWIzNTcwMmFjNF8xNjQ2NjcwNTc3</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>NjU2NDU4YmYwZWFmZDUzM2QyZGIwYThlNzA5OWM3ZWIzNTcwMmFjNF8xNjQ2NjcwNTc3</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>1</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 01:29:37.171637000]
+MODE : Response
+REMOTE_IP : 220.95.2.247
+SUCCESS:dmI3c5S5TfKklGz9WkZKjw:200337588
+
+[2022-03-08 01:29:52.113132000]
+MODE : Request
+REMOTE_IP : 220.95.2.247
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NjU2NDU4YmYwZWFmZDUzM2QyZGIwYThlNzA5OWM3ZWIzNTcwMmFjNF8xNjQ2NjcwNTky</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>NjU2NDU4YmYwZWFmZDUzM2QyZGIwYThlNzA5OWM3ZWIzNTcwMmFjNF8xNjQ2NjcwNTky</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>1</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 01:29:52.149804000]
+MODE : Response
+REMOTE_IP : 220.95.2.247
+SUCCESS:mRqHSsw9TOqSUwbVm3_uQQ:200337588
+
+[2022-03-08 02:39:16.461654000]
+MODE : Request
+REMOTE_IP : 59.28.116.174
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NTU0MWRjN2VjMGRhODMwMDk5ZDM4ZTNjYTNjNjRmMmMyZTcwNTkzMF8xNjQ2Njc0NzU2</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>NTU0MWRjN2VjMGRhODMwMDk5ZDM4ZTNjYTNjNjRmMmMyZTcwNTkzMF8xNjQ2Njc0NzU2</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>1</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 02:39:16.512844000]
+MODE : Response
+REMOTE_IP : 59.28.116.174
+SUCCESS:85LSdQjwTUKIOPXYi8VA2g:200337588
+
+[2022-03-08 05:37:08.68633000]
+MODE : Request
+REMOTE_IP : 121.133.12.196
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>M2IyMDczN2MyNDM5NmU5NGNhN2MxMWUwNDQyMTFlN2Q5ZTdjMzdiY18xNjQ2Njg1NDI4</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>M2IyMDczN2MyNDM5NmU5NGNhN2MxMWUwNDQyMTFlN2Q5ZTdjMzdiY18xNjQ2Njg1NDI4</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>1</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 05:37:08.111329000]
+MODE : Response
+REMOTE_IP : 121.133.12.196
+SUCCESS:NS8DFyLXSRiWCE86XutMCA:200337588
+
+[2022-03-08 10:30:19.21119000]
+MODE : Request
+REMOTE_IP : 112.217.100.162
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NjE3MDljZDE0NWFmYTRlNzg1ODAxMmYzY2MyNDhhYTQyYzI1NWI5ZF8xNjQ2NzAzMDE5</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>NjE3MDljZDE0NWFmYTRlNzg1ODAxMmYzY2MyNDhhYTQyYzI1NWI5ZF8xNjQ2NzAzMDE5</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>1</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 10:30:19.82326000]
+MODE : Response
+REMOTE_IP : 112.217.100.162
+SUCCESS:04WHJOIMSdGkF4N07tsssA:200337588
+
+[2022-03-08 12:08:18.495270000]
+MODE : Request
+REMOTE_IP : 112.170.34.250
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MjhkZjQ0MmY4OWY4MzA0ZjhkMmM1YzIyOTFmNjczNGE4MjI5YjM1NV8xNjQ2NzA4ODk4</merchantCustomCode1></interface><product><id>2302</id><merchantProductId>MjhkZjQ0MmY4OWY4MzA0ZjhkMmM1YzIyOTFmNjczNGE4MjI5YjM1NV8xNjQ2NzA4ODk4</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>2</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 12:08:18.535278000]
+MODE : Response
+REMOTE_IP : 112.170.34.250
+SUCCESS:6exWEUZtSQKRUaeo_o8DXQ:200337588
+
+[2022-03-08 13:57:13.165590000]
+MODE : Request
+REMOTE_IP : 223.62.219.110
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YmIwZWI3MTQ2MWNhMWQyNDA4ODI4YTQ3MWNmYWQ1OTM2MWY5NTkyZl8xNjQ2NzE1NDMz</merchantCustomCode1><naverInflowCode>ct%3Dl0hnt861%7Cci%3Dcheckout%7Ctr%3Dppc%7Chk%3D36e807bd35b4582bb0c2e3dcab03481c7d31e336%7Ctrx%3D</naverInflowCode></interface><product><id>2302</id><merchantProductId>YmIwZWI3MTQ2MWNhMWQyNDA4ODI4YTQ3MWNmYWQ1OTM2MWY5NTkyZl8xNjQ2NzE1NDMz</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>8</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 13:57:13.234570000]
+MODE : Response
+REMOTE_IP : 223.62.219.110
+SUCCESS:Rj8Cz8ktSM-9GG0_RuLkZw:200337588
+
+[2022-03-08 14:12:29.19117000]
+MODE : Request
+REMOTE_IP : 121.131.198.202
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=2302]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>M2RiMWU4NGI3NmRmMWUyODM4MzQ1MWQzZDUxMGIxYzlhNzFjMDQ5NF8xNjQ2NzE2MzQ5</merchantCustomCode1><naverInflowCode>ct%3Dl0hocm78%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3Da1a9e64699e5ddc4e14b01f40b458f2f778b5d6e%7Ctrx%3D</naverInflowCode></interface><product><id>2302</id><merchantProductId>M2RiMWU4NGI3NmRmMWUyODM4MzQ1MWQzZDUxMGIxYzlhNzFjMDQ5NF8xNjQ2NzE2MzQ5</merchantProductId><ecMallProductId>2302</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=2302]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg]]></imageUrl><option><quantity>10</quantity><price>1000</price><manageCode><![CDATA[opt114677]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt114677</id><text><![CDATA[포스터 (지관통 포함)]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-08 14:12:29.58270000]
+MODE : Response
+REMOTE_IP : 121.131.198.202
+SUCCESS:Tbtb5MBIQyeMrRegVssUrw:200337588
+

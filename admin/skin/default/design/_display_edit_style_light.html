@@ -1,0 +1,26 @@
+		<tr style="height:150px">
+			<th class="dsts-th" style="border-top:none">
+				스타일 <span class="helpicon" title="모바일, 데스크탑 등 모든 화면 사이즈에 최적화"></span>
+			</th>
+			<td colspan="2" class="table_td_left table_td_bottom pdl20" height="180px">
+				<div class="imageCheckboxItem"><label><input type="radio" name="style" value="sizeswipe" {?data.style=='sizeswipe'}checked="checked"{/} /><img src="../images/design/m_img_display_sizeswipe.gif" width="230px" title="슬라이드형(크기고정)" /></label></div>
+				<div class="imageCheckboxItem" style="">&nbsp;</div>
+				<div class="imageCheckboxItem"><label><input type="radio" name="style" value="responsible" {?data.style=='responsible'}checked="checked"{/} /><img src="../images/design/m_img_display_lattice_responsible.gif" width="230px" title="격자형(반응형)" /></label></div>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">노출 개수</th>
+			<td colspan="2" class="dsts-td left table_td_bottom">
+				<input type="text" name="count_r" value="{?data.count_r}{data.count_r}{:}8{/}" class="line" size="2" maxlength="2" /> / 20 개
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">이미지 사이즈</th>
+			<td colspan="2" class="dsts-td left table_td_bottom">
+				<select name="image_size" class="image_size">
+				<!--{ @ goodsImageSizes }-->
+					<option value="{=.key_}" width="{=.width}" height="{=.height}" {?.key_==data.image_size || (!data.image_size && .key_=='list2')}selected="selected"{/} >{.value_['name']}</option>
+				<!--{ / }-->
+				</select>
+			</td>
+		</tr>

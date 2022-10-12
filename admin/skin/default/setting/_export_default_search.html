@@ -1,0 +1,94 @@
+<form name="search_default_frm" action="../setting_process/export_default_search" method="post" target="actionFrame">
+	<table width="100%" class="info-table-style table_row_basic tdl">
+		<col width="10%" /><col width="45%" /><col width="45%" />
+		<thead>
+		<tr>
+			<th class="its-th"></th>
+			<th class="its-th center">출고처리 검색</th>
+			<th class="its-th center">출고상태변경 검색</th>
+		</tr>
+		</thead>
+		<tr>
+			<th class="its-th">기간</th>
+			<td class="its-td">
+				<select name="order_default_date_field">
+					<option value="regist_date" {?data_search_default.order_default_date_field=='regist_date' || !data_search_default.order_default_date_field}selected{/}>주문일</option>
+					<option value="deposit_date" {?data_search_default.order_default_date_field=='deposit_date'}selected{/}>입금일</option>
+				</select>&nbsp;&nbsp;&nbsp;
+				<div class="resp_radio">
+					<label><input type="radio" name="order_default_period" value="-1 day" {?data_search_default.order_default_period=='-1 day'}checked{/}> 오늘</label>
+					<label><input type="radio" name="order_default_period" value="-1 week" {?data_search_default.order_default_period=='-1 week' || !data_search_default.export_default_period}checked{/}> 일주일</label>
+					<label><input type="radio" name="order_default_period" value="-1 mon" {?data_search_default.order_default_period=='-1 mon'}checked{/}> 1개월</label>
+					<label><input type="radio" name="order_default_period" value="-3 mon" {?data_search_default.order_default_period=='-3 mon'}checked{/}> 3개월</label>
+					<label><input type="radio" name="order_default_period" value="all" {?data_search_default.order_default_period=='all'}checked{/}> 전체</label>
+				</div>
+			</td>
+			<td class="its-td">
+				<select name="export_default_date_field">
+					<option value="order" {?data_search_default.export_default_date_field=='order'}selected{/}>주문일</option>
+					<option value="export" {?data_search_default.export_default_date_field=='export' || !data_search_default.export_default_date_field}selected{/}>출고일(입력)</option>
+					<option value="regist_date" {?data_search_default.export_default_date_field=='regist_date'}selected{/}>출고일</option>
+					<option value="shipping" {?data_search_default.export_default_date_field=='shipping'}selected{/}>배송완료일</option>
+					<option value="confirm_date" {?data_search_default.export_default_date_field=='confirm_date'}selected{/}>구매확정일</option>
+				</select>&nbsp;&nbsp;&nbsp;
+				<div class="resp_radio">				
+					<label><input type="radio" name="export_default_period" value="-1 day" {?data_search_default.export_default_period=='-1 day'}checked{/}> 오늘</label>
+					<label><input type="radio" name="export_default_period" value="-1 week" {?data_search_default.export_default_period=='-1 week' || !data_search_default.export_default_period}checked{/}> 일주일</label>
+					<label><input type="radio" name="export_default_period" value="-1 mon" {?data_search_default.export_default_period=='-1 mon'}checked{/}> 1개월</label>
+					<label><input type="radio" name="export_default_period" value="-3 mon" {?data_search_default.export_default_period=='-3 mon'}checked{/}> 3개월</label>
+					<label><input type="radio" name="export_default_period" value="all" {?data_search_default.export_default_period=='all'}checked{/}> 전체</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">상태</th>
+			<td class="its-td">
+				<div class="resp_checkbox v2">
+				<!--{ @config_load('step') }-->
+				<!--{ ? (.key_ >= 40 && .key_ <= 75 && substr(.key_,1,1)==0) || (.key_ >= 25 && .key_ <= 35)  }-->
+				<label style="display:inline-block;"><input type="checkbox" name="order_default_step[]" value="{.key_}" {? in_array(.key_, data_search_default.order_default_step) || (!data_search_default.order_default_step && .key_=='25') }checked{/}> {.value_}</label>
+				<!--{ / }-->
+				<!--{ / }-->
+				</div>
+			</td>
+			<td class="its-td">
+				<div class="resp_radio">
+				<!--{ @ config_load('export_status')}-->
+				<label style="display:inline-block;"><input type="radio" name="export_default_status[]" value="{.key_}" {? in_array(.key_, data_search_default.export_default_status) || (!data_search_default.export_default_status && .key_=='45') }checked{/} /> {.value_}</label>
+				<!--{ / }-->
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">결과</th>
+			<td class="its-td">
+				<div class="resp_radio">
+					<label style="display:inline-block;">
+						<input type="radio" name="order_detail_view" value="open" {?data_search_default.order_detail_view!='close'}checked{/} />
+						주문상품 열기 상태
+					</label>
+					<label style="display:inline-block;">
+						<input type="radio" name="order_detail_view" value="close" {?data_search_default.order_detail_view=='close'}checked{/} />
+						주문상품 닫기 상태
+					</label>
+				</div>
+			</td>
+			<td class="its-td">
+				<div class="resp_radio">
+					<label style="display:inline-block;">
+						<input type="radio" name="export_detail_view" value="open" {?data_search_default.export_detail_view!='close'}checked{/} />
+						출고상품 열기 상태
+					</label>
+					<label style="display:inline-block;">
+						<input type="radio" name="export_detail_view" value="close" {?data_search_default.export_detail_view=='close'}checked{/} />
+						출고상품 닫기 상태
+					</label>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="desc pdt5">※ 관리자 ID당 설정이 저장됩니다.</div>
+	<div class="center btn_destory">
+		<span class="btn large gray" ><button type="submit" class="resp_btn active size_XL">저장하기</button></span>
+	</div>
+</form>

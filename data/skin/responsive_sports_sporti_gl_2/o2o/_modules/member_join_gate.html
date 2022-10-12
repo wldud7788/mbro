@@ -1,0 +1,44 @@
+	
+	<div class="gate_wrap" style="margin-bottom:15px;">
+		<div class="benefit_wrap">
+			<div style="font-size: 14px;font-weight: 600;">이미 매장 회원에 가입하신 경우 온/오프 통합 마일리지 및 혜택을 받으실 수 있습니다.</div>
+			<div style="font-size: 14px;font-weight: 600;margin-top: 20px;">
+				매장에서 회원가입을 하셨습니까?
+				(
+				<input type="radio" name="o2omerge" class="o2omerge" value="y"/> 예
+				<input type="radio" name="o2omerge" class="o2omerge" value="n" checked/> 아니요
+				)
+			</div>
+		</div>
+	</div>
+<!--{ ? regitst_auth }-->
+<!--{ : }-->
+<!-- 실명인증을 안 했을 때만 인증 체크 -->
+<div class="o2o_join_form">
+	<div class="resp_join_table hide" id="o2o_auth_cellphone_form">
+		<ul class="required">
+			<li class="th"><p designElement="text">매장 회원가입 인증</p></li>
+			<li class="td">
+				<input type="text" name="o2o_cellphone[]" value="{=str_split_arr(cellphone,'-',0)}" class="size_phone" maxlength="4" {?regitst_auth}readonly{/}/>
+				- 
+				<input type="text" name="o2o_cellphone[]" value="{=str_split_arr(cellphone,'-',1)}" class="size_phone" maxlength="4" {?regitst_auth}readonly{/}/>
+				- 
+				<input type="text" name="o2o_cellphone[]" value="{=str_split_arr(cellphone,'-',2)}" class="size_phone" maxlength="4" {?regitst_auth}readonly{/}/>
+				<!--{ ? confirmPhone == 'Y' }-->
+				<script>$("input[name='o2o_cellphone[]']").attr("disabled",true);</script>
+				<button type="button" class="btn_resp size_b color4" onclick="authphone_popup('o2o_cellphone');">
+					<span designElement="text">휴대폰인증</span>
+				</button>
+				<!--{ / }-->
+				&nbsp;<label class="small"></label>
+				<div class="pdt10 desc"></div>
+			</li>
+		</ul>
+
+		<!-- O2O 통합 가입 휴대폰번호 인증  -->
+		<!--{ ? checkO2OService }-->
+			<!--{ # o2o_auth_cellphone }-->
+		<!--{ / }-->
+	</div>
+</div>
+<!--{ / }-->

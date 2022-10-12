@@ -1,0 +1,10 @@
+[2022-02-25 10:50:13.158590000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1889]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>ZjQ2MWEwNDdjNTIzYjM3ODA1ZmIzZWM5MGVhZTQ1N2E4NDRlOTJiMV8xNjQ1NzUzODEz</merchantCustomCode1></interface><product><id>1889</id><merchantProductId>ZjQ2MWEwNDdjNTIzYjM3ODA1ZmIzZWM5MGVhZTQ1N2E4NDRlOTJiMV8xNjQ1NzUzODEzQG9wdDExMzU5NA==</merchantProductId><ecMallProductId>1889</ecMallProductId><name><![CDATA[석고 방향제 GYPSUM AIR FRESHENER]]></name><basePrice>20000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1889]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/24/2021/07/1889_tmp_c76a2c23a659cc0ecc8dd53ff66b00271854list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-02-25 10:50:13.203969000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:BX9uKvdrRLa6xJu0LaNvBw:200337588
+

@@ -1,0 +1,76 @@
+<!--{ ? display_tabs }-->
+	<table class="table_basic v7" width="100%" cellspacing="0" cellpadding="0" id="inner_html">
+<colgroup>
+	<col width="16%" />
+	<col width="" />
+</colgroup>
+<thead class="lth">
+<tr>
+	<th>구분</th>
+	<th>추천상품</th>
+</tr>
+</thead>
+<tbody class="ltb">
+	<!--{ @ display_tabs }-->
+<tr>
+	<td>
+		<!--{? count(display_tabs) > 1}-->
+		<span class="strTab">[탭<span class="strTabIdx">{=.index_+1}</span>]</span>
+		<!--{/}-->
+
+		<!--{ ? .contents_type == 'auto' }-->
+		자동
+		<!--{ : .contents_type == 'auto_sub' }-->
+		자동(2)
+		<!--{ : .contents_type == 'select' }-->
+		직접선정
+		<!--{ : .contents_type == 'text' }-->
+		입력
+		<!--{ / }-->
+	</td>
+	<td>
+		<!--{ ? .contents_type == 'auto' }-->
+		<div class="displayTabAutoTypeContainer" type="auto">
+			<div class="displayCriteriaDesc pdt10">{.auto_criteria_desc}</div>
+		</div>
+		<!--{ : .contents_type == 'auto_sub' }-->
+		<div class="displayTabAutoTypeContainer" type="auto_sub">
+			<div class="displayCriteriaDesc pdt10">{.auto_criteria_desc}</div>
+		</div>
+		<!--{ : .contents_type == 'select' }-->
+		<div id="displayGoods{.index_}" class="displayGoods">
+			<!--{ @ .items }-->
+			<div class='goods fl'>
+				<div class='center image'><img src="{..image}" class="goodsThumbView" width="50" height="50" alt="{=htmlspecialchars(..goods_name)}" onerror="this.src='../images/common/noimage_list.gif'" /></div>
+				<div class='center name' style='width:70px;overflow:hidden;white-space:nowrap;'>{=htmlspecialchars(..goods_name)}</div>
+				<div class='center price'>{=get_currency_price(..price)}</div>
+				<!--{ ? serviceLimit('H_AD') }-->
+				<div class='center provider_name red' style='width:70px;overflow:hidden;white-space:nowrap;'>{..provider_name}</div>
+				<!--{ / }-->
+			</div>
+			<!--{ / }-->
+		</div>
+		<!--{ : .contents_type == 'text' }-->
+			<!--{ ? config_system.operation_type == 'light' }-->
+			<div class="displayTabAutoTypeContainer" type="text">
+				<div style="border:1px solid #dadada;">{.tab_contents}</div>
+			</div>
+			<!--{:}-->
+			<div class="displayTabAutoTypeContainer" type="text">
+				* 데스크탑/태블릿用
+				<div style="border:1px solid #dadada;">{.tab_contents}</div>
+			</div>
+			<div class="displayTabAutoTypeContainer tab_contents_mobile" type="text">
+				* 모바일用
+				<div style="border:1px solid #dadada;">{.tab_contents_mobile}</div>
+			</div>
+			<!--{/}-->
+		<!--{ / }-->
+	</td>
+</tr>
+	<!--{ / }-->
+</tbody>
+</table>
+<!--{ : }-->
+잘못된 접근입니다.
+<!--{ / }-->

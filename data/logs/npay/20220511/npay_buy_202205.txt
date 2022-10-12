@@ -1,0 +1,30 @@
+[2022-05-11 20:24:38.485865000]
+MODE : Request
+REMOTE_IP : 211.206.63.3
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1848]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MzFkZDFmMTYzODM2YmJkYzU2NWJlY2Y2ZDljMTAwY2ZmZGQ1MDU3ZV8xNjUyMjY4Mjc4</merchantCustomCode1></interface><product><id>1848</id><merchantProductId>MzFkZDFmMTYzODM2YmJkYzU2NWJlY2Y2ZDljMTAwY2ZmZGQ1MDU3ZV8xNjUyMjY4Mjc4QG9wdDExMzM2MA==</merchantProductId><ecMallProductId>1848</ecMallProductId><name><![CDATA[전소연 - WINDY (1ST 미니앨범)]]></name><basePrice>16500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1848]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2021/06/1848_tmp_58d83da63c32030ab67529c6e4fd23915677list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-05-11 20:24:38.527846000]
+MODE : Response
+REMOTE_IP : 211.206.63.3
+SUCCESS:q0MN1vVNTg-K7gO97JyF5A:200337588
+
+[2022-05-11 20:29:19.508340000]
+MODE : Request
+REMOTE_IP : 211.206.63.3
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1848]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MzFkZDFmMTYzODM2YmJkYzU2NWJlY2Y2ZDljMTAwY2ZmZGQ1MDU3ZV8xNjUyMjY4NTU5</merchantCustomCode1></interface><product><id>1848</id><merchantProductId>MzFkZDFmMTYzODM2YmJkYzU2NWJlY2Y2ZDljMTAwY2ZmZGQ1MDU3ZV8xNjUyMjY4NTU5QG9wdDExMzM2MA==</merchantProductId><ecMallProductId>1848</ecMallProductId><name><![CDATA[전소연 - WINDY (1ST 미니앨범)]]></name><basePrice>16500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1848]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2021/06/1848_tmp_58d83da63c32030ab67529c6e4fd23915677list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-05-11 20:29:19.554778000]
+MODE : Response
+REMOTE_IP : 211.206.63.3
+SUCCESS:iXsTPVsJSgWXSIqIBJweRQ:200337588
+
+[2022-05-11 22:29:52.879526000]
+MODE : Request
+REMOTE_IP : 211.206.63.3
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1848]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>N2U4ZjcwMDVkNDFiZmZiOWRkMzhjYTcyZTgxOGUzMDhjMTU3ZmU3ZV8xNjUyMjc1Nzky</merchantCustomCode1></interface><product><id>1848</id><merchantProductId>N2U4ZjcwMDVkNDFiZmZiOWRkMzhjYTcyZTgxOGUzMDhjMTU3ZmU3ZV8xNjUyMjc1NzkyQG9wdDExMzM2MA==</merchantProductId><ecMallProductId>1848</ecMallProductId><name><![CDATA[전소연 - WINDY (1ST 미니앨범)]]></name><basePrice>16500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1848]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2021/06/1848_tmp_58d83da63c32030ab67529c6e4fd23915677list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-05-11 22:29:52.932696000]
+MODE : Response
+REMOTE_IP : 211.206.63.3
+SUCCESS:XFlm30TJQ0yGMcfZ39F_yg:200337588
+

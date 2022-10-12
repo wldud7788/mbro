@@ -1,0 +1,98 @@
+<script type="text/javascript">
+	var keyword = "{=sc.keyword}";
+	var search_type = "{=sc.search_type}";
+</script>
+
+
+<script type="text/javascript" src="/app/javascript/js/admin-searchForm.js?v={=date('Ymd')}"></script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/searchform.css?v={=date('Ymd')}" />
+
+<table class="table_search">
+	<tr>
+		<th>검색어</th>
+		<td>
+			<div class="relative">
+				<input type="text" name="keyword" id="search_keyword" value="{=sc.keyword}" title="{=implode(',',arr_search_keyword)}" size="100" autocomplete='off' />
+				<!-- 검색어 입력시 레이어 박스 : start -->
+				<div class="search_type_text hide">{=sc.keyword}</div>
+				<div class="searchLayer hide">
+					<input type="hidden" name="search_type" id="search_type" value="{=sc.search_type}" />
+					<ul class="searchUl">
+						<li><a class="link_keyword" s_type="all" href="#"><span class="txt_keyword"></span> <span class="txt_title">-전체검색</span></a></li>
+						{@ arr_search_keyword }
+						<li><a class="link_keyword" s_type="{=.key_}" href="#">{=.value_}: <span class="txt_keyword"></span> <span class="txt_title">-{=.value_}로 찾기</span></a></li>
+						{ / }
+					</ul>
+				</div>
+				<!-- 검색어 입력시 레이어 박스 : end -->
+				<label class="resp_checkbox ml10"><input type="checkbox" name="set_search_partial" title="부분 검색 설정" {?_GET.set_search_partial=='on' }checked{/} /> 부분검색</label>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<!-- 상세검색 시작 -->
+<div class="search-detail-lay ">
+	<table class="search-form-table" id="search_detail_table">
+		<tr>
+			<td>
+				<table class="sf-option-table table_search">
+					<tr>
+						<!-- 날짜 -->
+						<th>날짜</th>
+						<td colspan="5">
+							<input type="hidden" name="regist_date_type" value="{=sc.regist_date_type}" />
+							<select name="date_field" style="width:110px;">
+								<option value="deposit_date" {?_GET.date_field=='deposit_date' }selected{/}>입금일</option>
+							</select>
+							<input type="text" name="regist_date[]" value="{=sc.regist_date[0]}" class="datepicker" maxlength="10" default_none />
+							&nbsp;<span class="gray">-</span>&nbsp;
+							<input type="text" name="regist_date[]" value="{=sc.regist_date[1]}" class="datepicker" maxlength="10" style="width:90px;" default_none />
+
+							<span class="resp_btn_wrap">
+								<span class="btn small"><input type="button" value="오늘" id="today" class="select_date resp_btn" settarget="regist_date" /></span>
+								<span class="btn small"><input type="button" value="3일간" id="3day" class="select_date resp_btn" settarget="regist_date" /></span>
+								<span class="btn small"><input type="button" value="일주일" id="1week" class="select_date resp_btn" settarget="regist_date" /></span>
+								<span class="btn small"><input type="button" value="1개월" id="1month" class="select_date resp_btn" settarget="regist_date" /></span>
+								<span class="btn small"><input type="button" value="3개월" id="3month" class="select_date resp_btn" settarget="regist_date" /></span>
+								<span class="btn small"><input type="button" value="6개월" id="6month" class="select_date resp_btn" settarget="regist_date" /></span>
+								<span class="btn small"><input type="button" value="1년" id="1year" class="select_date resp_btn" settarget="regist_date" /></span>
+							</span>
+						</td>
+					</tr>
+					<!-- 주문상태 출고 전 -->
+					<tr>
+						<th style="letter-spacing:-1px;"><span class='red'>주문상태</span> (출고 전)</th>
+						<td colspan="5">
+							<!--{ @config_load('step') }-->
+							<!--{ ? .key_ == 25 || .key_ == 85 }-->
+							<label class="search_label resp_checkbox mr5">
+								<input type="checkbox" name="chk_step[{.key_}]" value="1" {? sc.chk_step[.key_]}checked{/} /> 
+								<span class="icon-order-step-{.key_}">{.value_}</span>
+							</label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<span class="icon-check hand all-check"><b>전체</b></span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- 상세검색 끝 -->
+
+<div class="footer search_btn_lay">
+	<div>
+		<span class="sc_edit">
+			<button type="button" id="set_default_setting_button" class="resp_btn v3">기본검색설정</button>
+			<button type="button" id="set_default_apply_button" onclick="set_search_form('no_receipt_address')"
+				class="resp_btn v3">기본검색적용</button>
+		</span>
+		<span class="search">
+			<button type="submit" class="resp_btn active size_XL"><span>검색</span></button>
+			<button type="button" id="search_reset_button" class="resp_btn v3 size_XL">초기화</button>
+		</span>
+	</div>
+</div>
+<!-- 상세검색 끝 -->

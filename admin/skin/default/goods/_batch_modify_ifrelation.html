@@ -1,0 +1,251 @@
+<script type="text/javascript">
+	$(document).ready( function(){
+		setCriteriaDescription_upgrade('goodsview',true);
+		setCriteriaDescription_bigdata('goodsview',true);
+	});
+</script>
+<table class="table_row_basic">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="50" /><!--체크-->
+		{ ? serviceLimit('H_AD') }<col width="100" /><!--입점사-->{ / }
+		<col width="60" /><!--상품이미지-->
+		<col width="250" /><!--상품명-->
+		<col width="400"/><!--추천상품 - ○○○고객이 현재 보고 있는 상품 기준-->
+		<col width="400"/><!--추천상품 - ○○○고객의 최근 행동 기준-->
+		{ ? serviceLimit('H_AD') }<col width="400"/><!--판매자 추천상품 - ○○○고객의 최근 행동 기준-->{ / }
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+		{ ? serviceLimit('H_AD') }<th>입점사</th>{ / }
+		<th colspan="2">상품명</th>
+		<th>추천 상품</th>
+		<th>관련 상품</th>
+		{ ? serviceLimit('H_AD') }<th>판매자 인기 상품</th>{ / }
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+
+	<tbody class="ltb">
+	<!--{? loop }-->
+	<!--{@ loop }-->
+		<tr>
+			<td class="center">
+				<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+			</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<td class="{.provider_bg} center">{.provider_name}</td>
+			<!--{ / }-->
+			<td class="center">
+				<a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" style="width:50px"></a>
+			</td>
+			<td class="left" style="padding-left:10px;">
+				{=showBatchGoodsData(.value_)}
+			</td>
+			<td class="center valign-top">
+				<div class="bigdataGoodsContainerBatch">
+					<input type="hidden" class="displayCriteriaType" auto_type='bigdata'/>
+					<input type='hidden' class="displayCriteria displayCriteriaBigdata" value="{.bigdata_criteria}" />
+					<input type='hidden' class="displayCriteria displayLayout" value="" />
+					<table class="table_row_basic v4 mt5">
+						<colgroup>
+							<col width="20%" />
+							<col width="80%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>순위</th>
+								<th>조건</th>
+							</tr>
+						</thead>
+						<tbody class="displayCriteriaBigdataDesc">
+							<tr>
+								<td colspan="2" class="center">
+									<div class="nothing">설정된 조건이 없습니다.</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+			<td class="center valign-top">
+				<div class="relationGoodsContainerBatch {? .relation_type == 'MANUAL' }hide{ / }">
+					<input type="hidden" class="isBigdataTest" value="1" />
+					<input type="hidden" class="displayCriteriaType" auto_type='auto' kind="relation"/>
+					<input type='hidden' class="displayCriteria relation_criteria" id="relationCriteria_{.goods_seq}" name='relation_criteria[{.goods_seq}]' value="{? config_system.operation_type == 'light'}{.relation_criteria_light}{:}{.relation_criteria}{/}" />
+					<input type='hidden' class="displayCriteria displayLayout" value="" />
+					<input type='hidden' class="auto_condition_use" id="auto_condition_use_{.goods_seq}" name='auto_condition_use[{.goods_seq}]' value="" />
+					<!--{? config_system.operation_type == 'light'}-->
+					<table class="table_row_basic v4 mt5">
+						<thead>
+							<tr>
+								<th>조건</th>
+							</tr>
+						</thead>
+						<tbody class="displayCriteriaDesc">
+							<tr>
+								<td class="center">
+									<div class="nothing">설정된 조건이 없습니다.</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--{ : }-->
+					<table class="table_row_basic v4 mt5">
+						<colgroup>
+							<col width="20%" />
+							<col width="80%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>순위</th>
+								<th>조건</th>
+							</tr>
+						</thead>
+						<tbody class="displayCriteriaDesc">
+							<tr>
+								<td colspan="2" class="center">
+									<div class="nothing">설정된 조건이 없습니다.</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--{ / }-->
+				</div>
+				<div class="relationGoodsSelectContainer {? .relation_type != 'MANUAL' }hide{ / }">
+					<div class="clearbox" style="height:5px;"></div>
+					<div id="relationGoods_{.goods_seq}">
+						<div class="goods_list_header">
+						<table class="table_basic">
+							<tbody>
+								<tr>
+									<th>상품명</th>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+						<div class="goods_list" id="relationGoods">
+							<table class="table_basic fix">
+								<tbody>
+									<tr rownum=0 {? count(.relation) == 0 }class="show"{:}class="hide"{/}>
+										<td>상품을 선택하세요</td>
+									</tr>
+									<!--{ @ .relation }-->
+									<tr>
+										<td class='left'>
+											<div class="image"><img src="{=viewImg(..goods_seq,'thumbView')}" width="50"></div>
+											<div class="goodsname">
+												<div><a href="/admin/goods/regist?no={..goods_seq}" target="_blank">[{=..goods_seq}]{=getstrcut(strip_tags(..goods_name),30)}</a></div>
+											</div>
+										</td>
+									</tr>
+								<!--{ / }-->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<td class="center valign-top">
+				<div class="relationGoodsContainerBatch {? .relation_seller_type == 'MANUAL' }hide{ / }">
+					<input type="hidden" class="isBigdataTest" value="1" />
+					<input type="hidden" class="displayCriteriaType" id="relationSellerCriteriaType_{.goods_seq}" auto_type="auto" kind="relation_seller"/>
+					<input type='hidden' class="displayCriteria relation_seller_criteria" id="relation_sellerCriteria_{.goods_seq}" name='relation_seller_criteria[{.goods_seq}]' value="{? config_system.operation_type == 'light'}{.relation_seller_criteria_light}{:}{.relation_seller_criteria}{/}" />
+					<!--{? config_system.operation_type == 'light'}-->
+					<table class="table_row_basic v4 mt5">
+						<thead>
+							<tr>
+								<th>조건</th>
+							</tr>
+						</thead>
+						<tbody class="displayCriteriaDesc">
+							<tr>
+								<td class="center">
+									<div class="nothing">설정된 조건이 없습니다.</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--{:}-->			
+					<table class="table_row_basic v4 mt5">
+						<colgroup>
+							<col width="20%" />
+							<col width="80%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>순위</th>
+								<th>조건</th>
+							</tr>
+						</thead>
+						<tbody class="displayCriteriaDesc">
+							<tr>
+								<td colspan="2" class="center">
+									<div class="nothing">설정된 조건이 없습니다.</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--{/}-->
+				</div>
+				<div class="relationGoodsSelectContainer {? .relation_seller_type != 'MANUAL' }hide{ / }">
+					<div class="clearbox" style="height:5px;"></div>
+					<div id="relationSellerGoods_{.goods_seq}">
+						<div class="goods_list_header">
+						<table class="table_basic">
+							<tbody>
+								<tr>
+									<th>상품명</th>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+						<div class="goods_list" id="relationGoods">
+							<table class="table_basic fix">
+								<tbody>
+									<tr rownum=0 {? count(.relation_seller) == 0 }class="show"{:}class="hide"{/}>
+										<td>상품을 선택하세요</td>
+									</tr>
+									<!--{ @ .relation_seller }-->
+									<tr>
+										<td class='left'>
+											<div class="image"><img src="{=viewImg(..goods_seq,'thumbView')}" width="50"></div>
+											<div class="goodsname">
+												<div><a href="/admin/goods/regist?no={..goods_seq}" target="_blank">[{=..goods_seq}]{=getstrcut(strip_tags(..goods_name),30)}</a></div>
+											</div>
+										</td>
+									</tr>
+								<!--{ / }-->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</td>
+			<!--{ / }-->
+		</tr>
+	<!--{ / }-->
+	<!--{ : }-->
+	<tr class="list-row">
+		<td class="center" colspan="{ ? serviceLimit('H_AD') }7{:}5{/}">
+			<!--{ ? search_text }-->
+				'{search_text}' 검색된 상품이 없습니다.
+			<!--{:}-->
+				등록된 상품이 없습니다.
+			<!--{/}-->
+		</td>
+	</tr>
+	<!--{ / }-->
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>
+<!-- 주문리스트 테이블 : 끝 -->
+
+<div id="displayGoodsSelectPopup">
+	<div id="displayGoodsSelect"></div>
+</div>

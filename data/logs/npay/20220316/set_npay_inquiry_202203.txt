@@ -1,0 +1,25 @@
+[2022-03-16 13:30:07.667113000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [InquiryID] => 267228275
+            [OrderID] => 2022030745068580
+            [ProductOrderID] => 2022030738189270,2022030738189280
+            [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU] 외 1건
+            [ProductID] => 2302
+            [ProductOrderOption] => 
+            [CustomerID] => zizim***
+            [Title] => 환불좀 해주세요
+            [Category] => 환불
+            [InquiryDateTime] => 2022-03-16T04:08:10.00Z
+            [InquiryContent] => 환불 신청한지 며칠이 지났는데 왜 아직 안되는건가요
+            [AnswerContent] => 
+            [IsAnswered] => false
+            [CustomerName] => 허성숙
+        )
+
+)
+
+

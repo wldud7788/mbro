@@ -1,0 +1,181 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		//
+		$("#addNum").bind("click",function(){
+			var cnt		= $(".admins_num1").length + 1;
+			var idx		= cnt - 1;
+			var addHtml	= "<tr><td class='pdt5'>";
+			addHtml += "관리자("+cnt+") <input type=\"text\" name=\"admins_num1[]\" size=\"5\" maxlength=\"4\" class='admins_num1'> - <input type=\"text\" name=\"admins_num2[]\" size=\"5\" maxlength=\"4\"> - <input type=\"text\" name=\"admins_num3[]\" size=\"5\" maxlength=\"4\">";
+			addHtml += " <span class=\"btn_minus\" id=\"delNum\"  idx=\""+idx+"\"></span>";
+			addHtml += "</td></tr>";
+			$('#add_plus_phone').append(addHtml);
+
+			var disabled	= '';
+			var name		= '';
+			var ynHtml		= '';
+			$(".admin_yn_lay").each(function(){
+				name		= $(this).attr('area');
+				disabled	= $(this).attr('dis');
+				ynHtml	= '<div id="admins_yn_label_'+idx+'"><label><input type="checkbox" name="'+name+'_admins_yn_'+idx+'" value="Y" '+disabled+' /> 관리자('+cnt+')</label></div>';
+				$(this).append(ynHtml);
+			});
+		});
+		$("#delNum").live("click",function(){
+			$("div#admins_yn_label_"+$(this).attr('idx')).remove();
+			$(this).parent().parent().remove();
+		});
+
+		// SMS
+		$("#sms_form").click(function(){
+			<!--{? !auth_send }-->
+			alert("권한이 없습니다.");
+			return;
+			<!--{ : }-->
+			var screenWidth;
+			var screenHeight;
+
+			screenWidth = 1000;
+			screenHeight = 750;
+
+			window.open('../batch/sms_form',"sms_form","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=yes,width=" + screenWidth + ", height=" + screenHeight);
+			<!--{ / }-->
+		});			
+	});
+
+	function openKeyInput(){
+		openDialog('보안키 변경','sms_safe_key', {'width':440});
+	}
+
+	function apiKeyInput(){
+		$("input[name='sms_auth']").val($("input[name='sms_auth_input']").val());
+		document.memberForm.submit();
+	}
+</script>
+
+<form name="smsForm" id="smsForm" method="post" target="actionFrame" action="../member_process/sms_auth">
+<input type="hidden" name="mode" value="admin" />
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">		
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>SMS 발송 관리</h2>
+		</div>		
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button  {? isdemo.isdemo }  type="button" {isdemo.isdemojs1} {:} type="submit" {/}  class="resp_btn active size_L">저장</button></li>
+		</ul>
+
+		<!-- 좌측 버튼
+		<ul class="page-buttons-left">
+			<li><span class="btn large icon"><button><span class="arrowleft"></span>이동버튼</button></span></li>
+			<li><span class="btn large icon"><button><span class="arrowleft"></span>이동버튼</button></span></li>
+		</ul> -->
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left" style="z-index:1;">			
+			<li><button type="button" id="sms_form" class="resp_btn active3 size_L">SMS 수동 발송</button></li>			
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!--{ ? kakaouse == 'Y' }-->
+<div class="box_style_06 mb20">
+	현재 귀하의 쇼핑몰은 "카카오 알림톡" 자동 발송을 사용 중입니다. <a href="/admin/member/kakaotalk_msg" target="_blank" class="resp_btn_txt">설정 방법 </a>
+</div>
+<!--{ / }-->
+
+{#top_menu}
+
+<div class="contents_dvs">
+	<!-- 서브 레이아웃 영역 : 시작 -->
+	<div class="item-title">보안키</div>
+
+	<table class="table_basic thl">		
+		<tr>
+			<th>보안키 등록</th>
+			<td>
+				{? sms_auth}
+					<button type="button" onclick="openKeyInput();" class="resp_btn active">변경</button> 보안키가 등록되었습니다.
+				{:}
+					<button type="button" onclick="openKeyInput();" class="resp_btn active">등록</button> 입력된 보안키가 없습니다. 
+				{/}
+			</td>
+		</tr>		
+	</table>
+</div>
+
+<div class="contents_dvs">
+	<div class="item-title">SMS 번호 설정</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>발신 번호</th>
+			<td>
+				{? send_phone}{send_phone}{:}등록된 발신 번호가 없습니다.{/}
+				<input type="hidden" name="send_num[]" size="5" maxlength="4" value="{send_num[0]}"><input type="hidden" name="send_num[]" size="5" maxlength="4" value="{send_num[1]}"><input type="hidden" name="send_num[]" size="5" maxlength="4" value="{send_num[2]}">
+			</td>
+		</tr>
+		
+		<tr>
+			<th>관리자 수신 번호</th>
+			<td>				
+				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<tbody id="add_plus_phone">
+					{? admins_arr }
+						{@ admins_arr }
+						<tr>
+							<td {? .index_ > 0}class='pdt5'{/}>						
+								관리자({.index_+1}) 
+								<input type="text" name="admins_num1[]" size="5" maxlength="4" value="{.number[0]}" class="admins_num1"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  > - <input type="text" name="admins_num2[]" size="5" maxlength="4" value="{.number[1]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  > - <input type="text" name="admins_num3[]" size="5" maxlength="4" value="{.number[2]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  >
+								{?.index_==0}<span class="btn_plus" id="addNum"></span>{ : }<span class="btn_minus" id="delNum" idx="{.index_}"></span>{ / }
+							</td>
+						</tr>
+						{ / }
+					{ : }
+					<tr>
+						<td>관리자(1) <input type="text" name="admins_num1[]" size="5" maxlength="4" class="admins_num1"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  > - <input type="text" name="admins_num2[]" size="5" maxlength="4"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  > - <input type="text" name="admins_num3[]" size="5" maxlength="4"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  > <span class="btn_plus" id="addNum"></span></td>
+					</tr>
+					{ / }
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="box_style_05 resp_message">
+	<div class="title">안내</div>
+	<ul class="bullet_circle">					
+		<li>보안키 발급 방법 <a href="https://www.firstmall.kr/customer/faq/1258" target="_blank" class="resp_btn_txt">자세히 보기</a></li>
+		<li>발신 번호 인증/변경 방법 <a href="https://www.firstmall.kr/customer/faq/180" target="_blank" class="resp_btn_txt">자세히 보기</a></li>
+		<li>보안키 입력 및 발신번호 인증 후 SMS 발송이 가능합니다.</li>
+		<li>SMS 발송의 보안을 강화하기 위해 정기적으로 보안키 변경을 적극 권장 드립니다.</li>
+		<li>보안키 변경 후 변경 후에는 반드시 재발급된 보안키로 다시 입력해주세요.</li>
+	</ul>
+</div>
+</form>
+
+<div id="sms_safe_key" class="hide">
+	<form name="memberForm" id="memberForm" method="post" target="actionFrame" action="../member_process/sms_auth">
+	<input type="hidden" name="sms_auth" value="" size="40" title="보안키 입력"/>
+	<table class="table_basic thl">		
+		<tr>
+			<th>보안키</th>
+			<td><input type="password" name="sms_auth_input" value="" size="40" /></td>
+		</tr>								
+	</table>		
+	
+	<div class="footer">
+		<button {? isdemo.isdemo }  type="button" {isdemo.isdemojs1} {:} type="button" onclick="apiKeyInput();" {/} class="resp_btn active size_XL">확인</button>
+		<button type="button" onclick="closeDialog('sms_safe_key');" class="resp_btn v3 size_XL">취소</button>
+	</div>
+	</form>
+</div>
+
+{ #layout_footer }

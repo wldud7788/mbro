@@ -1,0 +1,222 @@
+<!-- 회원설정 : 실명확인 -->
+<script type="text/javascript">
+$(document).ready(function() {
+
+	// 사이트 코드 및 패스워드 체크 :: 2015-07-30 lwh
+	$(".realnamephone,.ipin").bind('blur',function(){
+		defult_setting();
+	});
+
+	// 성인전용은 무조건 사용으로 pixed :: 2015-07-30 lwh
+	$("#useRealnamephone_adult,#useIpin_adult").bind('click',function(){
+		defult_setting();
+		alert('성인인증은 필수로 사용해야 합니다.');
+	});
+
+	{?dormancy == 'namecheck'}
+	$("#useRealnamephone_dormancy,#useIpin_dormancy").bind('click',function(){
+		event.preventDefault();
+		alert('휴면해제 방법을 다른방법으로 설정하여주세요');
+	});
+	{/}
+
+	$("#now_operating").html('{status}');
+
+	defult_setting();
+	apply_input_style();
+
+});
+
+function defult_setting(){
+	var realnamephoneSikey	= $("input[name='realnamephoneSikey']").val();
+	var realnamePhoneSipwd	= $("input[name='realnamePhoneSipwd']").val();
+	var ipinSikey			= $("input[name='ipinSikey']").val();
+	var ipinKeyString		= $("input[name='ipinKeyString']").val();
+
+	if(realnamephoneSikey && realnamePhoneSipwd){
+		$(".realnamephone_use").attr('disabled',false);
+		$("#useRealnamephone_adult[value='Y']").attr('checked',true);
+	}else{
+		$(".realnamephone_use").attr('disabled',true);
+		$(".realnamephone_use").attr('checked',false);
+		$("input[name='useRealnamephone'][value='N']").attr('checked',true);
+		$("input[name='useRealnamephone_dormancy'][value='N']").attr('checked',true);
+	}
+
+	if(ipinSikey && ipinKeyString){
+		$(".useIpin_use").attr('disabled',false);
+		$("#useIpin_adult").attr('checked',true);
+	}else{
+		$(".useIpin_use").attr('disabled',true);
+		$(".useIpin_use").attr('checked',false);
+		$("input[name='useIpin'][value='N']").attr('checked',true);
+		$("input[name='useIpin_dormancy'][value='N']").attr('checked',true);
+	}
+}
+</script>
+
+<div class="contents_dvs">
+	<div class="title_dvs">
+		<div class="item-title">
+			휴대폰 인증 설정
+			<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/member', '#tip1')"></span>
+		</div>							
+		<a href="https://www.firstmall.kr/addservice/cellphone" class="resp_btn v3" target="_blank">휴대폰 인증 안내</a>	
+	</div>
+
+	<table class="table_basic thl">
+		<tr>
+			<th>휴대폰 인증</th>
+			<td class="clear">
+				<table class="table_basic v3 thl">
+					<tr>
+						<th>사이트 코드</th>
+						<td>
+							<input type="text" name="realnamephoneSikey" value="{realnamephoneSikey}"  oldval="{realnamephoneSikey}" size="40" class="line realnamephone wp95" {? isdemo.isdemo } {isdemo.isdemodisabled} {/}  />
+						</td>
+					</tr>
+					<tr>
+						<th>사이트 패스워드</th>
+						<td>
+							<input type="text" name="realnamePhoneSipwd" value="{realnamePhoneSipwd}" oldval="{realnamePhoneSipwd}" size="40" class="line realnamephone wp95" {? isdemo.isdemo } {isdemo.isdemodisabled} {/} />
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				사용 설정
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/member', '#tip2')"></span>
+			</th>
+			<td class="clear">
+				<table class="table_basic v3 thl">
+					<tr>
+						<th>회원 가입</th>
+						<td>
+							<div class="resp_radio">
+								<label>
+									<input type="radio" name="useRealnamephone" id="useRealnamephone" value="Y" class="realnamephone_use" {?useRealnamephone=='Y'}checked{/}/> 사용함
+								</label>
+								<label>
+									<input type="radio" name="useRealnamephone" id="useRealnamephone" value="N" class="realnamephone_use" {?useRealnamephone=='N' || useRealnamephone==''}checked{/}/> 사용 안 함
+								</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>성인용품 상품 접근</th>
+						<td>
+							사용 필수
+							<input type="hidden" name="useRealnamephone_adult" id="useRealnamephone_adult" value="Y" class="realnamephone_use" checked />
+							<!--
+							<label class="mr15" >
+								<input type="radio" name="useRealnamephone_adult" id="useRealnamephone_adult" value="Y" class="realnamephone_use" {?useRealnamephone_adult=='Y'}checked{/} /> 사용함
+							</label>
+							<label>
+								<input type="radio" name="useRealnamephone_adult" id="useRealnamephone_adult" value="N" class="realnamephone_use" {?useRealnamephone_adult=='N' || useRealnamephone_adult==''}checked{/} /> 사용 안 함
+							</label>-->
+						</td>
+					</tr>
+					<tr>
+						<th>휴면회원 본인 인증</th>
+						<td>
+							<div class="resp_radio">
+								<label>
+									<input type="radio" name="useRealnamephone_dormancy" id="useRealnamephone_dormancy" value="Y" class="realnamephone_use" {?useRealnamephone_dormancy=='Y'}checked{/} /> 사용함
+								</label>
+								<label>
+									<input type="radio" name="useRealnamephone_dormancy" id="useRealnamephone_dormancy" value="N" class="realnamephone_use" {?useRealnamephone_dormancy=='N' || useRealnamephone_dormancy==''}checked{/} /> 사용 안 함
+								</label>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="contents_dvs">
+	<div class="title_dvs">
+		<div class="item-title">
+			아이핀 사용 설정
+			<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/member', '#tip3')"></span>
+		</div>				
+		<a href="https://www.firstmall.kr/addservice/ipin" class="resp_btn v3" target="_blank">아이핀 인증 안내</a>		
+	</div>
+
+	<table class="table_basic thl">
+		<tr>
+			<th>아이핀 인증</th>
+			<td class="clear">
+				<table class="table_basic v3 thl">
+					<tr>
+						<th>사이트 코드</th>
+						<td>
+							<input type="text" name="ipinSikey" value="{ipinSikey}"  oldval="{ipinSikey}" size="40" class="line ipin wp95" {? isdemo.isdemo } {isdemo.isdemodisabled} {/} />
+						</td>
+					</tr>
+					<tr>
+						<th>사이트 패스워드</th>
+						<td>
+							<input type="text" name="ipinKeyString" value="{ipinKeyString}"  oldval="{ipinKeyString}" size="40" class="line ipin wp95" {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				사용 설정
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/member', '#tip2')"></span>
+			</th>
+			<td class="clear">
+				<table class="table_basic v3 thl">
+					<tr>
+						<th>회원 가입</th>
+						<td>
+							<div class="resp_radio">
+								<label>
+									<input type="radio" name="useIpin" id="useIpin" value="Y" class="useIpin_use" {?useIpin=='Y'}checked{/} /> 사용함
+								</label>
+								<label>
+									<input type="radio" name="useIpin" id="useIpin" value="N" class="useIpin_use" {?useIpin=='N' || useIpin==''}checked{/} /> 사용 안 함
+								</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>성인용품 상품 접근</th>
+						<td>
+							사용 필수
+							<input type="hidden" name="useIpin_adult" id="useIpin_adult" value="Y" class="useIpin_use" checked />
+							<!--
+							<label class="mr15">
+								<input type="radio" name="useIpin_adult" id="useIpin_adult" value="Y" class="useIpin_use" {?useIpin_adult=='Y'}checked{/} /> 사용함 
+							</label>
+							<label>
+								<input type="radio" name="useIpin_adult" id="useIpin_adult" value="N" class="useIpin_use" {?useIpin_adult=='N' || useIpin_adult==''}checked{/} /> 사용 안 함 
+							</label>-->
+						</td>
+					</tr>
+					<tr>
+						<th>휴면회원 본인 인증</th>
+						<td>
+							<div class="resp_radio">
+								<label>
+									<input type="radio" name="useIpin_dormancy" id="useIpin_dormancy" value="Y" class="useIpin_use" {?useIpin_dormancy=='Y'}checked{/} /> 사용함 
+								</label>
+								<label>
+									<input type="radio" name="useIpin_dormancy" id="useIpin_dormancy" value="N" class="useIpin_use" {?useIpin_dormancy=='N'|| useIpin_dormancy==''}checked{/} /> 사용 안 함 
+								</label>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+

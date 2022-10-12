@@ -1,0 +1,20 @@
+[2022-03-09 02:54:36.924373000]
+MODE : Request
+REMOTE_IP : 221.154.79.218
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1944]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>ZDQ5OWE4Yjg4YjBjZTNhY2IxODA2NTM5MTMyNTYwOTZmZWM4NDY4OV8xNjQ2NzYyMDc2</merchantCustomCode1><naverInflowCode>ct%3Dl0iflgo7%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D6bdef21082e3495e12fec531b32b38f3ee97f3f9%7Ctrx%3D</naverInflowCode></interface><product><id>1944</id><merchantProductId>ZDQ5OWE4Yjg4YjBjZTNhY2IxODA2NTM5MTMyNTYwOTZmZWM4NDY4OV8xNjQ2NzYyMDc2</merchantProductId><ecMallProductId>1944</ecMallProductId><name><![CDATA[브레이브 걸스 (Brave Girls) - After ‘We Ride’ (5TH 미니앨범 리패키지)]]></name><basePrice>16300</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1944]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/8/2021/08/1944_tmp_14892b222eff3bfa46ae279faeeadbb08838list1.jpeg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt113759]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt113759</id><text><![CDATA[포스터 미포함]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-09 02:54:36.974384000]
+MODE : Response
+REMOTE_IP : 221.154.79.218
+SUCCESS:U39Yn6C1QyC2dkNTuntG1A:200337588
+
+[2022-03-09 02:54:54.121208000]
+MODE : Request
+REMOTE_IP : 221.154.79.218
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1944]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>ZDQ5OWE4Yjg4YjBjZTNhY2IxODA2NTM5MTMyNTYwOTZmZWM4NDY4OV8xNjQ2NzYyMDk0</merchantCustomCode1><naverInflowCode>ct%3Dl0iflgo7%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3D6bdef21082e3495e12fec531b32b38f3ee97f3f9%7Ctrx%3D</naverInflowCode></interface><product><id>1944</id><merchantProductId>ZDQ5OWE4Yjg4YjBjZTNhY2IxODA2NTM5MTMyNTYwOTZmZWM4NDY4OV8xNjQ2NzYyMDk0</merchantProductId><ecMallProductId>1944</ecMallProductId><name><![CDATA[브레이브 걸스 (Brave Girls) - After ‘We Ride’ (5TH 미니앨범 리패키지)]]></name><basePrice>16300</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1944]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/8/2021/08/1944_tmp_14892b222eff3bfa46ae279faeeadbb08838list1.jpeg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt113759]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt113759</id><text><![CDATA[포스터 미포함]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-09 02:54:54.164726000]
+MODE : Response
+REMOTE_IP : 221.154.79.218
+SUCCESS:sM2jL7glQ_WOhZ12TpVmFA:200337588
+

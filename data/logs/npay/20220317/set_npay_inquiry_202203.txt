@@ -1,0 +1,25 @@
+[2022-03-17 08:30:02.590986000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [InquiryID] => 267270695
+            [OrderID] => 2022030741573890
+            [ProductOrderID] => 2022030732473420
+            [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+            [ProductID] => 2302
+            [ProductOrderOption] => 
+            [CustomerID] => oiof7i***
+            [Title] => 배송날짜를 알고싶습니다
+            [Category] => 배송
+            [InquiryDateTime] => 2022-03-16T23:10:08.00Z
+            [InquiryContent] => 15일 발송 예정인데 아직 아무런 소식이 없네요
+            [AnswerContent] => 
+            [IsAnswered] => false
+            [CustomerName] => 천경철
+        )
+
+)
+
+

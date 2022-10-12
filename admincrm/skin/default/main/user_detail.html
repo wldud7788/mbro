@@ -1,0 +1,278 @@
+{ #layout_header }
+
+<script style="text/javascript">
+	$(document).ready(function() {
+		// sns 계정 정보 확인
+		$(".btnsnsdetail").bind("click",function(){
+			var snscd	= $(this).attr("snscd");
+			var obj		= $("div#snsdetailPopup_"+snscd);
+			var disp	= obj.css("display");
+			$(".snsdetailPopup").hide();
+			if(obj.html() == ''){
+				$.get('/admin/member/sns_detail?snscd='+snscd+'&member_seq={member_seq}', function(data) {
+					obj.html(data);
+				});
+			}
+			if(disp == "none"){ obj.show(); }
+
+		});
+	});
+
+	function open_reason(member_seq) {
+		if(member_seq == '') return;
+		$.get('/admin/member/withdrawal_pop?member_seq='+member_seq, function(data) {
+			$('#viewMemo').html(data);
+			openDialog("탈퇴 회원 상세 사유", "viewMemo", {"width":"600"});
+		});
+	}
+</script>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="13%" />
+		<col width="20%" />
+		<col width="13%" />
+		<col width="20%" />
+		<col width="13%" />
+		<col width="21%" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" colspan="6">고객 정보</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th class="its-th">가입경로</th>
+			<td class="its-td">{referer_name}
+			{ ? referer_domain }
+				({ ? referer }<a href="{referer}" target="_blank"><u style="color:#0263d9;">{ / }{ referer_domain }{ ? referer }</u></a>{ / })
+			{ / } &nbsp;<span class="btn small gray"><button type="button" onclick="window.open('/admin/statistic_member/member_referer');">더보기</button></span></td>
+			<th class="its-th">가입환경</th>
+			<td class="its-td" colspan="3">
+				{platformText}
+				<!--{ ? checkO2OService }-->
+				<span style='font-weight: bold;'>(바코드 번호 : <!--{ = barcode_key }-->)</span>
+				<!--{ / }-->
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">가입</th>
+			<td class="its-td">
+				{regist_date}
+			</td>
+			<th class="its-th">상태</th>
+			<td class="its-td">
+			{? status == 'withdrawal' }
+				<a onclick="open_reason('{member_seq}')" class="blue hand">{status_nm}</a>
+			{:}
+				{status_nm}
+			{/}
+			</td>
+			<th class="its-th">등급</th>
+			<td class="its-td">
+				{? leftStatus == "done" && icon}<img src="../../data/icon/common/{icon}" align="absmiddle">{/} {group_name}
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">아이디</th>
+			<td class="its-td">
+				{? userid==sns_n }{conv_sns_n}{:}{userid}{/}
+			</td>
+			<th class="its-th">사용계정</th>
+			<td class="its-td">
+				<!--{@ snslist }-->
+					<img src="../images/sns/sns_{=substr(.rute,0,1)}0.gif" align="absmiddle" class="btnsnsdetail hand" snscd="{.rute}" title="{.rute_nm} 정보확인">
+					<div id="snsdetailPopup_{.rute}" class="snsdetailPopup absolute hide"></div>
+				<!--{ / }-->
+			</td>
+			<th class="its-th">유형</th>
+			<td class="its-td">
+				{? business_seq}기업{:}개인{/}
+			</td>
+		</tr>
+		{? business_seq}
+		<tr>
+			<th class="its-th">업체명</th>
+			<td class="its-td">
+				{bname}
+			</td>
+			<th class="its-th">대표자</th>
+			<td class="its-td">
+				{bceo}
+			</td>
+			<th class="its-th">등록번호</th>
+			<td class="its-td">
+				{bno}
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">업태</th>
+			<td class="its-td">
+				{bitem}
+			</td>
+			<th class="its-th">종목</th>
+			<td class="its-td">
+				{bstatus}
+			</td>
+			<th class="its-th">담당자</th>
+			<td class="its-td">
+				{bperson}
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">전화</th>
+			<td class="its-td">
+				{bphone}
+			</td>
+			<th class="its-th">휴대폰</th>
+			<td class="its-td">
+				<span class="blue hand" onclick="select_sms('{member_seq}');">{bcellphone}</span>
+			</td>
+			<th class="its-th">이메일</th>
+			<td class="its-td">
+				<span class="blue hand" onclick="select_email('{member_seq}');">{email}</span>
+			</td>
+		</tr>
+		{:}
+		<tr>
+			<th class="its-th">이름</th>
+			<td class="its-td">
+				{user_name}
+			</td>
+			<th class="its-th">실명확인</th>
+			<td class="its-td">
+				{auth_type} <br />
+				{auth_date}
+			</td>
+			<th class="its-th">닉네임</th>
+			<td class="its-td">
+				{nickname}
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">전화</th>
+			<td class="its-td">
+				{phone}
+			</td>
+			<th class="its-th">휴대폰</th>
+			<td class="its-td">
+				<span class="blue hand" onclick="select_sms('{member_seq}');">{cellphone}</span>
+			</td>
+			<th class="its-th">이메일</th>
+			<td class="its-td">
+				<span class="blue hand" onclick="select_email('{member_seq}');">{email}</span>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">성별</th>
+			<td class="its-td">
+				{? sex == 'male'}남자{: sex == 'female'}여자{/}
+			</td>
+			<th class="its-th">생일</th>
+			<td class="its-td">
+				{? birthday && birthday != "0000-00-00"}{birthday} ({=date("Y")-substr(birthday,0,4)+1}세){/}
+			</td>
+			<th class="its-th">기념일</th>
+			<td class="its-td">
+				{anniversary}
+			</td>
+		</tr>
+		{/}
+		<tr>
+			<th class="its-th">주소</th>
+			<td class="its-td" colspan="5">{? zipcode}({zipcode}){/} {? address_street}{address_street}{:}{address}{/} {address_detail}</td>
+		</tr>
+		<tr>
+			<th class="its-th">사용배송지</th>
+			<td class="its-td" colspan="5">{? oftenDelivery.recipient_zipcode}({oftenDelivery.recipient_zipcode}){/} {? oftenDelivery.recipient_address_street}{oftenDelivery.recipient_address_street}{:}{oftenDelivery.recipient_address}{/} {oftenDelivery.recipient_address_detail}</td>
+		</tr>
+	</tbody>
+</table>
+<div style="height:20px;"></div>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="18%" />
+		<col width="8%" />
+		<col />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" colspan="3">고객 데이터(최근 30일 기준 : {=date('Y-m-d', strtotime('-30 day'))} ~ {=date('Y-m-d')})</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="its-td">입금대기</td>
+			<td class="its-td-align center">{=count(orderReady)}건</td>
+			<td class="its-td">
+				{@ orderReady}
+					{? .index_ > 0}, {/}
+					<a href="/admin/order/view?no={.order_seq}" target="_blank"><span class="blue">{.order_seq}</span></a>
+				{/}
+			</td>
+		</tr>
+		<tr>
+			<td class="its-td">미처리 출고</td>
+			<td class="its-td-align center">{=count(exportReady)}건</td>
+			<td class="its-td">
+				{@ exportReady}
+					{? .index_ > 0}, {/}
+					<a href="/admin/order/view?no={.order_seq}" target="_blank"><span class="blue">{.order_seq}</span></a>
+				{/}
+			</td>
+		</tr>
+		<tr>
+			<td class="its-td">미처리 반품/교환</td>
+			<td class="its-td-align center">{=count(returnReady)}건</td>
+			<td class="its-td">
+				{@ returnReady}
+					{? .index_ > 0}, {/}
+					<a href="/admin/returns/view?no={.return_code}" target="_blank"><span class="blue">{.return_code}</span></a>
+				{/}
+			</td>
+		</tr>
+		<tr>
+			<td class="its-td">미처리 환불(취소)</td>
+			<td class="its-td-align center">{=count(refundReady)}건</td>
+			<td class="its-td">
+				{@ refundReady}
+					{? .index_ > 0}, {/}
+					<a href="/admin/refund/view?no={.refund_code}" target="_blank"><span class="blue">{.refund_code}</span></a>
+				{/}
+			</td>
+		</tr>
+		<tr>
+			<td class="its-td">미처리 상품문의</td>
+			<td class="its-td-align center">{=count(gdqnaReady)}건</td>
+			<td class="its-td">
+				{@ gdqnaReady}
+					{? .index_ > 0}, {/}
+					<a href="/admin/board/board?id=goods_qna&seq={.seq}" target="_blank"><span class="blue">{.seq}</span></a>
+				{/}
+			</td>
+		</tr>
+		<tr>
+			<td class="its-td">미처리 1:1문의</td>
+			<td class="its-td-align center">{=count(mbqnaReady)}건</td>
+			<td class="its-td">
+				{@ mbqnaReady}
+					{? .index_ > 0}, {/}
+					<a href="/admin/board/board?id=mbqna&seq={.seq}" target="_blank"><span class="blue">{.seq}</span></a>
+				{/}
+			</td>
+		</tr>
+		<tr>
+			<td class="its-td">미처리 상담문의</td>
+			<td class="its-td-align center">{=count(counselReady)}건</td>
+			<td class="its-td">
+				{@ counselReady}
+					{? .index_ > 0}, {/}
+					<a href="/admincrm/board/counsel_catalog?counsel_seq={.counsel_seq}"><span class="blue">{.counsel_seq}</span></a>
+				{/}
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div id="viewMemo" class="hide"></div>
+
+{ #layout_footer }

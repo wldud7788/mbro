@@ -1,0 +1,189 @@
+{ #layout_header }
+<script>
+	var shopName	= '{=strip_tags(addslashes(config_basic.shopName))}';
+	var marketObj	= {marketsObj};
+	var searchObj	= {search};
+
+	//객체동결(변경금지)
+	Object.freeze(marketObj);
+	Object.freeze(searchObj);
+</script>
+
+<div id="page-title-bar-area" >
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>주문 수집/등록</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<!-- {? MarketLinkage.shopCode == 'shoplinker'} -->
+			<li>{#scm_login}</li>
+			<!-- { / } -->
+			
+			<li><button id="orderCollectBtn" data-mode="ORD" class="resp_btn active size_L">주문 수집</button></li>	
+		</ul>		
+	</div>
+</div>
+<!-- //페이지 타이틀 바 -->
+
+<div id="distTop" class="search_container">
+	<form id="marketOrderForm" class="search_form">
+	<input type="hidden" name="totalCount" id="totalCount" value="0" />
+	<input type="hidden" name="limit" id="limit" value="50" />
+	<input type="hidden" name="page" id="page" value="1" />
+	<table class="table_search">
+		<tr>
+			<th>날짜</th>
+			<td>
+				<select name="dateType">
+					<option value="registeredTime">수집일</option>
+					<option value="fmOrderSaveTime">퍼스트몰 주문 등록일</option>
+					<option value="settleTime">결제일</option>
+				</select>
+
+				<input type="text" name="searchBeginDate" id="searchBeginDate" value="" class="datepicker sdate" maxlength="10" size="12" />
+				-
+				<input type="text" name="searchEndDate" id="searchEndDate" value="" class="datepicker edate" maxlength="10" size="12" />
+			</td>
+		</tr>
+
+		<tr>
+			<th>오픈 마켓</th>
+			<td>
+				<select name="market[]" id="selMarket" multiple="multiple" class="selMarketClass variableCheck" style="width:150px;"></select>
+				<select name="sellerId" id="selMarketUserId" class="selMarketUserId">
+					<option value="">관리자아이디</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<th>주문 번호</th>
+			<td>
+				<select name="searchType">
+					<option value="fmOrderSeq">쇼핑몰 주문번호</option>
+					<option value="marketOrderNo">마켓주문번호</option>
+				</select>
+				<input type="text" name="keyword"  value="" title="" />
+			</td>
+		</tr>
+
+		<tr>
+			<th>주문 상태</th>
+			<td>
+				<div class="resp_radio">
+				<label><input type="radio" name="status" value="" checked> 전체</label>
+				<label><input type="radio" name="status" value="ORD10"> 결제완료</label>
+				<label><input type="radio" name="status" value="ORD20"> 배송준비</label>
+				<label><input type="radio" name="status" value="ORD40"> 배송완료</label>
+				<label><input type="radio" name="status" value="CAN10"> 취소완료</label>
+				</div>
+			</td>
+		</tr>			
+	</table>
+
+	<div class="footer search_btn_lay"></div>
+	</form>
+</div>
+<!-- //검색폼 -->
+
+<div class="contents_dvs v2">
+	<div id="container">	
+		<div id="orderList" class="grid-wrap-lay-one table_row_frame">
+			<div class="dvs_top">	
+				<div class="dvs_left">	
+					<span id="distStart" onClick="orderMoveToFm();" class="hide"><button type="button" class="resp_btn active">주문 등록</button></span>
+				</div>	
+				<div class="dvs_right"><button type="button" id="orderAutoSettingBtn" class="resp_btn v2">주문 자동 등록 설정</button></div>
+			</div>			
+			<div id="orderListGrid" class="grid-lay"></div>
+			<div class="message-lay">
+				<div id="message" class="order-message" style="overflow: auto;"></div>
+			</div>
+			<div id="pagingNavigation" class="paging_navigation"></div>			
+		</div>		
+	</div>
+</div>
+<!-- //검색 리스트 -->
+
+<input type="hidden" id="selectedGridIdx" value=""/>
+
+<div id="manualMatch" class="hide">
+	<table class="table_basic tdc">
+		<thead>
+			<tr>
+				<th>마켓 상품</th>
+				<th>{=strip_tags(config_basic.shopName)} 상품코드</th>				
+			</tr>		
+		</thead>
+		<tbody>
+			<tr>
+				<td><div id="marketProductInfo"></div></td>
+				<td><input type="text" class="onlynumber" id="fmGoodsSeq" size="13"/></td>				
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="footer">
+		<button onClick="doManualMatch()" type="button" class="resp_btn active size_XL">매칭</button>
+		<button type="button" onClick="$('#manualMatch').dialog('close');" class="resp_btn v3 size_XL" >취소</button>
+	</div>
+</div>
+
+<div id="optionMatch" class="hide">
+	<table class="table_basic tdc">
+		<thead>
+			<tr>
+				<th>마켓 주문 옵션명</th>
+				<th>{=strip_tags(config_basic.shopName)} 옵션명</th>				
+			</tr>		
+		</thead>
+		<tbody>
+			<tr>
+				<td><div id="marketOrderOptionInfo"></div></td>
+				<td><input type="text" size="13" id="fmOptionName" /></td>				
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="footer">
+		<button onClick="doOptionNameMatch()"  class="resp_btn active size_XL" type="button">매칭</button>
+		<button type="button" onClick="$('#optionMatch').dialog('close');" class="resp_btn v3 size_XL" >취소</button>
+	</div>
+</div>
+
+<div id="orderAutoSetting" class="hide">
+	<form name="openmarketAutoRegistOrderForm" id="openmarketAutoRegistOrderForm" method="post" target="actionFrame" action="../market_connector_process/openmarket_auto_regist_order">
+		<table class="table_basic thl">		
+			<tr>
+				<th >주문 자동 등록 사용여부</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="openmarketAutoRegistOrder" value="Y" { ? MarketLinkage.openmarket_auto_regist_order == 'Y'}checked{/}/> 사용함</label>
+						<label><input type="radio" name="openmarketAutoRegistOrder" value="N" { ? MarketLinkage.openmarket_auto_regist_order == 'N' || MarketLinkage.openmarket_auto_regist_order==""}checked{/} /> 사용 안 함</label>	
+					</div>					
+				</td>
+			</tr>
+		</table>
+
+		<div class="box_style_05 resp_message pd10">
+			<div class="title">안내</div>
+			<ul class="bullet_hyphen">					
+				<li>‘사용’ 설정 시, 쇼핑몰 상품과 정상 매칭된 주문서는 주문>통합 주문 리스트에 자동 등록됩니다. (미매칭 상품은 수동 등록)</li>	
+				<li>‘사용 안 함‘ 설정 시, 모든 주문을 수동 등록합니다.</li>	
+			</ul>
+		</div>
+
+		<div class="footer">
+			<button type="submit" class="resp_btn active size_XL">저장</button>
+			<button type="button" onClick="$('#orderAutoSetting').dialog('close');" class="resp_btn v3 size_XL" >취소</button>
+		</div>
+	</form>
+</div>
+
+<!-- 수동수집 -->
+<div id="orderCollection" class="hide"></div>
+
+{ #layout_footer }

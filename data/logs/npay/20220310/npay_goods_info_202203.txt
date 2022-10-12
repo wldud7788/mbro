@@ -1,0 +1,2744 @@
+[2022-03-10 14:52:49.190064000]
+REMOTE_IP : 125.209.251.195
+Array
+(
+    [product] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 2302
+                    [merchantProductId] => ZmMzNzFjNTMwZTYyMDhiYjJmOGE0NTNhNDk0ZDkyZDFjNWEwMjUzZF8xNjQ2ODkxNDk2
+                    [optionManageCodes] => opt114690
+                )
+
+        )
+
+    [supplementSearch] => true
+    [optionSearch] => true
+    [merchantCustomCode1] => ZmMzNzFjNTMwZTYyMDhiYjJmOGE0NTNhNDk0ZDkyZDFjNWEwMjUzZF8xNjQ2ODkxNDk2
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-03-10 14:52:49.192774000]
+REMOTE_IP : 125.209.251.195
+Array
+(
+    [2302] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2302
+            [goods_name] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 14690
+            [price] => 14900
+            [commission_rate] => 3
+            [commission_type] => SUCO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 18700.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 8
+            [provider_name] => (주)어빌리티코리아
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 88
+            [trust_shipping] => N
+            [shipping_group_seq] => 88
+            [shipping_set_seq] => 504
+            [shipping_set_code] => delivery
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 26282
+            [choice] => 
+            [cart_seq] => 23084
+            [option1] => 앨범구매지관통X포스터접어서출고
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 포스터 포함
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 504
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [package_error] => 
+            [org_price] => 14900.00
+            [tot_ori_price] => 14900
+            [basic_sale] => 3800
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 14900
+            [tot_price] => 14900
+            [first] => 1
+            [cart_suboptions] => 
+            [cart_inputs] => 
+            [shipping_provider_seq] => 8
+            [goods_shipping] => 0
+            [shipping_group] => 88_504_delivery
+            [shipping_method_name] => 택배
+            [shipping_provider_division] => 1
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1084
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 50000
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1607
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1085
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 50000
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 1608
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1609
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 6000.00
+                                    [shipping_cost_seq] => 1610
+                                )
+
+                            [2] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4500.00
+                                    [shipping_cost_seq] => 1611
+                                )
+
+                            [3] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 1612
+                                )
+
+                            [4] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 5000.00
+                                    [shipping_cost_seq] => 1613
+                                )
+
+                            [5] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 7000.00
+                                    [shipping_cost_seq] => 1614
+                                )
+
+                            [6] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 8000.00
+                                    [shipping_cost_seq] => 1615
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1084
+                            [shipping_group_seq] => 88
+                            [shipping_set_seq] => 504
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => amount
+                            [shipping_provider_seq] => 8
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 50000
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => all
+                            [shipping_cost] => 3000.00
+                            [shipping_cost_seq] => 1607
+                        )
+
+                    [shipping_group_id] => 88_504_delivery
+                    [shipping_std_group_free] => 
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 1
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg
+            [tot_stock] => 3000
+            [base_price] => 14900
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 88_504_delivery
+                    [shipping_type] => CONDITIONAL_FREE
+                    [shipping_paytype] => PREPAYED
+                    [shipping_price] => 3000
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 50000
+                    [apiSupport] => true
+                    [return_sellername] => 어빌리티코리아
+                    [return_address1] => 경기도 고양시 일산서구 송파로 188-1
+                    [return_address2] => 어빌리티코리아
+                    [return_contact1] => 070-7576-2794
+                    [return_contact2] => 070-7576-2794
+                    [return_zipcode] => 10205
+                    [conditionalFree] => 1
+                    [conditionalFreePrice] => 
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [포스터 포함] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt114690
+                                            [text] => 앨범구매지관통X포스터접어서출고
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt114690] => Array
+                        (
+                            [option_seq] => 14690
+                            [goods_seq] => 2302
+                            [code_seq] => direct
+                            [default_option] => y
+                            [option_type] => direct
+                            [option_title] => 포스터 포함
+                            [option1] => 앨범구매지관통X포스터접어서출고
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 18700.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 3
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 14690
+                            [commission_type] => SUCO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 3000
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 포스터 포함
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 앨범구매지관통X포스터접어서출고
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 20
+                            [tax] => 1355
+                            [net_profit] => 14900
+                            [rstock] => 3000
+                            [optionArr] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [0] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                    [1] => Array
+                                        (
+                                        )
+
+                                    [2] => Array
+                                        (
+                                        )
+
+                                    [3] => Array
+                                        (
+                                        )
+
+                                    [4] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 포스터 포함
+                                            [id] => opt114690
+                                            [value] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 14690_562
+                            [suboption_seq] => 562
+                            [name] => 지관통
+                            [title] => 지관통
+                            [price] => 1000
+                            [stock] => 1000
+                            [reservation15] => 66
+                            [reservation25] => 66
+                            [status] => true
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-10 14:56:45.42139000]
+REMOTE_IP : 125.209.251.196
+Array
+(
+    [product] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 2302
+                    [merchantProductId] => MjdiMjNhNGE4NjI2NjRlMTkyM2RhOGMwNjhiZTJhZDU1MjExMWI1N18xNjQ2ODkxNzg2
+                    [optionManageCodes] => opt114690
+                    [supplementIds] => 14690_562
+                )
+
+        )
+
+    [supplementSearch] => true
+    [optionSearch] => true
+    [merchantCustomCode1] => MjdiMjNhNGE4NjI2NjRlMTkyM2RhOGMwNjhiZTJhZDU1MjExMWI1N18xNjQ2ODkxNzg2
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-03-10 14:56:45.44930000]
+REMOTE_IP : 125.209.251.196
+Array
+(
+    [2302] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2302
+            [goods_name] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 14690
+            [price] => 14900
+            [commission_rate] => 3
+            [commission_type] => SUCO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 18700.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 8
+            [provider_name] => (주)어빌리티코리아
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 88
+            [trust_shipping] => N
+            [shipping_group_seq] => 88
+            [shipping_set_seq] => 504
+            [shipping_set_code] => delivery
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 26283
+            [choice] => 
+            [cart_seq] => 23085
+            [option1] => 앨범구매지관통X포스터접어서출고
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 포스터 포함
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 504
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [package_error] => 
+            [org_price] => 14900.00
+            [tot_ori_price] => 15900
+            [basic_sale] => 3800
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 14900
+            [tot_price] => 15900
+            [first] => 1
+            [all_ea] => 1
+            [suboption_point] => 0
+            [suboption_reserve] => 0
+            [cart_suboptions] => Array
+                (
+                    [0] => Array
+                        (
+                            [cart_suboption_seq] => 286
+                            [cart_option_seq] => 26283
+                            [cart_seq] => 23085
+                            [suboption_title] => 지관통
+                            [suboption] => 지관통
+                            [ea] => 1
+                            [suboption_seq] => 562
+                            [price] => 1000.00
+                            [consumer_price] => 0.00
+                            [goods_seq] => 2302
+                            [sub_sale] => n
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0
+                            [commission_rate] => 3
+                            [commission_type] => SUCO
+                            [supply_price] => 0.00
+                            [package_count_sub] => 
+                            [package_option_seq1] => 
+                            [package_option1] => 
+                            [weight] => 0
+                            [sub_weight] => 
+                            [point] => 0
+                        )
+
+                )
+
+            [cart_inputs] => 
+            [shipping_provider_seq] => 8
+            [goods_shipping] => 0
+            [shipping_group] => 88_504_delivery
+            [shipping_method_name] => 택배
+            [shipping_provider_division] => 1
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1084
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 50000
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1607
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1085
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 50000
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 1608
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1609
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 6000.00
+                                    [shipping_cost_seq] => 1610
+                                )
+
+                            [2] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4500.00
+                                    [shipping_cost_seq] => 1611
+                                )
+
+                            [3] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 1612
+                                )
+
+                            [4] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 5000.00
+                                    [shipping_cost_seq] => 1613
+                                )
+
+                            [5] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 7000.00
+                                    [shipping_cost_seq] => 1614
+                                )
+
+                            [6] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 8000.00
+                                    [shipping_cost_seq] => 1615
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1084
+                            [shipping_group_seq] => 88
+                            [shipping_set_seq] => 504
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => amount
+                            [shipping_provider_seq] => 8
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 50000
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => all
+                            [shipping_cost] => 3000.00
+                            [shipping_cost_seq] => 1607
+                        )
+
+                    [shipping_group_id] => 88_504_delivery
+                    [shipping_std_group_free] => 
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 1
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg
+            [tot_stock] => 3000
+            [base_price] => 14900
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 88_504_delivery
+                    [shipping_type] => CONDITIONAL_FREE
+                    [shipping_paytype] => PREPAYED
+                    [shipping_price] => 3000
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 50000
+                    [apiSupport] => true
+                    [return_sellername] => 어빌리티코리아
+                    [return_address1] => 경기도 고양시 일산서구 송파로 188-1
+                    [return_address2] => 어빌리티코리아
+                    [return_contact1] => 070-7576-2794
+                    [return_contact2] => 070-7576-2794
+                    [return_zipcode] => 10205
+                    [conditionalFree] => 1
+                    [conditionalFreePrice] => 
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [포스터 포함] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt114690
+                                            [text] => 앨범구매지관통X포스터접어서출고
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt114690] => Array
+                        (
+                            [option_seq] => 14690
+                            [goods_seq] => 2302
+                            [code_seq] => direct
+                            [default_option] => y
+                            [option_type] => direct
+                            [option_title] => 포스터 포함
+                            [option1] => 앨범구매지관통X포스터접어서출고
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 18700.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 3
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 14690
+                            [commission_type] => SUCO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 3000
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 포스터 포함
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 앨범구매지관통X포스터접어서출고
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 20
+                            [tax] => 1355
+                            [net_profit] => 14900
+                            [rstock] => 3000
+                            [optionArr] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [0] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                    [1] => Array
+                                        (
+                                        )
+
+                                    [2] => Array
+                                        (
+                                        )
+
+                                    [3] => Array
+                                        (
+                                        )
+
+                                    [4] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 포스터 포함
+                                            [id] => opt114690
+                                            [value] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 14690_562
+                            [suboption_seq] => 562
+                            [name] => 지관통
+                            [title] => 지관통
+                            [price] => 1000
+                            [stock] => 1000
+                            [reservation15] => 66
+                            [reservation25] => 66
+                            [status] => true
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-10 15:03:39.808566000]
+REMOTE_IP : 125.209.251.204
+Array
+(
+    [product] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 2302
+                    [merchantProductId] => YTcxY2NiZTY0ZTkwZWQ2OGVhMDZhNTM1NjM3NGQ3YWFkOGQ4NWExN18xNjQ2ODkyMjEy
+                    [optionManageCodes] => opt114690
+                )
+
+        )
+
+    [supplementSearch] => true
+    [optionSearch] => true
+    [merchantCustomCode1] => YTcxY2NiZTY0ZTkwZWQ2OGVhMDZhNTM1NjM3NGQ3YWFkOGQ4NWExN18xNjQ2ODkyMjEy
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-03-10 15:03:39.810695000]
+REMOTE_IP : 125.209.251.204
+Array
+(
+    [2302] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2302
+            [goods_name] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 1
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 14690
+            [price] => 14900
+            [commission_rate] => 3
+            [commission_type] => SUCO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 18700.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 8
+            [provider_name] => (주)어빌리티코리아
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 88
+            [trust_shipping] => N
+            [shipping_group_seq] => 88
+            [shipping_set_seq] => 504
+            [shipping_set_code] => delivery
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 26287
+            [choice] => 
+            [cart_seq] => 23089
+            [option1] => 앨범구매지관통X포스터접어서출고
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 포스터 포함
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 504
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [package_error] => 
+            [org_price] => 14900.00
+            [tot_ori_price] => 14900
+            [basic_sale] => 3800
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 14900
+            [tot_price] => 14900
+            [first] => 1
+            [cart_suboptions] => 
+            [cart_inputs] => 
+            [shipping_provider_seq] => 8
+            [goods_shipping] => 0
+            [shipping_group] => 88_504_delivery
+            [shipping_method_name] => 택배
+            [shipping_provider_division] => 1
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1084
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 50000
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1607
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1085
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 50000
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 1608
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1609
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 6000.00
+                                    [shipping_cost_seq] => 1610
+                                )
+
+                            [2] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4500.00
+                                    [shipping_cost_seq] => 1611
+                                )
+
+                            [3] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 1612
+                                )
+
+                            [4] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 5000.00
+                                    [shipping_cost_seq] => 1613
+                                )
+
+                            [5] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 7000.00
+                                    [shipping_cost_seq] => 1614
+                                )
+
+                            [6] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 8000.00
+                                    [shipping_cost_seq] => 1615
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1084
+                            [shipping_group_seq] => 88
+                            [shipping_set_seq] => 504
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => amount
+                            [shipping_provider_seq] => 8
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 50000
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => all
+                            [shipping_cost] => 3000.00
+                            [shipping_cost_seq] => 1607
+                        )
+
+                    [shipping_group_id] => 88_504_delivery
+                    [shipping_std_group_free] => 
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 1
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/8/2022/03/2302_tmp_a4d902e3ee96e746d3428825c3f34e928499list1.jpg
+            [tot_stock] => 3000
+            [base_price] => 14900
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 88_504_delivery
+                    [shipping_type] => CONDITIONAL_FREE
+                    [shipping_paytype] => PREPAYED
+                    [shipping_price] => 3000
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 50000
+                    [apiSupport] => true
+                    [return_sellername] => 어빌리티코리아
+                    [return_address1] => 경기도 고양시 일산서구 송파로 188-1
+                    [return_address2] => 어빌리티코리아
+                    [return_contact1] => 070-7576-2794
+                    [return_contact2] => 070-7576-2794
+                    [return_zipcode] => 10205
+                    [conditionalFree] => 1
+                    [conditionalFreePrice] => 
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [포스터 포함] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt114690
+                                            [text] => 앨범구매지관통X포스터접어서출고
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt114690] => Array
+                        (
+                            [option_seq] => 14690
+                            [goods_seq] => 2302
+                            [code_seq] => direct
+                            [default_option] => y
+                            [option_type] => direct
+                            [option_title] => 포스터 포함
+                            [option1] => 앨범구매지관통X포스터접어서출고
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 18700.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 3
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 14690
+                            [commission_type] => SUCO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 3000
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 1
+                            [reservation25] => 1
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 포스터 포함
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 앨범구매지관통X포스터접어서출고
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 20
+                            [tax] => 1355
+                            [net_profit] => 14900
+                            [rstock] => 2999
+                            [optionArr] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [0] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                    [1] => Array
+                                        (
+                                        )
+
+                                    [2] => Array
+                                        (
+                                        )
+
+                                    [3] => Array
+                                        (
+                                        )
+
+                                    [4] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 포스터 포함
+                                            [id] => opt114690
+                                            [value] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 14690_562
+                            [suboption_seq] => 562
+                            [name] => 지관통
+                            [title] => 지관통
+                            [price] => 1000
+                            [stock] => 1000
+                            [reservation15] => 67
+                            [reservation25] => 67
+                            [status] => true
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-10 16:34:05.767054000]
+REMOTE_IP : 125.209.251.214
+Array
+(
+    [product] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 2308
+                    [merchantProductId] => NWI1YTRhNGEwNDVhYWExZjNhMTE1YTYwNmNjZTY5ZjBjNWQ0YjZiOV8xNjQ2ODk3NjMx
+                    [optionManageCodes] => opt114693
+                    [supplementIds] => 14693_564
+                )
+
+        )
+
+    [supplementSearch] => true
+    [optionSearch] => true
+    [merchantCustomCode1] => NWI1YTRhNGEwNDVhYWExZjNhMTE1YTYwNmNjZTY5ZjBjNWQ0YjZiOV8xNjQ2ODk3NjMx
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-03-10 16:34:05.770203000]
+REMOTE_IP : 125.209.251.214
+Array
+(
+    [2308] => Array
+        (
+            [fblike] => N
+            [goods_seq] => 2308
+            [goods_name] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+            [goods_code] => 
+            [goods_type] => goods
+            [cancel_type] => 0
+            [goods_kind] => goods
+            [socialcp_event] => 0
+            [package_yn] => n
+            [package_yn_suboption] => n
+            [shipping_weight_policy] => shop
+            [goods_weight] => 0
+            [shipping_policy] => shop
+            [goods_shipping_policy] => 
+            [unlimit_shipping_price] => 0
+            [limit_shipping_price] => 0
+            [limit_shipping_ea] => 0
+            [limit_shipping_subprice] => 0
+            [sale_seq] => 1
+            [min_purchase_ea] => 0
+            [max_purchase_ea] => 0
+            [option_seq] => 14693
+            [price] => 14900
+            [commission_rate] => 3
+            [commission_type] => SUCO
+            [reserve_rate] => 0.00
+            [reserve_unit] => percent
+            [consumer_price] => 18700.00
+            [package_option_seq1] => 
+            [package_option_seq2] => 
+            [package_option_seq3] => 
+            [package_option_seq4] => 
+            [package_option_seq5] => 
+            [package_option1] => 
+            [package_option2] => 
+            [package_option3] => 
+            [package_option4] => 
+            [package_option5] => 
+            [full_barcode] => 
+            [supply_price] => 0.00
+            [reserve_policy] => shop
+            [sub_reserve_policy] => shop
+            [multi_discount_use] => 
+            [multi_discount_ea] => 0
+            [multi_discount] => 0.00
+            [multi_discount_unit] => 
+            [tax] => tax
+            [provider_seq] => 8
+            [provider_name] => (주)어빌리티코리아
+            [social_goods_group] => 0
+            [socialcp_input_type] => price
+            [socialcp_cancel_type] => pay
+            [socialcp_cancel_use_refund] => 0
+            [socialcp_cancel_payoption] => 0
+            [socialcp_cancel_payoption_percent] => 0
+            [socialcp_use_return] => 0
+            [socialcp_use_emoney_day] => 0
+            [socialcp_use_emoney_percent] => 0
+            [individual_refund] => 0
+            [individual_refund_inherit] => 
+            [individual_export] => 0
+            [individual_return] => 0
+            [possible_pay] => 
+            [possible_mobile_pay] => 
+            [adult_goods] => N
+            [hscode] => 
+            [purchase_goods_name] => 
+            [option_international_shipping_status] => n
+            [goods_shipping_group_seq] => 88
+            [trust_shipping] => N
+            [shipping_group_seq] => 88
+            [shipping_set_seq] => 504
+            [shipping_set_code] => delivery
+            [shipping_store_seq] => 0
+            [shipping_prepay_info] => delivery
+            [cart_option_seq] => 26290
+            [choice] => 
+            [cart_seq] => 23092
+            [option1] => 앨범구매지관통X포스터접어서출고
+            [option2] => 
+            [option3] => 
+            [option4] => 
+            [option5] => 
+            [title1] => 상품선택
+            [title2] => 
+            [title3] => 
+            [title4] => 
+            [title5] => 
+            [ea] => 1
+            [promotion_code_seq] => 
+            [promotion_code_serialnumber] => 
+            [shipping_method] => 504
+            [bs_seq] => 
+            [bs_type] => 
+            [shipping_calcul_type] => bundle
+            [display_terms] => MENUAL
+            [display_terms_text] => 
+            [display_terms_color] => #FF0000
+            [display_terms_begin] => 0000-00-00
+            [display_terms_end] => 0000-00-00
+            [display_terms_type] => SELLING
+            [possible_shipping_date] => 
+            [possible_shipping_text] => 
+            [multi_discount_policy] => 
+            [image] => /data/goods/8/2022/03/_tmp_76f040f0a63a36a3fe6d479c51a9d2b67309thumbCart.jpg
+            [p_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [r_category] => Array
+                (
+                    [0] => 0033
+                    [1] => 00330001
+                    [2] => 003300010003
+                )
+
+            [package_error] => 
+            [org_price] => 14900.00
+            [tot_ori_price] => 15900
+            [basic_sale] => 3800
+            [event_sale_target] => price
+            [event_sale] => 
+            [multi_sale] => 
+            [eventEnd] => 
+            [ori_price] => 14900
+            [tot_price] => 15900
+            [first] => 1
+            [all_ea] => 1
+            [suboption_point] => 0
+            [suboption_reserve] => 0
+            [cart_suboptions] => Array
+                (
+                    [0] => Array
+                        (
+                            [cart_suboption_seq] => 290
+                            [cart_option_seq] => 26290
+                            [cart_seq] => 23092
+                            [suboption_title] => 지관통
+                            [suboption] => 지관통
+                            [ea] => 1
+                            [suboption_seq] => 564
+                            [price] => 1000.00
+                            [consumer_price] => 0.00
+                            [goods_seq] => 2308
+                            [sub_sale] => n
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0
+                            [commission_rate] => 3
+                            [commission_type] => SUCO
+                            [supply_price] => 0.00
+                            [package_count_sub] => 
+                            [package_option_seq1] => 
+                            [package_option1] => 
+                            [weight] => 0
+                            [sub_weight] => 
+                            [point] => 0
+                        )
+
+                )
+
+            [cart_inputs] => 
+            [shipping_provider_seq] => 8
+            [goods_shipping] => 0
+            [shipping_group] => 88_504_delivery
+            [shipping_method_name] => 택배
+            [shipping_provider_division] => 1
+            [shipping_set] => Array
+                (
+                    [std] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1084
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 50000
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1607
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1085
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => std
+                                    [shipping_opt_type] => amount
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => unlimit
+                                    [default_yn] => Y
+                                    [section_st] => 50000
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 0.00
+                                    [shipping_cost_seq] => 1608
+                                )
+
+                        )
+
+                    [add] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 3000.00
+                                    [shipping_cost_seq] => 1609
+                                )
+
+                            [1] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 6000.00
+                                    [shipping_cost_seq] => 1610
+                                )
+
+                            [2] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4500.00
+                                    [shipping_cost_seq] => 1611
+                                )
+
+                            [3] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 4000.00
+                                    [shipping_cost_seq] => 1612
+                                )
+
+                            [4] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 5000.00
+                                    [shipping_cost_seq] => 1613
+                                )
+
+                            [5] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 7000.00
+                                    [shipping_cost_seq] => 1614
+                                )
+
+                            [6] => Array
+                                (
+                                    [shipping_opt_seq] => 1086
+                                    [shipping_group_seq] => 88
+                                    [shipping_set_seq] => 504
+                                    [shipping_set_code] => delivery
+                                    [shipping_set_name] => 택배
+                                    [shipping_set_type] => add
+                                    [shipping_opt_type] => fixed
+                                    [shipping_provider_seq] => 8
+                                    [delivery_limit] => limit
+                                    [default_yn] => Y
+                                    [section_st] => 0
+                                    [section_ed] => 0
+                                    [shipping_calcul_type] => bundle
+                                    [shipping_calcul_free_yn] => N
+                                    [shipping_std_free_yn] => N
+                                    [shipping_add_free_yn] => N
+                                    [shipping_hop_free_yn] => N
+                                    [delivery_nation] => korea
+                                    [hopeday_required] => N
+                                    [shipping_prepay_info] => all
+                                    [shipping_cost] => 8000.00
+                                    [shipping_cost_seq] => 1615
+                                )
+
+                        )
+
+                    [baserule] => Array
+                        (
+                            [shipping_opt_seq] => 1084
+                            [shipping_group_seq] => 88
+                            [shipping_set_seq] => 504
+                            [shipping_set_code] => delivery
+                            [shipping_set_name] => 택배
+                            [shipping_set_type] => std
+                            [shipping_opt_type] => amount
+                            [shipping_provider_seq] => 8
+                            [delivery_limit] => unlimit
+                            [default_yn] => Y
+                            [section_st] => 0
+                            [section_ed] => 50000
+                            [shipping_calcul_type] => bundle
+                            [shipping_calcul_free_yn] => N
+                            [shipping_std_free_yn] => N
+                            [shipping_add_free_yn] => N
+                            [shipping_hop_free_yn] => N
+                            [delivery_nation] => korea
+                            [hopeday_required] => N
+                            [shipping_prepay_info] => all
+                            [shipping_cost] => 3000.00
+                            [shipping_cost_seq] => 1607
+                        )
+
+                    [shipping_group_id] => 88_504_delivery
+                    [shipping_std_group_free] => 
+                    [shipping_add_group_free] => 
+                )
+
+            [optionSupport] => 1
+            [supplementSupport] => 1
+            [taxtype] => TAX
+            [viewimg] => http://musicbroshop.com/data/goods/8/2022/03/_tmp_76f040f0a63a36a3fe6d479c51a9d2b67309list1.jpg
+            [tot_stock] => 3000
+            [base_price] => 14900
+            [status] => ON_SALE
+            [returnShippingFee] => 
+            [exchangeShippingFee] => 
+            [shipping] => Array
+                (
+                    [shipping_group] => 88_504_delivery
+                    [shipping_type] => CONDITIONAL_FREE
+                    [shipping_paytype] => PREPAYED
+                    [shipping_price] => 3000
+                    [shipping_method] => DELIVERY
+                    [basic_price] => 50000
+                    [apiSupport] => true
+                    [return_sellername] => 어빌리티코리아
+                    [return_address1] => 경기도 고양시 일산서구 송파로 188-1
+                    [return_address2] => 어빌리티코리아
+                    [return_contact1] => 070-7576-2794
+                    [return_contact2] => 070-7576-2794
+                    [return_zipcode] => 10205
+                    [conditionalFree] => 1
+                    [conditionalFreePrice] => 
+                )
+
+            [all_options] => Array
+                (
+                    [SELECT] => Array
+                        (
+                            [상품선택] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [type] => SELECT
+                                            [id] => opt114693
+                                            [text] => 앨범구매지관통X포스터접어서출고
+                                            [status] => true
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [sel_options] => Array
+                (
+                    [opt114693] => Array
+                        (
+                            [option_seq] => 14693
+                            [goods_seq] => 2308
+                            [code_seq] => direct
+                            [default_option] => y
+                            [option_type] => direct
+                            [option_title] => 상품선택
+                            [option1] => 앨범구매지관통X포스터접어서출고
+                            [option2] => 
+                            [option3] => 
+                            [option4] => 
+                            [option5] => 
+                            [optioncode1] => 
+                            [optioncode2] => 
+                            [optioncode3] => 
+                            [optioncode4] => 
+                            [optioncode5] => 
+                            [infomation] => 
+                            [consumer_price] => 18700.00
+                            [price] => 0
+                            [reserve_rate] => 0.00
+                            [reserve_unit] => percent
+                            [reserve] => 0.00
+                            [commission_rate] => 3
+                            [tmpprice] => 0,,,,
+                            [newtype] => 
+                            [color] => 
+                            [zipcode] => 
+                            [address_type] => 
+                            [address] => 
+                            [address_street] => 
+                            [addressdetail] => 
+                            [codedate] => 
+                            [sdayinput] => 
+                            [fdayinput] => 
+                            [dayauto_type] => 
+                            [sdayauto] => 
+                            [fdayauto] => 
+                            [dayauto_day] => 
+                            [biztel] => 
+                            [coupon_input] => 1
+                            [option_code] => 
+                            [address_commission] => 
+                            [fix_option_seq] => 14693
+                            [commission_type] => SUCO
+                            [package_count] => 0
+                            [package_goods_name1] => 
+                            [package_goods_name2] => 
+                            [package_goods_name3] => 
+                            [package_goods_name4] => 
+                            [package_goods_name5] => 
+                            [package_option_seq1] => 
+                            [package_option_seq2] => 
+                            [package_option_seq3] => 
+                            [package_option_seq4] => 
+                            [package_option_seq5] => 
+                            [package_option1] => 
+                            [package_option2] => 
+                            [package_option3] => 
+                            [package_option4] => 
+                            [package_option5] => 
+                            [package_unit_ea1] => 
+                            [package_unit_ea2] => 
+                            [package_unit_ea3] => 
+                            [package_unit_ea4] => 
+                            [package_unit_ea5] => 
+                            [weight] => 0
+                            [option_view] => Y
+                            [full_barcode] => 
+                            [badstock] => 0
+                            [stock] => 3000
+                            [supply_price] => 0.00
+                            [exchange_rate] => 1000.00
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [safe_stock] => 0
+                            [total_stock] => 0
+                            [total_supply_price] => 0.00
+                            [total_badstock] => 0
+                            [scm_auto_warehousing] => 0
+                            [option_divide_title] => Array
+                                (
+                                    [0] => 상품선택
+                                )
+
+                            [option_divide_type] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [option_divide_codeseq] => Array
+                                (
+                                    [0] => direct
+                                )
+
+                            [divide_tmpprice] => Array
+                                (
+                                    [0] => 0
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [opts] => Array
+                                (
+                                    [0] => 앨범구매지관통X포스터접어서출고
+                                )
+
+                            [supplyRate] => 0
+                            [discountRate] => 20
+                            [tax] => 1355
+                            [net_profit] => 14900
+                            [rstock] => 3000
+                            [optionArr] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [0] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                    [1] => Array
+                                        (
+                                        )
+
+                                    [2] => Array
+                                        (
+                                        )
+
+                                    [3] => Array
+                                        (
+                                        )
+
+                                    [4] => Array
+                                        (
+                                        )
+
+                                )
+
+                            [status] => true
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [name] => 상품선택
+                                            [id] => opt114693
+                                            [value] => 앨범구매지관통X포스터접어서출고
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [suboptions] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 14693_564
+                            [suboption_seq] => 564
+                            [name] => 지관통
+                            [title] => 지관통
+                            [price] => 1000
+                            [stock] => 1000
+                            [reservation15] => 0
+                            [reservation25] => 0
+                            [status] => true
+                        )
+
+                )
+
+        )
+
+)
+
+

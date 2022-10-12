@@ -1,0 +1,34 @@
+<script language="javascript" type="text/javascript" src="/app/javascript/js/o2o/o2o-authCellphone.js?dummy=20180730"></script>
+<!--{ ? o2oauthnum_use=='Y' || call_form == 'join_form'}-->
+<!-- O2O 통합 시에는 인증번호가 필수이므로 회원 가입폼에선 무조건 노출 -->
+
+	<ul class="required" id="tr_o2oauthnum">
+		<li class="th"><p designElement="text">인증번호 입력</p></li>
+		<li class="td">
+			<div id="div_wrap_o2oauthnum">
+				<input type="text" name="authnum" id="authnum" value="" style="width:120px;"/>
+				<input type="hidden" name="call_form" id="call_form" value="<!--{ = call_form }-->" />
+				<span class="authnum_send">
+					<button type="button" class="btn_resp size_b color4 btnAuthphone">
+						<span designElement="text">인증번호발송</span>
+					</button>
+				</span>
+				<span class="hide confirm_authnum">
+					<button type="button" class="btn_resp size_b color4 btnAuthphoneConfirm">
+						<span designElement="text">인증</span>
+					</button>
+					
+					<button type="button" class="btn_resp size_b color4 btnAuthphone">
+						<span designElement="text">재발송</span>
+					</button>
+				</span>
+				<span class="hide auth_timer">(<span id="timer_min">3</span>분 <span id="timer_sec">00</span>초)</span>
+				<!--{ ? call_form == 'join_form' }-->
+				<br/>
+				 ※ 이미 오프라인 매장에서 회원이신 경우 온라인 회원가입 시 온/오프 통합 마일리지를 사용하실 수 있습니다.
+				<!--{ / }-->
+			</div>
+		</li>
+	</ul>
+
+<!--{ / }-->

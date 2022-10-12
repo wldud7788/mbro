@@ -1,0 +1,192 @@
+		<tr>
+			<th class="dsts-th" rowspan="2" >
+				<p class="mb5">상품 정보<br />
+				<span class="desc" style="font-weight:normal;">노출순서변경</span> <span class="helpicon" title="마우스로 드래그&드랍해서 조정합니다."></span></p>
+				<span class="btn small orange"><input type="button" value="안내) 노출 정보" onclick="openDialog('노출 정보','#displayInfoDescLayer', {'width':'800','show' : 'fade','hide' : 'fade'});" /></span>
+			</th>
+			<td  class="dsts-td left pdt10" colspan="2" >
+				<div class="clearbox">
+					<label class="mr30"><input type="radio" class="decoration_type" name="goods_decoration_type" value="favorite" id="goods_favorite"{?data.goods_decoration_type == 'favorite'}checked{/}/> 자주쓰는 상품정보</label>
+					<label><input type="radio" class="decoration_type" name="goods_decoration_type" value="quality" id="goods_quality"{?!data.goods_decoration_type || data.goods_decoration_type == 'quality'}checked{/}/> 고급설정 상품정보</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="dsts-td left pdt10" colspan="2">
+				<div class="clearbox goods_decoration_favorite decoration_favorite mt10" json="{=base64_encode(json_encode(goods_favorite))}" use_key="{data.goods_decoration_favorite_key}" platform="{platform}" favorite_type="goods_decoration">
+				</div>
+				<div class="mt20">
+				</div>
+				<div class="clearbox goods_decoration_quality decoration_quality mt10 ml15 {?data.goods_decoration_type == 'favorite'}hide{/}">
+					<div class="pd5">
+						<img src="../images/design/icon_design_plus.gif" align="absmiddle" onclick="add_new_info_item(this)" class="hand" />
+						<label class="mr10"><input type="radio" name="text_align" class="text_align" value="left" title="좌측정렬" {?data.text_align=='left'}checked="checked"{/} /> 좌측정렬</label>
+						<label class="mr10"><input type="radio" name="text_align" class="text_align" value="center" title="중앙정렬" {?data.text_align=='center' || !data.text_align}checked="checked"{/} /> 중앙정렬</label>
+						<label><input type="radio" name="text_align" class="text_align" value="right" title="우측정렬" {?data.text_align=='right'}checked="checked"{/} /> 우측정렬</label>
+					</div>
+
+					<div class="info_item_container"></div>
+
+					<div class="info_item_default info_item hide" style="min-height:30px;">
+						<div>
+							<img src='../images/common/icon_move.gif' align='absmiddle' style="margin-left:5px" class="move" />
+							<img src="../images/design/icon_design_minus.gif" align="absmiddle" onclick="remove_info_item(this)" class="hand" />
+
+							<span class="info_item_cell_kind info_item_cell">
+								<select class="info_item_kind info_item_selector" style="width:130px;">
+									<option value="brand_title">브랜드명</option>
+									<option value="goods_name">상품명</option>
+									<option value="summary">짧은 설명</option>
+									<option value="consumer_price">정가</option>
+									<option value="price">판매가</option>
+									<option value="sale_price">(혜택적용)판매가</option>
+									<option value="count">판매수량,남은시간</option>
+									{?eventpage}
+									<option value="event_text">이벤트내용</option>
+									{/}
+									<option value="icon">아이콘</option>
+									<option value="status_icon">상태 아이콘</option>
+									<option value="score">상품평</option>
+									<!--{ ? serviceLimit('H_AD') }-->
+									<option value="provider_name">판매자명</option>
+									<!--{ / }-->
+									<option value="color">컬러 옵션</option>
+									<option value="bigdata" {?serviceLimit('H_FR')}disabled{/}>빅데이터 큐레이션</option>
+									<option value="shipping">배송비</option>
+									<option value="pageview">페이지뷰, 찜</option>
+								</select>
+							</span>
+
+							<span class="info_item_cell_font_decoration info_item_cell">
+								<input type="text" value="" class="info_item_font_decoration info_item_selector customFontDecoration " />
+							</span>
+
+							<span class="info_item_cell_position info_item_cell"> 
+								<select class="info_item_position info_item_selector">
+									<option value="">=노출위치=</option>
+									<option value="before">금액앞</option>
+									<option value="after">금액뒤</option>
+								</select>
+							</span>
+							<span class="info_item_cell_postfix info_item_cell"> 
+								<select class="info_item_postfix info_item_selector">
+									<option value="">=노출심볼=</option>
+									{@ currency_symbol_list[basic_currency]['0']['value'] }
+									{? strstr(.value_,"&") }
+									<option value="symbol">{=.value_}</option>
+									{ : }
+									<option value="{=.value_}">{=.value_}</option>
+									{ / }
+									{ / }
+									<option value=""></option>
+								</select>
+							</span>
+
+							<span class="info_item_cell_wrapper info_item_cell">
+								<select class="info_item_wrapper info_item_selector">
+									<option value="">&nbsp; = 괄호 = &nbsp;</option>
+									<option value="[]">[]</option>
+									<option value="()">()</option>
+									<option value="<>">&lt;&gt;</option>
+									<option value="{}">{}</option>
+								</select>
+							</span>
+
+							<span class="info_item_cell_list_icon_desc info_item_cell"  >
+								<label><input type="checkbox" checked disabled /> 상품아이콘</label>
+							</span>
+							<span class="info_item_cell_list_icon_video info_item_cell ml5"  >
+								<label><input type="checkbox" name="list_icon_video" class="info_item_list_icon_video info_item_selector" value="1"  /> 동영상 <img src="/data/icon/goods_status/icon_list_video.gif" align="absmiddle" /></label>
+							</span>
+
+							<span class="info_item_cell_status_icon_runout info_item_cell"  >
+								<label><input type="checkbox" name="status_icon_runout" class="info_item_status_icon_runout info_item_selector" value="1"  /> 품절 <img src="/data/icon/goods_status/icon_list_soldout.gif" align="absmiddle" /></label>
+							</span>
+							<span class="info_item_cell_status_icon_purchasing info_item_cell ml5"  >
+								<label><input type="checkbox" name="status_icon_purchasing" class="info_item_status_icon_purchasing info_item_selector" value="1"  /> 재고확보중 <img src="/data/icon/goods_status/icon_list_warehousing.gif" align="absmiddle" /></label>
+							</span>
+							<span class="info_item_cell_status_icon_unsold info_item_cell ml5"  >
+								<label><input type="checkbox" name="status_icon_unsold" class="info_item_status_icon_unsold info_item_selector" value="1"  /> 판매중지 <img src="/data/icon/goods_status/icon_list_stop.gif" align="absmiddle" /></label>
+							</span>
+
+							<span class="info_item_cell_status_icon_desc info_item_cell helpicon ml5" title="해당 상품 디스플레이에 있는 상품의 상태가<br />품절, 재고확보중, 판매중지일 때 체크된 아이콘이 나타납니다."></span>
+							
+							<span class="info_item_cell_buy_count info_item_cell">
+								<label class="mr5"><input type="checkbox" name="buy_count" class="info_item_buy_count info_item_selector" value="1"  /> 현재 11,905개 구매</label>
+							</span>
+							
+							<span class="info_item_cell_time_count info_item_cell">
+								<label><input type="checkbox" name="time_count" class="info_item_time_count info_item_selector" value="1"  /> 남은시간 : 05일  10:22:43</label>
+							</span>
+							
+							<span class="info_item_cell_score_desc info_item_cell desc">
+								(예시) &nbsp;<font style="font-weight:bold; color:#fff; background-color:#ee6600; padding:0 3px; font-family:tahoma">4.5</font> <font color="#eeaa00">★★★★</font><font color="#999999">★</font> 상품평 (<span class="red">16</span>)
+							</span>
+							
+							<span class="info_item_cell_color_desc info_item_cell desc">
+								(예시) &nbsp;<font color="#54a6ad">■</font> <font color="#74a6bd">■</font> <font color="#74b6ed">■</font> <font color="#a476bd">■</font>
+							</span>
+
+							<span class="info_item_cell_bigdata info_item_cell desc">
+								<div style="margin-left:183px;">
+									<div class="pdt5">
+										<input type="text" class="info_item_bigdata info_item_selector" value="다른 사람은 뭘살까?" size="53"/>
+									</div>
+									<div class="pdt5" style="line-height:15px !important">
+										※ 링크 클릭 시 빅데이터 큐레이션 전용페이지로 새창 이동됩니다.<br/>
+										빅데이터 큐레이션 전용페이지 설정은 빅데이터 > <a href="/admin/bigdata/catalog" target="top" style="color:#f63 !important;">전용페이지 설정</a>에서 하십시오
+									</div>
+								</div>
+							</span>
+
+							<span class="info_item_cell_shipping_free info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_free" class="info_item_shipping_free info_item_selector" value="1"/> 무료배송</label>
+							</span>
+
+							<span class="info_item_cell_shipping_fixed info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_fixed" class="info_item_shipping_fixed info_item_selector" value="1"/> 고정배송비</label>				
+							</span>
+
+							<span class="info_item_cell_shipping_iffree info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_iffree" class="info_item_shipping_iffree info_item_selector" value="1"/> 조건부 무료배송</label>				
+							</span>
+
+							<span class="info_item_cell_shipping_ifpay info_item_cell">
+								<label class="mr5"><input type="checkbox" name="info_item_shipping_ifpay" class="info_item_shipping_ifpay info_item_selector" value="1"/> 조건부 차등배송</label>				
+							</span>
+
+							<span class="info_item_cell_shipping_overseas info_item_cell">
+								<span class="mr10">|</span>
+								<label><input type="checkbox" name="info_item_shipping_overseas" class="info_item_shipping_overseas info_item_selector" value="1"/> 해외배송</label>
+							</span>
+
+							<span class="info_item_cell_shipping_desc info_item_cell desc">
+								<p style="margin-left:183px; line-height:15px !important">
+									※ 배송비 : 상품이 속한 배송그룹>기본배송방법>기본배송비에 해당하는 배송비(무료배송 or 고정배송비 or 조건부 무료배송)를 노출<br />
+									※ 해외배송 : 상품이 속한 배송그룹이 해외배송이 가능하면 노출<br />
+									<!--{ ? serviceLimit('H_AD') }-->
+									※ 배송비 노출문구는 설정>배송그룹 또는 입점사>입점사리스트: 배송정책에서 배송그룹별로 입력할 수 있습니다.
+									<!--{ : }-->
+									※ 배송비 노출문구는 설정>배송그룹에서 배송그룹별로 입력할 수 있습니다.
+									<!--{ / }-->
+								</p>
+							</span>
+
+							<span class="info_item_cell_pageview_desc info_item_cell desc">
+								(예시)&nbsp; <img style="vertical-align:middle" src="/data/icon/goodsdisplay/preview/icon_pageview.png" alt="페이지뷰" />  9,999+ |&nbsp;<img style="vertical-align:middle" src="/data/icon/goodsdisplay/preview/icon_zzim_on.png" alt="찜하기" />  327
+							</span>
+							
+							<input type="text" name="info_setting[]" value="" class="info_setting hide" disabled="disabled" />
+						</div>
+						<div>
+							<span class="info_item_cell_compare info_item_cell">
+								<input type="text" value="" class="info_item_compare info_item_selector customCompare " style="width:100%;"/>
+							</span>
+						</div>	
+					</div>
+					<div class="center pdr30">
+						<span class="btn small cyanblue favorite_btn"><input type="button" value="자주쓰는 상품정보로 등록" onclick="open_decoration_save(this, '{platform}', 'goods_decoration')"></span>
+					</div>
+				</div>
+			</td>
+		</tr>

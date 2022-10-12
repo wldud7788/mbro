@@ -1,0 +1,50 @@
+[2022-08-02 13:48:14.494276000]
+MODE : Request
+REMOTE_IP : 118.219.130.196
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1882]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YzY1NmNmYTM3ZTMwY2Q0Y2E3NTRlNWZlYTU0ZTI1MjE5YTcyZmJhZF8xNjU5NDE1Njk0</merchantCustomCode1></interface><product><id>1882</id><merchantProductId>YzY1NmNmYTM3ZTMwY2Q0Y2E3NTRlNWZlYTU0ZTI1MjE5YTcyZmJhZF8xNjU5NDE1Njk0</merchantProductId><ecMallProductId>1882</ecMallProductId><name><![CDATA[그립톡 GRIP TOK]]></name><basePrice>13000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=1882]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/24/2021/07/1882_tmp_2218ca16e9a247af8c99f2bcc946532c3932list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt113618]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[그립톡 멤버]]></name><value><id>opt113618</id><text><![CDATA[민영]]></text></value></selectedItem></option><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-08-02 13:48:14.542728000]
+MODE : Response
+REMOTE_IP : 118.219.130.196
+SUCCESS:rIMbEiGrRFC4WgpzjPxMGg:200337588
+
+[2022-08-02 17:35:46.789863000]
+MODE : Request
+REMOTE_IP : 125.132.214.133
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5MzQ2</merchantCustomCode1></interface><product><id>4421</id><merchantProductId>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5MzQ2QG9wdDEyOTk4Nw==</merchantProductId><ecMallProductId>4421</ecMallProductId><name><![CDATA[아프로 (APRO) - Avenue]]></name><basePrice>17900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/07/4421_tmp_9efa79599baa8d9ef671aca112a98fec4527list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-08-02 17:35:46.851245000]
+MODE : Response
+REMOTE_IP : 125.132.214.133
+SUCCESS:IUhW_uCcRoeqLNlj-WDvBg:200337588
+
+[2022-08-02 17:36:32.716731000]
+MODE : Request
+REMOTE_IP : 125.132.214.133
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5Mzky</merchantCustomCode1></interface><product><id>4421</id><merchantProductId>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5MzkyQG9wdDEyOTk4Nw==</merchantProductId><ecMallProductId>4421</ecMallProductId><name><![CDATA[아프로 (APRO) - Avenue]]></name><basePrice>17900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/07/4421_tmp_9efa79599baa8d9ef671aca112a98fec4527list1.jpg]]></imageUrl><single><quantity>17</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-08-02 17:36:32.759827000]
+MODE : Response
+REMOTE_IP : 125.132.214.133
+SUCCESS:UN5ic1SfT7iQMnWXnShVKQ:200337588
+
+[2022-08-02 17:36:40.140655000]
+MODE : Request
+REMOTE_IP : 125.132.214.133
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5NDAw</merchantCustomCode1></interface><product><id>4421</id><merchantProductId>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5NDAwQG9wdDEyOTk4Nw==</merchantProductId><ecMallProductId>4421</ecMallProductId><name><![CDATA[아프로 (APRO) - Avenue]]></name><basePrice>17900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/07/4421_tmp_9efa79599baa8d9ef671aca112a98fec4527list1.jpg]]></imageUrl><single><quantity>17</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-08-02 17:36:40.187435000]
+MODE : Response
+REMOTE_IP : 125.132.214.133
+SUCCESS:C3cGD2HVTO-CFj5_pC9RsA:200337588
+
+[2022-08-02 17:38:21.827652000]
+MODE : Request
+REMOTE_IP : 125.132.214.133
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5NTAx</merchantCustomCode1></interface><product><id>4421</id><merchantProductId>MWNhZDc2YzIyY2YxN2VkYzk0NmVjMjFjYzU3MDc4MzZiOWJjZDMyNl8xNjU5NDI5NTAxQG9wdDEyOTk4Nw==</merchantProductId><ecMallProductId>4421</ecMallProductId><name><![CDATA[아프로 (APRO) - Avenue]]></name><basePrice>17900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=4421]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/07/4421_tmp_9efa79599baa8d9ef671aca112a98fec4527list1.jpg]]></imageUrl><single><quantity>1000</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-08-02 17:38:21.873303000]
+MODE : Response
+REMOTE_IP : 125.132.214.133
+SUCCESS:WnanmMlNSWuG4Xj5_-ZkUg:200337588
+

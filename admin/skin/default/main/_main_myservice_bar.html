@@ -1,0 +1,36 @@
+<table class="main-support-service" cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr>
+{@ serviceHtml}
+	{? .index_ != 0 && (.index_ % 6) == 0 }
+		</tr><tr>
+	{/}
+	{?!.nbsp_html }
+	<th class="myservice_area area{=.index_+1}" onmouseover="service_over('{=.index_+1}');">
+		{?.icon=='icon_sms'}<div class="myservice_area_sms">{:}
+		<div class="myservice_area">{/}
+		{?.expire}<div class='myservice_{.expire}'><img src='/admin/skin/default/images/main/icon_{.expire}.gif' /></div>{/}
+		</div><span class="myservice_icon {.icon}"></span>{.name}
+	</th>
+	<td class="myservice_area area{=.index_+1}" onmouseover="service_over('{=.index_+1}');">
+		{?.link}<a href='{.link}'>{/}
+			{? is_numeric(.servicetxt) && .servicetxt <= 7 }
+				{?.servicetxt==0}<span style="color:#eda72c;">신청</span>
+				{:.servicetxt==1}사용중
+				{:.servicetxt==2}사용(무료)
+				{:.servicetxt==3}사용(유료)
+				{:.servicetxt==4}발행안함
+				{:.servicetxt==5}<span style="color:#00aeef;">사용중</span>
+				{:.servicetxt==6}<span style="color:#eda72c;">미사용</span>
+				{:.servicetxt==7}<span style="color:#eda72c;">설정</span>
+				{/}
+			{:}
+				{.servicetxt}
+			{/}
+		{?.link}</a>{/}
+	</td>
+	{:}
+		{.nbsp_html}
+	{/}
+{/}
+</tr>
+</table>

@@ -1,0 +1,25 @@
+ <!-- Start Script for channeltalk (특정 물품 조회시) -->
+ <script type='text/javascript'>
+    var id = '{ data.goods_seq }';
+    var name = '{ data.goods_name }';
+    var amount = '{ data.price }';
+    var ret;
+
+    if (amount != ''){
+        // 타입체크
+        ret = check_number(amount);
+        
+        if (typeof ret != 'undefined' && ret != null) {
+            amount = ret;
+        } 
+    }
+
+    if (typeof ChannelIO != 'undefined' && id != '' && name != '' && amount != '') {
+        ChannelIO('track', 'ProductView', {
+            'id': id,
+            'name': name,
+            'amount' : amount,
+        });
+    }
+</script>
+<!-- End Script for channeltalk -->

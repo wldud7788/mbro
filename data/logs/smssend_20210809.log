@@ -1,0 +1,16 @@
+[2021-08-09 17:46:49] - sms_send 
+admin_seq : 1
+ip_addr : 14.138.9.185
+agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36
+geoip : 14.138.9.185
+geo_country : Korea, Republic of
+msg : 안녕하세요. 
+뮤직브로 입니다. 
+
+당사 시스템 상, 주문취소 후 철회가 불가능하여, 관리자가 직접 고객님의 주문건을 생성하였습니다. 
+
+해당 과정에서 고객님께 입금을 요청드리는 문자가 갔으나, 고객님께선 이미 입금완료 처리되었습니다. 
+
+배송은 내일 오후 2시 30분 경 출발할 예정입니다. 
+
+감사합니다. 

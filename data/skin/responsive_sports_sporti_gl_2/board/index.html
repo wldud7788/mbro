@@ -1,0 +1,141 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 게시판 List 레이아웃 템플릿 @@
+- 파일위치 : [스킨폴더]/board/index.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!-- 본문내용 시작 -->
+<!-- <link type="text/css" rel="stylesheet" charset="utf-8" href="{skindir}/board.css" /> -->
+<script type="text/javascript">
+//<![CDATA[
+var board_id = '{_GET.id}';
+var boardlistsurl = '{boardurl->lists}';
+var boardwriteurl = '{boardurl->write}';
+var boardviewurl = '{boardurl->view}';
+var boardmodifyurl = '{boardurl->modify}';
+var boardreplyurl = '{boardurl->reply}';
+var boardrpermurl = '{boardurl->perm}';
+var gl_isuser = false;
+{ ? defined('__ISUSER__') }
+gl_isuser = '{=defined('__ISUSER__')}';
+{ / }
+var return_url = '{=urlencode(_SERVER.REQUEST_URI)}';
+
+var comment = '{comment}';
+var commentlay = '{commentlay}';
+var isperm_write = '{managerview.isperm_write}';
+//]]>
+</script>
+<script type="text/javascript" src="/app/javascript/js/board.js?v=7"  charset="utf-8"></script>
+{? commentskinjsuse && !viewlist }
+<script type="text/javascript" src="/app/javascript/js/board_mobile.js?v=1"  charset="utf-8"></script>
+<script type="text/javascript" src="/app/javascript/js/board_comment_mobile.js?v=2"  charset="utf-8"></script>
+{/}
+<script type="text/javascript" src="/app/javascript/jquery/jquery.form.js" ></script>
+<script type="text/javascript" src="/app/javascript/plugin/validate/jquery.validate.js"  charset="utf-8"></script>
+
+<div id="boardlayout" >
+	<div class="subpage_wrap">
+		<!-- +++++ cscenter LNB ++++ -->
+		{? !_GET.iframe }
+		<div  id="subpageLNB" class="subpage_lnb">
+			<!-- ------- 고객센터 LNB 인클루드. 파일위치 : [스킨폴더]/_modules/common/board_lnb.html ------- -->
+			{#board_lnb}
+			<!-- ------- //고객센터 LNB 인클루드 ------- -->
+		</div>
+		{/}
+
+		<!-- +++++ cscenter contents ++++ -->
+		<div class="subpage_container">
+		{? !_GET.iframe }
+			<!-- 전체 메뉴 -->
+			<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)"><span designElement="text">MENU</span></a>
+
+			<!-- 타이틀 ( 관리자에서 설정한 "게시판명"이 노출됩니다. ) -->
+			<div class="title_container">
+				<h2>{manager.name}</h2>
+			</div>
+		{/}
+
+			<div id="bbslist">
+				<!-- ------- 각각의 게시판 index.html( 게시물 리스트 ) 로드 ------- -->
+				{#skin}
+				<!-- ------- //각각의 게시판 index.html( 게시물 리스트 ) 로드 ------- -->
+			</div>
+
+		</div>
+		<!-- +++++ //cscenter contents ++++ -->
+	</div>
+	<script type="text/javascript" src="../common/cscenter_ui.js"></script><!-- 고객센터 ui 공통 -->
+
+</div>
+
+<div id="CmtBoardPwCkNew" class="hide BoardPwCk">
+	<div class="msg">
+		<!-- <h3> 비밀번호 확인</h3> -->
+		<div>댓글/답글 등록시에 입력했던 비밀번호를 입력해 주세요.</div>
+	</div>
+	<form name="BoardPwcheckFormNew" id="CmtBoardPwcheckFormNew" method="post" >
+	<input type="hidden" name="modetype" id="cmtmodetype_new" value="" />
+	<input type="hidden" name="seq" id="cmt_pwck_seq_new" value="" />
+	<input type="hidden" name="cmtseq" id="cmt_pwck_cmtseq_new" value="" />
+	<input type="hidden" name="cmtparentseq" id="cmt_pwck_cmtreplyseq_new" value="" />
+	<input type="hidden" name="cmtreplyidx" id="cmt_pwck_cmtreplyidx_new" value="" />
+	<div class="ibox">
+		<input type="password" name="pw" id="cmt_pwck_pw_new" class="input" />
+		<input type="button" id="CmtBoardPwcheckBtnNew" value=" 확인 " class="hand round_btn" />
+		<input type="button" value=" 취소 " class="hand round_btn" onclick="$('#CmtBoardPwCkNew').dialog('close');" />
+	</div>
+	</form>
+</div>
+{? _GET.iframe }
+<script type="text/javascript">
+$(document).ready(function(){
+	$(document).resize(function(){
+		$('#'+board_id+'_frame',parent.document).height($('#boardlayout').height());
+	}).resize();
+});
+function iframeset(){
+	$('#'+board_id+'_frame',parent.document).height($('#boardlayout').height());
+}
+</script>
+{/}
+
+
+<script type="text/javascript">
+function getAuthLogin(){
+	{? defined('__ISUSER__') === true }
+		//접근권한이 없습니다.\n관리자에게 문의하여 주시길 바랍니다.
+		openDialogAlert(getAlert('et361'),'450','140');
+	{:}
+		var request_uri = "{_SERVER.REQUEST_URI}";
+		if ( "{_GET.iframe}" && "{_GET.gdviewer}") request_uri = "/goods/view?no={_GET.goods_seq}";
+		//이용하시려면 로그인이 필요합니다!<br/>로그인하시겠습니까?
+		openDialogConfirm(getAlert('et362'),'400','155',function(){top.location.href="/member/login?return_url="+encodeURIComponent(request_uri);},function(){});
+	{/}
+}
+
+function getLogin(){
+	{? defined('__ISUSER__') === true }
+		//해당 서비스를 이용하시려면 관리자에게 문의하여 주시길 바랍니다.
+		openDialogAlert(getAlert('et363'),'450','140');
+	{:}
+		var request_uri = "{_SERVER.REQUEST_URI}";
+		if ( "{_GET.iframe}" && "{_GET.gdviewer}") request_uri = "/goods/view?no={_GET.goods_seq}";
+		//이용하시려면 로그인이 필요합니다!<br/>로그인하시겠습니까?
+		openDialogConfirm(getAlert('et362'),'400','155',function(){top.location.href="/member/login?return_url="+encodeURIComponent(request_uri);},function(){});
+	{/}
+}
+
+function getMbLogin(){
+	{? defined('__ISUSER__') === true }
+		//글작성자만 이용가능합니다.
+		openDialogAlert(getAlert('et364'),'400','140');
+	{:}
+		var request_uri = "{_SERVER.REQUEST_URI}";
+		if ( "{_GET.iframe}" && "{_GET.gdviewer}") request_uri = "/goods/view?no={_GET.goods_seq}";
+		//이용하시려면 로그인이 필요합니다!<br/>로그인하시겠습니까?
+		openDialogConfirm(getAlert('et362'),'400','155',function(){top.location.href="/member/login?return_url="+encodeURIComponent(request_uri);},function(){});
+	{/}
+}
+</script>
+<!-- ++++++++++++++++++++++++++++++++++ 게시판 List 레이아웃 템플릿 :: END ++++++++++++++++++++++++++++++++++ -->

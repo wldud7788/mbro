@@ -1,0 +1,218 @@
+<!--{ ? all_target }-->
+	<!--{ @ all_target // 1차 }-->
+<tr style="height:50px;">
+		<!--{ ? all_target_cnt[.category_code] > 0 // 1차 하위여부 검색 }-->
+	<td class="code_area" rowspan="{=all_target_cnt[.category_code]}">
+		<div class="fl wp60 codenm_{=.category_code}">{? !empty(name_arr) }{= name_arr[.category_code]}{:}{= .name}{/} <span class="desc_code">{=.category_code}</span></div>
+
+		<div class="fr right wp40">
+		<!--{? !empty(view_arr) }-->
+		<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=.category_code}');">{= view_arr[.category_code]}</button>
+		<!--{ / }-->
+		<!--{ ? grp_ctrl_arr[.category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=.category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+
+			<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[.category_code].grp_ctrl_type]}
+			<!--{ : }-->
+				<button type='button' class="resp_btn v3 {=btnViewClass}">{=btnViewTitle}</button>
+			<!--{ / }-->
+			</div>
+		<!--{ / }-->
+		</div>
+
+	</td>
+			<!--{ @ .childs // 2차 }--> 
+				<!--{ ? all_target_cnt[..category_code] > 0 // 2차 하위여부 검색 }-->
+	<td class="code_area" rowspan="{=all_target_cnt[..category_code]}">
+		<div class="fl wp60 codenm_{=..category_code}">{? !empty(name_arr) }<a href="javascript:viewCtrlBtn('{=..category_code}');">{= name_arr[..category_code]}</a>{:}{= ..name}{/} <span class="desc_code">{=..category_code}</span></div>
+			
+		<div class="fr right wp40">
+			<!--{? !empty(view_arr) }-->
+			<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=..category_code}');">{= view_arr[..category_code]}</button>
+			<!--{ / }-->
+			<!--{ ? grp_ctrl_arr[..category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=..category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+					<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[..category_code].grp_ctrl_type]}
+					<!--{ : }-->
+				<button type='button' class='resp_btn v3 {=btnViewClass}'>{=btnViewTitle}</button>
+					<!--{ / }-->
+			</div>
+			<!--{ / }-->
+		</div>
+	</td>
+					<!--{ @ ..childs // 3차 }-->
+						<!--{ ? all_target_cnt[...category_code] > 0 // 3차 하위여부 검색 }-->
+	<td class="code_area" rowspan="{=all_target_cnt[...category_code]}">
+		<div class="fl wp60 codenm_{=...category_code}">{? !empty(name_arr) }<a href="javascript:viewCtrlBtn('{=...category_code}');">{= name_arr[...category_code]}</a>{:}{= ...name}{/} <span class="desc_code">{=...category_code}</span></div>
+			
+		<div class="fr right wp40">
+			<!--{? !empty(view_arr) }-->
+			<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=...category_code}');">{= view_arr[...category_code]}</button>
+			<!--{ / }-->
+			<!--{ ? grp_ctrl_arr[...category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=...category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+					<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[...category_code].grp_ctrl_type]}
+					<!--{ : }-->
+				<button type='button' class='resp_btn v3 {=btnViewClass}'>{=btnViewTitle}</button>
+					<!--{ / }-->
+			</div>
+			<!--{ / }-->
+		</div>
+	</td>
+							<!--{ @ ...childs // 4차 }-->
+	<td class="code_area">
+		<div class="fl wp60 codenm_{=....category_code}">{? !empty(name_arr) }<a href="javascript:viewCtrlBtn('{=....category_code}');">{= name_arr[....category_code]}</a>{:}{= ....name}{/} <span class="desc_code">{=....category_code}</span></div>
+			
+		<div class="fr right wp40">
+		<!--{? !empty(view_arr) }-->
+		<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=....category_code}');">{= view_arr[....category_code]}</button>
+		<!--{ / }-->
+		<!--{ ? grp_ctrl_arr[....category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=....category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+					<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[....category_code].grp_ctrl_type]}
+					<!--{ : }-->
+				<button type='button' class='resp_btn v3 {=btnViewClass}'>{=btnViewTitle}</button>
+					<!--{ / }-->
+			</div>
+		<!--{ / }-->
+		</div>
+	</td>
+	<!--{ ? is_extra_col }-->
+		<!--{ ? is_array(extra_col_txt) && (..index_ + ...index_ + ....index_) == 0 }-->
+		<td class="center" {? all_target_cnt[.category_code] > 0 }rowspan="{=all_target_cnt[.category_code]}"{/} style="vertical-align:middle;">{=extra_col_txt[.category_code]}</td>
+		<!--{ : !is_array(extra_col_txt) && (.index_ + ..index_ + ...index_ + ....index_) == 0}-->
+		<td class="center" rowspan="{=all_rowspan}" style="vertical-align:middle;">{=extra_col_txt}</td>
+		<!--{ / }-->
+	<!--{ / }-->
+</tr>
+							<!--{ / }-->
+						<!--{ : // 3차 하위x }-->
+	<td class="code_area">
+		<div class="fl wp60 codenm_{=...category_code}">{? !empty(name_arr) }<a href="javascript:viewCtrlBtn('{=...category_code}');">{= name_arr[...category_code]}</a>{:}{= ...name}{/} <span class="desc_code">{=...category_code}</span></div>
+			
+		<div class="fr right wp40">
+		<!--{? !empty(view_arr) }-->
+		<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=...category_code}');">{= view_arr[...category_code]}</button>
+		<!--{ / }-->
+		<!--{ ? grp_ctrl_arr[...category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=...category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+					<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[...category_code].grp_ctrl_type]}
+					<!--{ : }-->
+				<button type='button' class='resp_btn v3 {=btnViewClass}'>{=btnViewTitle}</button>
+					<!--{ / }-->
+			</div>
+			<!--{ / }-->
+		</div>
+	</td>
+	<td>&nbsp;</td>
+	<!--{ ? is_extra_col }-->
+		<!--{ ? is_array(extra_col_txt) && (..index_ + ...index_) == 0 }-->
+		<td class="center" {? all_target_cnt[.category_code] > 0 }rowspan="{=all_target_cnt[.category_code]}"{/} style="vertical-align:middle;">{=extra_col_txt[.category_code]}</td>
+		<!--{ : !is_array(extra_col_txt) && (.index_ + ..index_ + ...index_) == 0}-->
+		<td class="center" rowspan="{=all_rowspan}" style="vertical-align:middle;">{=extra_col_txt}</td>
+		<!--{ / }-->
+	<!--{ / }-->
+</tr>
+						<!--{ / }-->
+					<!--{ / }-->
+				<!--{ : // 2차 하위x }-->
+	<td class="code_area">
+		<div class="fl wp60 codenm_{=..category_code}">{? !empty(name_arr) }<a href="javascript:viewCtrlBtn('{=..category_code}');">{= name_arr[..category_code]}</a>{:}{= ..name}{/} <span class="desc_code">{=..category_code}</span></div>
+			
+		<div class="fr right wp40">
+			<!--{? !empty(view_arr) }-->
+			<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=..category_code}');">{= view_arr[..category_code]}</button>
+			<!--{ / }-->
+			<!--{ ? grp_ctrl_arr[..category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=..category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+					<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[..category_code].grp_ctrl_type]}
+					<!--{ : }-->
+				<button type='button' class='resp_btn v3 {=btnViewClass}'>{=btnViewTitle}</button>
+					<!--{ / }-->
+			</div>
+			<!--{ / }-->
+		</div>
+	</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<!--{ ? is_extra_col }-->
+		<!--{ ? is_array(extra_col_txt) && (..index_) == 0  }-->
+		<td class="center" {? all_target_cnt[.category_code] > 0 }rowspan="{=all_target_cnt[.category_code]}"{/} style="vertical-align:middle;">{=extra_col_txt[.category_code]}</td>
+		<!--{ : !is_array(extra_col_txt) && (.index_ + ..index_) == 0}-->
+		<td class="center" rowspan="{=all_rowspan}" style="vertical-align:middle;">{=extra_col_txt}</td>
+		<!--{ / }-->
+	<!--{ / }-->
+</tr>
+				<!--{ / }-->
+			<!--{ / }-->
+		<!--{ : // 1차 하위x }-->
+	<td class="code_area">
+		<div class="fl wp60 codenm_{=.category_code}">{? !empty(name_arr) }<a href="javascript:viewCtrlBtn('{=.category_code}');">{= name_arr[.category_code]}</a>{:}{= .name}{/} <span class="desc_code">{=.category_code}</span></div>
+			
+		<div class="fr right wp40">
+			<!--{? !empty(view_arr) }-->
+			<button type='button' class="resp_btn v2" onclick="viewCtrlBtn('{=.category_code}');">{= view_arr[.category_code]}</button>
+			<!--{ / }-->
+		<!--{ ? grp_ctrl_arr[.category_code] }-->
+			<!--{ ? grp_ctrl_use }-->
+			<div class="highlight-link hand" onclick="getCtrlBtn('{=.category_code}')">
+			<!--{ : }-->
+			<div class="highlight-link">
+			<!--{ / }-->
+			<!--{? is_array(grp_ctrl_txt)}-->
+				{=grp_ctrl_txt[grp_ctrl_arr[.category_code].grp_ctrl_type]}
+			<!--{ : }-->
+				<button type='button' class='resp_btn v3 {=btnViewClass}'>{=btnViewTitle}</button>
+			<!--{ / }-->
+			</div>
+		<!--{ / }-->
+		</div>			
+	</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<!--{ ? is_extra_col }-->
+		<!--{ ? is_array(extra_col_txt)}-->
+		<td class="center" {? all_target_cnt[.category_code] > 0 }rowspan="{=all_target_cnt[.category_code]}"{/} style="vertical-align:middle;">{=extra_col_txt[.category_code]}</td>
+		<!--{ : !is_array(extra_col_txt) && .index_ == 0}-->
+		<td class="center" rowspan="{=all_rowspan}" style="vertical-align:middle;">{=extra_col_txt}</td>
+		<!--{ / }-->
+	<!--{ / }-->
+</tr>
+		<!--{ / }-->
+	<!--{ / }-->
+<!--{ : }-->
+<tr>
+	<td class="center" colspan="4">등록된 {=page_name}가 없습니다.</td>
+</tr>
+<!--{ / }-->

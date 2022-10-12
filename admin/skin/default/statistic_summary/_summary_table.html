@@ -1,0 +1,87 @@
+<div class="title_dvs">
+	<div class="item-title">통계 상세</div>
+	<button type="button" onclick="divExcelDownload('주요통계요약','#summary_table')" class="resp_btn v3"/> <img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>다운로드</span></button>
+</div>
+
+<div id="summary_table">
+	<table class="table_basic v7">
+		<colgroup>
+			<col width="20%"/>
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th></th>
+				<th>전월 평균</th>
+				<th>지난주(7일) 평균</th>
+				<th>어제</th>
+				<th>오늘</th>
+			</tr>
+		</thead>
+		<tbody>
+			{ @ tableData }
+			<tr>
+				<th class="left">{ .title }</th>
+				{ ? .index_ > 4 && statistic_summary_detail_limit == 'Y' }
+					{ ? .index_ == 5 }
+				<td class="center" rowspan="7" colspan="4">
+					<img src="../images/common/btn_upgrade.gif" style="cursor:pointer;" onclick="window.open('https://firstmall.kr/ec_hosting/addservice/frelocate.php?p=upgrade&s=P_FREE');" />
+				</td>
+					{ / }
+				{ : }
+				{ ? isset(.mStr) }
+				<td>
+					{ ? .best == 'mPer' }{ .mStr }{ : }{= str_replace('class="redFont"', '', .mStr) }{ / }
+				</td>
+				{ : }
+				<td class="right">
+					{ ? .best == 'mPer' }<font color="red">{ / }
+						{= number_format(.mPer) } ({= number_format(.mTotal, 1) })
+					{ ? .best == 'mPer' }</font>{ / }
+				</td>
+				{ / }
+				{ ? isset(.wStr) }
+				<td>
+					{ ? .best == 'wPer' }{ .wStr }{ : }{= str_replace('class="redFont"', '', .wStr) }{ / }
+				</td>
+				{ : }
+				<td class="right">
+					{ ? .best == 'wPer' }<font color="red">{ / }
+						{= number_format(.wPer) } ({= number_format(.wTotal, 1) })
+					{ ? .best == 'wPer' }</font>{ / }
+				</td>
+				{ / }
+				{ ? isset(.bStr) }
+				<td>
+					{ ? .best == 'bTotal' }{ .bStr }{ : }{= str_replace('class="redFont"', '', .bStr) }{ / }
+				</td>
+				{ : }
+				<td class="right">
+					{ ? .best == 'bTotal' }<font color="red">{ / }
+						{= number_format(.bTotal) }
+					{ ? .best == 'bTotal' }</font>{ / }
+				</td>
+				{ / }
+				{ ? isset(.nStr) }
+				<td>
+					{ ? .best == 'Total' }{ .nStr }{ : }{= str_replace('class="redFont"', '', .nStr) }{ / }
+				</td>
+				{ : }
+				<td class="right">
+					{ ? .best == 'Total' }<font color="red">{ / }
+						{= number_format(.Total) }
+					{ ? .best == 'Total' }</font>{ / }
+				</td>
+				{ / }
+				{ / }
+			</tr>
+			{ / }
+		</tbody>
+	</table>
+</div>
+<div class="resp_message">
+	- 빨간색으로 표기된 항목은 전월 평균/지난주(7일 평균)/어제/오늘 중 가장 높은 값입니다.
+</div>

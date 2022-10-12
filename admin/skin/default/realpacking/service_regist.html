@@ -1,0 +1,171 @@
+{ #layout_header }
+
+<script type="text/javascript" src="/app/javascript/js/scm.common.js?dummy={=date('Ymd')}"></script>
+<script>
+	$(document).ready(function(){
+		
+		//바코드 일괄 등록
+		$("#barcode_write").click(function(){
+			var originAction = $("#barcodeFrm").attr('action');
+			$("#barcodeFrm").attr('action', 'barcode_write');
+			$("#barcodeFrm").attr('method', 'post');
+			$("#barcodeFrm").attr('target', 'barcode_write');			
+			$("#barcodeFrm").submit();
+
+			$("#barcodeFrm").attr('action', originAction);
+		});
+
+		//전체 체크 버튼
+		$('#chkAll').click(function(){
+			if($('#chkAll:checked').length == 0){
+				$('.chk').attr('checked', false);
+			}else{
+				$('.chk').attr('checked', true);
+			}
+		});
+
+		//재고 수량 셀렉트 박스 변경
+		$('.sel-stock').change(function(){
+			$('#target_stock').val('');
+			if($(this).val() == 0){
+				$('#target_stock').attr('disabled', true);
+				$('.tmp_stock').each(function(){
+					$(this).next('.chk_stock').val($(this).val());
+				});
+			}else{
+				$('#target_stock').attr('disabled', false);
+			}
+		});
+
+		//재고 수량 숫자만 입력 받기
+		$('.chk_stock, #target_stock').keydown(function(event){
+			if(!( (event.keyCode >= 48 && event.keyCode<=57) || (event.keyCode >= 96 && event.keyCode<= 105) || event.keyCode == 8) ){
+				alert('숫자만 입력해 주세요.');
+				if(event.returnValue) event.returnValue = false;
+				else $(this).val(this.value.replace(/[^0-9]+/g, ''));
+				return false;
+			}
+		});
+
+		//재고 수량 일괄 적용
+		$('#btn_all_stock').click(function(){
+			if($('.sel-stock').val() != 0 ){
+				var tar_val = $('#target_stock').val() != '' ? $('#target_stock').val() : 0;
+				$('.chk_stock').val(tar_val);
+			}			
+		});
+		
+		//정렬 버튼 클릭
+		$('.btnSort').click(function(){
+			var sort = $("input[name='sort']").val();
+			if($(this).attr("orderby") != "{=orderby}") sort = "";
+
+			if(sort == "asc"){
+				sort = "desc";
+			}else if(sort == "desc" || sort == ""){
+				sort = "asc";
+			}
+			var orderby = sort+"_"+$(this).attr("orderby");
+
+			$("input[name='sort']").val(sort);
+			$("select[name='orderby'] option[value='"+orderby+"']").attr("selected",true);
+			$("input[name='keyword']").focus();
+			$(".chk").attr('checked', false);
+			$("#barcodeFrm").attr('method', 'get');
+			$("#barcodeFrm").submit();
+		});
+
+		//엑셀 다운로드 버튼 클릭
+		$('button[name="excel_down"]').click(function(){
+			var mode = $(this).attr('value');
+
+			if(mode == 'select' && $('.chk:checked').length == 0){
+				openDialogAlert('다운로드 할 바코드정보를 선택해 주세요.');
+				return false;
+			}
+
+			$("#barcodeFrm input[name='mode']").val(mode);
+			var queryString = $("#barcodeFrm").serializeArray();
+			ajaxexceldown('/admin/barcode_process/exceldownload', queryString);
+			$("#barcodeFrm input[name='mode']").val('');
+		});
+
+		//엑셀 다운로드 액션폼 생성 함수
+		function ajaxexceldown(url, queryString){
+			var inputs = "";
+			 jQuery.each(queryString, function(i, field){
+				 inputs +='<input type="hidden" name="'+field.name+'" value="'+ field.value +'" />';
+			 });
+			jQuery('<form action="'+ url +'" method="post" target="actionFrame" >'+inputs+'</form>')
+			.appendTo('body').submit().remove();
+		}
+
+		//바코드 타입 변경 팝업
+		$('button[name="codetype_btn"]').click(function(){
+			openDialog("바코드 형식 변경", "barcode_type_popup", {"width":"790","height":"350","show" : "fade","hide" : "fade"});
+		});
+
+		//바코드 타입 변경 저장 버튼
+		$('button[name="barcode_btn"]').click(function(){
+			
+		});
+		
+		//바코드 출력 팝업
+		$('button[name="excel_upload"]').click(function(){
+			var mode = $(this).attr('mode');
+
+			if(mode == 'select' && $('.chk:checked').length == 0){
+				openDialogAlert('출력할 상품을 선택하세요.');
+				return false;
+			}
+			
+			window.open("", "barcode", "width=960, height=640");
+			var tempFrm = $('#barcodeFrm').clone();
+
+			$(tempFrm).attr('target', 'barcode');
+			$(tempFrm).attr('method', 'post');
+			$(tempFrm).attr('action', 'barcode_print');			
+			$(tempFrm).find('input[name="mode"]').val(mode);
+			$(tempFrm).find('input[name="total_ea"]').remove();
+			$(tempFrm).find('input[name="orderby"]').remove();
+			$(tempFrm).find('input[name="stock"]').remove();
+			$(tempFrm).find('input[name="sort"]').remove();			
+			$('body').append(tempFrm);
+			$(tempFrm).submit();
+			$(tempFrm).remove();
+		});		
+	});
+
+	function searchformchange(){
+		$(".chk").attr('checked', false);
+		$("#barcodeFrm").attr('method', 'get');
+		$('#barcodeFrm').submit();
+	}
+</script>
+<style>
+	html, body { width: 100%; height: 100%;  }
+	iframe html{overflow:hidden;}
+	.contentsWarp {background: #FFF !important;}
+	div.sub-choose-lay div.choose-form-lay {top:27px;right:0;width:200px;}
+	div.sub-choose-lay div.choose-down-lay {top:27px;right:20px;width:150px;}
+	table.list-table-style tbody.ltb td {border: 1px solid #eaeaea; padding: 3px; }
+	table.list-table-style tbody.ltb td input { width: 90% }
+	
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>리얼패킹 - 포장촬영</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div style="width:830px; height:1500px; margin:0px auto;">
+	<iframe src="https://www.realpacking.com/gabia/step1_join.php?uid={shopNo}" style="width:100%; height:100%; border:0px;"></iframe>
+</div>
+
+{ #layout_footer }

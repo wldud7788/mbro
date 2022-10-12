@@ -1,0 +1,116 @@
+{ #common_html_header }
+
+<style>
+.pages {text-align:center;}
+.pages .page { display:inline-block;border:1px solid #ddd; padding:2px; width:14px;height:14px; }
+.pages a.page:link,.pages a.page:active,.pages a.page:visited {color:#666; text-decoration:none;}
+.pages a.page:hover { background-color:#eee;color:#f63; text-decoration:none;}
+.pages .page.sel { background-color:#eee; }
+.pages a.page.first,.pages .page.prev,.pages .page.next { width:30px; }
+.pages a.page.last { width:42px; }
+</style>
+
+<div id="sourceList" style="min-height:245px;">
+	<!-- 주문리스트 테이블 : 시작 -->
+	<table class="list-table-style" cellspacing="0" border=0>
+
+	<colgroup>
+		<col width="70" />
+		<col />
+		<col width="90" />
+		<col width="90" />
+		<col width="90" />
+		<col width="70" />
+		<col width="60" />
+		<col width="60" />
+	</colgroup>
+
+	<!-- 리스트 : 시작 -->
+	<tbody class="ltb">
+	{? record }
+	<!-- { @ record } -->
+		<tr class="list-row" style="height:30px;">
+			<td align="center"><a href="/goods/view?no={.goods_seq}" target="_blank"><img class="small_goods_image" src="{=viewImg(.goods_seq,'thumbView')}" width="30"></a></td>
+
+			<td align="left" style="padding-left:5px;">
+
+				<a href="../goods/regist?no={.goods_seq}" target="_blank">{=getstrcut(strip_tags(.goods_name),80)}</a>
+
+				<div>
+					<!--{ ? .adult_goods == 'Y' }-->
+					<img src="../images/common/auth_img.png" alt="성인" style="vertical-align: middle;"/>
+					<!--{ / }-->
+					<!--{ ? .option_international_shipping_status == 'y' }-->
+					<img src="../images/common/icon/plane_on.png" alt="해외배송상품" style="vertical-align: middle;" height="19" />
+					<!--{ / }-->
+					<!--{ ? .cancel_type == '1' }-->
+					<img src="../images/common/icon/nocancellation.gif" alt="청약철회" style="vertical-align: middle;"/>
+					<!--{ / }-->
+					<!--{ ? .tax == 'exempt' }-->
+					<img src="../images/common/icon/taxfree.gif" alt="비과세" style="vertical-align: middle;"/>
+					<!--{ / }-->
+					<!--{? .provider_name }-->
+					[{=.provider_name}]
+					<!--{ / }-->
+					<!--{? .goods_code }-->
+					<a href="../goods/regist?no={.goods_seq}" target="_blank" class="fx11">[상품코드: {.goods_code}]</a>
+					<!--{ / }-->
+				</div>
+			</td>
+			<td align="right"><span class="fx11">{=number_format(.consumer_price)}&nbsp;&nbsp;</span></td>
+			<td align="right"><span class="fx11">{=number_format(.price)}&nbsp;&nbsp;</span></td>
+			<td align="right">
+				<span class="fx11">
+				<!--{?.tot_stock<0}--><span style='color:red'>{=number_format(.tot_stock)}</span>
+				<!--{:}-->{=number_format(.tot_stock)}<!--{/}-->
+				<!--{?.rstock<0}-->/<span style='color:red'>{=number_format(.rstock)}</span>
+				<!--{:}-->/{=number_format(.rstock)}<!--{/}-->
+				</span>
+				&nbsp;
+			</td>
+			<td align="center"><span class="fx12">{.goods_status_text}</span></td>
+			<td align="center"><span class="fx12">{.goods_view_text}</span></td>
+			<td align="center"><span class="btn small cyanblue">
+				<button type="button" onclick="parent.get_option_select('{=_GET.cart_table}','{.goods_seq}','','');">선택</button></span>
+			</td>
+
+		</tr>
+	<!-- { / } -->
+	{ : }
+	<tr>
+		<td colspan="8" class="center" style="height:40px;border-bottom:1px solid #ddd;">
+			검색결과가 없습니다.
+		</td>
+	</tr>
+	{ / }
+	</table>
+
+	<div style="height:10px"></div>
+	<div class="pages">
+		<!--{ ? page.first }-->
+		<a href="select_list_new?page={page.first}&amp;{page.querystring}" class="page first">처음</a>
+		<!--{ / }-->
+		<!--{ ? page.prev }-->
+		<a href="select_list_new?page={page.prev}&amp;{page.querystring}" class="page prev">이전</a>
+		<!--{ / }-->
+		<!--{ @ page.page }-->
+		<!--{ ? page.nowpage ==  .value_ }-->
+		<strong class="page sel">{.value_ }</strong>
+		<!--{ : }-->
+		<a href="select_list_new?page={.value_}&amp;{page.querystring}" class="page page">{.value_ }</a>
+		<!--{ / }-->
+		<!--{ / }-->
+		<!--{ ? page.next }-->
+		<a href="select_list_new?page={page.next}&amp;{page.querystring}" class="page next">다음</a>
+		<!--{ / }-->
+		<!--{ ? page.last }-->
+		<a href="select_list_new?page={page.last}&amp;{page.querystring}" class="page last">마지막</a>
+		<!--{ / }-->
+	</div>
+
+</div>
+
+<iframe name="hiddenFrame" width="100%" height="330" class="hide"></iframe>
+
+
+{ #common_html_footer }

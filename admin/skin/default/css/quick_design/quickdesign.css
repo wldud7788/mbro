@@ -1,0 +1,77 @@
+
+/* 반응형 퀵디자인 설정창 스타일 2019-05-29 */
+
+.quick_wrap { padding-bottom:100px; max-width:1000px; margin:0 auto; }
+.quick_wrap:after {content:""; display:block; clear:both; }
+#layout_body, .resp_wrap { margin:0; padding:0;}
+.title_quick { background:#666; height:40px; font-size:19px; line-height:41px; font-weight:100; color:#fff; padding:0 10px; margin:40px 0 10px; }
+.title_quick2 { margin:40px 0 15px; position:relative; text-align:center; }
+.title_quick2:after { display:block; content:''; position:absolute; left:0; top:calc(50% - 1px); height:1px; width:100%; background:#d2d2d2; }
+.title_quick2>b { display:inline-block; position:relative; z-index:2; height:29px; line-height:29px; font-size:14px; font-weight:400; color:#767676; padding:0 14px; border-radius:15px; background:#f9f9f9; border:1px #d2d2d2 solid; }
+#quickThemeSetting .title_quick { display:none; }
+#quickDesignTab li a { height:48px; line-height:49px; font-size:17px; color:#555; }
+#quickDesignTab li.on a { color:#000; font-weight:500; }
+.layout_header .nav_wrap .respCategoryList a.categoryDepthLink { padding-left:2px; padding-right:2px; }
+.quick_theme_select { position:relative; overflow:hiddne; font-size:0; text-align:center; padding-bottom:20px; }
+.quick_theme_select input[type='radio'], .quick_theme_select input[type='checkbox'] { width:0; height:0; visibility:hidden; position:absolute; left:0; top:-999px;; }
+.quick_theme_select .theme_color,
+.quick_theme_select .custom_theme { display:inline-block; vertical-align:top; width:70px; font-size:14px; }
+.quick_theme_select .custom_theme a:hover { text-decoration:underline; }
+.quick_theme_select .theme_color b { display:block; position:relative; width:46px; height:46px; box-sizing:border-box; margin:0 auto 8px; border-radius:50%; background:#666; }
+.quick_theme_select .theme_color.on b:after { display:block; content:''; width:28px; height:20px; position:absolute; left:50%; top:50%; margin:-9px 0 0 -13px; background:url('../images/quick_design/icon_checked.png') no-repeat; }
+.quick_theme_select .theme_basic b { background:#333; }
+.quick_theme_select .theme_red { color:#df2929; }
+.quick_theme_select .theme_red b { background:#df2929; }
+.quick_theme_select .theme_pink { color:#ff7e8f; }
+.quick_theme_select .theme_pink b { background:#ff7e8f; }
+.quick_theme_select .theme_orange { color:#f7782c; }
+.quick_theme_select .theme_orange b { background:#f7782c; }
+.quick_theme_select .theme_yellow { color:#F79F1F; }
+.quick_theme_select .theme_yellow b { background:#F79F1F; }
+.quick_theme_select .theme_brown { color:#906240; }
+.quick_theme_select .theme_brown b { background:#906240; }
+.quick_theme_select .theme_yellowgreen { color:#99b242; }
+.quick_theme_select .theme_yellowgreen b { background:#99b242; }
+.quick_theme_select .theme_green { color:#218c74; }
+.quick_theme_select .theme_green b { background:#218c74; }
+.quick_theme_select .theme_bluegrey { color:#778ca3; }
+.quick_theme_select .theme_bluegrey b { background:#778ca3; }
+.quick_theme_select .theme_blue { color:#0097e6; }
+.quick_theme_select .theme_blue b { background:#0097e6; }
+.quick_theme_select .theme_navy { color:#273c75; }
+.quick_theme_select .theme_navy b { background:#273c75; }
+.quick_theme_select .theme_violet { color:#8854d0; }
+.quick_theme_select .theme_violet b { background:#8854d0; }
+.quick_theme_select .theme_custom { color:#333; }
+.quick_theme_select .theme_custom b { border:1px #999 solid; background:url('../images/quick_design/bg_transparent.png'); }
+.quick_theme_select .theme_custom b.off { background: none; }
+.quick_setting_container { display:table; width:100%; max-width:1260px; table-layout:fixed; text-align:right; }
+.quick_setting_container>li { display:table-cell; vertical-align:middle; padding:15px 0; }
+.quick_setting_container>li:first-child { width:60%; padding-right:30px; text-align:left; }
+.quick_setting_container:last-child>li { padding-bottom:0; }
+.quick_setting_table { width:100%; table-layout:fixed; border:1px #ddd solid; text-align:left; }
+.quick_setting_table th { border:1px #ddd solid; background:#f8f8f8; font-size:14px; font-weight:400; color:#333; text-align:left; }
+.quick_setting_table th>p { padding:10px; }
+.quick_setting_table td { width:40px; border:1px #ddd solid; font-size:14px; font-weight:400; color:#333; }
+.quick_setting_table th + th { width:100px; }
+.quick_setting_table th + th + th { width:80px; }
+.colorPickerBtn { display:inline-block; width:40px; height:40px; box-sizing:border-box; vertical-align:top; border:1px #444 dashed; cursor:pointer; }
+.quick_setting_table td .colorPickerBtn { width:100%; height:40px; background:url('../images/quick_design/bg_transparent.png'); }
+.spec_solo_event .remain_time .title { display:inline-block; width:24px; height:24px; vertical-align:middle; background:#333 url('../images/quick_design/icon_clock.png') 50% 50% no-repeat; background-size:cover; }
+.theme_c { display:inline-block; vertical-align:bottom; width:26px; height:26px; margin-left:2px; margin-right:2px; position:relative; top:-7px; background:url('../images/quick_design/bg_transparent.png'); border-radius:50%; }
+.quick_bottom_area { position:fixed; left:0; bottom:0; right:0; z-index:10; box-sizing:border-box; padding:10px; border-top:1px #444 solid; background:#fff; text-align:center; }
+.text_quick_sample { text-align:center; margin:0 0 16px; font-size:17px; color:#333; background:url('../images/quick_design/bg_title1.png') 0 50% repeat-x; animation:ani_title1 40s linear infinite; }
+.text_quick_sample>b { display:inline-block; padding:2px 10px 0; background:#fff; font-weight:300; }
+.q_color_g2 { display:inline-block; padding:0 8px; position:absolute; right:-2px; bottom:0; height:26px; line-height:26px; background:#2f75bb; border-radius:4px; text-align:center; font-size:12px; color:#fff; font-weight:100; animation:q_color_g2 1.2s linear infinite; }
+.q_color_g2:after { display:block; content:''; width:8px; height:8px; position:absolute; right:10px; bottom:-5px; background:url('../images/quick_design/icon_tail.png') right bottom no-repeat; }
+@keyframes q_color_g2 {
+	0% { transform:translateY(0); }
+	50% { transform:translateY(-5px); }
+	100% { transform:translateY(0); }
+}
+
+/* 190705 sjg 추가 - 테마 적용 미리보기 정렬 맞춤 */
+.theme_preview_layout { display:table; width:100%; table-layout:Fixed; }
+.theme_preview_layout>li { display:table-cell; vertical-align:top; }
+.theme_preview_layout .left_aaa { width:420px; }
+.theme_preview_layout .right_aaa { padding-left:30px; }

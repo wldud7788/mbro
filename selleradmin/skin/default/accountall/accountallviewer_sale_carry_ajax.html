@@ -1,0 +1,27 @@
+
+					{? carryoverloop }
+						{@ carryoverloop }
+						<tr>
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}">이월{=.out_num}<!-- /{.seq} --><!--순번--></td>
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}"><!-- 정산(전월:'carryover', 당월:'complete'), 매출(차월:'overdraw', 당월:'complete') -->{=.out_deposit_date}</td>
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}">{?.out_confirm_date}{=.out_confirm_date} ({.out_step}){/}</td>
+							{? .out_step == "환불완료"}
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}" style="mso-number-format:'@';" width="{? _GET.order_referer == 'npay' }134{:}134{/}"><a href="../refund/view?no={.refund_code}" target="_blank"><span class="order-step-color-{.status}">{.refund_code}</a></td>
+							{:}
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}" style="mso-number-format:'@';" width="{? _GET.order_referer == 'npay' }134{:}134{/}"><a href="../order/view?no={.order_seq}" target="_blank"><span class="order-step-color-{.status}">{.order_seq}</a></td>
+							{/}
+						{? !_GET.account_hidden_name }
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} ellipsis"  width="{? _GET.order_referer == 'shop' || _GET.order_referer == 'npay'}80{:}78{/}" title="{=.order_user_name}">{=getstrcut(.order_user_name,4)}</td>
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} left ellipsis" width="{? _GET.order_referer == 'shop' }100{:}97{/}" title="{=.out_provider_name}">{=getstrcut(.out_provider_name,8)}{? .out_provider_name}({.provider_seq}){/}</td>
+							<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} left" width="{? _GET.order_referer == 'all' ||  _GET.order_referer == 'pg'  || _GET.order_referer == 'npay'}134{: _GET.order_referer == 'shop'  }135{:}138{/}" >
+								<span alt="{.order_goods_name} {? .order_goods_name}<!--{?.title1}-->{.title1}:<!--{ / }-->{.option1}<!--{? .option2!=null }{?.title2}-->{.title2}:<!--{ / }-->{.option2}<!--{ / }--><!--{? .option3!=null }{?.title3}-->{.title3}:<!--{ / }-->{.option3}<!--{ / }--><!--{? .option4!=null }{?.title4}-->{.title4}:<!--{ / }-->{.option4}<!--{ / }--><!--{? .option5!=null }{?.title5}-->{.title5}:<!--{ / }-->{.option5}<!--{ / }-->{/}" title="{.order_goods_name} {? .order_goods_name}<!--{?.title1}-->{.title1}:<!--{ / }-->{.option1}<!--{? .option2!=null }{?.title2}-->{.title2}:<!--{ / }-->{.option2}<!--{ / }--><!--{? .option3!=null }{?.title3}-->{.title3}:<!--{ / }-->{.option3}<!--{ / }--><!--{? .option4!=null }{?.title4}-->{.title4}:<!--{ / }-->{.option4}<!--{ / }--><!--{? .option5!=null }{?.title5}-->{.title5}:<!--{ / }-->{.option5}<!--{ / }-->{/}">{? .out_order_goods_name}{=getstrcut(.out_order_goods_name,10)}{:}{.out_order_type}{/}</span>
+							</td>
+						{ / }
+						</tr>
+						{ / }
+					{ / }
+					
+					<script>
+						$("#carry_page").val('{=carry_page+1}');
+						$("#carry_last_num").val('{=carryover_out_num}');
+					</script>

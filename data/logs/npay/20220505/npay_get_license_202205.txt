@@ -1,0 +1,180 @@
+[2022-05-05 09:41:32.987904000]
+MODE : Request
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:41:33.33379000]
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:41:33.83893000]
+MODE : Request
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:41:33.123239000]
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:41:33.613333000]
+MODE : Request
+REMOTE_IP : 125.209.251.196
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:41:33.656045000]
+REMOTE_IP : 125.209.251.196
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:42:24.171528000]
+MODE : Request
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:42:24.210623000]
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:42:24.216429000]
+MODE : Request
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:42:24.254796000]
+REMOTE_IP : 122.46.233.77
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:42:24.655228000]
+MODE : Request
+REMOTE_IP : 125.209.251.215
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:42:24.697690000]
+REMOTE_IP : 125.209.251.215
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:42:47.721124000]
+MODE : Request
+REMOTE_IP : 125.209.251.215
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:42:47.761017000]
+REMOTE_IP : 125.209.251.215
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:42:47.880314000]
+MODE : Request
+REMOTE_IP : 125.209.251.215
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:42:47.918652000]
+REMOTE_IP : 125.209.251.215
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-05 09:50:52.15084000]
+MODE : Request
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-05 09:50:52.57913000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

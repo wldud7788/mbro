@@ -1,0 +1,116 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "출석체크" 스탬프(도장찍기) - Basic형 @@
+- 파일위치 : [스킨폴더]/joincheck/stamp_basic.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="search_nav">
+	<a class="home" href="/main/index">홈</a>
+	<a class="navi_linemap" href="/promotion/event" designElement="text">이벤트</a>
+	<span class="navi_linemap searched_text">{joincheck.title}</span>
+</div>
+
+<div class="resp_event_dlist">
+	<ul>
+		<li>
+			<span class="title" designElement="text">진행기간</span>
+			<span class="detail"><span class="point">{joincheck.start_date} ~ {joincheck.end_date}</span></span>
+		</li>
+		<li>
+			<span class="title" designElement="text">이벤트 조건</span>
+			<span class="detail">이벤트 기간 중 <span class="point">총 {joincheck.check_clear_count}회 {joincheck.mclear_type} 출석</span> 하는 경우</span>
+		</li>
+		<li>
+			<span class="title" designElement="text">이벤트 혜택</span> 
+			<span class="detail">마일리지 <span class="point">{=get_currency_price(joincheck.emoney,2)}</span> {?joincheck.point > 0} / 포인트 <span class="point">{=number_format(joincheck.point)}P</span>{/} 지급</span>
+		</li>
+		<li>
+			<span class="title" designElement="text">참여 방법</span>
+			<span class="detail">{mdata.type_ment} 1일 1회 자동 참여</span>
+		</li>
+	</ul>
+</div>
+
+<!--{? minfo.member_seq}-->
+<div class="resp_event_status1">
+	{minfo.user_name}님께서는 현재 총 <span class="pointcolor">{mdata.acount}일</span> 출석하였습니다.
+	{?mdata.chage==0}(목표를 달성하셨습니다.){:}({?joincheck.check_clear_type=='straight'}<span class="pointcolor">{mdata.chage}번</span> 더 연속으로{:}해당 기간 내에 <span class="pointcolor">{mdata.chage}번</span> 더{/} 출석을 하셔야 합니다.){/}</span>
+</div>
+<!--{/}-->
+
+<div class="resp_joincheck">
+	<div class="joincheck_month">
+		<span class="prev">{joincheck.prev_day}</span>
+		{joincheck.tdate}
+		<span class="next">{joincheck.next_day}</span>
+	</div>
+
+	<table width="100%" cellspacing="0" cellspacing="0" class="stamp-list-table">
+		<thead>
+			<tr>
+				<th class="stl-sun">SUN</th>
+				<th class="stl-week">MON</th>
+				<th class="stl-week">TUE</th>
+				<th class="stl-week">WED</th>
+				<th class="stl-week">THU</th>
+				<th class="stl-week">FRI</th>
+				<th class="stl-sat">SAT</th>
+			</tr>
+		</thead>
+		<tbody>
+			{cl}
+		</tbody>
+	</table>
+
+	<!--{? joincheck.check_type == 'stamp'}-->
+	<form name="jcwrite" id="jcwrite" method="post" enctype="multipart/form-data" onsubmit="return sub_wrt_btn()"  >
+		<input type='hidden' name='mode' value='comment_wrt'>
+		<input type="hidden" name="joincheck_seq" value="{joincheck.joincheck_seq}" />
+		<input type="hidden" name="member_seq" value="{minfo.member_seq}" />
+		<div class="btn_area_c">
+			<button type="submit" class="btn_resp size_c color2">출석체크</button>
+		</div>
+	</form>
+	<!--{/}-->
+	<!--{? !minfo.member_seq }-->
+	<div class="Mt40 C">
+		로그인을 하시면 출석체크 이벤트에 참여할 수 있습니다.
+	</div>
+	<div class="btn_area_a">
+		<button type="button" class="btn_resp size_b color4" onclick="lgn_btn()">로그인</button>
+		<button type="button" class="btn_resp size_b" onclick="join_btn()">회원가입</button>
+	</div>
+	<!--{/}-->
+</div>
+
+
+<iframe name="actionFrame" src="/data/index.php" frameborder="0" width="100%" height="0"></iframe>
+
+
+
+<script type="text/javascript">
+function sub_wrt_btn(){
+	var setform = document.jcwrite;
+	var minfo_seq = setform.member_seq.value;
+
+	if(!minfo_seq){
+		//로그인 후 참여 가능합니다.
+		alert(getAlert('mb233'));
+		location.href="/member/login";
+		return false;
+	}else{
+		setform.action="../joincheck_process";
+		setform.target="actionFrame";
+	}
+
+}
+
+function lgn_btn(){
+		location.href="/member/login";
+		return;
+}
+
+function join_btn(){
+	location.href="/member/agreement";
+	return;
+}
+</script>

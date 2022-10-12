@@ -1,0 +1,8 @@
+					<table width="100%" class="info-table-style">
+					<tr>
+					{@ sms_loop}
+						{?.index_%5==0}</tr><tr>{ / }
+						<td class="its-td-align tdCategoryList" style="border-top:1px solid #dddddd;border-right:1px solid #dddddd;text-align:center;width:20%; {? .index_==0 }font-weight:bold;{/}" category_name="{.category}">{? .index_==0 }<a href="javascript:loadSmsForm('');">{ : }<a href="javascript:loadSmsForm('{.category}');">{ / }{.category}</a></td>
+					{ / }
+					</tr>
+					</table>

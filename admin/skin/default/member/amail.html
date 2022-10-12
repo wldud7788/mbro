@@ -1,0 +1,85 @@
+{ #layout_header }
+
+<form name="memberForm" id="memberForm" method="post" target="actionFrame" action="../member_process/amail">
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>이메일 대량 발송</h2>
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+		<!--
+			<li><span class="btn large icon"><button><span class="arrowleft"></span>이동버튼</button></span></li>
+			<li><span class="btn large icon"><button><span class="arrowleft"></span>이동버튼</button></span></li>
+		-->
+		</ul>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+		<!--
+			<li><span class="btn large black"><button type="submit">저장하기<span class="arrowright"></span></button></span></li>
+		-->
+			<li><div class="footer_btn_wrap"><button  {? isdemo.isdemo }  type="button" {isdemo.isdemojs1} {:} type="submit" {/} class="resp_btn active size_L">저장</button></div></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 상단 단계 링크 : 시작 -->
+<ul class="tab_02 tabEvent">
+	<li><a href='amail'>대량 발송 설정</a></li>
+	<li><a href='amail_send'>이메일 대량 발송</a></li>
+</ul>
+<!-- 상단 단계 링크 : 끝 -->
+
+<div class="contents_dvs v2">
+	<!-- 서브 레이아웃 영역 : 시작 -->
+	<div class="item-title" style="width:92%">이메일 대량발송 설정</div>
+
+	<table class="table_basic thl">
+		<tr>
+			<th>이름</th>
+			<td>
+				<input type="text" name="name" value="{name}" size="30"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/} >
+			</td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td>
+				<input type="text" name="email" value="{email}" size="30" {? isdemo.isdemo } {isdemo.isdemodisabled} {/} >
+			</td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td>
+				<input type="text" size="4" maxlength="4" name="phoneArr[0]" title=" " value="{phoneArr[0]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+				 -
+				<input type="text" size="4" maxlength="4" name="phoneArr[1]" title=" " value="{phoneArr[1]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+				 -
+				<input type="text" size="4" maxlength="4" name="phoneArr[2]" title=" " value="{phoneArr[2]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+			</td>
+		</tr>
+		<tr>
+			<th>휴대폰</th>
+			<td>
+				<input type="text" size="4" maxlength="4" name="mobileArr[0]" title=" " value="{mobileArr[0]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+				 -
+				<input type="text" size="4" maxlength="4" name="mobileArr[1]" title=" " value="{mobileArr[1]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+				 -
+				<input type="text" size="4" maxlength="4" name="mobileArr[2]" title=" " value="{mobileArr[2]}"  {? isdemo.isdemo } {isdemo.isdemodisabled} {/}/>
+			</td>
+		</tr>
+	</table>
+</div>
+
+</form>
+
+
+
+
+{ #layout_footer }

@@ -1,0 +1,51 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 개인결제 @@
+- 파일위치 : [스킨폴더]/mypage/personal.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">개인결제</span></h2>
+		</div>
+
+
+		<!--{ ? page.totalcount==0 }-->
+		<div class="no_data_area2">
+			개인결제 내역이 없습니다.
+		</div>
+		<!--{ : }-->
+
+		{goodsDisplayHTML}
+
+		<div class="paging_navigation">
+			<!--{ ? page.first }--><a href="?page={page.first}&amp;{page.querystring}" class="first">◀ 처음</a><!--{ / }-->
+			<!--{ ? page.prev }--><a href="?page={page.prev}&amp;{page.querystring}" class="prev">◀ 이전</a><!--{ / }-->
+			<!--{ @ page.page }-->
+				<!--{ ? page.nowpage ==  .value_ }-->
+					<a href="?page={.value_}&amp;{page.querystring}" class="on">{.value_ }</a>
+				<!--{ : }-->
+					<a href="?page={.value_}&amp;{page.querystring}">{.value_ }</a>
+				<!--{ / }-->
+			<!--{ / }-->
+			<!--{ ? page.next }--><a href="?page={page.next}&amp;{page.querystring}" class="next">다음 ▶</a><!--{ / }-->
+			<!--{ ? page.last }--><a href="?page={page.last}&amp;{page.querystring}" class="last">마지막 ▶</a><!--{ / }-->
+		</div>
+		<!--{ / }-->
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->

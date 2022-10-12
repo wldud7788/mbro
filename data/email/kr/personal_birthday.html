@@ -1,0 +1,66 @@
+<table width="696" border="0" cellspacing="0" cellpadding="0">
+	<tbody><tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><img src="/data/mail/logo.gif"></td>
+	</tr>
+	<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr><td height="2" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;" bgcolor="#000000"></td></tr>
+	<tr><td height="60" style="height: 60px; color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<!-- 내용시작 -->
+	<tr>
+		<td align="center"><span style="color: rgb(231, 75, 88); line-height: 40px; font-family: 돋움,Dotum; font-size: 37px; font-weight: bold;">Happy Birthday to</span> <span style="color: rgb(59, 59, 59); line-height: 40px; font-family: 돋움,Dotum; font-size: 37px; font-weight: bold;">{username}<br>
+		<span style="color: rgb(59, 59, 59); line-height: 40px; font-family: 돋움,Dotum; font-size: 37px;">생일을 진심으로 축하드립니다.</span>
+		</span></td>
+	</tr> 
+	<tr><td align="center" class="texts" style="color: rgb(97, 106, 116); line-height: 22px; padding-left: 10px; font-family: 돋움, Dotum; font-size: 12px;">
+	<div style="height: 42px;"></div>
+	{username}님, 안녕하세요. {config_basic.shopName}쇼핑몰 입니다.
+	<br>{username}님의 {birthday} {birthdaytimes}번째 생일을 진심으로 축하 드립니다.
+	<div style="height: 40px;"></div>
+	</td></tr>
+	<!--쿠폰시작-->
+	<!--{ ? loop }-->
+	<tr>
+		<td align="center" style="color: rgb(77, 77, 77); line-height: 20px; font-family: 돋움,Dotum; font-size: 12px; border-top-color: rgb(105, 105, 105); border-bottom-color: rgb(105, 105, 105); border-top-width: 2px; border-bottom-width: 2px; border-top-style: solid; border-bottom-style: solid;">
+		<!--{ @ loop }-->
+		<br>
+		<table width="530" height="163" style="border: 1px solid rgb(216, 216, 216);" cellspacing="0" cellpadding="0">
+		<tbody>
+		<tr>
+			<td width="50%" height="163" align="center" bgcolor="#f2f2f2">
+				<div style="background: url(&quot;{basic.domain}/data/coupon/{.coupon_back_img}&quot;) no-repeat; width: 254px; height: 118px; text-align: center; line-height: 118px; position: relative;">
+					<div style="top: 55px; width: 100%; text-align: center; position: absolute;">{.view_coupon_html}</div>
+				</div>
+			</td>
+			<td width="50%" style="line-height: 18px; padding-left: 10px; font-size: 11px;">
+				<div style="width: 52px; height: 16px; text-align: center; color: rgb(255, 255, 255); font-size: 11px; float: left; background-color: rgb(231, 75, 88);">다운기간</div>&nbsp;생일 <b>{.before_birthday}일전~{.after_birthday}일 이후</b>까지<br>
+				<div style="width: 52px; height: 16px; text-align: center; color: rgb(255, 255, 255); font-size: 11px; float: left; background-color: rgb(231, 75, 88);">유효기간</div>&nbsp;발급일로부터 <b>{.after_issue_day}일</b> 동안 사용가능<br>
+				<div style="width: 52px; height: 16px; text-align: center; color: rgb(255, 255, 255); font-size: 11px; float: left; background-color: rgb(231, 75, 88);">제한금액</div>&nbsp;{.limit_price}
+			</td>
+		</tr>
+		</tbody></table>
+		<!--{ / }-->
+		<br>
+		</td>
+	</tr>
+	<tr><td height="40" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td align="center" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"><a style="padding: 12px 18px; border-radius: 5px; text-align: center; color: rgb(255, 255, 255); font-family: 돋움,Dotum; font-size: 14px; font-weight: bold; text-decoration: none; background-color: rgb(0, 0, 0);" href="{mypage_short_url}" target="_blank"><strong>나의 쿠폰 보기 &gt;</strong></a></td>
+	</tr>
+	<tr><td height="30" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<!--{ / }-->
+	<!--쿠폰끝--> 
+	<tr><td height="30" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr><td height="2" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;" bgcolor="#000000"></td></tr>
+	<tr><td height="20" style="color: rgb(77, 77, 77); line-height: 14px; font-size: 12px;"></td></tr>
+	<tr>
+		<td class="company" style="text-align: center; color: rgb(151, 158, 165); line-height: 22px; font-family: 돋움, Dotum; font-size: 11px;">
+			사업자등록번호 : {config_basic.businessLicense}&nbsp;&nbsp;&nbsp;&nbsp;통신판매업신고번호 : {config_basic.mailsellingLicense}&nbsp;&nbsp;&nbsp;&nbsp;대표이사 : {config_basic.ceo}
+		</td>
+	</tr>
+	<tr>
+		<td class="company" style="text-align: center; color: rgb(151, 158, 165); line-height: 22px; font-family: 돋움, Dotum; font-size: 11px;">
+			주소 : {config_basic.companyAddress} {config_basic.companyAddressDetail}&nbsp;&nbsp;&nbsp;&nbsp;대표전화 : {config_basic.companyPhone}&nbsp;&nbsp;&nbsp;&nbsp;팩스 : {config_basic.companyFax}
+		</td>
+	</tr>
+</tbody></table><p><br></p>

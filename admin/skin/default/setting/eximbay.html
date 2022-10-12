@@ -1,0 +1,146 @@
+<script type="text/javascript">
+var onInterestSettingButtonIndex = 0;
+
+
+function check_eximbay_payment(codecd){
+	var obj_chk = $("input[name='eximbay_payment["+codecd+"]']");
+	var obj_cur = obj_chk.closest("td").next().find("select");
+	if(obj_chk.attr("checked")){
+		obj_cur.attr("disabled",false);
+	}else{
+		obj_cur.attr("disabled",true);
+	}
+}
+</script>
+<div class="clearbox eximbayinputPgSetting">
+	<table class="table_basic thl v8">
+		<col width="15%" /><col width="21%" /><col width="35%"/><col/>
+			<th class="center bold" colspan="4"  height="20">PC / 모바일</th>
+		</tr>
+		<tr>
+			<th>결제통화</th>
+			<td>통화설정</td>
+			<td colspan="2">개별설정(아래 ↓결제수단별로 설정)</div>
+			</td>
+		</tr>
+		<tr>
+			<th rowspan="11">일반</th>
+			<td>사용여부</td>			
+			<td colspan="2" >
+				<div class="resp_radio">
+					<label><input type="radio" name="not_use_eximbay" id="not_use_eximbay_n" value='n' { ? config_system.not_use_eximbay == 'n'}checked{/}> 사용</label>
+					<label><input type="radio" name="not_use_eximbay" id="not_use_eximbay_y" value='y' { ? config_system.not_use_eximbay == 'y'}checked{/}> 미사용</label>
+				</div>
+			</td>			
+		</tr>			
+		<tr>
+			<td>세팅 정보 등록</td>
+			<td  colspan="2" class="clear">
+				<table class="table_basic v3 thl">
+				<col width="35%" /><col />
+				<tr>
+					<td>가맹점아이디(mid) :</td>
+					<td>
+						<input type="text" name="eximbay_mid" class="line" value="{eximbay_mid}"  style="width:90%;" />
+					</td>
+				</tr>
+				<tr>
+					<td>보안키(secretkey) :</td>
+					<td>
+						<input type="text" name="eximbay_secretkey" class="line" value="{eximbay_secretkey}"  style="width:90%;" />
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+<!--{ @code_load('eximbay_paymethod') }-->
+	<!--{ ? preg_match('/P0/',.codecd) }-->
+		<tr>
+			<td>{.value.hangul}</td>
+			<td>
+				<label class="resp_checkbox"><input type="checkbox" name="eximbay_payment[{.codecd}]" value="y" { ? eximbay_payment[.codecd] == 'y'}checked{ / } onchange="check_eximbay_payment('{.codecd}')"> 사용</label>
+				<script>check_eximbay_payment('{.codecd}');</script>
+			</td>
+			<!--{ ? .index_ == 0}-->
+			<td class="right" rowspan="9">
+				결제통화
+				<select name="eximbay_cur">
+					<option value="">선택</option>
+				<!--{ @code_load('eximbay_cur') }-->
+					<option value="{..codecd}"{ ? eximbay_cur == ..codecd } selected{ / }>{..value.name}</option>
+				<!--{ / }-->
+				</select>
+			</td>
+			<!--{ / }-->
+		</tr>
+	<!--{ / }-->
+<!--{ / }-->
+<!--
+		<tr>
+			<td>해외카드</td>
+			<td>
+				<label><input type="checkbox" name="eximbay_payment[]" value="international_card"> 사용: 결제통화</label>
+				<div style="float:right;padding-right:10px;">
+					<select name="eximbay_international_currency">
+					{@ currency_list }
+					<option value="{.key_}" {? eximbay_international_currency == .key_}selected{/}>{.key_}</option>
+					{ / }
+					</select>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>알리페이</td>
+			<td>
+				<label><input type="checkbox" name="eximbay_payment[]" value="alipay"> 사용: 결제통화</label>
+				<div style="float:right;padding-right:10px;">
+					<select name="eximbay_alipay_currency">
+					{@ currency_list }
+					<option value="{.key_}" {? eximbay_alipay_currency == .key_}selected{/}>{.key_}</option>
+					{ / }
+					</select>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>텐페이/위챗</td>
+			<td>
+				<label><input type="checkbox" name="eximbay_payment[]" value="tenpay"> 사용: 결제통화</label>
+				<div style="float:right;padding-right:10px;">
+					<select name="eximbay_tenpay_currency">
+					{@ currency_list }
+					<option value="{.key_}" {? eximbay_tenpay_currency == .key_}selected{/}>{.key_}</option>
+					{ / }
+					</select>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>페이팔</td>
+			<td>
+				<label><input type="checkbox" name="eximbay_payment[]" value="paypal"> 사용: 결제통화</label>
+				<div style="float:right;padding-right:10px;">
+					<select name="eximbay_paypal_currency">
+					{@ currency_list }
+					<option value="{.key_}" {? eximbay_paypal_currency == .key_}selected{/}>{.key_}</option>
+					{ / }
+					</select>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>일본 편의점 및 은행 결제</td>
+			<td>
+				<label><input type="checkbox" name="eximbay_payment[]" value="jpan_bank"> 사용: 결제통화</label>
+				<div style="float:right;padding-right:10px;">
+					<select name="eximbay_jpan_bank_currency">
+					{@ currency_list }
+					<option value="{.key_}" {? eximbay_jpan_bank_currency == .key_}selected{/}>{.key_}</option>
+					{ / }
+					</select>
+				</div>
+			</td>
+		</tr>-->
+	</table>
+</div>
+</form>

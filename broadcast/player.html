@@ -1,0 +1,280 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"  xmlns:fb="http://ogp.me/ns/fb#"  xmlns:og="http://ogp.me/ns#">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# {? APP_NAMES && APP_TYPE }{APP_NAMES}{:}website{/}: {? APP_NAMES  && APP_TYPE }http://ogp.me/ns/fb/{APP_NAMES}{:}http://ogp.me/ns/fb/website{/}#">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8">
+{=metaHeaderWrite(add_meta_info,true)}
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>{shopTitle}</title>
+{new_meta}
+<!--{ ? APP_USE == 'f' }-->
+<meta property="fb:app_id" content="{APP_ID}" />
+<!--{ / }-->
+<meta property="og:image" content="https://{_SERVER.HTTP_HOST}{sch.image}">
+<!-- 자바스크립트 -->
+<script src="/app/javascript/jquery/jquery.min.js"></script>
+<script src="/app/javascript/jquery/jquery-ui.min.js"></script>
+<script src="/app/javascript/plugin/jquery.cookie.js"></script>
+<script src="/data/js/language/L10n_{config_system.language}.js?dummy={=date('YmdHis')}"></script>
+<script src="/app/javascript/js/common.js?v={=date('Ymd')}"></script>
+<script src="/app/javascript/js/broadcast-player.js?dummy={=date('YmdH')}" defer></script>
+<link rel="stylesheet" href="/admin/skin/default/css/broadcast-player.css?v={=date('Ymd')}">
+<!--{ ? config_basic.naver_wcs_use=='y' && !_GET.popup && !_GET.iframe }-->
+<!--[ 네이버 공통유입 스크립트 ]-->
+{=naverWcsScript()}
+<!--{ / }-->
+<!-- /자바스크립트 -->
+<!--{ ? config_system.favicon }-->
+<!-- 파비콘 -->
+<link rel="shortcut icon" href="//{_SERVER.HTTP_HOST}/{config_system.favicon}" />
+<!--{ / }-->
+<!--{ ? config_system.androidicon || config_system.iphoneicon }-->
+<!-- 바로가기아이콘 -->
+<link rel="apple-touch-icon" href="//{_SERVER.HTTP_HOST}{=config_system.iphoneicon}" />
+<link rel="shortcut icon" href="//{_SERVER.HTTP_HOST}{=config_system.androidicon}" />
+<!--{ / }-->
+</head>
+<script type="text/javascript">
+var schjs= {schjs};
+var chats= {chats};
+var is_vod = '{=vod}';
+var is_user = '{=is_user}';
+var is_admin = '{=is_admin}';
+</script>
+<body>
+	<div class="area_video">
+		<div class="inner">
+			<span class="btn_close closeBtn"><img src="/admin/skin/default/images/broadcast/i_close.png"></span>
+			<div class="click_area"></div>
+
+			<div class="video_container">
+
+				<!-- 헤더 : 시작 -->
+				<div class="head_wrap">
+					<div class="control_wrap">
+						<!--{? ISADMIN && vod }-->
+						<span class="downloadBtn actions" data-action="download"><img src="/admin/skin/default/images/broadcast/i_download.png"></span>
+						<!--{/}-->
+						<span class="soundBtn">
+							<img src="/admin/skin/default/images/broadcast/i_sound_off.png" class="soundOff">
+							<img src="/admin/skin/default/images/broadcast/i_sound_on.png" class="soundOn hide">
+						</span>
+						<span onclick="openPopup(this);" target="sharePopup"><img src="/admin/skin/default/images/broadcast/i_share.png"></span>
+						<!--span><img src="/admin/skin/default/images/broadcast/i_notify.png"></span-->
+					</div>
+					<div class="tit_wrap">
+						<!--{? sch.status=='live'}-->
+						<img src="/admin/skin/default/images/broadcast/i_live.png" class="i_live">
+						<!--{ / }-->
+						<span class="tit">{sch.title}</span>
+						
+					</div>
+					<div class="status_wrap">
+						<!--{ ? serviceLimit('H_AD') }-->
+						<!-- <div class="summary"><a target="{=sch.link_target}" href="/mshop?m={sch.provider_seq}">{sch.provider_name}</a></div> -->
+						<!--{ / }-->
+						<div class="status">
+							<!--{?sch.status!='create'}-->
+							<img src="/admin/skin/default/images/broadcast/i_heart.png"><span class="heart_cnt">{=number_format(sch.likes)}</span>
+							<img src="/admin/skin/default/images/broadcast/i_view.png"><span class="view_cnt">{=number_format(sch.sumvisitors)}</span>
+							<!--{/}-->
+							<!--{?sch.status=='end'}-->
+							<img src="/admin/skin/default/images/broadcast/i_video.png"><span class="playtime">{=sch.real_time}</span>
+							<!--{/}-->
+						</div>
+					</div>
+				</div>
+				<!-- 헤더 : 끝 -->
+
+				<div class="video_wrap">
+				<!--{? sch.status=='create'}-->
+					<!-- 방송예정 : 시작 -->
+					<div class="live_expected" style="background:url({sch.image}) no-repeat center center/cover;">
+						<div class="info">
+							<h3>방송 시작 예정입니다.</h3>
+							{sch.start_date}
+						</div>
+						<div class="dim"></div>
+					</div>
+					<!-- 방송예정 : 끝 -->
+				<!--{: sch.status=='live'}-->
+					<!-- 방송중 : 시작 -->
+					<iframe src="about:blank" frameborder="0" id="player" data-status="{sch.status}" allow="autoplay" autoplay muted></iframe>
+					<div style="background:url({sch.image}) no-repeat center center/cover; display:none" id="end_wrap">
+						<div class="info">
+							<div class="end_mess">방송이 종료되었습니다.</div>
+							<div class="retry_mess">
+								<div>현재 방송 상태가 원활하지 않습니다.</br>잠시 후에 다시 시도해 주세요.</div>
+								<img src="/admin/skin/default/images/broadcast/refresh.png" class="btn_refresh actions" data-action="refresh">
+							</div>
+						</div>
+						<div class="dim"></div>
+					</div>
+					<!-- 방송중 : 끝 -->
+				<!--{: sch.status=='end'}-->
+					<!-- 방송종료 : 시작 -->
+					<!--{? vod }-->
+					<iframe src="about:blank" frameborder="0" id="player" data-status="{sch.status}" allow="autoplay" autoplay muted></iframe>
+					<!--{ : }-->
+					<div style="background:url({sch.image}) no-repeat center center/cover;">
+						<div class="info">
+							<div>종료된 방송입니다.</div>
+							<!--{? sch.vod_key }-->
+							<div class="btn_cast_end">방송 다시보기 <img src="/admin/skin/default/images/broadcast/i_arrow.png"></div>
+							<!--{ / }-->
+						</div>
+						<div class="dim"></div>
+					</div>
+					<!--{ / }-->
+					<!-- 방송종료 : 끝 -->
+				<!--{/}-->
+				</div>
+
+				<div class="area_community">
+					<!-- 채팅 내용 : 시작 -->
+					<div class="chatting_wrap">
+						<ul class="chatting"><li></li></ul>
+						<!--{?sch.status == 'live'}-->
+						<div class="notice" >{=sch.notice}</div>
+						<span class="more hide" onclick="openPopup(this);" target="noticePopup">더보기</span>
+						<!--{/}-->
+						<!--{?ISADMIN && sch.status == 'live'}-->
+						<button type="button" class="notice_del actions delnoti" data-action="delnoti"><img src="/admin/skin/default/images/broadcast/btn_del.png" alt="삭제"></button>
+						<!--{/}-->
+					</div>
+					<!-- 채팅 내용 : 끝 -->
+
+					<!-- 상품 : 시작 -->
+					<div class="content_wrap">
+						<div class="product_wrap">
+							<ul class="product" onclick="openPopup(this);" target="prodectListPopup">
+								<li><div><img src="{goodsMain.goods_img}"/></div></li>
+								<li class="prod_info">
+									<div class="tit">{goodsMain.goods_name}</div>
+									<div class="price">
+										{goodsMain.default_price}
+									</div>
+								</li>
+							</ul>
+							<span class="cnt">{=count(sch.goodsData)}</span>
+						</div>
+						<!--{? sch.status=='live' || sch.status=='end' }-->
+						<div class="btn_wrap">
+							<!--{? sch.status=='live'}-->
+							<span class="chattingOpenBtn" mode="close"><img src="/admin/skin/default/images/broadcast/input_open.png"></span>
+							<!--{/}-->
+							<span class="btn_heart heartBtn actions" data-action="likes">
+								<img src="/admin/skin/default/images/broadcast/i_heart2.png">
+								<span class="love_mot">
+									<img src="/admin/skin/default/images/broadcast/love.png">
+									<img src="/admin/skin/default/images/broadcast/love.png">
+									<img src="/admin/skin/default/images/broadcast/love.png">
+								</span>
+							</span>
+						</div>
+						<!--{/}-->
+					</div>
+					<!-- 상품 : 끝 -->
+
+					<!-- 채팅 입력 창 : 시작 -->
+					<!--{? sch.status=='live'}-->
+					<div class="area_input hide">
+						<form id="chattingfrm">
+							<!--{?!ISADMIN}-->
+							<input type="hidden" name="name" id="name" placeholder="사용자명" value="{=userInfo.userid}" size="5" />
+							<input type="hidden" name="seq" id="seq" placeholder="회원seq" value="{=userInfo.member_seq}" size="5" />
+							<input type="hidden" name="type" id="type" value="chat" />
+							<!--{:}-->
+							<input type="hidden" name="name" id="name" placeholder="관리자명" value="관리자({=managerInfo.mname})" size="5" />
+							<input type="hidden" name="seq"  id="seq" placeholder="관리자seq" value="{=managerInfo.manager_seq}" size="5"/>
+							<input type="hidden"  name="type" id="type" value="admin" />
+							<!--{/}-->
+							<ul>
+								<li class="input_mess"><input type="text" name="msg" id="msg" placeholder="채팅을 입력해주세요." autocomplete="off"></li>
+								<!--{?ISADMIN}-->
+								<li class="admin_mess adminMessBtn">
+									<img src="/admin/skin/default/images/broadcast/i_fixing_off.png" class="adminMessOff">
+									<img src="/admin/skin/default/images/broadcast/i_fixing_on.png" class="adminMessOn hide">
+								</li>
+								<!--{/}-->
+								<li class="btn_send"><button type="submit">입력</button></li>
+							</ul>
+						</form>
+					</div>
+					<!--{/}-->
+					<!-- 채팅 입력 창 : 끝 -->
+				</div>
+			</div>
+
+			<div class="bg_gradation"></div>
+
+			<!-- 상품리스트 팝업 : 시작 -->
+			<div id="prodectListPopup"  class="popup hide">
+				<div class="contents">
+					<div class="header">
+						<div class="tit">방송 상품</div>
+						<span class="btn_close" onclick="closePopup(this);"><img src="/admin/skin/default/images/broadcast/i_close2.png"></span>
+					</div>
+					<div class="container">
+						<ul class="product_list">
+							<!--{@ sch.goodsData }-->
+							<li data-seq="{.goods_seq}">
+								<ul class="product">
+									<li><div><img src="{.goods_img}"/></div></li>
+									<li class="prod_info">
+										<div class="brand">{.provider_name}</div>
+										<div class="tit">{.goods_name}</div>
+										<div class="price">
+											<!--{? .sale_rate > 0}-->
+											<span class="percent">{=.sale_rate}%</span>
+											<!--{/}-->
+											{.default_price}
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!--{/}-->
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 상품리스트 팝업 : 끝 -->
+
+			<!-- 공지사항 팝업 : 시작 -->
+			<div id="noticePopup"  class="popup hide">
+				<div class="contents">
+					<div class="header">
+						<div class="tit">공지사항</div>
+						<span class="btn_close" onclick="closePopup(this);"><img src="/admin/skin/default/images/broadcast/i_close2.png"></span>
+					</div>
+					<div class="container">
+						<div class="mess">{=sch.notice}</div>
+					</div>
+				</div>
+			</div>
+			<!-- 공지사항 팝업 : 끝 -->
+
+			<!-- 공유 팝업 : 시작 -->
+			<div id="sharePopup"  class="popup hide">
+				<div class="contents2">
+					<div class="share_wrap">
+						<div>
+							<div class="hearder">
+								<div>공유 하기</div>
+								<span onclick="closePopup(this);" class="btn_close"><img src="/admin/skin/default/images/broadcast/i_close4.png"></span>
+							</div>
+							<div class="btn_wrap">
+								{=snslinkurl('broadcast', sch.title)}
+								<span class="actions" data-action="copy"><img src="/admin/skin/default/images/broadcast/i_url.png"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 공유 팝업 : 끝 -->
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<form action="../setting_process/print_setting" method="post" enctype="multipart/form-data" target="actionFrame">
+	<span class="fx12 black">1. 주문내역서에 주문번호를 바코드로 출력하시겠습니까?</span><br />
+	<span class="fx11 gray">주문 검색창에서 바코드를 스캔하면 해당 주문건의 출고화면으로 바로 이동하여 출고처리가 편리해집니다.</span><br />
+	<label><input type="radio" name="orderPrintOrderBarcode" value="1" {?orderPrintOrderBarcode}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="orderPrintOrderBarcode" value="" {?!orderPrintOrderBarcode}checked{/} /> 아니오</label><br />
+	<br />
+	<span class="fx12 black">2. 주문내역서에 주문상품의 상품코드를 출력하시겠습니까?</span><br />
+	<label><input type="radio" name="orderPrintGoodsCode" value="1" {?orderPrintGoodsCode}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="orderPrintGoodsCode" value="" {?!orderPrintGoodsCode}checked{/} /> 아니오</label><br />
+	<br />
+	<span class="fx12 black">3. 주문내역서에 주문상품의 상품코드를 바코드로 출력하시겠습니까?</span><br />
+	<span class="fx11 gray">해당 주문의 출고처리화면에서 실제 상품의 바코드를 스캔하면 주문상품이 맞는지 검증하여 <br />
+	오배송 없이 정확하게 출고가 가능합니다. 해당 상품의 바코드를 계속 스캔하면 출고수량이 +1씩 증가합니다.</span><br />
+	<label><input type="radio" name="orderPrintGoodsBarcode" value="1" {?orderPrintGoodsBarcode}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="orderPrintGoodsBarcode" value="" {?!orderPrintGoodsBarcode}checked{/} /> 아니오</label><br /><br />
+	<span class="fx12 black">4. 주문내역서에 주문상품의 이미지를 출력하시겠습니까?</span><br />
+	<label><input type="radio" name="orderPrintGoodsImage" value="1" {?orderPrintGoodsImage}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="orderPrintGoodsImage" value="" {?!orderPrintGoodsImage}checked{/} /> 아니오</label><br /><br />
+	<span class="fx12 black">5. 출고내역서에 출고번호를 바코드로 출력하시겠습니까?</span><br />
+	<span class="fx11 gray">출고 검색창에서 바코드를 스캔하면 해당 출고건의 출고화면으로 바로 이동하여 출고처리가 편리해집니다.</span><br />
+	<label><input type="radio" name="exportPrintExportcodeBarcode" value="1" {?exportPrintExportcodeBarcode}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="exportPrintExportcodeBarcode" value="" {?!exportPrintExportcodeBarcode}checked{/} /> 아니오</label><br />
+	<br />
+	<span class="fx12 black">6. 출고내역서에 출고상품의 상품코드를 출력하시겠습니까?</span><br />
+	<label><input type="radio" name="exportPrintGoodsCode" value="1" {?exportPrintGoodsCode}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="exportPrintGoodsCode" value="" {?!exportPrintGoodsCode}checked{/} /> 아니오</label><br />
+	<br />
+	<span class="fx12 black">7. 출고내역서에 출고상품의 상품코드를 바코드로 출력하시겠습니까?</span><br />
+	<span class="fx11 gray">해당 출고의 출고처리화면에서 실제 상품의 바코드를 스캔하면 출고상품이 맞는지 검증하여 <br />
+	오배송 없이 정확하게 출고가 가능합니다. 해당 상품의 바코드를 계속 스캔하면 출고수량이 +1씩 증가합니다.</span><br />
+	<label><input type="radio" name="exportPrintGoodsBarcode" value="1" {?exportPrintGoodsBarcode}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="exportPrintGoodsBarcode" value="" {?!exportPrintGoodsBarcode}checked{/} /> 아니오</label><br /><br />
+	<span class="fx12 black">8. 출고내역서에 주문상품의 이미지를 출력하시겠습니까?</span><br />
+	<label><input type="radio" name="exportPrintGoodsImage" value="1" {?exportPrintGoodsImage}checked{/} /> 예</label> &nbsp; <label><input type="radio" name="exportPrintGoodsImage" value="" {?!exportPrintGoodsImage}checked{/} /> 아니오</label><br /><br />
+	<span class="fx12 black">9. 내역서 타이틀 우측에 로고 또는 타이틀 삽입</span><br />
+	<label>
+		<input type="radio" name="shopLogoType" value="text" {?config_system.shopLogoType=='text'}checked{/} />
+		<input name="shopLogoText" type="text" value="{config_system.shopLogoText}" />
+		<span class="desc">예시) 퍼스트몰</span>
+	</label><br />
+	<label>
+		<input type="radio" name="shopLogoType" value="img" {?config_system.shopLogoType=='img'}checked{/} />
+		{ ? config_system.shopLogoImg }
+		<img src="{config_system.shopLogoImg}" border="0" style="max-width:50px;max-height:50px;"><br/>
+		{ / }
+		<input type="file" name="shopLogoImg" style="letter-spacing:-1px !important" />
+	</label><br /><br />
+
+	<div class="center">
+		<span class="btn large cyanblue"><input type="submit" value="저장" /></span>
+	</div>
+</form>

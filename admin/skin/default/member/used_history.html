@@ -1,0 +1,73 @@
+<div>
+	<table class="list-table-style" cellspacing="0" width="100%">
+		<colgroup> 
+			<col width="50" />
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			<col /> 
+			<col width="140" />
+		</colgroup>
+		<thead class="lth">
+		<tr>
+			<th>번호</th>
+			<th>지급</th>
+			<th>차감</th>
+			<th>잔여</th>
+			<th>지급내역</th>
+			<th>지급날짜</th>
+		</tr>
+		</thead>
+		<tbody class="ltb otb" >
+		{? loop }
+			{@ loop }
+			<tr class="list-row">
+				<td align="center">{=number_format(.index_+1)}</td>
+				<td align="right">{=get_currency_price(.bemoney)} &nbsp;</td>
+				<td align="right">{=get_currency_price(.used_amt)} &nbsp;</td>
+				<td align="right">{=get_currency_price(.remain)} &nbsp;</td>
+				<td align="center">{.bordno} : {.bmemo}</td>
+				<td align="center">{.bregist_date}</td>
+			</tr>
+			{ / }
+		{ : }
+			<tr class="list-row">
+				<td align="center" colspan="4">내역이 없습니다.</td>
+			</tr>
+		{ / }
+		</tbody>
+	</table>
+	
+	<table class="list-table-style" cellspacing="0" width="100%">
+		<colgroup> 
+			<col width="50" />
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			<col /> 
+			<col width="140" />
+		</colgroup> 
+		<tbody class="ltb otb" >
+	{? loop }
+		<tr height="50">
+			<th></th>
+			<th align="right" >
+				<span class="math-icon"><img src="../images/common/icon_plus.gif" border="0"></span>
+				{=get_currency_price(bemoney_total)}&nbsp;
+			</th>
+			<th align="right">
+				<span class="math-icon"><img src="../images/common/icon_minus.gif" border="0"></span>
+				{=get_currency_price(used_amt_total)}&nbsp;
+			</th>
+			<th align="right">
+				<span class="math-icon"><img src="../images/common/icon_equal.gif" border="0"></span>
+				{=get_currency_price(last_remain)}&nbsp;
+			</th>
+			<th align="center" colspan="2">{order_memo}</th>
+			<!-- <th align="center">{bregist_date}</th> -->
+		</tr>
+	{ / }
+
+		</tbody>
+	</table>
+</div>

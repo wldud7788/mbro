@@ -1,0 +1,68 @@
+[2022-06-21 20:10:11.563996000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [totalcnt] => 2
+    [premium] => Array
+        (
+            [0] => Array
+                (
+                    [CreateYmdt] => 2022-06-21T10:57:17.92Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 1881
+                    [ProductName] => 포토카드 바인더 PHOTOCARD BINDER
+                    [ProductOrderID] => 2022061251930980
+                    [PurchaseReviewId] => 4025942276
+                    [PurchaseReviewScore] => 11
+                    [Title] => 바인더 쓸만하지만 바인더 포토가 흐릿한 것과 속지가 많이 없습니더
+                    [WriterId] => G2uCQOfqbhC/fdVbFVQdYQ==
+                    [Content] => <div class="review_text">
+	<p class="word">바인더 쓸만하지만 바인더 포토가 흐릿한 것과 속지가 많이 없습니더</p>
+
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_281/1655808986583imNuh_JPEG/review-attachment-0bf0921f-c99c-4a9a-a852-b413152ea0bc.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_43/1655808986786FLH1H_JPEG/review-attachment-6807c643-02d0-43b3-b13f-ad82bac7add5.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_279/1655808986677Jp96H_JPEG/review-attachment-a29b77c0-801f-4bc5-b08b-82d5e63d194f.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+</div>
+                    [timestamp] => 2022-06-21T11:09:10.155Z7488
+                    [PurchaseReviewScore_new] => 3
+                )
+
+            [1] => Array
+                (
+                    [CreateYmdt] => 2022-06-21T10:58:23.16Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 1879
+                    [ProductName] => 포토카드 세트 PHOTOCARD SET
+                    [ProductOrderID] => 2022061251930970
+                    [PurchaseReviewId] => 4025943270
+                    [PurchaseReviewScore] => 11
+                    [Title] => 포토카드 나쁘지 않습니다만 그림자가 적나라 하게 보입니다
+                    [WriterId] => G2uCQOfqbhC/fdVbFVQdYQ==
+                    [Content] => <div class="review_text">
+	<p class="word">포토카드 나쁘지 않습니다만 그림자가 적나라 하게 보입니다</p>
+
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_127/1655809062434uK8xT_JPEG/review-attachment-880f2036-e220-4f15-9d57-60310af62c0f.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_143/1655809062297aMrj2_JPEG/review-attachment-ed36b797-0a0c-44bd-bbc3-d301d5a23a41.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_300/1655809062558nd14y_JPEG/review-attachment-dd3d1c63-34a7-4e15-98a8-8935d1910692.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_230/1655809062588JI0oE_JPEG/review-attachment-f47e0c53-4dec-4ae0-8fb5-f0fbc049d2c4.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_228/1655809062634XtiOy_JPEG/review-attachment-a0f9d46e-53e0-4473-ae07-f52a111e3f15.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220621_53/16558090627595QF70_JPEG/review-attachment-82fc0fd3-99da-45f0-9ff7-16d96bf96394.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+</div>
+                    [timestamp] => 2022-06-21T11:09:10.155Z7488
+                    [PurchaseReviewScore_new] => 3
+                )
+
+        )
+
+)
+
+

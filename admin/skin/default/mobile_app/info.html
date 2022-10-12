@@ -1,0 +1,123 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		// EMAIL
+		$("#info_form").click(function(){
+			/*
+			<!--{? !auth_send }-->
+			alert("권한이 없습니다.");
+			return;
+			<!--{ / }-->*/
+			var screenWidth;
+			var screenHeight;
+
+			screenWidth = screen.width;
+			screenHeight = screen.height;
+
+			if(screenWidth > 1250) screenWidth = "1250";
+			if(screenHeight > 1024) screenHeight = "1024";
+
+
+			window.open('../mobile_app/info_form',"send_email","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=yes,width=" + screenWidth + ", height=" + screenHeight);
+		});
+	});
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="../css/mobile_app.css" />
+
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>앱 정보 변경</h2>
+		</div>
+		
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div class="item-title">변경 현황</div>
+
+<div class="info_state_dp">
+	<ul class="box_wrap">
+		<li>
+			<div class="state_txt"><strong>Android 앱</strong> : 신청접수 (이번 달 남은횟수 : 1회)   |   <strong>iOS 앱</strong> : 없음 (이번달 남은횟수 : 2회)</div>
+			<ul>
+				<li>※ OS별 월 최대 2회 변경 신청 가능합니다.</li>
+				<li>※ 신청확인 상태에서는 신청취소 가능합니다.</li>
+				<li>※ 현재 작업중인 항목이 존재하는 경우 추가 신청이 불가능합니다. 이전 요청건 완료 후 다시 신청하시기 바랍니다.</li>
+			</ul>
+		</li>
+		<li>
+			<span class="btn large" >
+				<button type="buttom">변경신청</button>
+			</span>
+		</li>
+	</ul>	
+</div>
+
+
+<!-- 서비스 현황 테이블 : 시작 -->
+<table class="list-table-style" cellspacing="0">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="30" /><!--번호-->
+		<col width="30" /><!--앱 OS-->
+		<col width="40" /><!--신청일-->
+		<col width="60" /><!--담당자이름-->
+		<col width="60"/><!--완료일(취소일)-->
+		<col width="60"/><!--상태-->
+		<col width="60"/><!--관리-->
+	</colgroup>
+	
+	<thead class="lth">
+		<tr>
+			<th>번호</th>
+			<th>앱 OS</th>
+			<th>신청일</th>
+			<th>담당자이름</th>
+			<th>완료일(취소일)</th>
+			<th>상태</th>
+			<th>관리</th>
+		</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<tbody class="ltb">
+		<tr class="list-row" style="height:40px;">
+			<td align="center">1</td>
+			<td align="center">안드로이드앱</td>
+			<td align="center">2018.01.01</td>
+			<td align="center">이은경</td>
+			<td align="center">2018.02.01</td>
+			<td align="center">신청접수</td>
+			<td align="center">
+				<span class="btn small valign-middle">
+					<button type="button">신청취소</button>
+				</span>
+			</td>
+		</tr>	
+		<tr class="list-row" style="height:40px;">
+			<td align="center">1</td>
+			<td align="center">안드로이드앱</td>
+			<td align="center">2018.01.01</td>
+			<td align="center">이은경</td>
+			<td align="center">2018.02.01</td>
+			<td align="center">신청거절</td>
+			<td align="center">
+				<span class="btn small valign-middle">
+					<button type="button" id="info_form">재신청</button>
+				</span>
+			</td>
+		</tr>	
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>

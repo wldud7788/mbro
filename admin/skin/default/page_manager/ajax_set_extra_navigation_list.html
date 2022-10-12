@@ -1,0 +1,20 @@
+<!--{? target_list}-->
+	<!--{@ target_list}-->
+		<tr>
+			<td class="center">
+				<label class='resp_checkbox'><input type="checkbox" class="chk" name="code[]" value="{.key_}" /></label></td>
+			<td class="left"><!--{= .title }--></td>
+			<td class="center">
+				<!--{ ? .node_banner != '' }-->
+				<span class='hand' onclick="pop_target_view('navigation', '{= .key_}');" >보기</span>
+				<div class="hide" id="banner_view_navigation_{= .key_}">{=.node_banner}</div>
+				<!--{ : }-->
+				<span class='resp_message'>미등록</span>
+				<!--{ / }-->
+			</td>
+			<td class="center">
+				<button type='button' class='resp_btn v2' onclick="pop_target_view('navigation','{.key_}');">수정</button>
+			</td>
+		</tr>
+	<!--{/}-->
+<!--{/}-->

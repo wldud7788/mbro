@@ -1,0 +1,92 @@
+{ #layout_header }
+
+<style type="text/css">
+	/* 리얼패킹 사이트 iframe */
+	#realpacking_area { width: 100%; height: 680px; min-height: 100%; border: 0px; }
+
+	.realpacking_wrap  {width:650px; margin:0 auto; padding-top:100px; text-align:center;}
+	.realpacking_wrap .tit_area {border:1px solid #CFE4FC; background:#F9FBFC; padding:20px 0; font-size:18px; font-weight:bold; color:#4B73A6; line-height:30px;}
+	.realpacking_wrap .tit_area p {font-size:16px; color:#9AB0CD;}
+	.realpacking_wrap .btn_area {margin:50px 0;}
+	.realpacking_wrap .guide_area {border:1px solid #e9e9e9; background:#f9f9f9; padding:15px 0 15px 20px; text-align:left; color:#555; line-height:1.8;}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>리얼패킹 - 포장촬영</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!--{? real_config.use_service}-->
+	<!-- 서비스 신청 상태 -->
+	<!--{? real_config.use_service == 'Y'}-->
+	<iframe id="realpacking_area"></iframe>
+	<script type="text/javascript">
+		$(function(){
+			loginApiRecursive('{= real_config.service_info.access_token}');
+		});
+
+		var loginApiRecursive = function(token){
+			$.ajax({
+				url: "https://www.realpacking.com/api/gabia_user_login.php",
+				data:{access_token:token},
+				dataType: 'jsonp',
+				xhrFields: { withCredentials: true },
+				success: function (data) {
+					if(data.code){
+						$('#realpacking_area').attr('src', 'https://www.realpacking.com/cms/main.php');
+					}else{
+						if(data.error_code===401){
+							loginAuth().then(
+								function(data){
+									loginApiRecursive(data.access_token);
+								},function(error){
+									alert('로그인에 실패 하였습니다. 잠시 후 다시 시도해 주세요.');
+								}
+							);
+						}
+					}
+				}
+			});
+		};
+		 
+		var loginAuth = function(){
+			return $.ajax({
+				url:'../realpacking_process/refresh',
+				data:{},
+				dataType:'json'
+			});
+		};
+	</script>
+	<!--{: real_config.use_service == 'N'}-->
+	<div class="realpacking_wrap">
+		<div class="tit_area">
+			서비스 이용중지 상태입니다.<br/>
+			<p>설정 &gt; 동영상&amp;리얼패킹에서 이용중지를 체크해제해 주세요.</p>
+		</div>
+	</div>
+	<!--{/}-->
+	<!-- 서비스 신청 상태 끝 -->
+<!--{:}-->
+	<!-- 서비스 미신청 상태 -->
+	<div class="realpacking_wrap">
+		<div class="tit_area">서비스를 신청하지 않았습니다. <p>"서비스 신청"을 클릭하여 먼저 신청해 주세요.</p></div>
+		<div class="btn_area">
+			<span class="btn large cyanblue"><button onclick="window.open('https://firstmall.kr/ec_hosting/addservice/realpacking.php','_blank');">서비스 안내</button></span>
+			<span class="btn large orange"><button onclick="location.href='service_regist';">서비스 신청</button></span>
+		</div>
+		<div class="guide_area">
+			<strong>리얼 패킹이란?</strong><br />
+			포장촬영 서비스란 상품의 포장과정을 촬영하여 고객에게 SMS로 영상을 전송할 수 있는 서비스입니다.<br/>
+			고객에게 포장 과정의 영상을 제공하여 쇼핑몰 신뢰도 향상 및 고객 클레임을 감소시킬 수 있습니다. <br/>
+			또한 실제 발송 상품을 영상을 통해  보여주므로 고객에게 색다른 즐거움을 제공할 수 있습니다.  
+		</div>
+	</div>	
+	<!-- 서비스 미신청 상태 끝 -->
+<!--{/}-->
+{ #layout_footer }

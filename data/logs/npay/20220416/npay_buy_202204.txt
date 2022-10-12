@@ -1,0 +1,10 @@
+[2022-04-16 00:29:21.95338000]
+MODE : Request
+REMOTE_IP : 66.249.72.183
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://m.musicbroshop.com/goods/view?no=]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>ODMxNGNiOTIwOGVhMWZkNjJmNzE5YTk2Y2Y2MDdiNmIxMGQzMjUyZF8xNjUwMDM2NTYx</merchantCustomCode1></interface></order>
+
+[2022-04-16 00:29:21.132686000]
+MODE : Response
+REMOTE_IP : 66.249.72.183
+FAIL:[ERR-OR-000006] 주문등록을요청한상품정보가없습니다.
+

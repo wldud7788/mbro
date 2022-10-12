@@ -1,0 +1,177 @@
+<!-- 본문내용 시작 -->
+<link type="text/css" rel="stylesheet" charset="utf-8" href="../css/mypage_board.css" />
+<script type="text/javascript">
+//<![CDATA[
+var pagemode = 'layer';
+var board_id = '{manager.id}';
+var board_seq = '{_GET.seq}';
+var boardlistsurl = '{boardurl->lists}';
+var boardwriteurl = '{boardurl->write}';
+var boardviewurl = '{boardurl->view}';
+var boardmodifyurl = '{boardurl->modify}';
+var boardreplyurl = '{boardurl->reply}';
+var gl_isuser = false;
+{ ? defined('__ISUSER__') }
+gl_isuser = '{=defined('__ISUSER__')}';
+{ / }
+
+var comment = '{comment}';
+var commentlay = '{commentlay}';
+var isperm_write = '{managerview.isperm_write}';
+//]]>
+</script>
+
+<div  id="boardlayout" >
+	<div id="bbsview" class="x2">
+		<form name="form1" id="form1" method="post" action="{=sslAction('../board_process')}"  target="actionFrame">
+			<input type="hidden" name="mode" id="mode" value="{mode}" />
+			<input type="hidden" name="board_id" id="board_id" value="{manager.id}" />
+			<input type="hidden" name="reply" id="reply" value="{_GET.reply}" />
+			{? seq }
+				<input type="hidden" name="seq" id="board_seq" value="{seq}" />
+			{/}
+			<input type="hidden" name="popup" value="{_GET.popup}" >
+			<input type="hidden" name="iframe" value="{_GET.iframe}" >
+			<input type="hidden" name="goods_seq" value="{_GET.goods_seq}" >
+
+			<div class="title_l2">
+				{? categorylist }<span class="blue">[{datacategory}]</span>{ / } {iconmobile} {subject} {iconnew} {iconhot} {iconhidden}
+			</div>
+
+			<div class="box_bbs_r3">
+				<ul>
+					<li class="gray_06">{m_date}</li>
+					<li class="gray_06">조회 : {=number_format(hit)}</li>
+				</ul>
+			</div>
+
+			<div class="board_detail_contents">
+				{contents}
+			</div>
+
+			<!--{? managerview.auth_recommend_use == 'Y' }-->
+			<!-- 게시글평가 -->
+			<div class="board_score">{#scoreskin}</div>
+			<!-- //게시글평가 -->
+			<!--{/}-->  
+
+			{? goodsview}
+			<div class="goods_origin_info">
+				<h4 class="title">상품 정보</h4>
+				{goodsview}
+			</div>
+			{/}
+
+			<div class="board_sns_link">
+				{=snslinkurl('board', subject)}
+			</div>
+
+			{? re_contents }
+			<div class="board_detail_contents reply">
+				<p class="writer">
+					<span class="icon1">답변</span> <strong>{adminname}</strong> &nbsp;
+					<span class="writer_subject">{re_subject}</span>
+				</p>
+				{re_contents}
+			</div>
+			{/}
+
+			{? filelist}
+			<div>
+				{@ filelist}
+				<li><span class="realfilelist hand highlight-link" realfiledir="{.realfiledir}" realfilename="{.orignfile}"  realfilename="{.orignfile}" board_id="{boardid}" filedown="../board_process?mode=board_file_down&board_id={boardid}&realfiledir={.realfiledir}&realfilename={.orignfile}">{.orignfile} (<span class="size">{.realsizefile}</span>) <button type="button"  class="bbs_btn">down</button></span></li>
+				{/}
+			</div>
+			{/}
+
+			<!-- 모바일등록시 첨부파일의 이미지다운 -->
+			{? filelistimages && insert_image == 'none' && editor != 1 }
+			<div class="content">
+				{@ filelistimages}
+				<span class="realfilelist hand highlight-link" realfiledir="{.realfiledir}" realfilename="{.orignfile}"  realfilename="{.orignfile}" board_id="{boardid}" filedown="../board_process?mode=board_file_down&board_id={boardid}&realfiledir={.realfiledir}&realfilename={.orignfile}">{.orignfile} (<span class="size">{.realsizefile}</span>) <button type="button"  class="bbs_btn">down</button></span>
+							{/}
+			</div>
+			{/}
+			<!-- 모바일등록시 첨부파일의 이미지다운 -->
+
+			<!-- 하단 각종 버튼 -->
+			<ul class="board_detail_btns">
+				{? !managerview.viewtype=='layer'}
+				<li class="left">
+					<button type="button" name="boardviewclose" class="btn_resp size_b color5">목록</button>
+				</li>
+				{/}
+				<li class="right">
+					{? display == 0 && managerview.isperm_moddel != "_mbno"  && empty(re_contents) } <button type="button"  name="boad_modify_btn{managerview.isperm_moddel}" board_seq="{seq}"  board_id="{boardid}" class="btn_resp size_b" >수정</button>{/}
+					{? display == 0 && replylay == 'Y' && managerview.isperm_write != "_no" } <button type="button"  name="boad_reply_btn" board_seq="{seq}"  board_id="{boardid}" class="btn_resp size_b">답변</button>{/}
+					{? ((display == 0 || (display == 1 && replyor == 0 && comment ==0) ) ) && managerview.isperm_moddel != "_mbno"  } <button type="button"  name="boad_delete_btn{managerview.isperm_moddel}"  board_seq="{seq}"  board_id="{boardid}" class="btn_resp size_b" >삭제</button>{/}
+					{? managerview.isperm_write != "_no" }
+						<button type="button"  name="boad_write_btn{managerview.isperm_write}" id="boad_write_btn{managerview.isperm_write}"  board_id="{boardid}" class="btn_resp size_b color2">글쓰기 </button>
+					{/}
+					{? managerview.viewtype=='layer'}
+						<button type="button" board_seq="{seq}"  class="viewerlay_close_btn btn_resp size_b color2">닫기 </button>
+					{/}
+				</li>
+			</ul>
+			<!-- //하단 각종 버튼 -->
+		</form>
+		<!--{? commentlay == 'Y' || comment > 0 // 댓글 사용여부, 댓글수 }-->
+		<!-- 코멘트부분 -->
+		<a name="cmtlist"></a>
+		<div class="board_comment_area"  id="comment_container">{#commentskin}</div>
+		<!-- //코멘트부분 -->
+		<!--{/}-->
+	</div>
+</div>
+
+{? managerview.viewtype=='layer'}
+	<a href="javascript:void(0)" class="viewerlay_close_btn btn_pop_close"  board_seq="{seq}"></a>
+{/}
+
+
+<script type="text/javascript">
+$(".content img").load(function() {
+	//이미지 가로가 큰경우
+	$(".content img").each(function() {
+		var default_width = '290';//(본문레이아웃사이즈-50) 또는 직접값변경
+		if( $(this).width() > default_width || $(this).height() > default_width ) {
+			imageResize(this,default_width);
+		}
+	});
+});
+</script>
+
+{? _GET.iframe }
+<script type="text/javascript">
+$(document).ready(function(){
+	$(document).resize(function(){miframeset();}).resize();
+	setInterval(function(){miframeset();},1000);
+
+	// 댓글 등록
+	$("#board_commentsend").bind("click",function(){
+		var comment_btn_seq = $(this).attr("seq");
+		$("form[name=cmtform_"+comment_btn_seq+"]").submit();
+	});
+
+	// 댓글 수정
+	$("#board_commentsend_mod").bind("click",function(){
+		var comment_btn_seq = $(this).attr("board_cmt_seq");
+		$("form[name=cmtform_mod_"+comment_btn_seq+"]").submit();
+	});
+});
+function miframeset(){
+	//이미지 가로가 큰경우
+	$(".content img").each(function() {
+		<!--{ ? layout_config.layoutScrollLeft != 'hidden' || layout_config.layoutScrollRight != 'hidden'}-->
+			var default_width = '{layout_config.body_width-100}';//(본문레이아웃사이즈-100) 또는 직접값변경
+		<!--{:}-->
+			var default_width = '{layout_config.body_width-50}';//(본문레이아웃사이즈-50) 또는 직접값변경
+		<!--{/}-->
+		if( $(this).width() > default_width || $(this).height() > default_width ) {
+			imageResize(this,default_width);
+		}
+	});
+	$('#'+board_id+'_frame',parent.document).height($('#boardlayout').height()+50);
+}
+</script>
+{/}

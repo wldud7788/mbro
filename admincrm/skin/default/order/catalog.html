@@ -1,0 +1,634 @@
+{? !ajaxCall}
+{ #layout_header }
+{/}
+<div id="orderAdminSettle" class="hide"></div>
+<div id="issueGoodsSelect" class="hide"></div>
+<script type="text/javascript">
+	/* variable for ajax list */
+	var npage		= 1;
+	var nstep		= '';
+	var nnum		= '';
+	var stepArr		= new Array();
+	var allOpenStep	= new Array();
+	var loading_status	= 'n';
+	var searchTime		= "{=date('Y-m-d H:i:s')}";
+
+	$(document).ready(function() {
+
+		{? !ajaxCall}
+		$(window).css('overflow', 'scroll');
+		$(window).scroll(function(){
+			if	($(window).scrollTop() == ($(document).height() - $(window).height())){
+				get_catalog_ajax();
+			}
+		});
+		{:}
+		$("#orderSearchDiv").scroll(function(){
+			if	($("#orderSearchDiv").scrollTop() == ($("#orderSearchDiv").prop("scrollHeight") - $("#orderSearchDiv").height()-40)){
+				get_catalog_ajax();
+			}
+		});
+
+
+		{/}
+
+		$(".all-check").toggle(function(){
+			$(this).parent().find('input[type=checkbox]').attr('checked',true);
+		},function(){
+			$(this).parent().find('input[type=checkbox]').attr('checked',false);
+		});
+
+		get_catalog_ajax();
+
+
+
+		// 상단 주문 검색어 레이어 박스 : start
+		$("#keyword").keyup(function (e) {
+			if ($(this).val()) {
+				$('.body_txt_order_keyword').text($(this).val());
+				crmBodyOrderSearchLayerOpen();
+			}else{
+				$('.header_order_searchLayer').hide();
+			}
+		});
+
+		$("#keyword").focus(function () {
+			if ($(this).val() && $(this).val()!=$(this).attr('title')) {
+				crmBodyOrderSearchLayerOpen();
+			}
+			$('.body_txt_keyword').html("");
+			$('.body_order_search_type_text').hide();
+
+		});
+
+		$("a.body_order_link_keyword").click(function () {
+			var sType = $(this).attr('s_type');
+			$('#body_order_search_type').val(sType);
+			$('.body_order_searchLayer').hide();
+			setBodyOrderSearchTxt(sType);
+			$("#keyword").blur();
+		});
+
+		{? ajaxCall}
+			var offset = $("#keyword").offset();
+			$('.body_order_search_type_text').css({
+				'position' : 'absolute',
+				'z-index' : 999,
+				'left' : "1",
+				'top' : "42px",
+				'line-height' : '25px',
+				'width':$("#keyword").width()-1,
+				'height':$("#keyword").height()-5
+			});
+		{:}
+			var offset = $("#keyword").offset();
+			$('.body_order_search_type_text').css({
+				'position' : 'absolute',
+				'z-index' : 999,
+				'left' : "1",
+				'top' : "74px",
+				'width':$("#keywordLayer").width()-1,
+				'height':$("#keyword").height()-7
+			});
+		{/}
+
+
+		$(".body_order_search_type_text").click(function () {
+			$(".body_order_search_type_text").hide();
+			$("#keyword").focus();
+		});
+
+		$(".header_order_searchLayer ul li").hover(function() {
+			$(".header_order_searchLayer ul li").removeClass('hoverli');
+			$(this).addClass('hoverli');
+		});
+
+		$("#keyword").keydown(function (e) {
+			var searchbox = $(this);
+
+			switch (e.keyCode) {
+				case 40:
+					if($('.bodyOrderSearchUl').find('li.hoverli').length == 0){
+						$('.bodyOrderSearchUl').find('li:first-child').addClass('hoverli');
+					}else{
+						if($('.bodyOrderSearchUl').find('li:last-child').hasClass("hoverli") ){
+							$('.bodyOrderSearchUl').find('li::last-child.hoverli').removeClass('hoverli');
+							$('.bodyOrderSearchUl').find('li:first-child').addClass('hoverli');
+						}else{
+							$('.bodyOrderSearchUl').find('li:not(:last-child).hoverli').removeClass('hoverli').next().addClass('hoverli');
+						}
+					}
+					break;
+				case 38:
+					if($('.bodyOrderSearchUl').find('li.hoverli').length == 0){
+						$('.bodyOrderSearchUl').find('li:last-child').addClass('hoverli');
+					}else{
+						if($('.bodyOrderSearchUl').find('li:first-child').hasClass("hoverli")){
+							$('.bodyOrderSearchUl').find('li::first-child.hoverli').removeClass('hoverli');
+							$('.bodyOrderSearchUl').find('li:last-child').addClass('hoverli');
+						}else{
+							 $('.bodyOrderSearchUl').find('li:not(:first-child).hoverli').removeClass('hoverli').prev().addClass('hoverli');
+						}
+					}
+					break;
+				case 13 :
+					var index=0;
+					 $('.bodyOrderSearchUl').find('li').each(function(){
+						if($(this).hasClass("hoverli")){
+							index=$(this).index();
+						}
+					});
+
+					$('.bodyOrderSearchUl').find('li>a').eq(index).click();
+					//$('.header_searchLayer').hide();
+					$("#keyword").blur();
+					//topSearchMember();
+					e.keyCode = null;
+					return false;
+					break;
+			}
+		});
+		// 상단 주문 검색어 레이어 박스 : end
+
+		{? _GET.body_order_search_type && _GET.keyword}
+			setBodyOrderSearchTxt('{_GET.body_order_search_type}');
+
+		{/}
+
+	});
+
+	function setBodyOrderSearchTxt(sType) {
+		var search_type_array = new Array();
+		search_type_array['all'] = "";
+		search_type_array['order_user_name'] = "주문자 찾기";
+		search_type_array['recipient_user_name'] = "받는분 찾기";
+		search_type_array['depositor'] = "입금자 찾기";
+		search_type_array['userid'] = "아이디 찾기";
+		search_type_array['order_cellphone'] = "휴대폰 찾기";
+		search_type_array['order_email'] = "이메일 찾기";
+		$('.body_order_search_type_text').html(search_type_array[sType]+ " : " + $("#keyword").val()).show();
+	}
+
+	function crmBodyOrderSearchLayerOpen() {
+		var offset = $("#keyword").offset();
+		if( offset) {
+			$('.body_order_searchLayer').css({
+				'position' : 'absolute',
+				'z-index' : 999,
+				'left' : '1',
+				'top' : '1',
+				//'width':$("#header_search_keyword").width()+32
+				'width':$("#keyword").width()+5
+			}).show();
+		}
+	}
+
+	function get_catalog_ajax(){
+		if	(loading_status == 'n'){
+			
+			loading_status	= 'y';
+			{? !ajaxCall}
+			var queryString			= '{_SERVER.QUERY_STRING}';
+			{:}
+			var queryString			= $("#search-form").serialize();
+			{/}
+			var stepArrCnt			= stepArr.length;
+			var addParam			= '';
+			for (var s = 0; s < stepArrCnt; s++ ){
+				if	(stepArr[s]){
+					addParam	+= '&stepBox%5B'+s+'%5D='+stepArr[s];
+				}
+			}
+			$("#ajaxLoadingLayer").ajaxStart(function() { loadingStop(this); });
+			var type = $('input[name="searchType"]').val();
+			$.ajax({
+				type: 'post',
+				async: false,
+				url: '../order/catalog_ajax',
+				data: queryString +'&page='+npage+'&bfStep='+nstep+'&nnum='+nnum+'&searchTime='+searchTime+addParam+'&ajaxCall={=ajaxCall}'+'&searchType='+type,
+				dataType: 'html',
+				success: function(result) {
+
+
+					$(".order-ajax-list{=ajaxCall}").append(result);
+					$(".custom-select-box").customSelectBox();
+					$(".custom-select-box-multi").customSelectBox({'multi':true});
+
+					if			(allOpenStep[nstep] == 'open'){
+						$("tr.step"+nstep).find("span.btn-direct-open").each(function(){
+							orderViewOnOff('open', $(this));
+						});
+					}else if	(allOpenStep[nstep] == 'close'){
+						$("tr.step"+nstep).find("span.btn-direct-open").each(function(){
+							orderViewOnOff('close', $(this));
+						});
+					}
+
+					nstep	= $("#"+npage+"_step").val();
+					nnum	= $("#"+npage+"_no").val();
+					npage++;
+
+					loading_status	= 'n';
+
+
+					$(".help, .helpicon").poshytip({
+						className: 'tip-darkgray',
+						bgImageFrameSize: 8,
+						alignTo: 'target',
+						alignX: 'right',
+						alignY: 'center',
+						offsetX: 10,
+						allowTipHover: false,
+						slide: false,
+						showTimeout : 0
+					});
+
+
+				}
+			});
+			$("#ajaxLoadingLayer").ajaxStart(function() { loadingStart(this); });
+		}
+	}
+
+
+	function new_catalog_ajax(){
+		npage		= 1;
+		nstep		= '';
+		nnum		= '';
+		stepArr		= new Array();
+		allOpenStep	= new Array();
+
+		loading_status	= 'y';
+		var queryString			= $("#search-form").serialize();
+		var stepArrCnt			= stepArr.length;
+		var addParam			= '';
+		for (var s = 0; s < stepArrCnt; s++ ){
+			if	(stepArr[s]){
+				addParam	+= '&stepBox%5B'+s+'%5D='+stepArr[s];
+			}
+		}
+		$("#ajaxLoadingLayer").ajaxStart(function() { loadingStop(this); });
+		$.ajax({
+			type: 'post',
+			async: false,
+			url: '../order/catalog_ajax',
+			data: queryString +'&page='+npage+'&bfStep='+nstep+'&nnum='+nnum+'&searchTime='+searchTime+addParam+'&searchType=search',
+			dataType: 'html',
+			success: function(result) {
+
+
+				$(".order-ajax-list{=ajaxCall}").html(result);
+				$(".custom-select-box").customSelectBox();
+				$(".custom-select-box-multi").customSelectBox({'multi':true});
+
+				if			(allOpenStep[nstep] == 'open'){
+					$("tr.step"+nstep).find("span.btn-direct-open").each(function(){
+						orderViewOnOff('open', $(this));
+					});
+				}else if	(allOpenStep[nstep] == 'close'){
+					$("tr.step"+nstep).find("span.btn-direct-open").each(function(){
+						orderViewOnOff('close', $(this));
+					});
+				}
+
+				nstep	= $("#"+npage+"_step").val();
+				nnum	= $("#"+npage+"_no").val();
+				npage++;
+
+				loading_status	= 'n';
+
+
+				$(".help, .helpicon").poshytip({
+					className: 'tip-darkgray',
+					bgImageFrameSize: 8,
+					alignTo: 'target',
+					alignX: 'right',
+					alignY: 'center',
+					offsetX: 10,
+					allowTipHover: false,
+					slide: false,
+					showTimeout : 0
+				});
+
+
+			}
+		});
+		$("#ajaxLoadingLayer").ajaxStart(function() { loadingStart(this); });
+
+	}
+
+
+	function set_date(start,end){
+		$("input[name='regist_date[]']").eq(0).val(start);
+		$("input[name='regist_date[]']").eq(1).val(end);
+	}
+</script>
+<style type="text/css">
+	div.search-form-container table.sf-keyword-table .sfk-td-txt .form_tit {width:50px; height:29px; line-height:30px; background:#696B77; text-align:center; color:#fff;}
+	.body_order_search_type_text {background-color:#fff; padding-top:5px; line-height:17px; text-align:center; overflow:hidden; white-space:nowrap}
+	.body_order_searchLayer {margin:29px 0 0 49px; width:513px !important; border:1px solid #797d86;background-color:#fff; padding:5px 0;word-break:break-all;}
+	.body_order_searchLayer .body_txt_title {color:#999;font-size:11px;}
+	.body_order_searchLayer .body_txt_keyword {color:#ff6633;}
+	.body_order_searchLayer ul li {padding:2px 0 2px 5px;}
+	.body_order_searchLayer .hoverli {background-color:#f5f5f5;}
+	.search_label 	{display:inline-block;width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+	span.step_title {font-weight:normal;padding:0 5px 0 5px;}
+	span.export-list {display:inline-block;background-url("../images/common/btn_list_release.gif");width:60px;height:15px;}
+	div.btn-open-all {position:absolute;top:3px;left:-62px;}
+	div.btn-open-all img { cursor:pointer;}
+	.ft11	{font-size:11px;}
+	.barcode-btn {position:absolute; top:-34px; left:10px; cursor:pointer}
+	.barcode-btn .openImg{display:block;}
+	.barcode-btn .closeImg{display:none;}
+	.barcode-btn.opened .openImg{display:none;}
+	.barcode-btn.opened .closeImg{display:block;}
+	.barcode-description {display:none; background-color:#d2d8d8; border-top:1px solid #c4cccc; border-bottom:1px solid #c4cccc; text-align:center}
+	.darkgreen {color:#009900;}
+	.ui-combobox {position:relative; display:inline-block;}
+	.ui-combobox-toggle {position:absolute; top:0; bottom:0; margin-left:-1px; padding:0; /* adjust styles for IE 6/7 */ *height:1.7em; *top:0.1em;}
+	.ui-combobox-input {margin:0; padding:0.3em;}
+	.ui-autocomplete {max-height:200px; overflow-y:auto; /* prevent horizontal scrollbar */ overflow-x:hidden;}
+	table.export_table {border-collapse:collapse;border:1px solid #c8c8c8;width:100%}
+	table.export_table th {padding:5px; border:1px solid #c8c8c8;}
+	table.export_table td {padding:5px; border:1px solid #c8c8c8;}
+	table.export_table th {background-color:#efefef;}
+</style>
+
+{? !ajaxCall}
+<div class="orderTitle">주문</div>
+{/}
+<!-- 주문리스트 검색폼 : 시작 -->
+<div class="search-form-container">
+	<form name="search-form" id="search-form" method="get">
+	<input type="hidden" name="order_seq" value="{_GET.order_seq}">
+	<input type="hidden" name="ajaxCall" value="{=ajaxCall}">
+	<input type="hidden" name="searchType" value="{_GET.searchType}">
+	<table class="search-form-table" id="search_detail_table">
+	<tr>
+		<td>
+			<table class="sf-option-table" border="0">
+				<colgroup>
+					<col width="80" /><col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td colspan="2" align="center">
+							<table align="center">
+							<tr>
+								<td width="565">
+									<table class="sf-keyword-table">
+									<tr>
+										<td class="sfk-td-txt" id="keywordLayer">
+											<div id="body_crm_search_keyword_div" class="hs-box">
+												<span class="fl form_tit">주문</span>
+												<input type="text" name="keyword" id="keyword" value="{_GET.keyword}" title="주문자,받는분,입금자,아이디,휴대폰,이메일" class="fl" />
+											</div>
+											<!-- 검색어 입력시 레이어 박스 : start -->
+											<div class="body_order_search_type_text hide">{_GET.body_order_search_type}</div>
+											<div class="body_order_searchLayer hide">
+												<input type="hidden" name="body_order_search_type" id="body_order_search_type" value="{_GET.body_order_search_type}" />
+												<ul class="bodyOrderSearchUl">
+													<li><a class="body_order_link_keyword" s_type="all" href="#"><span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 주문 전체검색</span></a></li>
+													<li><a class="body_order_link_keyword" s_type="order_user_name" href="#">주문자 : <span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 주문자 찾기</span></a></li>
+													<li><a class="body_order_link_keyword" s_type="recipient_user_name" href="#">받는분 : <span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 받는분 찾기</span></a></li>
+													<li><a class="body_order_link_keyword" s_type="depositor" href="#">입금자 : <span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 입금자 찾기</span></a></li>
+													<li><a class="body_order_link_keyword" s_type="userid" href="#">아이디 : <span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 휴대폰 찾기</span></a></li>
+													<li><a class="body_order_link_keyword" s_type="order_cellphone" href="#">휴대폰 : <span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 휴대폰 찾기</span></a></li>
+													<li><a class="body_order_link_keyword" s_type="order_email" href="#">이메일 : <span class="body_txt_order_keyword">{_GET.keyword}</span> <span class="body_txt_title">- 이메일 찾기</span></a></li>
+												</ul>
+											</div>
+											<!-- 검색어 입력시 레이어 박스 : end -->
+										</td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="pdb5" align="center">
+							<table class="">
+							<tr>
+								<th>
+									<select name="date_field">
+									<option value="regist_date" {?_GET.date_field=='regist_date' || !_GET.date_field}selected{/}>주문일</option>
+									<option value="deposit_date" {?_GET.date_field=='deposit_date'}selected{/}>입금일</option>
+									</select>
+								</th>
+								<td>
+									<input type="text" name="regist_date[]" value="{_GET.regist_date[0]}" class="datepicker line"  maxlength="10" size="10" />
+									&nbsp;&nbsp;<span class="gray">-</span>&nbsp;&nbsp;
+									<input type="text" name="regist_date[]" value="{_GET.regist_date[1]}" class="datepicker line" maxlength="10" size="10" />
+									&nbsp;&nbsp;
+									<span class="btn small"><input type="button" value="오늘" onclick="set_date('{=date('Y-m-d')}','{=date('Y-m-d')}')" /></span>
+									<span class="btn small"><input type="button" value="3일간" onclick="set_date('{=date('Y-m-d',strtotime("-3 day"))}','{=date('Y-m-d')}')" /></span>
+									<span class="btn small"><input type="button" value="일주일" onclick="set_date('{=date('Y-m-d',strtotime("-7 day"))}','{=date('Y-m-d')}')"/></span>
+									<span class="btn small"><input type="button" value="1개월" onclick="set_date('{=date('Y-m-d',strtotime("-1 month"))}','{=date('Y-m-d')}')"/></span>
+									<span class="btn small"><input type="button" value="3개월" onclick="set_date('{=date('Y-m-d',strtotime("-3 month"))}','{=date('Y-m-d')}')" /></span>
+									<span class="btn small"><input type="button" value="전체" onclick="set_date('','')" /></span>
+								</td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th class="pdl10">출고 전</th>
+						<td>
+							<!--{ @config_load('step') }-->
+							<!--{ ? .key_ < 50 || .key_ >  80 }-->
+							<!--{ ? _GET.chk_step[.key_] }-->
+							<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" checked="checked" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+							<!--{ : }-->
+							<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ / }-->
+							<span class="icon-check hand all-check"><b>전체</b></span>
+						</td>
+					</tr>
+					<tr>
+						<th class="pdl10">출고 후</th>
+						<td >
+							<!--{ @config_load('step') }-->
+							<!--{ ? .key_ >= 50 && .key_ <  80 }-->
+							<!--{ ? _GET.chk_step[.key_] }-->
+							<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" checked="checked" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+							<!--{ : }-->
+							<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+							<!--{ / }-->
+							<!--{ / }-->
+							<!--{ / }-->
+							<span class="icon-check hand all-check"><b>전체</b></span>
+						</td>
+					</tr>
+					<tr>
+						<th class="pdl10">결제수단</th>
+						<td >
+							<!--{ @ config_load('payment') }-->
+							<!--{ ? !preg_match('/escrow/',.key_) }-->
+							<label class="search_label"><input type="checkbox" name="payment[]" value="{.key_}" {? in_array(.key_,_GET.payment)}checked{/} /> {.value_}</label>
+							<!--{ / }-->
+							<!--{ / }--> 
+							<span class="icon-check hand all-check"><b>전체</b></span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center" class="pdt15">
+						{? !ajaxCall}
+							<span class="btn_crm_search"><button type="submit">검색<span class="arrow"></span></button></span>
+						{:}
+							<span class="btn_crm_search"><button type="button" onclick="new_catalog_ajax();">검색<span class="arrow"></span></button></span>
+						{/}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+	</table>
+	</form>
+</div>
+<!-- 주문리스트 검색폼 : 끝 -->
+<br style="line-height:20px;">
+<!-- 주문리스트 테이블 : 시작 -->
+<table class="list-table-style" cellspacing="0">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="100" />
+		<col width="150" />
+		<col />
+		<col width="45" />
+		<col width="45" />
+		<col width="100" />
+		<col width="100" />
+		<col width="70" />
+		<col width="70" />
+		{? ajaxCall}
+		<col width="60" />
+		{/}
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th>주문일시</th>
+		<th>주문번호</th>
+		<th>주문상품</th>
+		<th>수(종)</th>
+		<th>출고</th>
+		<th>받는분 / 주문자</th>
+		<th>결제수단/일시</th>
+		<th>결제금액</th>
+		<th>처리상태</th>
+		{? ajaxCall}
+		<th>CRM</th>
+		{/}
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+	<!-- 리스트 : 시작 -->
+	<tbody class="ltb order-ajax-list{=ajaxCall}"></tbody>
+	<!-- 리스트 : 끝 -->
+</table>
+<!-- 주문리스트 테이블 : 끝 -->
+<div class="hide" id="search_detail_dialog">
+<form name="set_search_detail" method="post" action="set_search_default" target="actionFrame">
+<div id="contents">
+	<table class="search-form-table">
+	<tr>
+		<td>
+			<table class="sf-option-table">
+			<tr>
+				<th width="100">주문일</th>
+				<td class="date" height="30">
+					<label class="search_label"><input type="radio" name="regist_date" value="today" {? !_GET.regist_date_type || _GET.regist_date_type=='today' } checked="checked" {/}/> 오늘</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="3day" {? _GET.regist_date_type=='3day' } checked="checked" {/}/> 3일간</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="7day" {? _GET.regist_date_type=='7day' } checked="checked" {/}/> 일주일</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="1mon" {? _GET.regist_date_type=='1mon' } checked="checked" {/}/> 1개월</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="3mon" {? _GET.regist_date_type=='3mon' } checked="checked" {/}/> 3개월</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="all" {? _GET.regist_date_type=='all' } checked="checked" {/}/> 전체</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>출고 전</th>
+				<td>
+					<!--{ @config_load('step') }-->
+					<!--{ ? .key_ < 50 || .key_ >  80 }-->
+					<!--{ ? _GET.chk_step[.key_] }-->
+					<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" checked="checked" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+					<!--{ : }-->
+					<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+					<!--{ / }-->
+					<!--{ / }-->
+					<!--{ / }-->
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			<tr>
+				<th>출고 후</th>
+				<td>
+					<!--{ @config_load('step') }-->
+					<!--{ ? .key_ >= 50 && .key_ <  80 }-->
+					<!--{ ? _GET.chk_step[.key_] }-->
+					<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" checked="checked" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+					<!--{ : }-->
+					<label class="search_label"><input type="checkbox" name="chk_step[{.key_}]" value="1" /> <span class="icon-order-step-{.key_}">{.value_}</span></label>
+					<!--{ / }-->
+					<!--{ / }-->
+					<!--{ / }-->
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			<tr>
+				<th>결제수단</th>
+				<td>
+					<!--{ @ config_load('payment') }-->
+					<!--{ ? !preg_match('/escrow/',.key_) }-->
+					<!--{ ? _GET.payment[.key_] }-->
+					<label class="search_label"><input type="checkbox" name="payment[{.key_}]" value="1" checked="checked" /> {.value_}</label>
+					<!--{ : }-->
+					<label class="search_label"><input type="checkbox" name="payment[{.key_}]" value="1" /> {.value_}</label>
+					<!--{ / }-->
+					<!--{ / }-->
+					<!--{ / }-->
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			<tr>
+				<th>판매환경</th>
+				<td>
+					<!--{ @ sitetypeloop }-->
+						<!--{ ? _GET.sitetype[.key_] }-->
+						<label class="search_label" {? .key_ == 'MF' }style="width:150px"{/} ><input type="checkbox" name="sitetype[{.key_}]" value="{.key_}" checked="checked" /> {.name}</label>
+						<!--{ : }-->
+						<label class="search_label"  {? .key_ == 'MF' }style="width:150px"{/} ><input type="checkbox" name="sitetype[{.key_}]" value="{.key_}" /> {.name}</label>
+						<!--{ / }-->
+					<!--{ / }-->
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			<tr>
+				<th>주문유형</th>
+				<td>
+					<label class="search_label" ><input type="checkbox" name="ordertype[personal]" value="personal" { ? _GET.ordertype['personal'] }checked{/}/> <img src="/admin/skin/default/images/design/icon_order_personal.gif" align="absmiddle" /> 개인결제</label>
+					<label class="search_label" ><input type="checkbox" name="ordertype[personal]" value="personal" { ? _GET.ordertype['personal'] }checked{/}/> <img src="/admin/skin/default/images/design/icon_order_personal.gif" align="absmiddle" /> 개인결제</label>
+					<label class="search_label" ><input type="checkbox" name="ordertype[change]" value="change" { ? _GET.ordertype['change'] }checked{/}/> <img src="/admin/skin/default/images/design/icon_order_exchange.gif" align="absmiddle" /> 맞교환</label>
+					<label class="search_label" ><input type="checkbox" name="ordertype[gift]" value="gift" { ? _GET.ordertype['gift'] }checked{/}/> <img src="/admin/skin/default/images/design/icon_order_gift.gif" align="absmiddle" /> 사은품</label>
+					<span class="icon-check hand all-check"><b>전체</b></span>
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+</div>
+<div align="center" style="padding-top:10px;">
+	<span class="btn large black">
+		<button type="submit">저장하기<span class="arrowright"></span></button>
+	</span>
+</div>
+</form>
+</div>
+{? !ajaxCall}
+{ #layout_footer }
+{/}

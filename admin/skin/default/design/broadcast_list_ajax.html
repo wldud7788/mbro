@@ -1,0 +1,29 @@
+
+<!--{ ? !record  }-->
+<tr >
+	<td colspan="7">검색된 방송이 없습니다.</td>
+</tr>
+<!--{ : }-->
+<!--{ @ record }-->
+<tr bsSeq="{=.bsSeq}" {?.alreadySelect==1}class="bg-gray"{/}>
+	<td>
+		<!--{? .alreadySelect != 1}-->
+		<label class="resp_checkbox">
+			<input type="checkbox" name="select_broadcast_seq[]" class="chk" value="{=.bsSeq}" data-bsSeq="{=.bsSeq}" data-title="{=.title}" data-goodsNameFull="{=.goodsNameFull}" data-image="{=.image}" data-providerName="{=.providerName}"/>
+		</label>
+		<!--{/}-->
+	</td>
+	<td>{=.rno}</td>
+	<td><div class="list_thumb"><img src="{=.image}"></div></td>
+	<td class="left">
+		<!--{? .status == 'live'}-->
+		<img src="../images/broadcast/i_live2.png" class="valign-middle">
+		<!--{/}-->		
+		<a class="btn-info resp_btn_txt v2">{=.title}</a>
+	</td>
+	<td>{=.goodsNameFull}</td>
+	<td>{=.startDateTxt}</td>
+	<td>{=.statusTxt}</td>
+</tr>
+<!--{ / }-->
+<!--{ / }-->

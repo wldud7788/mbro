@@ -1,0 +1,3210 @@
+{ #layout_header }
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/layer_stock.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/goods_admin.css?v={=date('Ymd')}" />
+
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/js/goods-display.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-shipping.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsReady.js?dummy={=date('Ymd')}"></script>
+
+<script type="text/javascript">
+
+
+const gl_service_code				= '{service_code}';
+const gl_ableStockLimit				= {=cfg_order.ableStockLimit + 1};
+const gl_runout						= '{cfg_order.runout}';
+const gl_default_reserve_percent	= '{default_reserve_percent}';
+const gl_package_yn					= '{package_yn}';
+const gl_provider_seq				= '{provider_seq}';
+const gl_provider_name				= '{provider.provider_name}';
+const gl_adminSessionType			= '{adminSessionType}';
+const gl_default_charge				= false;
+
+const goodsObj						= {goodsObj};
+const hscodeTypeList				= {hscodeTypeList};
+
+//객체동결(변경금지)
+Object.freeze(goodsObj);
+Object.freeze(hscodeTypeList);
+
+const gl_goods_seq					= goodsObj.goods_seq;
+const gl_tax						= goodsObj.tax;
+const gl_reserve_policy				= goodsObj.reserve_policy;
+const gl_runtout_policy				= goodsObj.runout_policy;
+const gl_able_stock_limit			= goodsObj.able_stock_limit;
+
+const socialcpuse_flag				= { ? socialcpuse }true{ : }false{ / };
+const gl_option_exist_val			= { ? opts_loop }true{ : }false{ / };
+
+
+// 옵션 노출 설정 DB 값 세팅
+var gl_suboption_layout_group		= goodsObj.suboption_layout_group;
+var gl_suboption_layout_position	= goodsObj.suboption_layout_position;
+var gl_inputoption_layout_group		= goodsObj.inputoption_layout_group;
+var gl_inputoption_layout_position	= goodsObj.inputoption_layout_position;
+
+
+
+
+$(document).ready(function() {
+
+	<!--{ ? shipping_provider_seq=='1' }-->
+	$("input[name='shippingPolicy']").not(":checked").attr("disabled",true);
+	$("input[name='goodsShippingPolicy']").not(":checked").attr("disabled",true);
+	$("input[name='unlimitShippingPrice']").not(":checked").attr("readonly",true);
+	$("input[name='limitShippingEa']").not(":checked").attr("readonly",true);
+	$("input[name='limitShippingPrice']").not(":checked").attr("readonly",true);
+	$("input[name='limitShippingSubPrice']").not(":checked").attr("readonly",true);
+	$("input[name='goodsWeight']").not(":checked").attr("readonly",true);
+	<!--{ / }-->
+
+
+	$("button.runout_setting").bind("click",function(){
+		openDialog("재고 변화에 따른 상품판매 여부 설정", "popup_runout_setting", {"width":"98%","height":"510","show" : "fade","hide" : "fade"});
+	});
+
+});
+
+
+
+function provider(){
+	var provider_seq = '{providerInfo.provider_seq}';
+	$.ajax({
+		'url' : 'provider_charge_list',
+		'data' : {'provider_seq':provider_seq},
+		'dataType' : 'json',
+		'global' : false,
+		'success' : function(res){
+			var html = "";
+			$(".ptc-charges").empty();
+			if(res.length){
+				for(var i=0;i<res.length;i++){
+					if(i) html += ' / ';
+					html += res[i].link=='1' ? '기본' : res[i].brand_name;
+					html += '(' + comma(num(res[i].charge)) + ')';
+					html += (res[i].commission_type == "SUPR") ? "원" : "%";
+					if(res[i].link=='1'){
+						$("input[name='default_charge']").val(res[i].charge);
+						if($("input[name='commissionRate[]']").length==1 && $("input[name='commissionRate[]']").val()=='0'){
+							$("input[name='commissionRate[]']").val(res[i].charge);
+						}
+					}
+				}
+			}else{
+				html = "입점사 "+provider_seq+" 에 설정된 브랜드가 없습니다.";
+			}
+			$(".ptc-charges").html(html);
+		}
+	});
+}
+
+
+
+/* 저장하기 처리 필요*/
+function goods_save(saveType){
+	if($(".provider_seq").val()==''){
+		openDialogAlert("입점사를 선택해주세요.",400,150,function(){
+			$("select[name='provider_seq_selector']").next(".ui-combobox").children("input").eq(0).focus();
+		});
+		return false;
+	}
+	if(chk_stockDesc() && chk_multisale()){
+
+		loadingStart();
+		/* 다량옵션오류방지를 위하여 인코딩된 옵션폼값을 인코딩 : disable 처리 */
+		encodeFormValue("#optionLayer,#suboptionLayer");
+
+		$("input[name='save_type']").val(saveType);
+
+		/* 폼 전송 */
+		submitEditorForm(document.goodsRegist);
+
+		/* 다량옵션오류방지를 위하여 인코딩된 옵션폼값을 인코딩 : disable 해제 */
+		encodeFormValueOff("#optionLayer,#suboptionLayer");
+	}
+}
+
+
+
+
+function check_runout_type()
+{
+	var runout_policy = '';
+	var able_stock_limit = 0;
+
+	$("table#goods_runout").attr('disabled',true);
+	if( $("input[name='runout_type']:checked").val()=='goods' ){
+		runout_policy = '{goods.runout_policy}';
+		able_stock_limit = '{goods.able_stock_limit}';
+		$("table#goods_runout").attr('disabled',false);
+	}
+
+	if( !runout_policy ){
+		runout_policy = '{cfg_order.runout}';
+		able_stock_limit = '{cfg_order.ableStockLimit}';
+	}
+
+	$("input[name='runout'][value='"+runout_policy+"']").attr("checked",true);
+	$("input[name='ableStockLimit']").val(able_stock_limit);
+}
+
+function check_runout()
+{
+
+	var msg = '';
+	var couponmsg = "";
+	$("table.stock-qa-table tr").removeClass("red");
+	{? socialcpuse //쇼셜티켓의 티켓정보 설정}
+		if($("input[name='coupon_serial_type'][value='n']").is(":checked")){
+			couponmsg = "<font class='red' >+ 유효한 제휴사 티켓번호가 </font>";
+		}
+	{/}
+
+	if( $("input[name='runout_type']:checked").val()=='goods' ){
+		$("input[name='runout']:checked").closest('tr').addClass("red");
+		$("input[name='runout']:checked").closest('tr').next().addClass("red");
+		var ableStockLimit = parseInt($("input[name='ableStockLimit'").val())+1;
+		$("#ableStockLimitMsg").html(ableStockLimit);
+
+		msg = "<b>[<span class='red'>개별세팅</span>]</b><br/>";
+		if( $("input[name='runout']:checked").val()=='stock' ){
+			msg += "<b>재고가 1개 이상 "+couponmsg+" 있을 때 판매함</b><br />그러므로 재고가 1개 이상 있을 때 "+couponmsg+" '정상'상태 선택이 가능합니다.";
+		}
+		if( $("input[name='runout']:checked").val()=='ableStock' ){
+			msg += "<b>가용재고가 "+ableStockLimit+"개 이상 "+couponmsg+" 있을 때 판매함</b><br />그러므로 재고가 "+ableStockLimit+"개 이상 "+couponmsg+" 있을 때 '정상'상태 선택이 가능합니다.";
+		}
+		if( $("input[name='runout']:checked").val()=='unlimited' ){
+			msg += "<b>재고와 상관없이 "+couponmsg+" 판매함</b><br />그러므로 재고와 관계 없이 "+couponmsg+" '정상'상태 선택이 가능합니다.";
+		}
+		$("input[name='runout_policy']").val($("input[name='runout']:checked").val());
+		$("input[name='able_stock_limit']").val($("input[name='ableStockLimit'").val());
+	}else{
+		$("table#shop_runout tr").next().addClass("red");
+		msg = "<b>[통합세팅]</b><br/>";
+		{ ? cfg_order.runout == 'stock' }
+		msg += "<b>재고가 1개 이상 "+couponmsg+" 있을 때 판매함</b><br />그러므로 재고가 1개 이상 "+couponmsg+" 있을 때 '정상'상태 선택이 가능합니다.";
+		{ / }
+		{ ? cfg_order.runout == 'ableStock' }
+		msg += "<b>가용재고가 {cfg_order.ableStockLimit+1}개 이상 "+couponmsg+" 있을 때 판매함</b><br />그러므로 재고가 {cfg_order.ableStockLimit+1}개 이상 "+couponmsg+" 있을 때 '정상'상태 선택이 가능합니다.";
+		{ / }
+		{ ? cfg_order.runout == 'unlimited' }
+		msg += "<b>재고와 상관없이 "+couponmsg+" 판매함</b><br />그러므로 재고와 관계 없이 "+couponmsg+" '정상'상태 선택이 가능합니다.";
+		{ / }
+		$("input[name='runout_policy']").val('');
+		$("input[name='able_stock_limit']").val('');
+	}
+
+	{ ? service_code == 'P_FREE' }
+	msg += "<br /><div class='desc' style='padding-top:10px;'>상품별 재고 변화에 따른 판매여부 세팅 기능은 업그레이드가 필요합니다. <img src='../images/common/btn_upgrade.gif' class='hand' onclick='serviceUpgrade();' align='absmiddle' /></div>";
+	{ / }
+
+	$("#runout_policy_msg").html(msg);
+
+}
+
+//가격 디스플레이
+function check_string_price()
+{
+	$("table#tb_string_price input[type='radio']:checked").each(function(){
+		var obj = $(this).closest("td").find("span input");
+		var obj_select = $(this).closest("td").find("span select");
+		if( $(this).val() == 0 ){
+			obj.addClass('disabled').attr('readonly',true);
+			obj_select.addClass('disabled').children().attr('disabled',true);
+		}else{
+			obj.removeClass('disabled').removeAttr('readonly');
+			obj_select.removeClass('disabled').children().removeAttr('disabled');
+		}
+	});
+
+	// 구매자별 판매가격 세팅별 문구 노출
+	setting_guide_msg();
+}
+
+function apply_string_price()
+{
+	var arr = new Array();
+	arr[0] = 'string_price';
+	arr[1] = 'member_string_price';
+	arr[2] = 'allmember_string_price';
+
+	for(var i=0;i<3;i++){
+		var target_name = arr[i];
+		var target_use = "div#frmStringPrice input[name='" + target_name+"_use']";
+		var source_use = "table#tb_string_price input[name='" + target_name+"_use']:checked";
+		var target = "div#frmStringPrice input[name='" + target_name+"']";
+		var source = "table#tb_string_price input[name='" + target_name+"']";
+		var target_link = "div#frmStringPrice input[name='" + target_name+"_link']";
+		var source_link = "table#tb_string_price select[name='" + target_name+"_link']";
+		var target_link_url = "div#frmStringPrice input[name='" + target_name+"_link_url']";
+		var source_link_url = "table#tb_string_price input[name='" + target_name+"_link_url']";
+
+		if( $(source_use).val() == '1' && !$(source).val() ){
+			alert('가격대체문구를 입력해주세요!');
+			$(source).focus();
+			return false;
+		}
+
+		if($(source_use)) $(target_use).val($(source_use).val());
+		if($(source)) $(target).val( $(source).val() );
+		if($(source_link)) $(target_link).val( $(source_link).val() );
+		if($(source_link_url)) $(target_link_url).val( $(source_link_url).val() );
+
+		print_string_price();
+		closeDialog('popStringPrice');
+	}
+}
+
+function print_string_price()
+{
+	var arr = new Array();
+	arr[0] = 'string_price';
+	arr[1] = 'member_string_price';
+	arr[2] = 'allmember_string_price';
+
+	for(var i=0;i<3;i++){
+		var target_name = arr[i];
+		var target_use = "div#frmStringPrice input[name='" + target_name+"_use']";
+		var target = "div#frmStringPrice input[name='" + target_name+"']";
+		var target_link = "div#frmStringPrice input[name='" + target_name+"_link']";
+		var target_link_url = "div#frmStringPrice input[name='" + target_name+"_link_url']";
+
+		if($(target_use).val() == '0' || !$(target_use).val()){
+			$("#"+target_name+"_msg1").html('판매가격 표기');
+			$("#"+target_name+"_msg3").html('상품의 상태에 따라 구매 가능');
+		}else{
+			var msg = $(target).val();
+			if( $(target_link).val()=='direct' && $(target_link_url).val() ){
+				msg = "<a href='"+$(target_link_url).val()+"' target='_blank'>" + msg + "</a>";
+			}
+			if( $(target_link).val()=='login'  ){
+				msg = "<a href='/member/login' target='_blank'>" + msg + "</a>";
+			}
+			if( $(target_link).val()=='1:1'  ){
+				msg = "<a href='/mypage/myqna_catalog' target='_blank'>" + msg + "</a>";
+			}
+
+			$("#"+target_name+"_msg1").html(msg);
+			$("#"+target_name+"_msg3").html('판매가격이 안보이므로 구매 불가능');
+		}
+
+		if($(target_link).val() == ''){
+			$("#"+target_name+"_msg2").html('없음');
+		}
+		if($(target_link).val() == 'login'){
+			$("#"+target_name+"_msg2").html('로그인');
+		}
+		if($(target_link).val() == '1:1'){
+			$("#"+target_name+"_msg2").html('1:1문의');
+		}
+		if($(target_link).val() == 'direct'){
+			$("#"+target_name+"_msg2").html('직접입력');
+		}
+	}
+}
+
+function clip_copy() {
+	var meintext = $("#realvideourl").val();//'{realvideourl}';
+
+　 if (window.clipboardData) {
+　 　 window.clipboardData.setData("Text", meintext);
+　 } else if (window.netscape) {
+　 　 netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
+　 　 var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+　 　 if (!clip) return;
+　 　 var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+　 　 if (!trans) return;
+　 　 trans.addDataFlavor('text/unicode');
+　 　 var str = new Object();
+　 　 var len = new Object();
+　 　 var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+　 　 var copytext=meintext;
+　 　 str.data=copytext;
+　 　 trans.setTransferData("text/unicode",str,copytext.length*2);
+　 　 var clipid=Components.interfaces.nsIClipboard;
+　 　 if (!clip) return false;
+　 　 clip.setData(trans,null,clipid.kGlobalClipboard);
+　 }
+
+}
+
+
+function check_goodsShippingPolicy(){
+	var sel = $("select[name='shippingPolicy'] option:selected").val();
+	var obj = $("input[name='goodsShippingPolicy']");
+	obj.closest('td').attr('disabled',false);
+	if( sel == 'shop'){
+		obj.closest('td').attr('disabled',true);
+	}
+
+	$("input[name='goodsShippingPolicy']").closest("div").find("span").attr("disabled",true);
+	$("input[name='goodsShippingPolicy']:checked").closest("div").find("span").attr("disabled",false);
+
+
+}
+
+// 외부 티켓 등록
+function setCouponSerial(tcnt, couponSerialStr){
+	$("#coupon_result").show();
+	{ ? goods.goods_seq }
+	var tcnt	= parseInt(tcnt) + parseInt($(".tcnt").text());
+	$("input[name='coupon_serial_upload']").val($("input[name='coupon_serial_upload']").val()+','+couponSerialStr);
+	$(".tcnt").text(comma(tcnt));
+	{ : }
+	$("input[name='coupon_serial_upload']").val(couponSerialStr);
+	$(".tcnt").text(comma(tcnt));
+	{ / }
+
+	closeDialog("coupon_serial_upload_lay");
+}
+// mapView 기능 추가 lwh 2014-03-31
+function show_mapView(){
+	{? socialcpuse }$(".mapView").attr('disabled',false);{/}
+}
+function hide_mapView(){
+	{? socialcpuse }$(".mapView").attr('disabled',true);{/}
+}
+
+function setting_guide_msg() {
+	var obj_guide_msg = $("#setting_guide_msg");
+	var string_use = $("table#tb_string_price input[name='string_price_use']:checked").val();
+	var mem_use = $("table#tb_string_price input[name='member_string_price_use']:checked").val();
+	var allmem_use = $("table#tb_string_price input[name='allmember_string_price_use']:checked").val();
+
+	var msg1 = "모든 구매자(비회원,회원)가 가격을 확인 할 수 있습니다.";
+	var msg2 = "비회원은 가격 확인이 불가능하고 회원만 가격 확인이 가능합니다.";
+	var msg3 = "비회원과 일반회원은 가격 확인이 불가능하고 일반회원보다 높은 등급의 회원만 가격 확인이 가능합니다.";
+	var msg4 = "모든 구매자(비회원,회원)가 가격을 확인 할 수 없습니다.";
+	var dmsg1 = "비회원만 가격 확인이 가능하고 회원은 가격을 확인하지 못하는 비정상적인 설정입니다.<br/>다시 설정해주세요.";
+	var dmsg2 = "비회원과 일반회원만 가격 확인이 가능하고 일반회원보다 높은 등급의 회원은 가격을 확인하지 못하는 비정상적인 설정입니다.<br/>다시 설정해주세요.";
+	var dmsg3 = "비회원과 일반회원보다 높은 등급의 회원만 가격 확인이 가능하고 일반회원은 가격을 확인하지 못하는 비정상적인 설정입니다.<br/>다시 설정해주세요.";
+	var dmsg4 = "일반회원만 가격 확인이 가능하고 비회원과 일반회원보다 높은 등급의 회원은 가격을 확인하지 못하는 비정상적인 설정입니다.<br/>다시 설정해주세요.";
+
+	if (obj_guide_msg.length) {
+		obj_guide_msg.html("");
+		$("#btn_apply_string").attr("disabled",false);
+		obj_guide_msg.removeClass("red");
+
+		if (string_use==0 && mem_use==0 && allmem_use==0) {
+			obj_guide_msg.html(msg1);
+		}
+
+		if (string_use==1 && mem_use==0 && allmem_use==0) {
+			obj_guide_msg.html(msg2);
+		}
+
+		if (string_use==1 && mem_use==1 && allmem_use==0) {
+			obj_guide_msg.html(msg3);
+		}
+
+		if (string_use==1 && mem_use==1 && allmem_use==1) {
+			obj_guide_msg.html(msg4);
+		}
+
+		if (string_use==0 && mem_use==1 && allmem_use==1) {
+			obj_guide_msg.addClass("red");
+			obj_guide_msg.html(dmsg1);
+			$("#btn_apply_string").attr("disabled",true);
+		}
+
+		if (string_use==0 && mem_use==0 && allmem_use==1) {
+			obj_guide_msg.addClass("red");
+			obj_guide_msg.html(dmsg2);
+			$("#btn_apply_string").attr("disabled",true);
+		}
+
+		if (string_use==0 && mem_use==1 && allmem_use==0) {
+			obj_guide_msg.addClass("red");
+			obj_guide_msg.html(dmsg3);
+			$("#btn_apply_string").attr("disabled",true);
+		}
+
+		if (string_use==1 && mem_use==0 && allmem_use==1) {
+			obj_guide_msg.addClass("red");
+			obj_guide_msg.html(dmsg4);
+			$("#btn_apply_string").attr("disabled",true);
+		}
+
+		obj_guide_msg.show();
+	}
+}
+
+// 미승인 처리 관련 안내 팝업
+function open_provider_status(){
+	openDialog('상품 수정 시 자동 미승인 처리 기준', 'unable_provider_status', {'width':'600','height':'260'});
+}
+
+function dialog_hscode()
+{
+	openDialog("안내) 수출입상품코드", "dialog_hscode", {"width":570,"height":200});
+}
+
+
+</script>
+
+
+<!--{ ? goods.goods_seq }-->
+<form name="goodsRegist" id="goodsRegist" method="post" enctype="multipart/form-data" action="../goods_process/modify" target="actionFrame">
+<textarea name="encodedFormValue" class="hide"></textarea>
+<input type="hidden" name="goodsSeq" value="{goods.goods_seq}" />
+<input type="hidden" name="query_string" value="{query_string}"/>
+<input type="hidden" name="default_charge" value="{=provider.charge}" />
+<input type="hidden" name="default_commission_type" value="{=provider.commission_type}" />
+<input type="hidden" name="provider_status" value="{goods.provider_status}" >
+<input type="hidden" name="old_update_date" value="{goods.update_date}" />
+<input type="hidden" name="regist_date" value="{goods.regist_date}" />
+<input type="hidden" name="provider_seq" value="{goods.provider_seq}" />
+<input type="hidden" name="goods_modify_ok" id="goods_modify_ok" value=""/>
+<!-- 패키지 연결오류 레이어 -->
+<div id="packageOptInput" class="hide"></div>
+<div id="packageSubInput" class="hide"></div>
+<!--{ : }-->
+<form name="goodsRegist" id="goodsRegist" method="post" enctype="multipart/form-data" action="../goods_process/regist" target="actionFrame">
+<textarea name="encodedFormValue" class="hide"></textarea>
+<input type="hidden" name="default_charge" value="{default_charge.charge}" />
+<input type="hidden" name="provider_status" value="0" >
+<!--{ / }-->
+<input type="hidden" name="save_type" value="view" />
+<input type="hidden" name="goodsinfochage"  id="goodsinfochage" value="" />
+<input type="hidden" name="runout_policy" value="" />
+<input type="hidden" name="able_stock_limit" value=""/>
+<input type="hidden" name="sale_seq" value="1">
+<input type="hidden" name="videotmpcode" value="{videotmpcode}" />
+<input type="hidden" name="socialcp_event"  id="socialcp_event" value="{goods.socialcp_event}" />
+<input type="hidden" name="package_yn" value="{package_yn}" />
+
+<!-- 필수옵션의 해외배송여부 -->
+<input type="hidden" name="option_international_shipping_status" value="{goods.option_international_shipping_status}" />
+
+	<!-- 페이지 타이틀 바 : 시작 -->
+	<div id="page-title-bar-area">
+		<div id="page-title-bar">
+
+			<!-- 타이틀 -->
+			<div class="page-title">
+			<!--{ ? goods.goods_seq }-->
+				<h2>
+				<!--{ ? goods.adult_goods == 'Y' }-->
+				<img src="/admin/skin/default/images/common/auth_img.png" alt="성인" style="vertical-align: middle;"/>
+				<!--{ / }-->
+				<!--{ ? goods.option_international_shipping_status == 'y' }-->
+				<img src="../images/common/icon/plane_on.png" alt="해외배송상품" style="vertical-align: middle;" height="19" />
+				<!--{ / }-->
+				<!--{ ? goods.cancel_type == '1' }-->
+				<img src="../images/common/icon/nocancellation.gif" alt="청약철회" style="vertical-align: middle;"/>
+				<!--{ / }-->
+				<!--{ ? goods.tax == 'exempt' }-->
+				<img src="../images/common/icon/taxfree.gif" alt="비과세" style="vertical-align: middle;"/>
+				<!--{ / }-->
+				<!--span class="icon-goods-kind-{goods.goods_kind}"></span-->
+				<span class="icon-star-gray {goods.favorite_chk}" id="star_select" goods_seq="{goods.goods_seq}"></span>
+					<span class="fx11 desc normal">{? goods.model_text}[{goods.model_text}]{/}</span>
+					<!--{ ? package_yn == 'y' }-->
+					[패키지]
+					<!--{ / }-->
+					[{goods.goods_seq}]
+					{=getstrcut(goods.title,15)}
+					<span class="pdl20 fx11 normal">
+						<span class="goods_status_color_{goods.goods_status}">{goods.goods_status_text}</span>,
+						<span class="goods_view_color_{goods.goods_view}">{goods.goods_view_text}</span>,
+						<span class="goods_view_color_{goods.provider_status}">{goods.provider_status_text}</span>,
+						<span>
+							페이지뷰 {=number_format(goods.page_view)}회,
+						</span>
+					</span>
+				</h2>
+			<!--{ : }-->
+				<h2>
+					<span class="icon-goods-kind-{goods.goods_kind}"></span>
+				<!--{ ? socialcpuse }-->
+					[티켓]
+				<!--{ : }-->
+					[실물]
+				<!--{ / }-->
+				<!--{ ? package_yn=='y' }-->
+					패키지/복합
+				<!--{ : }-->
+					일반
+				<!--{ / }-->
+					상품등록
+				</h2>
+			<!--{ / }-->
+			</div>
+
+			<!-- 좌측 버튼 -->
+			<ul class="page-buttons-left">
+				<li><span class="btn large white"><button type="button" onclick="document.location.href='../goods/{?package_yn=='y'}package_{/}{? socialcpuse }social_{/}catalog?{query_string}';">{ ? package_yn == 'y' }패키지/복합{ : }일반{ / } 상품리스트<span class="arrowright"></span></button></span></li>
+				<!--{ ? goods.goods_seq }-->
+				<li class="helpicon" title="상품 등록일은 복사되지 않습니다.<br/>동영상 정보는 복사되지 않습니다.<br/>관리자 메모는 복사되지 않습니다."><span class="btn large black"><button type="button" id="manager_copy_btn"  goods_seq="{goods.goods_seq}">상품복사 등록<span class="arrowright"></span></button></span></li>
+				<!--{ / }-->
+			</ul>
+
+
+			<!-- 우측 버튼 -->
+			<ul class="page-buttons-right">
+				<!--{ ? goods.goods_seq }-->
+				<li>
+					<span class="btn large white"><button type="button" id="viewGoods" goods_seq="{goods.goods_seq}">화면보기<span class="arrowright"></span></button></span>
+					<ul class="gnb-subnb">
+						{?service_code!='P_FAMM'}<li class="gnb-subnb-item"><a href="http://{pcDomain}/goods/view?no={goods.goods_seq}&setMode=pc" style="width:100px" target="_blank">PC 화면</a></li>{/}
+						{?service_code!='P_FAMM'}<li class="gnb-subnb-item"><a href="http://{mobileDomain}/goods/view?no={goods.goods_seq}&setMode=mobile" style="width:100px" target="_blank">Mobile/Tablet 화면</a></li>{/}
+						{?service_code!='P_FREE' && facebookConnected }<li class="gnb-subnb-item"><a href="{facebookapp_url}" style="width:100px" target="_blank">Facebook PC 화면</a></li>{/}
+					</ul>
+				</li>
+				<li><span class="btn large black"><button type="button" onclick="goods_save('list')">저장 후 리스트<span class="arrowright"></span></button></span></li>
+				<li><span class="btn large black"><button type="button" onclick="goods_save('view')">저장 후 화면 유지<span class="arrowright"></span></button></span></li>
+				<!--{ : }-->
+				<li><span class="btn large black"><button type="button" onclick="goods_save('view')">저장하기<span class="arrowright"></span></button></span></li>
+				<!--{ / }-->
+			</ul>
+
+			<!-- 상단 단계 링크 : 시작 -->
+			<div class="page-goods-helper-btn" >
+				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<tr >
+						<!--
+						{ ? goods.goods_seq }
+						<td class="ctab" >
+							<a href="#01">통계</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span>
+						</td>
+						{ / }
+						<td class="ctab"><a href="#02">이벤트</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td> -->
+						<td class="ctab"><a href="#03">카테고리/브랜드{? socialcpuse }/지역{/}</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<td class="ctab"><a href="#04">상품명/상태</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						{? !socialcpuse }
+						<td class="ctab"><a href="#05">취소/반품</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						{/}
+						<td class="ctab"><a href="#06">아이콘/상품정보 고시</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<!-- <td class="ctab"><a href="#07">결제수단</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td> -->
+						<td class="ctab"><a href="#08">판매금액/옵션/적립금</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<!-- <td class="ctab"><a href="#09">구매자별 할인</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td> -->
+						<td class="ctab"><a href="#10">{? socialcpuse }발송정보{:}배송정보{/}</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<td class="ctab"><a href="#11">사진</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<td class="ctab"><a href="#12">설명/공용정보</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<td class="ctab"><a href="#13">관련상품</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle" style="padding-right:6px;"><span class="ctabvbar">&nbsp;</span></td>
+						<td class="ctab"><a href="#14">관리 메모</a> &nbsp; <img src="../images/common/btn_quick.gif" align="absmiddle"  ></td>
+					</tr>
+				</table>
+			</div>
+			<!-- 상단 단계 링크 : 끝 -->
+
+		</div>
+	</div>
+	<!-- 페이지 타이틀 바 : 끝 -->
+	<!-- 서브메뉴 바디 : 시작-->
+
+<div class="clearbox"></div>
+<!--{ ? provider_seq == '1' }-->
+	<!-- 본사매입 상품 -->
+	<div class="providerTitleContainer clearbox" style="background-color:blue">
+		<div class="ptc-title">본사 매입 상품</div>
+	</div>
+	<input type="hidden" class="provider_seq" name="provider_seq" value="1" />
+<!--{ : goods.goods_seq}-->
+	<!-- 입점사 상품 수정 -->
+	<div class="providerTitleContainer clearbox" style="background-color:red">
+	<div class="ptc-title">입점사 상품 - {provider.provider_name} </div>
+	<input type="hidden" class="provider_seq" name="provider_seq" value="{provider_seq}" />
+	<div class="ptc-desc">
+		<div class="ptc-charges">
+		{@options}
+			{?.default_option=='y'}
+				수수료 {.commission_rate}% (옵션이 있을 경우 대표 옵션 기준)
+			{/}
+		{/}
+		</div>
+	</div>
+	<div class="btn-provider-status-info">
+		<span class="btn small orange"><button type="button" onclick="open_provider_status();">안내) 상품 수정 시 자동 미승인 처리 기준</button></span>
+	</div>
+</div>
+<!--{ : }-->
+	<!-- 입점사 상품 등록 -->
+	<div class="providerTitleContainer clearbox" style="background-color:red">
+		<div class="ptc-title">입점사 상품 - {provider.provider_name} </div>
+		<div class="ptc-desc">
+			{?providerInfo.provider_seq}
+				<input type="hidden" class="provider_seq" name="provider_seq" value="{providerInfo.provider_seq}" />
+			{:}
+				<div class="ui-widget">
+					<select name="provider_seq_selector" style="vertical-align:middle;">
+					<option value="">= 선택 =</option>
+					{@provider_list}
+					<option value="{.provider_seq}">{.provider_name}({.provider_id})</option>
+					{/}
+					</select>
+
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="hidden" class="provider_seq" name="provider_seq" value="" />
+					<input type="text" name="provider_name" value="" readonly />
+				</div>
+				<span class="ptc-charges hide"></span>
+
+				<style>
+				.ui-combobox {
+					position: relative;
+					display: inline-block;
+				}
+				.ui-combobox-toggle {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					margin-left: -1px;
+					padding: 0;
+					/* adjust styles for IE 6/7 */
+					*height: 1.7em;
+					*top: 0.1em;
+				}
+				.ui-combobox-input {
+					margin: 0;
+					padding: 0.3em;
+				}
+				.ui-autocomplete {
+					max-height: 200px;
+					overflow-y: auto;
+					/* prevent horizontal scrollbar */
+					overflow-x: hidden;
+				}
+
+				</style>
+
+				<script>
+				$( "select[name='provider_seq_selector']" )
+				.combobox()
+				.change(function(){
+					$("input[name='provider_seq']").val($(this).val());
+					$("input[name='provider_name']").val($("option:selected",this).text());
+				});
+				</script>
+
+			{/}
+		</div>
+		<div class="btn-provider-status-info">
+			<span class="btn small orange"><button type="button" onclick="open_provider_status();">안내) 상품 수정 시 자동 미승인 처리 기준</button></span>
+		</div>
+	</div>
+<!--{ / }-->
+
+	<br style="line-height:20px;"/>
+	<!--
+	{ ? goods.goods_seq}
+		<a name="01" alt="통계"></a>
+		<div id="Advanced_Statistics"></div>
+	{ / }
+	<a name="02" alt="이벤트"></a><br/>
+	<div id="goods_benefits"></div>
+	-->
+
+	<div class="clearbox"></div>
+
+
+<a name="03" alt="카테고리/브랜드/지역"></a>
+<div style="float:left;width:33.3%">
+	<div class="item-title">카테고리 <span class="btn small gray"><button type="button" id="categoryConnectPopup">카테고리 연결</button></span></div>
+
+	<table class="info-table-style" style="width:100%" id="connectCategoryTable">
+		<colgroup>
+			<col width="20%" />
+			<col />
+		</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">대표카테고리</th>
+				<th class="its-th-align center">연결된 카테고리</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--{ @ categories }-->
+			<tr>
+				<td class="its-td-align center">
+					<input type="hidden" name="categoryLinkSeq[]" value="{.category_link_seq}" />
+					<!--{ ? .link }-->
+					<label><input type="radio" name="firstCategory" value="{.category_code}" checked="checked" /></label>
+					<!--{ : }-->
+					<label><input type="radio" name="firstCategory" value="{.category_code}" /></label>
+					<!--{ / }-->
+					<input type="hidden" name="connectCategory[]" value="{.category_code}" />
+				</td>
+				<td class="its-td">
+					<div class="connectCategory">{.title}</div><div><span class="btn-minus"><button type="button" class="categoryDelete"></button></span></div>
+				</td>
+			</tr>
+			<!--{ : }-->
+			<tr id="connectCategoryInfo">
+				<td class="its-td-align center" colspan="3">상품이 속한 카테고리를 여러 개 연결할 수 있습니다.</td>
+			</tr>
+			<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+
+<div style="float:left;width:33.3%">
+	<div class="item-title">브랜드 <span class="btn small gray"><button type="button" id="brandConnectPopup">브랜드 연결</button></span></div>
+		<table class="info-table-style" style="width:100%" id="connectBrandTable">
+			<colgroup>
+				<col width="20%" />
+				<col />
+			</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">대표 브랜드</th>
+				<th class="its-th-align center">연결된 브랜드</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--{ @ brands }-->
+			<tr>
+				<td class="its-td-align center">
+					<input type="hidden" name="brandLinkSeq[]" value="{.category_link_seq}" />
+					<!--{ ? .link }-->
+					<label><input type="radio" name="firstBrand" value="{.category_code}" charge="{.charge}" checked="checked" /></label>
+					<!--{ : }-->
+					<label><input type="radio" name="firstBrand" value="{.category_code}" charge="{.charge}" /></label>
+					<!--{ / }-->
+					<input type="hidden" name="connectBrand[]" value="{.category_code}" />
+				</td>
+				<td class="its-td">
+					<div class="connectBrand">{.title}</div><div><span class="btn-minus"><button type="button" class="brandDelete"></button></span></div>
+				</td>
+			</tr>
+			<!--{ : }-->
+			<tr id="connectBrandInfo">
+				<td class="its-td-align center" colspan="3">상품이 속한 브랜드를 여러 개 연결할 수 있습니다.</td>
+			</tr>
+			<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+
+<div style="float:left;width:33.3%">
+	<div class="item-title">지역 <span class="btn small gray"><button type="button" id="locationConnectPopup">지역 연결</button></span></div>
+		<table class="info-table-style" style="width:100%" id="connectLocationTable">
+			<colgroup>
+				<col width="20%" />
+				<col />
+			</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">대표 지역</th>
+				<th class="its-th-align center">연결된 지역</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--{ @ locations }-->
+			<tr>
+				<td class="its-td-align center">
+				<!--{ ? .link }-->
+				<label><input type="radio" name="firstLocation" value="{.location_code}" charge="{.charge}" checked="checked" /></label>
+				<!--{ : }-->
+				<label><input type="radio" name="firstLocation" value="{.location_code}" charge="{.charge}" /></label>
+				<!--{ / }-->
+				<input type="hidden" name="connectLocation[]" value="{.location_code}" />
+				</td>
+				<td class="its-td">
+				<div class="connectLocation">{.title}</div><div><span class="btn-minus"><button type="button" class="locationDelete"></button></span></div>
+				</td>
+			</tr>
+		<!--{ : }-->
+			<tr id="connectLocationInfo">
+				<td class="its-td-align center" colspan="3">상품이 속한 지역을 여러 개 연결할 수 있습니다.</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+
+<div class="clearbox"></div>
+<div class="item-title">기본 정보 <span>(상품번호 : { ? goods.goods_seq }{goods.goods_seq}{ : }자동생성{ / })</span></div>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="10%" />
+		<col width="40%" />
+		<col width="10%" />
+		<col />
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="its-th-align center">
+				상품명 <span class="goods_required"></span>
+				<!--{ ? provider_seq == 1 && LINKAGE_SERVICE && !socialcpuse }-->
+				<br /><input type="checkbox" name="chkGoodsNameLinkage" /> 판매마켓용
+				<!--{ / }-->
+			</th>
+			<td class="its-td">
+				<byte><input type="text" name="goodsName" class="cal-byte line" size="50" value="{goods.goods_name}" title="HTML 사용가능" onkeyup="calculate_input_byte(this);" /> <span class="view-byte">0</span>bytes</byte>
+				{ ? provider_seq == 1 && LINKAGE_SERVICE && !socialcpuse }
+				<div class="divisionGoodsNameLinkage hide">
+				<byte><input type="text" name="goodsNameLinkage" class="cal-byte line" size="50" value="{goods.goods_name_linkage}" title="마켓 전용 상품명" onkeyup="calculate_input_byte(this);" /> <span class="view-byte">0</span>bytes</byte>
+				<span class="btn small cyanblue"><button type="button" class="goods-name-copy">복사</button></span>
+				</div>
+				{ / }
+			</td>
+			<th class="its-th-align center">간략 설명</th>
+			<td class="its-td">
+				<byte><input type="text" name="summary" class="cal-byte line" size="70" value="{goods.summary}" title="간략한 상품 설명을 입력하세요" onkeyup="calculate_input_byte(this);" /> <span class="view-byte">0</span>bytes</byte>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">
+				검색어 - 자동
+				<a href="javascript:helperMessage('keyword');"><img src="../images/common/btn_help.gif"/></a>
+			</th>
+			<td class="its-td">{auto_keyword}</td>
+			<th class="its-th-align center">검색어 - 추가</th>
+			<td class="its-td">
+				<byte><input type="text" name="keyword" class="line cal-byte" size="70" value="{goods.keyword}" title="태그는 ,(콤마)로 구분됩니다" onkeyup="calculate_input_byte(this);" /><span class="view-byte">0</span>bytes</byte>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">검색용 색상</th>
+			<td class="its-td" colspan="3">
+				<div class="color-check">	
+					<!--{ @ goodsColorPick }-->
+					<label style="background-color:#{.key_}" class="{ ? .value_ }active{ / }"><input type="checkbox" name="color_pick[]" value="{.key_}" { ? .value_ }checked{ / }></label>
+					<!--{ / }-->
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div style="float:left;width:50%">
+	<div class="item-title">
+		추가 정보
+		<span class="desc" style="font-weight:normal">설정>
+		<a href="../setting/goods" target="_blank"><span class="highlight-link hand">상품 코드/정보</span></a>
+		에서 추가 정보를 미리 등록해 놓을 수 있습니다.</span>
+	</div>
+	<table class="info-table-style" id="etcViewTable" style="width:100%">
+		<colgroup>
+			<col width="35%" />
+			<col />
+			<col width="8%" />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th class="its-th-align center">정보(제조일,출시일)</th>
+				<th class="its-th-align center">정보값(최대 255bytes)</th>
+				<th class="its-th-align"><span class="btn-plus"><button type="button" id="etcAdd"></button></span></th>
+			</tr>
+			<!--{ @ additions }-->
+			<tr>
+				<td class="its-td-align center">
+					<input type="hidden" name="additionSeq[]" value="{.addition_seq}" />
+					<span { ? .type != 'direct' }class='hide'{ / }><input type="text" name="etcTitle[]" class="etcTitle" size="10" class="line" value="{.title}"/></span>
+					<select name="selectEtcTitle[]" style="width:115px" class="line">
+					<option value="" >-선택해주세요-</option>
+						{ @ .goodsaddinfo }<option value="goodsaddinfo_{..codeform_seq}"  style="background-color:orange;" { ? .code_seq == ..codeform_seq && strstr(.type,'goodsaddinfo_') } selected="selected" { / }>{..label_title}</option>{ / }
+						<option value="model" { ? .type == 'model' }selected{ / }>모델명</option>
+						<option value="brand" { ? .type == 'brand' }selected{ / }>브랜드</option>
+						<option value="manufacture" { ? .type == 'manufacture'}selected{ / }>제조사</option>
+						<option value="orgin" { ? .type == 'orgin' }selected{ / }>원산지</option>
+						<option value="direct" { ? .type == 'direct' }selected{ / }>직접입력</option>
+					</select>
+				</td>
+				<td class="its-td-align left">
+					<input type="text" name="etcContents[]" Onblur="onByteCheck(this);" onKeyUp="onByteCheck(this);" class="etcContents { ? .code_seq && strstr(.type,'goodsaddinfo_') } hide { / } line" { ? .type=='orgin' }style="width:51%"{ / } value="{.contents}"/>
+					<input type="hidden" name="etcContents_title[]" class="etcContents_title line " value="{.contents_title}"/>
+					<span class='goodsaddinfolay'>
+						{ @ .goodsaddinfo }<span class='goodsaddinfo_{..codeform_seq} goodsaddinfosublay { ? !(.code_seq == ..codeform_seq && strstr(.type,'goodsaddinfo_')) } hide{ / }'>{..label_write}</span>{ / }
+					</span>
+					<!--{ ? provider_seq == 1 && LINKAGE_SERVICE && !socialcpuse }-->
+					<span class="linkage-origin { ? .type!='orgin' }hide{ / }">
+						<select name="linkageOrigin[]">
+							<option value="">판매마켓용</option>
+							{ @ .linkageOrigin }<option value="{..origin_code}" { ? .linkage_val == ..origin_code }selected{ / }>{..origin_name}</option>{ / }
+						</select>
+					</span>
+					<!--{ / }-->
+					<span class="byte_area">
+						<span class="etcContent_size bold">{=strlen(.contents)}</span>bytes
+					</span>
+				</td>
+				<td class="its-td-align center"><span class="btn-minus "><button type="button" class="etcDel">-</button></span></td>
+			</tr>
+			<!--{ : }-->
+			<tr>
+				<td class="its-td-align center">
+					<input type="hidden" name="additionSeq[]" value="" />
+					<span class='hide'><input type="text" name="etcTitle[]" size="10" class="line" value=""/></span>
+					<select name="selectEtcTitle[]" style="width:115px" class="line">
+						<option value="" >-선택해주세요-</option>
+						{ @ goodsaddinfoloop }<option value="goodsaddinfo_{.codeform_seq}"  style="background-color:orange;">{.label_title}</option>{ / }
+						<option value="model" >모델명</option>
+						<option value="brand" >브랜드</option>
+						<option value="manufacture" >제조사</option>
+						<option value="orgin" >원산지</option>
+						<option value="direct" >직접입력</option>
+					</select>
+				</td>
+				<td class="its-td-align left">
+					<input type="text" Onblur="onByteCheck(this);" onKeyUp="onByteCheck(this);"  name="etcContents[]" class="etcContents line" value=""/>
+					<input type="hidden" name="etcContents_title[]" class="etcContents_title line " value=""/>
+					<span class='goodsaddinfolay hide'>
+						{ @ goodsaddinfoloop }<span class='goodsaddinfo_{.codeform_seq} goodsaddinfosublay hide'>{.label_write}</span>{ / }
+					</span>
+					<!--{ ? provider_seq == 1 && LINKAGE_SERVICE && !socialcpuse }-->
+					<span class="linkage-origin hide">
+						<select name="linkageOrigin[]">
+							<option value="">판매마켓용</option>
+							{ @ linkageOrigin }<option value="{.origin_code}">{.origin_name}</option>{ / }
+						</select>
+					</span>
+					<!--{ / }-->
+					<span class="byte_area">
+						<span class="etcContent_size bold">0</span>bytes
+					</span>
+				</td>
+				<td class="its-td-align center"><span class="btn-minus"><button type="button" class="etcDel"></button></span></td>
+			</tr>
+			<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+<div style="float:left;width:50%">
+	<div class="item-title">
+		아이콘
+		<span class="desc" style="font-weight:normal">
+		아이콘을 쉽게 추가할수있습니다.
+		</span>
+	</div>
+	<table class="info-table-style" id="iconViewTable" style="width:100%">
+		<colgroup>
+			<col width="50%" />
+			<col />
+			<col width="8%" />
+		</colgroup>
+
+		<tbody>
+			<tr>
+				<th class="its-th-align center">노출기간 (미설정 시 노출 지속)</th>
+				<th class="its-th-align center">아이콘</th>
+				<th class="its-th-align"><span class="btn-plus"><button type="button" id="iconAdd"></button></span></th>
+			</tr>
+			<!--{ @ icons }-->
+			<tr>
+				<td class="its-td">
+					<input type="hidden" name="iconSeq[]" value="{.icon_seq}" />
+					<span>
+					<input type="text" name="iconDate[]" value="{.start_date}" class="line"  maxlength="10" size="10" />~
+					<input type="text" name="iconDate[]" value="{.end_date}" class="line"  maxlength="10" size="10" />
+					</span>
+				</td>
+				<td class="its-td-align center">
+					<input type="hidden" name="goodsIcon[]" value="{.codecd}" />
+					<img src="/data/icon/goods/{.codecd}.gif" border="0" class="goodsIcon hand" align="absmiddle">
+					<span class="btn small"><input type="button" value="선택" class="goodsIcon"/></span>
+				</td>
+				<td class="its-td-align center"><span class="btn-minus"><button type="button" class="iconDel"></button></span></td>
+			</tr>
+			<!--{ : }-->
+			<tr>
+				<td class="its-td">
+					<input type="hidden" name="iconSeq[]" value="" />
+					<span>
+					<input type="text" name="iconDate[]" value="" class="line"  maxlength="10" size="10" />~
+					<input type="text" name="iconDate[]" value="" class="line"  maxlength="10" size="10" />
+					</span>
+				</td>
+				<td class="its-td-align center">
+					<input type="hidden" name="goodsIcon[]" value="1" />
+					<!--{ @ code_load('goodsIcon',1) }-->
+					<img src="/data/icon/goods/{.codecd}.gif" border="0" class="goodsIcon hand" align="absmiddle">
+					<span class="btn small"><input type="button" value="선택" class="goodsIcon"/></span>
+					<!--{ / }-->
+				</td>
+				<td class="its-td-align center"><span class="btn-minus"><button type="button" class="iconDel"></button></span></td>
+			</tr>
+			<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+
+
+<div class="item-title">전자상거래 등에서의 상품정보제공 고시</div>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="10%" />
+		<col width="30%" />
+		<col width="60%" />
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="its-th-align center">품목</th>
+			<td class="its-td center">
+				<select name="goodsSubInfo" class="line" onchange="chgGoodSubInfo(this.value);">
+					<option value="" { ? goods.goods_sub_info == '' }selected{ / }>품목선택</option>
+					<option value="0" { ? goods.goods_sub_info == '0' }selected{ / }>(0)의류</option>
+					<option value="1" { ? goods.goods_sub_info == '1' }selected{ / }>(1)구두 / 신발</option>
+					<option value="2" { ? goods.goods_sub_info == '2' }selected{ / }>(2)가방</option>
+					<option value="3" { ? goods.goods_sub_info == '3' }selected{ / }>(3)패션잡화 (모자 / 벨트 / 액세서리)</option>
+					<option value="4" { ? goods.goods_sub_info == '4' }selected{ / }>(4)침구류 / 커튼</option>
+					<option value="5" { ? goods.goods_sub_info == '5' }selected{ / }>(5)가구(침대 / 소파 / 싱크대 / DIY제품)</option>
+					<option value="6" { ? goods.goods_sub_info == '6' }selected{ / }>(6)영상가전(TV류)</option>
+					<option value="7" { ? goods.goods_sub_info == '7' }selected{ / }>(7)가정용 전기제품(냉장고 / 세탁기 / 식기세척기 / 전자레인지)</option>
+					<option value="8" { ? goods.goods_sub_info == '8' }selected{ / }>(8)계절가전(에어컨 / 온풍기)</option>
+					<option value="9" { ? goods.goods_sub_info == '9' }selected{ / }>(9)사무용기기(컴퓨터 / 노트북 / 프린터)</option>
+					<option value="10" { ? goods.goods_sub_info == '10' }selected{ / }>(10)광학기기(디지털카메라 / 캠코더)</option>
+					<option value="11" { ? goods.goods_sub_info == '11' }selected{ / }>(11)소형전자(MP3 / 전자사전 등)</option>
+					<option value="12" { ? goods.goods_sub_info == '12' }selected{ / }>(12)휴대폰</option>
+					<option value="13" { ? goods.goods_sub_info == '13' }selected{ / }>(13)내비게이션</option>
+					<option value="14" { ? goods.goods_sub_info == '14' }selected{ / }>(14)자동차용품 (자동차부품 / 기타 자동차용품)</option>
+					<option value="15" { ? goods.goods_sub_info == '15' }selected{ / }>(15)의료기기</option>
+					<option value="16" { ? goods.goods_sub_info == '16' }selected{ / }>(16)주방용품</option>
+					<option value="17" { ? goods.goods_sub_info == '17' }selected{ / }>(17)화장품</option>
+					<option value="18" { ? goods.goods_sub_info == '18' }selected{ / }>(18)귀금속 / 보석 / 시계류</option>
+					<option value="19" { ? goods.goods_sub_info == '19' }selected{ / }>(19)영유아용품</option>
+					<option value="20" { ? goods.goods_sub_info == '20' }selected{ / }>(20)악기</option>
+					<option value="21" { ? goods.goods_sub_info == '21' }selected{ / }>(21)스포츠용품</option>
+					<option value="22" { ? goods.goods_sub_info == '22' }selected{ / }>(22)서적</option>
+					<option value="23" { ? goods.goods_sub_info == '23' }selected{ / }>(23)디지털 콘텐츠 (음원, 게임, 인터넷강의 등)</option>
+					<option value="24" { ? goods.goods_sub_info == '24' }selected{ / }>(24)상품권 / 쿠폰</option>
+					<option value="26" { ? goods.goods_sub_info == '26' }selected{ / }>(26)식품</option>
+					<option value="27" { ? goods.goods_sub_info == '27' }selected{ / }>(27)일반식품</option>
+					<option value="28" { ? goods.goods_sub_info == '28' }selected{ / }>(28)건강식품</option>
+					<option value="29" { ? goods.goods_sub_info == '29' }selected{ / }>(29)호텔/펜션 예약</option>
+					<option value="30" { ? goods.goods_sub_info == '30' }selected{ / }>(30)여행패키지</option>
+					<option value="31" { ? goods.goods_sub_info == '31' }selected{ / }>(31)항공권</option>
+					<option value="32" { ? goods.goods_sub_info == '32' }selected{ / }>(32)자동차 대여 서비스</option>
+					<option value="33" { ? goods.goods_sub_info == '33' }selected{ / }>(33)물품대여 서비스(정수기 비데 공기청정기 등)</option>
+					<option value="24" { ? goods.goods_sub_info == '34' }selected{ / }>(34)물품대여 서비스(서적 유아용품 행사용품 등)</option>
+					<option value="35" { ? goods.goods_sub_info == '35' }selected{ / }>(35)디지털 콘텐츠</option>
+					<option value="25" { ? goods.goods_sub_info == '25' }selected{ / }>(25)기타</option>
+				</select>
+
+			</td>
+			<td style="margin:0em;">
+				<table class="info-table-style" style="width:100%; border-top:0px;">
+				<colgroup>
+					<col width="40%" />
+					<col width="60%" />
+				</colgroup>
+				<tr>
+					<th class="its-th-align center" style="">항목</th>
+					<th class="its-th-align">
+						정보
+						<span class="btn small"><button type="button" id="btnGoodsSubInfoDescrioption">↓ 상품상세설명 참조</button></span>
+					</th>
+				</tr>
+				<tbody id="subInfoTable">
+					<!--{ @ goods.sub_info_desc.subInfo }-->
+					<tr><td class="its-td-align center"><input type="text" name="subInfoTitle[]" class="line" value="{.title}" style="width:90%;"/></td><td class="its-td-align center"><input type="text" name="subInfoDesc[]" class="line" value="{.desc}" style="width:90%;"/></td></tr>
+					<!--{ / }-->
+				</tbody>
+			</table>
+		</tr>
+	</tbody>
+</table>
+
+<div class="item-title">판매정보</div>
+<input type="hidden" name="viewLayout" value="basic"/>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="10%" />
+		<col width="40%" />
+		<col width="10%" />
+		<col />
+	</colgroup>
+
+	<tbody>
+		<tr>
+			<th class="its-th-align center">승인</th>
+			<td class="its-td" colspan="2">
+				{ ? goods.provider_status}승인{ : }미승인{ / }
+				<!--{ ? goods.provider_status != '1' && goods.goods_seq }-->
+				({goods.update_date} 승인된 상품을 관리자(통신판매중계자)가 미승인한 상품 {goods.provider_status_reason})<a href="#tb_goods_log"><span style="padding-left:10px;" class="highlight-link hand">자세히</span></a>
+				<!--{ / }-->
+			</td>
+			<td class="its-td right" style="border-left:0px solid #000; padding-right:10px;">
+				<span class="btn small orange"><button type="button" class="goods_modify_helper" >안내) 상품 수정 시 자동 미승인 처리 기준</button></span>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">상태</th>
+			<td class="its-td" colspan="3">
+				<table border="0">
+					<col width="100" />
+					<tr>
+						<td><label><input type="radio" name="goodsStatus" value="normal" {?provider_seq!='1'}checked="checked"{/}> 정상</label></td>
+						<td class="goodsStatusDesc fx11 pdr10">상품상세페이지버튼 →</td>
+						<td class="goodsStatusDesc fx11 pdr10">바로구매</td>
+						<td class="goodsStatusDesc fx11 pdr10">장바구니</td>
+						<td class="goodsStatusDesc fx11 pdr10">위시리스트</td>
+					</tr>
+					<tr>
+						<td><label><input type="radio" name="goodsStatus" value="runout"> 품절</label></td>
+						<td class="goodsStatusDesc fx11 pdr10">상품상세페이지버튼 →</td>
+						<td class="goodsStatusDesc fx11 pdr10">위시리스트</td>
+						<td class="goodsStatusDesc fx11 pdr10">품절</td>
+						<td class="fx11 pdr10"><label><input type="checkbox" name="restockNotifyUse" value="1" { ? goods.restock_notify_use }checked="checked"{/} />재입고알림</label></td>
+					</tr>
+					<tr>
+						<td><label><input type="radio" name="goodsStatus" value="purchasing"> 재고확보중</label></td>
+						<td class="goodsStatusDesc fx11 pdr10">상품상세페이지버튼 →</td>
+						<td class="goodsStatusDesc fx11 pdr10">위시리스트</td>
+						<td class="goodsStatusDesc fx11 pdr10">재고확보중</td>
+						<td class="goodsStatusDesc fx11 pdr10">재입고알림</td>
+					</tr>
+					<tr>
+						<td class="pdr10"><label><input type="radio" name="goodsStatus" value="unsold" { ? provider_seq=='1'}checked="checked"{/}> 판매중지</label></td>
+						<td class="goodsStatusDesc fx11 pdr5">상품상세페이지버튼 →</td>
+						<td class="goodsStatusDesc fx11 pdr10">판매중지</td>
+						<td class="goodsStatusDesc fx11 pdr10"></td>
+						<td class="goodsStatusDesc fx11 pdr10"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">
+				재고 변화에 따른<br/>상품판매 여부<br/>
+				<!--{ ? service_code == 'P_FREE' }-->
+				<span class="btn small gray"><button type="button">세팅</button></span>
+				<!--{ : }-->
+				<span class="btn small cyanblue"><button type="button" class="runout_setting">세팅</button></span>
+				<!--{ / }-->
+			</th>
+			<td class="its-td" id="runout_policy_msg" colspan="3"></td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">
+				노출 { ? goods.display_terms == 'AUTO' }(자동관리){ : }(수동관리){ / }
+				<br/>
+				<span class="btn small cyanblue"><button type="button" id="display_terms">세팅</button></span>
+			</th>
+			<td class="its-td" colspan="3">
+				<div id="display_terms_auto" class="{ ? goods.display_terms != 'AUTO' || goods.display_terms_close == 'Y' }hide{/}">
+					<span class="display_before { ? goods.display_terms_status != 'BEFORE' }hide{ / }"><span style="font-weight:bold; color:blue">현재</span></span>
+					<span class="display_terms_begin_before">{goods.display_terms_begin_before}</span>까지는
+					<span class="display_terms_before">{ ? goods.display_terms_before == 'DISPLAY' }노출{ : }미노출{ / } →</span> 
+					<span class="display_ing { ? goods.display_terms_status == 'BEFORE' }hide{ / }"><span style="font-weight:bold; color:blue">현재</span></span>
+					<span class="display_terms_begin">{goods.display_terms_begin} ~ </span> 
+					<span class="display_terms_end">{goods.display_terms_end}</span>
+					<span class="display_terms_type">{ ? goods.display_terms_type == 'LAYAWAY'}예약상품{ : }상품{/}</span>
+					<span class="display_terms_text">{ ? goods.display_terms_text}(<span style="color:{ ? goods.display_terms_color}{goods.display_terms_color}{ : }#FF0000{ / }">{goods.display_terms_text}</span>){ / }으로 노출 </span>
+					<span class="display_terms_end_after">{goods.display_terms_end_after}</span>부터는
+					<span class="display_terms_after">{ ? goods.display_terms_after == 'DISPLAY' }노출{ : }미노출{ / }</span>
+				</div>
+				<div id="display_terms_menual" class="{ ? goods.display_terms == 'AUTO' && goods.display_terms_close == 'N' }hide{/}">
+					<label><input type="radio" name="goodsView" value="look" checked="checked"> 노출</label>
+					<label><input type="radio" name="goodsView" value="notLook"> 미노출</label>
+				</div>
+
+
+				<input type="hidden" name="display_terms" value="{ ? goods.display_terms == 'AUTO' }AUTO{ : }MENUAL{ / }" />
+				<input type="hidden" name="display_terms_begin" value="{ ? goods.display_terms_begin }{goods.display_terms_begin}{ : }0000-00-00{ / }" />
+				<input type="hidden" name="display_terms_end" value="{ ? goods.display_terms_end }{goods.display_terms_end}{ : }0000-00-00{ / }" />
+				<input type="hidden" name="display_terms_type" value="{ ? goods.display_terms == 'LAYAWAY' }LAYAWAY{ : }SELLING{ / }" />
+				<input type="hidden" name="display_terms_text" value="{goods.display_terms_text}" />
+				<input type="hidden" name="display_terms_color" value="{ ? goods.display_terms_color }{goods.display_terms_color}{ : }#FF0000{ / }" />
+				<input type="hidden" name="display_terms_before" value="{ ? goods.display_terms_before == 'DISPLAY' }DISPLAY{ : }CONCEAL{ / }" />
+				<input type="hidden" name="display_terms_after" value="{ ? goods.display_terms_after == 'DISPLAY' }DISPLAY{ : }CONCEAL{ / }" />
+
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<br/>
+
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="10%" />
+		<col width="40%" />
+		<col width="10%" />
+		<col />
+	</colgroup>
+
+	<tbody>
+		<tr>
+			<th class="its-th-align center">
+				과세/비과세
+			</th>
+			<td class="its-td">
+				<label><input type="radio" name="tax" value="tax"/>과세</label>&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" name="tax" value="exempt"/>비과세</label>&nbsp;&nbsp;
+
+				: <label><input type="checkbox" name="tax_chk" value="Y" { ? goods.tax == 'exempt' }checked{ / }/> 
+				<span style="color:red;"><a href="javascript:helperMessage('tax');">주의사항</a></span>을 읽었습니다</label>
+			</td>
+			<th class="its-th-align center">
+				청약철회 불가
+				<a href="javascript:helperMessage('cancel');"><img src="../images/common/btn_help.gif"/></a>
+			</th>
+			<td class="its-td">
+				<label><input type="checkbox" name="cancel_type" value="1"  { ? goods.cancel_type=='1'}checked="checked"{/}> 이 상품은 청약철회 불가 상품입니다.</label>
+				<span class="desc">청약철회방침 정책은 설정 > <a href="/admin/setting/order" target="_blank"><span class=" highlight-link hand">주문</span></a>에서 입력하세요. </span>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">최소 구매수량</th>
+			<td class="its-td">
+				<label><input type="radio" name="minPurchaseLimit" value="unlimit" checked="checked" />&nbsp;최소 1개</label>&nbsp;&nbsp;
+				<label><input type="radio" name="minPurchaseLimit" value="limit" />&nbsp;최소</label>
+				<input type="text" name="minPurchaseEa" size="3" class="line onlynumber" value="{goods.min_purchase_ea}" />개 이상 구매가능 (2이상 입력 가능)
+			</td>
+			<th class="its-th-align center">최대 구매수량</th>
+			<td class="its-td">
+				<label><input type="radio" name="maxPurchaseLimit" value="unlimit" checked="checked" />&nbsp;제한 없음</label>
+				&nbsp;&nbsp;<label><input type="radio" name="maxPurchaseLimit" value="limit" />&nbsp;제한함</label>
+				최대 <input type="text" name="maxPurchaseEa" size="3" class="line onlynumber" value="{goods.max_purchase_ea}" />개 까지 구매가능
+				(최소 구매수량 보다 큰 수)
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">
+				성인 상품
+				<a href="javascript:helperMessage('adult');"><img src="../images/common/btn_help.gif"/></a>
+			</th>
+			<td class="its-td">
+				<label><input type="checkbox" name="adult_goods" id="adult_goods" value="Y" {?goods.adult_goods=='Y'} checked="checked" {/} {?operation=='adult'}checked="checked" disabled{/}> 이 상품은 성인(19세 이상 : {=date('Y')-19}년생)만 상품을 보고 구매가 가능합니다.</label><br/>
+				<span class="desc">관리자 로그인 상태에서는 성인인증 없이 상품상세페이지를 확인할 수 있습니다.</span><br/>
+				<span class="desc">성인인증수단은 설정 > 회원 > <a href="/admin/setting/member?gb=realname" target="_blank"><span class=" highlight-link hand">본인인증</span></a>에서 설정가능</span>
+			</td>
+			<th class="its-th-align center">
+				해외 구매 대행
+				<a href="javascript:helperMessage('oversea');"><img src="../images/common/btn_help.gif"/></a>
+			</th>
+			<td class="its-td">
+				통관신고(대한민국배송)
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- 옵션 팝업 페이지-->
+{#OPTION_HTML}
+{#SUBOPTION_HTML}
+
+
+<input type="hidden" name="frequentlyinp" value="{goods.frequentlyinp}" />
+<div style="padding:15px 0px 5px 10px;">
+	<input type="hidden" name="tmp_suboption_seq" value="" />
+	<div>
+		<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="pd0" style="width:160px"  valign="bottom">
+				<span class="optionTitleText">[3] 추가입력옵션 설정</div>
+			</td>
+			<td  valign="bottom"> 
+				<label><input type="checkbox" name="memberInputUse"  value="1" /> 추가입력옵션 사용</label>
+				<span class="hideSpan hide">
+					→
+					<label><input type="checkbox" name="frequentlytypeinputoptck" value="1" /></label>
+					<span id="frequentlytypeinputoptlay" class="gray"  disabled="disabled">
+						<select name="frequentlytypeinputopt" class="frequentlytypeinputopt" >
+							<option value="0">자주 쓰는 상품의 추가입력옵션 </option>
+							<!--{ ? frequentlyinplist }-->
+							{ @ frequentlyinplist }<option value="{.goods_seq}">{=getstrcut(strip_tags(.goods_name),20)}</option>{ / }
+							<!--{ / }-->
+						</select>
+						을 가져와서
+					</span>
+
+					<span class="btn small cyanblue"><button type="button" id="memberInputMake">추가입력옵션 만들기</button></span>
+					<span class="btn small gray"><button type="button" id="memberInputPreview">추가입력옵션 미리보기</button></span>
+				</span>
+			</td>
+			<td align="right">{? goods.frequentlyinp } <span class="" >↓ 자주 쓰는 상품의 추가입력옵션입니다.</span>{/}</td>
+		</tr>
+		</table>
+	</div>
+</div>
+
+<div id="memberInputLayer">
+	<!--{ ? inputs }-->
+	<table style="width: 100%;" class="info-table-style">
+		<thead>
+			<tr>
+				<th class="its-th-align center" width="100">입력필수</th>
+				<th class="its-th-align center" width="250">옵션명</th>
+				<th class="its-th-align center">옵션값</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--{ @ inputs }-->
+			<tr>
+				<td class="its-td pd10 center">
+					{ ? .input_require }Y{ : }N{ / }
+
+					<input type="hidden" name="memberInputRequire[]" value="{ ? .input_require }require{ / }" />
+					<input type="hidden" name="inputSeq[]" value="{.input_seq}" />
+					<input type="hidden" name="memberInputName[]" value="{.input_name}" />
+					<input type="hidden" name="memberInputForm[]" value="{.input_form}" />
+					<input type="hidden" name="memberInputLimit[]" value="{.input_limit}" />
+				</td>
+				<td class="its-td pd10 center">{.input_name}</td>
+				<td class="its-td pd10">
+					<!--{ ? .input_form == 'text' }-->
+					텍스트박스 { ? .input_limit }({.input_limit}자 이내){ / }
+					<!--{ : .input_form == 'edit' }-->
+					에디트박스 { ? .input_limit }({.input_limit}자 이내){ / }
+					<!--{ : .input_form == 'file' }-->
+					이미지 업로드 (2M이하)
+					<!--{ / }-->
+				</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+	<!--{ / }-->
+</div>
+
+
+<div id="option_select_layout_config" class="clearbox">
+	<div style="padding: 15px 0px 5px 10px;">
+		<span class="optionTitleText">[4] 추가구성옵션 및 추가입력옵션의 구매화면 설정</span>
+		<span id="option_layout_button" class="btn small gray"><button type="button">화면설정</button></span>
+	</div>
+
+	<input type="hidden" name="suboption_layout_group" value="{goods.suboption_layout_group}" />
+	<input type="hidden" name="suboption_layout_position" value="{goods.suboption_layout_position}" />
+	<input type="hidden" name="inputoption_layout_group" value="{goods.inputoption_layout_group}" />
+	<input type="hidden" name="inputoption_layout_position" value="{goods.inputoption_layout_position}" />
+
+	<table width="100%" class="info-table-style">
+		<colgroup>
+			<col width="50%" />
+			<col width="50%" />
+		<colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">추가구성옵션<span style="color:red;" id="set_suboption_require"></span></th>
+				<th class="its-th-align center">추가입력옵션</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="its-td-align center" >
+					<span id="display_suboption_select_layout_position"><span style="color:#9a9a9a;">미사용</span></span>
+					<span id="display_suboption_select_layout_group"><span style="color:#9a9a9a;">미사용</span></span>
+				</td>
+				<td class="its-td-align center">
+					<span id="display_inputoption_select_layout_position"><span style="color:#9a9a9a;">미사용</span></span>
+					<span id="display_inputoption_select_layout_group"><span style="color:#9a9a9a;">미사용</span></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div class="item-title">프로모션</div>
+<table class="info-table-style" style="width:100%" id="promotionViewSet">
+	<colgroup>
+		<col width="8%" />
+		<col width="7%" />
+		<col width="35%" />
+		<col width="50%" />
+		<col />
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="its-th-align center" colspan="2"></th>
+			<th class="its-th-align center">조건</th>
+			<th class="its-th-align center">프로모션 내용</th>
+		</tr>
+	</thead>
+	<tbody id='multiDiscountView'>
+		<!--{ @ goods.multi_discount_policy.policyList }-->
+		<tr>
+			<!--{ ? .index_ == 0 }-->
+			<th class="its-th-align center" rowspan="{=count(goods.multi_discount_policy.policyList) + 1}">대량 구매</th>
+			<th class="its-th-align left cyanblue" rowspan="{=count(goods.multi_discount_policy.policyList) + 1}" style="border-left:0"><span class="btn small gray"><button id="multiDiscountSet" type="button">설정</button></span></th>
+			<!--{ / }-->
+			<td class="its-td">
+				{.discountOverQty}개 이상 ~ {.discountUnderQty}개 미만
+				<input type="hidden" name="discountOverQty[]" value="{.discountOverQty}"/>
+				<input type="hidden" name="discountUnderQty[]" value="{.discountUnderQty}"/>
+			</td>
+			<td class="its-td">
+				{.discountAmount} { ? goods.multi_discount_policy.discountUnit == 'PRI'}{=config_system['basic_currency']} / 1개{ : }%{ / }
+				<input type="hidden" name="discountAmount[]" value="{.discountAmount}"/>
+			</td>
+		</tr>
+			<!--{ ? .index_ == count(goods.multi_discount_policy.policyList) - 1 }-->
+		<tr>
+			<td class="its-td">
+				{goods.multi_discount_policy.discountMaxOverQty}개 이상
+				<input type="hidden" name="discountMaxOverQty" value="{goods.multi_discount_policy.discountMaxOverQty}"/>
+			</td>
+			<td class="its-td">
+				{goods.multi_discount_policy.discountMaxAmount} { ? goods.multi_discount_policy.discountUnit == 'PRI'}{=config_system['basic_currency']} / 1개{ : }%{ / }
+				<input type="hidden" name="discountMaxAmount" value="{goods.multi_discount_policy.discountMaxAmount}"/>
+				<input type="hidden" name="discountUnit" value="{goods.multi_discount_policy.discountUnit}"/>
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ : }-->
+		<tr>
+			<th class="its-th-align center">대량 구매</th>
+			<th class="its-th-align left cyanblue" style="border-left:0"><span class="btn small gray"><button id="multiDiscountSet" type="button">설정</button></span></th>
+			<td class="its-td center" colspan="2">혜택없음</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+	<tbody>
+		<tr>
+			<th class="its-th-align center">회원 등급</th>
+			<th class="its-th-align left" style="border-left:0"></span></th>
+			<td class="its-td"></td>
+			<td class="its-td"></td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">모바일</th>
+			<th class="its-th-align left" style="border-left:0"></span></th>
+			<td class="its-td"></td>
+			<td class="its-td"></td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">할인 이벤트</th>
+			<th class="its-th-align left"></span></th>
+			<td class="its-td"></td>
+			<td class="its-td"></td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">유입경로</th>
+			<th class="its-th-align left"></span></th>
+			<td class="its-td"></td>
+			<td class="its-td"></td>
+		</tr>
+		<tr>
+			<th class="its-th-align center">사은품</th>
+			<th class="its-th-align left"></span></th>
+			<td class="its-td"></td>
+			<td class="its-td"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<div class="item-title">
+	구매 대상자 (가격노출 및 버튼노출 제어)
+	<span class="btn small gray"><button type="button" id="popStringPriceBtn">설정</button></span>
+	<div id="frmStringPrice" class="hide">
+		string_price_use<input type="text" name="string_price_use" value="{goods.string_price_use}" ><br/>
+		string_price<input type="text" name="string_price" value="{goods.string_price}" ><br/>
+		string_price_color<input type="text" name="string_price_color" value="{goods.string_price_color}" ><br/>
+		string_price_link<input type="text" name="string_price_link" value="{goods.string_price_link}" ><br/>
+		string_price_link_url<input type="text" name="string_price_link_url" value="{goods.string_price_link_url}" ><br/>
+		string_price_link_target<input type="text" name="string_price_link_target" value="{goods.string_price_link_target}" ><br/>
+
+		member_string_price_use<input type="text" name="member_string_price_use" value="{goods.member_string_price_use}" ><br/>
+		member_string_price<input type="text" name="member_string_price" value="{goods.member_string_price}" ><br/>
+		member_string_price_color<input type="text" name="member_string_price_color" value="{goods.member_string_price_color}" ><br/>
+		member_string_price_link<input type="text" name="member_string_price_link" value="{goods.member_string_price_link}" ><br/>
+		member_string_price_link_url<input type="text" name="member_string_price_link_url" value="{goods.member_string_price_link_url}" ><br/>
+		member_string_price_link_target<input type="text" name="member_string_price_link_target" value="{goods.member_string_price_link_target}" ><br/>
+
+		allmember_string_price_use<input type="text" name="allmember_string_price_use" value="{goods.allmember_string_price_use}" ><br/>
+		allmember_string_price<input type="text" name="allmember_string_price" value="{goods.allmember_string_price}" ><br/>
+		allmember_string_price_color<input type="text" name="allmember_string_price_color" value="{goods.allmember_string_price_color}" ><br/>
+		allmember_string_price_link<input type="text" name="allmember_string_price_link" value="{goods.allmember_string_price_link}" ><br/>
+		allmember_string_price_link_url<input type="text" name="allmember_string_price_link_url" value="{goods.allmember_string_price_link_url}" >
+		allmember_string_price_link_target<input type="text" name="allmember_string_price_link_target" value="{goods.allmember_string_price_link_target}" ><br/>
+
+		string_button_use<input type="text" name="string_button_use" value="{goods.string_button_use}" ><br/>
+		string_button<input type="text" name="string_button" value="{goods.string_button}" ><br/>
+		string_button_color<input type="text" name="string_button_color" value="{goods.string_button_color}" ><br/>
+		string_button_link<input type="text" name="string_button_link" value="{goods.string_button_link}" ><br/>
+		string_button_link_url<input type="text" name="string_button_link_url" value="{goods.string_button_link_url}" ><br/>
+		string_button_link_target<input type="text" name="string_button_link_target" value="{goods.string_button_link_target}" ><br/>
+
+		member_string_button_use<input type="text" name="member_string_button_use" value="{goods.member_string_button_use}" ><br/>
+		member_string_button<input type="text" name="member_string_button" value="{goods.member_string_button}" ><br/>
+		member_string_button_color<input type="text" name="member_string_button_color" value="{goods.member_string_button_color}" ><br/>
+		member_string_button_link<input type="text" name="member_string_button_link" value="{goods.member_string_button_link}" ><br/>
+		member_string_button_link_url<input type="text" name="member_string_button_link_url" value="{goods.member_string_button_link_url}" ><br/>
+		member_string_button_link_target<input type="text" name="member_string_button_link_target" value="{goods.member_string_button_link_target}" ><br/>
+
+		allmember_string_button_use<input type="text" name="allmember_string_button_use" value="{goods.allmember_string_button_use}" ><br/>
+		allmember_string_button<input type="text" name="allmember_string_button" value="{goods.allmember_string_button}" ><br/>
+		allmember_string_button_color<input type="text" name="allmember_string_button_color" value="{goods.allmember_string_button_color}" ><br/>
+		allmember_string_button_link<input type="text" name="allmember_string_button_link" value="{goods.allmember_string_button_link}" ><br/>
+		allmember_string_button_link_url<input type="text" name="allmember_string_button_link_url" value="{goods.allmember_string_button_link_url}" >
+		allmember_string_button_link_target<input type="text" name="allmember_string_button_link_target" value="{goods.allmember_string_button_link_target}" ><br/>
+	</div>
+</div>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="15%"/>
+		<col width="35%" />
+		<col width="35%" />
+		<col width="15%" />
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="its-th-align center bold">↓아래의 고객이 볼 때</th>
+			<th class="its-th-align center bold">가격노출 제어</th>
+			<th class="its-th-align center bold">버튼노출 제어</th>
+			<th class="its-th-align center bold">구매 가능 여부</th>
+		</tr>
+
+		<tr>
+			<td class="its-td">비회원(로그아웃)</td>
+			<td class="its-td"><div id="string_price_msg"></div></td>
+			<td class="its-td center"><div id="string_button_msg"></div></td>
+			<td class="its-td pdl5"><div id="string_price_sale_msg"></div></td>
+		</tr>
+		<tr>
+			<td class="its-td">일반등급</td>
+			<td class="its-td"><div id="member_string_price_msg"></div></td>
+			<td class="its-td center"><div id="member_string_button_msg"></div></td>
+			<td class="its-td pdl5"><div id="member_string_sale_msg"></div></td>
+		</tr>
+		<tr>
+			<td class="its-td">상위등급</td>
+			<td class="its-td"><div id="allmember_string_price_msg"></div></td>
+			<td class="its-td center"><div id="allmember_string_button_msg"></div></td>
+			<td class="its-td pdl5"><div id="allmember_string_sale_msg"></div></td>
+		</tr>
+
+	</tbody>
+</table>
+
+<!--{? socialcpuse // 쇼셜티켓상품 }-->
+<div class="item-title">발송 정보</div>
+<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="20%" />
+		<col width="80%"/>
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="its-th-align center">발송 방법</th>
+			<th class="its-th-align center">설정</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="its-td-align center">이메일/SMS</td>
+			<td class="its-td" >
+				※ 16자리의 티켓번호가 이메일과 SMS로 발송되어집니다.<br/>
+				※ SMS는 잔여 건수가 없을 경우 발송되지 않습니다.
+				<!-- 티켓배송그룹 설정 -->
+				<input type="hidden" name="trust_shipping" value="N" />
+				<input type="hidden" name="old_group_seq" value="{=shipping_info.shipping_group_seq}" />
+				<input type="hidden" name="shipping_group_seq" value="{=shipping_info.shipping_group_seq}" />
+			</td>
+		</tr>
+    </tbody>
+</table>
+<!--{ : }-->
+<!-- 배송 정책 선택 :: START -->
+<div class="item-title">배송 정책 <span class="desc" style="font-weight:normal;">상품에 배송에 필요한 그룹설정</span></div>
+<div class="shipping_group_tb">
+	<table class="info-table-style" style="width:100%">
+		<tr>
+			<th class="its-th" width="130px">
+				배송그룹명 <span class="goods_required"></span>
+			</th>
+			<td class="its-td" width="300px">
+				<span class="btn small gray"><button onclick="ship_grp_sel('select','{=provider_seq}');" type="button">배송그룹 선택</button></span>
+				<input type="hidden" name="trust_shipping" id="trust_shipping" value="{?goods.trust_shipping}{=goods.trust_shipping}{:}N{/}" />
+				<input type="hidden" name="old_group_seq" value="{=shipping_info.shipping_group_seq}" />
+				<input type="hidden" name="shipping_group_seq" id="shipping_group_seq" value="{=shipping_info.shipping_group_seq}" />
+				&nbsp;&nbsp;
+				<span class="grp_name">
+					<!--{ ? shipping_info.shipping_group_seq }-->
+					{=shipping_info.shipping_group_name}({=shipping_info.shipping_group_seq})
+					<!--{ : }-->
+					배송그룹을 선택해주세요.
+					<!--{ / }-->
+				</span>
+			</td>
+			<th class="its-th" width="130px">배송비 계산기준</th>
+			<td class="its-td grp_calcul_type" width="200px">
+				<!--{ ? shipping_info.shipping_group_seq }-->
+				{=shipping_info.calcul_type_txt}
+				<!--{ : }-->
+				 - 
+				<!--{ / }-->
+			</td>
+			<th class="its-th" width="130px">배송그룹 적용상품 갯수</th>
+			<td class="its-td grp_goods_cnt" width="200px">
+				<!--{ ? shipping_info.shipping_group_seq }-->
+				{=shipping_info.target_goods_cnt}
+				<!--{ : }-->
+				 - 
+				<!--{ / }-->
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- 배송 정책 선택 :: END -->
+<!-- 배송그룹선택 팝업 :: START -->
+<div id="shipping_grp_sel" class="hide"></div>
+<!-- 배송그룹선택 팝업 :: END -->
+
+<!--{ / }-->
+
+<div class="item-title">상품 사진 <!--span class="btn small orange"><button type="button" id="btnVideoGuide">노출안내</button></span--></div>
+
+<div id="goodsImagePriview"></div>
+
+<input type="hidden" name="largeImageWidth" id="largeImageWidth" size="4" class="line" value="{goodsImageSize.large.width}">
+<input type="hidden" name="largeImageHeight"  id="largeImageHeight" size="4" class="line" value="{goodsImageSize.large.height}">
+<input type="hidden" name="viewImageWidth"  id="viewImageWidth" size="4" class="line" value="{goodsImageSize.view.width}">
+<input type="hidden" name="viewImageHeight"  id="viewImageHeight" size="4" class="line" value="{goodsImageSize.view.height}">
+<input type="hidden" name="list1ImageWidth"  id="list1ImageWidth" size="4" class="line" value="{goodsImageSize.list1.width}">
+<input type="hidden" name="list1ImageHeight"  id="list1ImageHeight" size="4" class="line" value="{goodsImageSize.list1.height}">
+<input type="hidden" name="list2ImageWidth"  id="list2ImageWidth" size="4" class="line" value="{goodsImageSize.list2.width}">
+<input type="hidden" name="list2ImageHeight"  id="list2ImageHeight" size="4" class="line" value="{goodsImageSize.list2.height}">
+<input type="hidden" name="thumbViewWidth"  id="thumbViewWidth" size="4" class="line" value="{goodsImageSize.thumbView.width}">
+<input type="hidden" name="thumbViewHeight"  id="thumbViewHeight" size="4" class="line" value="{goodsImageSize.thumbView.height}">
+<input type="hidden" name="thumbCartWidth"  id="thumbCartWidth" size="4" class="line" value="{goodsImageSize.thumbCart.width}">
+<input type="hidden" name="thumbCartHeight"  id="thumbCartHeight" size="4" class="line" value="{goodsImageSize.thumbCart.height}">
+<input type="hidden" name="thumbScrollWidth"  id="thumbScrollWidth" size="4" class="line" value="{goodsImageSize.thumbScroll.width}">
+<input type="hidden" name="thumbScrollHeight"  id="thumbScrollHeight" size="4" class="line" value="{goodsImageSize.thumbScroll.height}">
+
+<!-- 상품 이미지 View :: START -->
+<table class="info-table-style" style="width:100%" id="goodsImageTable">
+	<colgroup>
+		<col width="14%" />
+		<col width="10%" />
+		<col width="11%" />
+		<col width="11%" />
+		<col width="11%" />
+		<col width="11%" />
+		<col width="11%" />
+		<col width="11%" />
+		<col width="11%" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="its-th-align center" >
+				<!--{ ? !images }-->
+				<div id="multiadd" class="hide">
+					<span class="btn large cyanblue"><button type="button" class="batchImageMultiRegist" style="width:120px;">여러 컷 일괄등록</button></span>
+					<span class="helpicon" title="<b>멀티일괄등록이란?</b><br>쇼핑몰에서 상품 사진은 여러 페이지에서 보여지게 되며,<br>각각의 페이지에 알맞은 사이즈로 나타나야 합니다.<br>멀티일괄등록이란 입력된 일괄등록 사이즈 설정값을 기준으로 <br>필요한 사이즈의 상품 여러개의 사진을 한꺼번에 등록합니다.<br><br><b>일괄등록이란?</b><br>일괄등록이란 입력된 일괄등록 사이즈 설정값을 기준으로 <br>필요한 사이즈의 상품 사진을 한 번에 등록합니다.<br><br><b>개별등록이란?</b><br>일괄등록으로 등록된 상품사진을 개별적으로 변경하여 등록합니다."></span>
+				</div>
+				<span class="btn-plus first_plus hide"><button type="button" id="goodsImageAdd"></button></span>
+				<!--{ / }-->
+				<div id="multitxt">멀티등록<br/>순서변경</div>
+			</th>
+			<th class="its-th-align center">상품사진<br/>일괄등록</th>
+			<th class="its-th-align center">상품상세(확대)</th>
+			<th class="its-th-align center">상품상세(기본)</th>
+			<th class="its-th-align center">리스트(1)</th>
+			<th class="its-th-align center">리스트(2)</th>
+			<th class="its-th-align center">썸네일(상품상세)</th>
+			<th class="its-th-align center">썸네일(장바구니/주문)</th>
+			<th class="its-th-align center">썸네일(스크롤)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!--{ ? images }-->
+			<!--{ @ images }-->
+		<tr class="cut-tr cutnum{.key_}">
+				<!--{ ? .index_ == 0 }-->
+			<td class="its-td-align left firstCol pdl30" rowspan="{=count(images)}">
+				<span class="btn large cyanblue"><button type="button" class="batchImageMultiRegist" style="width:120px;">여러 컷 일괄등록</button></span>
+				<span class="helpicon" title="<b>멀티일괄등록이란?</b><br>쇼핑몰에서 상품 사진은 여러 페이지에서 보여지게 되며,<br>각각의 페이지에 알맞은 사이즈로 나타나야 합니다.<br>멀티일괄등록이란 입력된 일괄등록 사이즈 설정값을 기준으로 <br>필요한 사이즈의 상품 여러개의 사진을 한꺼번에 등록합니다.<br><br><b>일괄등록이란?</b><br>일괄등록이란 입력된 일괄등록 사이즈 설정값을 기준으로 <br>필요한 사이즈의 상품 사진을 한 번에 등록합니다.<br><br><b>개별등록이란?</b><br>일괄등록으로 등록된 상품사진을 개별적으로 변경하여 등록합니다."></span>
+				<span class="btn-plus hide"><button type="button" id="goodsImageAdd"></button></span>
+				<div class="pdt10"><span class="btn large cyanblue"><button type="button" class="ImageSort" style="width:120px;">순서변경 및 삭제</button></span></div>
+			</td>
+				<!--{ / }-->
+			<td class="its-td-align pdl30 left">
+				<span class="btn small lightblue"><button type="button" class="batchImageRegist">일괄등록</button></span>
+				<input type="hidden" name="all_chg[]" value="N" />
+				<!--{ ? .view.match_color }-->
+				<input type="hidden" name="goodsImageColor[]" value="{.view.match_color}" /> <span class="fileColorTitle" style="color:{.view.match_color}"><span style='width:30px; height:30px; margin-top:2px; margin-left:2px; border:0px solid #e8e8e8; color:{.view.match_color};size:25px;'><font  style='display:inline-block;width:18px; height:18px; border:1px solid #ccc; background-color:{.view.match_color}; cursor:pointer;' >■</font></span></span>
+				<!--{ : }-->
+				<input type="hidden" name="goodsImageColor[]" value="" /> <span class="fileColorTitle"></span>
+				<!--{ / }-->
+			</td>
+
+			<td class="its-td-align center">
+				<span class="{? .large.image }blue{:}desc{/} hand goodslarge view" imageType="large">보기</span>
+				<input type="hidden" name="largeGoodsImage[]" value="{.large.image}" />
+				<input type="hidden" name="largeGoodsLabel[]" value="{.large.label}" />
+				<input type="hidden" name="largeGoodsImageSeq[]" value="{.large.image_seq}" />
+				<input type="hidden" name="large_chg[]" value="N" />
+			</td>
+			<td class="its-td-align center">
+				<span class="{? .view.image }blue hand goodsview view{:}desc{/}" imageType="view">보기</span>
+				<input type="hidden" name="viewGoodsImage[]" value="{.view.image}" />
+				<input type="hidden" name="viewGoodsLabel[]" value="{.view.label}" />
+				<input type="hidden" name="viewGoodsImageSeq[]" value="{.view.image_seq}" />
+				<input type="hidden" name="view_chg[]" value="N" />
+			</td>
+			<td class="its-td-align center">
+				<span class="{? .list1.image }blue hand goodslist1 view{:}desc{/}" imageType="list1">보기</span>
+				<input type="hidden" name="list1GoodsImage[]" value="{.list1.image}" />
+				<input type="hidden" name="list1GoodsLabel[]" value="{.list1.label}" />
+				<input type="hidden" name="list1GoodsImageSeq[]" value="{.list1.image_seq}" />
+				<input type="hidden" name="list1_chg[]" value="N" />
+			</td>
+			<td class="its-td-align center">
+				<span class="{? .list2.image }blue hand goodslist2 view{:}desc{/}" imageType="list2">보기</span>
+				<input type="hidden" name="list2GoodsImage[]" value="{.list2.image}" />
+				<input type="hidden" name="list2GoodsLabel[]" value="{.list2.label}" />
+				<input type="hidden" name="list2GoodsImageSeq[]" value="{.list2.image_seq}" />
+				<input type="hidden" name="list2_chg[]" value="N" />
+			</td>
+			<td class="its-td-align center">
+				<span class="{? .thumbView.image }blue hand goodsthumbView view{:}desc{/}" imageType="thumbView">보기</span>
+				<input type="hidden" name="thumbViewGoodsImage[]" value="{.thumbView.image}" />
+				<input type="hidden" name="thumbViewGoodsLabel[]" value="{.thumbView.label}" />
+				<input type="hidden" name="thumbViewGoodsImageSeq[]" value="{.thumbView.image_seq}" />
+				<input type="hidden" name="thumbView_chg[]" value="N" />
+			</td>
+			<td class="its-td-align center">
+				<span class="{? .thumbCart.image }blue hand goodsthumbCart view{:}desc{/}" imageType="thumbCart">보기</span>
+				<input type="hidden" name="thumbCartGoodsImage[]" value="{.thumbCart.image}" />
+				<input type="hidden" name="thumbCartGoodsLabel[]" value="{.thumbCart.label}" />
+				<input type="hidden" name="thumbCartGoodsImageSeq[]" value="{.thumbCart.image_seq}" />
+				<input type="hidden" name="thumbCart_chg[]" value="N" />
+			</td>
+			<td class="its-td-align center">
+				<span class="{? .thumbScroll.image }blue hand goodsthumbScroll view{:}desc{/}" imageType="thumbScroll">보기</span>
+				<input type="hidden" name="thumbScrollGoodsImage[]" value="{.thumbScroll.image}" />
+				<input type="hidden" name="thumbScrollGoodsLabel[]" value="{.thumbScroll.label}" />
+				<input type="hidden" name="thumbScrollGoodsImageSeq[]" value="{.thumbScroll.image_seq}" />
+				<input type="hidden" name="thumbScroll_chg[]" value="N" />
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ / }-->
+	</tbody>
+</table>
+
+{ ? !images }<script>$("#multiadd").show();$("#multitxt").hide();</script>{ / }
+<!-- 상품 이미지 View :: END -->
+
+
+
+	<div class="item-title">PC/테블릿/모바일 동영상
+		{? cfg_goods.video_use !='Y'  }<span class="desc"  style="font-weight:normal">동영상 기능을 사용하기 위해서는 설정> <a href="../setting/video"><span class="highlight-link hand">동영상</span></a>에서 세팅정보를 설정해 주셔야 합니다!</span>{/}
+	</div>
+
+	<table class="info-table-style videofiles_tables_images" style="width:100%">
+	<colgroup>
+		<col width="300" />
+		<col/>
+		<col width="150" />
+		<col width="100" />
+	</colgroup>
+	<thead >
+	<tr>
+		<th class="its-th-align center" >상품상세페이지 상품이미지영역에 노출</th>
+		<th class="its-th-align center" >동영상
+		<span class="btn small {? cfg_goods.video_use =='Y'  } cyanblue {:} gray  {/}"><button type="button" class="{? cfg_goods.video_use =='Y'  }batchVideoRegist{/}" uptype="image" {? cfg_goods.video_use !='Y' }onclick="alert('설정>동영상에서 세팅정보를 설정해 주세요.');"{/}>동영상 등록</button></span></th>
+		<th class="its-th-align center" >업로드 일시</th>
+		<th class="its-th-align center" >연결해제</th>
+	</tr>
+	</thead>
+	<tbody>
+
+	{? (goods.file_key_w && uccdomain('fileswf',goods.file_key_w)) }
+	<tr class="goodsimagesizelay" >
+		<td class="its-td-align center" >
+			<div >
+				<img src="../images/common/img_video_position1.gif" >
+				<label ><input type="checkbox"  class="viewer_uselay" name="viewer_use[image][{videoimage.seq}]" value="Y" {? goods.video_use == 'Y' } checked="checked" {/}  />노출</label>
+					<select name="viewer_position[image][{videoimage.seq}]">
+					<option value="first" {? videoimage.viewer_position=='first'}selected{/}>맨앞에</option>
+					<option value="last" {? videoimage.viewer_position=='last'}selected{/}>맨뒤에</option>
+					</select><br/>
+				<div style="margin-right:30px;" align="right">
+				PC/테블릿용:<input type="text" name="pc_width[image][{videoimage.seq}]"   size="3" value="{? videoimage.pc_width }{videoimage.pc_width}{:}400{/}" class="line onlynumber video_size"   />pixel X <input type="text" name="pc_height[image][{videoimage.seq}]"  size="3" value="{? videoimage.pc_height }{videoimage.pc_height}{:}300{/}" class="line onlynumber video_size"   />pixel <br/>
+				모바일용:<input type="text" name="mobile_width[image][{videoimage.seq}]"   size="3" value="{? videoimage.mobile_width }{videoimage.mobile_width}{:}320{/}" class="line onlynumber video_size_mobile"   />pixel X <input type="text" name="mobile_height[image][{videoimage.seq}]"  size="3" value="{? videoimage.mobile_height }{videoimage.mobile_height}{:}240{/}" class="line onlynumber video_size_mobile"   />pixel
+				<br/>
+				 <span class="desc" >(예: 320X240, 400X300(기본), 640X480, 720X480)</span>
+				 </div>
+			</div>
+		</td>
+		<td class="its-td-align center" >
+			<div id="goodsvideolay" class="videolay" seq="{videoimage.seq}" tmpcode="{videoimage.tmpcode}" >
+			<!--{? goods.file_key_w && uccdomain('fileswf',goods.file_key_w)}-->
+			<div align="center">
+				<table align="center" border=0><tr>
+				<td align="center">
+					<span class="GDDisplayVideoWrap hand">
+							<span class="gddisplaythumbnailvideo"  width="200" height="200" ></span>
+							<embed src="{=uccdomain('fileswf',goods.file_key_w)}" width="200" height="200" allowfullscreen="true" wmode="transparent" class="hide"></embed>
+							<img src="{=uccdomain('thumbnail',goods.file_key_w)}" width="200" height="200" >
+					</span>
+					<!-- <embed src="{=uccdomain('fileswf',goods.file_key_w)}" width="200" height="200" allowfullscreen="true" wmode="transparent" ></embed>-->
+				</td>
+				<td align="left" >
+				<div style="margin-left:10px;">
+				동영상링크 &nbsp;&nbsp;&nbsp;&nbsp; <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileswf',goods.file_key_w)}" htmlkey="{goods.file_key_w}" htmltype="link" >URL</button></span><br/>
+				HTML(Embed) <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileswf',goods.file_key_w)}" htmlkey="{goods.file_key_w}"  htmltype="embed" >URL</button></span><br/>
+				HTML(Object) <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileswf',goods.file_key_w)}" htmlkey="{goods.file_key_w}"  htmltype="object" >URL</button></span><br/>
+				동영상페이지 &nbsp; <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileurl',goods.file_key_w)}"  htmltype="page" >URL</button></span>
+				</div>
+				</td>
+				</tr>
+				</table>
+			</div>
+			<!--{/}-->
+			</div>
+		</td>
+		<td class="its-td-align center" ><div id="goodsvideodatelay">{videoimage.r_date}</td>
+		<td class="its-td-align center" >
+		<div id="goodsvideodellay" class="videodellay" seq="{videoimage.seq}" tmpcode="{videoimage.tmpcode}"  >
+		<!--{? goods.file_key_w && uccdomain('fileswf',goods.file_key_w)}-->
+		<input type="hidden" name="videofiles[image][{videoimage.seq}]" value="{videoimage.seq}" ><input type="hidden" name="file_key_w[image][{videoimage.seq}]" value="{goods.file_key_w}" ><input type="hidden" name="file_key_i[image][{videoimage.seq}]" value="{goods.file_key_i}" ><input type="checkbox" name="video_del[image][{videoimage.seq}]" value="1" ><!--{/}--></div></td>
+	</tr>
+	{:}
+	<tr id="videofiles_tables_nonetd_img" ><td colspan="5" class="its-td-align center" >등록된 동영상이 없습니다.</td></tr>
+	{/}
+	</tbody>
+	</table>
+
+	<br class="table-gap" />
+
+	<table class="info-table-style videofiles_tables" style="width:100%">
+	<colgroup>
+		<col width="300" />
+		<col width="50" />
+		<col/>
+		<col width="150" />
+		<col width="100" />
+	</colgroup>
+	<thead >
+	<tr>
+		<th class="its-th-align center" >상품상세페이지 상품설명영역에 노출</th>
+		<th class="its-th-align center" >순서</th>
+		<th class="its-th-align center" >동영상
+		<span class="btn small {? cfg_goods.video_use =='Y'  } cyanblue {:} gray  {/}"><button type="button" class="{? cfg_goods.video_use =='Y'  }batchVideoRegist{/}"  uptype="contents" >동영상 등록</button></span></th>
+		<th class="its-th-align center" >업로드 일시</th>
+		<th class="its-th-align center" >연결해제</th>
+	</tr>
+	</thead>
+	<tbody>
+	{@ goodsvideofiles }
+	<tr >
+		<td class="its-td-align center" >
+			<img src="../images/common/img_video_position2.gif" > <br/>
+			<label ><input type="checkbox" class="viewer_uselay" name="viewer_use[contents][{.seq}]" value="Y" {? .viewer_use == 'Y' } checked="checked" {/}  />노출</label><br/>
+			<div style="margin-right:30px;" align="right">
+			PC/테블릿용:<input type="text" name="pc_width[contents][{.seq}]"   size="3" value="{? .pc_width }{.pc_width}{:}400{/}" class="line onlynumber video_size"   />pixel X <input type="text" name="pc_height[contents][{.seq}]"  size="3" value="{? .pc_height }{.pc_height}{:}300{/}" class="line onlynumber video_size"   />pixel <br/>
+			모바일용:<input type="text" name="mobile_width[contents][{.seq}]"   size="3" value="{? .mobile_width }{.mobile_width}{:}320{/}" class="line onlynumber video_size_mobile"   />pixel X <input type="text" name="mobile_height[contents][{.seq}]"  size="3" value="{? .mobile_height }{.mobile_height}{:}240{/}" class="line onlynumber video_size_mobile"   />pixel
+			<br/>
+			 <span class="desc" >(예: 320X240, 400X300(기본), 640X480, 720X480)</span>
+			 </div>
+		</td>
+		<td class="its-td-align center videomove hand" ><img src="../images/common/icon_move.gif" class="hand"></td>
+		<td class="its-td-align center" >
+			<div id="videolay{.seq}" class="videolay" seq="{.seq}" tmpcode="{.tmpcode}" style="margin-right:50px;">
+			<!--{? .file_key_w && uccdomain('fileswf',.file_key_w)}-->
+			<div align="center">
+				<table align="center" border=0><tr>
+				<td align="center">
+				<span class="GDDisplayVideoWrap  hand" >
+					<span class="gddisplaythumbnailvideo"  width="200" height="200" ></span>
+					<embed src="{=uccdomain('fileswf',.file_key_w)}" width="200" height="200"  allowfullscreen="true" wmode="transparent" class="hide"></embed>
+					<img src="{=uccdomain('thumbnail',.file_key_w)}" width="200" height="200" >
+				</span>
+
+				<!-- <embed src="{=uccdomain('fileswf',.file_key_w)}" width="200" height="200"  allowfullscreen="true" wmode="transparent" ></embed> -->
+				</td>
+				<td align="left" >
+				<div style="margin-left:10px;">
+				동영상링크 &nbsp;&nbsp;&nbsp;&nbsp; <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileswf',.file_key_w)}" htmlkey="{.file_key_w}" htmltype="link" >URL</button></span><br/>
+				HTML(Embed) <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileswf',.file_key_w)}" htmlkey="{.file_key_w}"  htmltype="embed" >URL</button></span><br/>
+				HTML(Object) <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileswf',.file_key_w)}" htmlkey="{.file_key_w}"  htmltype="object" >URL</button></span><br/>
+				동영상페이지 &nbsp; <span class="btn small "><button type="button" class="videourlbtn" htmlurl="{=uccdomain('fileurl',.file_key_w)}"  htmltype="page" >URL</button></span>
+				</div>
+				</td>
+				</tr>
+				</table>
+			</div>
+			<!--{/}-->
+			</div>
+		</td>
+		<td class="its-td-align center" >{.r_date}</td>
+		<td class="its-td-align center" ><div id="videodellay{.seq}" class="videodellay" seq="{.seq}" tmpcode="{.tmpcode}"  ><!--{? .file_key_w && uccdomain('fileswf',.file_key_w)}-->
+		<input type="hidden" name="videofiles[contents][]" value="{.seq}" ><input type="hidden" name="file_key_w[contents][{.seq}]" value="{.file_key_w}" ><input type="hidden" name="file_key_i[contents][{.seq}]" value="{.file_key_i}" ><input type="checkbox" name="video_del[contents][{.seq}]" value="1" ><!--{/}--></div></td>
+	</tr>
+	{:}
+	<tr id="videofiles_tables_nonetd"><td colspan="5" class="its-td-align center" >등록된 동영상이 없습니다.</td></tr>
+	{/}
+	</tbody>
+	</table>
+
+	<a name="12" id="goods_contents_top" alt="설명/공용정보"></a>
+	<!-- PC/테블릿용 상품 설명 영역 :: START -->
+	<div class="item-title">
+		PC/테블릿용 설명
+		<span class="desc" style="font-weight:normal"> - 워터마크 적용 및 동영상/플래시 삽입 가능</span>&nbsp;
+		<span class="btn medium cyanblue" id="goodscontentsbtn"><button type="button" onclick="view_editor_pop('goodscontents','save');"> 등록&nbsp;</button></span>
+		<span class="btn medium cyanblue"><button type="button" onclick="contents_copy();">모바일용 설명에 동일 적용</button></span>
+	</div>
+	<div style="padding:0px 20px 0px 10px">
+		<textarea class="hide" name="contents" id="goodscontents"  style="width:100%;height:150px;" contentHeight="450px" readonly>{goods.contents}</textarea>
+		<div class="contents_view" id="goodscontents_view">{goods.contents}</div>
+
+		{? socialcpuse }<label><input type="checkbox" name="pc_mapView" class="mapView" value="Y" disabled="disable" {? goods.pc_mapview == 'Y'}checked{/} /> 상품의 필수 옵션 중 장소(지역) 정보가 있을 경우 장소 위치를 지도로 안내하겠습니다.</label>{/}
+	</div>
+	<!-- PC/테블릿용 상품 설명 영역 :: END -->
+
+	<!-- 모바일 상품설명 :: START -->
+	<div class="item-title">
+		<input type="hidden" name="mobile_contents_copy" value="{=goods.mobile_contents_copy}" />
+		모바일용 설명
+		<span class="desc" style="font-weight:normal"> - 워터마크 적용 및 동영상/플래시 삽입가능</span>&nbsp;
+		<span class="btn medium cyanblue" id="mobilecontentsbtn"><button type="button" onclick="view_editor_pop('mobile_contents','save');"> 등록&nbsp;</button></span>
+	</div>
+	<div style="padding:0px 20px 0px 10px">
+		<textarea class="hide" name="mobile_contents" id="mobile_contents" style="width:100%;height:150px;" readonly>{goods.mobile_contents}</textarea>
+		<div class="contents_view {?goods.mobile_contents_copy!='N'}hide{/}" id="mobile_contents_view">{goods.mobile_contents}</div>
+
+		<div id="mobile_contents_desc" class="pdt20 {?goods.mobile_contents_copy=='N'}hide{/}">- 
+			<span class="mobile_view_desc">
+				{?goods.mobile_contents_copy=='Y'}PC용 상품설명과 동일 <a href="javascript:view_editor_pop('mobile_contents','view');"><span class="highlight-link hand">미리보기></span></a>{:}등록 버튼을 클릭하여 등록해 주세요.{/}
+			</span>
+		</div>
+
+		{? socialcpuse }<label><input type="checkbox" name="m_mapView" class="mapView" value="Y" disabled="disable" {? goods.m_mapview == 'Y'}checked{/} /> 상품의 필수 옵션 중 장소(지역) 정보가 있을 경우 장소 위치를 지도로 안내하겠습니다.</label>{/}
+	</div>
+	<!-- 모바일 상품설명 영역 :: END -->
+
+	<!-- 공용정보 영역 :: START -->
+	<div class="item-title">
+		공용 정보
+		<span class="desc" style="font-weight:normal"> - 사이즈, 모델, 배송, 반품, 환불 등 상품의 공용정보입니다.</span>&nbsp;
+		<span class="btn medium cyanblue" id="commoncontentsbtn"><button type="button" onclick="view_editor_pop('commonContents','save');"> 등록 </button></span>
+	</div>
+	<div style="padding:0px 20px 0px 10px">
+		<input type="hidden" name="info_name_view" value="" />
+		<input type="hidden" name="info_select_view" value="" />
+		<textarea class="hide" name="commonContents" id="commonContents" style="width:100%;height:150px;" title="" readonly>{?config_goods.common_contents}{config_goods.common_contents}{:}{goods.common_contents}{/}</textarea>
+		<div class="contents_view" id="commonContents_view">{?config_goods.common_contents}{config_goods.common_contents}{:}{goods.common_contents}{/}</div>
+	</div>
+	<!-- 공용정보 영역 :: END -->
+
+	<div class="clearbox"></div>
+	<input type="hidden" name="relation_type" value="AUTO" />
+	<a name="13" alt="판매자의 인기상품"></a>
+	<div class="item-title">○○○고객의 행동에 의거해 구매가 예상되는 상품에 대한 판매자의 추천상품 (빅데이터 큐레이션)</div>
+	<div class="desc ml10 mb5">행동 : 본 상품/장바구니에 담은 상품/위시리스트에 찜한 상품/재입고알림요청한 상품/검색한 상품/구매한 상품</div>
+	<table class="info-table-style relationSellerGoodsContainer" style="width:100%">
+	<colgroup>
+		<col width="120" />
+		<col />
+
+	</colgroup>
+	<tbody>
+	<tr>
+		<td class="its-th">
+			<label><input type="radio" name="relation_seller_type" value="AUTO" checked="checked" /> 자동 선정</label>
+		</td>
+		<td class="its-td">
+			<div id="relationSellerGoodsAutoContainer">
+				<span class="btn small gray hide"><button type="button" class="relationCriteriaButton" dp_id='relationSellerCriteria' use_id='' kind='relation_seller'>조건 선택</button></span>
+				<div class="clearbox" style="height:5px;"></div>
+				<input type='hidden' class="displayCriteria" id="relationSellerCriteria" name='relation_seller_criteria' value="{?goods.relation_seller_criteria}{goods.relation_seller_criteria}{:}
+				{?config_goods.relation_criteria}{config_goods.relation_criteria}{:}admin∀type=select_auto,provider=all,month=3,age=all,sex=all,agent=all,act=view,min_ea=1{/}{/}" goods_seq="{_GET.no}" />
+
+				<div class="displayCriteriaDesc"></div>
+
+
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th class="its-th">
+			<label><input type="radio" name="relation_seller_type" value="MANUAL" /> 직접 선정</label>
+		</th>
+		<td class="its-td">
+			<div id="relationSellerGoodsSelectContainer">
+				<span class="btn small gray"><button type="button" class="relationGoodsButton" dp_id="relationSellerGoods">상품검색</button></span>
+				<div class="clearbox" style="height:5px;"></div>
+				<div id="relationSellerGoods">
+					<!--{ @ relation_seller }-->
+					<div class='goods fl move'>
+						<div align='center' class='image'>
+							<img class="goodsThumbView" alt="" src="{=viewImg(.goods_seq,'thumbView')}" width="50" height="50">
+						</div>
+						<div align='center' class='name' style='width:70px;overflow:hidden;white-space:nowrap;'>{.goods_name}</div>
+						<div align='center' class='price'>{=get_currency_price(.price)}</div>
+						<input type='hidden' name='relationSellerGoods[]' value='{.goods_seq}' />
+						<input type="hidden" name="relationSellerGoodsSeq[{.goods_seq}]" value="{.relationgoods_seq}" />
+					</div>
+					<!--{ / }-->
+				</div>
+				<div id="relationSellerGoodsSelect"></div>
+			</div>
+
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+	<br class="table-gap" />
+	<a name="14" alt="관리 메모"></a>
+	<table class="info-table-style" style="width:100%">
+		<colgroup>
+			<col width="50%" />
+			<col width="50%" />
+		</colgroup>
+		<thead>
+		<tr>
+			<th class="its-th-align center">상품 관리 메모</th>
+			<th class="its-th-align center">처리 내역</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="its-td-align center">
+					<textarea name="adminMemo"  style="width:98%" rows="5">{goods.admin_memo}</textarea>
+				</td>
+				<td class="its-td-align center">
+					<div style="overflow:auto;height:60px;width:98%;border:1px solid #cccccc;padding: 10px 5px;background:#f7f7f7;text-align:left;">{goods.admin_log}</div>
+					<textarea name="admin_log" style="display:none;">{goods.admin_log}</textarea>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+
+
+	{? socialcpuse // 쇼셜티켓상품 }
+	<a name="10" alt="발송정보"></a>
+	<div class="item-title">발송 정보
+	</div>
+	<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="20%" />
+		<col width="80%"/>
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="its-th-align center">발송 방법</th>
+			<th class="its-th-align center">설정</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="its-td-align center">이메일/SMS</td>
+			<td class="its-td" >
+			※ 16자리의 티켓번호가 이메일과 SMS로 발송되어집니다.<br/>
+			※ SMS는 잔여 건수가 없을 경우 발송되지 않습니다.
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	{:}
+	
+
+	{/}
+
+
+
+
+
+
+<!--- OLD -->
+{? socialcpuse //쇼셜티켓의 티켓정보 설정}
+		<div class="clearbox"></div>
+		<div class="item-title">티켓 발송 상품의 티켓정보</div>
+		<table class="info-table-style" style="width:100%">
+		<input type="hidden" name="goods_kind" id="goods_kind" value="coupon" />
+		<colgroup>
+			<col width="10%" />
+			<col width="12%" />
+			<col/>
+			<col width="18%" />
+			<col width="12%" />
+		</colgroup>
+		<tbody>
+		<tr>
+			<th class="its-th-align center" >티켓상품그룹</td>
+			<td class="its-td"  colspan="4" >
+				<input type="hidden" name="social_goods_group_name_tmp" class="social_goods_group_name" value="{goods.social_goods_group_data.name}" >
+				<input type="hidden" name="social_goods_group" id="social_goods_group" value="{goods.social_goods_group_data.group_seq}">
+				<input type="text" name="social_goods_group_name"  class="social_goods_group_name" value="{goods.social_goods_group_data.name}"> <span class="btn small"><button type="button" id="coupon_group_search" >찾기</button></span>
+				<span class="desc">※ 판매자가 티켓 상품을 그룹화하여 편리하게 관리할 수 있게 합니다.</span>
+			</td>
+		</tr>
+
+
+			<tr>
+				<th class="its-th-align center" rowspan="2">티켓번호</td>
+				<td class="its-td"  colspan="4" >
+					결제 완료 시 → 구매자에게 → 구매 상품 수량을 기준으로 → 티켓번호가 자동 발송됨<br/>
+				<span class="desc">※ 상품 등록 후 내부 시스템 ↔ 외부 제휴사 시스템 선택을 변경 불가하며  상품 복사 시에는 내부 시스템이 기본 선택됩니다.</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="its-td"  colspan="4" >
+					<table  style="width:100%">
+					<tr>
+						<td  valign="top" style="vertical-align:top;"  >
+							<label><input type="radio" name="coupon_serial_type" value="a" {?goods.coupon_serial_type!='n'}checked{:goods.goods_seq} disabled{/} />
+							내부 시스템에서 자동 생성되는 16자리 티켓번호 사용</label>
+						</td>
+						<td valign="top" >
+							<div ><label><input type="radio" name="coupon_serial_type" value="n" {?goods.coupon_serial_type=='n'}checked{:goods.goods_seq} disabled{/} />
+							외부 제휴사 시스템에서 생성된 티켓번호 사용</label>
+							<span class="btn small black"><button type="button" id="coupon_serial_upload"> 티켓번호 등록</button></span>
+							<input type="hidden" name="coupon_serial_upload" value="{goods.coupon_serial_str}" />
+							</div>
+						<span class="desc">단, 등록된 티켓번호 소진 시 자동으로 품절 처리 되며, 티켓번호가 부족할 때 계속해서 추가 등록 가능합니다.</span>
+							<div id="coupon_result" {? goods.coupon_serial_tcnt > 0 }{:}class="hide"{/}>총 <span class="tcnt sum_number">{=number_format(goods.coupon_serial_tcnt)}</span>개 중 <span class="sum_number">{=number_format(goods.coupon_serial_ecnt)}</span>개가 발송됨</div>
+						</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align center">티켓의 값어치</td>
+				<td class="its-td"  colspan="4" >
+					<label><input type="radio" name="socialcp_input_type" id="socialcp_input_type_pass" value="pass" {? goods.socialcp_input_type !='price' } checked="checked" {/} /> 티켓 1장의 값어치는 횟수(이용권,관람권 등)입니다. </label>
+					<label><input type="radio" name="socialcp_input_type" id="socialcp_input_type_price" value="price" {? goods.socialcp_input_type =='price' } checked="checked" {/}  /> 티켓 1장의 값어치는 금액입니다. </label>
+					<br/>
+					  아래 판매 정보에서 티켓 1장의 값어치를 입력 해 주십시오. 구매자는 티켓 1장의 값어치가 남았을 경우 해당 티켓번호로 값어치만큼 사용 가능합니다.
+				</td>
+			</tr>
+
+			<tr>
+				<th class="its-th-align center">티켓 유효기간<br/>(사용기간)</td>
+				<td class="its-td"  colspan="4" >
+					아래 판매 정보의 <img src="../images/common/btn_option_must.gif" align="absmiddle" alt="[필수옵션설정]" /> 에서 [특수 정보] 기능으로 설정 해 주십시오.
+					<span class="btn small orange"><button type="button"  id="btn_goods_special_list"> 안내) 특수 정보 활용</button></span>
+				<div class="desc ">
+					<span class="red">
+					※ 티켓의 필수옵션으로 정의된 유효기간(수동기간, 날짜)이 종료되었으면 → 자동으로 구매를 막습니다.<br/>
+					※ 티켓의 필수옵션으로 정의된 유효기간(수동기간, 날짜)이 모두 종료되었으면 → 자동으로 판매중지 상태가 됩니다.
+					</span>
+				</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th class="its-th-align center">티켓 사용지역</td>
+				<td class="its-td" colspan="4" >
+					아래 판매 정보의 <img src="../images/common/btn_option_must.gif" align="absmiddle" alt="[필수옵션설정]" /> 에서 [특수 정보] 기능으로 설정 해 주십시오.
+				</td>
+			</tr>
+
+			<tr>
+				<th class="its-th-align center" rowspan="2" >유효기간 시작 전 <br/>취소(환불)</td>
+				<td class="its-td" ><span class="red">전체</span> 값어치 모두 있고 </td>
+				<td class="its-td" >
+					<table cellspacing="10" cellpadding="10" >
+						<tr>
+							<td>
+								<label><input type="radio" name="socialcp_cancel_type" id="socialcp_cancel_type_pay" value="pay"  {? goods.socialcp_cancel_type =='pay' || !goods.socialcp_cancel_type } checked="checked" {/}  /> 결제확인 후 </label>
+								<input type="text" name="socialcp_cancel_day[]"  id="socialcp_cancel_day_0"  size="3" value="{goods.socialcp_cancel_day0}" class="right line onlynumber_signed1" {? goods.socialcp_cancel_type !='pay' && goods.socialcp_cancel_type } disabled="disabled" {/}/>일 이내에만 100% 취소(환불) 가능
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label><input type="radio" name="socialcp_cancel_type" id="socialcp_cancel_type_option" value="option"  {? goods.socialcp_cancel_type =='option' } checked="checked" {/}  /> 유효기간 </label> 시작 전에만 100% <label for="socialcp_cancel_type_option">취소(환불) 가능</label> </td>
+						</tr>
+						<tr>
+							<td class="left">
+								<table>
+									<tr>
+									<td class="left" style="padding-right:5px;" ><label><input type="radio" name="socialcp_cancel_type" id="socialcp_cancel_type_dayoption" value="payoption" {? goods.socialcp_cancel_type =='payoption' } checked="checked" {/} />
+									</td>
+									<td>
+									<table class="info-table-style" >
+									<colgroup>
+										<col width="30%" />
+										<col />
+									</colgroup>
+									<tbody>
+										<tr>
+											<td class="its-td-align left" style="padding:0 5px;">유효기간 시작일 기준</td>
+											<td>
+												<table class="" id="socialcpcancelViewTable" style="width:430px">
+												<colgroup>
+													<col width="25%" />
+													<col />
+													<col width="10%" />
+												</colgroup>
+												<tbody>
+													<!--{? socialcpcancels }-->
+														<!--{ @ socialcpcancels }-->
+														<tr class="socialcpcancelViewTabletr" >
+															<td class="its-td" >
+														<input type="hidden" name="socialcp_cancel_seq[]" value="{.seq}" />
+																<input type="text" name="socialcp_cancel_day[]" size="3" value="{.socialcp_cancel_day}" class="right line onlynumber_signed1"  {? goods.socialcp_cancel_type !='payoption' } disabled="disabled" {/}    />일 이전
+															</td>
+															<td class="its-td">
+																<input type="text" name="socialcp_cancel_percent[]"  size="3" class="right line onlynumber percent" value="{.socialcp_cancel_percent}"  {? goods.socialcp_cancel_type !='payoption' } disabled="disabled" {/}  />% <span class="socialcp_cancel_percent_title {? .index_ < 1 }hide{/}" ><span class="red">공제</span> 후</span> 취소(환불) 가능
+															</td>
+															<td class="its-td-align center">
+																{? .index_ == 0 }
+																	<span class="btn-plus"><button type="button" id="socialcpcancelAdd"></button></span>
+																{:}
+																	<span class="btn-minus"><button type="button" class="socialcpcancelDel"></button></span>
+																{/}
+															</td>
+														</tr>
+														<!--{ / }-->
+													<!--{:}-->
+													<tr  class="socialcpcancelViewTabletr" >
+														<td class="its-td">
+															<input type="text" name="socialcp_cancel_day[]" size="3" value="" class="right line onlynumber_signed1"  disabled="disabled" />일 전까지
+														</td>
+														<td class="its-td">
+															<input type="text" name="socialcp_cancel_percent[]"  size="3" class="right line onlynumber percent" value="100"  disabled="disabled"  />% <span class="socialcp_cancel_percent_title hide" ><span class="red">공제</span> 후</span> 취소(환불) 가능
+														</td>
+														<td class="its-td-align center"><span class="btn-plus"><button type="button" id="socialcpcancelAdd"></button></span></td>
+													</tr>
+													<!--{ / }-->
+												</tbody>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td class="its-td left" colspan="2">
+												<div class="socialcpcancelViewdiv">
+												<label><input type="checkbox"name="socialcp_cancel_payoption" id="socialcp_cancel_payoption" value="1"    {? goods.socialcp_cancel_payoption =='1' } checked="checked" {/}   {? goods.socialcp_cancel_type !='payoption' } disabled="disabled" {/} /> 유효기간 시작일부터 ~ 종료일까지 </label>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="socialcp_cancel_payoption_percent"  size="3" class="right line onlynumber percent" value="{goods.socialcp_cancel_payoption_percent}"  {? goods.socialcp_cancel_payoption !='1' } disabled="disabled" {/}  />% 취소(환불) 가능
+												</div>
+											</td>
+										</tr>
+									</tbody>
+									</table>
+									<div> <span class="btn small orange"><button type="button"  id="btn_ticket_goods_refund_helper">설정 예시</button></span></div>
+									</td>
+								</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="its-td" >
+					자동 <span class="icon-order-step-75">배송완료</span> <br />
+					<span class="red" >
+					유효기간 시작 전<br/>
+					전체미사용→반품/환불→가치종료</span>
+					<br/>
+					<span class="btn small orange"><button type="button"  id="btn_socialcp_cancel_card">안내) 카드결제 자동취소</button></span>
+				</td>
+				<td class="its-td" > 적립(환불금액만큼 제외)</td>
+			</tr>
+
+			<tr>
+				<td class="its-td" ><span class="blue">잔여</span> 값어치 <span class="green">남아</span> 있고 </td>
+				<td class="its-td" >
+					<label><input type="radio" name="socialcp_cancel_use_refund" class="socialcp_cancel_use_refund" value="0"  {?  goods.socialcp_cancel_use_refund != '1' } checked="checked" {/} /> ↑상기 조건과 동일합니다. </label> <br/>
+					<label><input type="radio" name="socialcp_cancel_use_refund" class="socialcp_cancel_use_refund" value="1"  {?  goods.socialcp_cancel_use_refund == '1' } checked="checked" {/} /> 부분 사용한 티켓은 취소(환불) 불가 </label>
+				</td>
+				<td class="its-td" >
+					<span class="gray">(배송완료 상태)</span> <br />
+					<span class="red" >유효기간 시작 전<br/>
+					부분미사용→반품/환불→가치종료</span>
+				</td>
+				<td class="its-td" > 적립(환불금액만큼 제외)</td>
+			</tr>
+			<tr>
+				<th class="its-th-align center" rowspan="2" >유효기간 종료 후<br/>미사용 티켓환불</td>
+				<td class="its-td" ><span class="red">전체</span> 값어치 모두 있고 </td>
+				<td class="its-td" rowspan="2" >
+					<label><input type="radio" name="socialcp_use_return" class="socialcp_use_return" value="1"  {?  goods.socialcp_use_return == '1' } checked="checked" {/} /> 미사용티켓환불대상 </label>
+					<div>
+					&nbsp;&nbsp;&nbsp; 미사용 티켓은 유효기간 종료 후
+					<input type="text" name="socialcp_use_emoney_day" id="socialcp_use_emoney_day" size="3" value="{goods.socialcp_use_emoney_day}" class="socialcp_use_returnlay right line onlynumber_signed1"  {? goods.socialcp_use_return != '1' } disabled="disabled" {/} />일 이내  구매금액의
+					<input type="text" name="socialcp_use_emoney_percent" id="socialcp_use_emoney_percent"  size="3" class="socialcp_use_returnlay right line onlynumber percent" value="{goods.socialcp_use_emoney_percent}"  {? goods.socialcp_use_return != '1' } disabled="disabled" {/} />% 취소(환불) 가능
+					</div>
+					<label><input type="radio" name="socialcp_use_return" class="socialcp_use_return" value="0" {? !goods.socialcp_use_return ||  goods.socialcp_use_return!='1' } checked="checked" {/} /> 미사용티켓환불대상아님</label>
+				</td>
+				<td class="its-td" >
+					자동 <span class="icon-order-step-75">배송완료</span> <br />
+					<span class="red" >
+					유효기간 종료 후<br/>
+					전체미사용→반품/환불→가치종료</span>
+				</td>
+				<td class="its-td" > 적립(환불금액만큼 제외)</td>
+			</tr>
+			<tr>
+				<td class="its-td" ><span class="blue">잔여</span> 값어치 <span class="green">남아</span> 있고 </td>
+				<td class="its-td" >
+					<span class="gray">(배송완료 상태)</span> <br />
+					<span class="red" >유효기간 종료 후<br/>
+					부분미사용→반품/환불→가치종료</span>
+				</td>
+				<td class="its-td" > 적립(환불금액만큼 제외)</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="desc">
+		<span class="red">※ 필수옵션으로 유효기간(또는 날짜) 만들지 않은 티켓의 주문은 취소가 되지 않습니다.</span>
+	</div>
+	{:}
+	<input type="radio" checked="checked" name="socialcp_input_type" value="" class="hide">
+	{/}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--카테고리 연결 레이어-->
+<div id="categoryPopup" class="hide">
+	<form name="categoryConnectFrm" method="post" action="../goods_process/category_connect" target="actionFrame">
+	<div class="clearbox">
+		<div style="float:left;width:3%;padding-top:40px;"><input type="radio" name="categoryInputMethod" value="select" checked="checked"></div>
+		<div style="float:left;width:97%">
+		<table  class="simplelist-table-style" style="width:100%">
+			<colgroup>
+				<col width="25%" />
+				<col width="25%" />
+				<col width="25%" />
+				<col width="25%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>1차 카테고리</th>
+					<th>2차 카테고리</th>
+					<th>3차 카테고리</th>
+					<th>4차 카테고리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="center">
+						<div><select class="line" name="category1" size="4" style="width:100%"></select></div>
+					</td>
+					<td class="center">
+						<div><select class="line" name="category2" size="4" style="width:100%"></select></div>
+					</td>
+					<td class="center">
+						<div><select class="line" name="category3" size="4" style="width:100%"></select></div>
+					</td>
+					<td class="center">
+						<div><select class="line" name="category4" size="4" style="width:100%"></select></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+
+	<div style="height:30px"></div>
+
+	<div class="clearbox">
+		<div style="float:left;width:3%;padding-top:5px"><input type="radio" name="categoryInputMethod" value="lastSelect"></div>
+		<div style="float:left;width:97%">
+		<select class="line" name="categoryLastRegist" style="width:100%">
+			<option value="">-- 최근 등록한 카테고리 --</option>
+			<!--{ @last_categories }-->
+			<option value="{.category_code}">{.title}</option>
+			<!--{ / }-->
+		</select>
+		</div>
+	</div>
+
+	<div style="height:30px"></div>
+
+	<div align="center" style="padding:10px;"><span class="btn large black"><button type="button" id="categoryConnect" onclick="this.form.submit();">카테고리 연결</button></span></div>
+
+	<div style="height:30px"></div>
+
+	<div class="clearbox">
+	<table width="100%" class="info-table-style">
+		<tr>
+			<th class="its-th">
+				카테고리 기능 안내
+			</th>
+		</tr>
+		<tr>
+			<td class="its-td">
+				카테고리 분류를 통하여 해당 상품을 체계적으로 관리하게 됩니다.<br/>
+				상품상세페이지에서는 대표카테고리가 해당 상품의 카테고리로 보여지며,<br/>
+				카테고리 페이지에서는 해당 카테고리에 속한 상품들이 보여집니다.
+			</td>
+		</tr>
+		</table>
+	</div>
+	</form>
+</div>
+
+<!--브랜드 연결 레이어 -->
+<div id="brandPopup" class="hide">
+	<form name="brandConnectFrm" method="post" action="../goods_process/brand_connect" target="actionFrame">
+	<input type="hidden" name="provider_seq" value="" />
+	<div id="base_brand_container">
+		<div class="clearbox">
+			<div style="float:left;width:3%;padding-top:40px;"><input type="radio" name="brandInputMethod" value="select" checked="checked"></div>
+			<div style="float:left;width:97%">
+			<table  class="simplelist-table-style" style="width:100%">
+				<colgroup>
+					<col width="25%" />
+					<col width="25%" />
+					<col width="25%" />
+					<col width="25%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>1차 브랜드</th>
+						<th>2차 브랜드</th>
+						<th>3차 브랜드</th>
+						<th>4차 브랜드</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="center">
+							<div><select class="line" name="brands1" size="4" style="width:100%"></select></div>
+						</td>
+						<td class="center">
+							<div><select class="line" name="brands2" size="4" style="width:100%"></select></div>
+						</td>
+						<td class="center">
+							<div><select class="line" name="brands3" size="4" style="width:100%"></select></div>
+						</td>
+						<td class="center">
+							<div><select class="line" name="brands4" size="4" style="width:100%"></select></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+
+		<div style="height:30px"></div>
+
+		<div class="clearbox">
+			<div style="float:left;width:3%;padding-top:5px"><input type="radio" name="brandInputMethod" value="lastSelect"></div>
+			<div style="float:left;width:97%">
+			<select class="line" name="brandLastRegist" style="width:100%">
+				<option value="">-- 최근 등록한 브랜드 --</option>
+				<!--{ @last_brands }-->
+				<option value="{.category_code}">{.title}</option>
+				<!--{ / }-->
+			</select>
+			</div>
+		</div>
+
+	</div>
+	<div id="provider_brand_container">
+		<input type="radio" name="brandInputMethod" value="providerBrand" class="hide">
+
+		<div id="provider_brand_list"></div>
+
+	</div>
+	<div style="height:30px"></div>
+	<div align="center" style="padding:10px;"><span class="btn large black"><button type="button" id="brandConnect" onclick="this.form.submit();">브랜드 연결</button></span></div>
+	<div style="height:30px"></div>
+	<div class="clearbox">
+	<table width="100%" class="info-table-style">
+		<tr>
+			<th class="its-th">
+				브랜드 기능 안내
+			</th>
+		</tr>
+		<tr>
+			<td class="its-td">
+				브랜드 분류를 통하여 해당 상품을 체계적으로 관리하게 됩니다.<br/>
+				상품상세페이지에서는 대표브랜드가 해당 상품의 브랜드로 보여지며,<br/>
+				브랜드 페이지에서는 해당 브랜드에 속한 상품들이 보여집니다.<br/><br/>
+
+				브랜드 기능은 '브랜드'란 단어에 국한될 필요 없이 자유롭게 이용할 수 있습니다.<br/>
+				예를 들어 도서 같은 경우 저자나 출판사의 분류 체계나<br/>
+				신상품, 베스트상품 등의 분류 체계로 활용하셔도 됩니다.<br/>
+				물론 운동화 브랜드(나이O, 아디다O, 뉴발란O)의 분류 체계로 활용하셔도 됩니다.<br/><br/>
+
+				(브랜드 기능 활용 예시)<br/>
+				- 저자 : 다양한 저자명<br/>
+				- 출판사 : 다양한 출판사명<br/>
+				- 운동화브랜드 : 다양한 브랜드명<br/>
+				- 가격대별상품 : 다양한 가격대<br/>
+				- 기타 : 신상품, 베스트상품, 인기브랜드, MD추천, 이벤트상품<br/>
+			</td>
+		</tr>
+		</table>
+	</div>
+	</form>
+</div>
+
+<!--지역 연결 레이어 -->
+<div id="locationPopup" class="hide">
+	<form name="locationConnectFrm" method="post" action="../goods_process/location_connect" target="actionFrame">
+	<input type="hidden" name="provider_seq" value="" />
+	<div id="base_location_container">
+		<div class="clearbox">
+			<div style="float:left;width:3%;padding-top:40px;"><input type="radio" name="locationInputMethod" value="select" checked="checked"></div>
+			<div style="float:left;width:97%">
+			<table  class="simplelist-table-style" style="width:100%">
+				<colgroup>
+					<col width="25%" />
+					<col width="25%" />
+					<col width="25%" />
+					<col width="25%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>1차 지역</th>
+						<th>2차 지역</th>
+						<th>3차 지역</th>
+						<th>4차 지역</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="center">
+						<div><select class="line" name="location1" size="4" style="width:100%"></select></div>
+						</td>
+						<td class="center">
+						<div><select class="line" name="location2" size="4" style="width:100%"></select></div>
+						</td>
+						<td class="center">
+						<div><select class="line" name="location3" size="4" style="width:100%"></select></div>
+						</td>
+						<td class="center">
+						<div><select class="line" name="location4" size="4" style="width:100%"></select></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+
+		<div style="height:30px"></div>
+
+		<div class="clearbox">
+			<div style="float:left;width:3%;padding-top:5px"><input type="radio" name="locationInputMethod" value="lastSelect"></div>
+			<div style="float:left;width:97%">
+			<select class="line" name="locationLastRegist" style="width:100%">
+				<option value="">-- 최근 등록한 지역 --</option>
+				<!--{ @last_locations }-->
+				<option value="{.category_code}">{.title}</option>
+				<!--{ / }-->
+			</select>
+			</div>
+		</div>
+
+		<div style="height:30px"></div>
+
+	</div>
+	<div id="provider_location_container">
+		<input type="radio" name="locationInputMethod" value="providerLocation" class="hide">
+
+		<div id="provider_location_list"></div>
+
+	</div>
+	<div style="height:30px"></div>
+	<div align="center" style="padding:10px;"><span class="btn large black"><button type="button" id="locationConnect" onclick="this.form.submit();">지역 연결</button></span></div>
+	<div style="height:30px"></div>
+	<div class="clearbox">
+	<table width="100%" class="info-table-style">
+		<tr>
+			<th class="its-th">
+				지역 기능 안내
+			</th>
+		</tr>
+		<tr>
+			<td class="its-td">
+				지역 분류를 통하여 해당 상품을 체계적으로 관리하게 됩니다.<br/>
+				상품상세페이지에서는 대표지역이 해당 상품의 지역으로 보여지며,<br/>
+				지역 페이지에서는 해당 지역에 속한 상품들이 보여집니다.<br/><br/>
+
+			</td>
+		</tr>
+		</table>
+	</div>
+	</form>
+</div>
+
+<!-- 이미지 업로드 다이얼로그 -->
+<div id="imageUploadDialog" class="hide">
+	<table width="100%" class="info-table-style">
+	<col width="100" />
+	<tr>
+		<th class="its-th">업로드경로</th>
+		<td class="its-td">/<span class="uploadPath"></span></td>
+	</tr>
+	<tr>
+		<th class="its-th">파일찾기</th>
+		<td class="its-td">
+			<div class="pdr10">
+				<img class="imageUploadBtnImage hide" src="../images/common/btn_filesearch.gif">
+				<input id="imageUploadButton" type="file" name="file" value="" class="uploadify" />
+			</div>
+		</td>
+	</tr>
+	</table>
+	<div class="center pdt20 pdb20"><span class="btn medium"><input type="button" value="업로드" onclick="$('#imageUploadButton').uploadifyUpload();" /></span></div>
+</div>
+<!-- 이미지 수정 상세보기 -->
+<div class="hide">
+	<input type="hidden" name="idx" id="idx" value="" />
+	<input type="hidden" name="imgKind" id="imgKind" value="" />
+	<table width="100%" class="info-table-style" id="goodsImageMake">
+	<tr>
+		<th class="its-th-align center" width="{goodsImageSize.large.width}" style="padding:10px; max-width:700px;"><img id="viewImg" style="max-width:700px;"></th>
+		<td class="its-td" style="min-width: 470px;">
+			<div style="font-weight:bold;float:left;padding-right:5px">대표컷 - 상품상세(기본)</div>
+			<div class="pdb5">
+				<span class="btn small gray"><button type="button" id="eachImageRegist">개별등록</button></span>
+				<span class="btn small gray"><button type="button" id="imgDownload">PC저장</button></span>
+			</div>
+			<table class="img-info-tb" border="0">
+			<tr>
+				<td width="60px">&bull; 레이블</td>
+				<td width="10px"> : </td>
+				<td>
+					<span id="goodsImgLabel_view"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>&bull; 주소</td>
+				<td> : </td>
+				<td>
+					<span id="fileurl"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>&bull; 사이즈</td>
+				<td> : </td>
+				<td>
+					<span id="filesize"></span>
+				</td>
+			</tr>
+			<tr id="FileColorView">
+				<td>&bull; 색상</td>
+				<td> : </td>
+				<td>
+					<span id="filecolor"></span>
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+</div>
+
+<!-- 구매자 추가입력만들기 다이얼로그 -->
+<div id="memberInputDialog" class="hide">
+	<table  class="simplelist-table-style" style="width:100%">
+		<colgroup>
+			<col />
+			<col />
+			<col />
+			<col />
+			<col width="5%" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align center">추가 입력명</th>
+				<th class="its-th-align center">추가입력 형식</th>
+				<th class="its-th-align center">추가입력 제한</th>
+				<th class="its-th-align center"></th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--{ ? inputs }-->
+			<!--{ @ inputs }-->
+			<tr>
+				<td class="its-td-align center">
+					<input type="text" name="memberInputMakeName[]" class="line" size="10" value="{.input_name}" />
+				</td>
+				<td class="its-td-align center">
+					<select name="memberInputMakeForm[]">
+						<option value="text" {?.input_form=='text'}selected{/}>텍스트박스</option>
+						<option value="edit" {?.input_form=='edit'}selected{/}>에디트박스</option>
+						<option value="file" {?.input_form=='file'}selected{/}>이미지 업로드</option>
+					</select>
+				</td>
+				<td class="its-td">
+					<!--{ ? .input_form == 'text' || .input_form == 'edit' }-->
+						<div class="textLimit">
+						<input type="text" name="memberInputMakeLimit[]" class="line onlynumber" size="2" value="{.input_limit}" max="255" />자 이내
+						</div>
+						<div class="uploadLimit" style="display:none;">2M이하</div>
+					<!--{ : }-->
+						<div class="uploadLimit">2M이하</div>
+						<div class="textLimit" style="display:none;">
+						<input type="text" name="memberInputMakeLimit[]" class="line onlynumber" size="2" value="imageUpload" max="255" />자 이내
+						</div>
+					<!--{ / }-->
+				</td>
+				<td class="its-td-align center">
+					{? .index_==0 }
+					<span class="btn-plus"><button type="button" id="addMemberInputMake"></button></span>
+					{ : }
+					<span class="btn-minus"><button type="button" class="delMemberInputMake"></button></span>
+					{ / }
+				</td>
+			</tr>
+			<!--{ / }-->
+		<!--{ : }-->
+			<tr>
+				<td class="its-td-align center">
+					<input type="text" name="memberInputMakeName[]" class="line" size="10" value="" />
+				</td>
+				<td class="its-td-align center">
+					<select name="memberInputMakeForm[]">
+						<option value="text">텍스트박스</option>
+						<option value="edit">에디트박스</option>
+						<option value="file">이미지 업로드</option>
+					</select>
+				</td>
+				<td class="its-td">
+					<div class="textLimit">
+					<input type="text" name="memberInputMakeLimit[]" class="line" size="2" value="" />자 이내
+					</div>
+					<div class="uploadLimit" style="display:none;">2M이하</div>
+				</td>
+				<td class="its-td-align center">
+					<span class="btn-plus"><button type="button" id="addMemberInputMake"></button></span>
+				</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+
+	<div class="center" style="padding:10px;">
+		이 상품의 옵션 정보를 자주 쓰는 상품의 입력옵션으로 사용하시겠습니까? <label><input type="checkbox" name="frequentlyinpbtn" value="1" {? goods.frequentlyinp==1} checked="checked" {/} >예, 사용하겠습니다.</label>
+	</div>
+
+	<div class="center" style="padding:10px;"><span class="btn large black"><button type="button" id="memberInputMakeApply">적용하기</button></span></div>
+</div>
+
+<!-- 아이콘 선택 -->
+<div id="goodsIconPopup" class="hide">
+	<form enctype="multipart/form-data" method="post" action="../goods_process/icon" target="actionFrame">
+	<input type="hidden" name="iconIndex" value="0" />
+	<ul>
+	<!--{ @ code_load('goodsIcon') }-->
+	<li style="float:left;width:100px;height:30px;text-align:center">
+		<input type="hidden" name="goodsIconCode[]" value="{.codecd}">
+		<img src="/data/icon/goods/{.codecd}.gif" border="0" class="hand hover-select">
+	</li>
+	<!--{ / }-->
+	</ul>
+	<div class="clearbox"></div>
+	<div>
+	<input type="file" name="goodsIconImg" /> <span class="btn small black"><button type="submit">추가</button></span>
+	</div>
+	</form>
+</div>
+
+<!-- 상품상태별 이미지 선택 -->
+<div id="popGoodsStatusImageChoice" class="hide">
+	<form enctype="multipart/form-data" method="post" action="../goods_process/goods_status_image_upload" target="actionFrame">
+	<input type="hidden" name="goodsStatusImageCode" value="" />
+	<table align="center" height="160">
+	<tr>
+		<td><div class="nowGoodsStatusImage pd10"></div></td>
+		<td><input type="file" name="goodsStatusImage" /> <span class="btn small black"><button type="submit">확인</button></span></td>
+	</tr>
+	</table>
+	</form>
+</div>
+
+
+<!-- 여러개의 상품 컷 노출 안내 -->
+<div id="displayVideoGuide" style="display:none;">
+	<br style="line-height:10px;">
+	<table width="100%">
+	<cols width="50%"><cols width="50%">
+	<tr><td align="Center"><img src="../images/common/video_img_pc.gif"></td><td align="Center"><img src="../images/common/video_img_mobile.gif"></td></tr>
+	</table>
+	<br style="line-height:25px;">
+</div>
+
+<!--### 필수옵션 미리보기 -->
+<div id="popPreviewOpt" class="hide"></div>
+<!--### 추가혜택 -->
+<div id="popup_benefits" class="hide"></div>
+<!--### 상품상태별 이미지세팅 -->
+<div id="popGoodsStatusImage" class="hide"></div>
+<!--### 구매자(비회원 또는 회원)별 판매가격 디스플레이 -->
+<div id="popStringPrice" class="hide"></div>
+
+
+<!--### 동영상 URL 복사 -->
+<div id="realvideourl_dialog" class="hide">
+<table width="100%" ><tr>
+<td><textarea style='width:300px;' rows='5' id="realvideourl" readOnly>{realvideourl}</textarea></td>
+<td> <span class="btn small lightblue"><button type="button" id="videourlCopybtn" onclick="clip_copy()">URL 복사</button></span></td>
+</tr>
+</table>
+</div>
+
+
+<!--### 워터마크세팅 -->
+<div id="watermark_setting_popup"></div>
+
+<div id="popup_runout_setting" class="hide">
+	<div style="padding-bottom:5px;">
+	<label style="width:80px;display:inline-block;"><input type="radio" name="runout_type" value="shop" { ? !goods.runout_policy  }checked{ / } /> 통합세팅</label>
+	</div>
+	<table width="100%" class="info-table-style stock-qa-table" id="shop_runout">
+	<col width="180" /><col width="300" /><col width="230" /><col width="280" /><col />
+	<tr>
+		<td class="its-td center">판매 방식</td>
+		<td class="its-td center">상황의 발생</td>
+		<td class="its-td center">재고(가용재고)의 변화</td>
+		<td class="its-td center">상품의 상태 처리	</td>
+		<td class="its-td center">결과</td>
+	</tr>
+	<!--{ ? cfg_order.runout == 'stock' }-->
+	<tr>
+		<td class="its-td" rowspan="2">재고가 있으면 판매</td>
+		<td class="its-td">[좋은일] 상품을 발송(출고완료)하여</td>
+		<td class="its-td">재고가 0 이 될 때</td>
+		<td class="its-td">품절(또는 재고확보중)로 자동 업데이트되어</td>
+		<td class="its-td">판매 중지</td>
+	</tr>
+	<tr>
+		<td class="its-td">[나쁜일] 결제취소/반품/주문처리되돌리기로</td>
+		<td class="its-td">재고가 1 이상이 될 때</td>
+		<td class="its-td">정상으로 자동 업데이트되어</td>
+		<td class="its-td">판매 가능</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? cfg_order.runout == 'ableStock' }-->
+	<tr>
+		<td class="its-td" rowspan="2">가용재고가 있으면 판매</td>
+		<td class="its-td">[좋은일] 상품의 주문으로</td>
+		<td class="its-td">가용재고가 {cfg_order.ableStockLimit} 이하로 될 때</td>
+		<td class="its-td">품절(또는 재고확보중)로 자동 업데이트되어</td>
+		<td class="its-td">판매 중지</td>
+	</tr>
+	<tr>
+		<td class="its-td">[나쁜일] 결제취소/반품/주문처리되돌리기로</td>
+		<td class="its-td">가용재고가 {cfg_order.ableStockLimit+1} 이상이 될 </td>
+		<td class="its-td">정상으로 자동 업데이트되어</td>
+		<td class="its-td">판매 가능</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? cfg_order.runout == 'unlimited' }-->
+	<tr>
+		<td class="its-td" rowspan="2">재고와 상관없이 판매</td>
+		<td class="its-td">[좋은일] 상품을 발송(출고완료)하여</td>
+		<td class="its-td">재고가 차감되어도</td>
+		<td class="its-td">정상으로 유지되어</td>
+		<td class="its-td">판매 중지되지 않고 판매 가능</td>
+	</tr>
+	<tr>
+		<td class="its-td">[나쁜일] 결제취소/반품/주문처리되돌리기로</td>
+		<td class="its-td">재고와 가용재고가 증가되면 </td>
+		<td class="its-td">당연히 정상으로 유지되어</td>
+		<td class="its-td">판매 가능</td>
+	</tr>
+	<!--{ / }-->
+	</table>
+	<br/><br/>
+	<div style="padding-bottom:5px;">
+		<label><input type="radio" name="runout_type" value="goods" { ? goods.runout_policy  }checked{ / } /> 개별세팅</label>
+	</div>
+	<table width="100%" class="info-table-style stock-qa-table" id="goods_runout">
+	<col width="180" /><col width="300" /><col width="230" /><col width="280" /><col />
+	<tr>
+		<td class="its-td center">판매 방식</td>
+		<td class="its-td center">상황의 발생</td>
+		<td class="its-td center">재고(가용재고)의 변화</td>
+		<td class="its-td center">상품의 상태 처리	</td>
+		<td class="its-td center">결과</td>
+	</tr>
+	<tr>
+		<td class="its-td" rowspan="2"><label><input type="radio" name="runout" value="stock" /> 재고가 있으면 판매</label></td>
+		<td class="its-td">[좋은일] 상품을 발송(출고완료)하여</td>
+		<td class="its-td">재고가  <strong>0</strong> 이 될 때</td>
+		<td class="its-td">품절(또는 재고확보중)로 자동 업데이트되어</td>
+		<td class="its-td">판매 중지</td>
+	</tr>
+	<tr>
+		<td class="its-td">[나쁜일] 결제취소/반품/주문처리되돌리기로</td>
+		<td class="its-td">재고가 <strong>1</strong> 이상이 될 때</td>
+		<td class="its-td">정상으로 자동 업데이트되어</td>
+		<td class="its-td">판매 가능</td>
+	</tr>
+	<tr>
+		<td class="its-td" rowspan="2"><label><input type="radio" name="runout" value="ableStock" checked /> 가용재고가 있으면 판매</label></td>
+		<td class="its-td">[좋은일] 상품의 주문으로</td>
+		<td class="its-td">가용재고가  <input type="text" name="ableStockLimit" size="5" value="{ableStockLimit}" class="right line onlynumber_signed"> 이하로 될 때</td>
+		<td class="its-td">품절(또는 재고확보중)로 자동 업데이트되어</td>
+		<td class="its-td">판매 중지</td>
+	</tr>
+	<tr>
+		<td class="its-td">[나쁜일] 결제취소/반품/주문처리되돌리기로</td>
+		<td class="its-td">가용재고가     <span id="ableStockLimitMsg" style="font-weight:bold">{ableStockLimit+1}</span> 이상이 될 때</td>
+		<td class="its-td">정상으로 자동 업데이트되어</td>
+		<td class="its-td">판매 가능</td>
+	</tr>
+	<tr>
+		<td class="its-td" rowspan="2"><label><input type="radio" name="runout" value="unlimited" /> 재고와 상관없이 판매</label></td>
+		<td class="its-td">[좋은일] 상품을 발송(출고완료)하여</td>
+		<td class="its-td">재고가 차감되어도</td>
+		<td class="its-td">정상으로 유지되어</td>
+		<td class="its-td">판매 중지되지 않고 판매 가능</td>
+	</tr>
+	<tr>
+		<td class="its-td">[나쁜일] 결제취소/반품/주문처리되돌리기로</td>
+		<td class="its-td">재고와 가용재고가 증가되면</td>
+		<td class="its-td">당연히 정상으로 유지되어</td>
+		<td class="its-td">판매 가능</td>
+	</tr>
+	</table>
+</div>
+
+<div id="option_infomation" class="hide">
+	<img src="../images/design/opt_func_img.jpg" />
+</div>
+
+
+
+<div id="special_newlist" class="hide">
+	<img src="../images/design/img_speinfo.jpg" />
+</div>
+
+
+<div id="coupon_serial_upload_lay" class="hide">
+	<form name="coupon_serial_upload_form" method="post" action="../goods_process/coupon_serial_upload" enctype="multipart/form-data" target="actionFrame" onsubmit="return closeDialog();">
+	<div style="width:100%;text-align:center;">
+		<div><input type="file" name="coupon_serial_file" /> </div>
+		<div style="margin-top:20px;"><span class="btn medium black"><button type="submit">티켓등록</button></span></div>
+		<div style="margin:15px 0;padding:0 15px;border:1px solid #6c6c6c;background-color:#f0f0f0;text-align:left;">
+			<ul>
+				<li style="line-height:25px;color:red;"><b>* Excel 97 - 203 통합문서로 저장하셔야 합니다.</b></li>
+				<li style="line-height:25px;color:red;"><b>* .xls 파일만 등록가능합니다.</b></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div id="coupon_serial_list_lay" class="hide">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="info-table-style">
+	<colgroup>
+		<col />
+		<col width="40%" />
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th-align center">티켓번호</th>
+		<th class="its-th-align center">상 태</th>
+	</tr>
+	</thead>
+	<tbody id="coupon_serial_list">
+	</tbody>
+	</table>
+</div>
+
+<div id="displayGoodsSelectPopup">
+	<div id="displayGoodsSelect"></div>
+</div>
+
+<div id="set_option_select_layout" style="display:none;">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="info-table-style">
+	<colgroup>
+		<col />
+		<col width="300" />
+		<col width="200" />
+		<col width="340" />
+	</colgroup>
+	<thead>
+	<tr>
+		<th class="its-th-align center">설정</th>
+		<th class="its-th-align center">묶임 방법</th>
+		<th class="its-th-align center">노출 위치</th>
+		<th class="its-th-align center">결과화면 (예시 데이터 기준)</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th class="its-th-align center">추가구성옵션</th>
+		<td class="its-td-align center">
+			추가구성옵션은<br/>
+			<select name="set_suboption_select_layout_group" onchange="set_option_select_display('');">
+				<option value="group">필수옵션과 쌍으로 묶임</option>
+				<option value="first">첫번째 필수옵션에 묶임</option>
+			</select>
+		</td>
+		<td class="its-td-align center">
+			<select name="set_suboption_select_layout_position" class="disable" onchange="$(this).find('option').eq(0).attr('selected', true);">
+				<option value="up">옵션선택 영역에 노출</option>
+			</select>
+		</td>
+		<td class="its-td-align center" rowspan="2">
+			<img src="../images/common/option_select_layout_1.jpg" id="display_option_select_layout_image" width="300" />
+		</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">추가입력옵션</th>
+		<td class="its-td-align center">
+			추가입력옵션은<br/>
+			<select name="set_inputoption_select_layout_group" class="disable" onchange="$(this).find('option').eq(0).attr('selected', true);">
+				<option value="group">필수옵션과 쌍으로 묶임</option>
+				<option value="first">첫번째 필수옵션에 묶임</option>
+			</select>
+		</td>
+		<td class="its-td-align center">
+			<select name="set_inputoption_select_layout_position" onchange="set_option_select_display('');">
+				<option value="up">옵션선택 영역에 노출</option>
+				<option value="down">선택된 옵션 영역에 노출</option>
+			</select>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+	{option_select_layout_notice}
+
+	<div style="width:100%;margin:20px 0;text-align:center;">
+		<div style="margin-bottom:3px;color:red;">모바일쇼핑몰에서도 동일하게 적용됩니다.</center>
+		<span class="btn large cyanblue"><button type="button" onclick="set_option_select_display('apply');"> 적 용 </button></span>
+	</div>
+</div>
+
+<div id="unable_provider_status" class="hide">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="info-table-style">
+	<colgroup>
+		<col width="20%" />
+		<col />
+	</colgroup>
+	<tbody>
+	<tr>
+		<th class="its-th-align center">1. 행위자</th>
+		<td class="its-td">입점사 관리자</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">2. 행위</th>
+		<td class="its-td">
+			<div>아래 항목 수정</div>
+			<div>- 실물배송상품 : 상품명, 정가, 할인가, 구매자별 판매가격 디스플레이</div>
+			<div>- 티켓발송상품 : 상품명, 정가, 할인가, 구매자별 판매가격 디스플레이</div>
+			<div style="margin-left:10px;">유효기간 전 후 취소(환불) 또는 미사용 티켓환불 설정</div>
+		</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">3. 자동처리</th>
+		<td class="its-td">미승인 + 판매중지 + 미노출</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+<div id="ticket_goods_refund_helper" class="hide"><img src="../images/design/ticket_goods_refund_helper.gif" ></div>
+
+<div id="dialog_hscode" class="hide">
+	<div class="fx12 pdb10">
+		<div>
+			● 수출입상품코드(HSCODE)란?<br />
+			&nbsp;&nbsp;&nbsp;<span class="darkgray">전 세계에서 거래되는 각종 물품을 세계관세기구(WCO)가 정한 국제통일상품분류체계(HS)에 <br/>
+			&nbsp;&nbsp;&nbsp;의거 하나의 품목번호(Heading)로 분류한 국제적 상품 코드입니다.</span>
+		</div>
+		<div style="margin-top:8px;">
+	 		● 수출입상품코드 (HSCODE) 이용<br />
+			&nbsp;&nbsp;&nbsp;<span class="darkgray">HSCODE는 통관 시 세관신고서에 기입하시게 됩니다.<br/>
+			&nbsp;&nbsp;&nbsp;본 시스템에서는 물품의 HSCODE를 저장하여 관리할 수 있습니다.</span>
+		</div>
+	</div>
+</div>
+
+<div id="view_editor_div" class="hide">
+	<form name="tmpContentsFrm" id="tmpContentsFrm" method="post" enctype="multipart/form-data" action="../goods_process/goods_edit_upload" target="actionFrame">
+	<input type="hidden" name="goodsSeq" value="" />
+	<input type="hidden" name="regist_date" value="{goods.regist_date}" />
+	<input type="hidden" name="provider_seq" value="{goods.provider_seq}" />
+	<input type="hidden" name="contents_type" value="" />
+	<div>
+		<div id="view_common_info">
+			<input type="text" name="info_name">
+			<select name="info_select">
+				<option value="">← 좌측에 공용정보명을 입력하여 새로운 공용정보를 만드시거나 또는 ↓아래에서 이미 만들어진 공용정보를 불러오세요</option>
+				{@ info_loop }
+				{? .info_name!='== 선택하세요 ==' && .info_name!='== ←좌측에 공용정보명을 입력하여 새로운 공용정보를 만드시거나 또는 ↓아래에서 이미 만들어진 공용정보를 불러오세요 ==' }
+				<option value="{.info_seq}">{.info_name} &nbsp;[고유번호 : {.info_seq}] 고유번호는 엑셀로 상품등록/수정할 때 공용정보 셀에 입력하는 번호입니다.</option>
+				{/}
+				{/}
+			</select>
+			<span class="btn small gray"><input type="button" onclick="goods_info_del();" value="삭제"></span>
+		</div>
+		<div class="view_contents_area"></div>
+		<div class="contents_saveBtn center pdt10"><span class="btn large cyanblue"><button type="button" onclick="view_editor_save()" style="width:100px;">저장</button></span></div>
+	</div>
+	</form>
+</div>
+<div id="goods_code_helper_lay" class="hide">
+	<div>
+		<div class="desc">
+			상품코드를 직접 수동으로 입력하여 사용도 가능하지만, <br/>
+			상품 정보별 코드값을 미리 정의해 두면 자동으로 상품코드를 생성할 수 있습니다. <br/>
+			이 때 자동으로 생성되는 <span class="red">상품코드는 = 상품 기본코드 + 상품 옵션코드</span>의 조합으로 이뤄지게 되어 <br/>
+			상품코드만으로 어떠한 상품인지 식별할 수 있게 됩니다.
+		</div> <br/>
+		<img src="../images/common/img_goods_code.gif" />
+	</div>
+</div>
+<!-- 패키지 연결오류 레이어 -->
+<div id="packageErrorDialog" class="hide"></div>
+
+
+<!-- 노출 설정 -->
+<div id="display_terms_lay" class="hide">
+	<table class="info-table-style" style="width:900px">
+		<colgroup>
+			<col width="15%" />
+			<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th class="its-th-align center">관리</th>
+				<td class="its-td">
+					<label><input type="radio" name="display_terms_set" value="MENUAL" { ? goods.display_terms != 'AUTO' }checked{ / }> 수동관리</label>
+					<label><input type="radio" name="display_terms_set" value="AUTO" { ? goods.display_terms == 'AUTO' }checked{ / }> 자동관리</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align center display-auto">자동 노출</th>
+				<td class="its-td display-auto">
+					<input type="text" id="display_terms_begin" value="{goods.display_terms_begin}" class="datepicker line display-form" maxlength="10" style="width:73px;"> -
+					<input type="text" id="display_terms_end" value="{goods.display_terms_end}" class="datepicker line display-form" maxlength="10" style="width:73px;">
+					에 자동 노출되는
+					<select id="display_terms_type" class="display-form">
+						<option value="LAYAWAY" { ? goods.display_terms_type == 'LAYAWAY' }selected{ / }>예약상품</option>
+						<option value="SELLING" { ? goods.display_terms_type != 'LAYAWAY' }selected{ / }>상품</option>
+					</select>
+					으로 상품명 앞에
+					<input type="text" id="display_terms_text" value="{goods.display_terms_text}" maxlength="20" class="display-form" style="width:60px;">
+					<input type="text" id="display_terms_color" value="{ ? goods.display_terms_color }{goods.display_terms_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					를 붙임
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align center display-auto">자동 노출 이전</th>
+				<td class="its-td display-auto">
+					<span id="display_terms_begin_before">0000-00-00</span> 까지는
+					<select id="display_terms_before" class="display-form">
+						<option value="CONCEAL" { ? goods.display_terms_before != 'DISPLAY' }selected{ / }>미노출</option>
+						<option value="DISPLAY" { ? goods.display_terms_before == 'DISPLAY' }selected{ / }>노출</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align center display-auto">자동 노출 이후</th>
+				<td class="its-td display-auto">
+					<span id="display_terms_end_after">0000-00-00</span> 부터는
+					<select id="display_terms_after" class="display-form">
+						<option value="CONCEAL" { ? goods.display_terms_after != 'DISPLAY' }selected{ / }>미노출(수동관리)</option>
+						<option value="DISPLAY" { ? goods.display_terms_after == 'DISPLAY' }selected{ / }>노출(수동관리)</option>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<br>
+	<div class="center" style="padding:10px;"><span class="btn large black"><button type="button" onClick="displayTermsSet()">확  인</button></span></div>
+</div>
+
+
+<!-- 메시지 출력용 -->
+<div id="helperMessageShow" class="hide"><span id="helperMessage"></div></div>
+{ #layout_footer }

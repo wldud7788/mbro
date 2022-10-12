@@ -1,0 +1,45 @@
+<table class="table_search">
+	<tr>
+		<th><span>검색어</span></th>
+		<td>
+			<select name="search_type">
+				<option value="all">전체</option>
+				<option value="goods_name" {=checked.search_type.goods_name} >상품명</option>
+				<option value="goods_seq" {=checked.search_type.goods_seq}>상품번호</option>
+				<option value="goods_code" {=checked.search_type.goods_code}>상품코드</option>
+			</select>
+			<span class='search_keyword keyword'><input type="text" name="keyword" id="search_keyword" value="{sc.keyword}" size="60" class='resp_text' /></span>
+		</td>
+	</tr>
+	<tr>
+		<th>상품구분</th>
+		<td>
+			<select name="gtype">
+				<option value="" >전체</option>
+				<option value="goods" {=checked.gtype.goods}>일반 상품</option>
+				<option value="coupon" {=checked.gtype.coupon}>티켓 상품</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>바코드</th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="btype" value="" checked/> 전체</label>
+				<label><input type="radio" name="btype" value="Y" {=checked.btype.Y}/> 바코드 있음</label>
+				<select name="bsubtype1" class="bsubtype" {?!checked.btype.Y} disabled{/} defaultValue='disabled'>
+					<option value="">전체</option>
+					<option value="type1" {=checked.bsubtype1.type1}>기본코드</option>
+					<option value="type2" {=checked.bsubtype1.type2}>옵션코드</option>
+				</select>
+				<label><input type="radio" name="btype" value="N" {=checked.btype.N}/> 바코드 없음</label>				
+				<select name="bsubtype2" class="bsubtype" {?!checked.btype.N} disabled{/} defaultValue='disabled'>
+					<option value="">전체</option>
+					<option value="type1" {=checked.bsubtype2.type1}>기본코드</option>
+					<option value="type2" {=checked.bsubtype2.type2}>옵션코드</option>
+				</select>
+			</div>
+		</td>
+	</tr>
+</table>
+<div class="footer search_btn_lay"></div>

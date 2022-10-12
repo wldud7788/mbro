@@ -1,0 +1,118 @@
+<div class="content">
+	<div class="opt_area">
+		<div class="item-title pdt0">필수옵션</div>
+		<table class="info-table-style table_row_basic v2" style="width:99%">
+		<thead>
+		<tr>
+			<!--{ ? count(otp_loop[0].option_divide_title) > 1 }-->
+			<th class="its-th-align center" colspan="{=count(otp_loop[0].option_divide_title)}">옵션명</th>
+			<!--{ : }-->
+			<th class="its-th-align center" rowspan="2">옵션명</th>
+			<!--{ / }-->
+			<th class="its-th-align center" rowspan="2">정가</th>
+			<th class="its-th-align center" rowspan="2">판매가</th>
+			<!--{ ? provider_seq > 1 }-->
+			<th class="its-th-align center" rowspan="2">정산{=commission_txt}</th>
+			<th class="its-th-align center" rowspan="2">정산금액</th>
+			<!--{ : }-->
+			<th class="its-th-align center" rowspan="2">매입가</th>
+			<th class="its-th-align center" rowspan="2">순매출</th>
+			<!--{ / }-->
+		</tr>
+		<!--{ ? count(otp_loop[0].option_divide_title) > 1 }-->
+		<tr>
+			<!--{ @ otp_loop[0].option_divide_title }-->
+			<th class="its-th-align center">{.value_}</th>
+			<!--{ / }-->
+		</tr>
+		<!--{ / }-->
+		</thead>
+		<tbody>
+		<!--{ @ otp_loop }-->
+		<tr>
+			<!--{ @ .opts }-->
+			<td class="its-td-align center">{..value_}</td>
+			<!--{ / }-->
+			<td class="its-td-align center">{=get_currency_price(.consumer_price)}</td>
+			<td class="its-td-align center">{=get_currency_price(.price)}</td>
+			<!--{ ? provider_seq > 1 }-->
+			<td class="its-td-align center">
+				{? .commission_type == 'SUPR'}
+					{=get_currency_price(.commission_rate)}
+				{ : }
+					{=.commission_rate}%
+				{/}</td>
+			<td class="its-td-align center" {? .chk_digit=='Y'}style="color:red;text-decoration:underline;"{/}>
+				{=get_currency_price(.commission_price)}
+			</td>
+			<!--{ : }-->
+			<td class="its-td-align center">{=get_currency_price(.supply_price)}</td>
+			<td class="its-td-align center" {? .chk_digit=='Y'}style="color:red;text-decoration:underline;"{/}>
+				{=get_currency_price(.sales_rate)}
+			</td>
+			<!--{ / }-->
+		</tr>
+		<!--{ / }-->
+		</tbody>
+		</table>
+
+	<!--{ ? sub_loop }-->
+		<div class="item-title">추가옵션</div>
+		<table class="info-table-style table_basic v7 v10 pd5" style="width:99%">
+		<thead>
+		<tr>
+			<th class="its-th-align center" colspan="2">추가옵션</th>
+			<th class="its-th-align center" rowspan="2">정가</th>
+			<th class="its-th-align center" rowspan="2">판매가</th>
+			<!--{ ? provider_seq > 1 }-->
+			<th class="its-th-align center" rowspan="2">정산{=commission_txt}</th>
+			<th class="its-th-align center" rowspan="2">정산금액</th>
+			<!--{ : }-->
+			<th class="its-th-align center" rowspan="2">매입가</th>
+			<th class="its-th-align center" rowspan="2">순매출</th>
+			<!--{ / }-->
+		</tr>
+		<tr>
+			<th class="its-th-align center">옵션명</th>
+			<th class="its-th-align center">옵션값</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--{ @ sub_loop }-->
+			<!--{ @ .value_ }-->
+		<tr>
+			<td class="its-td-align center">{ ? ..index_ == 0 }{..suboption_title}{:}&nbsp;{/}</td>
+			<td class="its-td-align center">{..suboption}</td>
+			<td class="its-td-align center">{=get_currency_price(..consumer_price)}</td>
+			<td class="its-td-align center">{=get_currency_price(..price)}</td>
+			<!--{ ? provider_seq > 1 }-->
+			<td class="its-td-align center">{..commission_rate}%</td>
+			<td class="its-td-align center" {? ..chk_digit=='Y'}style="color:red;text-decoration:underline;"{/}>
+				{=get_currency_price(..commission_price)}
+			</td>
+			<!--{ : }-->
+			<td class="its-td-align center">{=get_currency_price(..supply_price)}</td>
+			<td class="its-td-align center" {? ..chk_digit=='Y'}style="color:red;text-decoration:underline;"{/}>
+				{=get_currency_price(..sales_rate)}
+			</td>
+			<!--{ / }-->
+		</tr>
+			<!--{ / }-->
+		<!--{ / }-->
+		</tbody>
+		</table>
+	<!--{ / }-->
+	</div>
+
+	<div style="width:100%;text-align:center;margin-top:20px;">
+		정가,판매가,정산금액을 확인해주세요.<br/>
+		<!--{? chk_all_digit }-->
+		<div class="red">판매가보다 정산금액이 더 높은 역마진 상품은 빨간색 라인으로 표기되었습니다.</div>
+		<!--{ / }-->
+		상품을 승인으로 변경하시겠습니까?
+	</div>
+</div>
+<div class="footer">
+	<button type="button" onclick="closeDialog('goods_permit_lay');goods_save_submit();" class="resp_btn active size_XL"> 확인 </button>
+	<button type="button" onclick="closeDialog('goods_permit_lay');" class="resp_btn v2 size_XL"> 취소 </button>
+</div>

@@ -1,0 +1,499 @@
+{ #layout_header }
+
+<script type="text/javascript" src="/app/javascript/plugin/custom-select-box-basic.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsReady.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-giftRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-giftReady.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/browsercheck.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.tablednd.js"></script>
+
+<script type="text/javascript">
+	var gl_service_code					= '{service_code}';
+	var gl_ableStockLimit				= {=cfg_order.ableStockLimit + 1};
+	var gl_runout						= '{cfg_order.runout}';
+	var gl_ableStockLimit_org			= {cfg_order.ableStockLimit};
+	var gl_default_reserve_percent		= '{provider}';
+	var gl_package_yn					= '{package_yn}';
+	var gl_provider_seq					= '{provider_seq}';
+	var gl_provider_name				= '{=addslashes(provider.provider_name)}';
+	var gl_adminSessionType				= '{adminSessionType}';
+	var gl_default_charge				= false;
+	var gl_scm_use						= '{scm_cfg["use"]}';
+	var gl_tax							= false;
+	var gift 							= true;
+	var goodsObj						= {goodsObj};
+	var bxOpenSetObj		 			= {=bxOpenSetObj};
+	var gl_common_info_cfg				= '';
+	var gl_common_info_goods			= '';
+
+	//객체동결(변경금지)
+	Object.freeze(goodsObj);
+	Object.freeze(bxOpenSetObj);
+
+	var gl_goods_seq					= goodsObj.goods_seq;
+	var gl_runtout_policy				= goodsObj.runout_policy;
+	var socialcpuse_flag				= { ? socialcpuse }true{ : }false{ / };
+	var save_flag = true;
+
+	var  gl_image_width				=	'{goodsImageSize.view.width}';
+	var  gl_image_height			=	'{goodsImageSize.view.height}';
+	var  gl_first_goods_date			= '{config_system.first_goods_date}';
+	<!--{ @code_load('currency', config_system.basic_currency) }-->
+	var  gl_basic_currency_hangul		= '{.value_.value.hangul}';
+	var  gl_basic_currency_nation		= '{.value_.value.nation}';
+	<!--{ / }-->
+</script>
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/goods_admin.css?dummy={=date('Ymd')}" />
+<!-- { ? goods.goods_seq } -->
+<form name="goodsRegist" id="goodsRegist" method="post" enctype="multipart/form-data" action="../goods_process/modify" target="actionFrame">
+<input type="hidden" name="goodsSeq" value="{goods.goods_seq}" />
+<input type="hidden" name="query_string" value="{query_string}"/>
+<input type="hidden" name="default_charge" value="{=provider.charge}" />
+<input type="hidden" name="old_update_date" value="{goods.update_date}" />
+<input type="hidden" name="provider_seq" value="{goods.provider_seq}" />
+<input type="hidden" name="goodsView" value="{goods.goods_view}" />
+<input type="hidden" name="tax" value="{goods.tax}" />
+<input type="hidden" name="minPurchaseLimit" value="{goods.min_purchase_limit}" />
+<input type="hidden" name="maxPurchaseLimit" value="{goods.max_purchase_limit}" />
+<input type="hidden" name="possible_pay_type_hidden" value="{goods.possible_pay_type_hidden}" />
+<input type="hidden" name="goods_modify_ok" id="goods_modify_ok" value=""/>
+<!-- { : } -->
+<form name="goodsRegist" id="goodsRegist" method="post" enctype="multipart/form-data" action="../goods_process/regist" target="actionFrame">
+<input type="hidden" name="default_charge" value="0" />
+<input type="hidden" name="goodsView" value="look" />
+<input type="hidden" name="tax" value="tax" />
+<input type="hidden" name="minPurchaseLimit" value="unlimit" />
+<input type="hidden" name="maxPurchaseLimit" value="unlimit" />
+<input type="hidden" name="possible_pay_type_hidden" value="shop" />
+<input type="hidden" name="provider_seq" value="{provider.provider_seq}" />
+<!-- { / } -->
+
+<input type="hidden" name="provider_status" value="1" />
+<input type="hidden" name="runout_policy" value="" />
+<input type="hidden" name="able_stock_limit" value=""/>
+<input type="hidden" name="goods_type" value="gift" />
+<input type="hidden" name="save_type" value="view" />
+
+<input type="hidden" name="viewLayout" value="basic"/>
+<input type="hidden" name="optionUse" value="" />
+<input type="hidden" name="frequentlyopt" value="{goods.frequentlyopt}" />
+<input type="hidden" name="tmp_option_seq" value="" />
+
+<style>
+	.page-manual-btn{margin-bottom: -5px;}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<!-- { ? goods.goods_seq } -->
+			<span class="icon-star-gray {goods.favorite_chk} valign-middle" id="star_select" goods_seq="{goods.goods_seq}"></span>	
+			<h2 >							
+				<span class="">{=getstrcut(goods.title,20)}</span>
+				<span class="pdl5 fx13">( 상품 번호 : {=goods.goods_seq} )</span>
+			</h2>
+			<!-- { : } -->
+			<h2>사은품 등록</h2>
+			<!-- { / } -->
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button type="button" class="resp_btn active size_L" onclick="goods_save('view')">저장</button></li>
+		</ul>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li style="display:inline;"><button type="button" class="resp_btn size_L v3" onclick="document.location.href='../goods/gift_catalog?{query_string}';">리스트 바로가기</button></li>
+			<!-- { ? goods.goods_seq } -->
+			<li style="display:inline;"><button type="button" id="manager_copy_btn" goods_seq="{goods.goods_seq}" class="resp_btn v2 size_L" data-gift="true">복사</button></li>
+			<!-- { / } -->
+		</ul>
+
+		<!-- 상단 단계 링크 : 시작 -->
+		<div class="page-goods-helper-btn" >
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					{@tabmenu}
+					<td class="ctab">
+						<a href="javascript:moveBookmark('{=.key_}');">{=.value_} <img src="../images/common/btn_quick.gif" align="absmiddle"></a>
+					</td>
+					{/}
+				</tr>
+			</table>
+		</div>
+		<!-- 상단 단계 링크 : 끝 -->
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브메뉴 바디 : 시작-->
+<div class="clearbox"></div>
+
+	<div class="mt60"></div>
+	<div class="box_style_06 blue bold fx14">
+		<div class="ptc-title red">
+			{provider.provider_id}의 입점사 상품 ({?goods.provider_status}승인{:}미승인{/})
+			<!--{ @ options }-->
+				<!--{ ? .default_option=='y' }-->
+			{ ? provider_charge[0].commission_type == 'SACO' || provider_charge[0].commission_type == ''}수수료 방식 정산{ : }공급가 방식 정산{ / }
+				<!--{ / }-->
+			<!--{ / }-->
+		</div>
+	</div>
+
+	<a name="01" alt="기본정보"></a>
+	<div class="bx-lay" data-bxcode="info">
+		<div class="bx-title">
+			<div class="item-title">기본 정보</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont">
+			<table class="table_basic thl">
+				<tbody>
+					<tr>
+						<th>
+							사은품명 <span class="required_chk"></span>
+						</th>
+						<td>
+							<div class="resp_limit_text limitTextEvent">
+								<input type="text" name="goodsName" size='100' class="resp_text" maxlength="255" value="{goods.goods_name}" title="HTML 사용가능" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							판매 상태
+						</th>
+						<td>
+							<div class="resp_radio">
+								<label><input type="radio" name="goodsStatus" value="normal" {?provider_seq!='1'}checked="checked"{/}> 정상</label>
+								<label><input type="radio" name="goodsStatus" value="runout"> 품절</label>
+								<label><input type="radio" name="goodsStatus" value="purchasing"> 재고확보중</label>
+								<label><input type="radio" name="goodsStatus" value="unsold" { ? provider_seq=='1'}checked="checked"{/}> 판매중지</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							재고에 따른 판매
+						</th>
+						<td>
+							<div class="resp_radio">
+								<label><input type="radio" name="runout_type" value="shop" { ? !goods.runout_policy  }checked{ / } /> 통합 설정</label>
+								<label><input type="radio" name="runout_type" value="goods" { ? goods.runout_policy  }checked{ / } /> 개별 설정</label>
+								<!--{ ? !serviceLimit('H_FR') }-->
+								<span class="{?!goods.runout_policy}hide{/}">
+									<button type="button" class="resp_btn v2 ml20 runout_setting">설정</button>
+								</span>
+								<!--{ / }-->
+	
+								<span class="resp_message ml10 {?!goods.runout_policy}hide{/}" id="runout_policy_msg">
+								<!--{ ? cfg_order.runout == 'stock' }-->
+									(재고가 있으면 판매)
+								<!--{ : cfg_order.runout == 'ableStock' }-->
+									(가용재고가 있으면 판매)
+								<!--{ : cfg_order.runout == 'unlimited' }-->
+									(재고와 상관없이 판매)
+								<!--{ / }-->
+								</span>
+							</div>
+							<!--ul class='bullet_hyphen resp_message'>
+								<li>통합 설정은 <span class="underline blue hand" onclick="window.open('../setting/order');">주문</span>에서 변경할 수 있습니다.</li>
+							</ul-->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- option_for_gift_regist.html-->
+			{#OPTION_HTML}
+			<ul class='bullet_hyphen resp_message'>
+				<li>사은품 지급 방법 <span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#gift', 'sizeS')"></span> </li>
+			</ul>
+		</div>
+	</div>
+
+	<!--
+	<a name="02" alt="판매 정보"></a>
+	<div class="bx-lay" data-bxcode="sales_info">
+		<div class="bx-title">
+			<div class="item-title">판매 정보</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont">
+			<table class="table_basic thl">
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	-->
+<!-- 
+	<a name="03" alt="옵션"></a>
+	<div class="bx-lay" data-bxcode="options">
+		<div class="bx-title">
+			<div class="item-title">필수 옵션</div>
+		</div>
+	</div>-->
+
+	<a name="04" alt="사진"></a>
+	<div class="bx-lay" data-bxcode="photo">
+		<div class="bx-title">
+			<div class="item-title">상품 사진</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont">
+
+			<!-- 상품 이미지 View :: START -->
+			<table class="table_basic thl" id="goodsImageTable">
+			<tr>
+				<th class="left">사진 등록</th>
+				<td>
+					<div id="multiadd">
+						<button type="button" class="batchImageMultiRegist resp_btn active" data-type="multi">등록</button>
+						<ul class='bullet_hyphen resp_message'>
+							<li>여러 개의 이미지를 한번에 등록 가능합니다.</li>
+						</ul>
+					</div>
+					<span class="btn-plus first_plus hide"><button type="button" id="goodsImageAdd"></button></span>
+				</td>
+			</tr>
+			<tr class="goodsImageList goodsRegistView { ? !images }hide{/}">
+				<th class="left">사진 상세</th>
+				<td>
+					<div class="list_info_container">
+						<div class="dvs_left">
+							<span class="goodsRegistView { ? !images }hide{/}"><button type="button" class="ImageSort resp_btn v2">순서 변경 및 삭제</button></span>
+						</div>
+					</div>
+					<table class="table_basic goodsImageDetail v7 pd5">
+					<colgroup>
+						<col width="8%" />
+						<col width="11%" />
+						<col width="11%" />
+						<col width="12%" />
+						<col width="11%" />
+						<col width="11%" />
+						<col width="14%" />
+						<col width="11%" />
+						<col width="11%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>순서</th>
+							<th>사진 수정</th>
+							<th>대표 사진</th>
+							<th>상품상세(확대)</th>
+							<th>리스트(1)</th>
+							<th>리스트(2)</th>
+							<th>상품상세(썸네일)</th>
+							<th>장바구니/주문</th>
+							<th>스크롤</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--{ ? images }-->
+							<!--{ @ images }-->
+						<tr class="cut-tr cutnum{.key_}">
+							<td class="center">
+								{=.key_}
+							</td>
+							<td class="center">
+								<button type="button" class="batchImageRegist resp_btn v2" data-divisoin="all">파일 선택</button>
+								<input type="hidden" name="all_chg[]" value="N" />
+								<!--{ ? .view.match_color }-->
+								<input type="hidden" name="goodsImageColor[]" value="{.view.match_color}" /> <span class="fileColorTitle" style="vertical-align: middle;width:30px;height:30px;color:{.view.match_color}"><span style='display:inline-block;width:18px; height:18px; margin-top:0px; margin-left:2px; border:1px solid #e8e8e8; background-color:{.view.match_color};size:25px;'></span></span>
+								<!--{ : }-->
+								<input type="hidden" name="goodsImageColor[]" value="" /> <span class="fileColorTitle"></span>
+								<!--{ / }-->
+							</td>
+							<td class="center">
+								<span class="{? !.large.image }v3{/} hand goodslarge view resp_btn" imageType="large">보기</span>
+								<input type="hidden" name="largeGoodsImage[]" value="{.large.image}" />
+								<input type="hidden" name="largeGoodsLabel[]" value="{.large.label}" />
+								<input type="hidden" name="largeGoodsImageSeq[]" value="{.large.image_seq}" />
+								<input type="hidden" name="largeGoodsImageWidth[]" value="{.large.imageWidth}" />
+								<input type="hidden" name="largeGoodsImageHeight[]" value="{.large.imageHeight}" />
+								<input type="hidden" name="large_chg[]" value="N" />
+							</td>
+							<td class="center">
+								<span class="{? !.view.image }v3{/} hand goodsview view resp_btn" imageType="view">보기</span>
+								<input type="hidden" name="viewGoodsImage[]" value="{.view.image}" />
+								<input type="hidden" name="viewGoodsLabel[]" value="{.view.label}" />
+								<input type="hidden" name="viewGoodsImageSeq[]" value="{.view.image_seq}" />
+								<input type="hidden" name="viewGoodsImageWidth[]" value="{.view.imageWidth}" />
+								<input type="hidden" name="viewGoodsImageHeight[]" value="{.view.imageHeight}" />
+								<input type="hidden" name="view_chg[]" value="N" />
+							</td>
+							<td class="center">
+								<span class="{? !.list1.image }v3{/} hand goodslist1 view resp_btn" imageType="list1">보기</span>
+								<input type="hidden" name="list1GoodsImage[]" value="{.list1.image}" />
+								<input type="hidden" name="list1GoodsLabel[]" value="{.list1.label}" />
+								<input type="hidden" name="list1GoodsImageSeq[]" value="{.list1.image_seq}" />
+								<input type="hidden" name="list1GoodsImageWidth[]" value="{.list1.imageWidth}" />
+								<input type="hidden" name="list1GoodsImageHeight[]" value="{.list1.imageHeight}" />
+								<input type="hidden" name="list1_chg[]" value="N" />
+							</td>
+							<td class="center">
+								<span class="{? !.list2.image }v3{/} hand goodslist2 view resp_btn" imageType="list2">보기</span>
+								<input type="hidden" name="list2GoodsImage[]" value="{.list2.image}" />
+								<input type="hidden" name="list2GoodsLabel[]" value="{.list2.label}" />
+								<input type="hidden" name="list2GoodsImageSeq[]" value="{.list2.image_seq}" />
+								<input type="hidden" name="list2GoodsImageWidth[]" value="{.list2.imageWidth}" />
+								<input type="hidden" name="list2GoodsImageHeight[]" value="{.list2.imageHeight}" />
+								<input type="hidden" name="list2_chg[]" value="N" />
+							</td>
+							<td class="center">
+								<span class="{? !.thumbView.image }v3{/} hand goodsthumbView view resp_btn" imageType="thumbView">보기</span>
+								<input type="hidden" name="thumbViewGoodsImage[]" value="{.thumbView.image}" />
+								<input type="hidden" name="thumbViewGoodsLabel[]" value="{.thumbView.label}" />
+								<input type="hidden" name="thumbViewGoodsImageSeq[]" value="{.thumbView.image_seq}" />
+								<input type="hidden" name="thumbViewGoodsImageWidth[]" value="{.thumbView.imageWidth}" />
+								<input type="hidden" name="thumbViewGoodsImageHeight[]" value="{.thumbView.imageHeight}" />
+								<input type="hidden" name="thumbView_chg[]" value="N" />
+							</td>
+							<td class="center">
+								<span class="{? !.thumbCart.image }v3{/} hand goodsthumbCart view resp_btn" imageType="thumbCart">보기</span>
+								<input type="hidden" name="thumbCartGoodsImage[]" value="{.thumbCart.image}" />
+								<input type="hidden" name="thumbCartGoodsLabel[]" value="{.thumbCart.label}" />
+								<input type="hidden" name="thumbCartGoodsImageSeq[]" value="{.thumbCart.image_seq}" />
+								<input type="hidden" name="thumbCartGoodsImageWidth[]" value="{.thumbCart.imageWidth}" />
+								<input type="hidden" name="thumbCartGoodsImageHeight[]" value="{.thumbCart.imageHeight}" />
+								<input type="hidden" name="thumbCart_chg[]" value="N" />
+							</td>
+							<td class="center">
+								<span class="{? !.thumbScroll.image }v3{/} hand goodsthumbScroll view resp_btn" imageType="thumbScroll">보기</span>
+								<input type="hidden" name="thumbScrollGoodsImage[]" value="{.thumbScroll.image}" />
+								<input type="hidden" name="thumbScrollGoodsLabel[]" value="{.thumbScroll.label}" />
+								<input type="hidden" name="thumbScrollGoodsImageSeq[]" value="{.thumbScroll.image_seq}" />
+								<input type="hidden" name="thumbScrollGoodsImageWidth[]" value="{.thumbScroll.imageWidth}" />
+								<input type="hidden" name="thumbScrollGoodsImageHeight[]" value="{.thumbScroll.imageHeight}" />
+								<input type="hidden" name="thumbScroll_chg[]" value="N" />
+							</td>
+						</tr>
+							<!--{ / }-->
+						<!--{ / }-->
+					</tbody>
+					</table>
+					<!-- 상품 이미지 View :: END -->
+				</td>
+			</tr>
+			<tr>
+				<th class="left">미리보기</th>
+				<td>
+					<div id="goodsImagePriview"></div>
+					<input type="hidden" name="largeImageWidth" id="largeImageWidth" size="4" value="{goodsImageSize.large.width}">
+					<input type="hidden" name="largeImageHeight"  id="largeImageHeight" size="4" value="{goodsImageSize.large.height}">
+					<input type="hidden" name="viewImageWidth"  id="viewImageWidth" size="4" value="{goodsImageSize.view.width}">
+					<input type="hidden" name="viewImageHeight"  id="viewImageHeight" size="4" value="{goodsImageSize.view.height}">
+					<input type="hidden" name="list1ImageWidth"  id="list1ImageWidth" size="4" value="{goodsImageSize.list1.width}">
+					<input type="hidden" name="list1ImageHeight"  id="list1ImageHeight" size="4" value="{goodsImageSize.list1.height}">
+					<input type="hidden" name="list2ImageWidth"  id="list2ImageWidth" size="4" value="{goodsImageSize.list2.width}">
+					<input type="hidden" name="list2ImageHeight"  id="list2ImageHeight" size="4" value="{goodsImageSize.list2.height}">
+					<input type="hidden" name="thumbViewWidth"  id="thumbViewWidth" size="4" value="{goodsImageSize.thumbView.width}">
+					<input type="hidden" name="thumbViewHeight"  id="thumbViewHeight" size="4" value="{goodsImageSize.thumbView.height}">
+					<input type="hidden" name="thumbCartWidth"  id="thumbCartWidth" size="4" value="{goodsImageSize.thumbCart.width}">
+					<input type="hidden" name="thumbCartHeight"  id="thumbCartHeight" size="4" value="{goodsImageSize.thumbCart.height}">
+					<input type="hidden" name="thumbScrollWidth"  id="thumbScrollWidth" size="4" value="{goodsImageSize.thumbScroll.width}">
+					<input type="hidden" name="thumbScrollHeight"  id="thumbScrollHeight" size="4" value="{goodsImageSize.thumbScroll.height}">
+				</td>
+			</tr>
+			</table>
+		</div>
+	</div>
+	<a name="05" alt="기타정보"></a>
+	<div class="bx-lay" data-bxcode="etc_info">
+		<div class="bx-title">
+			<div class="item-title">기타 정보</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont">
+			<table class="table_basic thl v7">
+				<tr>
+					<th>수출입코드(HSCODE)</th>
+					<td>
+						<select name="hscode_selector" title="선택하세요">
+							<option value="0">선택하세요</option>
+							{ @ r_hscode }<option value="{.hscode_common}" {? goods.hscode == .hscode_common}selected{/}>{.hscode_name}({.hscode_common})</option>{ / }
+						</select>
+						<input type="hidden" class="hscode" name="hscode" value="{goods.hscode}"/>
+						<input type="hidden" name="hscode_name" value="{_GET.hscode_name}" style="width:150px;" readonly />
+						<div id="hscodeRegistLayer" class="{? !goods.hscode }hide{/} pdt5">
+						<table id="hscode_view" class="table_basic v7 v10 pd5" >
+							<thead>
+								<tr>
+									<th class="its-th-align center subj" rowspan="2">품명</th>
+									<th class="its-th-align center code" rowspan="2">공통코드</th>
+									<th class="its-th-align center" colspan="2">수입국가코드</th>
+									<th class="its-th-align center rate" colspan="{=count(hscode.hscode_items[0].export_nation_key)}">수출국가별 수입국가 세율</th>
+								</tr>
+								<tr>
+									<th class="its-th-align center nation">수입국가</th>
+									<th class="its-th-align center nation_code">수입국가코드</th>
+									{? hscode.hscode_items[0].export_nation_name }{@ hscode.hscode_items[0].export_nation_name }
+									<th class="its-th-align center tax">{=.value_}</th>
+									{ / }{ : }
+									<th class="its-th-align center tax"></th>
+									{ / }
+								</tr>
+							</thead>
+							<tbody>
+								{? goods.hscode }
+								<tr>
+									<td class="its-td pd10 center" rowspan="{=count(hscode.hscode_items)}">{=hscode.hscode_name}</td>
+									<td class="its-td pd10 center" rowspan="{=count(hscode.hscode_items)}">{=hscode.hscode_common}</td>
+									{@ hscode.hscode_items }
+									{? .key_ > 0}<tr>{/}
+									<td class="its-td pd10 center">{=.nation_name}</td>
+									<td class="its-td pd10 center">{=.hscode_nation}</td>
+									{@ .customs_tax }
+									<td class="its-td pd10 center">{=..value_}%</td>
+									{ / }
+									{? .key_ > 0}</tr>{/}
+									{ / }
+								</tr>
+								{ / }
+							</tbody>
+						</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<a name="06" alt="메모"></a>
+	<div class="bx-lay" data-bxcode="memo">
+		<div class="bx-title">
+			<div class="item-title">메모</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont" style="background:#fff;">
+			<textarea name="adminMemo" rows="5" class="resp_textarea" style="width:98%;padding:10px;">{goods.admin_memo}</textarea>
+		</div>
+	</div>
+
+	<div class="bx-lay" data-bxcode="history">
+		<div class="bx-title">
+			<div class="item-title">변경 내역</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont" style="background:#fff;">
+			 <div class="left" style="overflow:auto;height:120px;width:98%;border:1px solid #ccc; padding:10px; background-color:#f7f7f7; ">
+				{goods.admin_log}
+			</div>
+		</div>
+					<textarea name="admin_log" style="display:none;">{goods.admin_log}</textarea>
+	</div>
+
+</form>
+
+{#_regist_popup_guide}
+{ #layout_footer }

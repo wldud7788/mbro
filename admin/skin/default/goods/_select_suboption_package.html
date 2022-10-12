@@ -1,0 +1,105 @@
+<!--{ @ loop }-->
+	<!--{ @ .value_ }-->
+<input type="hidden" name="suboption_seq[]" value="{..suboption_seq}">
+<input type="hidden" name="temp_seq[]" value="{..tmp_no}">
+	<!--{ / }-->
+<!--{ / }-->
+<div class="cboth suboptions">
+    <table class="table_basic" style="width:auto;" cellspacing=0 cellpadding=0>
+    <col width="300"/><col width="740"/>
+    <tr>
+        <td class="clear" valign="top">
+		<table id="option_select_form_table" class="table_basic thl v3" cellspacing=0 cellpadding=0>
+		<thead>
+		<tr>
+			<th class="th-option">옵션명</th>
+			<th class="th-option">옵션값</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--{ @ loop }-->
+			<!--{ @ .value_ }-->
+		<tr>
+			<td class="td-option" height="40">
+				<!--{ ? ..index_ == 0 }-->
+				<span style="suboption-title" class="hand" title="{..suboption_title}">{..suboption_title}</span>
+				<!--{ / }-->
+			</td>
+			<td class="td-option">
+				<span style="suboption-value" class="hand" title="{..suboption}">{..suboption}</span>
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ / }-->
+		</tbody>
+		</table>
+	</td>
+	<td valign="top" class="clear">
+		<table id="package_select_form_table1" class="table_basic thl v3">
+		<colgroup>
+			<col width="50">
+			<col>
+		</colgroup>
+		<thead>
+		<tr>
+			<th class="th-package1">
+				<label class="resp_checkbox"><input type="checkbox" name="check_allpackage1" value="1" onclick="check_allpackage(1,this)" /></label>
+			</th>
+			<th class="th-package1 left">연결 상품</th>
+		</tr>
+		</thead>
+		</table>
+		<!--{ ? title_loop[1] }-->
+		<table class="package_select_form_table2 table_basic v3 tablednd" cellspacing=0 cellpadding=0 style="border-bottom:0px;border-top:0px;">
+		<colgroup>
+			<col width="50">
+			<col width="50">
+			<col>
+			<col width="50">
+		</colgroup>
+		<thead>
+		</thead>
+		<tbody>
+		<!--{ @ loop }-->
+			<!--{ @ .value_ }-->
+			<tr>
+				<td  class="td-package td-common clear center">
+					<label class="resp_checkbox">
+						<input type="checkbox" name="check_package_option1[]" class="check_package_option" value="1" />
+					</label>
+				</td>
+				<td class="center"><img src="/admin/skin/default/images/common/icon_move.png"></td>
+				<td>
+					<input type="hidden" name="package_option_seq1[]" class="package_option_seq" value="{..package_option_seq1}" />
+					<!--{ ? ..error_msg1 }-->
+					<div class="package_error">
+						{..error_msg1}
+					</div>
+					<!--{ / }-->
+					<div class="pdt3">
+						<span class="package_goods_seq1 package_goods_seq">{?..package_goods_seq1}[{..package_goods_seq1}]{/}</span>
+						<span class="package_goods_name1 package_goods_name hand" title="{..package_goods_name1}">{=getstrcut(strip_tags(..package_goods_name1),20)}</span>
+					</div>
+					<div class="pdt3">
+						<div class="package_option_name1 package_option_name hand" title="{..package_option1}">{..package_option1}</div>
+					</div>
+					<div class="pdt3 hide">
+						<div class="package_option_etc1 package_option_etc hand" title="{..optioncode}|{..weight}kg">{..optioncode}{? ..optioncode && ..weight}, {..weight}kg{/}</div>
+					</div>
+				</td>
+				<td class="center"><button type="button" class="del_package_selected btn_minus" onclick="del_package_selected(this);"></td>
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ / }-->
+		</tbody>
+		</table>
+		<!--{ / }-->
+        </td>
+    </tr>
+	</table>
+</div>
+
+<script>
+	$(".tablednd").tableDnD({onDragClass: "dragRow"});
+</script>

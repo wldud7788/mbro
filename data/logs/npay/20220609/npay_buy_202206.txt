@@ -1,0 +1,10 @@
+[2022-06-09 13:46:31.182789000]
+MODE : Request
+REMOTE_IP : 121.165.242.135
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1881]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>ODE3NjAxYTBmYTJlNDNiNzMyZmQ1NmJlNzFjZTAxY2U2YTU3ZDE5MV8xNjU0NzQ5OTkx</merchantCustomCode1><naverInflowCode>ct%3Dl46jcxau%7Cci%3Dcheckout%7Ctr%3Dds%7Chk%3De6a7b172848959c58b2034f662b98bfc78b46f8b%7Ctrx%3D</naverInflowCode></interface><product><id>1881</id><merchantProductId>ODE3NjAxYTBmYTJlNDNiNzMyZmQ1NmJlNzFjZTAxY2U2YTU3ZDE5MV8xNjU0NzQ5OTkxQG9wdDExMzU3MQ==</merchantProductId><ecMallProductId>1881</ecMallProductId><name><![CDATA[포토카드 바인더 PHOTOCARD BINDER]]></name><basePrice>20000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1881]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1881_tmp_40af88b9b59739179c1e90abb0ffe41c9875list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-06-09 13:46:31.254424000]
+MODE : Response
+REMOTE_IP : 121.165.242.135
+SUCCESS:NIzMqVbcT7ujlLfNDnXuNQ:200337588
+

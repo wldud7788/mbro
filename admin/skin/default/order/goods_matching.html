@@ -1,0 +1,67 @@
+<script>
+function set_goods_list(displayId,inputGoods){
+	$.ajax({
+		type: "get",
+		'cache': false,
+		url: "../goods/select",
+		data: "page=1&onlyType=1&inputGoods="+inputGoods+"&displayId="+displayId,
+		success: function(result){
+			$("div#"+displayId).html(result);
+		}
+	});
+	openDialog("상품 검색", displayId, {"width":"1000","height":"700","show" : "fade","hide" : "fade"});
+}
+
+function matching_goods()
+{
+	$("div#matchingGoods").html('');
+	$("div#matchingGoodsSelect").html('');	
+	set_goods_list("matchingGoodsSelect","matchingGoods");	
+}
+
+$("#matchingGoods").sortable();
+$("#matchingGoods").disableSelection();
+
+</script>
+<style>
+div.matchingGoods .image {width:70px;height:70px;}
+div.matchingGoodsSelect .image {width:70px;height:70px;}
+</style>
+
+<form id="onlineRegist" method="post" name="method" action="../order_process/goods_matching" target="export_frame">
+<input type="hidden" name="goods_seq" value="{_GET.goods_seq}" />
+<input type="hidden" name="item_seq" value="{_GET.item_seq}" />
+<div class="center pdb10 desc">
+※ 주문 상품의 가격은 변동되지 않습니다.
+</div>
+<table width="100%" border="0">
+<col width="25%" />
+<col />
+
+<tr>
+	<td class="right pdr5">
+		<div>
+			<span class="btn small gray"><button type="button" id="matchingGoodsButton" onclick="matching_goods()">상품선택</button></span>			
+		</div>
+	</td>
+	<td class="left pdl5">
+		<div id="matchingGoods">	
+		<!--{ ? goods.goods_seq }-->
+		<div class='goods fl move'>
+		<div align='center' class='image'>
+			<img class="goodsThumbView" alt="" src="{goods.image}" width="50" height="70">
+		</div>
+		<div align='center' class='name' style='width:70px;min-height:10px;word-wrap:break-word;'>{goods.goods_name}</div>
+		<div align='center' class='price'>{=number_format(goods.price)}</div>
+		<input type="hidden" name='matchingGoods[]' value='{goods.goods_seq}' />		
+		</div>
+		<!--{ / }-->
+		</div>			
+		<div id="matchingGoodsSelect" class="hide"></div>
+	</td>
+</tr>
+</table>
+<div class="center pdt10">
+	<span class="btn large black"><button type="submit" id="goods_export">매 칭</button></span>
+</div>
+</form>

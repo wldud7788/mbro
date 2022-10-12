@@ -1,0 +1,407 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin/gProviderSelectList.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gGoodsSelectList.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gCategorySelectList.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/refererRegist.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+var referersaleData = {
+					'referersaleSeq':'{=referer.referersale_seq}',
+					'issueType':"{=referer.issue_type}",
+					'saleType':'{=referer.sale_type}',
+					'salesTag':'{? count(referer.provider_name_list) > 0}provider{:}admin{/}',
+					'pageMode':'{=mode}'};
+</script>
+
+<!--{ ? referer.referersale_seq }-->
+<form name="detailForm" id="detailForm" method="post" action="../referer_process/modify" target="actionFrame">
+<input type="hidden" name="referersaleSeq" value="{referer.referersale_seq}" />
+<!--{ : }-->
+<form name="detailForm" id="detailForm" method="post" action="../referer_process/regist" target="actionFrame">
+<!--{ / }-->
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area"  class="gray-bar">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>할인 유입경로 { ? referer.referersale_seq }수정{:}등록{/} </h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button type="submit" class="resp_btn active size_L">저장</button></li>
+		</ul>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li><button type="button" class="resp_btn v3 size_L" onclick="document.location.href='../referer/catalog';">리스트 바로가기</button></li>
+		</ul>
+	</div>
+</div>
+
+<div class="contents_dvs">
+	<div class="item-title">기본정보</div>	
+	<table class="table_basic thl">			
+		<tr>
+			<th>유입경로명 <span class="required_chk"></span></th>
+			<td {? referer.referersale_seq }colspan="3"{/}>				
+				{? referer.referersale_seq }
+				{referer.referersale_name}
+				{:}
+				<div class="resp_limit_text limitTextEvent">
+					<input type="text" class="resp_text" name="refererName" maxLength="30" size="50" value="{referer.referersale_name}" />
+				</div>
+				{/}
+			</td>
+		</tr>	
+
+		<tr>
+			<th>유입경로 설명</th>
+			<td {? referer.referersale_seq }colspan="3"{/}>				
+				{? referer.referersale_seq }
+				{referer.referersale_desc}
+				{:}
+				<div class="resp_limit_text limitTextEvent">
+					<input type="text" class="resp_text" size="50"  maxLength="50" name="refererDesc" value="{referer.referersale_desc}" />
+				</div>
+				{/}
+			</td>
+		</tr>	
+		
+		{? referer.referersale_seq }
+		<tr>
+			<th>등록일</th>
+			<td>{referer.regist_date}</td>
+			<th>수정일</th>
+			<td>{referer.update_date}</td>
+		</tr>
+		{/}		
+	</table>
+</div>
+
+<div class="contents_dvs">
+	<div class="item-title">유입 경로 설정</div>	
+	<table class="table_basic thl">		
+		<tr>
+			<th>
+				유입경로 URL <span class="required_chk"></span>
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/promotion_coupon', '#tip4')"></span>
+			</th>
+			<td>
+				http://{? referer.referersale_seq }{referer.referersale_url}
+					<input type="hidden" name="refererUrl" value="{referer.referersale_url}" />
+				{:}
+					<input type="text" class="line" size="70" name="refererUrl" value="{referer.referersale_url}" />
+					<button type="button" class="referer-url-chk-btn resp_btn v2">중복확인</button>
+				{/}
+			</td>				
+		</tr>
+
+		<tr>
+			<th>URL 범위</th>
+			<td>
+				{? referer.referersale_seq }
+					{?referer.url_type == 'like'}유입경로 URL 포함 시{:}유입경로 URL과 일치 시{/}
+				{:}
+					<div class="resp_radio">
+						<label><input type="radio" name="refererUrlType" value="equal" checked="checked" > 유입경로 URL과 일치 시</label>
+						<label><input type="radio" name="refererUrlType" value="like" > 유입경로 URL 포함 시</label>							
+					</div>	
+				{/}
+			</td>				
+		</tr>
+	</table>
+</div>
+	<!--{ ? serviceLimit('H_AD') }-->
+<div class="contents_dvs">
+	<div class="item-title">혜택 부담 설정</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>대상</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sales_tag" value="admin" > 본사 상품</label>
+					<label><input type="radio" name="sales_tag" value="provider" > 입점사 상품</label>			
+				</div>	
+			</td>
+		</tr>
+
+		<tr class="sales_tag_provider hide provider">
+			<th>입점사 지정 <span class="required_chk"></span></th>
+			<td>
+				<input type="button" value="입점사 선택" class="btn_provider_select resp_btn active"/>
+				
+				<div class="mt10 wx500">
+					<div class="provider_list_header">
+						<table class="table_basic tdc">
+						<colgroup>
+							<col width="40%" />
+							<col width="40%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr class="nodrag nodrop">
+								<th>입점사명</th>
+								<th>정산 방식</th>		
+								<th>삭제</th>	
+							</tr>
+						</thead>
+						</table>
+					</div>
+					<div class="provider_list">
+						<table class="table_basic fix">
+							<colgroup>
+								<col width="40%" />
+								<col width="40%" />
+								<col width="20%" />
+							</colgroup>
+							<tbody>
+								<tr rownum=0 {? count(referer.provider_name_list) == 0 }class="show"{:}class="hide"{/}>
+									<td class="center" colspan="3">입점사를 선택하세요</td>
+								</tr>
+							<!--{ @ referer.provider_name_list }-->
+							<tr rownum="{=.provider_seq}">
+								<td class="center">{=.provider_name}</td>
+								<td class="center">{=.commission_text}</td>
+								<td class="center">
+									<input type="hidden" name="salescost_provider_list[]" value="{=.provider_seq}">
+									<button type="button" class="btn_minus" selectType="provider" seq="{=.provider_seq}" onClick="gProviderSelect.select_delete('minus',$(this))"></button></td>
+							</tr>
+							<!--{ / }-->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<input type="hidden" name="provider_seq_list" value="{referer.provider_list}" />				
+			</td>
+		</tr>
+
+		<tr class="sales_tag_provider hide">
+			<th>입점사 부담률 <span class="required_chk"></span></th>
+			<td>				
+				<input type="text" name="salescostper" size="3" maxlength="3" value="{ ? referer.referersale_seq > 0 && referer.provider_name_list}{referer.salescost_provider}{:}0{/}" class="line onlynumber right" /> %
+				<span class="desc red msg"></span>
+				<input type="hidden" name="salescost_provider" value="{ ? referer.referersale_seq > 0 && referer.provider_name_list}{referer.salescost_provider}{:}0{/}" />
+			</td>
+		</tr>
+
+		<tr class="sales_admin">
+			<th>본사 부담률</th>
+			<td>				
+				<span class="percent">{ ? referer.referersale_seq > 0 && referer.provider_name_list}{referer.salescost_admin}{:}100{/}%</span>
+				<input type="hidden" name="salescost_admin" value="{ ? referer.referersale_seq > 0 && referer.provider_name_list}{referer.salescost_admin}{:}100{/}" />
+			</td>
+		</tr>
+	</table>
+	<div class="resp_message">- 할인 항목별 할인 금액 <a href="https://www.firstmall.kr/customer/faq/1240 " class="resp_btn_txt" target="_blank">자세히 보기</a></div>
+</div>
+<!--{ / }-->
+
+<div class="contents_dvs">
+	<div class="item-title">혜택 설정</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>
+				혜택 <span class="required_chk"></span>
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/promotion_coupon', '#tip3')"></span>
+			</th>
+			<td>
+				<input type="text" name="percentGoodsSale" size="8" maxlength="3" class="resp_text onlynumber right saleType_percent hide " value="{? referer.percent_goods_sale}{referer.percent_goods_sale}{:}0{/}" />
+
+				<input type="text" name="wonGoodsSale" size="8" class="resp_text {=only_numberic_type} right saleType_won hide" value="{? referer.won_goods_sale}{referer.won_goods_sale}{:}0{/}" />	
+
+				<select name="saleType" class="resp_select">
+					<option value="percent">%</option>
+					<option value="won">{=basic_currency_info['currency_symbol']}</option>
+				</select>
+
+				<span class="ml20 saleType_percent hide">
+					최대 <input type="text" name="maxPercentGoodsSale" size="8" value="{? referer.max_percent_goods_sale}{referer.max_percent_goods_sale}{:}0{/}" class="resp_text {=only_numberic_type} right "/> {=basic_currency_info['currency_symbol']}
+				</span>				
+				 할인				 
+				 <div class="resp_message v2">- 상품의 판매 금액 수량 1개당 적용</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				상품 최소 주문 금액
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/promotion_coupon', '#tip7')"></span>
+			</th>
+			<td>				
+				해당 상품 <input type="text" name="limitGoodsPrice" size="6" value="{? referer.limit_goods_price}{referer.limit_goods_price}{:}0{/}" class="{=only_numberic_type} right " />{=basic_currency_info['currency_symbol']} 이상 구매 시 사용 가능
+			</td>
+		</tr>
+
+		<tr>
+			<th>유효기간 <span class="required_chk"></span></th>
+			<td>				
+				<input type="text" name="issueDate[]" value="{referer.issue_startdate}" class="datepicker resp_text"  maxlength="10" size="10" /> ~ <input type="text" name="issueDate[]" value="{referer.issue_enddate}" class="datepicker resp_text"  maxlength="10" size="10" />	
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="contents_dvs">
+	<div class="item-title">유입 경로 할인 제한</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>상품/카테고리 제한</th>
+			<td class="clear">
+				<ul class="ul_list_02">
+					<li>
+						<div class="resp_radio">
+							<label><input type="radio" name="issue_type" id="issue_type0" value="all" checked="checked" > 제한 없음</label>
+							<label><input type="radio" name="issue_type" id="issue_type1" value="issue" > 선택한 상품/카테고리만</label>
+							<label><input type="radio" name="issue_type" id="issue_type2" value="except" > 선택한 상품/카테고리를 제외</label>
+						</div>
+					</li>
+					<li class="clear issue_type_issue issue_type_except hide">
+						<table class="table_basic thl v3 t_select_goods">
+							<tbody>
+								<tr class="t_goods">
+									<th>상품</th>
+									<td>
+										<input type="button" value="상품 선택" class="btn_select_goods resp_btn active" />
+										<input type="button" value="선택 삭제" class="select_goods_del resp_btn v3" selectType="goods" />
+										<div class="mt10 wx600">
+											<div class="goods_list_header">
+												<table class="table_basic tdc">
+													<colgroup>
+														<col width="10%" />
+														<!--{ ? serviceLimit('H_AD') }-->
+														<col width="25%" />
+														<col width="45%" />
+														<!--{ : }-->
+														<col width="70%" />
+														<!--{ / }-->
+														<col width="20%" />
+													</colgroup>
+													<tbody>
+														<tr>
+														<th><label class="resp_checkbox"><input type="checkbox" name="chkAll" value="goods"></label></th>
+														<!--{ ? serviceLimit('H_AD') }-->
+															<th>입점사명</th>
+														<!--{ / }-->
+															<th>상품명</th>
+															<th>판매가</th>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="goods_list">
+												<table class="table_basic tdc">
+													<colgroup>
+														<col width="10%" />
+														<!--{ ? serviceLimit('H_AD') }-->
+														<col width="25%" />
+														<col width="45%" />
+														<!--{ : }-->
+														<col width="70%" />
+														<!--{ / }-->
+														<col width="20%" />
+													</colgroup>
+													<tbody>
+														<tr rownum=0 {? count(issuegoods) == 0 }class="show"{:}class="hide"{/}>
+															<td class="center" colspan="4">상품을 선택하세요</td>
+														</tr><!-- issueGoods, issueGoodsSeq  ==> select_goods_list -->
+														<!--{ @ issuegoods }-->
+														<tr rownum="{=.goods_seq}">
+															<td><label class="resp_checkbox"><input type="checkbox" name='issueGoodsTmp[]' class="chk" value='{.goods_seq}' /></label>
+																<input type="hidden" name='issueGoods[]' value='{.goods_seq}' />
+																<input type="hidden" name="issueGoodsSeq[{.goods_seq}]" value="{.issuegoods_seq}" /></td>
+															<!--{ ? serviceLimit('H_AD') }-->
+																<td>{=.provider_name}</td>
+															<!--{ / }-->
+															<td class='left'>
+																<div class="image"><img src="{=viewImg(.goods_seq,'thumbView')}" width="50"></div>
+																<div class="goodsname">
+																	{? .goods_code}<div>[상품코드:{=.goods_code}]</div>{/}
+																	<div>{.goods_kind_icon} <a href="/admin/goods/regist?no={.goods_seq}" target="_blank">[{=.goods_seq}]{=getstrcut(strip_tags(.goods_name),30)}</a></div>
+																</div>
+															</td>
+															<td class='right'>{=get_currency_price(.price,2)}</td>
+														</tr>
+													<!--{ / }-->
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="t_category">
+									<th>카테고리</th>
+									<td>
+										<input type="button" value="카테고리 선택" class="btn_category_select resp_btn active" />
+										<div class="mt10 wx600 category_list">
+											<table class="table_basic fix">
+												<colgroup>
+													<col width="85%" />
+													<col width="15%" />
+												</colgroup>
+												<thead>
+													<tr class="nodrag nodrop">
+														<th>카테고리명</th>
+														<th>삭제</th>	
+													</tr>
+												</thead>
+												<tbody>
+													<tr rownum=0 {? count(issuecategorys) == 0 }class="show"{:}class="hide"{/}>
+														<td class="center" colspan="2">카테고리를 선택하세요</td>
+													</tr>
+												<!--{ @ issuecategorys }-->
+													<tr rownum="{=.category_code}">
+														<td class="center">{.category}</td>
+														<td class="center">
+															<input type="hidden" name='issueCategoryCode[]' value='{.category_code}' />
+															<input type="hidden" name="issueCategoryCodeSeq[{.category_code}]" value="{.issuecategory_seq}" />
+															<button type="button" class="btn_minus"  selectType="category" seq="{=.category_code}" onClick="gCategorySelect.select_delete('minus',$(this))"></button>
+														</td>
+													</tr>
+												<!--{ / }-->
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+					</li>
+				</ul>				
+			</td>
+		</tr>
+	</table>
+</div>
+
+{ ? referer.referersale_seq }
+<div class="contents_dvs">
+	<div class="item-title">관리자 테스트</div>
+
+	<table class="table_basic thl">		
+		<tr>
+			<th>
+				관리자 테스트
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/promotion_coupon', '#tip5')"></span>
+			</th>
+			<td>				
+				<!--{ ? config_system.operation_type == 'light' }-->
+				<input type="button" name="testPC_btn" class="resp_btn" referersale_url="{referer.referersale_url}"  value="테스트" /> 
+				<!--{ : }-->
+				<input type="button" name="testPC_btn" class="resp_btn" referersale_url="{referer.referersale_url}"  value="PC 테스트" /> 
+				<input type="button" name="testM_btn" class="resp_btn" referersale_url="{referer.referersale_url}"  value="Mobile 테스트" />
+				<!--{ / }-->				
+			</td>
+		</tr>
+	</table>
+</div>
+{ / }
+
+</form>
+
+<div id="lay_seller_select"></div><!-- 입점사 선택 레이어 -->
+<div id="lay_goods_select"></div><!-- 상품선택 레이어 -->
+<div id="lay_category_select"></div><!-- 카테고리 선택 레이어 -->
+
+
+{ #layout_footer }

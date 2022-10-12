@@ -1,0 +1,43 @@
+
+<!--{ ? !record  }-->
+<tr >
+	<td colspan="9">검색된 방송이 없습니다.</td>
+</tr>
+<!--{ : }-->
+<!--{ @ record }-->
+<tr bsSeq="{=.bsSeq}">
+	<td>{=.rno}</td>
+	<td><div class="list_thumb"><img src="{=.image}"></div></td>
+	<td class="left">
+		<!--{? .status == 'live'}-->
+		<img src="../images/broadcast/i_live2.png" class="valign-middle">
+		<!--{/}-->		
+		<a class="btn-info resp_btn_txt v2">{=.title}</a>
+	</td>
+	<td>{=.goodsNameFull}</td>
+	<td>{=.startDateTxt}</td>
+	<td>{=.statusTxt}</td>
+	<td>
+		<input type="hidden" id="display{=.bsSeq}" value="{=.display}" />
+		<!--{? .approval == 'apply'  && (.status == 'create' || .status == 'live')}-->
+		<div class="btn-onoff" bsSeq="{=.bsSeq}">
+			<button type="button" class="on btn-on" id="displayBtn{=.bsSeq}" value="{=.display}">버튼</button>	
+		</div>
+		<!--{ / }-->
+	</td>
+	<td>
+		<!--{? .status == 'live' || .status == 'end' }-->
+		<a href="/broadcast/player?no={.bsSeq}" target="_blank"><button type="button" class="resp_btn">시청하기</button></a>
+		<!--{ / }-->
+	</td>
+	<td>
+		<!--{? .status == 'create' }-->
+		<button type="button" name="manager_modify_btn" class="resp_btn v2 btn-modify">수정</button>
+		<button type="button" class="resp_btn v3 btn-drop" >삭제</button>
+		<!--{: .status == 'cancel' || .status == 'end' }-->
+		<button type="button" class="resp_btn v3 btn-delete" >삭제</button>
+		<!--{ / }-->
+	</td>
+</tr>
+<!--{ / }-->
+<!--{ / }-->

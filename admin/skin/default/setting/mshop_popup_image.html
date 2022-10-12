@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>이미지 첨부</title>
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/editor/css/popup.css" />
+{? browser_info['nickname'] == "Safari" }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{:}
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+{/}
+<script type="text/javascript">
+//<![CDATA[
+//한글도메인체크@2013-03-12
+var fdomain = document.domain;
+var krdomain = '{=get_connet_protocol()}{config_system.subDomain}';
+var kordomainck = false;
+for(i=0; i<fdomain.length; i++){
+ if (((fdomain.charCodeAt(i) > 0x3130 && fdomain.charCodeAt(i) < 0x318F) || (fdomain.charCodeAt(i) >= 0xAC00 && fdomain.charCodeAt(i) <= 0xD7A3)))
+{
+	kordomainck = true;
+	break;
+}
+}
+if( !kordomainck ){
+krdomain = '';
+}
+//]]>
+</script>
+
+<!--  html5 upload -->
+<script type="text/javascript" src="/app/javascript/plugin/jquery_fileupload/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_fileupload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/app/javascript/js/browsercheck.js"></script>
+<script type="text/javascript" src="/app/javascript/js/image.uploader.js?dummy={=date('TmdHis')}"></script>
+<script type="text/javascript">
+var _mockdata;
+
+$(function(){
+	var uploader = fileuploader.select();
+	uploader.shopname = "mshop";
+	if( uploader.isSwf ) {
+		$('#file_image').hide();
+		uploader.script 		= krdomain+'/admin/provider_process/upload_file';	
+		uploader.scriptData		= {'provider_seq':'{_GET.no}','provider_id':'{_GET.id}'};
+		uploader.multi 			= false;
+		$("#uploader").uploadify(uploader);
+	}else {
+		uploader.url	 		= krdomain+'/admin/provider_process/upload_file';	
+		uploader.formData		= {'provider_seq':'{_GET.no}','provider_id':'{_GET.id}'};
+		
+		$("#uploader").fileupload(uploader);
+	}
+});
+
+function openerAdd(){
+	if	($("#result_filename").val()){
+		$result_value	= $("#result_filename").val();
+		$("input[name='{_GET.target}']", opener.document).val($result_value);
+
+		if	($("#{_GET.target}_name", opener.document)){
+			$filename	= '{_GET.id}_visual'+$("#result_fileext").val();
+			$("#{_GET.target}_name", opener.document).html($filename);
+		}
+
+		if	($("#preview_{_GET.target}", opener.document))
+			$("#preview_{_GET.target}", opener.document).html('<img src="'+$result_value+'" />');
+	}
+
+	window.self.close();
+}
+</script>
+
+</head>
+<body>
+<input type="hidden" id="result_filename" value="" />
+<input type="hidden" id="result_fileext" value="" />
+<div class="wrapper">
+	<div class="header">
+		<h1>이미지 첨부</h1>
+	</div>
+	<div class="body">
+		<dl class="alert">
+		    <dt>이미지 첨부 확인</dt>
+		    <dd>
+		    	<!-- input type="file" id="uploader" /-->
+		    	<label for="uploader" id="file_image">
+					<img src="/app/javascript/plugin/jquploadify/uploadify-search.gif"/>
+				</label>
+				<input type="file" id="uploader" name="Filedata" style="display:none" accept="image/x-png,image/gif,image/jpeg" />
+				<div id="progress" class="progress">
+		       		<div class="progress-bar progress-bar-success"></div>		   		
+		   		</div>		   		
+		   		
+		   		<li id="imgtb" class="hide">					
+					<div id="img_viewer"></div>
+				</li>
+			</dd>
+		</dl>
+	</div>
+	<div class="footer">
+		<p><a onclick="window.self.close();" title="닫기" class="close" style="cursor:pointer;">닫기</a></p>
+		<ul>
+			<li class="submit" style="cursor:pointer;"><a onclick="openerAdd();" title="등록" class="btnlink" >등록</a> </li>
+			<li class="cancel" style="cursor:pointer;"><a onclick="window.self.close();" title="취소" class="btnlink">취소</a></li>
+		</ul>
+	</div>
+
+</div>
+</body>
+</html>

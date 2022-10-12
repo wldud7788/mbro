@@ -1,0 +1,90 @@
+<table class="table_row_basic">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="50" /><!--체크-->
+		{ ? serviceLimit('H_AD') }<col width="100" /><!--입점-->{ / }
+		<col width="60" /><!--상품이미지-->
+		<col width="" /><!--상품명-->
+		<col width="300px" /><!--공용정보-->
+		<col width="250px" /><!--공용정보-->
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+		{ ? serviceLimit('H_AD') }<th>입점사</th>{ / }
+		<th colspan="2">상품명</th>
+		<th>구매 수량 할인</th>
+		<th>최소/최대 구매수량</th>
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<tbody class="ltb">
+	<!--{? loop }-->
+	<!--{@ loop }-->
+		<tr>
+			<td class="center">
+				<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+				<input type="hidden" name="default_option_seq[{.option_seq}]" value="{.goods_seq}" class="default_option{ ? count(.options)>1 } option_use{ / }" goods_seq="{.goods_seq}"/>
+			</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<td class="{.provider_bg} center">{.provider_name}</td>
+			<!--{ / }-->
+			<td class="center">
+				<a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" style="width:50px"></a>
+			</td>
+			<td class="left pdl10">
+				{=showBatchGoodsData(.value_)}
+			</td>
+			<td class="center">
+				<!--{ ? .multi_discount_policy.policyList }-->
+				<table class="table_basic fix">
+					<!--{ @ .multi_discount_policy.policyList }-->
+				<tr>
+					<td>
+						{..discountOverQty}개 이상{ ? ..discountUnderQty} ~ {..discountUnderQty}개 미만{ / }
+					</td>
+					<td>
+						{..discountAmount} { ? .multi_discount_policy.discountUnit == 'PRI'}{=basic_currency} / 1개{ : }%{ / }
+					</td>
+				</tr>
+					<!--{ ? ..index_ == count(.multi_discount_policy.policyList) - 1 && .multi_discount_policy.discountMaxOverQty > 0  }-->
+				<tr>
+					<td>
+						{.multi_discount_policy.discountMaxOverQty}개 이상
+					</td>
+					<td>
+						{.multi_discount_policy.discountMaxAmount} { ? .multi_discount_policy.discountUnit == 'PRI'}{=config_system['basic_currency']} / 1개{ : }%{ / }
+					</td>
+				</tr>
+						<!--{ / }-->
+					<!--{ / }-->
+				</table>
+				<!--{ : }-->
+				<span class="desc">사용 안 함</span>
+				<!--{ / }-->
+			</td>
+			<td class="left">
+				{ ? .min_purchase_limit == 'limit' }{.min_purchase_ea}개{ : }1개{ / }
+				~
+				{ ? .max_purchase_limit == 'limit' }{.max_purchase_ea}개{ : }제한 없음{ / }
+			</td>
+		</tr>
+	<!--{ / }-->
+	<!--{ : }-->
+	<tr class="list-row">
+		<td class="center" colspan="{ ? serviceLimit('H_AD') }6{:}5{/}">
+			<!--{ ? search_text }-->
+				'{search_text}' 검색된 상품이 없습니다.
+			<!--{:}-->
+				등록된 상품이 없습니다.
+			<!--{/}-->
+		</td>
+	</tr>
+	<!--{ / }-->
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>
+<!-- 주문리스트 테이블 : 끝 -->

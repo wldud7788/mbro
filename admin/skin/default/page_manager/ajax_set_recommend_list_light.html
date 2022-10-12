@@ -1,0 +1,80 @@
+<!--{ ? target_list }-->
+	<!--{ @ target_list }-->
+		<!--{ ? .display_tabs && count(.display_tabs) > 0 }-->
+			<!--{ @ .display_tabs }-->
+				<tr class="group_item{.index_}" idx_num="{.index_}" >
+				<!--{? ..index_ == 0}-->
+					<td class="center" rowspan="{.tabs_row}">
+						<label class='resp_checkbox'><input type="checkbox" class="chk" name="code[]" value="{.key_}" /></label>
+					</td>
+					<td class="center" rowspan="{.tabs_row}">{.title}</td>
+				<!--{ / }-->
+					<td class="center">
+						<!--{? count(.display_tabs) > 1}-->
+						<span class="strTab">[탭<span class="strTabIdx">{=..index_+1}</span>]</span>
+						<!--{/}-->
+
+						<!--{ ? ..contents_type == 'auto' }-->
+						자동
+						<!--{ : ..contents_type == 'auto_sub' }-->
+						자동(2)
+						<!--{ : ..contents_type == 'select' }-->
+						직접선정
+						<!--{ : ..contents_type == 'text' }-->
+						입력
+						<!--{ / }-->
+					</td>
+					<td class="left" style="vertical-align:middle;">
+						<!--{ ? ..contents_type == 'auto' || ..contents_type == 'auto_sub'}-->
+							<!--{ ? ..auto_criteria_desc }-->
+						{..auto_criteria_desc}
+							<!--{ : }-->
+						설정된 조건이 없습니다.
+							<!--{ / }-->
+						<!--{ : ..contents_type == 'select' }-->
+							<!--{ @ ..items }-->
+						<div class='goods fl'>
+							<div class='center image'><img src="{...image}" class="goodsThumbView" width="50" height="50" alt="{=htmlspecialchars(...goods_name)}" onerror="this.src='../images/common/noimage_list.gif'" /></div>
+							<div class='center name' style='width:70px;overflow:hidden;white-space:nowrap;'>{=htmlspecialchars(...goods_name)}</div>
+							<div class='center price'>{=get_currency_price(...price,2)}</div>
+								<!--{ ? serviceLimit('H_AD') }-->
+							<div class='center provider_name red' style='width:70px;overflow:hidden;white-space:nowrap;'>{...provider_name}</div>
+								<!--{ / }-->
+						</div>
+							<!--{ / }-->
+						<!--{ : ..contents_type == 'text' }-->
+						<div class="displayTabAutoTypeContainer" type="text">
+							<div style="border:1px solid #dadada;">{..tab_contents}</div>
+						</div>
+						<!--{ / }-->
+					</td>
+					<td class="center">
+						<button type='button' class='resp_btn v2' onclick="pop_target_update('modify','{.key_}');">수정</button>
+					</td>
+				</tr>
+			<!--{ / }-->
+		<!--{ : }-->
+				<tr>
+					<td class="center" rowspan="{.tabs_row}">
+						<label class='resp_checkbox'><input type="checkbox" class="chk" name="code[]" value="{.key_}" /></label>
+					</td>
+					<td class="center" rowspan="{.tabs_row}">{.title}</td>
+					<td class="center">미등록</td>
+					<td class="center">미등록</td>
+					<td class="center">
+						<button type='button' class='resp_btn v2' onclick="pop_target_update('modify','{.key_}');">수정</button>
+					</td>
+				</tr>
+		<!--{ / }-->
+	<!--{ / }-->
+<!--{ : }-->
+	<!--{ ? target_code }-->
+<tr>
+	<td class="center" colspan="5">대상이 없습니다.</td>
+</tr>
+	<!--{ : }-->
+<tr>
+	<td class="center" colspan="5">대상을 먼저 선택하여 주세요.</td>
+</tr>
+	<!--{ / }-->
+<!--{ / }-->

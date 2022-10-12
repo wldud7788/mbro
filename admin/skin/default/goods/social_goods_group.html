@@ -1,0 +1,157 @@
+<script type="text/javascript" src="/app/javascript/jquery/jquery.form.js" charset="utf8"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_pagination/jquery.pager.js" charset="utf8"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	getAjaxList();
+
+	$("#registsubmitbtn").click(function() {
+		var social_goods_group_name = $("#social_goods_group_name").val();
+		if( !social_goods_group_name ) {
+			alert("티켓상품그룹명을 입력해 주세요.");
+			return false;
+		}
+		var search_text = $("#social_goods_group_search_text").val();
+		if( !search_text || (search_text == $("#social_goods_group_search_text").attr("title")) ) {
+			$("#social_goods_group_search_text").val('');
+		}
+
+		$.ajax({
+		type: 'post',
+		url: '../goods_process/social_goods_group_regist',
+		data: '&provider_seq={sc.provider_seq}&social_goods_group_name=' + social_goods_group_name,
+		dataType: 'json',
+		success: function(data) {
+			if(data.result == true){
+				getAjaxList();
+			}else{
+				alert(data.msg);
+				return false;
+			}
+		}
+		});
+
+	});
+
+
+	$("#submitbtn").click(function() {
+		var search_text = $("#social_goods_group_search_text").val();
+		if( !search_text || (search_text == $("#social_goods_group_search_text").attr("title")) ) {
+			alert("검색어를 입력해 주세요.");
+			return false;
+		}
+		getAjaxList();
+	});
+
+	$( "#social_goods_group" ).submit(function( event ) {
+		var search_text = $("#social_goods_group_search_text").val();
+		if( !search_text || (search_text == $("#social_goods_group_search_text").attr("title")) ) {
+			alert("검색어를 입력해 주세요.");
+			return false;
+		}else{
+			getAjaxList();
+		}
+	});
+
+	$('#social_goods_group_list input[type="text"]').on('keydown',function() {
+		if (event.keyCode === 13) {
+			event.preventDefault();
+			$(this).next("button").trigger('click');
+		};
+		
+	});
+
+});
+
+/**
+ * 상품을 ajax로 검색한다.
+ * @param int page 페이지번호
+ */
+function getAjaxList(page) {
+	var pageNumber = page ? page : 1;
+	$("#getpage").val(pageNumber);
+	var queryString = $('#social_goods_group_list').formSerialize();
+	var perpage = 40;
+	$.ajax({
+		type: 'get',
+		url: './social_goods_group_html',
+		data: queryString+'&perpage=' + perpage,
+		dataType: 'json',
+		success: function(data) {
+			$('.social_goods_group #ajaxTable').html(data.content);
+			$(".social_goods_group #pager").pager({ pagenumber: data.page, pagecount: data.pagecount, buttonClickCallback: pageClick });
+			setDefaultText();
+		}
+	});
+}
+
+/**
+ * 페이징 클릭시 페이지를 로딩한다.
+ * @param int page 페이지번호
+ */
+function pageClick(page) {
+	var search_text = $("#social_goods_group_search_text").val();
+	if( !search_text || (search_text == $("#social_goods_group_search_text").attr("title")) ) {
+		$("#social_goods_group_search_text").val('');
+	}
+	$("#getpage").val(page);
+	getAjaxList(page);
+}
+
+</script>
+<div class="social_goods_group">
+	{? sc.type == 'write' }
+	<div name="social_goods_group_regist" id="social_goods_group_regist" >
+		<table class="table_basic">
+			<colgroup>
+				<col width="25%"><col width="85%">
+			</colgroup>
+		<tr>
+			<th class="left">그룹 등록</th>
+			<td>
+				<input type="text" name="social_goods_group_name" id="social_goods_group_name" value="" /> 
+				<button type="button" id="registsubmitbtn" class="resp_btn active" >등록</button>
+			</td>
+		</tr>
+		</table>
+	</div>
+	{/}
+	<!-- 리스트검색폼 : 시작 -->
+	<form name="social_goods_group" id="social_goods_group_list" >
+	<input type="hidden" name="type" value="{sc.type}" >
+	<input type="hidden" name="provider_seq" value="{sc.provider_seq}" >
+	<input type="hidden" name="sel_group_seq" value="{sc.sel_group_seq}" >
+	<input type="hidden" name="group_seq" value="{sc.group_seq}" >
+	<input type="hidden" name="page" id="getpage" value="{sc.page}" >
+	<input type="hidden" name="orderby" id="orderby" value="{sc.orderby}" >
+		<table class="table_basic" style="border-top:0px !important;">
+			<colgroup>
+				<col width="25%"><col width="85%">
+			</colgroup>
+		<tr>
+			<th class="left">검색</th>
+			<td>
+				<input type="text" name="search_text" id="social_goods_group_search_text" value="{sc.search_text}" title="티켓상품그룹명" />
+				<button type="button" id="submitbtn" class="resp_btn active">검색</button>
+			</td>
+		</tr>
+		</table>
+	</form>
+	<!-- 리스트검색폼 : 끝 -->
+
+	<div >
+		<table class="table_basic" style="border-top:0px !important;">
+			<colgroup>
+				<col width="20%" />
+				<col width="20%"  />
+				<col width="20%"  />
+				<col width="20%"  />
+				<col width="20%"  />
+			</colgroup>
+			<tbody id="ajaxTable"></tbody>
+		</table>
+	</div>
+	<!-- 서브 레이아웃 영역 : 끝 -->
+
+	<!-- 페이징 -->
+	<div id="pager" style='clear: both'></div>
+</div>

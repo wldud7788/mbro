@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LG 유플러스 input -> settle 로 form 전송</title>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+	function setPayInfo(){
+		var inputTag = '<form method="post" name="SendPayForm_id" id="SendPayForm_id">';
+
+		$('#PAYINFO > input').each(function(index){
+			inputTag += '<input type="' + $(this).attr('type') + '" name="' + $(this).attr('name')  + '" id="' + $(this).attr('id')  + '" value="' + $(this).val()  + '" />';
+		});
+		
+		inputTag += '</form>';
+		
+		parent.$('body').append(inputTag);
+
+		parent.pay();
+	}
+</script>
+</head>
+<body>
+<form method="post" name="PAYINFO" id="PAYINFO">
+<!--{ @ param}-->
+	<input type='hidden' name='{.key_}' id='{.key_}' value='{.value_}'>
+<!--{ / }-->
+</form>
+</body>
+<script type="text/javascript">setPayInfo()</script>
+</html>

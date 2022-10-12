@@ -1,0 +1,434 @@
+[2021-05-01 01:00:27] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-01 01:00:27] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-01 01:00:27] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-01 01:00:27] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-01 01:00:27] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-01 01:00:27] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-01 01:00:27] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-01 01:00:27] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-01 01:00:27] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-01 01:00:27] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-01 01:00:27] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-01 01:00:27] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-01 01:00:27] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-01 01:00:27] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-02 01:00:27] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-02 01:00:27] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-02 01:00:27] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-02 01:00:27] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-02 01:00:27] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-02 01:00:27] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-02 01:00:27] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-02 01:00:27] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-02 01:00:27] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-02 01:00:27] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-02 01:00:27] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-02 01:00:27] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-02 01:00:27] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-02 01:00:27] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-03 01:00:21] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-03 01:00:21] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-03 01:00:21] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-03 01:00:21] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-03 01:00:21] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-03 01:00:21] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-03 01:00:21] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-03 01:00:21] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-03 01:00:21] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-03 01:00:21] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-03 01:00:21] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-03 01:00:21] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-03 01:00:21] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-03 01:00:21] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-04 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-04 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-04 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-04 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-04 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-04 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-04 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-04 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-04 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-04 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-04 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-04 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-04 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-04 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-05 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-05 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-05 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-05 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-05 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-05 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-05 01:00:24] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-05 01:00:24] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-05 01:00:24] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-05 01:00:24] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-05 01:00:24] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-05 01:00:24] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-05 01:00:24] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-05 01:00:24] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-06 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-06 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-06 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-06 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-06 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-06 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-06 01:00:28] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-06 01:00:28] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-06 01:00:28] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-06 01:00:28] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-06 01:00:28] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-06 01:00:28] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-06 01:00:28] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-06 01:00:28] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-07 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-07 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-07 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-07 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-07 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-07 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-07 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-07 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-07 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-07 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-07 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-07 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-07 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-07 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-08 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-08 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-08 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-08 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-08 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-08 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-08 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-08 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-08 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-08 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-08 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-08 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-08 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-08 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-09 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-09 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-09 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-09 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-09 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-09 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-09 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-09 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-09 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-09 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-09 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-09 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-09 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-09 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-10 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-10 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-10 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-10 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-10 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-10 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-10 01:00:28] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-10 01:00:28] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-10 01:00:28] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-10 01:00:28] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-10 01:00:28] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-10 01:00:28] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-10 01:00:28] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-10 01:00:28] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-11 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-11 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-11 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-11 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-11 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-11 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-11 01:00:28] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-11 01:00:28] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-11 01:00:28] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-11 01:00:28] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-11 01:00:28] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-11 01:00:28] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-11 01:00:28] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-11 01:00:28] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-12 01:00:29] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-12 01:00:29] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-12 01:00:29] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-12 01:00:29] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-12 01:00:29] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-12 01:00:29] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-12 01:00:29] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-12 01:00:29] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-12 01:00:29] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-12 01:00:29] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-12 01:00:29] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-12 01:00:29] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-12 01:00:29] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-12 01:00:29] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-13 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-13 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-13 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-13 01:00:28] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-13 01:00:28] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-13 01:00:28] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-13 01:00:28] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-13 01:00:28] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-13 01:00:28] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-13 01:00:28] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-13 01:00:28] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-13 01:00:28] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-13 01:00:28] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-13 01:00:28] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-14 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-14 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-14 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-14 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-14 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-14 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-14 01:00:24] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-14 01:00:24] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-14 01:00:24] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-14 01:00:24] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-14 01:00:24] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-14 01:00:24] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-14 01:00:24] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-14 01:00:24] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-15 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-15 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-15 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-15 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-15 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-15 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-15 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-15 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-15 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-15 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-15 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-15 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-15 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-15 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-16 01:00:23] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-16 01:00:23] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-16 01:00:23] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-16 01:00:23] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-16 01:00:23] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-16 01:00:23] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-16 01:00:23] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-16 01:00:23] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-16 01:00:23] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-16 01:00:23] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-16 01:00:23] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-16 01:00:23] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-16 01:00:23] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-16 01:00:23] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-17 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-17 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-17 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-17 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-17 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-17 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-17 01:00:26] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-17 01:00:26] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-17 01:00:26] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-17 01:00:26] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-17 01:00:26] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-17 01:00:26] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-17 01:00:26] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-17 01:00:26] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-18 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-18 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-18 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-18 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-18 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-18 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-18 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-18 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-18 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-18 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-18 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-18 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-18 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-18 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-19 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-19 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-19 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-19 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-19 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-19 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-19 01:00:24] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-19 01:00:24] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-19 01:00:24] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-19 01:00:24] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-19 01:00:24] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-19 01:00:24] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-19 01:00:24] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-19 01:00:24] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-20 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-20 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-20 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-20 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-20 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-20 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-20 01:00:24] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-20 01:00:24] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-20 01:00:24] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-20 01:00:24] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-20 01:00:24] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-20 01:00:24] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-20 01:00:24] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-20 01:00:24] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-21 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-21 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-21 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-21 01:00:24] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-21 01:00:24] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-21 01:00:24] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-21 01:00:24] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-21 01:00:24] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-21 01:00:24] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-21 01:00:24] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-21 01:00:24] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-21 01:00:24] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-21 01:00:24] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-21 01:00:24] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-22 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-22 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-22 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-22 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-22 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-22 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-22 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-22 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-22 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-22 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-22 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-22 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-22 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-22 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-23 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-23 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-23 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-23 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-23 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-23 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-23 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-23 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-23 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-23 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-23 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-23 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-23 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-23 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-24 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-24 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-24 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-24 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-24 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-24 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-24 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-24 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-24 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-24 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-24 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-24 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-24 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-24 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-25 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-25 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-25 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-25 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-25 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-25 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-25 01:00:26] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-25 01:00:26] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-25 01:00:26] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-25 01:00:26] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-25 01:00:26] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-25 01:00:26] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-25 01:00:26] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-25 01:00:26] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-26 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-26 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-26 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-26 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-26 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-26 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-26 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-26 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-26 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-26 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-26 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-26 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-26 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-26 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-27 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-27 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-27 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-27 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-27 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-27 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-27 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-27 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-27 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-27 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-27 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-27 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-27 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-27 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-28 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-28 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-28 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-28 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-28 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-28 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-28 01:00:26] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-28 01:00:26] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-28 01:00:26] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-28 01:00:26] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-28 01:00:26] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-28 01:00:26] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-28 01:00:26] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-28 01:00:26] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-29 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-29 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-29 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-29 01:00:25] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-29 01:00:25] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-29 01:00:25] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-29 01:00:25] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-29 01:00:25] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-29 01:00:25] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-29 01:00:25] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-29 01:00:25] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-29 01:00:25] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-29 01:00:25] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-29 01:00:25] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-30 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-30 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-30 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-30 01:00:26] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-30 01:00:26] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-30 01:00:26] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-30 01:00:26] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-30 01:00:26] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-30 01:00:26] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-30 01:00:26] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-30 01:00:26] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-30 01:00:26] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-30 01:00:26] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-30 01:00:26] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)
+[2021-05-31 01:00:27] - 카테고리 상품 정렬 맞춤(sort_category_goods) - Already Category Sort
+[2021-05-31 01:00:27] - 브랜드 상품 정렬 맞춤(sort_brand_goods) - Already Brand Sort
+[2021-05-31 01:00:27] - 지역 상품 정렬 맞춤(sort_location_goods) - Already Location Sort
+[2021-05-31 01:00:27] - 지역 상품 정렬 맞춤(sort_location_goods)
+[2021-05-31 01:00:27] - 브랜드 상품 정렬 맞춤(sort_brand_goods)
+[2021-05-31 01:00:27] - 카테고리 상품 정렬 맞춤(sort_category_goods)
+[2021-05-31 01:00:27] - 브랜드 연결 수 저장(all_brand_count)
+[2021-05-31 01:00:27] - 카테고리 연결 수 저장(all_category_count)
+[2021-05-31 01:00:27] - 빠른상품등록 임시 데이터 삭제(truncate_tmp_goods_data)
+[2021-05-31 01:00:27] - 수불부 월별 집계(save_scm_ledger_month)
+[2021-05-31 01:00:27] - 자동노출 종료상품 수동 전환(endOfAutoDisplay)
+[2021-05-31 01:00:27] - 시간대별 이벤트가 추가(set_goods_event_price)
+[2021-05-31 01:00:27] - 옵션 임시 데이터 삭제(delete_tmp_option_data)
+[2021-05-31 01:00:27] - 티켓상품의 모든옵션의 유효기간이 만기시 판매중지(social_goods_validate)

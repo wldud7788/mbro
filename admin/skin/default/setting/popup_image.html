@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>이미지 첨부</title>
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/editor/css/popup.css" />
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js"></script>
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+var arrGoodsImage = new Array();
+<!--{ @goodsImageSize }-->
+arrGoodsImage[{.index_}] = '{.key_}';
+<!--{ / }-->
+
+var _mockdata;
+
+$(function(){
+	/* 파일업로드버튼 ajax upload 적용 */
+	var opt			= {};
+	var callback	= function(res){
+		var that		= this;
+		var result		= eval(res);
+
+		if(result.status){
+			opener.document.getElementsByName('BannerImage[]')[].value = result.fileInfo.file_name;
+			opener.document.getElementsByName('BannerImageStr[]')[].value = result.fileInfo.file_name;
+			opener.document.getElementsByName('BannerImageStr[]')[].style.cursor = "pointer";
+		}else{
+			alert(result.msg);
+		}
+	};
+
+	// ajax 이미지 업로드 이벤트 바인딩
+	$('#uploader').createAjaxFileUpload(opt, callback);
+
+});
+</script>
+
+</head>
+<body>
+<div class="wrapper">
+	<div class="header">
+		<h1>사진 첨부</h1>
+	</div>
+	<div class="body">
+		<dl class="alert">
+		    <dt>사진 첨부 확인</dt>
+		    <dd>
+				<div><input type="file" id="uploader" /></div>
+				<!--{ ? _GET.division != 'all' }-->
+				<div class="desc" style = "padding:5px 0 0 0">상품 이미지를 개별등록 시에는 자동 리사이징 되지 않습니다.</div>
+				<div class="desc">상품 이미지가 '움직이는 GIF'인 경우에는 반드시 개별등록하셔야 정상적으로 상품 이미지가 움직입니다.</div>
+				<!--{ / }-->
+			</dd>
+		</dl>
+	</div>
+	<div class="footer">
+		<p><a onclick="window.self.close();" title="닫기" class="close">닫기</a></p>
+		<ul>
+			<li class="submit"><a onclick="window.self.close();" title="등록" class="btnlink">등록</a> </li>
+			<li class="cancel"><a onclick="window.self.close();" title="취소" class="btnlink">취소</a></li>
+		</ul>
+	</div>
+	<div id="html_error">
+	</div>
+</div>
+</body>
+</html>

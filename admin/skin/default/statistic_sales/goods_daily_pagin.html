@@ -1,0 +1,38 @@
+<!--{? list_loop }-->
+	<!--{@ list_loop }-->
+<tr>
+	<td align="center" {?.index_%2==1}class="linecolor"{/}>
+		{=number_format(st_index + .index_)}
+	</td>
+	<td align="center" {?.index_%2==1}class="linecolor"{/}>
+		{= date('Y-m-d', strtotime(.deposit_date))}
+	</td>
+	<td width="180" align="left" {?.index_%2==1}class="linecolor"{/}>
+		<!--{ ? serviceLimit('H_AD') }--> 
+		<div class="desc">[{.provider_name}]</div>
+		<!--{ / }-->
+		{.order_goods_name}
+	</td>
+	<td width="70" class="desc {?.index_%2==1}linecolor{/}" align="left">
+		{?.title1}{.title1} : {.option1}<br />{/}
+		{?.title2}{.title2} : {.option2}<br />{/}
+		{?.title3}{.title3} : {.option3}<br />{/}
+		{?.title4}{.title4} : {.option4}<br />{/}
+		{?.title5}{.title5} : {.option5}<br />{/}
+	</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.supply_price)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.consumer_price)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.price)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.ea)}</td>
+	<td align="right" class="tdLineRight {?.index_%2==1}linecolor{/}"><b>{=number_format(.goods_price)}</b></td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.event_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.multi_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.coupon_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.member_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.fblike_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.mobile_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.code_sale_unit)}</td>
+	<td align="right" {?.index_%2==1}class="linecolor"{/}>{=number_format(.referer_sale_unit)}</td>
+</tr>
+	<!--{ / }-->
+<!--{ / }-->

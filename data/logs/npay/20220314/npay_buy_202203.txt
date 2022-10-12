@@ -1,0 +1,30 @@
+[2022-03-14 16:32:16.683488000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2267]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MGU2ZTI2MjM3M2Y4ZGZhNWY3ZDk4OGJjMmY0MjhlODAxNTIzMDE4M18xNjQ3MjQzMTM2</merchantCustomCode1></interface><product><id>2267</id><merchantProductId>MGU2ZTI2MjM3M2Y4ZGZhNWY3ZDk4OGJjMmY0MjhlODAxNTIzMDE4M18xNjQ3MjQzMTM2QG9wdDExNDQwNg==</merchantProductId><ecMallProductId>2267</ecMallProductId><name><![CDATA[기현 (KIHYUN) - VOYAGER (1ST 싱글앨범) 랜덤버전]]></name><basePrice>15700</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2267]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/02/2267_tmp_977c8fda66232dd72f01923f9a4543f58786list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-14 16:32:16.740132000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:UiJBQICvSxm0BnomPPlVMg:200337588
+
+[2022-03-14 16:32:20.481247000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2267]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MGU2ZTI2MjM3M2Y4ZGZhNWY3ZDk4OGJjMmY0MjhlODAxNTIzMDE4M18xNjQ3MjQzMTQw</merchantCustomCode1></interface><product><id>2267</id><merchantProductId>MGU2ZTI2MjM3M2Y4ZGZhNWY3ZDk4OGJjMmY0MjhlODAxNTIzMDE4M18xNjQ3MjQzMTQwQG9wdDExNDQwNg==</merchantProductId><ecMallProductId>2267</ecMallProductId><name><![CDATA[기현 (KIHYUN) - VOYAGER (1ST 싱글앨범) 랜덤버전]]></name><basePrice>15700</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2267]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/02/2267_tmp_977c8fda66232dd72f01923f9a4543f58786list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-14 16:32:20.521750000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:zVvbVhQfTwmEOSl4nEH0_w:200337588
+
+[2022-03-14 18:31:25.213105000]
+MODE : Request
+REMOTE_IP : 168.188.129.136
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=2308]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>OTFkMWMwNzEyY2Q1NWE3MzhmZjllNTdkZTQ1ZmFkZTY0NDQ3Mjg4MV8xNjQ3MjUwMjg1</merchantCustomCode1></interface><product><id>2308</id><merchantProductId>OTFkMWMwNzEyY2Q1NWE3MzhmZjllNTdkZTQ1ZmFkZTY0NDQ3Mjg4MV8xNjQ3MjUwMjg1</merchantProductId><ecMallProductId>2308</ecMallProductId><name><![CDATA[브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://www.musicbroshop.com/goods/view?no=2308]]></infoUrl><imageUrl><![CDATA[https://www.musicbroshop.com/data/goods/8/2022/03/_tmp_76f040f0a63a36a3fe6d479c51a9d2b67309list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt114693]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[상품선택]]></name><value><id>opt114693</id><text><![CDATA[앨범구매지관통X포스터접어서출고]]></text></value></selectedItem></option><supplement><id>14693_564</id><name><![CDATA[지관통]]></name><price>1000</price><quantity>1</quantity></supplement><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-14 18:31:25.263132000]
+MODE : Response
+REMOTE_IP : 168.188.129.136
+SUCCESS:kpZjCfG8TpaG4NZwRzPD-Q:200337588
+

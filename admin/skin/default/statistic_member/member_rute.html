@@ -1,0 +1,126 @@
+{ #layout_header }
+  
+<!--[if IE]><script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/excanvas.min.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/plugins/jqplot.donutRenderer.min.js"></script>   
+<link class="include" rel="stylesheet" type="text/css" href="/app/javascript/plugin/jqplot/jquery.jqplot.min.css" />
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(function(){
+		gSearchForm.init({'pageid':'member_rute', 'sc':{=scObj}});
+	});
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">	
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">			
+		</ul>
+		
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>가입수단 통계</h2>
+		</div>
+		
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">			
+		</ul>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+
+<div id="search_container" class="search_container">
+	<form class='search_form' >						
+	<table class="table_search">			
+		<tr>
+			<th>기간</th>
+			<td>
+				<select name="year" class="wx80" defaultValue="{=date('Y')}">					
+				{@range(date('Y'),2010)}
+					<option value="{.value_}">{.value_}</option>
+				{/}
+				</select>					
+				
+				<select name="month" class="wx80" defaultValue="{=date('m')}">	
+					<option value="" >전체</option>						
+				{@range(1,12)}					
+					<option value="{? .value_<10 }0{.value_}{:}{.value_}{/}"  {?_GET.month==.value_ && _GET.month!=''}selected{/}>{? .value_<10 }0{.value_}{:}{.value_}{/}</option>
+				{/}
+				</select>
+				<span class="thisMonthBtn"><input type="button" value="이번달" class="resp_btn v3"/></span>								
+			</td>
+		</tr>
+	</table>
+	<div class="search_btn_lay"></div>
+	</form>
+</div>
+
+<!-- 서브메뉴 바디 : 시작-->
+<div class="flex_wrap">
+	<div class="contents_dvs v2">
+		<div class="item-title">가입 수단</div>
+		<div class="chart_frame"><div id="chart1"></div></div>
+	</div>	
+	<div class="contents_dvs v2 ml20">
+		<div class="title_dvs">
+			<div class="item-title">통계 상세</div>
+			<button type="button" class="resp_btn v3" onclick="divExcelDownload('가입수단별_가입통계','#rute_table')" > <img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>다운로드</span></button>
+		</div>	
+		<div id="rute_table">
+			<table class="table_basic v7">
+				<col width="30%" /><col width="50%" />
+				<tr>
+					<th>판매환경</th>
+					<th>건수</th>
+				</tr>
+				{@statlist}
+				<tr>
+					<th class="left"><b>{.key_}</b></th>
+					<td class="right">{=number_format(.cnt)}({.percent}%)</td>
+				</tr>
+				{/}
+			</table>
+		</div>
+	</div>	
+</div>
+
+<script class="code" type="text/javascript">
+	$(document).ready(function(){
+
+		{ ? count(dataForChart) > 0 }
+		var data = {=preg_replace("/\"([0-9]+)\"/","$1",json_encode(dataForChart))};
+		var plot1 = jQuery.jqplot ('chart1', [data], 
+			{ 
+				seriesDefaults: {
+					// Make this a pie chart.
+					renderer: jQuery.jqplot.PieRenderer, 
+					rendererOptions: {
+						// Put data labels on the pie slices.
+						// By default, labels show the percentage of the slice.
+						showDataLabels: true,
+						dataLabels: 'percent'
+					}
+				}, 
+				seriesColors:{=json_encode(seriesColors)},
+				legend: {      
+					show: true,      
+					location: 'e',      
+					placement: 'outside'    
+				},
+				grid: {
+					background: 'transparent',
+					borderWidth: 0,
+					shadow: false
+				}
+			}
+		);
+		{ / }
+	});
+</script>
+
+{ #layout_footer }

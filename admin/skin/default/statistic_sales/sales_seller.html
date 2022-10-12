@@ -1,0 +1,228 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		gSearchForm.init({'pageid':'sales_seller', 'sc':{=scObj}});
+	})
+</script>
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+
+		</ul>
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>판매 입점사별 통계</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+
+		</ul>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+
+<div id="search_container" class="search_container">
+	<form class='search_form' >						
+	<table class="table_search">
+		<tr>
+			<th>결제 확인일</th>
+			<td>								
+				<select name="year" class="wx80" defaultValue="{=date('Y')}">					
+				{@range(date('Y'),2010)}
+					<option value="{.value_}">{.value_}</option>
+				{/}
+				</select>					
+				
+				<select name="month" class="wx80" defaultValue="{=date('m')}">					
+				{@range(1,12)}					
+					<option value="{? .value_<10 }0{.value_}{:}{.value_}{/}" {? sc.month==.value_}selected{/}>{? .value_<10 }0{.value_}{:}{.value_}{/}</option>
+				{/}
+				</select>	
+								
+				<input type="button" value="이번달" class="resp_btn v3 thisMonthBtn"/>	
+			</td>
+		</tr>	
+		<tr data-fid='sc_provider'>
+			<th>입점사</th>
+			<td>
+				<select name="provider_seq_selector"></select>
+				<input type="hidden" class="provider_seq" name="provider_seq" value=''>
+			</td>
+		</tr>
+		<tr>
+			<th class="hide">판매 환경</th>
+			<td class="hide">
+				<div class="resp_checkbox">
+				<label><input type="checkbox" name="sitetype[]" value="all" class="chkall"/> 전체</label>
+			<!--{ @ sitetypeloop }-->
+				<!--{ ? in_array(.key_,sitetype) }-->
+				<label><input type="checkbox" name="sitetype[]" value="{.key_}" checked="checked" /> {.name}</label>
+				<!--{ : }-->
+				<label><input type="checkbox" name="sitetype[]" value="{.key_}" /> {.name}</label>
+				<!--{ / }-->
+			<!--{ / }-->
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="search_btn_lay"></div>
+	</form>
+</div>
+
+<!-- 서브메뉴 바디 : 시작-->
+<div class="contents_dvs v2">
+	<div class="title_dvs">
+		<div class="item-title">입점사</div>
+		<button type="button" class="resp_btn v3" onclick="divExcelDownload('입점사판매통계','#seller_goods_table')" ><img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>다운로드</span></button>
+	</div>
+
+	<!--/* 리스트 : START */-->
+	<div id="seller_goods_table">
+	<!--{ ? _GET.provider_seq }-->
+		<!--/* 입점사 상품 리스트 */-->
+		<table class="table_row_basic v2">
+		<colgroup>
+			<col />
+			<col width="13%" />
+			<col width="13%" />
+			<col width="13%" />
+			<col width="13%" />		
+		</colgroup>
+		<thead>
+			<tr>
+				<th>상품명</th>
+				<th>판매수량</th>
+				<th>판매금액</th>
+				<th>할인</th>
+				<th colspan="2">결제금액</th>
+			</tr>
+		</thead>
+		<!--{ ? statList }-->
+		<tbody class="ltb">
+			<!--{ @ statList }-->
+		<tr>
+			<td align="center" {?.index_%2==1}class="linecolor"{/}>
+				{.goods_name}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=number_format(.ea_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.price_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.sale_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/} colspan="2">
+				{=get_currency_price(.sell_price)}
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--/* 총계 */-->
+		<tr class="trLineTop">
+			<td align="center" height="25"><b>총합</b></td>
+			<td align="right"><b>{=number_format(totalSell.ea)}</b></td>
+			<td align="right"><b>{=get_currency_price(totalSell.price)}</b></td>
+			<td align="right"><b>{=get_currency_price(totalSell.sale)}</b></td>
+			<td align="right" colspan="2"><b>{=get_currency_price(totalSell.sell)}</b></td>
+		</tr>
+		<tr>
+			<td colspan="4" rowspan="4">&nbsp;</td>
+			<td align="right">(+)배송비</td>
+			<td align="right"><b>{=get_currency_price(totalSell.shipping)}</b></td>
+		</tr>
+		<tr>
+			<td align="right">(-)환불액</td>
+			<td align="right"><b>{=get_currency_price(totalSell.refund_price)}</b></td>
+		</tr>
+		<tr>
+			<td align="right">
+				합계
+				<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/statistic', '#tip8')"></span>
+			</td>
+			<td align="right"><b>{=get_currency_price(totalSell.total_price)}</b></td>
+		</tr>
+		<tr>
+			<td align="right">반품배송비</td>
+			<td align="right"><b>{=get_currency_price(totalSell.return_shipping_price)}</b></td>
+		</tr>
+		</tbody>
+			<!--{ : }-->
+		<tr>
+			<td colspan="5" align="center" >데이터가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</table>
+	<!--{ : }-->
+		<!--/* 입점사별 매출 리스트 */-->
+		<table class="table_row_basic">
+		<colgroup>
+			<col width="10%" />
+			<col />
+			<col width="13%" />
+			<col width="13%" />
+			<col width="13%" />
+	
+		</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>입점사명</th>
+				<th>판매수량(종)</th>
+				<th>판매금액</th>
+				<th>할인</th>
+			</tr>
+		</thead>
+		<!--{ ? statList }-->
+		<tbody class="ltb">
+			<!--{ @ statList }-->
+		<tr>
+			<td align="center" {?.index_%2==1}class="linecolor"{/}>
+				{.index_+1}
+			</td>
+			<td align="center" {?.index_%2==1}class="linecolor"{/}>
+				{.provider_name}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=number_format(.total_ea)} ({=number_format(.goods_ea)})
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.price_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.sale_sum)}
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--/* 총계 */-->
+		<tr class="trLineTop">
+			<td align="center"></td>
+			<td align="center"><b>총합</b></td>
+			<td align="right">
+				<b>{=number_format(totalSell.total_ea)} ({=number_format(totalSell.goods_ea)})</b>
+			</td>
+			<td align="right"><b>{=get_currency_price(totalSell.price_sum)}</b></td>
+			<td align="right"><b>{=get_currency_price(totalSell.sale_sum)}</b></td>
+		</tr>
+		</tbody>
+			<!--{ : }-->
+		<tr>
+			<td colspan="5" align="center" >데이터가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</table>
+	<!--{ / }-->
+	</div>
+	<!--/* 리스트 : END */-->
+</div>
+
+{ #layout_footer }

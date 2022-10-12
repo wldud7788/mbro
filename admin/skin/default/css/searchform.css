@@ -1,0 +1,84 @@
+/* 검색어 입력시 레이어 박스 */
+.search_type_text {background-color:#fff; padding-top:5px; line-height:24px; text-align:center; overflow:hidden; white-space:nowrap}
+.searchLayer {border:1px solid #3385d4; background-color:#fff; padding:5px 0; word-break:break-all;}
+.searchLayer .txt_title {color:#999; font-size:11px;}
+.searchLayer .txt_keyword {color:#ff6633;}
+.searchLayer ul li {padding:2px 0 2px 5px;}
+.searchLayer .hoverli {background-color:#f5f5f5;}
+/* 상품리스트 폼 개선 2015-05-12 */
+
+/* 검색폼 양식 개선
+div.search-form-container {background:#f9fbfc; padding:35px 0 20px 0; border-bottom:1px solid #d6d6d6; margin-bottom:0;}
+div.search-form-container table.search-form-table	{margin:auto;}
+div.search-form-container table.sf-option-table {border-collapse:collapse;}
+div.search-form-container table.sf-option-table th	{height:28px; text-align:left; vertical-align:middle; padding-right:0px; font-weight:bold; font-size:12px; color:#66666a;}
+div.search-form-container table.sf-keyword-table {width:100%; border:1px solid #3385d4; border-collapse:collapse; background-color:#fff; table-layout:fixed;}
+div.search-form-container table.sf-keyword-table .sfk-td-txt {padding-right:0px;}
+div.search-form-container table.sf-keyword-table .sfk-td-txt input {width:100%; height:30px; padding:0px; border:0px; margin:0px; background-color:#fff; line-height:30px; text-align:center; color:#797d86;}
+div.search-form-container table.sf-keyword-table .sfk-td-btn {width:45px; text-align:center;}
+div.search-form-container table.sf-keyword-table .sfk-td-btn button {width:45px; height:30px; border:0px; background:url('../images/common/icon/admin_search_bt.gif') no-repeat center center; cursor:pointer;}
+div.search-form-container table.sf-keyword-table .sfk-td-btn button:hover {background:url('../images/common/icon/admin_search_bt2.gif');}
+div.search-form-container table.sf-keyword-table .sfk-td-btn button span {display:none}
+div.search-form-container {border-top:1px solid #d6d6d6; color:#797d86;}
+ */
+table.list-goods-info {border:0px;}
+table.list-goods-info td {padding:2px 0px 0px 0px; border:0px;}
+table.list-goods-info td:first-child {padding:2px 0px 0px 10px;}
+button#get_default_button {border:none; width:84px; height:24px; background:url('../images/common/icon/admin_nbt01.png') no-repeat; cursor:pointer;}
+
+/* 검색폼 양식 개선 */
+div.search-form-container-new {background:#f9fbfc; padding:15px 0 15px 0; border-bottom:1px solid #d6d6d6; /*margin-bottom:5px; */}
+div.search-form-container-new table.search-form-table	{margin:auto;}
+div.search-form-container-new table.sf-option-table {width:100%; border-collapse:collapse;}
+div.search-form-container-new table.sf-option-table.w1000 {width:1000px;}
+div.search-form-container-new table.sf-option-table.w900 {width:900px;}
+div.search-form-container-new table.sf-option-table.w800 {width:800px;}
+div.search-form-container-new table.sf-option-table th {height:28px; text-align:left; vertical-align:middle; padding-right:0px; font-weight:bold; font-size:12px; color:#333;}
+div.search-form-container-new table.sf-option-table td {font-size:12px; color:#555;}
+div.search-form-container-new table.sf-keyword-table {width:100%; border:1px solid #3385d4; border-collapse:collapse; background-color:#green; table-layout:fixed;}
+div.search-form-container-new table.sf-keyword-table .sfk-td-txt {padding-right:0px;}
+div.search-form-container-new table.sf-keyword-table .sfk-td-txt input {width:100%; height:30px; padding:0px; border:0px; margin:0px; background-color:#fff; line-height:30px; text-align:center; color:#797d86;}
+div.search-form-container-new table.sf-keyword-table .sfk-td-btn {width:45px; text-align:center;}
+div.search-form-container-new table.sf-keyword-table .sfk-td-btn button {width:45px; height:30px; border:0px; background:url('../images/common/icon/admin_search_bt.gif') no-repeat center center; cursor:pointer;}
+div.search-form-container-new table.sf-keyword-table .sfk-td-btn button:hover {background:url('../images/common/icon/admin_search_bt2.gif');}
+div.search-form-container-new table.sf-keyword-table .sfk-td-btn button span {display:none}
+
+/* 기본검색설정 글자 */
+#search_set, #btn_search_detail {color:#636363; font-size:12px; text-decoration:underline;}
+
+div.ui-widget{padding-bottom:0;}
+.chkbox_item {padding-right:10px;}
+
+/* 셀렉트박스 다운 아이콘 */
+.search-form-container-new select {line-height: 19px; font-size:12px; color:#555; appearance:none; -webkit-appearance:none; -moz-appearance:none; height:24px; padding:2px 25px 2px 7px; background:#ffffff url('/admin/skin/default/images/common/icon/admin_select_n.gif') no-repeat right 8px center;}
+.search-form-container-new select::-ms-expand {display:none;}
+.search-form-container-new label {color:#555; font-size:12px;}
+.search-form-container-new .ft_11 {font-size:11px;}
+.search-form-container-new .line {border:1px solid #a7a8aa; cursor:default}
+.search-form-container-new .line:focus {border:1px solid #3ea4f6 !important; cursor:text}
+.search-form-container-new input {color:#555;}
+
+.selectbox_multi {display:inline-block; width:100%;}
+.selectbox_multi .cont {width:170px; float:left; margin-right:5px;}
+.selectbox_multi .cont.multiselect {background-color:#fff;}
+.selectbox_multi .cont.bank {width:89px;}
+.selectbox_multi .cont h2 {margin:0px; font-weight:bold; padding:4px; border:1px solid #ccc;}
+.selectbox_multi .cont .list {height:72px; overflow:auto; border-bottom:1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #ccc;}
+.selectbox_multi .cont .list ul {margin:0px; padding:0px;}
+.selectbox_multi .cont .list li {margin:0px; font-weight:normal; padding:4px; border-top:1px solid #ededed;}
+.selectbox_multi .cont .list li:first-child {border-top:0px;}
+
+button#set_default_setting_button {border:none; width:84px; height:24px; background:url('../images/common/icon/admin_nbt01_2.png') no-repeat; cursor:pointer;}
+button#set_default_apply_button {border:none; width:84px; height:24px; background:url('../images/common/icon/admin_nbt01.png') no-repeat; cursor:pointer;}
+button#search_reset_button {border:none; width:74px; height:24px; background:url('../images/common/icon/admin_nbt02_1.png') no-repeat; cursor:pointer;}
+
+button#search_detail_button.open {border:none; width:84px; height:24px; background:url('../images/common/icon/admin_nbt03_1.png') no-repeat; cursor:pointer; text-indent: -9000px; vertical-align: top;}
+button#search_detail_button.close {border:none; width:84px; height:24px; background:url('../images/common/icon/admin_nbt03_2.png') no-repeat; cursor:pointer; text-indent: -9000px; vertical-align: top;}
+
+
+.ui-combobox {position:relative; 	display:inline-block;}
+.ui-combobox-toggle {position:absolute; 	top:0; bottom:0; margin-left:-1px; padding:0; /* adjust styles for IE 6/7 */	*height:1.7em; *top:0.1em;}
+.ui-combobox-input {margin:0; padding:4px;}
+.ui-autocomplete {max-height:200px; overflow-y:auto; /* prevent horizontal scrollbar */ overflow-x:hidden;}
+
+

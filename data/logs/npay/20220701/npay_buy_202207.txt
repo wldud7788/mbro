@@ -1,0 +1,145 @@
+[2022-07-01 10:21:29.694950000]
+MODE : Request
+REMOTE_IP : 223.38.80.77
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/order/cart]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjM4NDg5</merchantCustomCode1><naverInflowCode>ct%3Dundefined%7Cci%3Dundefined%7Ctr%3Dundefined%7Chk%3Dundefined%7Ctrx%3Dundefined</naverInflowCode></interface><product><id>2805</id><merchantProductId>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjM4NDg5</merchantProductId><ecMallProductId>2805</ecMallProductId><name><![CDATA[인생닭 닭가슴살 소시지 혼합 100g 9팩]]></name><basePrice>16000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2805]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2805_tmp_79fb2dc773263b669c2eab0faacab66c3916list1.jpg]]></imageUrl><option><quantity>2</quantity><price>0</price><manageCode><![CDATA[opt116480]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt116480</id><text><![CDATA[9팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product><product><id>2919</id><merchantProductId>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjM4NDg5</merchantProductId><ecMallProductId>2919</ecMallProductId><name><![CDATA[인생닭 스팀 닭가슴살 마늘맛 200g 5팩]]></name><basePrice>15500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2919]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2919_tmp_5341f95e8562867636c1aa43e868f8cb0037list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt117288]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt117288</id><text><![CDATA[5팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product><product><id>2923</id><merchantProductId>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjM4NDg5</merchantProductId><ecMallProductId>2923</ecMallProductId><name><![CDATA[인생닭 저염 스팀 닭가슴살 오리지널 200g 5팩]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2923]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2923_tmp_2c23a64bd83ef7c97432dc55bf37ac784936list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt116442]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt116442</id><text><![CDATA[5팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-07-01 10:21:29.751591000]
+MODE : Response
+REMOTE_IP : 223.38.80.77
+SUCCESS:n-yW01cbTCaXweuC94IJKw:200337588
+
+[2022-07-01 10:26:19.261277000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2805]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjcxNjFiOGViZDI4ZDIwMWUzZmU1ZmRiMGU5M2Q0MGI3OTA1YWQwMV8xNjU2NjM4Nzc5</merchantCustomCode1></interface><product><id>2805</id><merchantProductId>YjcxNjFiOGViZDI4ZDIwMWUzZmU1ZmRiMGU5M2Q0MGI3OTA1YWQwMV8xNjU2NjM4Nzc5</merchantProductId><ecMallProductId>2805</ecMallProductId><name><![CDATA[인생닭 닭가슴살 소시지 혼합 100g 9팩]]></name><basePrice>16000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2805]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2805_tmp_79fb2dc773263b669c2eab0faacab66c3916list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt116480]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt116480</id><text><![CDATA[9팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-07-01 10:26:19.305499000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:NVX-kaSETt69aXNvp0yEIA:200337588
+
+[2022-07-01 10:52:06.49154000]
+MODE : Request
+REMOTE_IP : 223.38.80.77
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/order/cart]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjQwMzI2</merchantCustomCode1><naverInflowCode>ct%3Dundefined%7Cci%3Dundefined%7Ctr%3Dundefined%7Chk%3Dundefined%7Ctrx%3Dundefined</naverInflowCode></interface><product><id>2805</id><merchantProductId>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjQwMzI2</merchantProductId><ecMallProductId>2805</ecMallProductId><name><![CDATA[인생닭 닭가슴살 소시지 혼합 100g 9팩]]></name><basePrice>16000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2805]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2805_tmp_79fb2dc773263b669c2eab0faacab66c3916list1.jpg]]></imageUrl><option><quantity>2</quantity><price>0</price><manageCode><![CDATA[opt116480]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt116480</id><text><![CDATA[9팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product><product><id>2919</id><merchantProductId>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjQwMzI2</merchantProductId><ecMallProductId>2919</ecMallProductId><name><![CDATA[인생닭 스팀 닭가슴살 마늘맛 200g 5팩]]></name><basePrice>15500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2919]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2919_tmp_5341f95e8562867636c1aa43e868f8cb0037list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt117288]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt117288</id><text><![CDATA[5팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product><product><id>2923</id><merchantProductId>YjYwNTEyMzllNTMzYjcwZGE4ZGFhNTk3YjMzNTkzNDRiMDQ3ZmJlMl8xNjU2NjQwMzI2</merchantProductId><ecMallProductId>2923</ecMallProductId><name><![CDATA[인생닭 저염 스팀 닭가슴살 오리지널 200g 5팩]]></name><basePrice>14900</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2923]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/45/2022/04/2923_tmp_2c23a64bd83ef7c97432dc55bf37ac784936list1.jpg]]></imageUrl><option><quantity>1</quantity><price>0</price><manageCode><![CDATA[opt116442]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[제품]]></name><value><id>opt116442</id><text><![CDATA[5팩]]></text></value></selectedItem></option><shippingPolicy><groupId>971_925_delivery</groupId><method>DELIVERY</method><feeType>FREE</feeType><feePayType>FREE</feePayType><feePrice>0</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-07-01 10:52:06.100287000]
+MODE : Response
+REMOTE_IP : 223.38.80.77
+SUCCESS:lJHOWJ25SI2M0ln51I1lEw:200337588
+
+[2022-07-01 10:54:33.287869000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNDcz</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNDczQG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 10:54:33.333446000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:5vOOurcpR1iWVKyG7cv83Q:200337588
+
+[2022-07-01 10:54:45.264522000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNDg1</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNDg1QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 10:54:45.310536000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:dgs7Ov7IRcWxDYMSMn8AGA:200337588
+
+[2022-07-01 10:55:37.296124000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNTM3</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNTM3QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 10:55:37.345564000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:bGia4EoYTgGom4SFdjH6JQ:200337588
+
+[2022-07-01 10:55:56.821745000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNTU2</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQwNTU2QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 10:55:56.862457000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:2bt04XVoSle_00jvisgumA:200337588
+
+[2022-07-01 11:11:26.317049000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNDg2</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNDg2QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:11:43.205740000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTAz</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTAzQG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:11:43.248193000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:thgV9fIZQ7qAOs1250y0eQ:200337588
+
+[2022-07-01 11:11:46.904792000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTA2</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTA2QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:11:46.949545000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:uXFfyt6PQpqGqJbYphfIYg:200337588
+
+[2022-07-01 11:11:51.796766000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTEx</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTExQG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:11:51.836829000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:VZY167VhTeqpJUHWAObodQ:200337588
+
+[2022-07-01 11:12:15.670211000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTM1</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTM1QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:12:15.710579000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:3dO5zRZoTrmCMFqtmVzVlg:200337588
+
+[2022-07-01 11:12:20.228777000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTQw</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTQwQG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:12:20.266139000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:lLoAy_5-QXK8M_OgNhtk2Q:200337588
+
+[2022-07-01 11:12:33.420994000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTUz</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTUzQG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:12:33.459920000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:pdAFZWn1RiC-h9PZjADbGQ:200337588
+
+[2022-07-01 11:12:37.139323000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTU3</merchantCustomCode1></interface><product><id>1796</id><merchantProductId>YjE1OTUzMjExYTMxYjViODM1NmQzZDViMmE3NTcxOTdjNDU1ZTBiZl8xNjU2NjQxNTU3QG9wdDExMzMwMg==</merchantProductId><ecMallProductId>1796</ecMallProductId><name><![CDATA[주당맛집 닭똥집 150g]]></name><basePrice>6500</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1796]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/22/2021/06/_tmp_a03a8e940267a887ecd50c3bb14b05e84646list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>361_333_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>40000</basePrice></conditionalFree></shippingPolicy></product></order>
+
+[2022-07-01 11:12:37.176262000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:9wKDWz0SQDyaT6gUHC8rtQ:200337588
+

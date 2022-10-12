@@ -1,0 +1,201 @@
+<script type="text/javascript">
+var page_type	= '{=params.page_type}';
+var depth		= '{=params.depth}';
+var target_code = '';
+$(document).ready(function() {
+	// depth 선택 시 동작
+	depth_select_load('','depth1','',page_type);
+	$("select[name='depth1']").bind("change",function(){
+		depth_select_load('depth1','depth2',$(this).val(),page_type);
+		depth_select_load('depth2','depth3','',page_type);
+		depth_select_load('depth3','depth4','',page_type);
+	});
+	$("select[name='depth2']").bind("change",function(){
+		depth_select_load('depth2','depth3',$(this).val(),page_type);
+		depth_select_load('depth3','depth4','',page_type);
+	});
+	$("select[name='depth3']").bind("change",function(){
+		depth_select_load('depth3','depth4',$(this).val(),page_type);
+	});
+	$(".sel_target_code").bind("change",function(){
+		depth		= '{=params.depth}';
+		target_code	= $(this).val();
+		ajax_sub_body_layer();
+	});
+
+	// 체크박스 색상
+	bindChkAll();
+	$("input[type='checkbox'][name='code[]']").live('change',function(){
+		if($(this).is(':checked')){
+			$(this).closest('tr').addClass('checked-tr-background');
+		}else{
+			$(this).closest('tr').removeClass('checked-tr-background');
+		}
+	}).change();
+
+	// 접속기간 제한 날짜 선택시
+	$(".datepicker").bind('change', function(){
+		$("#catalog_allow_period").attr("checked",true);
+	});
+
+	ajax_sub_body_layer();
+	setDatepicker();
+});
+
+
+// 리스트 동적 Call
+function ajax_sub_body_layer(){
+	$.ajax({
+		type	: 'POST',
+		url		: './ajax_set_access_limit_list',
+		data	: {'page_type':page_type, 'depth':depth, 'target_code':target_code},
+		dataType: 'html',
+		success	: function(res){
+			$("#ajax_sub_body").html(res);
+		}
+	});
+}
+
+function accessLimitModiy(obj){
+	$(obj).closest("tr").find("input[name='code[]'").prop('checked',true);
+	pop_target_update('modify');
+}
+
+// 등록 및 삭제 버튼
+function pop_target_update(mod){
+	var mod_txt	= '등록';
+	if(mod == 'modify')	mod_txt = '수정';
+	if(mod == 'delete')	mod_txt = '초기화';
+	var cnt = $("input:checkbox[name='code[]']:checked").length;
+	if(cnt<1){
+		alert(mod_txt+"할 목록을 선택해 주세요.");
+		return;
+	}else{
+		var chk_cnt	= 0;
+		$("#sel_chk").empty();
+		$("input:checkbox[name='code[]']:checked").each(function(){
+			chk_cnt++;
+			var clone_code 	= $(this).clone();
+			var copy_name 	= $(this).attr("name").replace("code[]", "chk_code\[\]");
+			clone_code.attr("name", copy_name);
+			$("#sel_chk").append(clone_code);
+		});
+
+		if(mod == 'modify'){
+			// 등록 팝업창 호출
+			setSubCtrlPop('800','570', chk_cnt);
+		}else{
+			submit_target_update($('#popModifyLayer_access_limit').find('#targerSettingForm'),mod);
+		}
+	}
+}
+// 등록 및 삭제 최종 적용
+function submit_target_update(obj, mod){
+	var mod_txt	= '등록';
+	if(mod == 'delete')	mod_txt = '해제';
+
+	$(obj).find("input[name='mode']").val(mod);
+
+	if(!$("#targerSettingForm").find("input[name='page_type']").val()){			
+		alert("입력값 오류 새로고침 후 시도하세요.");
+		window.reload();
+		return;
+	}
+	if($("input[name='catalog_allow']:checked").val() == 'period'){
+		if($("input[name='catalog_allow_sdate']").val() > $("input[name='catalog_allow_edate']").val()){
+			alert("기간을 정확히 입력하세요.");
+			return;
+		}
+		if(!$("input[name='catalog_allow_sdate']").val() || !$("input[name='catalog_allow_edate']").val()){
+			alert("기간을 입력해주세요.");
+			return;
+		}
+	}
+	
+	if(!confirm("선택한 목록을 " + mod_txt + "하겠습니까? ")) return;
+
+	var queryString = $(obj).serialize();
+	$.ajax({
+		type: "get",
+		url: "../page_manager_process/modify_access_limit",
+		data: queryString,
+		success: function(result){
+			ajax_sub_body_layer();
+			ajax_main_body_layer();
+			closeDialog('popModifyLayer_access_limit');
+			alermSuccess();
+		}
+	});
+}
+</script>
+
+<div class="content">
+	<div class="item-title">분류</div>
+	<table class="table_basic" width="100%" cellspacing="0" cellpadding="0" id="inner_html">
+		<colgroup>
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>분류</th>
+			<td>
+				<!--{ ? params.depth > 1 }-->
+					<!--{ @range(0, (params.depth-2)) }-->
+				<select class="line sel_target_code" name="depth{=(.key_ + 1)}">
+					<option value="">-{=(.key_ + 1)}차 분류-</option>
+				</select>
+					<!--{ / }-->
+				<!--{ / }-->
+				<select class="line" name="" disabled>
+					<option value="">-{=params.depth}차 분류-</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+	<div class="item-title">접속 제한</div>
+	<div class="table_row_frame">
+		<!--{ ? params }-->
+		<div class="dvs_top">
+			<div class="dvs_left">	
+				<button type="button" class='resp_btn active' onclick="pop_target_update('modify');" >선택 수정</button></span>
+				<button type="button" class='resp_btn v3' onclick="pop_target_update('delete');" >설정 초기화</button></span>
+			</div>
+		</div>
+		<table class="table_row_basic v2" id="inner_html">
+		<colgroup>
+			<col width="5%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="35%" />
+			<col width="10%" />
+		</colgroup>
+		<thead>
+		<tr>
+			<th><label class='resp_checkbox'><input type="checkbox" class="chk_all"/></label></th>
+			<th>카테고리</th>
+			<th>접속 허용</th>
+			<th>접속 허용 기간</th>
+			<th>수정</th>
+		</tr>
+		</thead>
+		<tbody id="ajax_sub_body">
+		<tr>
+			<td class="center" colspan="5">대상을 먼저 선택하여 주세요.</td>
+		</tr>
+		</tbody>
+		</table>
+		<!--{ : }-->
+		잘못된 접근입니다.
+		<!--{ / }-->
+
+		<div class="dvs_bottom">
+			<div class="dvs_left">	
+				<button type="button" class='resp_btn active' onclick="pop_target_update('modify');" >선택 수정</button></span>
+				<button type="button" class='resp_btn v3' onclick="pop_target_update('delete');" >설정 초기화</button></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="footer">
+	<button type="button" class="btnLayClose resp_btn v3 size_XL" onClick="closeDialog('setCtrlLayer');">닫기</button>
+</div>

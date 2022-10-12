@@ -1,0 +1,231 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	function personal_use(el){
+		var value = $(el).val();
+
+		if(value == "y") {
+			$(el).parents("tr").find(".user_yn_check").attr('disabled',false);
+		} else {
+			$(el).parents("tr").find(".user_yn_check").attr('disabled',true);
+			$(el).parents("tr").find(".user_yn_check").attr('checked',false).trigger('change');
+		}
+	}
+
+	function user_yn_check(el){
+		var email = $(el).parents("td").find(".user_yn_email");
+
+		if($(el).is(":checked")) {
+			email.val('Y');
+		} else {
+			email.val('N');
+		}
+	}
+
+	function smsRequire(obj){
+		obj.checked = true;
+	}
+
+	$(document).ready(function() {
+
+		$(".selectMail").on("click",function(){
+
+			{ ? serviceLimit('H_FR') }
+			if(($(this).val()) == "personal_timesale" ){
+				$(".selectMail").eq(0).attr('checked',true);
+				{=serviceLimit('A1')}
+			}else{
+				$("input[name='mail_form']").val($(this).val());
+				//getMailForm($(this).val());
+			}
+			{ : }
+				$("input[name='mail_form']").val($(this).val());
+				//getMailForm($(this).val());
+			{/}
+		});
+
+
+		$("select[name='go_item_use']").change(function(){
+
+			if($(this).val() == 'y'){
+				$(".goodsnmlimit").show();
+			}else{
+				$(".goodsnmlimit").hide();
+			}
+
+		});
+
+		// shorturl url 설정
+		$(".shorturlConfig").click(function() {
+			var winH = "235";
+			{? sns.shorturl_app_key && sns.shorturl_app_id }	winH = 390; { / }
+			openDialog("짧은 URL 설정", "shorturl_help_lay", {"width":"600","height":winH,"show" : "fade","hide" : "fade"});
+		});
+
+		//짧은주소 관련
+		 $("input[name='shorturl_use']").click(function(){
+			 if( $("input[name='shorturl_use']:checked").val() == "Y" ) {
+				 $(".btnshorturl").show();
+			 }else{
+				 $(".btnshorturl").hide();
+			 }
+		 });
+
+		//수정 버튼
+		$(".modifyBtn").on("click", function(){
+			var _mode = $(this).attr("mode");
+			window.open('curation_contents_modify_pop?mode='+_mode,"send_email","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=no,width=1100, height=900");
+		});
+
+		$(".personal_use").on("change", function(){
+			personal_use($(this));
+		}).trigger('change');
+
+		$(".user_yn_check").on("change", function(){
+			user_yn_check($(this));
+		}).trigger('change');
+
+	});
+
+</script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<form name="memberForm" id="memberForm" method="post" target="actionFrame" action="../member_process/curation">
+<input type="hidden" name="mail_form" />
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title"><h2>고객 리마인드</h2></div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button type="submit" class="resp_btn active size_L">저장</button></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 상단 단계 링크 : 시작 -->
+{#top_menu}
+<!-- 상단 단계 링크 : 끝 -->
+
+<div class="contents_dvs">	
+	<!-- 서브 레이아웃 영역 : 시작 -->
+	<div class="item-title">리마인드 공용</div>
+	<table class="table_basic thl">
+		<tr>
+			<th>주소 URL</th>
+			<td>
+				<div class="resp_radio">
+					<label ><input type="radio" name="shorturl_use" value="N" {? sns.shorturl_use == 'N' || !sns.shorturl_use } checked="checked" {/} /> URL 주소 정보 제공	</label>
+					<label ><input type="radio" name="shorturl_use" id="shorturl_use" value="Y" {? sns.shorturl_use == 'Y' } checked="checked" {/} > URL 주소 정보를 짧게 변환</label>
+				</div>
+				<span class="btnshorturl" {? sns.shorturl_use == 'N' || !sns.shorturl_use }style="display:none;"{/}><button type="button" class="shorturlConfig resp_btn v2">설정</button>{? set_string} <span class="red hide">({set_string})</span>{/}</span>
+			</td>
+		</tr>
+		<tr>
+			<th>상품명 길이 제한</th>
+			<td>
+				<div class="resp_radio">
+					<label >
+						<input type="radio" name="go_item_use" value="y" {? go_item_use == 'y'} checked="checked" {/} />
+						제한 최대 <input type="text" name="go_item_limit" value="{go_item_limit}" id="" size="5" class="right goodsnmlimit"> 자
+					</label>
+					<label ><input type="radio" name="go_item_use" id="shorturl_use" value="n" {? go_item_use == 'n'} checked="checked" {/} > 제한 하지 않음</label>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="contents_dvs v2">	
+	<div class="item-title">리마인드 종류</div>
+	<table class="table_row_basic">
+		<colgroup>
+			<col width="15%">
+			<col width="12%">
+			<col width="10%">
+			<col width="10%">
+			<col width="12%">
+			<col />
+			<col width="11%">
+		</colgroup>
+		<thead>
+		<tr>
+			<th>종류</th>
+			<th>사용 여부</th>
+			<th>SMS</th>
+			<th>이메일</th>
+			<th>알림톡</th>
+			<th>발송 시간</th>
+			<th>SMS/이메일 메시지</th>
+		</tr>
+		</thead>
+		<!--{ @ loop }-->
+		<tr>
+			<td class="left">
+				{.title}<input type="hidden" name="curation_name[]" value="{.name}" />
+				<!--{? .name == 'personal_timesale' }-->
+				<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/member', '#tip33')"></span>
+				<!--{/}-->
+
+				<!--{? .name == 'personal_review' }-->
+				<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/member', '#tip34')"></span>
+				<!--{/}-->
+			</td>
+			<td>
+				<select name="personal_use[]" class="personal_use">
+					<option value="n" style="color:#FF0000" {=.personal_use.n}>사용안함</option>
+					<option value="y" style="color:#0000ff" {=.personal_use.y}>사용함</option>
+				</select>
+			</td>
+			<td>발송<input type="hidden" name="user_yn_sms[]" value="Y" /></td>
+			<td>
+				<label class="resp_checkbox"><input type="checkbox" value="Y" {=.personal_email} class="user_yn_check" /> <input type="hidden" name="user_yn_email[]" class="user_yn_email" />발송</label>
+			</td>
+			<td>
+				<!--{? .personal_talk }-->
+				<a class="resp_btn_txt" href="/admin/member/kakaotalk_msg?no=4" target="_blank" >{=.personal_talk}</a>
+				<!--{:}-->
+				-
+				<!--{/}-->
+			</td>
+			<td class="left">
+				{.etc}
+				<select name="personal_day[]" class="select_time {=.not_use_day}">
+				<!--{? .name == 'personal_timesale' }-->
+					<option value="lastday" {=selected_day[.name]['lastday']}>마지막날</option>
+					<option value="before" {=selected_day[.name]['before']}>종료 하루 전</option>
+				<!--{ : }-->
+					<!--{@ .loop_day }-->
+					<option value="{..value_}" {=selected_day[.name][..value_]}>{..value_} {.day_txt}</option>
+					<!--{ / }-->
+				<!--{ / }-->
+				</select>
+				<select name="personal_time[]" class="select_time">
+					<!--{@ .loop_time }-->
+					<option value="{..value_}" {=selected_time[.name][..value_]}>{..value_} 시</option>
+					<!--{ / }-->
+				</select>
+			</td>
+			<td><button type='button' class="resp_btn v2 modifyBtn" mode="{.name}">수정</button></td>
+		</tr>
+		<!--{ / }-->
+	</table>
+</div>
+</form>
+
+<div id="replace_pop" class="hide"></div>
+
+<!--- include : snsconf_shorturl_setting -->
+{# shorturl_setting }
+
+{? go_item_use == "n"}
+<script type="text/javascript">
+//$(".goodsnmlimit").hide();
+</script>
+{ / }
+
+{ #layout_footer }

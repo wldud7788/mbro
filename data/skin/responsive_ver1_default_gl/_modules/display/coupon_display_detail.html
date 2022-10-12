@@ -1,0 +1,109 @@
+<!--{? couponloop }-->
+<script type="text/javascript" src="/app/javascript/plugin/jquery_swipe/swipe.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var elem = document.getElementById('couponSwipe');
+	window.couponSwipe = Swipe(elem, {
+	  startSlide: 0,
+	  // auto: 3000,
+	  // continuous: true,
+	  // disableScroll: true,
+	  // stopPropagation: true,
+	  // callback: function(index, element) {},
+	  // transitionEnd: function(index, element) {}
+	});
+
+	$(".btn_prev").bind("click",function(){
+		couponSwipe.prev();
+	});
+	
+	$(".btn_next").bind("click",function(){
+		couponSwipe.next();
+	});
+
+	
+	{? !goods_view }
+	$('.couponDownload').bind("click",function() {
+		var memberSeq = "{=userInfo.member_seq}";
+		var gl_request_uri = "{=urlencode(_SERVER.REQUEST_URI)}";
+
+		if( !memberSeq ){
+			location.href="/member/login?return_url="+gl_request_uri;
+			return false;
+		}
+		var gl_goods_seq = "{_GET.no}";
+
+		if ( $(this).hasClass('resStyle') ) { // 반응형인 경우 껍데기 변경
+			coupondownlist_res(gl_goods_seq,gl_request_uri);
+		} else {
+			coupondownlist(gl_goods_seq,gl_request_uri);
+		}
+	});
+
+	$("button[name='couponDownloadButton']").live('click',function(){
+		var url = '../coupon/download?goods='+$(this).attr('goods')+'&coupon='+$(this).attr('coupon');
+		actionFrame.location.href = url;
+	});
+	{/}
+});
+function getCouponDownlayerclose(){
+	$('#couponDownloadDialog').dialog('close');
+}
+</script>
+
+
+<ul class="coupon_cont">
+	<li class="btn_area ll">
+		<a href="javascript:void(0);" class="btn_prev"></a>
+	</li>
+	<li class="c_area">
+		<div id='couponSwipe' class='swipe'>
+			<div class='swipe-wrap'>
+				<!--{@ couponloop }-->
+				<div class="obj_slide">
+					<ul>
+						<li class="couponDownload resStyle">
+							{? .use_type == 'offline'}
+							<div class="offline_coupon">
+								{.coupon_name}<br />
+								<div class="item_text_content">{.view_coupon_html}</div>
+							</div>
+							{ : }
+							<div class="online_coupon" style="{? .coupon_img == '4'}background:url('/data/coupon/{.coupon_image4}'){:}background:url('/data/coupon/coupon{.couponsametimeimg}_skin_0{.coupon_img}.gif'){/} no-repeat;">
+								<div class="discount_price">{.view_coupon_html}</div>
+							</div>
+							{ / }
+						</li>
+						<li class="txt_area">
+							{? .issue_enddatetitle }
+							<div class="txt1">- {.issue_enddatetitle}</div>
+							{ / }
+							{? .categoryhtml }
+							<div class="txt2">- {.categoryhtml}</div>
+							{ / }
+							{? .download_enddatetitle }
+							<div class="txt3">- {.download_enddatetitle}</div>
+							{ / }
+							{? .download_enddatetitle_time }
+							<div class="txt4">- {.download_enddatetitle_time}</div>
+							{ / }
+							{? .download_enddatetitle_week }
+							<div class="txt5">- {.download_enddatetitle_week}</div>
+							{ / }
+							<div class="use_limit_txt">
+								<pre>{.limit_txt}</pre>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!--{ / }-->
+			</div>
+		</div>
+	</li>
+	<li class="btn_area rr">
+		<a href="javascript:void(0);" class="btn_next"></a>
+	</li>
+</ul>
+
+<!--{ / }-->
+<div id="couponDownloadDialog" style="display:none"></div>

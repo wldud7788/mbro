@@ -1,0 +1,33 @@
+<style>
+#main-order-summary .mos-step-list {margin-top:8px;}
+#main-order-summary .mos-step-row 	a {display:block; border-bottom:1px solid #ececec; padding:5px 2px 3px 2px;}
+#main-order-summary .mos-step-row 	a:hover {background-color:#fcfcfc}
+#main-order-summary .mos-step-title	{color:#7b8085; font-size:12px;}
+#main-order-summary .mos-step-value	{color:#333333; font-size:11px;}
+</style>
+
+<ul class="mos-step-list">
+{@orderSummary}
+<li>
+	<div class="mos-step-row">
+		<a href="{.link}" class="clearbox">
+			<span class="fl left mos-step-title">{.title}</span>
+			<span class="fr right mos-step-value">
+				{?.settleprice}<b>{=number_format(.settleprice)}</b>원,{/}
+				<b>{=number_format(.count)}</b>건
+			</span>
+		</a>
+	</div>
+</li>
+{/}
+<li>
+	<div class="mos-step-row">
+		<a class="clearbox">
+		<span class="fl left mos-step-title">&nbsp;</span>
+		<span class="fr right mos-step-value">
+			<b>총 {=number_format(orderSummaryTotalCnt)}</b>건
+		</span>
+		</a>
+	</div>
+</li>
+</ul>

@@ -1,0 +1,206 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	var keyword					= "{=sc.keyword}";
+	var search_type				= "{=sc.search_type}";
+</script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		gSearchForm.init({'pageid':'hscode','sc':{}});
+
+		$("#chkAll").on("click",function(){
+			if($(this).is(":checked")){
+				$("form[name='hscodeListFrm'] .chk").prop("checked",true).change();
+			}else{
+				$("form[name='hscodeListFrm'] .chk").prop("checked",false).change();
+			}
+		});
+
+		$(".hscode_register").bind("click",function(){
+
+			var mode			= $(this).attr("mode");
+			var hscode_seq		= $(this).attr("hscode_seq");
+			var hscode_common	= $(this).attr("hscode_common");
+			var url				= "../goods/hscode_setting_regist?dummy=";
+			var querystring		= '{_SERVER['QUERY_STRING']}';
+			if	(querystring)	url	= url + '&' + querystring;
+
+			if(mode == "delete"){
+
+				$(this).closest("tr").find("input[name='hscode_seq[]']").prop("checked","checked");
+				openDialogConfirm("HS CODE를 삭제 하겠습니까? ",400,140,function(){
+					$("#hscodeListFrm").attr("action","../goods_process/hscode_delete");
+					$("#hscodeListFrm").submit();
+				},function(){ return; });
+
+			}else{
+
+				if(mode == "modify") url = url + "&hscode_common="+hscode_common;
+
+				$.get(url,function(data){
+					$("#hscode_register_popup").html(data);
+					openDialog("수출입상품코드 (HS CODE)", "hscode_register_popup", {"width":"1000","height":"550","show" : "fade","hide" : "fade"});
+					
+					var pop_height = eval($("#hscode_register_popup").height());
+					if(pop_height < 290){
+						h = 200 + ($("input[name='hscode_nation[]']").length * 40)
+						$("#hscode_register_popup").height(h);
+					}
+
+				});
+			}
+
+		});
+		
+		$(".delete_btn").click(function(){
+			<!--{? !auth }-->
+			alert("권한이 없습니다.");
+			return;
+			<!--{ / }-->
+
+			var cnt = $("input:checkbox[name='hscode_seq[]']:checked").length;
+			if(cnt<1){
+				openDialogAlert("삭제할 HS CODE를 선택해 주세요.",400,140);
+				return;
+			}else{
+				openDialogConfirm("선택한 HS CODE를 삭제 하겠습니까? ",400,140,function(){
+					$("#hscodeListFrm").attr("action","../goods_process/hscode_delete");
+					$("#hscodeListFrm").submit();
+				},function(){ return; });
+			}
+		});
+
+		<!--{ ? hscode }-->
+		$("input.chk[value='{ hscode }']").closest('tr').find("button[mode='modify']").click();
+		<!--{ / }-->
+	});		
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>HS CODE</h2>
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li><button type="button" onclick="document.location.href='/admin/goods/catalog';" class="resp_btn v3"><span class="arrowleft"></span>리스트 바로가기</button></li>
+		</ul>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 검색폼 : 시작 -->
+<div id="search_container" class="search_container">
+	<form name="search-form" method="get">
+	<table class="table_search">
+	<tr>
+		<th>검색어</th>
+		<td>
+			<select name="search_type" >
+				<option value="all">전체</option>
+				{ @arr_search_keyword }
+				<option value="{=.key_}" {? sc.search_type == .key_ }selected{/}>{=.value_}</option>			
+				{ / }
+			</select>
+			<input type="text" name="keyword" value="{=sc.keyword}" title="" size="80"/>
+		</td>
+	</tr>
+	</table>
+	<div class="search_btn_lay"></div>
+	</form>
+</div>
+<!-- 검색폼 : 끝 -->
+
+<div class="contents_dvs v2">
+	<!-- HS CODE 리스트 시작 -->
+	<div class="table_row_frame">
+		<form name="hscodeListFrm" id="hscodeListFrm" method="post" target="actionFrame">
+		<input type="hidden" name="get_hscode" value="{hscode}" />
+		<input type="hidden" name="keyword" value="{keyword}" />
+		<input type="hidden" name="search_type" value="{search_type}" />
+
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" class="delete_btn resp_btn v3">선택 삭제</button>
+			</div>
+				
+			<!-- 우측 버튼 -->
+			<div class="dvs_right">	
+				<button type="button" class="resp_btn active" onclick="document.location.href='/admin/goods/batch_modify?mode=hscode';">상품연결</button>
+				<button type="button" class="hscode_register resp_btn active" mode="regist">HS CODE 등록</button>
+			</div>
+		</div>
+		
+		<table class="table_row_basic">
+		<colgroup>
+			<col width="8%" />
+			<col width="32%"/>
+			<col width="20%" />
+			<col width="20%" />
+			<col width="10%"/>
+			<col width="10%"/>
+		</colgroup>
+		<thead>
+			<tr>
+				<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+				<th>품명</th>
+				<th>HS분류</th>
+				<th>연결된 상품</th>
+				<th>관리</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
+		{? count(loop) > 0 }
+		{@ loop }
+			<tr>
+				<td class="center"><label class="resp_checkbox"><input type="checkbox" class="chk" name="hscode_seq[]" value="{.hscode_seq}" /></label></td>
+				<td class="center">{.hscode_name}</td>
+				<td class="center">{.hscode_common}</td>
+				<td class="center">{.goods_cnt}개</td>
+				<td class="center">
+					{? .hscode_common}
+					<button type="button" class="hscode_register resp_btn v2" mode="modify" hscode_common="{.hscode_common}" hscode_seq='{=.hscode_seq}'>수정</button></td>
+					{ / }
+				<td class="center">
+					<button type="button" class="hscode_register resp_btn v3" mode="delete" hscode_common="{.hscode_common}" hscode_seq='{=.hscode_seq}'>삭제</button>
+				</td>
+			</tr>
+		{ / }
+		{ : }
+			<tr>
+				<td class="center" colspan="6">검색된 HSCODE 가 없습니다.</td>
+			</tr>
+		{ / }
+		</tbody>
+		</table>
+		
+		<div class="dvs_bottom">	
+			<div class="dvs_left">	
+				<button type="button" class="delete_btn resp_btn v3">선택 삭제</button>
+			</div>
+		</div>
+
+		</form>
+		<!-- HS CODE 리스트 끝 -->
+
+	</div>
+
+	<!-- 페이징 -->
+		<div class="paging_navigation">{=page.html}</div>
+
+	<!-- HS CODE 등록/수정 레이어 -->
+	<div id="hscode_register_popup" class="hide"></div>
+</div>
+
+{ #layout_footer }

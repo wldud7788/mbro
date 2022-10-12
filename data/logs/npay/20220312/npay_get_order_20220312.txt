@@ -1,0 +1,484 @@
+[2022-03-12 00:20:04.942679000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [npay_cont] => YToyOntzOjEyOiJPcmRlckV0Y0luZm8iO2E6Mjp7aToyMDIyMDMxMjEwMjQ4MTEwO2E6MTp7czo1OiJQQVlFRCI7YToxOntzOjQ6Ik5PTkUiO2E6OTp7czo5OiJvcmRlcl9jbnQiO2k6MTtzOjE5OiJpc19yZWNlaXZlcl9jaGFuZ2VkIjtzOjU6ImZhbHNlIjtzOjIwOiJpc19yZWNlaXZlcl9jaGFuZ2VkMiI7YToxOntpOjA7czo1OiJmYWxzZSI7fXM6MTY6Imxhc3RfY2hhbmdlX2RhdGUiO3M6MjM6IjIwMjItMDMtMTFUMTU6MTI6MDEuMDBaIjtzOjE3OiJyZXF1ZXN0X3RpbWVzdGFtcCI7czoyODoiMjAyMi0wMy0xMVQxNToxNTowMi42MzJaNTQ1NiI7czoxODoicmVxdWVzdF90aW1lc3RhbXAyIjthOjE6e2k6MDtzOjI4OiIyMDIyLTAzLTExVDE1OjE1OjAyLjYzMlo1NDU2Ijt9czoxODoibGFzdF9jaGFuZ2Vfc3RhdHVzIjtzOjU6IlBBWUVEIjtzOjE5OiJsYXN0X2NoYW5nZV9zdGF0dXMyIjthOjE6e2k6MDtzOjU6IlBBWUVEIjt9czoxNjoibnBheV9zZXJ2ZXJfaW5mbyI7czo0OiJSRUFMIjt9fX1pOjIwMjIwMzEyMTAyNDgxMjA7YToxOntzOjU6IlBBWUVEIjthOjE6e3M6NDoiTk9ORSI7YTo5OntzOjk6Im9yZGVyX2NudCI7aToxO3M6MTk6ImlzX3JlY2VpdmVyX2NoYW5nZWQiO3M6NToiZmFsc2UiO3M6MjA6ImlzX3JlY2VpdmVyX2NoYW5nZWQyIjthOjE6e2k6MDtzOjU6ImZhbHNlIjt9czoxNjoibGFzdF9jaGFuZ2VfZGF0ZSI7czoyMzoiMjAyMi0wMy0xMVQxNToxMjowMS4wMFoiO3M6MTc6InJlcXVlc3RfdGltZXN0YW1wIjtzOjI4OiIyMDIyLTAzLTExVDE1OjE1OjAyLjYzMlo1NDU2IjtzOjE4OiJyZXF1ZXN0X3RpbWVzdGFtcDIiO2E6MTp7aTowO3M6Mjg6IjIwMjItMDMtMTFUMTU6MTU6MDIuNjMyWjU0NTYiO31zOjE4OiJsYXN0X2NoYW5nZV9zdGF0dXMiO3M6NToiUEFZRUQiO3M6MTk6Imxhc3RfY2hhbmdlX3N0YXR1czIiO2E6MTp7aTowO3M6NToiUEFZRUQiO31zOjE2OiJucGF5X3NlcnZlcl9pbmZvIjtzOjQ6IlJFQUwiO319fX1zOjIwOiJQcm9kdWN0T3JkZXJSZXNwb25zZSI7YToxOntzOjIwOiJQcm9kdWN0T3JkZXJJbmZvTGlzdCI7YToyOntpOjA7YToyOntzOjU6Ik9yZGVyIjthOjE4OntzOjI1OiJDaGFyZ2VBbW91bnRQYXltZW50QW1vdW50IjtzOjE6IjAiO3M6MzM6IkNoZWNrb3V0QWNjdW11bGF0aW9uUGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjIwOiJHZW5lcmFsUGF5bWVudEFtb3VudCI7czo1OiIzMzgwMCI7czoyOToiSXNEZWxpdmVyeU1lbW9QYXJ0aWN1bGFySW5wdXQiO3M6NToiZmFsc2UiO3M6MjU6Ik5hdmVyTWlsZWFnZVBheW1lbnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlckRhdGUiO3M6MjM6IjIwMjItMDMtMTFUMTU6MTE6NDcuMDBaIjtzOjE5OiJPcmRlckRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiT3JkZXJlcklEIjtzOjI0OiJXYytUcHJKWHBjVUlmRGNGZ3NKZ1JnPT0iO3M6MTE6Ik9yZGVyZXJOYW1lIjtzOjI0OiJrVlAvdGl6WDdCOHo4Nmcyd0RLdG9RPT0iO3M6MTE6Ik9yZGVyZXJUZWwxIjtzOjI0OiJEMXFCME5GaFc1N0kwMEtSTEdZbkxRPT0iO3M6NzoiT3JkZXJJRCI7czoxNjoiMjAyMjAzMTI0NjcwNTgxMCI7czo5OiJPcmRlclR5cGUiO3M6Njoi7J2867CYIjtzOjE1OiJQYXlMb2NhdGlvblR5cGUiO3M6NjoiTU9CSUxFIjtzOjExOiJQYXltZW50RGF0ZSI7czoyMzoiMjAyMi0wMy0xMVQxNToxMjowMC4wMFoiO3M6MTI6IlBheW1lbnRNZWFucyI7czoyNToi7Iug7Jqp7Lm065OcIOqwhO2OuOqysOygnCI7czoxMzoiUGF5bWVudE51bWJlciI7czoxMDoiNDA5MDYyODM5MiI7czoxNToiUGF5bWVudENvcmVUeXBlIjtzOjE1OiLrhKTsnbTrsoTqsrDsoJwiO3M6MjE6IlBheUxhdGVyUGF5bWVudEFtb3VudCI7czoxOiIwIjt9czoxMjoiUHJvZHVjdE9yZGVyIjthOjM0OntzOjIyOiJEZWxpdmVyeURpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IkRlbGl2ZXJ5RmVlQW1vdW50IjtzOjQ6IjMwMDAiO3M6MTg6IkRlbGl2ZXJ5UG9saWN5VHlwZSI7czoxNToi7KGw6rG067aA66y066OMIjtzOjIyOiJFeHBlY3RlZERlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjI0OiJFeHBlY3RlZFNldHRsZW1lbnRBbW91bnQiO3M6NToiMjkyNDMiO3M6MzE6IkZpcnN0U2VsbGVyQnVyZGVuRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo2OiJNYWxsSUQiO3M6MTQ6Im5wX3p1eHJ1MTY1MzYzIjtzOjE2OiJPcHRpb25NYW5hZ2VDb2RlIjtzOjk6Im9wdDExNDY5MyI7czoxMToiT3B0aW9uUHJpY2UiO3M6MToiMCI7czoxMzoiUGFja2FnZU51bWJlciI7czoxNjoiMjAyMjAzMTI4MzQyMTU1MSI7czoxNzoiUGF5bWVudENvbW1pc3Npb24iO3M6MzoiNTU3IjtzOjE2OiJQbGFjZU9yZGVyU3RhdHVzIjtzOjc6Ik5PVF9ZRVQiO3M6MTI6IlByb2R1Y3RDbGFzcyI7czoyMToi7KGw7ZWp7ZiV7Ji17IWY7IOB7ZKIIjtzOjIxOiJQcm9kdWN0RGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJQcm9kdWN0SUQiO3M6NDoiMjMwOCI7czoyMToiUHJvZHVjdEluZm9BcGlWZXJzaW9uIjtzOjE0OiJBUElfVkVSU0lPTl8yMCI7czoxMToiUHJvZHVjdE5hbWUiO3M6NTc6Iuu4jOugiOydtOu4jOqxuOyKpChCcmF2ZSBHaXJscykgLSDrr7jri4ggNuynkSBbVEhBTksgWU9VXSI7czoxMzoiUHJvZHVjdE9wdGlvbiI7czo2MDoi7IOB7ZKI7ISg7YOdOiDslajrspTqtazrp6Tsp4DqtIDthrVY7Y+s7Iqk7YSw7KCR7Ja07ISc7Lac6rOgIjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMTIxMDI0ODExMCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjU6IlBBWUVEIjtzOjg6IlF1YW50aXR5IjtzOjE6IjIiO3M6MTg6IlNlY3Rpb25EZWxpdmVyeUZlZSI7czoxOiIwIjtzOjI2OiJTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJTZWxsZXJQcm9kdWN0Q29kZSI7czo2ODoiWkRJeU1EQTFNR1JoWXpkak9UVmxOekk1TURWa01HUmlPVGt5TWpRME9EVmpZV015TlRnd01GOHhOalEzTURFeE5EZ3ciO3M6MTU6IlNoaXBwaW5nQWRkcmVzcyI7YTo3OntzOjExOiJBZGRyZXNzVHlwZSI7czo4OiJET01FU1RJQyI7czoxMToiQmFzZUFkZHJlc3MiO3M6MTI4OiJWWmxYb1lWcmtPeXF6OHZ2TE9odC91MFU2TUpBUFMwcHMyMWt0NlRwaW11OWhuUXpFMVBxa2l6NmQ3dzMrTnZpT2x2T1dsZmZGUzdKbFppM0p5eXlsRFQ5cWl5RHdGWkZwYWlXejVRSkQ2UHB2ajNDWmlFZU1NZm9VRWcxckhNRCI7czoxNToiRGV0YWlsZWRBZGRyZXNzIjtzOjI0OiJmVzFXMmp4NmViZmVzVXJjVWlxVE5BPT0iO3M6NDoiTmFtZSI7czoyNDoia1ZQL3Rpelg3Qjh6ODZnMndES3RvUT09IjtzOjQ6IlRlbDEiO3M6MjQ6ImI2SVdEOG1YOThXSVhkb004OEZwREE9PSI7czo3OiJaaXBDb2RlIjtzOjU6IjU0ODY1IjtzOjE3OiJJc1JvYWROYW1lQWRkcmVzcyI7czo0OiJ0cnVlIjt9czoxNToiU2hpcHBpbmdEdWVEYXRlIjtzOjIzOiIyMDIyLTAzLTE2VDE0OjU5OjU5LjAwWiI7czoxNToiU2hpcHBpbmdGZWVUeXBlIjtzOjk6IuyEoOqysOygnCI7czoxODoiVG90YWxQYXltZW50QW1vdW50IjtzOjU6IjI5ODAwIjtzOjE4OiJUb3RhbFByb2R1Y3RBbW91bnQiO3M6NToiMjk4MDAiO3M6OToiVW5pdFByaWNlIjtzOjU6IjE0OTAwIjtzOjE5OiJNZXJjaGFudEN1c3RvbUNvZGUxIjtzOjY4OiJaREl5TURBMU1HUmhZemRqT1RWbE56STVNRFZrTUdSaU9Ua3lNalEwT0RWallXTXlOVGd3TUY4eE5qUTNNREV4TkRndyI7czoyMDoiQ29tbWlzc2lvblJhdGluZ1R5cGUiO3M6MTU6IuqysOygnOyImOyImOujjCI7czoxMDoiSW5mbG93UGF0aCI7czo0MDoi6rKA7IOJPuyHvO2VkeqygOyDiSjrhKTsnbTrsoTsh7ztlZEg7Jm4KSI7czoxNzoiTWVyY2hhbnRQcm9kdWN0SWQiO3M6Njg6IlpESXlNREExTUdSaFl6ZGpPVFZsTnpJNU1EVmtNR1JpT1RreU1qUTBPRFZqWVdNeU5UZ3dNRjh4TmpRM01ERXhORGd3Ijt9fWk6MTthOjI6e3M6NToiT3JkZXIiO2E6MTg6e3M6MjU6IkNoYXJnZUFtb3VudFBheW1lbnRBbW91bnQiO3M6MToiMCI7czozMzoiQ2hlY2tvdXRBY2N1bXVsYXRpb25QYXltZW50QW1vdW50IjtzOjE6IjAiO3M6MjA6IkdlbmVyYWxQYXltZW50QW1vdW50IjtzOjU6IjMzODAwIjtzOjI5OiJJc0RlbGl2ZXJ5TWVtb1BhcnRpY3VsYXJJbnB1dCI7czo1OiJmYWxzZSI7czoyNToiTmF2ZXJNaWxlYWdlUGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjk6Ik9yZGVyRGF0ZSI7czoyMzoiMjAyMi0wMy0xMVQxNToxMTo0Ny4wMFoiO3M6MTk6Ik9yZGVyRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlcmVySUQiO3M6MjQ6IldjK1RwckpYcGNVSWZEY0Znc0pnUmc9PSI7czoxMToiT3JkZXJlck5hbWUiO3M6MjQ6ImtWUC90aXpYN0I4ejg2ZzJ3REt0b1E9PSI7czoxMToiT3JkZXJlclRlbDEiO3M6MjQ6IkQxcUIwTkZoVzU3STAwS1JMR1luTFE9PSI7czo3OiJPcmRlcklEIjtzOjE2OiIyMDIyMDMxMjQ2NzA1ODEwIjtzOjk6Ik9yZGVyVHlwZSI7czo2OiLsnbzrsJgiO3M6MTU6IlBheUxvY2F0aW9uVHlwZSI7czo2OiJNT0JJTEUiO3M6MTE6IlBheW1lbnREYXRlIjtzOjIzOiIyMDIyLTAzLTExVDE1OjEyOjAwLjAwWiI7czoxMjoiUGF5bWVudE1lYW5zIjtzOjI1OiLsi6DsmqnsubTrk5wg6rCE7Y646rKw7KCcIjtzOjEzOiJQYXltZW50TnVtYmVyIjtzOjEwOiI0MDkwNjI4MzkyIjtzOjE1OiJQYXltZW50Q29yZVR5cGUiO3M6MTU6IuuEpOydtOuyhOqysOygnCI7czoyMToiUGF5TGF0ZXJQYXltZW50QW1vdW50IjtzOjE6IjAiO31zOjEyOiJQcm9kdWN0T3JkZXIiO2E6MzQ6e3M6MjI6IkRlbGl2ZXJ5RGlzY291bnRBbW91bnQiO3M6MToiMCI7czoxNzoiRGVsaXZlcnlGZWVBbW91bnQiO3M6NDoiMzAwMCI7czoxODoiRGVsaXZlcnlQb2xpY3lUeXBlIjtzOjE1OiLsobDqsbTrtoDrrLTro4wiO3M6MjI6IkV4cGVjdGVkRGVsaXZlcnlNZXRob2QiO3M6ODoiREVMSVZFUlkiO3M6MjQ6IkV4cGVjdGVkU2V0dGxlbWVudEFtb3VudCI7czozOiI5ODIiO3M6MzE6IkZpcnN0U2VsbGVyQnVyZGVuRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo2OiJNYWxsSUQiO3M6MTQ6Im5wX3p1eHJ1MTY1MzYzIjtzOjE2OiJPcHRpb25NYW5hZ2VDb2RlIjtzOjk6IjE0NjkzXzU2NCI7czoxMToiT3B0aW9uUHJpY2UiO3M6MToiMCI7czoxMzoiUGFja2FnZU51bWJlciI7czoxNjoiMjAyMjAzMTI4MzQyMTU1MSI7czoxNzoiUGF5bWVudENvbW1pc3Npb24iO3M6MjoiMTgiO3M6MTY6IlBsYWNlT3JkZXJTdGF0dXMiO3M6NzoiTk9UX1lFVCI7czoxMjoiUHJvZHVjdENsYXNzIjtzOjE4OiLstpTqsIDqtazshLHsg4HtkogiO3M6MjE6IlByb2R1Y3REaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjk6IlByb2R1Y3RJRCI7czo0OiIyMzA4IjtzOjIxOiJQcm9kdWN0SW5mb0FwaVZlcnNpb24iO3M6MTQ6IkFQSV9WRVJTSU9OXzIwIjtzOjExOiJQcm9kdWN0TmFtZSI7czo5OiLsp4DqtIDthrUiO3M6MTM6IlByb2R1Y3RPcHRpb24iO3M6OToi7KeA6rSA7Ya1IjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMTIxMDI0ODEyMCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjU6IlBBWUVEIjtzOjg6IlF1YW50aXR5IjtzOjE6IjEiO3M6MTg6IlNlY3Rpb25EZWxpdmVyeUZlZSI7czoxOiIwIjtzOjI2OiJTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJTZWxsZXJQcm9kdWN0Q29kZSI7czo2ODoiWkRJeU1EQTFNR1JoWXpkak9UVmxOekk1TURWa01HUmlPVGt5TWpRME9EVmpZV015TlRnd01GOHhOalEzTURFeE5EZ3ciO3M6MTU6IlNoaXBwaW5nQWRkcmVzcyI7YTo3OntzOjExOiJBZGRyZXNzVHlwZSI7czo4OiJET01FU1RJQyI7czoxMToiQmFzZUFkZHJlc3MiO3M6MTI4OiJWWmxYb1lWcmtPeXF6OHZ2TE9odC91MFU2TUpBUFMwcHMyMWt0NlRwaW11OWhuUXpFMVBxa2l6NmQ3dzMrTnZpT2x2T1dsZmZGUzdKbFppM0p5eXlsRFQ5cWl5RHdGWkZwYWlXejVRSkQ2UHB2ajNDWmlFZU1NZm9VRWcxckhNRCI7czoxNToiRGV0YWlsZWRBZGRyZXNzIjtzOjI0OiJmVzFXMmp4NmViZmVzVXJjVWlxVE5BPT0iO3M6NDoiTmFtZSI7czoyNDoia1ZQL3Rpelg3Qjh6ODZnMndES3RvUT09IjtzOjQ6IlRlbDEiO3M6MjQ6ImI2SVdEOG1YOThXSVhkb004OEZwREE9PSI7czo3OiJaaXBDb2RlIjtzOjU6IjU0ODY1IjtzOjE3OiJJc1JvYWROYW1lQWRkcmVzcyI7czo0OiJ0cnVlIjt9czoxNToiU2hpcHBpbmdEdWVEYXRlIjtzOjIzOiIyMDIyLTAzLTE2VDE0OjU5OjU5LjAwWiI7czoxNToiU2hpcHBpbmdGZWVUeXBlIjtzOjk6IuyEoOqysOygnCI7czoxODoiVG90YWxQYXltZW50QW1vdW50IjtzOjQ6IjEwMDAiO3M6MTg6IlRvdGFsUHJvZHVjdEFtb3VudCI7czo0OiIxMDAwIjtzOjk6IlVuaXRQcmljZSI7czo0OiIxMDAwIjtzOjE5OiJNZXJjaGFudEN1c3RvbUNvZGUxIjtzOjY4OiJaREl5TURBMU1HUmhZemRqT1RWbE56STVNRFZrTUdSaU9Ua3lNalEwT0RWallXTXlOVGd3TUY4eE5qUTNNREV4TkRndyI7czoyMDoiQ29tbWlzc2lvblJhdGluZ1R5cGUiO3M6MTU6IuqysOygnOyImOyImOujjCI7czoxMDoiSW5mbG93UGF0aCI7czo0MDoi6rKA7IOJPuyHvO2VkeqygOyDiSjrhKTsnbTrsoTsh7ztlZEg7Jm4KSI7czoxNzoiTWVyY2hhbnRQcm9kdWN0SWQiO3M6Njg6IlpESXlNREExTUdSaFl6ZGpPVFZsTnpJNU1EVmtNR1JpT1RreU1qUTBPRFZqWVdNeU5UZ3dNRjh4TmpRM01ERXhORGd3Ijt9fX19fQ==
+)
+
+
+[2022-03-12 00:20:04.945146000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [OrderEtcInfo] => Array
+        (
+            [2022031210248110] => Array
+                (
+                    [PAYED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-11T15:12:01.00Z
+                                    [request_timestamp] => 2022-03-11T15:15:02.632Z5456
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-11T15:15:02.632Z5456
+                                        )
+
+                                    [last_change_status] => PAYED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PAYED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+            [2022031210248120] => Array
+                (
+                    [PAYED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-11T15:12:01.00Z
+                                    [request_timestamp] => 2022-03-11T15:15:02.632Z5456
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-11T15:15:02.632Z5456
+                                        )
+
+                                    [last_change_status] => PAYED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PAYED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [ProductOrderResponse] => Array
+        (
+            [ProductOrderInfoList] => Array
+                (
+                    [0] => Array
+                        (
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 33800
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-11T15:11:47.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => Wc+TprJXpcUIfDcFgsJgRg==
+                                    [OrdererName] => kVP/tizX7B8z86g2wDKtoQ==
+                                    [OrdererTel1] => D1qB0NFhW57I00KRLGYnLQ==
+                                    [OrderID] => 2022031246705810
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-11T15:12:00.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4090628392
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 3000
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 29243
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114693
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022031283421551
+                                    [PaymentCommission] => 557
+                                    [PlaceOrderStatus] => NOT_YET
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2308
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 상품선택: 앨범구매지관통X포스터접어서출고
+                                    [ProductOrderID] => 2022031210248110
+                                    [ProductOrderStatus] => PAYED
+                                    [Quantity] => 2
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => ZDIyMDA1MGRhYzdjOTVlNzI5MDVkMGRiOTkyMjQ0ODVjYWMyNTgwMF8xNjQ3MDExNDgw
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => VZlXoYVrkOyqz8vvLOht/u0U6MJAPS0ps21kt6Tpimu9hnQzE1Pqkiz6d7w3+NviOlvOWlffFS7JlZi3JyyylDT9qiyDwFZFpaiWz5QJD6Ppvj3CZiEeMMfoUEg1rHMD
+                                            [DetailedAddress] => fW1W2jx6ebfesUrcUiqTNA==
+                                            [Name] => kVP/tizX7B8z86g2wDKtoQ==
+                                            [Tel1] => b6IWD8mX98WIXdoM88FpDA==
+                                            [ZipCode] => 54865
+                                            [IsRoadNameAddress] => true
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-16T14:59:59.00Z
+                                    [ShippingFeeType] => 선결제
+                                    [TotalPaymentAmount] => 29800
+                                    [TotalProductAmount] => 29800
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => ZDIyMDA1MGRhYzdjOTVlNzI5MDVkMGRiOTkyMjQ0ODVjYWMyNTgwMF8xNjQ3MDExNDgw
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 검색>쇼핑검색(네이버쇼핑 외)
+                                    [MerchantProductId] => ZDIyMDA1MGRhYzdjOTVlNzI5MDVkMGRiOTkyMjQ0ODVjYWMyNTgwMF8xNjQ3MDExNDgw
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 33800
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-11T15:11:47.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => Wc+TprJXpcUIfDcFgsJgRg==
+                                    [OrdererName] => kVP/tizX7B8z86g2wDKtoQ==
+                                    [OrdererTel1] => D1qB0NFhW57I00KRLGYnLQ==
+                                    [OrderID] => 2022031246705810
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-11T15:12:00.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4090628392
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 3000
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 982
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => 14693_564
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022031283421551
+                                    [PaymentCommission] => 18
+                                    [PlaceOrderStatus] => NOT_YET
+                                    [ProductClass] => 추가구성상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2308
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 지관통
+                                    [ProductOption] => 지관통
+                                    [ProductOrderID] => 2022031210248120
+                                    [ProductOrderStatus] => PAYED
+                                    [Quantity] => 1
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => ZDIyMDA1MGRhYzdjOTVlNzI5MDVkMGRiOTkyMjQ0ODVjYWMyNTgwMF8xNjQ3MDExNDgw
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => VZlXoYVrkOyqz8vvLOht/u0U6MJAPS0ps21kt6Tpimu9hnQzE1Pqkiz6d7w3+NviOlvOWlffFS7JlZi3JyyylDT9qiyDwFZFpaiWz5QJD6Ppvj3CZiEeMMfoUEg1rHMD
+                                            [DetailedAddress] => fW1W2jx6ebfesUrcUiqTNA==
+                                            [Name] => kVP/tizX7B8z86g2wDKtoQ==
+                                            [Tel1] => b6IWD8mX98WIXdoM88FpDA==
+                                            [ZipCode] => 54865
+                                            [IsRoadNameAddress] => true
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-16T14:59:59.00Z
+                                    [ShippingFeeType] => 선결제
+                                    [TotalPaymentAmount] => 1000
+                                    [TotalProductAmount] => 1000
+                                    [UnitPrice] => 1000
+                                    [MerchantCustomCode1] => ZDIyMDA1MGRhYzdjOTVlNzI5MDVkMGRiOTkyMjQ0ODVjYWMyNTgwMF8xNjQ3MDExNDgw
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 검색>쇼핑검색(네이버쇼핑 외)
+                                    [MerchantProductId] => ZDIyMDA1MGRhYzdjOTVlNzI5MDVkMGRiOTkyMjQ0ODVjYWMyNTgwMF8xNjQ3MDExNDgw
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-12 13:00:04.741168000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [npay_cont] => YToyOntzOjEyOiJPcmRlckV0Y0luZm8iO2E6Mjp7aToyMDIyMDMxMjE5OTI0NDIwO2E6MTp7czo1OiJQQVlFRCI7YToxOntzOjQ6Ik5PTkUiO2E6OTp7czo5OiJvcmRlcl9jbnQiO2k6MTtzOjE5OiJpc19yZWNlaXZlcl9jaGFuZ2VkIjtzOjU6ImZhbHNlIjtzOjIwOiJpc19yZWNlaXZlcl9jaGFuZ2VkMiI7YToxOntpOjA7czo1OiJmYWxzZSI7fXM6MTY6Imxhc3RfY2hhbmdlX2RhdGUiO3M6MjM6IjIwMjItMDMtMTJUMDM6NTE6MTUuMDBaIjtzOjE3OiJyZXF1ZXN0X3RpbWVzdGFtcCI7czoyODoiMjAyMi0wMy0xMlQwMzo1NTowMy4yNzdaNzc1MCI7czoxODoicmVxdWVzdF90aW1lc3RhbXAyIjthOjE6e2k6MDtzOjI4OiIyMDIyLTAzLTEyVDAzOjU1OjAzLjI3N1o3NzUwIjt9czoxODoibGFzdF9jaGFuZ2Vfc3RhdHVzIjtzOjU6IlBBWUVEIjtzOjE5OiJsYXN0X2NoYW5nZV9zdGF0dXMyIjthOjE6e2k6MDtzOjU6IlBBWUVEIjt9czoxNjoibnBheV9zZXJ2ZXJfaW5mbyI7czo0OiJSRUFMIjt9fX1pOjIwMjIwMzEyMTk5MjQ0MzA7YToxOntzOjU6IlBBWUVEIjthOjE6e3M6NDoiTk9ORSI7YTo5OntzOjk6Im9yZGVyX2NudCI7aToxO3M6MTk6ImlzX3JlY2VpdmVyX2NoYW5nZWQiO3M6NToiZmFsc2UiO3M6MjA6ImlzX3JlY2VpdmVyX2NoYW5nZWQyIjthOjE6e2k6MDtzOjU6ImZhbHNlIjt9czoxNjoibGFzdF9jaGFuZ2VfZGF0ZSI7czoyMzoiMjAyMi0wMy0xMlQwMzo1MToxNS4wMFoiO3M6MTc6InJlcXVlc3RfdGltZXN0YW1wIjtzOjI4OiIyMDIyLTAzLTEyVDAzOjU1OjAzLjI3N1o3NzUwIjtzOjE4OiJyZXF1ZXN0X3RpbWVzdGFtcDIiO2E6MTp7aTowO3M6Mjg6IjIwMjItMDMtMTJUMDM6NTU6MDMuMjc3Wjc3NTAiO31zOjE4OiJsYXN0X2NoYW5nZV9zdGF0dXMiO3M6NToiUEFZRUQiO3M6MTk6Imxhc3RfY2hhbmdlX3N0YXR1czIiO2E6MTp7aTowO3M6NToiUEFZRUQiO31zOjE2OiJucGF5X3NlcnZlcl9pbmZvIjtzOjQ6IlJFQUwiO319fX1zOjIwOiJQcm9kdWN0T3JkZXJSZXNwb25zZSI7YToxOntzOjIwOiJQcm9kdWN0T3JkZXJJbmZvTGlzdCI7YToyOntpOjA7YToyOntzOjU6Ik9yZGVyIjthOjE4OntzOjI1OiJDaGFyZ2VBbW91bnRQYXltZW50QW1vdW50IjtzOjE6IjAiO3M6MzM6IkNoZWNrb3V0QWNjdW11bGF0aW9uUGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjIwOiJHZW5lcmFsUGF5bWVudEFtb3VudCI7czo1OiIxODkwMCI7czoyOToiSXNEZWxpdmVyeU1lbW9QYXJ0aWN1bGFySW5wdXQiO3M6NToiZmFsc2UiO3M6MjU6Ik5hdmVyTWlsZWFnZVBheW1lbnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlckRhdGUiO3M6MjM6IjIwMjItMDMtMTJUMDM6NTE6MDUuMDBaIjtzOjE5OiJPcmRlckRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiT3JkZXJlcklEIjtzOjI0OiJHdmR3VkFhMzZoZ0U0a0ZpRVJuL0hBPT0iO3M6MTE6Ik9yZGVyZXJOYW1lIjtzOjI0OiJGUnkyQzJJVk5jTkRoRUI4ZVdYSGF3PT0iO3M6MTE6Ik9yZGVyZXJUZWwxIjtzOjI0OiJoZEZPNzY0VUVreEtWMWxpSVY2M1pBPT0iO3M6NzoiT3JkZXJJRCI7czoxNjoiMjAyMjAzMTI1MjU5NTU5MCI7czo5OiJPcmRlclR5cGUiO3M6Njoi7J2867CYIjtzOjE1OiJQYXlMb2NhdGlvblR5cGUiO3M6NjoiTU9CSUxFIjtzOjExOiJQYXltZW50RGF0ZSI7czoyMzoiMjAyMi0wMy0xMlQwMzo1MToxMy4wMFoiO3M6MTI6IlBheW1lbnRNZWFucyI7czoyNToi7Iug7Jqp7Lm065OcIOqwhO2OuOqysOygnCI7czoxMzoiUGF5bWVudE51bWJlciI7czoxMDoiNDA5MTUxODEyOCI7czoxNToiUGF5bWVudENvcmVUeXBlIjtzOjE1OiLrhKTsnbTrsoTqsrDsoJwiO3M6MjE6IlBheUxhdGVyUGF5bWVudEFtb3VudCI7czoxOiIwIjt9czoxMjoiUHJvZHVjdE9yZGVyIjthOjM0OntzOjIyOiJEZWxpdmVyeURpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IkRlbGl2ZXJ5RmVlQW1vdW50IjtzOjQ6IjMwMDAiO3M6MTg6IkRlbGl2ZXJ5UG9saWN5VHlwZSI7czoxNToi7KGw6rG067aA66y066OMIjtzOjIyOiJFeHBlY3RlZERlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjI0OiJFeHBlY3RlZFNldHRsZW1lbnRBbW91bnQiO3M6NToiMTQ2MjIiO3M6MzE6IkZpcnN0U2VsbGVyQnVyZGVuRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo2OiJNYWxsSUQiO3M6MTQ6Im5wX3p1eHJ1MTY1MzYzIjtzOjE2OiJPcHRpb25NYW5hZ2VDb2RlIjtzOjk6Im9wdDExNDY5MyI7czoxMToiT3B0aW9uUHJpY2UiO3M6MToiMCI7czoxMzoiUGFja2FnZU51bWJlciI7czoxNjoiMjAyMjAzMTI4NDM4MDI0MCI7czoxNzoiUGF5bWVudENvbW1pc3Npb24iO3M6MzoiMjc4IjtzOjE2OiJQbGFjZU9yZGVyU3RhdHVzIjtzOjc6Ik5PVF9ZRVQiO3M6MTI6IlByb2R1Y3RDbGFzcyI7czoyMToi7KGw7ZWp7ZiV7Ji17IWY7IOB7ZKIIjtzOjIxOiJQcm9kdWN0RGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJQcm9kdWN0SUQiO3M6NDoiMjMwOCI7czoyMToiUHJvZHVjdEluZm9BcGlWZXJzaW9uIjtzOjE0OiJBUElfVkVSU0lPTl8yMCI7czoxMToiUHJvZHVjdE5hbWUiO3M6NTc6Iuu4jOugiOydtOu4jOqxuOyKpChCcmF2ZSBHaXJscykgLSDrr7jri4ggNuynkSBbVEhBTksgWU9VXSI7czoxMzoiUHJvZHVjdE9wdGlvbiI7czo2MDoi7IOB7ZKI7ISg7YOdOiDslajrspTqtazrp6Tsp4DqtIDthrVY7Y+s7Iqk7YSw7KCR7Ja07ISc7Lac6rOgIjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMTIxOTkyNDQyMCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjU6IlBBWUVEIjtzOjg6IlF1YW50aXR5IjtzOjE6IjEiO3M6MTg6IlNlY3Rpb25EZWxpdmVyeUZlZSI7czoxOiIwIjtzOjI2OiJTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJTZWxsZXJQcm9kdWN0Q29kZSI7czo2ODoiWmpFNVlqVTBOMkl6TURnM1lXSTBaakJrWXpCaU9USXhOVFl3T1RjeU1qazFZVEl3T0RCa01GOHhOalEzTURVMk9USTMiO3M6MTU6IlNoaXBwaW5nQWRkcmVzcyI7YTo4OntzOjExOiJBZGRyZXNzVHlwZSI7czo4OiJET01FU1RJQyI7czoxMToiQmFzZUFkZHJlc3MiO3M6NDQ6IkV5Z1ozalJHNnhTQzIvUFZpbzNQUlNtbnc4L3NyODBsRHExVTVUTGptTTQ9IjtzOjE1OiJEZXRhaWxlZEFkZHJlc3MiO3M6NDQ6IkRMMit2dy9RcDdrdkNxWDZ5WVFwTWF5ellreWVDczNoaG8zbmJPZUpVUEk9IjtzOjQ6Ik5hbWUiO3M6MjQ6IkZSeTJDMklWTmNORGhFQjhlV1hIYXc9PSI7czo0OiJUZWwxIjtzOjI0OiIwNkpRZ2t1WVFsUzRVY3dkMWxrRDBnPT0iO3M6NDoiVGVsMiI7czoyNDoibjM3Mmlyd0NmN1orZENwQWJlWFFJdz09IjtzOjc6IlppcENvZGUiO3M6NzoiMjIwLTEyMSI7czoxNzoiSXNSb2FkTmFtZUFkZHJlc3MiO3M6NToiZmFsc2UiO31zOjE1OiJTaGlwcGluZ0R1ZURhdGUiO3M6MjM6IjIwMjItMDMtMTZUMTQ6NTk6NTkuMDBaIjtzOjE1OiJTaGlwcGluZ0ZlZVR5cGUiO3M6OToi7ISg6rKw7KCcIjtzOjE4OiJUb3RhbFBheW1lbnRBbW91bnQiO3M6NToiMTQ5MDAiO3M6MTg6IlRvdGFsUHJvZHVjdEFtb3VudCI7czo1OiIxNDkwMCI7czo5OiJVbml0UHJpY2UiO3M6NToiMTQ5MDAiO3M6MTk6Ik1lcmNoYW50Q3VzdG9tQ29kZTEiO3M6Njg6IlpqRTVZalUwTjJJek1EZzNZV0kwWmpCa1l6QmlPVEl4TlRZd09UY3lNamsxWVRJd09EQmtNRjh4TmpRM01EVTJPVEkzIjtzOjIwOiJDb21taXNzaW9uUmF0aW5nVHlwZSI7czoxNToi6rKw7KCc7IiY7IiY66OMIjtzOjEwOiJJbmZsb3dQYXRoIjtzOjE5OiLrhKTsnbTrsoTsh7ztlZEg7Jm4IjtzOjE3OiJNZXJjaGFudFByb2R1Y3RJZCI7czo2ODoiWmpFNVlqVTBOMkl6TURnM1lXSTBaakJrWXpCaU9USXhOVFl3T1RjeU1qazFZVEl3T0RCa01GOHhOalEzTURVMk9USTMiO319aToxO2E6Mjp7czo1OiJPcmRlciI7YToxODp7czoyNToiQ2hhcmdlQW1vdW50UGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjMzOiJDaGVja291dEFjY3VtdWxhdGlvblBheW1lbnRBbW91bnQiO3M6MToiMCI7czoyMDoiR2VuZXJhbFBheW1lbnRBbW91bnQiO3M6NToiMTg5MDAiO3M6Mjk6IklzRGVsaXZlcnlNZW1vUGFydGljdWxhcklucHV0IjtzOjU6ImZhbHNlIjtzOjI1OiJOYXZlck1pbGVhZ2VQYXltZW50QW1vdW50IjtzOjE6IjAiO3M6OToiT3JkZXJEYXRlIjtzOjIzOiIyMDIyLTAzLTEyVDAzOjUxOjA1LjAwWiI7czoxOToiT3JkZXJEaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjk6Ik9yZGVyZXJJRCI7czoyNDoiR3Zkd1ZBYTM2aGdFNGtGaUVSbi9IQT09IjtzOjExOiJPcmRlcmVyTmFtZSI7czoyNDoiRlJ5MkMySVZOY05EaEVCOGVXWEhhdz09IjtzOjExOiJPcmRlcmVyVGVsMSI7czoyNDoiaGRGTzc2NFVFa3hLVjFsaUlWNjNaQT09IjtzOjc6Ik9yZGVySUQiO3M6MTY6IjIwMjIwMzEyNTI1OTU1OTAiO3M6OToiT3JkZXJUeXBlIjtzOjY6IuydvOuwmCI7czoxNToiUGF5TG9jYXRpb25UeXBlIjtzOjY6Ik1PQklMRSI7czoxMToiUGF5bWVudERhdGUiO3M6MjM6IjIwMjItMDMtMTJUMDM6NTE6MTMuMDBaIjtzOjEyOiJQYXltZW50TWVhbnMiO3M6MjU6IuyLoOyaqey5tOuTnCDqsITtjrjqsrDsoJwiO3M6MTM6IlBheW1lbnROdW1iZXIiO3M6MTA6IjQwOTE1MTgxMjgiO3M6MTU6IlBheW1lbnRDb3JlVHlwZSI7czoxNToi64Sk7J2067KE6rKw7KCcIjtzOjIxOiJQYXlMYXRlclBheW1lbnRBbW91bnQiO3M6MToiMCI7fXM6MTI6IlByb2R1Y3RPcmRlciI7YTozNDp7czoyMjoiRGVsaXZlcnlEaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJEZWxpdmVyeUZlZUFtb3VudCI7czo0OiIzMDAwIjtzOjE4OiJEZWxpdmVyeVBvbGljeVR5cGUiO3M6MTU6IuyhsOqxtOu2gOustOujjCI7czoyMjoiRXhwZWN0ZWREZWxpdmVyeU1ldGhvZCI7czo4OiJERUxJVkVSWSI7czoyNDoiRXhwZWN0ZWRTZXR0bGVtZW50QW1vdW50IjtzOjM6Ijk4MiI7czozMToiRmlyc3RTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjY6Ik1hbGxJRCI7czoxNDoibnBfenV4cnUxNjUzNjMiO3M6MTY6Ik9wdGlvbk1hbmFnZUNvZGUiO3M6OToiMTQ2OTNfNTY0IjtzOjExOiJPcHRpb25QcmljZSI7czoxOiIwIjtzOjEzOiJQYWNrYWdlTnVtYmVyIjtzOjE2OiIyMDIyMDMxMjg0MzgwMjQwIjtzOjE3OiJQYXltZW50Q29tbWlzc2lvbiI7czoyOiIxOCI7czoxNjoiUGxhY2VPcmRlclN0YXR1cyI7czo3OiJOT1RfWUVUIjtzOjEyOiJQcm9kdWN0Q2xhc3MiO3M6MTg6Iuy2lOqwgOq1rOyEseyDge2SiCI7czoyMToiUHJvZHVjdERpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiUHJvZHVjdElEIjtzOjQ6IjIzMDgiO3M6MjE6IlByb2R1Y3RJbmZvQXBpVmVyc2lvbiI7czoxNDoiQVBJX1ZFUlNJT05fMjAiO3M6MTE6IlByb2R1Y3ROYW1lIjtzOjk6IuyngOq0gO2GtSI7czoxMzoiUHJvZHVjdE9wdGlvbiI7czo5OiLsp4DqtIDthrUiO3M6MTQ6IlByb2R1Y3RPcmRlcklEIjtzOjE2OiIyMDIyMDMxMjE5OTI0NDMwIjtzOjE4OiJQcm9kdWN0T3JkZXJTdGF0dXMiO3M6NToiUEFZRUQiO3M6ODoiUXVhbnRpdHkiO3M6MToiMSI7czoxODoiU2VjdGlvbkRlbGl2ZXJ5RmVlIjtzOjE6IjAiO3M6MjY6IlNlbGxlckJ1cmRlbkRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IlNlbGxlclByb2R1Y3RDb2RlIjtzOjY4OiJaakU1WWpVME4ySXpNRGczWVdJMFpqQmtZekJpT1RJeE5UWXdPVGN5TWprMVlUSXdPREJrTUY4eE5qUTNNRFUyT1RJMyI7czoxNToiU2hpcHBpbmdBZGRyZXNzIjthOjg6e3M6MTE6IkFkZHJlc3NUeXBlIjtzOjg6IkRPTUVTVElDIjtzOjExOiJCYXNlQWRkcmVzcyI7czo0NDoiRXlnWjNqUkc2eFNDMi9QVmlvM1BSU21udzgvc3I4MGxEcTFVNVRMam1NND0iO3M6MTU6IkRldGFpbGVkQWRkcmVzcyI7czo0NDoiREwyK3Z3L1FwN2t2Q3FYNnlZUXBNYXl6WWt5ZUNzM2hobzNuYk9lSlVQST0iO3M6NDoiTmFtZSI7czoyNDoiRlJ5MkMySVZOY05EaEVCOGVXWEhhdz09IjtzOjQ6IlRlbDEiO3M6MjQ6IjA2SlFna3VZUWxTNFVjd2QxbGtEMGc9PSI7czo0OiJUZWwyIjtzOjI0OiJuMzcyaXJ3Q2Y3WitkQ3BBYmVYUUl3PT0iO3M6NzoiWmlwQ29kZSI7czo3OiIyMjAtMTIxIjtzOjE3OiJJc1JvYWROYW1lQWRkcmVzcyI7czo1OiJmYWxzZSI7fXM6MTU6IlNoaXBwaW5nRHVlRGF0ZSI7czoyMzoiMjAyMi0wMy0xNlQxNDo1OTo1OS4wMFoiO3M6MTU6IlNoaXBwaW5nRmVlVHlwZSI7czo5OiLshKDqsrDsoJwiO3M6MTg6IlRvdGFsUGF5bWVudEFtb3VudCI7czo0OiIxMDAwIjtzOjE4OiJUb3RhbFByb2R1Y3RBbW91bnQiO3M6NDoiMTAwMCI7czo5OiJVbml0UHJpY2UiO3M6NDoiMTAwMCI7czoxOToiTWVyY2hhbnRDdXN0b21Db2RlMSI7czo2ODoiWmpFNVlqVTBOMkl6TURnM1lXSTBaakJrWXpCaU9USXhOVFl3T1RjeU1qazFZVEl3T0RCa01GOHhOalEzTURVMk9USTMiO3M6MjA6IkNvbW1pc3Npb25SYXRpbmdUeXBlIjtzOjE1OiLqsrDsoJzsiJjsiJjro4wiO3M6MTA6IkluZmxvd1BhdGgiO3M6MTk6IuuEpOydtOuyhOyHvO2VkSDsmbgiO3M6MTc6Ik1lcmNoYW50UHJvZHVjdElkIjtzOjY4OiJaakU1WWpVME4ySXpNRGczWVdJMFpqQmtZekJpT1RJeE5UWXdPVGN5TWprMVlUSXdPREJrTUY4eE5qUTNNRFUyT1RJMyI7fX19fX0=
+)
+
+
+[2022-03-12 13:00:04.744363000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [OrderEtcInfo] => Array
+        (
+            [2022031219924420] => Array
+                (
+                    [PAYED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-12T03:51:15.00Z
+                                    [request_timestamp] => 2022-03-12T03:55:03.277Z7750
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-12T03:55:03.277Z7750
+                                        )
+
+                                    [last_change_status] => PAYED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PAYED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+            [2022031219924430] => Array
+                (
+                    [PAYED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-12T03:51:15.00Z
+                                    [request_timestamp] => 2022-03-12T03:55:03.277Z7750
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-12T03:55:03.277Z7750
+                                        )
+
+                                    [last_change_status] => PAYED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PAYED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [ProductOrderResponse] => Array
+        (
+            [ProductOrderInfoList] => Array
+                (
+                    [0] => Array
+                        (
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 18900
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-12T03:51:05.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => GvdwVAa36hgE4kFiERn/HA==
+                                    [OrdererName] => FRy2C2IVNcNDhEB8eWXHaw==
+                                    [OrdererTel1] => hdFO764UEkxKV1liIV63ZA==
+                                    [OrderID] => 2022031252595590
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-12T03:51:13.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4091518128
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 3000
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 14622
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114693
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022031284380240
+                                    [PaymentCommission] => 278
+                                    [PlaceOrderStatus] => NOT_YET
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2308
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 상품선택: 앨범구매지관통X포스터접어서출고
+                                    [ProductOrderID] => 2022031219924420
+                                    [ProductOrderStatus] => PAYED
+                                    [Quantity] => 1
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => ZjE5YjU0N2IzMDg3YWI0ZjBkYzBiOTIxNTYwOTcyMjk1YTIwODBkMF8xNjQ3MDU2OTI3
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => EygZ3jRG6xSC2/PVio3PRSmnw8/sr80lDq1U5TLjmM4=
+                                            [DetailedAddress] => DL2+vw/Qp7kvCqX6yYQpMayzYkyeCs3hho3nbOeJUPI=
+                                            [Name] => FRy2C2IVNcNDhEB8eWXHaw==
+                                            [Tel1] => 06JQgkuYQlS4Ucwd1lkD0g==
+                                            [Tel2] => n372irwCf7Z+dCpAbeXQIw==
+                                            [ZipCode] => 220-121
+                                            [IsRoadNameAddress] => false
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-16T14:59:59.00Z
+                                    [ShippingFeeType] => 선결제
+                                    [TotalPaymentAmount] => 14900
+                                    [TotalProductAmount] => 14900
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => ZjE5YjU0N2IzMDg3YWI0ZjBkYzBiOTIxNTYwOTcyMjk1YTIwODBkMF8xNjQ3MDU2OTI3
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => ZjE5YjU0N2IzMDg3YWI0ZjBkYzBiOTIxNTYwOTcyMjk1YTIwODBkMF8xNjQ3MDU2OTI3
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 18900
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-12T03:51:05.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => GvdwVAa36hgE4kFiERn/HA==
+                                    [OrdererName] => FRy2C2IVNcNDhEB8eWXHaw==
+                                    [OrdererTel1] => hdFO764UEkxKV1liIV63ZA==
+                                    [OrderID] => 2022031252595590
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-12T03:51:13.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4091518128
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 3000
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 982
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => 14693_564
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022031284380240
+                                    [PaymentCommission] => 18
+                                    [PlaceOrderStatus] => NOT_YET
+                                    [ProductClass] => 추가구성상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2308
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 지관통
+                                    [ProductOption] => 지관통
+                                    [ProductOrderID] => 2022031219924430
+                                    [ProductOrderStatus] => PAYED
+                                    [Quantity] => 1
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => ZjE5YjU0N2IzMDg3YWI0ZjBkYzBiOTIxNTYwOTcyMjk1YTIwODBkMF8xNjQ3MDU2OTI3
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => EygZ3jRG6xSC2/PVio3PRSmnw8/sr80lDq1U5TLjmM4=
+                                            [DetailedAddress] => DL2+vw/Qp7kvCqX6yYQpMayzYkyeCs3hho3nbOeJUPI=
+                                            [Name] => FRy2C2IVNcNDhEB8eWXHaw==
+                                            [Tel1] => 06JQgkuYQlS4Ucwd1lkD0g==
+                                            [Tel2] => n372irwCf7Z+dCpAbeXQIw==
+                                            [ZipCode] => 220-121
+                                            [IsRoadNameAddress] => false
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-16T14:59:59.00Z
+                                    [ShippingFeeType] => 선결제
+                                    [TotalPaymentAmount] => 1000
+                                    [TotalProductAmount] => 1000
+                                    [UnitPrice] => 1000
+                                    [MerchantCustomCode1] => ZjE5YjU0N2IzMDg3YWI0ZjBkYzBiOTIxNTYwOTcyMjk1YTIwODBkMF8xNjQ3MDU2OTI3
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => ZjE5YjU0N2IzMDg3YWI0ZjBkYzBiOTIxNTYwOTcyMjk1YTIwODBkMF8xNjQ3MDU2OTI3
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+

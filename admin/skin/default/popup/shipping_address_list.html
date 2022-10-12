@@ -1,0 +1,132 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	var otpHtml = "<option value=\"direct_input\">직접입력</option>";
+	$("#address_category").empty().data('options');
+	$("#address_category").append(otpHtml);
+	otpHtml = "<option value=\"\">전체분류</option>";
+	$("#src_address_category").empty().data('options');
+	$("#src_address_category").append(otpHtml);
+
+	<!--{ ? category }-->
+		<!--{ @ category }-->
+		otpHtml = "<option value=\"{.address_category}\">{.address_category}</option>";
+		$("#address_category").append(otpHtml);
+		$("#src_address_category").append(otpHtml);
+		<!--{ / }-->
+	<!--{ / }-->
+
+	<!--{ ? sc.address_category }-->
+	$("#src_address_category").val("{=sc.address_category}").attr("selected", "selected");
+	<!--{ / }-->
+	<!--{ ? msg }-->
+	$(".control-btn").hide();
+	<!--{ : }-->
+	$(".control-btn").show();
+	<!--{ / }-->
+});
+
+// 전체 체크
+function chkAll(){
+	var chk_status = $("#allchk").attr('checked');
+	if(chk_status == 'checked'){
+		$("input[name='add_chk[]']").each(function(){ $(this).trigger('click'); });
+	}else{
+		$("input[name='add_chk[]']").prop('checked',false);
+	}
+}
+</script>
+
+<!--{ ? msg }-->
+<div class="center pdt20">
+	{=msg}
+</div>
+<!--{ : }-->
+<table class="table_row_basic mt10">
+<colgroup>
+	<col width="5%" />
+	<col width="5%" />
+	<col width="" />
+	<col width="" />
+	<col width="" />
+	<col width="40%"/>
+	<col width="" />
+	<col width="" />
+</colgroup>
+<thead>
+<tr>
+	<th><label class="resp_checkbox"><input type="checkbox" name="allchk" id="allchk" onclick="chkAll();"/></label></th>
+	<th>번호</th>
+	<th>분류</th>
+	<th>매장명</th>
+	<th>해외</th>
+	<th>주소</th>
+	<th>매장 전화번호</th>
+	<!--{ ? tabtype == 'input' }-->
+	<th class="hide">관리</th>
+	<!--{ / }-->
+</tr>
+</thead>
+<tbody>
+<!--{ ? loop }-->
+	<!--{ @ loop }-->
+<tr class="address_tr_{.shipping_address_seq}" add_type="{.add_type}"
+	wh_use="<!--{ ? .wh_use}--><!--{ = .wh_use}--><!--{ : }-->N<!--{ / }-->"
+	store_scm_seq="<!--{ ? .wh_use}--><!--{ = .store_scm_seq}--><!--{ : }--><!--{ / }-->"
+	>
+	<td class="center nonpd" height="30">
+		<label class="resp_checkbox"><input type="checkbox" name="add_chk[]" value="{.shipping_address_seq}" {?.wh_use=='N' || .is_selected=='Y'}disabled{/} /></label>
+	</td>
+	<td class="center nonpd">{._rno}</td>
+	<td class="center nonpd category">{.address_category}</td>
+	<td>
+		<div class="address_name">{.address_name}</div>
+		<!--{ ? .wh_use == 'Y' }-->
+		<div class="blue address_use">(사용 창고)</div>
+		<!--{ : .wh_use == 'N' }-->
+		<div class="red address_use">(미사용 창고)</div>
+		<!--{ / }-->
+	</td>
+	<td class="center nonpd nation">{?.address_nation=='korea'}N{:}Y{/}</td>
+	<td class="address">
+	<!--{ ? .address_zipcode }-->
+		<!--{ ? .address_nation == 'korea' }-->
+		({.address_zipcode})
+			<!--{ ? .address_type == 'street' }-->
+			{.address_street}
+			<!--{ : }-->
+			{.address}
+			<!--{ / }-->
+			{.address_detail}
+		<!--{ : }-->
+		({.international_postcode}) {.international_address} {.international_town_city} {.international_county} {.international_country}
+		<!--{ / }-->
+	<!--{ / }-->
+	</td>
+	<td class="center nonpd shipping_phone">{.shipping_phone}</td>
+	<!--{ ? tabtype == 'input' }-->
+	<td class="hide center nonpd">
+		<button type="button" onclick="insert_address_pop('{.shipping_address_seq}');" class="btn_resp">수정</button>
+	</td>
+	<!--{ / }-->
+</tr>
+	<!--{ / }-->
+<!--{ : }-->
+<tr>
+	<td colspan="8" class="center">
+		<!--{ ? _GET.tabType == 'o2o' }-->
+			오프라인 매장 설정에서 매장 등록 시 자동으로 등록됩니다.
+		<!--{ : }-->
+			<!--{ ? sc }-->
+			검색된 장소리스트가 없습니다.
+			<!--{ : }-->
+			설정된 장소리스트가 없습니다.
+			<!--{ / }-->
+		<!--{ / }-->
+	</td>
+</tr>
+<!--{ / }-->
+</tbody>
+</table>
+
+<div class="paging_navigation" style="padding-top:20px; margin:auto;">{page.html}</div>
+<!--{ / }-->

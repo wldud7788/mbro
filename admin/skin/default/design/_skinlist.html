@@ -1,0 +1,116 @@
+<script>
+	var arrSkinInfo = {};
+</script>
+<div class="contents_dvs v2">
+<div class="table_row_frame">	
+<div class="dvs_top">	
+	<div class="dvs_left">	
+		<input type="button" class="btnRealSkinApply resp_btn active"  value="사용 스킨 설정" onclick="{ ? serviceLimit('H_FR') }btnSkinApply(this);{ : }btnRealSkinApply(this);{ / }"  />
+		{ ? !serviceLimit('H_FR') }<input type="button" class="btnWorkingSkinApply resp_btn v2"  value="디자인 스킨 설정" onclick="btnWorkingSkinApply(this);" />{/}
+	</div>
+	<div class="dvs_right">	
+		<input type="button" value="스킨 업로드" {? isdemo.isdemo } {isdemo.isdemojs1}{ : } onclick="upload_skin()"{ / } class="resp_btn v3"/>
+	</div>
+</div>
+			
+<table class="table_row_basic tdc"  id="skin-list-tbl">
+	<caption>보유스킨 설정</caption>
+	
+	<colgroup>
+		<col width="8%"><col width="15%"><col width="23%"><col width="13%"><col width="15%"><col width="16%"><col width="10%">
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th>선택</th>
+			<th colspan="2">스킨명(폴더명)</th>
+			<th>언어</th>
+			<th>버전(등록 일시)</th>
+			<th>관리</th>
+			<th>삭제</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<!--{ @ my_skin_list }-->
+		<tr>
+			<td>
+				<label class="resp_radio">
+					<input type="radio" name="skin_chk" value="{.skin}" { ? _GET.checkedSkin == .skin }checked{ / } onclick="bg_checked_skin();" />
+				</label>
+				<script>
+					arrSkinInfo["{.skin}"] = {=json_encode(my_skin_list)}[{.index_}];
+				</script>
+			</td>
+			<td>
+				<div class="skin_img_wrap">
+					<div class="is_use_icon">
+						{ ? preg_match('/실제적용/',implode(' ',my_skin_list_icon[.index_])) }<span class="use">사용</span>{/}
+						{ ? preg_match('/디자인작업용/',implode(' ',my_skin_list_icon[.index_])) }<span class="design { ? preg_match('/실제적용/',implode(' ',my_skin_list_icon[.index_])) }ml3{/}">디자인</span>{/}
+					</div>
+					<!--{ ? skinPrefix=='mobile' }-->
+					<img src="/data/skin/{.skin}/configuration/{.screenshot}" alt="{.name}" class="wx110" />
+					<!--{ : skinPrefix=='fammerce'}-->
+					<img src="/data/skin/{.skin}/configuration/{.screenshot}" alt="{.name}" class="wx110"  />
+					<!--{ : }-->
+					<img src="/data/skin/{.skin}/configuration/{.screenshot}" alt="{.name}" class="wx110"  />
+					<!--{ / }-->
+				</div>
+			</td>
+
+			<td class="left">					
+				<div class="skin_name">
+					<b>{.name}</b>
+					<div>({.skin})</div>
+				</div>
+				<div class="mt5">					
+					<a href="{?skinPrefix == 'mobile'}http://{mobileDomain}?previewSkin={.skin}{:}/?previewSkin={.skin}&setMode=pc{/}" target="_blank" class="resp_btn">미리보기</a>
+					<input type="button" value="스킨정보"  {? isdemo.isdemo } {isdemo.isdemojs1} {:} onclick="rename_skin('{.skin}','{.name}', '{.language}', '{skinType}', '{skinPrefix}', '{.patch_version}', '{.regdate}')"{/}  class="resp_btn"/>
+
+				</div>
+			</td>
+			<td>
+				<!--{ ? .language == 'EN' }-->
+				영어
+				<!--{ : .language == 'CN' }-->
+				중국어
+				<!--{ : .language == 'JP' }-->
+				일본어
+				<!--{ : }-->
+				한국어
+				<!--{ / }-->
+			</td>
+			<td>
+				{.patch_version}
+				<div>({.regdate})</div>
+			</td>
+			<td>
+				<input type="button" value="백업"  {? isdemo.isdemo } {isdemo.isdemojs1} {:}  onclick="backup_skin('{.skin}')" {/} class="resp_btn v2"/>
+				<input type="button" value="복사"  {? isdemo.isdemo } {isdemo.isdemojs1} {:}  onclick="copy_skin('{.skin}')"{/} class="resp_btn v2" />
+			</td>
+			<td>
+				<input type="button" value="삭제"  {? isdemo.isdemo } {isdemo.isdemojs1} {:} onclick="delete_skin('{.skin}')" {/} class="resp_btn v3"/>
+			</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+</table>
+
+<div class="dvs_bottom">	
+	<div class="dvs_left">	
+		<input type="button" class="btnRealSkinApply resp_btn active"  value="사용 스킨 설정" onclick="{ ? serviceLimit('H_FR') }btnSkinApply(this);{ : }btnRealSkinApply(this);{ / }"  />
+		{ ? !serviceLimit('H_FR') }<input type="button" class="btnWorkingSkinApply resp_btn v2"  value="디자인 스킨 설정" onclick="btnWorkingSkinApply(this);" />{/}
+	</div>
+	<div class="dvs_right">	
+		<input type="button" value="스킨 업로드" {? isdemo.isdemo } {isdemo.isdemojs1}{ : } onclick="upload_skin()"{ / } class="resp_btn v3"/>
+	</div>
+</div>
+</div>
+</div>
+
+<script>
+	var height = ({my_skin_list.size_}*150) + 30;
+	// 20190607_sjg 보유스킨 목록이 다수인 경우 하단 배너와의 겹침 문제로 인한 높이값 삭제
+	//$(".sst-skin-list-container").height(height);
+	bg_checked_skin();
+</script>

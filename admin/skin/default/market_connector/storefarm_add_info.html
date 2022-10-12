@@ -1,0 +1,738 @@
+<!--{? displayMmode == 'popup'}-->
+{ #layout_header_popup}
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/market_connector.css?dummy={=date('Ymd')}" />
+<!--{ / }-->
+
+<script type="text/javascript" src="/app/javascript/js/admin-addInfoRegist.js"></script>
+
+<script type="text/javascript">
+	var	mode		= '{mode}';
+	var	modeText	= (mode == 'renew' || mode == 'marketRenew') ? '수정' : '등록';
+	var seller_id	= '{seller_id}';
+	var market		= '{market}';
+	var addInfo		= {addInfo};
+
+	//객체동결(변경금지)
+	Object.freeze(addInfo);
+
+	var reloaded = false;
+
+	$(document).ready(function() {
+
+		if (reloaded === true)
+			return;
+
+		reloaded = true;
+
+		$('#saleStartSet, #saleEndSet').change(function(){ variableCheck(this, 'SETDATE'); });
+		$('#BundleGroupIdSet').change(function(){
+			variableCheck(this, 'NOT_FOR_BUNDLE');
+
+			if (this.value != 'NOT_FOR_BUNDLE') {
+				$('#DeliveryAreaType').val('');
+				$('#DeliveryAreaType').trigger('change');
+			}
+		});
+
+		$('#DeliveryAreaType').change(function(){
+			$('#DeliveryArea2ExtraFee').attr('disabled', true);
+			$('#DeliveryArea3ExtraFee').attr('disabled', true);
+
+			switch(this.value) {
+				case	'3' :	//3권역
+					$('#DeliveryArea3ExtraFee').attr('disabled', false);
+					if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.Delivery == 'object' && typeof addInfo.Delivery.Area3ExtraFee == 'string')
+						setRenewAddInfo(['Delivery', 'Area3ExtraFee']);
+				case	'2' :	//2권역
+					$('#DeliveryArea2ExtraFee').attr('disabled', false);
+					if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.Delivery == 'object' && typeof addInfo.Delivery.Area2ExtraFee == 'string')
+						setRenewAddInfo(['Delivery', 'Area2ExtraFee']);
+			}
+
+
+		});
+
+		$('#DeliveryFeeType').change(function(){
+			$('#DeliveryBaseFee').attr('disabled', true);
+			$('#DeliveryFreeConditionalAmount').attr('disabled', true);
+
+			switch(this.value) {
+				case	'2' :	//조건부 무료
+					$('#DeliveryFreeConditionalAmount').attr('disabled', false);
+					if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.Delivery == 'object' && typeof addInfo.Delivery.FreeConditionalAmount == 'string')
+						setRenewAddInfo(['Delivery', 'FreeConditionalAmount']);
+
+				case	'3' :	//유료
+					$('#DeliveryBaseFee').attr('disabled', false);
+					if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.Delivery == 'object' && typeof addInfo.Delivery.BaseFee == 'string')
+						setRenewAddInfo(['Delivery', 'BaseFee']);
+			}
+		});
+
+		$('#StorefarmCertification').change(function(){
+			$('#StorefarmCertificationText').val($(this).find('option:selected').text());
+		});
+
+		$('#DeliveryExpectedDeliveryPeriodType').change(function(){
+			if(this.value == 'ETC') {
+				$("#DeliveryExpectedDeliveryPeriodDirectInput").show();
+				$("#DeliveryExpectedDeliveryPeriodDirectInput").val(addInfo.Delivery.ExpectedDeliveryPeriodDirectInput);
+				$("#DeliveryExpectedDeliveryPeriodDirectInput").attr('disabled',false);
+			} else {
+				$("#DeliveryExpectedDeliveryPeriodDirectInput").hide();
+				$("#DeliveryExpectedDeliveryPeriodDirectInput").attr('disabled',true);
+			}
+		});
+
+		$('#DeliveryType').change(function(){
+			if(this.value == '1') {
+				$("#DeliveryCompanyCode").show();
+			} else {
+				$("#DeliveryCompanyCode").hide();
+			}
+		});
+
+		// 필수정보 기본셋팅
+		setAddInfoRegist();
+		if(mode == 'renew' || mode == 'marketRenew') {
+			callConnector('categoryMoreInfo', setCategoryDesc, {cagrgoryCode:addInfo.category_code});
+		}
+
+		bundleGroupSet();
+		returnDeliveryCompany();
+		customDisplay();
+
+		$('input[name="CustomMade"]').bind('click', function() {customDisplay()});
+	});
+
+	function customDisplay() {
+		var chk = $('input[name="CustomMade"]:checked').val();
+		if (chk == 'Y') {
+			$('.CustomMadeTr').show();
+		} else {
+			$('.CustomMadeTr').hide();
+		}
+	}
+
+	function bundleGroupSet() {
+		var bungleGroupCallback	= function (response) {
+
+			$('#BundleGroupIdSet > option').remove();
+			$('#BundleGroupIdSet').append("<option value='NOT_FOR_BUNDLE'>묶음 배송 불가</option>");
+
+			if (response.success != 'Y')
+				return;
+
+			$('#BundleGroupIdSet').append("<option value='AUTO'>묶음 배송 그룹 자동매칭</option>");
+
+			var bundleList		= response.resultData;
+
+			for (cnt = bundleList.length, i = 0; i < cnt; i++) {
+				var nowVal		= bundleList[i];
+				var nowOption	= '<option value="' + nowVal.Code + '">' + nowVal.Name + '</option>';
+				$('#BundleGroupIdSet').append(nowOption);
+			}
+
+			if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.BundleGroupIdSet == 'string')
+				setRenewAddInfo('BundleGroupIdSet');
+
+		}
+
+		callConnector('bundleGroupList', bungleGroupCallback);
+	}
+
+	function returnDeliveryCompany() {
+		var bungleGroupCallback	= function (response) {
+
+			$('#ReturnDeliveryCompanyPriority > option').remove();
+
+			if (response.success != 'Y') {
+				$('#ReturnDeliveryCompanyPriority').append("<option value=''>등록된 택배사가 없습니다</option>");
+				return;
+			}
+
+			var compamyList		= response.resultData;
+
+			for (cnt = compamyList.length, i = 0; i < cnt; i++) {
+				var nowVal		= compamyList[i];
+				var nowOption	= '<option value="' + nowVal.Code + '">' + nowVal.Name + '</option>';
+				$('#ReturnDeliveryCompanyPriority').append(nowOption);
+			}
+
+			if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.Delivery == 'object' && typeof addInfo.Delivery.ReturnDeliveryCompanyPriority == 'string')
+				setRenewAddInfo(['Delivery', 'ReturnDeliveryCompanyPriority']);
+
+		}
+
+		callConnector('returnsCompanyList', bungleGroupCallback);
+	}
+
+
+	function setAddress() {
+
+		var resetAddress	= function (response) {
+			var addressType	= this.url.match(/shippingAddress|returnAddress/);
+
+			if (addressType[0] == 'shippingAddress')
+				var addressId	= "#DeliveryShippingAddressId";
+			else
+				var addressId	= "#DeliveryReturnAddressId";
+
+			if (response.success != 'Y') {
+
+				if(response.hasOwnProperty('message') == true)
+					openDialogAlert(response.message);
+				else
+					openDialogAlert("주소 조회 실패");
+
+				return;
+			}
+
+			var addressList		= response.resultData;
+			$(addressId + ' > option').remove();
+
+			if (addressType[0] == 'shippingAddress')
+				$(addressId).append("<option value='AUTO'>출고지 정보 자동매칭</option>");
+			else
+				$(addressId).append("<option value='AUTO'>반품지 정보 자동매칭</option>");
+
+			for (cnt = addressList.length, i = 0; i < cnt; i++) {
+				var nowVal		= addressList[i];
+
+				var nowOption	= '<option value="' + nowVal.AddressId + '">' + nowVal.Name + ' - ' + nowVal.FullAddress + '</option>';
+				$(addressId).append(nowOption);
+			}
+
+			if ((mode == 'renew' || mode == 'marketRenew') && typeof addInfo.Delivery == 'object') {
+				if (addressType[0] == 'shippingAddress' && typeof addInfo.Delivery.ShippingAddressId == 'string')
+					setRenewAddInfo(['Delivery', 'ShippingAddressId']);
+				else if (typeof addInfo.Delivery.ReturnAddressId == 'string')
+					setRenewAddInfo(['Delivery', 'ReturnAddressId']);
+			}
+
+		}
+
+		callConnector('shippingAddress', resetAddress);
+		callConnector('returnAddress', resetAddress);
+
+	}
+
+	function resetCategoryDesc() {
+		$('#StorefarmCertification > option').remove();
+	}
+
+
+
+	function setCategoryDesc(response) {
+		$('#StorefarmCertification > option').remove();
+		$('#StorefarmCertification').append("<option value=''>인증정보를 선택하세요</option>");
+		if (response.success == 'Y' && typeof response.resultData.CertificationCategoryList == 'object') {
+			var CertificationCategoryList	= response.resultData.CertificationCategoryList;
+
+			for (cnt = CertificationCategoryList.length, i = 0; i < cnt; i++) {
+				nowCertInfo	= CertificationCategoryList[i];
+				$('#StorefarmCertification').append("<option value='" + nowCertInfo.Code + "'>" + nowCertInfo.Name + "</option>");
+			}
+
+			setRenewAddInfo('StorefarmCertification');
+		}
+	}
+</script>
+
+<style>
+	.page-buttons-right{padding-right:0 !important;}
+	#page-title-bar-area{padding:15px 15px 0 15px;}
+	#page-title-bar-area #page-title-bar.flyingMode .page-title {margin-left: 20px !important;}
+	#page-title-bar-area #page-title-bar.flyingMode .page-buttons-right{padding-right:20px !important;}
+	#page-title-bar-area + .contents_container{padding-bottom: 20px !important; height: auto;}
+	.ico_floating_top {display:none;}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<!--{? displayMmode == 'popup'}-->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>
+				<!--{? mode != 'marketRenew'}-->
+				스마트스토어 필수 정보
+				<!--{ : }-->
+				스마트스토어 등록 필수 정보
+				<!--{ / }-->
+			</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<!--li><span class="helpicon" title=""></span></li-->
+			<li>
+				<button onClick="addInfoSave();" id="addInfoActionBtn" class="resp_btn active size_L">수정</button>
+			</li>
+		</ul>
+
+	</div>
+</div>
+<div class="pop_setting contents_container">
+<!--{ : }-->
+<div class="title_top">필수 정보 {? mode == 'renew' || mode == 'marketRenew'}수정{ : }등록{ / }</div>
+<div class="contents_container">
+<!--{ / }-->
+	<!-- 페이지 타이틀 바 : 끝 -->
+	<input type="hidden" name="displayMmode" id="displayMmode" value="{displayMmode}"/>
+	<input type="hidden" name="market" id="market" value="{market}" toBeSaved="Y" rquired='Y'/>
+	<input type="hidden" name="seller_id" id="seller_id", value='{seller_id}' toBeSaved="Y" rquired='Y'/>
+	<input type="hidden" name="add_info_seq" id="add_info_seq", value='{add_info_seq}' toBeSaved="Y"/>
+	<input type="hidden" name="fmMarketProduceSeq" id="fmMarketProduceSeq", value='{fmMarketProduceSeq}' toBeSaved="Y"/>	
+		<div class="item-title">템플릿</div>
+		
+		<table class="table_basic tdc">		
+			<!--{? mode != 'marketRenew'}-->
+			<colgroup>
+				<col width="17%" />
+				<col width="*" />				
+			</colgroup>
+			<tr>
+				<th>스마트스토어 ID <span class="required_chk"/></th>
+				<th>필수 정보 타이틀  <span class="required_chk"/></th>
+			</tr>			
+			<tr>
+				<td>{seller_id}</td>
+				<td class="left">
+					<input type="text" name="add_info_title" value="" maxlength="100" class="width-90per" toBeSaved="Y" itemName='필수 정보 타이틀' required/>
+				</td>
+			</tr>
+			</tbody>
+			<!--{ : }-->
+			<colgroup>
+				<col width="33.3%" />
+				<col width="33.3%" />
+				<col width="33.3%" />
+			</colgroup>
+			<input type="hidden" name="mode" value="marketRenew" toBeSaved="Y"/>
+			<input type="hidden" class="_add_info_title" name="add_info_title" value="" toBeSaved="Y"/>			
+			<tr>
+				<th>스마트스토어 ID <span class="required_chk"/></th>
+				<th>마켓 상품코드</th>
+				<th>마켓 상품명</th>
+			</tr>			
+			<tbody>
+			<tr>
+				<td>{seller_id}</td>
+				<td>{marketProductCode}</td>
+				<td>{marketProductName}</td>
+			</tr>
+			</tbody>
+			<!--{ / }-->
+		</table>
+
+		<div class="item-title">카테고리 정보{? mode != 'marketRenew'} - <span class="desc normal">매칭 카테고리 사용시 필수정보의 카테고리값은 무시됩니다</span>{ / }</div>
+		<table class="table_basic">
+			<colgroup>
+				<col width="17%" />
+				<col width="*" />
+				<col width="*" />
+				<col width="*" />
+				<col width="*" />
+			</colgroup>
+			
+			<tr>
+				<th>구분</th>
+				<th>1차 카테고리</th>
+				<th>2차 카테고리</th>
+				<th>3차 카테고리</th>
+				<th>4차 카테고리</th>
+			</tr>
+			
+			<tbody>
+			<!--{? mode != 'marketRenew'}-->
+			<tr>
+				<th class="left">스마트스토어 카테고리</th>
+				<td>
+					<select id="dep1_category_sel" class="width-90per" onChange="getCategory('dep2_category', this.value)"></select>
+				</td>
+				<td>
+					<select id="dep2_category_sel" class="width-90per" onChange="getCategory('dep3_category', this.value)"></select>
+				</td>
+				<td>
+					<select id="dep3_category_sel" class="width-90per" onChange="getCategory('dep4_category', this.value)"></select>
+				</td>
+				<td>
+					<select id="dep4_category_sel" class="width-90per" onChange="sel_category('dep4_category', this.value)"></select>
+				</td>
+			</tr>
+			<!--{ / }-->
+			<tr>
+				<th class="left">선택 카테고리 <span class="required_chk"></span></th>
+				<td>
+					<input type="text" name="dep1_category_name" id="dep1_category_name" value="" class="width-90per" toBeSaved="Y" readonly>
+					<input type="hidden" name="dep1_category_code" id="dep1_category_code" value="" toBeSaved="Y">
+				</td>
+				<td>
+					<input type="text" name="dep2_category_name" id="dep2_category_name" value="" class="width-90per" toBeSaved="Y" readonly>
+					<input type="hidden" name="dep2_category_code" id="dep2_category_code" value="" toBeSaved="Y">
+				</td>
+				<td>
+					<input type="text" name="dep3_category_name" id="dep3_category_name" value="" class="width-90per" toBeSaved="Y" readonly>
+					<input type="hidden" name="dep3_category_code" id="dep3_category_code" value="" toBeSaved="Y">
+				</td>
+				<td>
+					<input type="text" name="dep4_category_name" id="dep4_category_name" value=""  class="width-90per" toBeSaved="Y" readonly>
+					<input type="hidden" name="dep4_category_code" id="dep4_category_code" value="" toBeSaved="Y" saveType="text">
+					<input type="hidden" name="category_code" id="category_code" value="" toBeSaved="Y" saveType="text" itemName="선택 카테고리" required>
+				</td>
+			</tr>
+			<tr>
+				<th class="left">인증정보 <span class="required_chk"></span></th>
+				<td colspan="4">
+					<select id="StorefarmCertification" name="StorefarmCertification" class="width-50per" toBeSaved="Y">
+						<option value="">인증정보를 선택하세요</option>
+					</select><br/>
+					<ul class="bullet_hyphen resp_message v2">
+						<li>실제 인증 값은 상품의 상품의 "추가 정보 > 직접입력"에 "인증번호" 항목으로 정보 값을 입력하여 주시기 바랍니다.(단,  '어린이제품/생활용품/전기용품 공급자적합성' 유형의 경우 정보제외됩니다.)</li>
+					</ul>
+					<input type="hidden" name="StorefarmCertificationText" id="StorefarmCertificationText" value="" toBeSaved="Y" itemName="선택 카테고리">
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
+		<div class="item-title">상품 필수정보</div>
+		<table class="table_basic thl">
+			<colgroup>
+				<col width="17%" />
+				<col width="28%" />
+				<col width="17%" />
+				<col width="38%" />
+			</colgroup>
+			<tbody>
+			<tr>
+				<th>네이버 쇼핑 등록</th>
+				<td colspan="3">
+					<div class="resp_radio">
+						<label><input type="radio" name="KnowledgeShoppingProductRegistration" value="Y" toBeSaved="Y" checked> 등록</label>
+						<label><input type="radio" name="KnowledgeShoppingProductRegistration" value="N" toBeSaved="Y"> 미등록</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>판매기간 <span class="required_chk"/></th>
+				<td colspan="3">
+					시작일 :
+					<select name="saleStartSet" id="saleStartSet" toBeSaved="Y">
+						<option value='TODAY'>즉시판매</option>
+						<option value='SETDATE'>직접입력</option>
+					</select>
+					<input type="text" name="SaleStartDate" id="SaleStartDate" value="" class="saleStartSet datepicker" size="9" toBeSaved="Y" itemName="판매 시작일" readonly disabled> ~
+
+					종료일 :
+					<select name="saleEndSet" id="saleEndSet" toBeSaved="Y">
+						<option value='INFINITE'>영구판매</option>
+						<option value='SETDATE'>직접입력</option>
+					</select>
+					<input type="text" name="SaleEndDate" id="SaleEndDate" value="" class="saleEndSet datepicker" size="9" toBeSaved="Y" itemName="판매 종료일" readonly disabled>
+				</td>
+			</tr>
+			<tr>
+				<th>구매평 노출</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="PurchaseReviewExposure" value="Y" toBeSaved="Y" checked> 노출</label>
+						<label><input type="radio" name="PurchaseReviewExposure" value="N" toBeSaved="Y"> 미노출</label>
+					</div>
+				</td>
+				<th>단골 전용 상품</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="RegularCustomerExclusiveProduct" value="N" toBeSaved="Y" checked> 전체 회원 상품</label>
+						<label><input type="radio" name="RegularCustomerExclusiveProduct" value="Y" toBeSaved="Y"> 단골 회원 상품</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>주문 제작 상품</th>
+				<td colspan="3">
+					<div class="resp_radio">
+						<label><input type="radio" name="CustomMade" value="N" class="variableCheck" toBeSaved="Y" checked> 일반 상품</label>
+						<label><input type="radio" name="CustomMade" value="Y" class="variableCheck" toBeSaved="Y"> 주문 제작</label>
+					</div>
+				</td>
+			</tr>
+			<tr class="CustomMadeTr hide">
+				<th>주문 제작 상품 발송 예정일 <span class="required_chk" /></th>
+				<td colspan="3">
+					<select name="Delivery[ExpectedDeliveryPeriodType]" id="DeliveryExpectedDeliveryPeriodType" class="width-25per CustomMade" toBeSaved="Y" disabled required='required' itemName="발송 예정일">
+						<option value="">일자 선택</option>
+						<option value="TWO">2</option>
+						<option value="THREE">3</option>
+						<option value="FOUR">4</option>
+						<option value="FIVE">5</option>
+						<option value="SIX">6</option>
+						<option value="SEVEN">7</option>
+						<option value="EIGHT">8</option>
+						<option value="NINE">9</option>
+						<option value="TEN">10</option>
+						<option value="ELEVEN">11</option>
+						<option value="TWELVE">12</option>
+						<option value="THIRTEEN">13</option>
+						<option value="FOURTEEN">14</option>
+					</select>
+					일 이내 발송
+				</td>
+			</tr>
+			<tr class="CustomMadeTr hide">
+				<th>반품/취소 제한 안내 여부</th>
+				<td colspan="3">
+					<div class="resp_radio">
+						<label><input type="radio" name="UseReturnCancelNotification" value="Y" class="variableCheck CustomMade" toBeSaved="Y" > 예</label>
+						<label><input type="radio" name="UseReturnCancelNotification" value="N" class="variableCheck CustomMade" toBeSaved="Y" checked> 아니오</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<!--th class="its-th-align left pdl20">상세 레이아웃 타입</th>
+				<td class="its-td">
+					<select name="LayoutType" id="LayoutType" class="width-90per" toBeSaved="Y">
+						<option value="BASIC" selected>베이직형</option>
+						<option value="IMAGE">이미지 집중형</option>
+					</select>
+				</td-->
+				<th>KC 인증</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="KCCertifiedProductExclusion" value="N" toBeSaved="Y"> 인증 대상</label>
+						<label><input type="radio" name="KCCertifiedProductExclusion" value="Y" toBeSaved="Y" checked> 인증 제외</label>
+					</div>
+				</td>
+				<th>어린이 상품 인증</th>
+				<td>
+					<select name="ChildCertifiedProductExclusion" id="ChildCertifiedProductExclusion" class="width-90per" toBeSaved="Y">
+						<option value="">어린이 상품 아님</option>
+						<option value="Y">인증 제외 대상</option>
+						<option value="N">인증 대상</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>옵션 노출 <span class="required_chk"/></th>
+				<td>
+					<select name="SortType" id="SortType" class="width-25per" toBeSaved="Y">
+						<option value="ABC">가나다순</option>
+						<option value="LOPRC">낮은 가격순</option>
+						<option value="HIPRC">높은 가격순</option>
+						<option value="CRE">등록순</option>
+					</select>
+					<div class="resp_message v2">- 옵션이 있는 상품에만 해당</div>
+				</td>
+				<th>친환경 인증</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="GreenCertifiedProductExclusion" value="N" toBeSaved="Y"> 인증 대상</label>
+						<label><input type="radio" name="GreenCertifiedProductExclusion" value="Y" toBeSaved="Y" checked> 인증 제외</label>
+					</div>
+				</td>
+			</tr>							
+			<tr>
+				<th>A/S전화번호 <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="AfterServiceTelephoneNumber" id="AfterServiceTelephoneNumber" class="width-90per" value="" toBeSaved="Y"  itemName="A/S전화번호" required/>
+				</td>
+				<th>A/S안내 <span class="required_chk"/></th>
+				<td colspan="3">
+					<input type="text" name="AfterServiceGuideContent" id="AfterServiceGuideContent" class="width-90per" value="" toBeSaved="Y"  itemName="A/S안내" required/>
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+
+		<div class="item-title">기타 상품 고시정보</div>
+		<table class="table_basic thl">		
+			<tbody>
+			<tr>
+				<th>소비자 사유의<br/>청약 철회 불가 정보  <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="AddSummary[NoRefundReason]" id="AddSummaryNoRefundReason" class="width-90per" value="" toBeSaved="Y" itemName="기타 상품 고시정보" required/><br/>
+					<div class="resp_message v2">- 제품하자가 아닌 소비자의 단순변심, 착오구매에 따른 청약철회 등이 불가능한 경우 그 구체적 사유와 근거</div>
+				</td>
+			</tr>
+			<tr>
+				<th>판매자 사유의<br/> 반품 배송비 정보  <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="AddSummary[ReturnCostReason]" id="AddSummaryReturnCostReason" class="width-90per" value="" toBeSaved="Y" itemName="기타 상품 고시정보" required/><br/>
+					<div class="resp_message v2">- 제품하자․오배송 등에 따른 청약철회 등의 경우 청약철회 등을 할 수 있는 기간 및 통신판매업자가 부담하는 반품비용 등에 관한 정보</div>
+				</td>
+			</tr>
+			<tr>
+				<th>교환 반품 보증 조건 및 <br/>품질 보증 기준  <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="AddSummary[QualityAssuranceStandard]" id="AddSummaryQualityAssuranceStandard" class="width-90per" value="" toBeSaved="Y" itemName="기타 상품 고시정보" required/><br/>
+					<div class="resp_message v2">- 재화 등의 교환·반품·보증 조건 및 품질 보증 기준 </div>
+				</td>
+			</tr>
+			<tr>
+				<th>대금 환불 지연에 따른 <br/>배상 조건 및 절차  <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="AddSummary[CompensationProcedure]" id="AddSummaryCompensationProcedure" class="width-90per" value="" toBeSaved="Y" itemName="기타 상품 고시정보" required/><br/>
+					<div class="resp_message v2">- 대금을 환불받기 위한 방법과 환불이 지연될 경우 지연에 따른 배상금을 지급받을 수 있다는 사실 및 배상금 지급의 구체적 조건 및 절차</div>
+				</td>
+			</tr>
+			<tr>
+				<th>소비자 피해보상 및 <br/>분쟁처리 정보  <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="AddSummary[TroubleShootingContents]" id="AddSummaryTroubleShootingContents" class="width-90per" value="" toBeSaved="Y" itemName="기타 상품 고시정보" required/><br/>
+					<div class="resp_message v2">- 소비자 피해 보상의 처리, 재화 등에 대한 불만 처리 및 소비자와 사업자 사이의 분쟁처리에 관한 사항</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+
+
+		<div class="item-title">배송정보</div>
+		<table class="table_basic thl">
+			<colgroup>
+				<col width="14%" />
+				<col width="21%" />
+				<col width="14%" />
+				<col width="21%" >
+				<col width="14%" />
+				<col width="21%" />
+			</colgroup>
+			<tbody>
+			<tr>
+				<th>출고지 선택 <span class="required_chk"/></th>
+				<td colspan="3">
+					<select name="Delivery[ShippingAddressId]" id="DeliveryShippingAddressId" class="width-95per variableCheck" toBeSaved="Y"></select>
+					<div class="resp_message v2">- 오픈마켓 관리자 > 출고지관리에 등록된 정보를 자동으로 불러와 표시합니다.</div>
+				</td>
+				<th>배송 방법  <span class="required_chk"/></th>
+				<td>
+					<select name="Delivery[Type]" id="DeliveryType" class="width-95per" toBeSaved="Y">
+						<option value="1">택배, 소포, 등기</option>
+						<option value="2">직접 배송(화물 배달)</option>
+					</select>
+					<select name="Delivery[CompanyCode]" id="DeliveryCompanyCode" class="width-95per mt5" toBeSaved="Y">
+						<option value="">택배사 선택</option>
+						<!--{@ deliveryCompanyList}-->
+						<option value="{.key_}">{.company}</option>
+						<!--{/}-->
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>묶음 배송 그룹 <span class="required_chk"/></th>
+				<td><select name="BundleGroupIdSet" id="BundleGroupIdSet" toBeSaved="Y"></select></td>
+				<th>배송비 유형 <span class="required_chk"/></th>
+				<td>
+					<select name="Delivery[FeeType]" id="DeliveryFeeType" toBeSaved="Y">
+						<option value="1">무료</option>
+						<option value="2">조건부 무료</option>
+						<option value="3">유료</option>
+						<!--option value="4">수량별 부과 – 반복 구간</option>
+						<option value="5">수량별 부과 – 구간 직접 설정</option-->
+					</select>
+					<!--
+					수량별 부과 – 반복 구간 수량 : <input type="text" name="Delivery[RepeatQuantity]" id="DeliveryRepeatQuantity" class="width-50per onlynumber"  toBeSaved="Y">
+					수량별 부과 - 구간직접설정 2구간 최소 수량: <input type="text" name="Delivery[SecondBaseQuantity]" id="DeliverySecondBaseQuantity" class="width-50per onlynumber"  toBeSaved="Y">
+					수량별 부과 - 구간직접설정 2구간 추가 배송비: <input type="text" name="Delivery[SecondExtraFee]" id="DeliverySecondExtraFee" class="width-50per onlynumber"  toBeSaved="Y">
+					수량별 부과 - 구간직접설정 3구간 최소 수량: <input type="text" name="Delivery[ThirdBaseQuantity]" id="DeliveryThirdBaseQuantity" class="width-50per onlynumber"  toBeSaved="Y">
+					수량별 부과 - 구간직접설정 3구간 추가 배송비: <input type="text" name="Delivery[SecondThirdExtraFee]" id="DeliveryThirdExtraFee" class="width-50per onlynumber"  toBeSaved="Y">
+					-->
+				</td>
+				<th>배송비 결제 <span class="required_chk"/></th>
+				<td>
+					<select name="Delivery[PayType]" id="DeliveryPayType" class="width-90per" toBeSaved="Y">
+						<option value="3">착불 또는 선결제</option>
+						<option value="1">착불</option>
+						<option value="2">선결제</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>기본 배송비 <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="Delivery[BaseFee]" id="DeliveryBaseFee" class="width-80per onlynumber" itemName="기본 배송비" toBeSaved="Y" disabled required>
+				</td>
+				<th>무료배송 조건금액</th>
+				<td>
+					<input type="text" name="Delivery[FreeConditionalAmount]" id="DeliveryFreeConditionalAmount" class="width-80per onlynumber"  itemName="무료배송 조건금액" toBeSaved="Y" disabled required>
+				</td>
+				<th>별도 설치비</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="Delivery[InstallationFee]" value="N" toBeSaved="Y" checked> 없음</label>
+						<label><input type="radio" name="Delivery[InstallationFee]" value="Y" toBeSaved="Y"> 있음</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>추가배송 권역 <span class="required_chk"/></th>
+				<td>
+					<select name="Delivery[AreaType]" id="DeliveryAreaType" class="width-90per BundleGroupIdSet variableCheckSub" toBeSaved="Y" >
+						<option value="">설정안함</option>
+						<option value="2">2권역 - 내륙/제주 및 도서 산간 지역으로 구분</option>
+						<option value="3">3권역 - 내륙/제주 외 도서 산간 지역으로 구분</option>
+					</select>
+				</td>
+				<th>2권역 배송비</th>
+				<td>
+					<input type="text" name="Delivery[Area2ExtraFee]" id="DeliveryArea2ExtraFee" class="width-80per onlynumber" toBeSaved="Y" disabled>
+				</td>
+				<th>3권역 배송비</th>
+				<td>
+					<input type="text" name="Delivery[Area3ExtraFee]" id="DeliveryArea3ExtraFee" class="width-80per onlynumber" toBeSaved="Y" disabled>
+				</td>
+			</tr>
+			<tr>
+				<th>차등 배송비 정보</th>
+				<td colspan="5"><input type="text" name="Delivery[DifferentialFee]" id="DeliveryDifferentialFee" class="width-90per BundleGroupIdSet"  toBeSaved="Y"></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<div class="item-title">반품정보</div>
+		<table class="table_basic thl">
+			<colgroup>
+				<col width="14%" />
+				<col width="21%" />
+				<col width="14%" />
+				<col width="21%" >
+				<col width="15%" />
+				<col width="21%" />
+			</colgroup>
+			<tbody>
+			<tr>
+				<th>반품/교환지 <span class="required_chk"/></th>
+				<td colspan="3">
+					<select name="Delivery[ReturnAddressId]" id="DeliveryReturnAddressId"  class="width-95per" toBeSaved="Y"></select>
+					<div class="resp_message v2">- 오픈마켓 관리자 > 반품지관리에 등록된 정보를 자동으로 불러와 표시합니다.</div>
+				</td>
+				<th>반품/교환 택배사  <span class="required_chk"/></th>
+				<td>
+					<select name="Delivery[ReturnDeliveryCompanyPriority]" id="ReturnDeliveryCompanyPriority" toBeSaved="Y"></select>
+				</td>
+			</tr>
+			<tr>
+				<th>반품 배송비 <span class="required_chk"/></th>
+				<td>
+					<input type="text" name="Delivery[ReturnFee]" id="DeliverReturnFee" class="onlynumber" itemName="반품 배송비" toBeSaved="Y" required>
+				</td>
+				<th>교환 배송비 <span class="required_chk"/></th>
+				<td colspan="3">
+					<input type="text" name="Delivery[ExchangeFee]" id="DeliverExchangeFee" class="onlynumber" itemName="교환 배송비"  toBeSaved="Y" required>
+				</td>
+				
+			</tr>
+			</tbody>
+		</table>
+		
+		<!--{? displayMmode != 'popup'}-->		
+		<div class="footer">
+			<button onClick="addInfoSave();" id="addInfoActionBtn" class="resp_btn active size_XL"></button>
+			<button onclick="moveMenu('./market_setting?market={market}&sellerId={seller_id}&pageMode=AddInfoListSet')" class="resp_btn v3 size_XL">취소</button>
+		</div>
+		<!--{ / }-->
+	
+</div>
+
+{? displayMmode == 'popup'}{ #layout_footer }{ / }

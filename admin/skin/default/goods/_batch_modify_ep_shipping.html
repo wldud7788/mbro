@@ -1,0 +1,188 @@
+<table class="table_row_basic">
+	<colgroup>
+		<col width="40" /><!--체크-->
+		{ ? serviceLimit('H_AD') }<col width="100" /><!--입점사-->{ / }
+		<col width="63" /><!--상품이미지-->
+		<col /><!--상품명-->
+		<col style="width:150px" /><!--전달여부-->
+		<col style="width:300px" />
+		<col style="width:310px"/><!--전달 검색어 / 이벤트-->
+		<col style="width:250px"/><!--전달 배송비-->
+	</colgroup>
+	<thead class="lth">
+		<tr>
+			<th><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+			{ ? serviceLimit('H_AD') }<th>입점사</th>{ / }
+			<th colspan="2">상품명</th>
+			<th>상품 정보 전달</th>
+			<th>검색어</th>
+			<th>노출 이벤트명/이벤트 기간</th>
+			<th>노출 배송비</th>
+		</tr>
+		<tr>
+			<th></th>
+			{ ? serviceLimit('H_AD') }<th></th>{ / }
+			<th colspan="2"></th>
+			<th>
+				<select name="all_feed_status" class="all_feed_status_value" apply_target="feed_status">
+					<option value="Y">예</option>
+					<option value="N">아니오</option>
+				</select>
+				<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type="all_feed_status">▼</button></span>
+			</th>
+			<th class="center">
+				<input type="text" size="35" class="all_openmarket_keyword_value resp_text" name="all_openmarket_keyword" apply_target="openmarket_keyword" />
+				<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type="all_openmarket_keyword">▼</button></span>
+			</th>
+			<th class="center">
+				<div>
+					<input type="text" size="40" class="all_feed_evt_text_value" name="all_feed_evt_text" apply_target="feed_evt_text" />
+				</div>
+				<div class="mt5">
+					<input type="text" size="3" readonly class="all_feed_evt_text_value datepicker" name="all_feed_evt_sdate" apply_target="feed_evt_sdate" />
+					- 
+					<input type="text" size="3" readonly class="all_feed_evt_text_value datepicker" name="all_feed_evt_edate" apply_target="feed_evt_edate" />
+					<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type="all_feed_evt_text">▼</button></span>
+				</div>
+			</th>
+			<th class="left feed-ship-lay">
+				<div class="left mb5 ml10">
+					<select class="all_feed_ship_type_value" name="all_feed_ship_type" apply_target="feed_ship_type" onchange="feed_ship_chk(this);">
+						<option value="G">설정된 배송비</option>
+						<option value="S">통합설정</option>
+						<option value="E">개별설정</option>
+					</select> 
+					<span class="btn small gray"><button type="button" class="applyAllBtn resp_btn v2 arrow" apply_type="all_feed_ship_type" done_function="chgFeedShipForm">▼</button></span>
+				</div>
+				<div class="fst-lay left feed_ship_type_G hide">
+					상품에 연결된 배송그룹의 기본 배송방법을 <br/>
+					기준으로 전달될 배송비 정보를 자동 추출합니다.
+				</div>
+				<div class="fst-lay left feed_ship_type_S hide ml10">
+					<span class="ep_std_area">
+						기본 배송비 : 
+						{ ? common_epship.std == '0' }무료
+						{ : common_epship.std == '-1' }착불
+						{ : }{ common_epship.std }{ / }
+					</span>
+					{ ? common_epship.add }
+					<br/><span class="ep_add_area">추가 배송비 : { common_epship.add }</span>
+					{ / }
+					<br/>
+					마케팅 > <a href="javascript:goSetLink('../marketing/marketplace_url');" class="setlink" onfocus="this.blur();"><span class="underline black">입점마케팅 설정</span></a>
+				</div>
+				<div class="fst-lay left feed_ship_type_E hide ml10">
+					<select class="all_feed_pay_type" name="feed_pay_type" onchange="ep_market_set(this);">
+						<option value="free">무료</option>
+						<option value="fixed">유료</option>
+						<option value="postpay">착불</option>
+					</select>
+					<span class="feed_std_fixed_span hide">
+						<input type="text" name="feed_std_fixed" class="feed_std_fixed all_feed_ship_type_value onlynumber right" size="5" apply_target="feed_std_fixed" disabled /> { ? config_system['basic_currency'] == "KRW"} 원 {:} {=config_system['basic_currency']} { / }
+					</span>
+					<span class="feed_std_postpay_span hide">
+						<input type="text" name="feed_std_postpay" class="feed_std_postpay all_feed_ship_type_value onlynumber right" size="5" apply_target="feed_std_postpay" disabled /> { ? config_system['basic_currency'] == "KRW"} 원 {:} {=config_system['basic_currency']} { / }
+					</span>
+					<br/>
+					<div class="feed_add_txt_span resp_limit_text limitTextEvent mt5" style="background-color: #ffffff;">
+						<input type="text" name="feed_add_txt" class="feed_add_txt all_feed_ship_type_value resp_text" style="padding:7px !important" apply_target="feed_add_txt" maxlength="50" size="20" title="예) 도서산간 5천원 추가" />
+					</div>
+				</div>
+			</th>
+		</tr>
+	</thead>
+	<!--{? loop }-->
+	<tbody class="ltb goods_list">
+		<!--{@ loop }-->
+		<tr class="list-row" goods_seq="{.goods_seq}">
+			<td class="center">
+				<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+			</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<td class="{.provider_bg} center">{.provider_name}</td>
+			<!--{ / }-->
+			<td class="center">
+				<a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" style="width:50px"></a>
+			</td>
+			<td class="left" style="padding-left:10px;">
+				{=showBatchGoodsData(.value_)}
+			</td>
+			<td class="center ">
+				<select name="feed_status[{.goods_seq}]" class="center feed_status chk_feed_status">
+					<option value="Y">예</option>
+					<option value="N" {?.feed_status == "N"}selected{ / }>아니오</option>
+				</select>
+			</td>
+			<td class="center">
+				<input type="text" size="35" name="openmarket_keyword[{.goods_seq}]" class="openmarket_keyword resp_text" value="{.openmarket_keyword}" />
+			</td>
+			<td class="center">
+				<div>
+					<input type="text" size="40" name="feed_evt_text[{.goods_seq}]" class="feed_evt_text" value="{.feed_evt_text}" />
+				</div>
+				<div class="mt5">
+					<input type="text" size="10" readonly class="feed_evt_sdate datepicker" name="feed_evt_sdate[{.goods_seq}]" value="{.feed_evt_sdate}" />
+					- 
+					<input type="text" size="10" readonly class="feed_evt_edate datepicker" name="feed_evt_edate[{.goods_seq}]" value="{.feed_evt_edate}" />
+				</div>
+			</td>
+			<td class="left feed-ship-lay">
+				<select class="feed_ship_type ml5" name="feed_ship_type[{.goods_seq}]" onchange="feed_ship_chk(this,'summary');">
+					<option value="G" {? .feed_ship_type == 'G' }selected{ / }>설정된 배송비</option>
+					<option value="S" {? .feed_ship_type == 'S' }selected{ / }>통합설정</option>
+					<option value="E" {? .feed_ship_type == 'E' }selected{ / }>개별설정</option>
+				</select> 
+				<div class="fst-lay left ml5 feed_ship_type_G hide">
+					상품에 연결된 배송그룹의 기본 배송방법을 <br/>
+					기준으로 전달될 배송비 정보를 자동 추출합니다.
+				</div>
+				<div class="fst-lay left ml5 feed_ship_type_S hide">
+					<span class="ep_std_area">
+						기본 배송비 : 
+						{ ? common_epship.std == '0' }무료
+						{ : common_epship.std == '-1' }착불
+						{ : }{ common_epship.std }{ / }
+					</span>
+					{ ? common_epship.add }
+					<br/><span class="ep_add_area">추가 배송비 : { common_epship.add }</span>
+					{ / }
+					<br/>
+					마케팅 > <a href="javascript:goSetLink('../marketing/marketplace_url');" class="setlink" onfocus="this.blur();"><span class="highlight-link hand">입점마케팅 설정</span></a>
+				</div>
+				<div class="fst-lay left feed_ship_type_E ml5 mt5 {? .feed_ship_type != 'E'}hide{ / }">
+					<select name="feed_pay_type[{.goods_seq}]" class="feed_pay_type" onchange="ep_market_set(this);">
+						<option value="free" {? .feed_pay_type == 'free'}selected{/}>무료</option>
+						<option value="fixed" {? .feed_pay_type == 'fixed'}selected{/}>유료</option>
+						<option value="postpay" {? .feed_pay_type == 'postpay'}selected{/}>착불</option>
+					</select>
+					<span class="feed_std_fixed_span {? .feed_pay_type != 'fixed'}hide{/}">
+						<input type="text" name="feed_std_fixed[{.goods_seq}]" class="feed_std_fixed onlynumber right" size="5" apply_target="feed_std_fixed" value="{.feed_std_fixed}" /> { ? config_system['basic_currency'] == "KRW"} 원 {:} {=config_system['basic_currency']} { / }
+					</span>
+					<span class="feed_std_postpay_span {? .feed_pay_type != 'postpay'}hide{/}">
+						<input type="text" name="feed_std_postpay[{.goods_seq}]" class="feed_std_postpay onlynumber right" size="5" apply_target="feed_std_postpay" value="{.feed_std_postpay}" /> { ? config_system['basic_currency'] == "KRW"} 원 {:} {=config_system['basic_currency']} { / }
+					</span>
+					<div class="feed_add_txt_span {? .feed_pay_type == 'postpay'}hide{/}">
+						<div class="resp_limit_text limitTextEvent mt5">
+							<input type="text" name="feed_add_txt[{.goods_seq}]" class="feed_add_txt resp_text" apply_target="feed_add_txt" maxlength="50" size="20" title="예) 도서산간 5천원 추가" value="{.feed_add_txt}" />
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+	<!--{ : }-->
+	<tbody class="ltb goods_list">
+		<tr class="list-row">
+			<td align="center" colspan="8">
+				<!--{ ? search_text }-->
+					'{search_text}' 검색된 상품이 없습니다.
+				<!--{:}-->
+					등록된 상품이 없습니다.
+				<!--{/}-->
+			</td>
+		</tr>
+	</tbody>
+	<!--{ / }-->
+</table>
+<!-- 주문리스트 테이블 : 끝 -->

@@ -1,0 +1,111 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#kakaotalk_charge').on('click', function (){
+			$.get('kakaotalk_payment', function(data) {
+				$('#kakaotalkPopup').html(data);
+				openDialog("SMS/카카오 알림톡 충전 <span class='desc'>&nbsp;</span>", "kakaotalkPopup", {"width":"1200","height":"800"});
+			});
+		});
+	});
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>카카오 알림톡 발송</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+{#top_menu}
+
+<div class="contents_dvs">
+	<!-- 서브 레이아웃 영역 : 시작 -->
+	<!-- 알림톡충전 영역 :: START -->
+	<div class="item-title">알림톡 현황</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>현황</th>
+			<td>알림톡 : {=number_format(kakaotalk_count)} 건 / SMS : {=number_format(sms_count)} 건</td>
+		</tr>	
+		
+		<tr>
+			<th>알림톡 충전</th>
+			<td>
+				<!--{ ? kakaotalk_config.authKey }-->
+				<button type="button" id="kakaotalk_charge" class="resp_btn active">충전</button>
+				<!--{ : }-->
+				<button type="button" onclick="alert('먼저 알림톡을 신청 후 충전 해 주세요.');" class="resp_btn active">충전</button>
+				<!--{ / }-->
+			</td>
+		</tr>	
+	</table>	
+	<!-- 알림톡충전 영역 :: END -->
+</div>
+<div class="contents_dvs v3">
+	<!-- 알림톡충전내역 영역 :: START -->
+	<div class="title_dvs">
+		<div class="item-title">충전 내역</div>
+		<div class="resp_btn_dvs">
+			<form name="srcFrm" id="srcFrm" action="./kakaotalk_charge" target="_self">
+				<select name="src_year">
+				<!--{ @ range(date('Y'), date('Y',strtotime("-4 year"))) }-->
+					<option value="{.value_}" {?_GET.src_year == .value_}selected{/}>{.value_}년</option>
+				<!--{ / }-->
+				</select>
+				<button type="button" onclick="submit();" class="resp_btn active">검색</button>
+			</form>
+		</div>
+	</div>
+
+	<table class="table_row_basic">
+		<colgroup>
+			<col width="5%"/>
+			<col width="10%"/>
+			<col width="15%"/>
+			<col width="15%"/>
+			<col width="15%"/>
+			<col width="40%"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>가격(1건)</th>
+			<th>결제 가격</th>
+			<th>충전 건수</th>
+			<th>결제 일자</th>
+			<th>충전 내용</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--{ ? log_list }-->
+			<!--{ @ log_list }-->
+		<tr>
+			<td>{=(count(log_list) - .key_)}</td>
+			<td>{=round(.charge_price/.charge_cnt, 2)} 원</td>
+			<td>{=number_format(.charge_price)} 원</td>
+			<td>{=number_format(.charge_cnt)} 건</td>
+			<td>{=.regist_date}</td>
+			<td>{=.log_desc}</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ : }-->
+		<tr>
+			<td colspan="6">검색된 내역이 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+</div>
+	<!-- 알림톡충전내역 영역 :: END -->
+
+	<!-- 서브 레이아웃 영역 : 끝 -->
+
+	<div id="kakaotalkPopup" class="hide"></div>
+
+{ #layout_footer }

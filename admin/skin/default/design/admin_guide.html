@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>어드민 디자인 가이드</title>
+	<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/style.css?v={=date('Ymd')}" />
+	<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common.css?v={=date('Ymd')}" />
+	<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/layout.css?v={=date('Ymd')}" />
+	<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common-ui.css?v={=date('Ymd')}" />
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js?v={=date('Ym')}"></script>
+	<script type="text/javascript" src="/app/javascript/js/admin-common-ui.js?v={=date('Ym')}"></script>	
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.tablednd.js?v={=date('Ym')}"></script>
+	<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+	
+	<style>
+		h3 {display: inline-block; font-size: 20px; font-weight: 600; letter-spacing: -0.5px; line-height: 1.2; margin:20px 0 10px; color:#195592; width: calc(100% - 20px); background: #f9f9f9; padding: 10px; cursor: pointer;}
+		.content .ex_con  h4 {background: none; padding-left: 0; line-height: 2.5; color: #0f4897; font-size: 15px; position: relative;}
+		.warp {margin:20px;}
+		.source_code {padding:0px 14px 5px; margin:0; background: #444; color: #ccc; border-radius: 2px; font: 12px/1.2 verdana;}
+		.source_code.v2{display:inline-block; padding:0 10px;}
+		.content .ex_con {margin:10px 0;}		
+		.content .sub_con > li{margin:10px 0; display:block;}		
+		.accordionEvent .content{padding:0 20px; display:none;}
+		.wp20 {width:20px; display:inline-block; height: 40px; vertical-align: middle;}
+		.wp200 {width:200px; display:inline-block; height: 60px; vertical-align: middle;}
+		.tip_wrap {border: 1px solid #b9b9b9; padding: 10px;}
+	</style>
+
+	<script>
+		$(function(){
+			addAccordionEvent();
+		})
+	</script>
+
+</head>
+<body>
+	<div class="warp">
+		<ul class="accordionEvent">
+			<li>
+				<h3>0.Title</h3>				
+				
+				<div class="content">
+					<div class="ex_con">
+						<div class="item-title">타이틀</div>
+						<XMP class="source_code mt20">
+<div class="item-title">타이틀</div>
+							</XMP>	
+					</div>
+				</div>
+			</li>
+					
+			<li>
+				<h3>1.Table</h3>				
+				
+				<div class="content">
+					<ul class="sub_con">
+						<li>							
+							<div class="ex_con">	
+								<h4>[ 가로 기본형 ]</h4>
+								<table class="table_basic thl">		
+									<tr>
+										<th>구분</th>
+										<td></td>
+									</tr>								
+								</table>
+							</div>
+							<XMP class="source_code">
+<table class="table_basic thl">		
+	<tr>
+		<th>구분</th>
+		<td></td>
+	</tr>								
+</table>
+							</XMP>											
+						</li>
+
+						<li>							
+							<div class="ex_con">	
+								<h4>[ 가로 이중형 ]</h4>
+								<table class="table_basic thl">		
+									<tr>
+										<th>구분</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>구분</th>
+										<td class="clear">
+											<table class="table_basic thl v3">									
+												<tbody>
+													<tr>
+														<th>구분</th>								
+														<td></td>
+													</tr>							
+													<tr>
+														<th>구분</th>
+														<td>														
+														</td>
+													</tr>							
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<XMP class="source_code">
+<table class="table_basic thl">		
+	<tr>
+		<th>구분</th>
+		<td></td>
+	</tr>
+	<tr>
+		<th>구분</th>
+		<td class="clear">
+			<table class="table_basic thl v3">									
+				<tbody>
+					<tr>
+						<th>구분</th>								
+						<td></td>
+					</tr>										
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+							</XMP>											
+						</li>
+
+						<li>							
+							<div class="ex_con">
+								<h4>[ 세로 기본형 ]</h4>
+								<table class="table_basic">					
+									<colgroup>
+										<col width="25%" />					
+										<col width="25%" />
+										<col width="25%" />
+										<col width="25%" />
+									</colgroup>									
+									<tr>
+										<th>구분</th>
+										<th>구분</th>
+										<th>구분</th>
+										<th>구분</th>
+									</tr>						
+									<tr>						
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>								
+								</table>
+							</div>
+
+							<XMP class="source_code">
+<table class="table_basic">					
+	<colgroup>
+		<col width="100%" />
+	</colgroup>
+	<tr>
+		<th>구분</th>
+		<th>구분</th>
+		<th>구분</th>
+		<th>구분</th>
+	</tr>						
+	<tr>						
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>	
+</table>
+							</XMP>
+						</li>
+
+						<li>
+							<div class="ex_con">
+							<h4>[ drag&drop ]</h4>
+							<table class="tablednd table_basic">
+								<colgroup>
+									<col width="10%" />					
+									<col width="80%" />
+									<col width="10%" />
+								</colgroup>
+								<thead>
+									<tr class="nodrag nodrop">
+										<th>순서</th>
+										<th>선택</th>		
+										<th><button type="button" class="btn_plus"></button></th>	
+									</tr>
+								</thead>					
+								<tbody>
+									<tr>
+										<td class="center"><img src="/admin/skin/default/images/common/icon_move.png"></td>
+										<td>내용1</td>
+										<td class="center"><button type="button" class="btn_minus"></button></td>
+									</tr>
+									<tr>
+										<td class="center"><img src="/admin/skin/default/images/common/icon_move.png"></td>
+										<td>내용2</td>
+										<td class="center"><button type="button" class="btn_minus"></button></td>
+									</tr>
+									<tr>
+										<td class="center"><img src="/admin/skin/default/images/common/icon_move.png"></td>
+										<td>내용3</td>
+										<td class="center"><button type="button" class="btn_minus"></button></td>
+									</tr>
+
+								</tbody>
+							</table>
+
+							<script>
+							$(".tablednd").tableDnD({onDragClass: "dragRow"});
+							</script>
+
+							<XMP class="source_code mt10">
+<table class="tablednd table_basic">
+	<colgroup>
+		<col width="10%" />					
+		<col width="80%" />
+		<col width="10%" />
+	</colgroup>
+	<thead>
+		<tr class="nodrag nodrop">
+			<th>순서</th>
+			<th>선택</th>		
+			<th><button type="button" class="btn_plus"></button></th>	
+		</tr>
+	</thead>					
+	<tbody>
+		<tr>
+			<td class="center"><img src="/admin/skin/default/images/common/icon_move.png"></td>
+			<td>내용</td>
+			<td class="center"><button type="button" class="btn_minus"></button></td>
+		</tr>
+	</tbody>
+</table>
+
+<script>
+$(".tablednd").tableDnD({onDragClass: "dragRow"});
+</script>
+							</XMP>
+
+							</div>
+						</li>
+
+						<li>							
+							<div class="ex_con">	
+								<h4>[ new 가로형 ]</h4>
+								
+								<div class="contents_container">
+									<div class="list_info_container">
+										<div class="dvs_left">	
+											검색 <b>3</b>개 (총 <b>10</b>개)
+										</div>
+										<div class="dvs_right">	
+											<select name="orderby" onchange="list_src_form_submit();">
+												<option value="asc_regist_date" {?_GET['orderby']=='asc_regist_date'}selected{/}>등록일↑</option>
+												<option value="desc_regist_date" {?_GET['orderby']=='desc_regist_date'}selected{/}>등록일↓</option>
+												<option value="asc_modify_date" {?_GET['orderby']=='asc_modify_date'}selected{/}>수정일↑</option>
+												<option value="desc_modify_date" {?_GET['orderby']=='desc_modify_date'}selected{/}>수정일↓</option>
+												<option value="asc_trader_name" {?_GET['orderby']=='asc_trader_name'}selected{/}>저래처명↑</option>
+												<option value="desc_trader_name" {?_GET['orderby']=='desc_trader_name'}selected{/}>거래처명↓</option>
+											</select>
+											<select name="perpage" onchange="list_src_form_submit();">
+												<option id="dp_qty10" value="10" {? _GET['perpage'] == 10 } selected{/} >10개씩</option>
+												<option id="dp_qty50" value="50" {? _GET['perpage'] == 50 } selected{/} >50개씩</option>
+												<option id="dp_qty100" value="100" {? _GET['perpage'] == 100 } selected{/} >100개씩</option>
+												<option id="dp_qty200" value="200" {? _GET['perpage'] == 200 } selected{/} >200개씩</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="table_row_frame">	
+										<div class="dvs_top">	
+											<div class="dvs_left">	
+												<button type="button" onclick="deleteSubmit();" class="resp_btn v3">선택 삭제</button>
+											</div>
+											<div class="dvs_right">	
+												<button type="button" id="excelDownloadBtn" class="resp_btn"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /> 다운로드</button>	
+											</div>
+										</div>
+										
+										<table class="table_row_basic">		
+											<colgroup>
+												<col width="33.3%" />
+												<col width="33.3%" />
+												<col width="33.3%" />		
+											</colgroup>
+											
+											<thead>
+												<tr>
+													<th>번호</th>
+													<th>이벤트명</th>
+													<th>출석 방법</th>				
+												</tr>
+											</thead>		
+											<tbody>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											<tbody>
+										</table>
+
+										<div class="dvs_bottom">	
+											<div class="dvs_left">	
+												<button type="button" onclick="deleteSubmit();" class="resp_btn v3">선택 삭제</button>
+											</div>
+											<div class="dvs_right">	
+												<button type="button" id="excelDownloadBtn" class="resp_btn"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /> 다운로드</button>	
+											</div>
+										</div>									
+									</div>
+								</div>
+								<XMP class="source_code mt10">
+<div class="contents_container">
+	<div class="list_info_container">
+		<div class="dvs_left">	
+			검색 <b>3</b>개 (총 <b>10</b>개)
+		</div>
+		<div class="dvs_right">	
+			<select name="orderby" onchange="list_src_form_submit();">
+				<option value="asc_regist_date" {?_GET['orderby']=='asc_regist_date'}selected{/}>등록일↑</option>
+				<option value="desc_regist_date" {?_GET['orderby']=='desc_regist_date'}selected{/}>등록일↓</option>
+				<option value="asc_modify_date" {?_GET['orderby']=='asc_modify_date'}selected{/}>수정일↑</option>
+				<option value="desc_modify_date" {?_GET['orderby']=='desc_modify_date'}selected{/}>수정일↓</option>
+				<option value="asc_trader_name" {?_GET['orderby']=='asc_trader_name'}selected{/}>저래처명↑</option>
+				<option value="desc_trader_name" {?_GET['orderby']=='desc_trader_name'}selected{/}>거래처명↓</option>
+			</select>
+			<select name="perpage" onchange="list_src_form_submit();">
+				<option id="dp_qty10" value="10" {? _GET['perpage'] == 10 } selected{/} >10개씩</option>
+				<option id="dp_qty50" value="50" {? _GET['perpage'] == 50 } selected{/} >50개씩</option>
+				<option id="dp_qty100" value="100" {? _GET['perpage'] == 100 } selected{/} >100개씩</option>
+				<option id="dp_qty200" value="200" {? _GET['perpage'] == 200 } selected{/} >200개씩</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="table_row_frame">	
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" onclick="deleteSubmit();" class="resp_btn v3">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+				<button type="button" id="excelDownloadBtn" class="resp_btn"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /> 다운로드</button>	
+			</div>
+		</div>
+		
+		<table class="table_row_basic">		
+			<colgroup>
+				<col width="33.3%" />
+				<col width="33.3%" />
+				<col width="33.3%" />		
+			</colgroup>
+			
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>이벤트명</th>
+					<th>출석 방법</th>				
+				</tr>
+			</thead>		
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			<tbody>
+		</table>
+
+		<div class="dvs_bottom">	
+			<div class="dvs_left">	
+				<button type="button" onclick="deleteSubmit();" class="resp_btn v3">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+				<button type="button" id="excelDownloadBtn" class="resp_btn"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /> 다운로드</button>	
+			</div>
+		</div>
+	</div>
+</div>
+								</XMP>								
+							</div>
+						</li>
+
+						<li>							
+							<div class="ex_con">	
+								<h4>[ 검색 기본형 ]</h4>
+								
+								<div id="search_container" class="search_container">
+									<form name="" class='search_form' >						
+									<table class="table_search">
+										<tr>
+											<th>검색어</th>
+											<td>
+												<select name="searchType" >
+													<option value="all">전체</option>		
+													<option value="id">아이디</option>			
+													<option value="code">거래처 코드</option>
+													
+												</select>
+												<input type="text" name="keyword" value="" title="" size="80"/>
+											</td>
+										</tr>
+										<tr>
+											<th>체크박스</th>
+											<td>
+												<div class="resp_checkbox">
+													<label><input type="checkbox" name="favorite_chk[]" value="all" class="chkall" {? !isset(sc.favorite_chk)  || in_array('all',sc.favorite_chk)}checked{/}> 전체</label>
+													<label><input type="checkbox" name="favorite_chk[]" value="y" {? !isset(sc.favorite_chk)  || in_array('y',sc.favorite_chk)}checked{/}> 체크</label>
+													<label><input type="checkbox" name="favorite_chk[]" value="n" {? !isset(sc.favorite_chk)  || in_array('n',sc.favorite_chk)}checked{/}> 미체크</label>
+												</div>
+											</td>
+										</tr>
+									</table>
+									<div class="search_btn_lay"></div>
+									</form>
+								</div>
+								<XMP class="source_code mt10">
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+
+<script type="text/javascript">
+	$(function(){
+		gSearchForm.init({'pageid':'trader','search_mode':'{=sc.search_mode}','select_date':'{=sc.select_date}'});
+	});
+</script>
+
+<div id="search_container" class="search_container">
+	<form name="" class='search_form' >						
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td>
+				<select name="searchType" >
+					<option value="all">전체</option>		
+					<option value="id">아이디</option>			
+					<option value="code">거래처 코드</option>
+					
+				</select>
+				<input type="text" name="keyword" value="{_GET.keyword}" title="" size="80"/>
+			</td>
+		</tr>
+		<tr>
+			<th>체크박스</th>
+			<td>
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="favorite_chk[]" value="all" class="chkall" {? !isset(sc.favorite_chk)  || in_array('all',sc.favorite_chk)}checked{/}> 전체</label>
+					<label><input type="checkbox" name="favorite_chk[]" value="y" {? !isset(sc.favorite_chk)  || in_array('y',sc.favorite_chk)}checked{/}> 체크</label>
+					<label><input type="checkbox" name="favorite_chk[]" value="n" {? !isset(sc.favorite_chk)  || in_array('n',sc.favorite_chk)}checked{/}> 미체크</label>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div class="search_btn_lay"></div>
+	</form>
+</div>
+								</XMP>								
+							</div>
+						</li>
+					</ul>											
+				</div>
+			</li>
+
+			<li>
+				<h3>2.Button & Link</h3>
+
+				<div class="content">
+					<ul class="sub_con">
+						<li>
+							<div class="ex_con">
+							<h4>[ 디자인 ]</h4>						
+							<div class="mt15 mb5">- active -</div>
+							<button type="button" class="resp_btn active size_S" >진회색</button>
+							<button type="button" class="resp_btn active">진회색</button>
+							<button type="button" class="resp_btn active size_L">진회색</button>
+							<button type="button" class="resp_btn active size_XL">진회색</button>							
+							<div class="mt5"/>
+							<button type="button" class="resp_btn active2 size_S">파랑색</button>
+							<button type="button" class="resp_btn active2">파랑색</button>
+							<button type="button" class="resp_btn active2 size_L">파랑색</button>
+							<button type="button" class="resp_btn active2 size_XL">파랑색</button>	
+							<div class="mt5"/>
+							<button type="button" class="resp_btn active3 size_S">주황색</button>
+							<button type="button" class="resp_btn active3">주황색</button>
+							<button type="button" class="resp_btn active3 size_L">주황색</button>
+							<button type="button" class="resp_btn active3 size_XL">주황색</button>	
+
+							<div class="mt15 mb5">- normal -</div>
+							<button type="button" class="resp_btn size_S">기본형</button>
+							<button type="button" class="resp_btn">기본형</button>
+							<button type="button" class="resp_btn size_L">기본형</button>
+							<button type="button" class="resp_btn size_XL">기본형</button>
+							<div class="mt5"/>
+							<button type="button" class="resp_btn v2 size_S">회색</button>
+							<button type="button" class="resp_btn v2">회색</button>
+							<button type="button" class="resp_btn v2 size_L">회색</button>
+							<button type="button" class="resp_btn v2 size_XL">회색</button>
+							<div class="mt5"/>
+							<button type="button" class="resp_btn v3 size_S">흰색</button>
+							<button type="button" class="resp_btn v3">흰색</button>
+							<button type="button" class="resp_btn v3 size_L">흰색</button>
+							<button type="button" class="resp_btn v3 size_XL">흰색</button>
+							<div class="mt5"/>							
+							<label class="resp_btn v2"><input type="file" name="" id=""/>파일선택</label>						
+
+							<div class="mt15 mb5">- etc -</div>
+							<button type="button" class="btn_plus"></button>
+							<button type="button" class="btn_minus"></button>
+							<a href="https://www.firstmall.kr/customer/faq/10" class="resp_btn_txt" target="_blank">텍스트 링크</a>	
+							
+							
+							<XMP class="source_code mt10">
+<button type="button" class="resp_btn active2 size_S">파랑색</button>
+<button type="button" class="resp_btn active2">파랑색</button>
+<button type="button" class="resp_btn active2 size_L">파랑색</button>
+<button type="button" class="resp_btn active2 size_XL">파랑색</button>
+
+<button type="button" class="resp_btn active3 size_S">주황색</button>
+<button type="button" class="resp_btn active3">주황색</button>
+<button type="button" class="resp_btn active3 size_L">주황색</button>
+<button type="button" class="resp_btn active3 size_XL">주황색</button>	
+
+<button type="button" class="resp_btn active size_S" >진회색</button>
+<button type="button" class="resp_btn active">진회색</button>
+<button type="button" class="resp_btn active size_L">진회색</button>
+<button type="button" class="resp_btn active size_XL">진회색</button>	
+
+<button type="button" class="resp_btn size_S">기본형</button>
+<button type="button" class="resp_btn">기본형</button>
+<button type="button" class="resp_btn size_L">기본형</button>
+<button type="button" class="resp_btn size_XL">기본형</button>
+
+<button type="button" class="resp_btn v2 size_S">회색</button>
+<button type="button" class="resp_btn v2">회색</button>
+<button type="button" class="resp_btn v2 size_L">회색</button>
+<button type="button" class="resp_btn v2 size_XL">회색</button>
+
+<button type="button" class="resp_btn v3 size_S">흰색</button>
+<button type="button" class="resp_btn v3">흰색</button>
+<button type="button" class="resp_btn v3 size_L">흰색</button>
+<button type="button" class="resp_btn v2 size_XL">흰색</button>
+
+<label class="resp_btn v2"><input type="file" name="" id=""/>파일선택</label>	
+
+<button type="button" class="btn_plus"></button>
+<button type="button" class="btn_minus"></button>
+<a href="https://www.firstmall.kr/customer/faq/10" class="resp_btn_txt" target="_blank">텍스트 링크</a>	
+
+							</XMP>
+							<ul class="bullet_hyphen mt10">
+								<li>기본 클래스명 : resp_btn</li>	
+								<li>디자인별 클래스명 : v2, v3, v4, v5</li>
+								<li>사이즈별 클래스명 : sizeL</li>											
+							</ul>						
+							
+							<h4>[ 토글 ]</h4>
+
+							<div class="resp_toggle">
+								<label><input type="radio" name="issue_stop" value="1"/>토글 OFF</label>
+								<label><input type="radio" name="issue_stop" value="0"/>토글 ON</label>
+							</div>
+							<script>
+								//addToggleBtn($('input:radio[name=issue_stop]'), "0" );	
+							</script>
+
+							<XMP class="source_code mt10">
+<div class="resp_toggle">
+	<label><input type="radio" name="issue_stop" value="1"/>토글 OFF</label>
+	<label><input type="radio" name="issue_stop" value="0"/>토글 ON</label>
+</div>
+<script>
+	addToggleBtn($('input:radio[name=issue_stop]'), "0" );	
+</script>
+							</XMP>
+
+							<ul class="bullet_hyphen mt10">
+								<li>js 위치 : app/javascript/js/admin-common-ui.js</li>	
+								<li></li>																		
+							</ul>							
+
+							<h4>[ 코드복사 ]</h4>
+
+							<button type="button" class="btn_resp" onclick="clipboard_copy(this)" code="/||/{=confirmLicenseLink('[사업자정보확인]')/||/}">코드복사</button>
+
+							<XMP class="source_code mt10">
+<button type="button" class="btn_resp" onclick="clipboard_copy(this)" code="/||/{=confirmLicenseLink('[사업자정보확인]')/||/}">코드복사</button>
+							</XMP>
+
+							<ul class="bullet_hyphen mt10">
+								<li>js 위치 : app/javascript/js/common-function.js</li>	
+								<li>clipboard_copy(this)</li>
+								<li>code : 치환코드를 복사할 경우 치환코드 값이 풀려 저장되어 특수 텍스트(/||/)를 추가한 값을 받아 잘라 복사하고 있습니다.</li>
+							</ul>	
+							</div>
+						</li>
+						<li>						
+								
+						</li>
+						<li>
+						
+						</li>
+						<li>
+						
+						</li>
+					</ul>
+				</div>
+			</li>
+
+			<li>
+				<h3>3.Input</h3>
+
+				<div class="content">
+					<ul class="sub_con">
+						<li>
+							<div class="ex_con">
+								<div class="resp_radio">
+									<label><input type="radio" name="couponSort" value="product" checked /> 상품</label>
+									<label><input type="radio" name="couponSort" value="shipping" /> 배송비</label>
+									<label><input type="radio" name="couponSort" value="ordersheet" /> 주문서</label>					
+								</div>
+								<XMP class="source_code mt20">
+<div class="resp_radio">
+	<label><input type="radio" name="" value="" checked /> 상품</label>
+	<label><input type="radio" name="" value="" /> 배송비</label>				
+</div>
+								</XMP>
+							</div>
+							
+						</li>
+						<li>
+							<div class="ex_con">
+							<label class="resp_checkbox"><input type="checkbox" name="couponSort" value="product" checked /> 상품</label>	
+							<XMP class="source_code mt20">
+<label class="resp_checkbox"><input type="checkbox" name="" value="" checked /> 내용</label>	
+							</XMP>
+						</li>
+						<li>
+							<div class="ex_con">
+							<select name="cancelDisabledStep35" class="resp_select">
+								<option value="0"> 결제확인, 상품준비</option>
+								<option value="1" selected="selected">결제확인</option>
+							</select>
+							<XMP class="source_code mt20">
+<select name="" class="resp_select">
+	<option value="0">옵션1</option>
+	<option value="1" selected="selected">옵션2</option>
+</select>
+							</XMP>
+						</li>
+						<li>
+							<div class="ex_con">
+							<input type="text" name="" value="" size="45" class="resp_text" title="" placeholder="">
+							<XMP class="source_code mt20">
+<input type="text" name="" value="" size="45" class="resp_text" title="" placeholder="">
+							</XMP>
+						</li>
+
+						<li>
+							<div class="ex_con">
+							<textarea cols="50" rows="10" class="resp_textarea"></textarea>
+							<XMP class="source_code mt20">
+<textarea cols="50" rows="10" class="resp_textarea"></textarea>
+							</XMP>
+						</li>
+
+						<li>
+							<div class="ex_con">
+								<div class="resp_limit_text limitTextEvent">
+									<input type="text" name="" id="" size="40" maxlength="40" value="" class="resp_text" />	
+								</div>
+						
+								<XMP class="source_code mt20">
+	<div class="resp_limit_text limitTextEvent">
+		<input type="text" name="" id="" size="40" maxlength="40" value="" class="resp_text" />	
+	</div>
+
+	<div class="resp_limit_text limitTextByteEvent">
+		<input type="text" name="" id="" class="resp_text" maxlength="100" size="150" maxByte="80"  value="" />							
+	</div>
+								</XMP>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>
+			
+			<li>
+				<h3>4.Tooltip</h3>
+
+				<div class="content">
+					<ul class="sub_con">						
+						<li class="mb20">							
+							<div class="ex_con">
+							<span class="wp20"><span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/multi', '#tip17', '')"></span></span>
+							<XMP class="source_code v2">
+<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/multi', '#tip17', 'sizeM')"></span>
+							</XMP>
+
+							<ul class="bullet_hyphen mt10">
+								<li>js 경로 : app/javascript/js/admin-common-ui.js</li>	
+								<li>사이즈 : 기본값(400), sizeM(600), sizeL(800), 값 입력 </li>								
+							</ul>
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+								<h4>[ 샘 플 ]</h4>
+				
+								<div id="tip12" class="tip_wrap">
+									<h1>취소(환불)</h1>
+									
+									<div class="con_wrap">
+										<ul class="bullet_hyphen">
+											<li>구매자가 취소(환불) 가능한 주문 상태를 설정하는 항목입니다.</li>	
+											<li>주문 취소 시 취소 금액이 환불 됩니다.</li>											
+										</ul>
+
+										<ul class="bullet_circle_in list_01">
+											<li>
+												취소 처리 과정 
+												<ul class="bullet_num mt5 gray">
+													<li>취소 가능 시점 판단</li>	
+													<li>취소 가능 시점 판단</li>	
+												</ul>
+											</li>
+											<li>
+												취소 유의 사항
+												<ul class="bullet_hyphen mt5">
+													<li>구매자나 관리자나 모두 신청할 수 있습니다.</li>
+													<li>구매자나 관리자나 모두 신청할 수 있습니다.</li>									
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<XMP class="source_code mt20">
+<div id="tip12" class="tip_wrap">
+	<h1>타이틀</h1>
+	
+	<div class="con_wrap">
+		<ul class="bullet_hyphen">
+			<li>hyphen 텍스트 1</li>
+			<li>hyphen 텍스트 2</li>			
+		</ul>
+
+		<ul class="bullet_circle_in list_01">
+			<li>
+				취소 처리 과정 
+				<ul class="bullet_num mt5 gray">
+					<li>취소 가능 시점 판단</li>	
+					<li>취소 가능 시점 판단</li>	
+				</ul>
+			</li>
+			<li>
+				취소 유의 사항
+				<ul class="bullet_hyphen mt5">
+					<li>구매자나 관리자나 모두 신청할 수 있습니다.</li>
+					<li>구매자나 관리자나 모두 신청할 수 있습니다.</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+								</XMP>
+							<div>
+						</li>
+					</ul>
+				</div>
+			</li>	
+			
+			<li>
+				<h3>5.Tab</h3>
+
+				<div class="content">
+					<ul class="sub_con">
+						<li>
+							<div class="ex_con">
+								<ul class="tab_01 v2 tabEvent">
+									<li><a href="javascript:void(0);" data-showcontent="maintabCon1" class="current">검색엔진 최적화 설정</a></li>
+									<li><a href="javascript:void(0);" data-showcontent="maintabCon2" >고급 설정</a></li>						
+								</ul>
+								
+								<div class="maintabCon1"></div>
+								<div class="maintabCon2"></div>
+								<XMP class="source_code mt20">
+<ul class="tab_01 v2 tabEvent">
+	<li><a href="javascript:void(0);" data-showcontent="maintabCon1" class="current">검색엔진 최적화 설정</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="maintabCon2" >고급 설정</a></li>						
+</ul>
+
+<div class="maintabCon1"></div>
+<div class="maintabCon2"></div>
+								</XMP>
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+								<ul class="tab_01 v3 tabEvent">
+									<li><a href="javascript:void(0);" data-showcontent="maintabCon1" class="current">검색엔진 최적화 설정</a></li>
+									<li><a href="javascript:void(0);" data-showcontent="maintabCon2" >고급 설정</a></li>						
+								</ul>
+								
+								<div class="maintabCon1"></div>
+								<div class="maintabCon2"></div>
+								<XMP class="source_code mt20">
+<ul class="tab_01 v3 tabEvent">
+	<li><a href="javascript:void(0);" data-showcontent="maintabCon1" class="current">검색엔진 최적화 설정</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="maintabCon2" >고급 설정</a></li>						
+</ul>
+
+<div class="maintabCon1"></div>
+<div class="maintabCon2"></div>
+								</XMP>
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+								<ul class="tab_01 tabEvent">
+									<li><a href="javascript:void(0);" data-showcontent="tabCon1" class="current">메인 및 기타</a></li>
+									<li><a href="javascript:void(0);" data-showcontent="tabCon2">상품 상세</a></li>
+									<li><a href="javascript:void(0);" data-showcontent="tabCon3">카테고리</a></li>					
+								</ul>
+
+								<div class="tabCon1"></div>
+								<div class="tabCon2"></div>
+								<div class="tabCon3"></div>
+								<XMP class="source_code mt20">
+<ul class="tab_01 tabEvent">
+	<li><a href="javascript:void(0);" data-showcontent="tabCon1" class="current">메인 및 기타</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="tabCon2">상품 상세</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="tabCon3">카테고리</a></li>					
+</ul>
+
+<div class="tabCon1"></div>
+<div class="tabCon2"></div>
+<div class="tabCon3"></div>
+								</XMP>
+								<ul class="bullet_hyphen mt10">
+									<li>js 경로 : app/javascript/js/admin-common-ui.js</li>													
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>	
+			
+			<li>
+				<h3>6.안내 메시지</h3>
+
+				<div class="content">					
+					<ul class="sub_con">
+						<li>
+							<div class="ex_con">
+								<ul class="bullet_hyphen resp_message">
+									<li>마일리지 및 포인트 설정은 <a class="link_blue_01" href="/admin/setting/reserve">마일리지/포인트/예치금</a>에 따릅니다.</li>	
+									<li>마일리지 및 포인트 설정은 <a class="link_blue_01" href="/admin/setting/reserve">마일리지/포인트/예치금</a>에 따릅니다.</li>	
+									<li>마일리지 및 포인트 설정은 <a class="link_blue_01" href="/admin/setting/reserve">마일리지/포인트/예치금</a>에 따릅니다.</li>	
+								</ul>
+								<XMP class="source_code mt20">
+<ul class="bullet_hyphen resp_message">
+	<li>마일리지 및 포인트 설정은 설정 마일리지/포인트/예치금에 따릅니다.</li>		
+</ul>
+								</XMP>	
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+								<div class="box_style_02">	
+									<div class="fx14">
+										현재, <b>최대 5개</b>의 구매혜택을 설정 가능합니다.
+									</div>	
+									
+									<ul class="bullet_circle mt20 mb20">
+										<li>기본 세트 : <b>5</b>개 (P_ADSC 개발용무료제공)</li>
+										<li>추가 세트 : <b>0</b>개</li>
+										<li>이용 세트 : <b>1</b>개 (잔여 <b>4</b>개)</li>			
+									</ul>							
+
+									<ul class="bullet_hyphen">
+										<li>쇼핑몰의 명칭을 설정합니다.</li>
+										<li>설정된 쇼핑몰명은 이메일, SMS, 카카오 알림톡 발송 시 사용됩니다.</li>			
+									</ul>								
+								</div>
+
+								<XMP class="source_code mt20">
+<div class="box_style_02">	
+	<div class="fx14">
+		현재, <b>최대 5개</b>의 구매혜택을 설정 가능합니다.
+	</div>	
+	
+	<ul class="bullet_circle mt20 mb20">
+		<li>기본 세트 : <b>5</b>개 (P_ADSC 개발용무료제공)</li>
+		<li>추가 세트 : <b>0</b>개</li>
+		<li>이용 세트 : <b>1</b>개 (잔여 <b>4</b>개)</li>			
+	</ul>							
+
+	<ul class="bullet_hyphen">
+		<li>쇼핑몰의 명칭을 설정합니다.</li>
+		<li>설정된 쇼핑몰명은 이메일, SMS, 카카오 알림톡 발송 시 사용됩니다.</li>			
+	</ul>								
+</div>
+								</XMP>								
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+								<div class="box_style_05">
+									<div class="title">안내</div>
+									<ul class="bullet_circle">					
+										<li>운영 방식 설정에 따라 쇼핑몰 접근 권한이 변경됩니다.</li>			
+									</ul>
+								</div>
+								<XMP class="source_code mt20">
+<div class="box_style_05">
+	<div class="title">안내</div>
+	<ul class="bullet_circle">					
+		<li>운영 방식 설정에 따라 쇼핑몰 접근 권한이 변경됩니다.</li>			
+	</ul>
+</div>
+								</XMP>
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+								<div class="box_style_03">
+									<textarea name="" rows="5">안내 메시지</textarea>
+								</div>
+								<XMP class="source_code mt20">
+<div class="box_style_03">
+	<textarea name="" rows="5">안내 메시지</textarea>
+</div>
+								</XMP>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>	
+			
+			<li>
+				<h3>7.Icon</h3>
+				<div class="content">
+					<ul class="sub_con">					
+						<li>							
+							<div class="ex_con">
+							<span class="wp20"><span class="required_chk"></span></span>
+							<XMP class="source_code v2">
+<span class="required_chk"></span>
+							</XMP>
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+							<span class="wp20"><img src="/admin/skin/default/images/common/icon_move.png"></span>
+							<XMP class="source_code v2">
+<img src="/admin/skin/default/images/common/icon_move.png">
+							</XMP>
+							</div>
+						</li>						
+					</ul>					
+				</div>
+			</li>
+
+			<li>
+				<h3>8.Popup</h3>
+				<div class="content">
+					<ul class="sub_con">					
+							<li>							
+								<div class="ex_con">
+									<div class="item-title">프로모션 코드</div>
+						
+									<table class="table_basic thl">		
+										<tr>
+											<th>사용 여부</th>
+											<td>
+															
+											</td>
+										</tr>								
+									</table>
+
+									<ul class="bullet_hyphen resp_message">
+										<li>프로모션 코드 안내 <a href="https://www.firstmall.kr/customer/faq/10" class="link_blue_01" target="_blank">자세히 보기</a></li>
+										<li>프로모션 코드 ‘사용 안 함‘ 선택 시, 쇼핑몰의 주문/결제 페이지에서 프로모션 코드 사용 기능이 노출되지 않습니다. </li>
+									</ul>
+
+									<div class="footer">
+										<input type="button" id="promotionusesave" class="resp_btn active2 size_XL" onclick="$('#promotioncodeuselay').dialog('close');" value="적용" />		
+										<input type="button" class="resp_btn v5 size_XL" onclick="$('#promotioncodeuselay').dialog('close');" value="취소" />
+									</div>								
+									<XMP class="source_code mt10 ">
+<div class="item-title">프로모션 코드</div>
+
+<table class="table_basic thl">		
+	<tr>
+		<th>사용 여부</th>
+		<td>
+						
+		</td>
+	</tr>								
+</table>
+
+<ul class="bullet_hyphen resp_message">
+	<li>프로모션 코드 안내 <a href="https://www.firstmall.kr/customer/faq/10" class="link_blue_01" target="_blank">자세히 보기</a></li>
+	<li>프로모션 코드 ‘사용 안 함‘ 선택 시, 쇼핑몰의 주문/결제 페이지에서 프로모션 코드 사용 기능이 노출되지 않습니다. </li>
+</ul>
+
+<div class="footer">
+	<input type="button" id="promotionusesave" class="resp_btn active2 size_XL" onclick="$('#promotioncodeuselay').dialog('close');" value="적용" />		
+	<input type="button" class="resp_btn v5 size_XL" onclick="$('#promotioncodeuselay').dialog('close');" value="취소" />
+</div>
+									</XMP>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				
+			</li>
+			<li>
+				<h3>9.Uploader</h3>
+				<div class="content">
+					<ul class="sub_con">					
+						<li>							
+							<div class="ex_con">							
+							<h4>[ 이미지 ]</h4>
+							
+							<script type="text/javascript">
+$(function(){
+	$('#eventBannerUploadButton').createAjaxFileUpload(uploadConfig, uploadCallback);
+	imgUploadEvent("#eventBannerUploadButton", "", "/data/event/", "{event.event_banner}")	
+});
+</script>
+							<div class="webftpFormItem">									
+								<label class="resp_btn v2"><input type="file" id="eventBannerUploadButton" accept="image/*">파일선택</label>
+								<input type="hidden" class="webftpFormItemInput" name="event_banner" value="{event.event_banner}" size="30" maxlength="255" />									
+								<div class="preview_image"></div>
+							</div>
+							<XMP class="source_code v2">
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$('#eventBannerUploadButton').createAjaxFileUpload(uploadConfig, uploadCallback);
+	imgUploadEvent("#eventBannerUploadButton", "", "/data/event/", "{event.event_banner}")	
+});
+</script>
+
+<div class="webftpFormItem">									
+	<label class="resp_btn v2"><input type="file" id="eventBannerUploadButton" accept="image/*">파일선택</label>
+	<input type="hidden" class="webftpFormItemInput" name="event_banner" value="{event.event_banner}" size="30" maxlength="255" />									
+	<div class="preview_image"></div>
+</div>
+							</XMP>
+							</div>
+						</li>
+						<li>
+							<div class="ex_con">
+							<h4>[ 파일 ]</h4>
+							<XMP class="source_code v2">
+
+							</XMP>
+							</div>
+						</li>						
+					</ul>					
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+
+<!--
+<div class="ex_con">
+<XMP class="source_code mt20">
+</XMP>
+</div>
+-->

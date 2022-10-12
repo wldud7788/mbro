@@ -1,0 +1,27 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 고객센터( CS CENTER ) LNB @@
+- 파일위치 : [스킨폴더]/_modules/common/board_lnb.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div id="boardLnbCommon">
+	<h2 class="title1"><a href="/service/cs" designElement="text">CS CENTER</a></h3>
+	<ul class="lnb_sub">
+		<li {?preg_match("/id=notice/",_SERVER.REQUEST_URI)}class="on"{/}><a href="/board/?id=notice" designElement="text">공지사항</a></li>
+		<li {?preg_match("/id=faq/",_SERVER.REQUEST_URI)}class="on"{/}><a href="/board/?id=faq" designElement="text">자주 묻는 질문</a></li>
+		<li {?preg_match("/id=goods_qna/",_SERVER.REQUEST_URI)}class="on"{/}><a href="/board/?id=goods_qna" designElement="text">상품문의</a></li>
+		<li {?preg_match("/id=goods_review/",_SERVER.REQUEST_URI)}class="on"{/}><a href="/board/?id=goods_review" designElement="text">상품후기</a></li>
+		{? isplusfreenot}
+		<li {?preg_match("/id=bulkorder/",_SERVER.REQUEST_URI)}class="on"{/}><a href="/board/?id=bulkorder" designElement="text">대량구매</a></li>
+		{/}
+	</ul>
+</div>
+<script>
+$(function() {
+	// 고객센터 LNB 텍스트 수정기능으로 삭제시, 클라이언트단에서 삭제 처리
+	$('#boardLnbCommon a').each(function(e) {
+		if ( $(this).text() == '' ) {
+			$(this).parent('li, h2').remove();
+		}
+	});
+});
+</script>

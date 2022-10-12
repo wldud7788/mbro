@@ -1,0 +1,71 @@
+<table class="list-table-style" cellspacing="0">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="5" />
+		<col width="30" />
+		<col width="40" /><!--옵션-->
+		<col />
+		<!--col width="90" /><!--현재매입가-->
+		<col width="90" /><!--정가-->
+		<col width="140" /><!--마진-->
+		<col width="50" /><!--부가세-->
+		<!--col width="90" /--><!--재고-->
+		<col width="200" /><!--배송비-->
+		<!--col width="80" /--><!--노출-->
+	</colgroup>
+	<!--{ @ loop }-->
+	<!--{ ? .default_option == 'y'}-->
+	<tr style="height:30px;" class="default_option bg-dot-line">
+	<!--{ : }-->
+	<tr style="height:30px;">
+	<!--{ / }-->
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>
+		<span class="detail_default_option_select">
+		<!--{ ? .option_divide_title[0] }-->
+		{.option_divide_title[0]} :
+		<!--{ / }-->
+		{? .goods_code }<div class="goods_option fx11 goods_code_icon">[상품코드: {.goods_code}]</div>{/}
+		{.option1}
+		<!--{ ? .option2 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[1] }-->
+		{.option_divide_title[1]} :
+		<!--{ / }-->
+		{.option2}
+		<!--{ / }-->
+		<!--{ ? .option3 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[2] }-->
+		{.option_divide_title[2]} :
+		<!--{ / }-->
+		{.option3}
+		<!--{ / }-->
+		<!--{ ? .option4 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[3] }-->
+		{.option_divide_title[3]} :
+		<!--{ / }-->
+		{.option4}
+		<!--{ / }-->
+		<!--{ ? .option5 }-->
+		&nbsp;
+		<!--{ ? .option_divide_title[4] }-->
+		{.option_divide_title[4]} :
+		<!--{ / }-->
+		{.option5}
+		<!--{ / }-->
+		</span>
+		</td>
+		<!--td align="right" style="padding-right:5px;">{=number_format(.supply_price)}</td-->
+		<td align="right" style="padding-right:5px;">{=number_format(.consumer_price)}</td>
+		<td align="right" style="padding-right:5px;"><!-- {=number_format(.price-.supply_price)} /  -->{=number_format(.price)}</td>
+		<td align="right" style="padding-right:5px;">{=number_format(.price - (.price / 1.1))}</td>
+		<!--td align="center">{.stock} / ({.able_stock})</td-->
+		<td align="center">-</td>
+		<!--td align="center">-</td-->
+	</tr>
+	<!--{ / }-->
+</table>

@@ -1,0 +1,168 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	/* 예약 상품 버튼 이벤트 */
+	$("input[name='display_terms_type_tmp']").on("click",function(){
+		var val = '';
+		if($(this).is(":checked")) val = "LAYAWAY"; else val = "SELLING";
+		$('input[name="display_terms_type"]').val(val);
+		setDisplayTermsType($(this).is(":checked"));
+	});
+});
+
+/* 예약상품 상세 설정 노출 */
+var setDisplayTermsType = function(mode){
+	if(mode == true){
+		$("input[name='display_terms_text']").val('[예약 판매]');
+		$("tr.ableShippingDateLay").show();
+	}else{
+		$("input[name='display_terms_text']").val('');
+		$("tr.ableShippingDateLay").hide();
+	}
+
+}
+// 수동/자동 노출 변경에 따른 form 변경
+function dst_chg_termsset(){
+	if	($("input[name='dst_set']:checked").val() == 'AUTO'){
+		$('input.display-form').attr('disabled', false);
+		$('select.display-form').attr('disabled', false);
+		$('.dst-datepicker').datepicker('enable');
+	}else{
+		$('input.display-form').attr('disabled', true);
+		$('select.display-form').attr('disabled', true);
+		$('.dst-datepicker').datepicker('disable');
+	}
+}
+
+// 상품 구분에 따른 변경 처리
+function dst_chg_dstType(obj){
+	if	($(obj).val() == 'SELLING'){
+		$('div.dst_ableShippingDateLay').hide();
+	}else{
+		$('div.dst_ableShippingDateLay').show();
+	}
+}
+
+// 날짜변경에 따른 처리
+function dst_set_date(dateObj){
+	// 날짜형식 체크
+	var oldVal	= dateObj.defaultValue;
+	var	regExp	= /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/;
+	if	(regExp.test($(dateObj).val()) == false){
+		$(dateObj).val(oldVal);
+		openDialogAlert('날짜 형식이 맞지 않습니다.', 400, 170, function(){});
+		return false;
+	}
+
+	// 각 날짜 필드별 추가처리
+	if			($(dateObj).attr('id') == 'display_terms_begin'){
+		$('span#display_terms_begin_before').html($(dateObj).val());
+	}else if	($(dateObj).attr('id') == 'display_terms_end'){
+		$('span#display_terms_end_after').html($(dateObj).val());
+	}
+
+	dateObj.defaultValue	= $(dateObj).val();
+	return true;
+}
+
+// 노출 설정 저장
+function saveDisplayTerms(){
+	var	regExp	= /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/;
+	if	($("input[name='dst_set']:checked").val() == 'AUTO'){
+		if	(!$("input[name='display_terms_begin']").val() || regExp.test($("input[name='display_terms_begin']").val()) == false){
+			openDialogAlert('자동노출 시작일을 선택해 주세요.', 400, 170, function(){});
+			return false;
+		}
+		if	(!$("input[name='display_terms_end']").val() || regExp.test($("input[name='display_terms_end']").val()) == false){
+			openDialogAlert('자동노출 종료일을 선택해 주세요.', 400, 170, function(){});
+			return false;
+		}
+		if	($("select[name='display_terms_type_tmp']").val() == 'LAYAWAY'){
+			if	(!$("input[name='dst_shipping_date']").val() || regExp.test($("input[name='dst_shipping_date']").val()) == false){
+				openDialogAlert('예약발송일을 선택해 주세요.', 400, 170, function(){});
+				return false;
+			}
+		}
+	}
+
+	$("form[name='displayTermsForm']").submit();
+}
+</script>
+<div class="content">
+	<form name="displayTermsForm" method="post" action="../goods_process/save_display_terms" target="actionFrame">
+	<input type="hidden" name="dst_goods_seq" value="{goods.goods_seq}" />
+	<table class="table_basic thl">
+		<colgroup>
+			<col width="20%" /><col width="30%" />
+			<col width="20%" /><col width="30%" />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>관리</th>
+				<td colspan="3">
+					<div class="resp_radio">
+						<label><input type="radio" name="dst_set" value="MENUAL" { ? goods.display_terms != 'AUTO' }checked{ / } onclick="dst_chg_termsset();"> 수동관리</label>
+						<label class="ml10"><input type="radio" name="dst_set" value="AUTO" { ? goods.display_terms == 'AUTO' }checked{ / } onclick="dst_chg_termsset();"> 자동관리</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th class="display-auto">자동 노출 기간</th>
+				<td colspan="3">
+					<input type="text" name="display_terms_begin" value="{ ? goods.display_terms_begin }{goods.display_terms_begin}{ : }0000-00-00{ / }" class="datepicker display-form" maxlength="10"> -
+					<input type="text" name="display_terms_end" value="{ ? goods.display_terms_end }{goods.display_terms_end}{ : }0000-00-00{ / }" class="datepicker display-form" maxlength="10">
+				</td>
+			</tr>
+			<tr>
+				<th class="display-auto">노출 기간 이전</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="display_terms_before" value="DISPLAY" { ? goods.display_terms_before != 'CONCEAL' }checked{ / } class="display-form"> 노출</label>
+						<label class="ml10"><input type="radio" name="display_terms_before" value="CONCEAL" { ? goods.display_terms_before == 'CONCEAL' }checked{ / } class="display-form"> 미노출</label>
+					</div>
+				</td>
+				<th class="display-auto">노출 기간 이후</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="display_terms_after" value="DISPLAY" { ? goods.display_terms_after != 'CONCEAL' }checked{ / } class="display-form"> 노출</label>
+						<label class="ml10"><input type="radio" name="display_terms_after" value="CONCEAL" { ? goods.display_terms_after == 'CONCEAL' }checked{ / } class="display-form"> 미노출</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th class="display-auto">상품명 문구</th>
+				<td colspan="3">
+					<input type="text" name="display_terms_text" value="{goods.display_terms_text}" maxlength="20" class="display-form" size="30">
+					<input type="text" name="display_terms_color" value="{ ? goods.display_terms_color }{goods.display_terms_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+				</td>
+			</tr>
+			<tr>
+				<th class="display-auto">예약 상품</th>
+				<td colspan="3">
+					<label class="resp_checkbox">
+						<input type="checkbox" name="display_terms_type_tmp" id="display_terms_type" value="LAYAWAY" { ? goods.display_terms_type == 'LAYAWAY' }checked{ / } class="display-form"> 예약 발송 상품
+					</label>
+				</td>
+			</tr>
+			<tr class="ableShippingDateLay { ? goods.display_terms_type != 'LAYAWAY' }hide{ / }">
+				<th class="display-auto">예약 발송일</th>
+				<td colspan="3">
+					<input type="text" name="possible_shipping_date" value="{ ? goods.possible_shipping_date }{goods.possible_shipping_date}{ : }0000-00-00{ / }" class="datepicker display-form" maxlength="10">
+					<span class="resp_message">※ 예약 상품은 배송 그룹을 별도 생성 후 연결하는 것을 권장 드립니다.</span>
+				</td>
+			</tr>
+			<tr class="ableShippingDateLay { ? goods.display_terms_type != 'LAYAWAY' }hide{ / }">
+				<th class="display-auto">발송 안내 문구</th>
+				<td colspan="3">
+					설정한 예약 발송일 
+					<input type="text" name="possible_shipping_text" value="{ ? goods.possible_shipping_text }{goods.possible_shipping_text}{ : }부터 순차적으로 배송됩니다.{ / }" size="30" class="display-form"/>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+</div>
+
+<div class="footer">
+	<button type="button" onClick="saveDisplayTerms();" class="resp_btn active size_XL">확인</button>
+	<button type="button" onClick="closeDialog('set_display_terms_lay')" class="resp_btn v3 size_XL">취소</button>
+</div>

@@ -1,0 +1,105 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ [반응형] 디스플레이 템플릿 - 스와이프형 @@
+- 파일위치 : [스킨폴더]/_modules/broadcast/broadcast_display_slide.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<style>	
+	#{broadcast_display_key} .display_slide_class .swiper-slide {padding-top:0;}
+	#{broadcast_display_key} .swiper-wrapper .swiper-slide .gl_inner_item_wrap, 
+	#{broadcast_display_key} .swiper-wrapper .swiper-slide { width:210px; }
+	@media only screen and (max-width:767px) {		
+		#{broadcast_display_key} .swiper-wrapper .swiper-slide .gl_inner_item_wrap, 
+		#{broadcast_display_key} .swiper-wrapper .swiper-slide { width:200px; }
+	}
+</style>
+<div class="resp_wrap">
+<div id='{broadcast_display_key}' class='broadcast_display slide_before_loading' designElement='{displayElement}' templatePath='{template_path}' displaySeq='{broadcast_display_seq}' displayStyle='{style}'>
+	<div class="{broadcast_display_key} display_slide_class displaySwipeTabContentsContainer" tabIdx="{.key_}">
+		<div class="goods_display_slide_wrap">
+			<ul class="swiper-wrapper">
+			<!--{ @ broadcastList }-->				
+				<li class="gl_item  swiper-slide">
+					<div class="gl_inner_item_wrap">
+						<!--상품이미지-->
+						<div class="gli_image goodsDisplayImageWrap">			
+							<div class="cast">	
+								<!--{? .status == 'create'}-->
+								<a href="{broadcast_link}{.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+								<div class="live_expected">
+									<div>
+										<p class="d_day">{.start_date_day}</p>
+										<p class="d_time">{.start_date_hour}</p>
+									</div>
+								</div>
+								<!--{: .status == 'live' }-->
+								<img src="/data/skin/{skin}/images/broadcast/i_live.png" class="live_mode">
+								<div class="status">{.sumvisitors}명 시청 중</div>
+								<a href="{broadcast_link}{.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+								<!--{:}-->
+								<div class="status">{.real_time}</div>
+								<a href="{broadcast_link}{.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+								<!--{/}-->				
+								
+								<a href="/goods/view?no={.goods_seq}" target="{.link_target}">
+									<ul class="product">
+										<li><div><img src="{.goods_img}"></div></li>
+										<li class="prod_info">
+											<div class="tit">{.goods_name}</div>
+											<div class="prod_price">
+												<!--{? .sale_rate > 0}-->
+												<span class="percent">{=.sale_rate}%</span>
+												<!--{/}-->
+												{.goods_price}
+											</div>
+										</li>
+									</ul>
+								</a>
+							</div>
+							<div class="cast_info">
+								<div class="tit"><a href="{broadcast_link}{.bs_seq}" target="{.link_target}">{.title}</a></div>
+								<span class="view_count"><img src="/data/skin/{skin}/images/broadcast/i_view.png"/>{.sumvisitors}</span>
+								<span class="like_count"><img src="/data/skin/{skin}/images/broadcast/i_heart.png"/>{.likes}</span>	
+								<!--{ ? serviceLimit('H_AD') }-->
+								<div class="brand">{.provider_name}</div>
+								<!--{/}-->
+							</div>		
+						</div>
+					</div>
+				</li>				
+			<!--{/}-->
+			</ul>
+			 <!-- scrollbar -->
+			<div class="display-scrollbar swiper-scrollbar{broadcast_display_key}"></div>
+		</div>
+		<!-- left, right button -->
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+	</div>
+
+	<script>
+		var t = new Date();
+		var uniquekey_dsp = '{broadcast_display_key}'+t.getTime();
+		var display_swiper = [];
+
+		$(function(){
+			$('.{broadcast_display_key}.display_slide_class').each(function(){
+				if(!$(this).hasClass('set_slide_clear')){
+					display_swiper[uniquekey_dsp] = new Swiper($(this).find('.goods_display_slide_wrap'), {
+						//scrollbar: $(this).find('.display-scrollbar'),
+						slidesPerView: 'auto',
+						grabCursor: true,
+						nextButton: $(this).find('.swiper-button-next'),
+						prevButton: $(this).find('.swiper-button-prev')
+					});
+					$(this).addClass('set_slide_clear').bind('mousedown touchstart touchmove',function(){
+						$('.active_swipe_slide').removeClass('active_swipe_slide');
+						$(this).addClass('active_swipe_slide');
+					});
+				}
+			});
+
+			$('.slide_before_loading').removeClass('slide_before_loading');
+		});
+	</script>
+</div>
+</div>

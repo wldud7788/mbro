@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LG 유플러스 인증 페이지</title>
+	<script type="text/javascript">
+	
+		function setLGDResult() {
+			parent.payment_return();
+			try {
+			} catch (e) {
+				alert(e.message);
+			}
+		}
+		
+	</script>
+</head>
+<body onload="setLGDResult()">
+<form method="post" name="LGD_RETURNINFO" id="LGD_RETURNINFO">
+<!--{@ param}-->
+	<input type='hidden' name='{.key_}' id='{.key_}' value='{.value_}'>
+<!--{/}-->
+</form>
+</body>
+</html>

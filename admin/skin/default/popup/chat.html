@@ -1,0 +1,24 @@
+<script>
+window.GitpleConfig = {
+	appCode: '{aChat.appCode}' // 워크스페이스 `설정 > 연동` 메뉴에서 앱코드 복사
+};
+
+!function(){function e(){function e(){var e=t.contentDocument,a=e.createElement("script");a.type="text/javascript",a.async=!0,a.src=window[n]&&window[n].url?window[n].url+"/inapp-web/gitple-loader.js":"https://app.gitple.io/inapp-web/gitple-loader.js",a.charset="UTF-8",e.head&&e.head.appendChild(a)}var t=document.getElementById(a);t||((t=document.createElement("iframe")).id=a,t.style.display="none",t.style.width="0",t.style.height="0",t.addEventListener?t.addEventListener("load",e,!1):t.attachEvent?t.attachEvent("onload",e):t.onload=e,document.body.appendChild(t))}var t=window,n="GitpleConfig",a="gitple-loader-frame";if(!window.Gitple){document;var i=function(){i.ex&&i.ex(arguments)};i.q=[],i.ex=function(e){i.processApi?i.processApi.apply(void 0,e):i.q&&i.q.push(e)},window.Gitple=i,t.attachEvent?t.attachEvent("onload",e):t.addEventListener("load",e,!1)}}();
+
+if (window.Gitple) {
+	var loginUser = {
+			id: '{=str_replace('.','', config_basic.domain)}', // 상담고객 식별 ID
+			name: '{config_basic.shopName}_{manager.mname}',
+			email: '{config_basic.companyEmail}',
+			phone: '{config_basic.companyPhone}',
+			meta: {
+				'Company': '{config_basic.domain}',
+				'Link': '<a href="https://gitple.io/" target="_blank">내부정보</a>',
+				'고객정보': '<a href="https://myService/api/customer?id=12345" target="_blank">고객정보</a>',
+				'이슈생성': '<a href="https://github.com/gitple/cs/issues/new?title=이슈제목&body=고객이슈내용" target="_blank">이슈생성</a>'
+			}
+	};
+	window.Gitple('boot', loginUser);
+	Gitple('open');
+}
+</script>

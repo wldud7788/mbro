@@ -1,0 +1,16 @@
+[2022-05-02 13:21:33.247222000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+Array
+(
+    [mode] => order_receive
+    [server_info] => ec
+    [storeid] => np_zuxru165363
+)
+
+
+[2022-05-02 13:21:33.311458000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+a:2:{s:6:"result";s:5:"error";s:7:"message";s:52:"수집할 네이버페이 주문건이 없습니다.";}
+

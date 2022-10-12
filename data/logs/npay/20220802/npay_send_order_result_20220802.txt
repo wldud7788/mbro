@@ -1,0 +1,52 @@
+[2022-08-02 17:45:12.668867000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [result] => true
+            [order_insert] => 1
+            [order_seq] => 2022080217451217530
+            [npay_order_id] => 2022080298883950
+            [npay_product_order_id] => 2022080217157920
+            [goods_seq] => 4421
+            [option_type] => option
+            [package_yn] => y
+            [payment] => 포인트결제
+            [is_receiver_changed] => false
+            [is_payed_shipping] => n
+            [message] => Array
+                (
+                    [0] => 주문 조회 시작
+                    [1] => fm_order insert success
+                    [2] => fm_order_shipping insert success (6928)
+                    [3] => fm_order_item insert success (10512)
+                    [4] => fm_order_item_option insert success (12642)
+                )
+
+            [old_step] => 
+            [step] => 25
+            [npay_status] => PAYED
+            [npay_claimtype] => 
+            [npay_claimstatus] => 
+            [request_timestamp] => 2022-08-02T08:40:04.786Z4676
+        )
+
+    [order_shipping_cost] => Array
+        (
+            [2022080217451217530] => Array
+                (
+                    [2022080217157920] => Array
+                        (
+                            [cnt] => 1
+                        )
+
+                    [settleprice] => 20900
+                    [npayAmount] => 20900
+                )
+
+        )
+
+)
+
+

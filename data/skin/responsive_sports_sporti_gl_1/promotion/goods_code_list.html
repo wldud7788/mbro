@@ -1,0 +1,60 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 할인코드( 상품상세 > 할인코드 > "자세히" 클릭시 뜨는 레이어 ) @@
+- 파일위치 : [스킨폴더]/promotion/goods_code_list.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{? list }-->
+<div class="res_table bd1">
+	<ul class="thead">
+		<li style="width:25%;">할인코드명</li>
+		<li>혜택</li>
+		<li style="width:110px;">유효기간</li>
+		<li style="width:90px;">할인코드</li>
+	</ul>
+	<!--{ @ list }-->
+	<ul class="tbody">
+		<li style="order:-6"><strong class="gray_01">{.promotion_name}</strong></li>
+		<li class="subject pointcolor2 imp">
+		{? .type=='shipping' || strstr(.type,'_shipping') }
+			{? .sale_type == 'shipping_free' }
+				기본 배송비 무료
+				<span class="Dib">
+				({? .limit_goods_price > 0}{=get_currency_price(.limit_goods_price,2)}이상 구매시, {/}
+				최대 {=get_currency_price(.max_percent_shipping_sale,2)})
+				</span>
+			{: }
+				기본 배송비 {=get_currency_price(.won_shipping_sale,2)} 할인
+			{/}
+		{:}
+			{? .sale_type == 'percent' }
+				{.percent_goods_sale}% 할인 <span class="Dib">({? .limit_goods_price > 0}{=get_currency_price(.limit_goods_price,2)}이상 구매시, {/}최대할인금액 {=get_currency_price(.max_percent_goods_sale,2)})</span>
+			{: }
+				{=get_currency_price(.won_goods_sale,2)} 할인
+			{/}
+		{/}
+		</li>
+		<li>
+			{? .issue_priod_type == 'day' }
+				발급일 후 {=number_format(.after_issue_day)}일
+			{: .issue_priod_type == 'months' }
+				발급 당월 말일까지
+			{: .issue_priod_type == 'date' }
+				~ {.issue_enddate}
+			{/}
+		</li>
+		<li>
+			<span class="mtitle">코드:</span>
+			{? .type == "admin_shipping"}
+				<span class="gray_01">{.member_promotion_input_serialnumber}</span>
+			{ : }
+				<span class="gray_01">{.promotion_input_serialnumber}</span>
+			{ / }
+		</li>
+	</ul>
+	<!--{ / }-->
+</div>
+<!--{ : }-->
+<div class="no_data_area2">
+	사용 가능한 할인코드가 없습니다..
+</div>
+<!--{ / }-->

@@ -1,0 +1,256 @@
+<script>
+$(function(){
+	var jsonStringData = {=jsonStringData};
+});
+</script>
+<div class="content" id="tb_string_price">
+	<span class="item-title">가격 노출 제한</span>
+	<table class="table_basic mb20">
+	<colgroup>
+		<col width="20%" />
+		<col width="80%" />
+	</colgroup>
+	<tr>
+		<th>비회원</th>
+		<td>
+			<label class="resp_checkbox"><input type="checkbox" class="string_use_radio" name="string_price_use" value="1" { ? string_price_use=='1' }checked{ / } /> 제한</label>
+			<div class="detail { ? string_price_use!='1' }hide{ / }">
+				<table class="table_basic thl mt5">
+				<colgroup>
+					<col width="25%" />
+					<col width="75%" />
+				</colgroup>
+				<tr>
+					<th>가격 대체 문구</th>
+					<td>
+						<input type="text" name="string_price" size="25" value="{string_price}" />
+						<input type="text" name="string_price_color" value="{ ? string_price_color }{string_price_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					</td>
+				</tr>
+				<tr>
+					<th>링크 연결</th>
+					<td>
+						<input type="text" name="string_price_link_url" size="25" value="{string_price_link_url}"  { ? string_price_link != 'direct' && string_price_link }disabled{ / } />
+						<select name="string_price_link" class="string_link_select">
+							<option value='direct' { ? string_price_link == 'direct' || !string_price_link }selected{ / }>직접 입력</option>
+							<option value='login' { ? string_price_link == 'login' }selected{ / }>로그인</option>
+							<option value='1:1' { ? string_price_link == '1:1' }selected{ / }>1:1문의</option>
+							<option value='none' { ? string_price_link == 'none' }selected{ / }>없음</option>
+						</select>
+						<select name="string_price_link_target" class="{ ? string_price_link == 'none' }hide{ / }">
+							<option value='NEW' { ? string_price_link_target != 'NOW' }selected{ / }>새창</option>
+							<option value='NOW' { ? string_price_link_target == 'NOW' }selected{ / }>현재창</option>
+						</select>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>기본 등급</th>
+		<td>
+			<label class="resp_checkbox"><input type="checkbox" class="string_use_radio" name="member_string_price_use" value="1" { ? member_string_price_use=='1' }checked{ / } /> 제한</label>
+			<div class="detail { ? member_string_price_use!='1' }hide{ / }">
+				<table class="table_basic thl mt5">
+				<colgroup>
+					<col width="25%" />
+					<col width="75%" />
+				</colgroup>
+				<tr>
+					<th>가격 대체 문구</th>
+					<td>
+						<input type="text" name="member_string_price" size="25" value="{member_string_price}" />
+						<input type="text" name="member_string_price_color" value="{ ? member_string_price_color }{member_string_price_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					</td>
+				</tr>
+				<tr>
+					<th>링크 연결</th>
+					<td>
+						<input type="text" name="member_string_price_link_url" size="25" value="{member_string_price_link_url}" { ? member_string_price_link != 'direct' && member_string_price_link }disabled{ / } />
+						<select name="member_string_price_link" class="string_link_select">
+							<option value='direct' { ? member_string_price_link == 'direct' || !member_string_price_link }selected{ / }>직접 입력</option>
+							<option value='login' { ? member_string_price_link == 'login' }selected{ / }>로그인</option>
+							<option value='1:1' { ? member_string_price_link == '1:1' }selected{ / }>1:1문의</option>
+							<option value='none' { ? member_string_price_link == 'none' }selected{ / }>없음</option>
+						</select>
+						<select name="member_string_price_link_target" class="{ ? member_string_price_link == 'none' }hide{ / }">
+							<option value='NEW' { ? member_string_price_link_target != 'NOW' }selected{ / }>새창</option>
+							<option value='NOW' { ? member_string_price_link_target == 'NOW' }selected{ / }>현재창</option>
+						</select>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>추가 등급</th>
+		<td>
+			<label class="resp_checkbox"><input type="checkbox" class="string_use_radio" name="allmember_string_price_use" value="1" { ? allmember_string_price_use=='1' }checked{ / } /> 제한</label>
+			<div class="detail { ? allmember_string_price_use!='1' }hide{ / }">
+				<table class="table_basic thl mt5">
+				<colgroup>
+					<col width="25%" />
+					<col width="75%" />
+				</colgroup>
+				<tr>
+					<th>가격 대체 문구</th>
+					<td>
+						<input type="text" name="allmember_string_price" size="25" value="{allmember_string_price}" />
+						<input type="text" name="allmember_string_price_color" value="{ ? allmember_string_price_color }{allmember_string_price_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					</td>
+				</tr>
+				<tr>
+					<th>링크 연결</th>
+					<td>
+						<input type="text" name="allmember_string_price_link_url" size="25" value="{allmember_string_price_link_url}" { ? allmember_string_price_link != 'direct' && allmember_string_price_link }disabled{ / } />
+						<select name="allmember_string_price_link" class="string_link_select">
+							<option value='direct' { ? allmember_string_price_link == 'direct' || !allmember_string_price_link }selected{ / }>직접 입력</option>
+							<option value='login' { ? allmember_string_price_link == 'login' }selected{ / }>로그인</option>
+							<option value='1:1' { ? allmember_string_price_link == '1:1' }selected{ / }>1:1문의</option>
+							<option value='none' { ? allmember_string_price_link == 'none' }selected{ / }>없음</option>
+						</select>
+						<select name="allmember_string_price_link_target" class=" { ? allmember_string_price_link == 'none' }hide{ / }">
+							<option value='NEW' { ? allmember_string_price_link_target != 'NOW' }selected{ / }>새창</option>
+							<option value='NOW' { ? allmember_string_price_link_target == 'NOW' }selected{ / }>현재창</option>
+						</select>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+	<span class="item-title">구매 버튼 제한</span>
+	<table class="table_basic">
+	<colgroup>
+		<col width="20%" />
+		<col width="80%" />
+	</colgroup>
+	<tr>
+		<th>비회원</th>
+		<td>
+			<label class="resp_checkbox"><input type="checkbox" class="string_use_radio" name="string_button_use" value="1" { ? string_button_use=='1' }checked{ / } /> 제한</label>
+			<div class="detail { ? string_button_use!='1' }hide{ / }">
+				<table class="table_basic thl mt5">
+				<colgroup>
+					<col width="25%" />
+					<col width="75%" />
+				</colgroup>
+				<tr>
+					<th>버튼 대체 문구</th>
+					<td>
+						<input type="text" name="string_button" size="25" value="{string_button}" />
+						<input type="text" name="string_button_color" value="{ ? string_button_color }{string_button_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					</td>
+				</tr>
+				<tr>
+					<th>링크 연결</th>
+					<td>
+						<input type="text" name="string_button_link_url" size="25" value="{string_button_link_url}" { ? string_button_link != 'direct' && string_button_link }disabled{ / } />
+						<select name="string_button_link" class="string_link_select">
+							<option value='direct' { ? string_button_link == 'direct' || !string_button_link }selected{ / }>직접 입력</option>
+							<option value='login' { ? string_button_link == 'login' }selected{ / }>로그인</option>
+							<option value='1:1' { ? string_button_link == '1:1' }selected{ / }>1:1문의</option>
+							<option value='none' { ? string_button_link == 'none' }selected{ / }>없음</option>
+						</select>
+						<select name="string_button_link_target" class=" { ? string_button_link == 'none' }hide{ / }">
+							<option value='NEW' { ? string_button_link_target != 'NOW' }selected{ / }>새창</option>
+							<option value='NOW' { ? string_button_link_target == 'NOW' }selected{ / }>현재창</option>
+						</select>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>기본 등급</th>
+		<td>
+			<label class="resp_checkbox"><input type="checkbox" class="string_use_radio" name="member_string_button_use" value="1" { ? member_string_button_use=='1' }checked{ / } /> 제한</label>
+			<div class="detail { ? member_string_button_use!='1' }hide{ / }">
+				<table class="table_basic thl mt5">
+					<colgroup>
+						<col width="25%" />
+						<col width="75%" />
+					</colgroup>
+				<tr>
+					<th>버튼 대체 문구</th>
+					<td>
+						<input type="text" name="member_string_button" size="25" value="{member_string_button}" />
+						<input type="text" name="member_string_button_color" value="{ ? member_string_button_color }{member_string_button_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					</td>
+				</tr>
+				<tr>
+					<th>링크 연결</th>
+					<td>
+						<input type="text" name="member_string_button_link_url" size="25" value="{member_string_button_link_url}" { ? member_string_button_link != 'direct' && member_string_button_link }disabled{ / } />
+						<select name="member_string_button_link" class="string_link_select">
+							<option value='direct' { ? member_string_button_link == 'direct' || !member_string_button_link }selected{ / }>직접 입력</option>
+							<option value='login' { ? member_string_button_link == 'login' }selected{ / }>로그인</option>
+							<option value='1:1' { ? member_string_button_link == '1:1' }selected{ / }>1:1문의</option>
+							<option value='none' { ? member_string_button_link == 'none' }selected{ / }>없음</option>
+						</select>
+						<select name="member_string_button_link_target" class=" { ? member_string_button_link == 'none' }hide{ / }">
+							<option value='NEW' { ? member_string_button_link_target != 'NOW' }selected{ / }>새창</option>
+							<option value='NOW' { ? member_string_button_link_target == 'NOW' }selected{ / }>현재창</option>
+						</select>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>추가 등급</th>
+		<td>
+			<label class="resp_checkbox"><input type="checkbox" class="string_use_radio" name="allmember_string_button_use" value="1" { ? allmember_string_button_use=='1' }checked{ / } /> 제한</label>
+			<div class="detail { ? allmember_string_button_use!='1' }hide{ / }">
+				<table class="table_basic thl mt5">
+					<colgroup>
+						<col width="25%" />
+						<col width="75%" />
+					</colgroup>
+				<tr>
+					<th>버튼 대체 문구</th>
+					<td>
+						<input type="text" name="allmember_string_button" size="25" value="{allmember_string_button}" />
+						<input type="text" name="allmember_string_button_color" value="{ ? allmember_string_button_color }{allmember_string_button_color}{ : }#FF0000{ / }" class="colorpicker display-form"/>
+					</td>
+				</tr>
+				<tr>
+					<th>링크 연결</th>
+					<td>
+						<input type="text" name="allmember_string_button_link_url" size="25" value="{allmember_string_button_link_url}" { ? allmember_string_button_link != 'direct' && allmember_string_button_link }disabled{ / } />
+						<select name="allmember_string_button_link" class="string_link_select">
+							<option value='direct' { ? allmember_string_button_link == 'direct' || !allmember_string_button_link }selected{ / }>직접 입력</option>
+							<option value='login' { ? allmember_string_button_link == 'login' }selected{ / }>로그인</option>
+							<option value='1:1' { ? allmember_string_button_link == '1:1' }selected{ / }>1:1문의</option>
+							<option value='none' { ? allmember_string_button_link == 'none' }selected{ / }>없음</option>
+						</select>
+						<select name="allmember_string_button_link_target" class=" { ? allmember_string_button_link == 'none' }hide{ / }">
+							<option value='NEW' { ? allmember_string_button_link_target != 'NOW' }selected{ / }>새창</option>
+							<option value='NOW' { ? allmember_string_button_link_target == 'NOW' }selected{ / }>현재창</option>
+						</select>
+					</td>
+				</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+	</table>
+	<div id="setting_guide_msg" class="hide bold mt15 fx14 center"></div>
+</div>
+<div class="footer">
+	<button type="button" id="btn_apply_string" onclick='apply_string_price();' class="resp_btn active size_XL">확인</button>
+	<button type="button" onclick="closeDialog('popStringPrice');" class="resp_btn v3 size_XL">취소</button>
+</div>
+
+
+<script>
+$(".colorpicker").customColorPicker();
+check_string_price();
+//check_tb_string_price_select();
+</script>

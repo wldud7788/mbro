@@ -1,0 +1,149 @@
+{ #layout_header }
+
+<style type="text/css">
+	#bigdataGoodsAutoContainer{padding:0px}
+	.no_condition{margin:30px 0;font-size:12px;border:1px solid #808080;height:50px;padding-top:40px;}
+</style>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/js/goods-display.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		{ ? !chkBigdata }
+		openDialog('업그레이드 안내', 'nostorfreeServiceBigdata', {"width":"80%","show" : "fade","hide" : "fade","noClose":"true"});
+		{ / }
+
+		// 구분 변경
+		$("select.tkind").change(function(){
+			var kind	= $(this).closest("div.set-bigdata-lay").attr('kindName');
+			$("span."+kind+"-title-text").html($(this).find('option:selected').html());
+		}).change();
+
+		// 저장
+		$("button.submit-form").click(function(){
+			if	(!$(this).closest('span').hasClass('btn-disable'))
+				$("form#bigdataFrm").submit();
+		});
+
+		// 안내 팝업
+		$("button.btn-bigdata-info").click(function(){
+			openDialog('빅데이터 저장기간 안내', 'bigdata_info_pop', {'width':'450','height':'200'});
+		});
+
+		$("button.bigdataCriteriaButton").live("click",function(){
+			var displayResultId = $(this).attr('dp_id');
+			var criteria = $("#"+displayResultId).val();
+			var kind = $(this).attr('kind');
+			open_criteria_condition(displayResultId,'',criteria,kind);
+		});
+
+		setCriteriaDescription_bigdata('catalog');
+
+		// 빅데이터 PC 안내 화면
+		$("button#btn_bigdata_screen_p").click(function(){
+			openDialog("안내) 데스크탑 화면", "bigdata_pc_screen", {"width":"1030","height":"780"});
+		});
+		// 빅데이터 MOBILE 안내 화면
+		$("button#btn_bigdata_screen_m").click(function(){
+			openDialog("안내) 모바일 화면", "bigdata_mobile_screen", {"width":"860","height":"750"});
+		});
+	});
+
+	function set_goods_list_auto(displayId,inputGoods,criteria,auto_condition_use_id,kind){
+		$.ajax({
+			type: "get",
+			url: "../goods/select_auto",
+			data: "inputGoods="+inputGoods+"&displayKind="+kind+"&displayId="+displayId+"&criteria="+encodeURIComponent(criteria),
+			success: function(result){
+				$("div#"+displayId).html(result);
+				$("#"+displayId+"Container").show();
+			}
+		});
+	}
+
+	function open_criteria_condition(displayResultId,auto_condition_use_id,criteria,kind){
+		openDialog("조건 선택", "#displayGoodsSelectPopup", {"width":"99%","show" : "fade","hide" : "fade"});
+		set_goods_list_auto("displayGoodsSelect",displayResultId,criteria,auto_condition_use_id,kind);
+	};
+
+	function set_goods_list(displayId,inputGoods){
+		$.ajax({
+			type: "get",
+			url: "../goods/select",
+			data: "page=1&inputGoods="+inputGoods+"&displayId="+displayId,
+			success: function(result){
+				$("div#"+displayId).html(result);
+			}
+		});
+		openDialog("상품 검색", displayId, {"width":"1000","height":"700","show" : "fade","hide" : "fade"});
+	}
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>추천상품 전용페이지 설정 - ○○○고객이 현재 보고 있는 상품 기준</h2>
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<span class="btn large orange"><button type="button" class="btn-bigdata-info">안내) 빅데이터 저장기간</button></span>
+		</ul>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<span class="btn large black"><button type="button" class="submit-form">설정 저장</button></span>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 빅데이터 설정 : 시작 -->
+<div class="sub-layout-container body-height-resizing">
+	<!-- 서브메뉴 바디 : 시작-->
+	<div class='slc-body-wrap'>
+		<div class="slc-body">
+			<form name="bigdataFrm" id="bigdataFrm" method="post" action="../bigdata_process/save_config" target="actionFrame" onsubmit="return loadingStart();">
+				<div id="bigdataGoodsAutoContainer" class="bigdataGoodsContainer">					
+					<div class="clearbox">
+						<div class="fl item-title">추천상품 전용페이지 <span class="btn small gray hide"><button type="button" class="bigdataCriteriaButton displayCriteriaType" dp_id='bigdataCriteria' kind='bigdata_catalog' auto_type="bigdata">조건 선택</button></span></div>
+						<div class="fr">
+							<span class="btn small orange"><button id="btn_bigdata_screen_p" type="button">안내)추천상품 전용페이지 (데스크탑)</button></span>
+							<span class="btn small orange"><button id="btn_bigdata_screen_m" type="button">안내)추천상품 전용페이지 (모바일)</button></span>
+						</div>
+					</div>
+					<div class="clearbox" style="height:5px;"></div>
+					<input type='hidden' class="displayCriteriaBigdata" id="bigdataCriteria" name='bigdataCriteria' value="{cfg_bigdata}" />
+					<div class="displayCriteriaBigdataDesc">
+						<!--{?!cfg_bigdata}-->
+						<div class="center no_condition">
+							<p>추천상품 전용페이지가 설정되지 않았습니다. 설정하세요.</p>
+						</div>
+						<!--{/}-->
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="bigdata_info_pop" class="hide">
+	<ul>
+		<li style="line-height:27px;">최근 6개월 동안의 빅데이터를 저장합니다. (무료 지원)</li>
+		<li style="line-height:27px;">※ 6개월 이상의 빅데이터 보관은 별도 구축을 통해 진행되오니,</li>
+		<li style="line-height:27px;margin-left:15px;">고객센터 또는 1:1게시판을 통해 문의해 주십시오.</li>
+		<li style="line-height:27px;">※ 단, 무료몰 Plus+버전은 미지원</li>
+	</ul>
+</div>
+<div id="displayGoodsSelectPopup">
+	<div id="displayGoodsSelect"></div>
+</div>
+<div class="hide" id="bigdata_pc_screen"><img src="/admin/skin/default/images/design/bigdata_pc_screen.gif"></div>
+<div class="hide" id="bigdata_mobile_screen"><img src="/admin/skin/default/images/design/bigdata_mobile_screen.gif"></div>
+
+{ #layout_footer }

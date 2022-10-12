@@ -1,0 +1,717 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 주문완료 / 결제실패 @@
+- 파일위치 : [스킨폴더]/order/complete.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{? config_system.pgCompany == "lg"}<script type="text/javascript" src="//pgweb.dacom.net/WEB_SERVER/js/receipt_link.js"></script>{/}
+{? config_system.pgCompany == "allat"} {/}
+<script type="text/javascript">
+	//매출전표 처리
+	function receiptView(tno, shopid, ordno, pg_kind, authdata, payment)
+	{
+		if(pg_kind){
+			if(pg_kind=='kcp'){
+				if(payment == "cellphone"){
+					receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillAction.do?cmd=mcash_bill&h_trade_no=" + tno;
+				}else if(payment == "virtual"){
+					receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillAction.do?cmd=vcnt_bill&a_trade_no=" + tno;
+				}else if(payment == "account"){
+					receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillAction.do?cmd=acnt_bill&h_trade_no=" + tno;
+				}else{
+					receiptWin = "https://admin.kcp.co.kr/Modules/Sale/Card/ADSA_CARD_BILL_Receipt.jsp?c_trade_no=" + tno;
+				}
+				window.open(receiptWin , "" , "width=450, height=800, scrollbars=yes");
+			}else if(pg_kind=='inicis'){
+				receiptWin = "https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid="+ tno + "&noMethod=1";
+				window.open(receiptWin , "" , "width=410,height=715, scrollbars=no,resizable=no");
+			}else if(pg_kind=='lg'){
+				showReceiptByTID(shopid, tno, authdata);
+			}else if(pg_kind=='allat'){
+				if(payment == "cellphone"){
+					var allat_urls = "https://www.allatpay.com/servlet/AllatBizPop/member/pop_tx_receipt.jsp?tx_seq_no="+tno+"&order_no="+ordno+"&pay_type=HP";
+					window.open(allat_urls,"app","width=410,height=650,scrollbars=0");
+				}else{
+					var allat_urls = "https://www.allatpay.com/servlet/AllatBizPop/member/pop_card_receipt.jsp?tx_seq_no="+tno+"&order_no="+ordno;
+					window.open(allat_urls,"app","width=410,height=650,scrollbars=0");
+				}
+			}else if(pg_kind=='kspay'){
+				var allat_urls = "https://nims.ksnet.co.kr/pg_infoc/src/bill/credit_view_print.jsp?tr_no="+tno;
+				window.open(allat_urls,"app","width=456,height=700,scrollbars=1");
+			}else if(pg_kind=='kakaopay'){
+				var status = "toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=550,height=540";
+				$.get('/kakaopay/pg_confirm?no='+ordno+'&tno='+tno, function(data) {
+					var url = data;
+					window.open(url,"popupIssue",status);
+				});
+			}else if(pg_kind=='kicc'){
+				var status = "toolbar=0,scroll=1,menubar=0,status=0,resizable=0,width=380,height=700";
+				$.get('/kicc/receipt?no='+ordno, function(data) {
+					var url = data;
+					if(url!='false'){
+						window.open(url,"popupIssue",status);
+					}else{
+						alert('매출증빙 요청 정보가 올바르지 않습니다.');
+					}
+				});
+			}else if(pg_kind=='payco'){
+				var status = "toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=550,height=540";
+				$.get('/payco/pg_confirm?no='+ordno, function(data) {
+					var url = data;
+					window.open(url,"popupIssue",status);
+				});
+			}
+		}else{
+			{? config_system.pgCompany == 'kcp'}
+				if(payment == "cellphone"){
+					receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillAction.do?cmd=mcash_bill&h_trade_no=" + tno;
+				}else if(payment == "virtual"){
+					receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillAction.do?cmd=vcnt_bill&a_trade_no=" + tno;
+				}else if(payment == "account"){
+					receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillAction.do?cmd=acnt_bill&h_trade_no=" + tno;
+				}else{
+					receiptWin = "https://admin.kcp.co.kr/Modules/Sale/Card/ADSA_CARD_BILL_Receipt.jsp?c_trade_no=" + tno;
+				}
+				window.open(receiptWin , "" , "width=450, height=800, scrollbars=yes");
+			{: config_system.pgCompany == 'inicis' }
+				receiptWin = "https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid="+ tno + "&noMethod=1";
+				window.open(receiptWin , "" , "width=410,height=715, scrollbars=no,resizable=no");
+			{: config_system.pgCompany == 'lg' }
+				showReceiptByTID(shopid, tno, authdata);
+			{: config_system.pgCompany == 'allat' }
+				if(payment == "cellphone"){
+					var allat_urls = "https://www.allatpay.com/servlet/AllatBizPop/member/pop_tx_receipt.jsp?tx_seq_no="+tno+"&order_no="+ordno+"&pay_type=HP";
+					window.open(allat_urls,"app","width=410,height=650,scrollbars=0");
+				}else{
+					var allat_urls = "https://www.allatpay.com/servlet/AllatBizPop/member/pop_card_receipt.jsp?tx_seq_no="+tno+"&order_no="+ordno;
+					window.open(allat_urls,"app","width=410,height=650,scrollbars=0");
+				}
+			{: config_system.pgCompany == 'kspay' }
+				var allat_urls = "https://nims.ksnet.co.kr/pg_infoc/src/bill/credit_view_print.jsp?tr_no="+tno;
+				window.open(allat_urls,"app","width=456,height=700,scrollbars=1");
+			{: config_system.pgCompany == 'kicc' }
+				var status = "toolbar=0,scroll=1,menubar=0,status=0,resizable=0,width=380,height=700";
+				$.get('/kicc/receipt?no='+ordno, function(data) {
+					var url = data;
+					if(url!='false'){
+						window.open(url,"popupIssue",status);
+					}else{
+						alert('매출증빙 요청 정보가 올바르지 않습니다.');
+					}
+				});
+			{ / }
+		}
+	}
+</script>
+
+
+
+<div class="subpage_wrap">
+	<div class="subpage_container v3 Pb10">
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<a class="btn_history back" href="javascript:history.back();"><img src="../images/design/arw_prev.gif" alt="히스토리 뒤로" /></a>
+			<!--{ ? orders.step == 99  || orders.step == 0}-->
+			<h2 class="pointcolor imp"><span designElement="text">결제실패</span></h2>
+			<!--{ : }-->
+			<h2><span designElement="text">주문완료</span></h2>
+			<!--{ / }-->
+			<a class="btn_history forward" href="javascript:history.forward();"><img src="../images/design/arw_next.gif" alt="히스토리 앞으로" /></a>
+		</div>
+		<div class="mypage_greeting">
+			<!--{ ? orders.step == 99  || orders.step == 0}-->
+			<span class="username">{orders.order_user_name}</span>님의 주문/결제가 <span class="pointcolor">실패하였습니다.</span>
+			<!--{ : }-->
+			<span class="username">{orders.order_user_name}</span>님의 주문이 정상적으로 처리되었습니다.
+			<!--{ / }-->
+		</div>
+	</div>
+</div>
+
+
+<div class="subpage_wrap order_payment" data-ezmark="undo">
+	<div class="subpage_container v2 Pt0 Pb40 order_payment_left2">
+		<h2 class="title_od1 Pt15"><span designElement="text">주문상품</span></h2>
+		<!--{ ? shipping_group_items }-->
+		<div class="cart_contents">
+			<div class="cart_list">
+				
+			<!--{ @ shipping_group_items }-->
+				<ul class="shipping_group_list">
+				<!--{ @ .items }-->
+				<!--{ ? ..options }-->
+				<!--{ @ ..options }-->
+					<!--{? ...shipping_division }-->
+					<li class="goods_delivery_info clearbox">
+						<ul class="detail">
+							<li class="th">배송 :</li>
+							<!--{ ? ..data_shipping // 배송비 정보 :: START }-->
+							<li class="silmul">
+								<!--{ ? ..data_shipping.provider_name }-->
+								<span class="blue">[{..data_shipping.provider_name}]</span>
+								<!--{ / }-->
+								<span>{..data_shipping.shipping_set_name}</span>
+								<!--{ ? ..data_shipping.shipping_cost > 0 }-->
+									<strong>{=get_currency_price(..data_shipping.shipping_cost,2)}</strong>
+								<!--{ : ..data_shipping.postpaid > 0 }-->
+									<strong>{=get_currency_price(..data_shipping.postpaid,2)}</strong>
+								<!--{ : }-->
+									<strong>무료</strong>
+								<!--{ / }-->
+								<!--{ ? ..data_shipping.shipping_set_code == 'direct_store' }-->
+								<span class="ship_info">(수령매장 {..data_shipping.shipping_store_name})</span>
+								<!--{ : }-->
+									<!--{ ? ..data_shipping.shipping_cost > 0 || ..data_shipping.postpaid > 0 }-->
+								<span class="ship_info">({..data_shipping.shipping_pay_type})</span>
+									<!--{ / }-->
+								<!--{ / }-->
+								<!--{ ? ..data_shipping.shipping_hop_date }-->
+								<span class="ship_info">({..data_shipping.shipping_hop_date} 희망)</span>
+								<!--{ : ..data_shipping.reserve_sdate }-->
+								<span class="ship_info">({..data_shipping.reserve_sdate} 예약)</span>
+								<!--{ / }-->
+							</li>
+							<!--{ / }-->
+						</ul>
+					</li>
+					<!--{ / }-->
+
+					<li class="cart_goods {?..goods_type == 'gift'}gift{/}">
+						<div class="cart_goods_detail">
+							<div class="cgd_contents">
+								<div class="block block1">
+									<ul>
+										<li class="img_area">
+											<a href="../goods/view?no={..goods_seq}"><img src="{..image}" class="goods_thumb" onerror="this.src='../images/common/noimage_list.gif'" /></a>
+										</li>
+										<li class="option_area">
+											<div class="goods_name v2 d2">
+												<a href="../goods/view?no={..goods_seq}">{..goods_name}</a>
+											</div>
+
+											<!--{ ? ..goods_type == 'gift' || ..adult_goods == 'Y' || ..option_international_shipping_status == 'y' || ..cancel_type == '1' || ..tax == 'exempt' }-->
+											<div class="icon_area">
+												<!--{? ..goods_type == 'gift' }-->
+												[사은품]
+												<!--{ / }-->
+												<!--{ ? ..adult_goods == 'Y' }-->
+												<img src="../images/common/auth_img.png" alt="성인" class="icon1" />
+												<!--{ / }-->
+												<!--{ ? ..option_international_shipping_status == 'y' }-->
+												<img src="../images/common/plane.png" alt="해외배송상품" class="icon2" />
+												<!--{ / }-->
+												<!--{ ? ..cancel_type == '1' }-->
+												<img src="../images/common/nocancellation.gif" alt="청약철회" class="icon3" />
+												<!--{ / }-->
+												<!--{ ? ..tax == 'exempt' }-->
+												<img src="../images/common/taxfree.gif" alt="비과세" class="icon4" />
+												<!--{ / }-->
+											</div>
+											<!--{ / }-->
+
+											<!--{? ...option1!=null }-->
+											<ul class="cart_option">
+												{ ? ...option1 }
+												<li>{?...title1}<span class="xtle">{...title1}</span>{ / } {...option1}</li>
+												{ / }
+												{ ? ...option2 }
+												<li>{?...title2}<span class="xtle">{...title2}</span>{ / } {...option2}</li>
+												{ / }
+												{ ? ...option3 }
+												<li>{?...title3}<span class="xtle">{...title3}</span>{ / } {...option3}</li>
+												{ / }
+												{ ? ...option4 }
+												<li>{?...title4}<span class="xtle">{...title4}</span>{ / } {...option4}</li>
+												{ / }
+												{ ? ...option5 }
+												<li>{?...title5}<span class="xtle">{...title5}</span>{ / } {...option5}</li>
+												{ / }
+											</ul>
+											<!--{ / }-->
+											
+											<div class="cart_quantity">
+												<span class="xtle">수량</span> {?..goods_type == 'gift'}-{:}{...ea}개{/}
+												<span class="add_txt">({=get_currency_price(...tot_ori_price,2)})</span>
+											</div>
+
+											<!--{ ? ...inputs }-->
+											<ul class="cart_inputs">
+												<!--{ @ ...inputs }-->
+													<!--{ ? ....title }-->
+												<li>
+													{?....type=='file'}
+														{?....title}<span class="xtle v2">{....title}</span>{ / }
+														<a href="/mypage_process/filedown?file={....value}" target="actionFrame" title="다운로드"><img src="/mypage_process/filedown?file={....value}" class="inputed_img" alt="" /></a>
+													{:}
+														{?....title}<span class="xtle v2">{....title}</span>{ / }
+														{....value}
+													{/}
+												</li>
+													<!--{ / }-->
+												<!--{ / }-->
+											</ul>
+											<!--{ / }-->
+
+											<!--{ ? ...suboptions }-->
+											<ul class="cart_suboptions">
+												<!--{ @ ...suboptions }-->
+												<li>
+													<!--{ ? ....suboption }-->
+														{ ? ....title }
+													<span class="xtle v3">{....title}</span>
+														{ / }
+													{....suboption}
+													<!--{ / }-->
+													{....ea}개
+													<span class="add_txt">({=get_currency_price(....price*....ea,2)})</span>
+												</li>
+												<!--{ / }-->
+											</ul>
+											<!--{ / }-->
+										</li>
+									</ul>
+								</div>
+								<input type="hidden" name="coupon_download[{..cart_seq}]" value="" />
+							</div>
+						</div>
+					</li>
+				<!--{ / }-->
+				<!--{ / }-->
+				<!--{ / }-->
+				</ul>
+			<!--{ / }-->
+			</div>
+		</div>
+		<!--{ / }-->
+
+		<div class="goods_delivery_info Pt10 y1 hide">
+			<b>기본배송비 : {=get_currency_price(orders.basic_delivery,2)}</b>
+			<!--{ ? orders.add_delivery > 0 }-->
+			&nbsp;&nbsp;&nbsp;<b>추가배송비 : {=get_currency_price(orders.add_delivery,2)}</b>
+			<!--{ / }-->
+			<!--{ ? orders.hop_delivery > 0 }-->
+			&nbsp;&nbsp;&nbsp;<b>희망배송비 : {=get_currency_price(orders.add_delivery,2)}</b>
+			<!--{ / }-->
+			<!--{ ? orders.shipping_coupon_sale > 0 }-->
+			&nbsp;&nbsp;&nbsp;<b>배송비쿠폰할인 : (-){=get_currency_price(orders.shipping_coupon_sale,2)}</b>
+			<!--{ / }-->
+			<!--{ ? orders.shipping_code_sale > 0 }-->
+			&nbsp;&nbsp;&nbsp;<b>배송비코드할인 : (-){=get_currency_price(orders.shipping_code_sale,2)}</b>
+			<!--{ / }-->
+			</span>
+		</div>
+
+		<div class="order_subsection v2">
+			<h3 class="title3"><span designElement="text">주문자</span></h3>
+			<ul class="list_01 v2">
+				<li>
+					<span class="name1 pointcolor2 imp">{orders.order_user_name}</span>
+				</li>
+				<li>
+					<span class="phone1">{orders.order_cellphone}</span>
+					<!--{ ? orders.order_phone }-->
+					<span class="gray_06">&nbsp;/&nbsp;</span>
+					<span class="phone2">{orders.order_phone}</span>
+					<!--{ / }-->
+				</li>
+				<!--{ ? orders.order_email }-->
+				<li><span class="email1">{orders.order_email}</span></li>
+				<!--{ / }-->
+				<li class="desc">
+					주문자 정보로 주문 관련 정보가 문자와 이메일로 발송됩니다.<br />
+					<!--{ ? !orders.member_seq }-->
+					비회원은 이메일과 주문번호로 주문조회가 가능합니다.<br />
+					<!--{ / }-->
+				</li>
+			</ul>
+
+			<h3 class="title3"><span designElement="text">배송지</span></h3>
+			<ul class="list_01 v2">
+				<li>
+					<span class="name1 pointcolor imp">{orders.recipient_user_name}</span>
+					<!--{ ? is_goods }-->
+					<span class="gray_06">({orders.nation_name_kor})</span>
+					<!--{ / }-->
+				</li>
+				<!--{ ? is_goods }-->
+				<li>
+					<!--{ ? orders.international == 'domestic' }-->
+					[ {orders.recipient_zipcode} ]
+						<!--{ ? orders.recipient_address_type == 'street' }-->
+					{orders.recipient_address_street} 
+						<!--{ : }-->
+					{orders.recipient_address} 
+						<!--{ / }-->
+					{orders.recipient_address_detail}<br/>
+					<span class="desc">
+					(
+						<!--{ ? orders.recipient_address_type == 'street' }-->
+						{orders.recipient_address} 
+						<!--{ : }-->
+						{orders.recipient_address_street} 
+						<!--{ / }-->
+						{orders.recipient_address_detail}
+					)
+					</span>
+					<!--{ : }-->
+					{orders.international_address} {orders.international_town_city} {orders.international_county} {orders.international_country}
+					<!--{ / }-->
+				</li>
+				<!--{ / }-->
+				<li>
+					{orders.recipient_cellphone}
+					<!--{ ? orders.recipient_phone }-->
+					<span class="gray_07">&nbsp;/&nbsp;</span> {orders.recipient_phone}
+					<!--{ / }-->
+					<!--{ ? orders.recipient_email }-->
+					<br />{orders.recipient_email}
+					<!--{ / }-->
+				</li>
+				<!--{ ? is_direct_store }-->
+				<li>※ 매장수령 상품은 매장에서 수령하세요.</li>
+				<!--{ / }-->
+				<!--{ ? is_coupon }-->
+				<li>※ 티켓번호는 문자와 이메일로 보내드립니다.</li>
+				<!--{ / }-->
+				<!--{ ? orders.each_memo || orders.memo }-->
+				<li>
+					<!--{ ? orders.each_memo }-->
+						<!--{ @ orders.each_memo }-->
+					<div>
+						<span class="desc">({.goods_name})</span><br/>
+						<span>{.ship_message}</span>
+					</div>
+						<!--{ / }-->
+					<!--{ : }-->
+					{orders['memo']}
+					<!--{ / }-->
+				</li>
+				<!--{ / }-->
+			</ul>
+
+			<!--{ ? orders.clearance_unique_personal_code }-->
+			<h3 class="title3"><span designElement="text">해외구매대행상품</span></h3>
+			<div class="unique_personal_code">
+				개인통관고유부호 : <span class="pointcolor">{orders.clearance_unique_personal_code}</span>
+			</div>
+			<!--{ / }-->
+
+		</div>
+	</div>
+
+
+	<div class="subpage_container v2 Pt0 Pb40 order_payment_right2">
+		<div class="order_subsection v2 ">
+			<h3 class="title3 Pt15"><span designElement="text">결제 금액</span></h3>
+			<div class="order_price_total">
+				<ul>
+					<li class="th"><strong><span designElement="text">상품금액</span></strong></li>
+					<li class="td">{=get_currency_price(orders.tot_price,2)}</li>
+				</ul>
+				<ul>
+					<li class="th">
+						<span designElement="text">배송비</span>&nbsp;
+						<button type="button" class="btn_resp size_a gray_05" onclick="showCenterLayer('#besongDetailList')">내역</button>
+					</li>
+					<li class="td">
+						(+) {=get_currency_price(orders.tot_origin_shipping_cost,2)}
+					</li>
+				</ul>
+				{? orders.total_sale_price > 0 }
+				<ul>
+					<li class="th">
+						<span designElement="text">할인금액</span>&nbsp;
+						<button type="button" class="btn_resp size_a gray_05" onclick="showCenterLayer('#saleDetailList')">내역</button>
+					</li>
+					<li class="td pointcolor3">
+						(-) {=get_currency_price(orders.total_sale_price,2)}
+					</li>
+				</ul>
+				{ / }
+				<!--{ ? orders.member_seq }-->
+					{? orders.emoney > 0 }
+				<ul>
+					<li class="th">마일리지 사용</li>
+					<li class="td pointcolor3">
+						(-) {=get_currency_price(orders.emoney,2)}
+					</li>
+				</ul>
+					{ / }
+					{? orders.cash > 0 }
+				<ul>
+					<li class="th">예치금 사용</li>
+					<li class="td pointcolor3">
+						(-) {=get_currency_price(orders.cash,2)}
+					</li>
+				</ul>
+					{ / }
+				<!--{ / }-->
+				<ul class="total">
+					<li class="th"><span designElement="text">총 결제금액</span></li>
+					<li class="td">
+						<span class="price">{=get_currency_price(orders.settleprice,2,'','<span class="settle_price">_str_price_</span>')}</span>
+						{? orders.settleprice_compare}
+						<span class="total_result_price">{=orders.settleprice_compare}</span>
+						{ / }
+					</li>
+				</ul>
+			</div>
+
+			<!-- 주의 내용 -->
+			<div class="od_comp_warnning hide">
+				<p class="od_sale_title2 pointcolor imp">주의</p>
+				<ul class="list_dot_01">
+					<li>비회원 주문의 경우, 주문번호로 주문이 조회되오니 주문번호를 꼭 기억하세요.</li>
+					<li>무통장입금의 경우, {order_config.cancelDuration}일 이내로 입금 하셔야 하며 이후 입금되지 않은 주문은 자동으로 취소됩니다.</li>
+					<!--{ ? is_goods }-->
+					<li>배송은 결제완료 후 지역에 따라 1~7일 가량 소요됩니다. 상품별 자세한 배송과정은 주문조회를 통하여 조회하실 수 있습니다.</li>
+					<!--{ / }-->
+					<!--{ ? is_coupon }-->
+					<li>결제 후 티켓이 즉시 발송됩니다. 상품별 티켓번호나 사용내역은 주문조회를 통하여 조회하실 수 있습니다.</li>
+					<!--{ / }-->
+					<li>주문의 취소 및 환불, 교환에 관한 사항은 이용안내의 내용을 참고해 주세요.</li>
+				</ul>
+			</div>
+
+			<h3 class="title3"><span designElement="text">주문결제정보</span>&nbsp; {?btn_tradeinfo}<span class="btn_resp gray_06">{=btn_tradeinfo}</span>{/}</h3>
+			<table class="table_row_a" cellpadding="0" cellspacing="0">
+				<colgroup><col width="100"><col></colgroup>
+				<tbody>
+					<tr>
+						<th scope="row"><p>주문번호</p></th>
+						<td>
+							{orders.order_seq} &nbsp;
+							<span class="Dib desc">({=date('Y-m-d H:i', strtotime(orders.regist_date))})</span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><p>주문상태</p></th>
+						<td>{orders.step_info}</td>
+					</tr>
+					<tr>
+						<th scope="row"><p>결제일시</p></th>
+						<td>
+							<!--{ ? orders.deposit_yn == 'n' }-->
+							입금대기
+							<!--{ : }-->
+							{=date('Y-m-d H:i:s', strtotime(orders.deposit_date))}
+							<!--{ / }-->
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><p>결제방식</p></th>
+						<td>
+							{orders.payment}
+							<!--{ ? orders.mpayment == 'bank' }-->
+							 (입금자명:{orders.depositor})
+							<!--{ : orders.mpayment == 'card' && orders.payment_cd != 'MONEY' }-->
+							 ({? order_pg_log.card_name}{order_pg_log.card_name}/{/}{?orders.card_quota>0}{orders.card_quota}개월할부{:}일시불{/})
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ ? orders.virtual_account }-->
+					<tr>
+						<th scope="row"><p>입금계좌</p></th>
+						<td>{orders.virtual_account}</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? orders.bank_account }-->
+					<tr>
+						<th scope="row"><p>입금계좌</p></th>
+						<td>{orders.bank_account}</td>
+					</tr>
+					<!--{ / }-->
+
+					<!--{ ? orders.pg == 'payco' && orders.mpayment == 'bank' && orders.virtual_date }-->
+					<dl>
+						<dt>입금기간</dt>
+						<dd>{=orders.virtual_date}</dd>
+					</dl>
+					<!--{ : orders.deposit_yn == 'n' && order_config.autocancel_txt }-->
+					<tr>
+						<th scope="row"><p>입금기간</p></th>
+						<td>{order_config.autocancel_txt}</td>
+					</tr>
+					<!--{ / }-->
+					<tr>
+						<th scope="row"><p>결제금액</p></th>
+						<td><strong>{=get_currency_price(orders.settleprice,2)}</strong></td>
+					</tr>
+					<!--{ ? orders.typereceipt > 0 }-->
+					<tr>
+						<th scope="row"><p>증빙자료</p></th>
+						<td>
+							<!--{? orders.typereceipt == 1 }-->
+							세금계산서
+							<!--{ : orders.typereceipt == 2 }-->
+							현금영수증 ({?orders.cuse==0}개인소득공제{:orders.cuse==1}사업자지출증빙용{/})
+							<!--{ / }-->
+						</td>
+					</tr>
+					<!--{ : (orders.mpayment == 'card' || orders.receipt_view ) && orders.step >= 25 && orders.step < 85 }-->
+					<tr>
+						<th scope="row"><p>증빙자료</p></th>
+						<td>
+							<button type="button" class="btn_resp" onclick="receiptView('{orders.pg_transaction_number}', '{pg.mallCode}', '{orders.order_seq }', '{orders.pg_kind}', '{orders.authdata}', '{orders.mpayment}');">신용카드매출전표</button>
+						</td>
+					</tr>
+					<!--{ / }-->
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+<div class="Pb60 C">
+	<a href="/mypage/order_view?no={orders.order_seq}" class="btn_resp size_c color2"><span designElement="text">MY페이지 주문내역</span></a>
+	<a href="/" class="btn_resp size_c color5"><span designElement="text">쇼핑 계속하기</span></a>
+</div>
+
+
+<!-- 배송비 내역 레이어 -->
+<div id="besongDetailList" class="resp_layer_pop hide">
+	<h4 class="title">배송비 내역</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			<ul class="od_layer_title1">
+				<li class="td">총 <span class="pointcolor2">{=get_currency_price(orders.tot_origin_shipping_cost,2)}</span></li>
+			</ul>
+			<table class="table_row_a" cellpadding="0" cellspacing="0">
+				<colgroup><col width="100" /><col /></colgroup>
+				<tbody>
+					<!--{ ? orders.std_cost > 0 }-->
+					<tr>
+						<th scope="row"><p>기본배송비</p></th>
+						<td>
+							{=get_currency_price(orders.std_cost,2)}
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? orders.add_cost > 0 }-->
+					<tr>
+						<th scope="row"><p>추가배송비</p></th>
+						<td>
+							{=get_currency_price(orders.add_cost,2)}
+						</td>
+					</tr>
+					<!--{ / }-->
+					<!--{ ? orders.hop_cost > 0 }-->
+					<tr>
+						<th scope="row"><p>희망배송비</p></th>
+						<td>
+							{=get_currency_price(orders.hop_cost,2)}
+						</td>
+					</tr>
+					<!--{ / }-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<!-- 할인 내역 레이어 -->
+<div id="saleDetailList" class="resp_layer_pop hide">
+	<h4 class="title">할인 내역</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			<ul class="od_layer_title1">
+				<li class="td">총 <span class="pointcolor3">{=get_currency_price(orders.total_sale_price,2)}</span></li>
+			</ul>
+			<table class="table_row_a" cellpadding="0" cellspacing="0">
+				<colgroup><col width="100" /><col /></colgroup>
+				<tbody>
+				<!--{ @ orders.sale_list }-->
+					<!--{ ? .value_['price'] > 0 }-->
+					<tr>
+						<th scope="row"><p>{.value_['title']}</p></th>
+						<td class="bolds ends prices">
+							{=get_currency_price(.value_['price'],2)}
+						</td>
+					</tr>
+					<!--{ / }-->
+				<!--{ / }-->
+				<!--{ ? enuri > 0 }-->
+					<tr>
+						<th scope="row"><p>에누리</p></th>
+						<td>
+							{=get_currency_price(enuri,2)}
+						</td>
+					</tr>
+				<!--{ / }-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<style type="text/css">
+@media only screen and (max-width:767px) {
+	.subpage_wrap.order_payment { display:block; width:auto; }
+	.subpage_wrap.order_payment .subpage_container { display:block; padding:10px 10px 40px; }
+	.subpage_wrap.order_payment .subpage_container.v2 { display:block; padding:10px 10px 40px; }
+	.subpage_wrap.order_payment .order_payment_left2 { padding-right:0; }
+	.subpage_wrap.order_payment .order_payment_right2 { padding-left:0; }
+}
+</style>
+
+<!--{ ? APP_USE == 'f' && is_file_facebook  }-->
+	<!-- 구매 : 삭제하지 말아주세요 -->
+	{? !( strstr(_SERVER.HTTP_HOST,'.firstmall.kr') || _SERVER.HTTP_HOST==APP_DOMAIN ) // facebook 오픈그라피 }
+		<script>
+		<!--{ @ items }-->
+			<!--{?.goods_type != 'gift'}-->
+				getfbopengraph('{.goods_seq}', 'buy', '{config_system.subDomain}','');
+			<!--{ / }-->
+		<!--{ / }-->
+		</script>
+	{:}
+		<script>
+		<!--{ @ items }-->
+			<!--{?.goods_type != 'gift'}-->
+				getfbopengraph('{.goods_seq}', 'buy', '{_SERVER.HTTP_HOST}','');
+			<!--{ / }-->
+		<!--{ / }-->
+		</script>
+	{/}
+	<!-- 삭제하지 말아주세요 -->
+<!--{ / }-->
+
+{? !( strstr(_SERVER.HTTP_HOST,'.firstmall.kr') || _SERVER.HTTP_HOST==APP_DOMAIN ) }
+<iframe name="snsiframe" src="//{config_system.subDomain}/admin/sns/subdomainfacebookck" frameborder="0" width="0" height="0"></iframe>
+{/}
+
+ <script type="text/javascript">
+	$(document).ready(function(){
+		{ ? !is_goods }
+		$(".goods_delivery_info").hide();
+		{ / }
+
+		$(".price_area").bind("mouseover",function(){
+			$(this).parent().find(".sale_price_layer").show();
+		}).bind("mouseout",function(){
+			$(this).parent().find(".sale_price_layer").hide();
+		});
+
+		/* 토글 레이어 */
+		$(".detailDescriptionLayerBtn").click(function(){
+			$('div.detailDescriptionLayer').not($(this).siblings('div.detailDescriptionLayer')).hide();
+			$(this).siblings('div.detailDescriptionLayer').toggle();
+		});
+		$(".detailDescriptionLayerCloseBtn").click(function(){
+			$(this).closest('div.detailDescriptionLayer').hide();
+		});
+	});
+
+	function change_address_btn(seq){
+		var str="../mypage_process/change_address?address_seq=" + seq + "&complete=y";
+		$("iframe[name='actionFrame']").attr('src',str);
+	}
+</script>

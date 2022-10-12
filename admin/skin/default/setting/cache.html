@@ -1,0 +1,85 @@
+{ #layout_header }
+<!-- 페이지 타이틀 바 : 시작 -->
+<form name="settingForm" id="settingForm" method="post" enctype="multipart/form-data"
+	action="../setting_process/file_cache" target="actionFrame">
+	<!-- 페이지 타이틀 바 : 시작 -->
+	<div id="page-title-bar-area">
+		<div id="page-title-bar">
+			<!-- 타이틀 -->
+			<div class="page-title">
+				<h2>CACHE</h2>
+			</div>
+
+			<!-- 우측 버튼 -->
+			<div class="page-buttons-right">
+				<button class="resp_btn active size_L" type="submit">저장</button>
+			</div>
+
+		</div>
+	</div>
+	<!-- 페이지 타이틀 바 : 끝 -->
+
+	<!-- 서브 레이아웃 영역 : 시작 -->
+
+	<!-- 서브메뉴 바디 : 시작-->
+	<div class="contents_dvs">
+		<div class="item-title">CACHE</div>
+		<table class="table_basic thl">
+			<tr>
+				<th>CACHE 사용 설정</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="file_cache" value="Y" {?config_system.file_cache=='Y' }
+								checked{/} /> 사용</label>
+						<label><input type="radio" name="file_cache" value="N" {?config_system.file_cache!='Y' }
+								checked{/} /> 미사용</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>CACHE 삭제</th>
+				<td>
+					<button type="button" class="resp_btn v2"
+						onclick="$('#actionFrame').attr('src', '../setting_process/file_cache_delete')">삭제</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+<div class="box_style_05 mt20">
+	<div class="title">안내</div>
+	<ul class="bullet_hyphen black">
+		<li>CACHE 파일을 생성하여 쇼핑몰의 페이지를 빠르게 조회합니다.</li>
+		<li>CACHE 파일의 생성 주기 1시간 입니다.</li>
+	</ul>
+	<br />
+	<div class="title">CACHE 영역</div>
+	<ul class="bullet_hyphen black">
+		<li>기본 설정</li>
+		<li>반송지 주소</li>
+		<li>측면 레이아웃 카테고리, 브랜드, 지역</li>
+		<li>대표매장 정보</li>
+		<li>메인 노출 카테고리 목록</li>
+		<li>브랜드 메뉴</li>
+		<li>하위카테고리 목록</li>
+		<li>브랜드 네비게이션</li>
+		<li>브랜드 추천 상품 출력</li>
+		<li>카테고리 메뉴 출력</li>
+		<li>상품 상세 반응형 카테고리 네비게이션 출력</li>
+		<li>반응형 카테고리 네비게이션 출력</li>
+		<li>카테고리 추천 상품 출력</li>
+		<li>슬라이드 베너 출력</li>
+		<li>상품 진열 출력</li>
+		<li>반응형 팝업 출력</li>
+		<li>지역 네비게이션</li>
+		<li>지역 추천 상품 출력</li>
+		<li>상단바 출력</li>
+		<li>환경설정</li>
+		<li>코드</li>
+		<li>환율</li>
+		<li>Layout 설정</li>
+		<li>Alert 문구</li>
+	</ul>
+</div>
+
+{ #layout_footer }

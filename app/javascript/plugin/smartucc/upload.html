@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>동영상 등록</title>
+	<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common.css?v={=date('Ymd')}" />
+	<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common-ui.css?v={=date('Ymd')}" />
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+	<style>
+		body{background: #FFF;}
+	</style>
+</head>
+<body>
+<div class="contents_container" style="margin-top:0px;margin-bottom:0px;">
+	<div class="content">
+		<div >
+			<!-- 헤더 시작 -->
+			<span class="item-title bold">동영상 등록</span>
+			<!-- 헤더 종료 -->
+			
+			<!-- 폼 시작 -->
+			<form name="videoForm" id="videoForm" method="post" enctype="multipart/form-data" action="https://play.smartucc.kr/upload/ucc_upload.php" target="_self">
+			
+			<!-- 관리자 아이디 -->
+			<input type="hidden" name="company_id" value="{setting.company_id}">
+			<!-- 고객파일키 -->
+			<input type="hidden" name="client_key" value="{setting.client_key}">
+			<!-- 성공URL -->
+			<input type="hidden" name="url_success1" value="{setting.url_success1}">
+			<!-- 실패URL -->
+			<input type="hidden" name="url_error1" value="{setting.url_error1}">
+			<!-- 문자캐릭터셋 -->
+			<input type="hidden" name="charset" value="utf-8">
+			<!--{? className === 'board'}-->
+			<input type="hidden" name="encoding_speed" value="{encoding_speed}">
+			<input type="hidden" name="encoding_screen" value="{encoding_screen}">
+			<!--{/}-->	
+			
+			<!-- 사용자 입력 폼 시작 -->
+			<table class="table_basic">
+				<tr>
+					<th>동영상</th>
+					<td>
+						<!-- 파일 입력 -->
+						<input type="file" name="file_name" accept="video/*" required="required">
+					</td>
+				</tr>
+				<!--{? className === 'goods'}-->
+				<tr>
+					<th>인코딩 품질</th>
+					<td>
+						<!-- 인코딩SPEED -->
+						<!--{p.smartucc->form_encoding_speed('encoding_speed', '400', 'class="line"')}--> Kbps
+						<!-- 인코딩SCREEN -->
+					</td>
+				</tr>
+				<tr>
+					<th>동영상 크기</th>
+					<td>
+						<!--{p.smartucc->form_encoding_screen('encoding_screen', '400|300', 'class="line"')}--> Pixel
+					</td>
+				</tr>
+				<!--{ / }-->
+			</table>
+			<!-- 본문 종료 -->
+		</div>
+	</div>
+
+	<!-- 하단 시작 -->
+	<div class="footer">
+		<button type="submit" class="resp_btn active size_XL">등록</button>
+		<button onclick="window.self.close();" title="취소" class="btnlink resp_btn v3 size_XL">취소</button>
+	</div>
+	<!-- 하단 종료 -->
+	</form>
+	<!-- 폼 종료 -->
+</div>
+</body>
+</html>

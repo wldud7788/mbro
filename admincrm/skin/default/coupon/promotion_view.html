@@ -1,0 +1,86 @@
+<script type="text/javascript">
+$(document).ready(function() { 
+	help_tooltip();
+}); 
+</script> 
+
+<div >
+	<table class="info-table-style" style="width:100%">
+	<colgroup>
+	<col width="100" />
+	<col  />
+	</colgroup> 
+	<tr><th class="its-th-align center">프로모션명 </th> <td class="its-td left" >{promotion_name}</td></tr>
+	<tr><th class="its-th-align center">혜택 </th>  <td class="its-td left" >
+	<!-- 혜택 -->
+	{? type != 'promotion_point' } 
+		{=number_format(limit_goods_price)} 원 이상 구매 시 						
+	{/}
+	{? strstr(type,'shipping')}
+		{? sale_type == 'shipping_free'}
+			무료, 최대 {=number_format(max_percent_shipping_sale)}원
+		{:}
+			 배송비 {=number_format(won_shipping_sale)}원
+		{/}
+	{: type == 'promotion_point' } 
+		포인트 {=number_format(promotion_point)}원 지급
+	{:}
+		{? sale_type == 'percent'}
+			{=number_format(percent_goods_sale)}% 할인, 최대 {=number_format(max_percent_goods_sale)}원
+		{:}
+			판매가격의 {=number_format(won_goods_sale)}원
+		{/}
+	{/}
+	</td></tr>
+
+	{? !(coupons.type =='offline_emoney' || coupons.type =='point') }
+		<tr><th class="its-th-align center">유효기간 </th>  
+		<td class="its-td left" >
+		{issue_startdate} ~ {issue_enddate}
+		</td></tr>
+	{/}
+
+	<tr><th class="its-th left" colspan="2" >사용제한 </th></tr>
+	<tr>
+	<td class="its-td left"  colspan="2" >
+		<div>
+			{? issue_type  =='all' }
+				<ul>
+					<li>√ 전체 사용 가능</li>
+				</ul>
+			{:}
+				<ul>
+					<li>√ 특정 상품에서만 사용 가능</li>
+				</ul>
+			{/}
+		</div>
+	</td>
+	</tr>
+	{ ? (coupons.issue_type == 'issue' || coupons.issue_type == 'except')  && !coupons.coupondown  }
+		<tr   class="{? (coupons.type =='offline_emoney' || coupons.type =='point') }hide{/}" ><th class="its-th-align center">상품번호 입력 </th>
+		<td  class="its-td" ><input type="text" name="goods_seq" id="coupongoods_goods_seq"> <span class="btn small gray"><input type="button" name="goodssearchbtn" value="검색" coupon_seq="{coupons.coupon_seq}" /></span>
+		<span class="helpicon"  title="http://{? config_system.domain }{config_system.domain}{:}{config_system.subDomain}{/}/goods/view?no=<span class='red'>{coupons.coupon_seq}</span><br/>상품번호이란 상품 URL에 있는 숫자로 상품마다 고유합니다."  options="{alignX: 'right'}"></span>
+		</td></tr>
+		<tr>
+		<td  class="its-td-align {? (coupons.type =='offline_emoney' || coupons.type =='point') }hide{/}"  colspan="2" >
+			<div style="border-left:1px #ececec;border-top:2px #eaeaea;padding:5px; width:98%; height:150px; border:0px;overflow:auto" class="" readonly>
+			<!--{ @ issuegoods }--> 
+				<!-- <div class='goods fl'>
+					<div align='center' class='image'>
+						<img class="goodsThumbView" alt="" src="{.image}" width="50" height="50">
+					</div>
+					<div align='center' class='name' style='white-space:nowrap;'>{.goods_name}</div>
+					<div align='center' class='price'>{=number_format(.price)}</div> 
+				</div> -->
+			<!--{ / }-->
+			<div style="clear: both"></div>
+			<!--{ @ issuecategorys }--> 
+				<div ><a href="/goods/catalog?code={.category_code}" target="_blank" ><span class="blue">{.category}</span></a></div>
+			<!--{ / }--> 
+			</div>
+		</td>
+		</tr>
+	{/}
+	</table>
+</div>
+

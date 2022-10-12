@@ -1,0 +1,20 @@
+[2022-04-24 02:03:00.994896000]
+MODE : Request
+REMOTE_IP : 66.249.79.183
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-04-24 02:03:01.39821000]
+REMOTE_IP : 66.249.79.183
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

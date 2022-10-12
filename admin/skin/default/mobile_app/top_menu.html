@@ -1,0 +1,15 @@
+<!-- 상단 단계 링크 : 시작 -->
+
+<ul class="tab_02 ">	
+	<li><a href="javascript:void(0);" onclick="formMoveSub('push_manual',2); " class="{?tab2}current{/} t2">수동 발송</a></li>
+	<li><a href="javascript:void(0);" onclick="formMoveSub('push_history',3);" class="{?tab3}current{/} t3">발송 내역</a></li>		
+</ul>	
+
+<!-- 상단 단계 링크 : 끝 -->
+
+<script type="text/javascript">
+	function formMoveSub(gb, no){
+		$(".t"+no).addClass("current");
+		location.href = gb;
+	}
+</script>

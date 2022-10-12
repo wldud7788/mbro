@@ -1,0 +1,18 @@
+[2022-02-01 01:00:28] - 티켓 상품 자동 배송 완료(batch_social_goods_confirm) - batch_social_goods_confirm  no data
+[2022-02-01 01:00:28] - 미입금 통보 확인(deposit_request)
+[2022-02-01 01:00:28] - 굿스플로 배송정보(receiveTrackingResults) - OK
+[2022-02-01 01:00:28] - 티켓 상품 자동 배송 완료(batch_social_goods_confirm)
+[2022-02-01 01:00:28] - 자동 구매 확정(batch_buy_confirm)
+[2022-02-01 01:00:28] - 자동 주문 취소(order_cancel)
+[2022-02-02 01:00:26] - 티켓 상품 자동 배송 완료(batch_social_goods_confirm) - batch_social_goods_confirm  no data
+[2022-02-02 01:00:26] - 미입금 통보 확인(deposit_request)
+[2022-02-02 01:00:26] - 굿스플로 배송정보(receiveTrackingResults) - OK
+[2022-02-02 01:00:26] - 티켓 상품 자동 배송 완료(batch_social_goods_confirm)
+[2022-02-02 01:00:26] - 자동 구매 확정(batch_buy_confirm)
+[2022-02-02 01:00:26] - 자동 주문 취소(order_cancel)
+[2022-02-03 01:00:33] - 티켓 상품 자동 배송 완료(batch_social_goods_confirm) - batch_social_goods_confirm  no data
+[2022-02-03 01:00:33] - 미입금 통보 확인(deposit_request)
+[2022-02-03 01:00:33] - 굿스플로 배송정보(receiveTrackingResults) - OK
+[2022-02-03 01:00:33] - 티켓 상품 자동 배송 완료(batch_social_goods_confirm)
+[2022-02-03 01:00:33] - 자동 구매 확정(batch_buy_confirm)
+[2022-02-03 01:00:33] - 자동 주문 취소(order_cancel)

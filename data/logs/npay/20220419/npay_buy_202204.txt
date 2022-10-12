@@ -1,0 +1,10 @@
+[2022-04-19 00:36:18.927692000]
+MODE : Request
+REMOTE_IP : 180.68.33.48
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=3191]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YTg5NDY0ZDA1ZDE1ZTBjMDBkOTE5MDc0YWMwNDQ0YmZkYzEyODdjZF8xNjUwMjk2MTc4</merchantCustomCode1></interface><product><id>3191</id><merchantProductId>YTg5NDY0ZDA1ZDE1ZTBjMDBkOTE5MDc0YWMwNDQ0YmZkYzEyODdjZF8xNjUwMjk2MTc4</merchantProductId><ecMallProductId>3191</ecMallProductId><name><![CDATA[다크비(DKB) the 4th Mini Album [REBEL]]]></name><basePrice>13400</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=3191]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2022/04/3191_tmp_de7c531a6efe00f08d69697abe1028021642list1.jpg]]></imageUrl><option><quantity>4</quantity><price>0</price><manageCode><![CDATA[opt116828]]></manageCode><selectedItem><type>SELECT</type><name><![CDATA[포스터 포함]]></name><value><id>opt116828</id><text><![CDATA[앨범구매지관통X포스터접어서출고]]></text></value></selectedItem></option><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-04-19 00:36:18.976579000]
+MODE : Response
+REMOTE_IP : 180.68.33.48
+SUCCESS:tRuHIFs-TKq92P050Oy3Pg:200337588
+

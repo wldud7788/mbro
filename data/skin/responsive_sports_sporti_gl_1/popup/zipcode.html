@@ -1,0 +1,623 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 주소찾기 - 콘텐츠 @@
+- 파일위치 : [스킨폴더]/popup/zipcode.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<script type="text/javascript">
+var params = {
+	'address' : '{_GET.address}',
+	'address_street' : '{_GET.address_street}',
+	'address_detail' : '{_GET.address_detail}',
+	'zipcode' : '{_GET.zipcode}',
+	'new_zipcode' : '{_GET.new_zipcode}'
+};
+
+function getZipcodeResult(page){
+	$("input[name='page']").val(page);$("#zipForm").submit();
+}
+
+function getZipcodeResultgo(zipcode_type,page){
+	// $("select[name='SIDO'] option[value='']").attr("selected",true);
+	// $("select[name='SIGUNGU'] option[value='']").attr("selected",true);
+	$("input[name='zipcode_type']").val(zipcode_type);
+	$("input[name='page']").val(page);
+	$("#zipForm").submit();
+}
+
+function getZipcodeTab(zipcode_type,page){
+	$("select[name='SIDO'] option[value='']").attr("selected",true);
+	$("select[name='SIGUNGU'] option[value='']").attr("selected",true);
+	$("input[name='zipcode_keyword']").val('');
+	$("input[name='zipcode_type']").val(zipcode_type);
+	$("input[name='page']").val(page);
+	$("#zipForm").submit();
+}
+
+function enterchk(){
+	if(event.keyCode==13){
+		getZipcodeResult(1);
+		event.returnValue=false;
+		return;
+	}
+}
+
+function choice_zipcode(obj_tr) {
+	if(opener != null ) {
+		var winobj = opener.document;
+	}else{
+		var winobj = parent.document;
+	}
+
+	obj_tr = $(obj_tr);
+	var zip = obj_tr.find(".zipcode_number").html();
+	var zipArr = zip.split('-');
+	if(zip.length == 5){
+		zipArr[0] = zip.substring(0,3);
+		zipArr[1] = zip.substring(3,5);
+	}
+	
+	zip = zip.replace("-", "");
+	if(params.address){
+		if('{_GET.mtype}'=='order_multi' || '{zipcodeFlag}'=='order_multi'){
+			choice_order_multi(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='order_multi_view' || '{zipcodeFlag}'=='order_multi_view'){
+			choice_order_multi_view(obj_tr,zipArr,zip,winobj);
+		}else{
+			choice_params_address(obj_tr,zipArr,zip,winobj);
+		}
+		try{parent.order_price_calculate();}catch(e){};
+		try{opener.order_price_calculate();}catch(e){};
+	}else{
+		if('{_GET.mtype}'=='order_info' || '{zipcodeFlag}'=='order_info'){
+			choice_order_info(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='order' || '{zipcodeFlag}'=='order'){
+			choice_order(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='morder' || '{zipcodeFlag}'=='morder'){
+			choice_morder(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='delivery' || '{zipcodeFlag}'=='delivery'){//3
+			choice_delivery(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='business' || '{zipcodeFlag}'=='business'){//4
+			choice_business(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='member' || '{zipcodeFlag}'=='member'){//5
+			choice_member(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='sender' || '{zipcodeFlag}'=='sender'){//6
+			choice_sender(obj_tr,zipArr,zip,winobj);
+		}else if('{_GET.mtype}'=='co_' || '{zipcodeFlag}'=='co_'){//7
+			choice_co(obj_tr,zipArr,zip,winobj);
+		}else{//8
+			choice_mtype(obj_tr,zipArr,zip,winobj);
+		}
+	}
+
+	if(opener != null ) { // 새창으로 띄우는 경우
+		//opener.$("#{zipcodeFlag}BgId").remove();
+		//opener.$("#{zipcodeFlag}Id").remove();
+		opener.removeCenterLayer('#{zipcodeFlag}zipId');
+		self.close();
+	}else{ // 레이어로 띄우는 경우
+		//parent.$("#{zipcodeFlag}BgId").remove();
+		//parent.$("#{zipcodeFlag}Id").remove();
+		parent.removeCenterLayer('#{zipcodeFlag}zipId');
+	}
+	//self.close();
+}
+
+function choice_order_multi(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='multi_recipient_address_type[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']",winobj)).val( "{zipcode_type}" );
+	if( eval("$('input[name=multi_recipient_address_type[]]',winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='multi_recipient_address[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='multi_recipient_address_street[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='multi_recipient_address[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='multi_recipient_address_street[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='multi_recipient_address[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='multi_recipient_zipcode[0][]']").length == 2){
+		$("input[name='multi_recipient_zipcode[0][]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val(zipArr[0]);
+		$("input[name='multi_recipient_zipcode[1][]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val(zipArr[1]);
+	}else{
+		$("input[name='multi_recipient_zipcode[0][]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).val(zip);
+	}
+	$("input[name='multi_recipient_address_detail[]']",$(".multiShippingItem[multiShippingItemNo='{_GET.multiIdx}']"),winobj).focus();
+}
+
+function choice_order_multi_view(obj_tr,zipArr,zip,winobj){
+	$("input[name='recipient_address_type']",$(".multiShippingItem").eq(),winobj).val( "{zipcode_type}" )
+
+	if( eval("$('input[name=recipient_address_type]',winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='recipient_address']",$(".multiShippingItem").eq(),winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='recipient_address_street']",$(".multiShippingItem").eq(),winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='recipient_address']",$(".multiShippingItem").eq(),winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='recipient_address_street']",$(".multiShippingItem").eq(),winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='recipient_address']",$(".multiShippingItem").eq(),winobj).val( $(this).find(".address").html() );
+	}
+	if($("input[name='recipient_zipcode[]']",$(".multiShippingItem").eq(),winobj).length == 2){
+		$("input[name='recipient_zipcode[]']",$(".multiShippingItem").eq(),winobj).eq(0).val(zipArr[0]);
+		$("input[name='recipient_zipcode[]']",$(".multiShippingItem").eq(),winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='recipient_zipcode[]']",$(".multiShippingItem").eq(),winobj).eq(0).val(zip);
+	}
+	$("input[name='recipient_address_detail']",$(".multiShippingItem").eq(),winobj).focus();
+}
+
+function choice_params_address(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='"+params.address+"_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$(\"input[name='"+params.address+"_type']\",winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='"+params.address+"']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='"+params.address_street+"']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='"+params.address+"']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='"+params.address_street+"']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='"+params.address+"']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='"+params.zipcode+"']",winobj).length == 2){
+		$("input[name='"+params.zipcode+"']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='"+params.zipcode+"']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='"+params.new_zipcode+"']",winobj).eq(0).val(zip);
+	}
+	$("input[name='"+params.address_detail+"']",winobj).focus();
+}
+
+function choice_order_info(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='order_address_type']", winobj).val( "{zipcode_type}" );
+	$("input[name='order_address']", winobj).val( obj_tr.find(".address").html() );
+	$("input[name='order_address_street']", winobj).val( obj_tr.find(".address_street").html() );
+	if($("input[name='order_zipcode[]']", winobj).length == 2){
+		$("input[name='order_zipcode[]']", winobj).eq(0).val(zipArr[0]);
+		$("input[name='order_zipcode[]']", winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='order_new_zipcode']", winobj).eq(0).val(zip);
+	}
+	$("input[name='order_address_detail']", winobj).focus();
+}
+
+function choice_order(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='recipient_address_type']", winobj).val( "{zipcode_type}" );
+	if( eval("$('input[name=recipient_address_type]', winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='recipient_address']", winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='recipient_address_street']", winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='recipient_address']", winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='recipient_address_street']", winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='recipient_address']", winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='recipient_zipcode[]']", winobj).length == 2){
+		$("input[name='recipient_zipcode[]']", winobj).eq(0).val(zipArr[0]);
+		$("input[name='recipient_zipcode[]']", winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='recipient_new_zipcode']", winobj).eq(0).val(zip);
+	}
+	$("input[name='recipient_address_detail']", winobj).focus();
+	try{parent.order_price_calculate();}catch(e){};
+	try{opener.order_price_calculate();}catch(e){};
+}
+function choice_morder(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='recipient_input_address_type']", winobj).val( "{zipcode_type}" );
+	if( eval("$('input[name=recipient_input_address_type]', winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='recipient_input_address']", winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='recipient_input_address_street']", winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='recipient_input_address']", winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='recipient_input_address_street']", winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='recipient_input_address']", winobj).val( obj_tr.find(".address").html() );
+		if(typeof $("input[name='recipient_input_address_street']", winobj) != "undefind"){
+			$("input[name='recipient_input_address_street']", winobj).val( obj_tr.find(".address_street").html());
+		}
+	}
+	if($("input[name='recipient_input_zipcode[]']", winobj).length == 2){
+		$("input[name='recipient_input_zipcode[]']", winobj).eq(0).val(zipArr[0]);
+		$("input[name='recipient_input_zipcode[]']", winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='recipient_input_new_zipcode']", winobj).eq(0).val(zip);
+	}
+	$("input[name='recipient_input_address_detail']", winobj).focus();
+	try{parent.order_price_calculate();}catch(e){};
+	try{opener.order_price_calculate();}catch(e){};
+}
+function choice_delivery(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='recipient_address_type']",winobj).val( "{zipcode_type}" );
+	$("input[name='recipient_address']",winobj).val( obj_tr.find(".address").html() );
+	$("input[name='recipient_address_street']",winobj).val( obj_tr.find(".address_street").html() );
+	if($("input[name='recipient_zipcode[]']",winobj).length == 2){
+		$("input[name='recipient_zipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='recipient_zipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='recipient_new_zipcode']",winobj).eq(0).val(zip);
+	}
+	$("input[name='recipient_address_detail']",winobj).focus();
+}
+function choice_business(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='baddress_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$('input[name=baddress_type]',winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='baddress']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='baddress_street']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='baddress']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='baddress_street']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='baddress']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='bzipcode[]']",winobj).length == 2){
+		$("input[name='bzipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='bzipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='new_bzipcode']",winobj).eq(0).val(zip);
+	}
+	$("input[name='baddress_detail']", winobj).focus();
+}
+function choice_member(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='address_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$('input[name=address_type]',winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='address']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='address_street']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='address']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='address_street']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='address']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='zipcode[]']",winobj).length == 2){
+		$("input[name='zipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='zipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='new_zipcode']",winobj).eq(0).val(zip);
+	}
+
+	$("input[name='address_detail']", winobj).focus();
+}
+function choice_sender(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='senderAddress_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$('input[name=senderAddress_type]',winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='senderAddress']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='senderAddress_street']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='senderAddress']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='senderAddress_street']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='senderAddress']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='senderZipcode[]']",winobj).length == 2){
+		$("input[name='senderZipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='senderZipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='senderZipcode[]']",winobj).eq(0).val(zip);
+	}
+
+	$("input[name='senderAddressDetail']", winobj).focus();
+}
+function choice_co(obj_tr,zipArr,zip,winobj)
+{
+	$("input[name='co_address_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$('input[name=co_address_type]',winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='co_address']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='co_address_street']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='co_address']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='co_address_street']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='co_address']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='co_zipcode[]']",winobj).length == 2){
+		$("input[name='co_zipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='co_zipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='co_new_zipcode']",winobj).eq(0).val(zip);
+	}
+
+	$("input[name='co_address_detail']", winobj).focus();
+}
+function choice_mtype(obj_tr,zipArr,zip,winobj)
+{
+	{? _GET.mtype }
+	$("input[name='{_GET.mtype}address_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$(\"input[name='{_GET.mtype}address_type']\",winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='{_GET.mtype}address']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='{_GET.mtype}address_street']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='{_GET.mtype}address']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='{_GET.mtype}address_street']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='{_GET.mtype}address']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='{zipcodeFlag}zipcode[]']",winobj).length == 2){
+		$("input[name='{_GET.mtype}zipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='{_GET.mtype}zipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='{_GET.mtype}new_zipcode']",winobj).eq(1).val(zip);
+	}
+	$("input[name='{_GET.mtype}address_detail']", winobj).focus();
+	{:}
+	$("input[name='{zipcodeFlag}address_type']",winobj).val( "{zipcode_type}" );
+	if( eval("$(\"input[name='{zipcodeFlag}address_type']\",winobj).val()") ) {
+		{? zipcode_type != "oldzibun"}
+		$("input[name='{zipcodeFlag}address']",winobj).val( obj_tr.find(".address").html() ).hide();
+		$("input[name='{zipcodeFlag}address_street']",winobj).val( obj_tr.find(".address_street").html() ).show();
+		{:}
+		$("input[name='{zipcodeFlag}address']",winobj).val( obj_tr.find(".address").html() ).show();
+		$("input[name='{zipcodeFlag}address_street']",winobj).val( obj_tr.find(".address_street").html() ).hide();
+		{/}
+	}else{
+		$("input[name='{zipcodeFlag}address']",winobj).val( obj_tr.find(".address").html() );
+	}
+	if($("input[name='{zipcodeFlag}zipcode[]']",winobj).length == 2){
+		$("input[name='{zipcodeFlag}zipcode[]']",winobj).eq(0).val(zipArr[0]);
+		$("input[name='{zipcodeFlag}zipcode[]']",winobj).eq(1).val(zipArr[1]);
+	}else{
+		$("input[name='{zipcodeFlag}new_zipcode']",winobj).eq(0).val(zip);
+	}
+	$("input[name='{zipcodeFlag}address_detail']", winobj).focus();
+	{/}
+}
+
+
+$(document).ready(function() {
+
+	$(document).resize(function(){
+	$('#{zipcodeFlag}contents_frame',parent.document).height($("#wrap").height()+40); // 높이값 보정( 반응형 )
+	}).resize();
+
+	$("select[name='SIGUNGU']").children("option[value!='']").remove();
+	var SIGUNGU = "{_GET.SIGUNGU}";
+	{? keyword }
+	$.ajax({
+		'url' : '/popup/zipcode_street_sigungu',
+		'data' : $('#zipForm').serialize(),
+		'dataType' : 'json',
+		'success' : function(res){
+			if(res){
+				var options = "";
+				for(var i=0;i<res.length;i++) options += "<option value='"+res[i].SIGUNGU+"'>"+res[i].SIGUNGU+"</option>";
+				$("select[name='SIGUNGU']").append(options);
+			}
+			if(SIGUNGU) $("select[name='SIGUNGU'] option[value='"+SIGUNGU+"']").attr("selected",true);
+		}
+	});
+	{ / }
+
+	{ ? zipcode_type=='street' }
+	$(".sub_page_tab td").eq(0).click();
+	{ : zipcode_type=='zibun' }
+	$(".sub_page_tab td").eq(1).click();
+	{ : zipcode_type=='oldzibun' }
+	$(".sub_page_tab td").eq(2).click();
+	{ / }
+	$(".sub_page_tab td").eq(0).bind("click",function(){
+		getZipcodeTab('street',1);
+	});
+	$(".sub_page_tab td").eq(1).bind("click",function(){
+		getZipcodeTab('zibun',1);
+	});
+	$(".sub_page_tab td").eq(2).bind("click",function(){
+		getZipcodeTab('oldzibun',1);
+	});
+});
+</script>
+
+<div class="sub_page_tab_wrap">
+	<table width="100%" class="sub_page_tab" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td {?!cfg_zipcode.street_zipcode_5}class="hide"{/}>도로명/지번 <span class="addtxt">(<b>5</b>자리 우편번호)</span></td>
+		<td {?!cfg_zipcode.street_zipcode_6}class="hide"{/}>도로명/지번 <span class="addtxt">(<b>6</b>자리 우편번호)</span></td>
+		<!-- (구)지번주소는 신청/결제, 주문배송내역에서 에러를 일으킴( 도로명 주소에 data 없을 시 에러 ) -- 도로명/지번으로 충분함
+		<td {?!cfg_zipcode.old_zipcode_lot_number}class="hide"{/}>(구)지번 <span class="addtxt">(<b>6</b>자리 우편번호)</span></td>
+		-->
+	</tr>
+	</table>
+
+
+	<div class="zipcode_search_contents">
+		<form name="zipForm" id="zipForm" method="get">
+			<!--{? _GET.mtype }-->
+			<input type="hidden" name="mtype" value="{_GET.mtype}">
+			<!--{ / }-->
+			<input type="hidden" name="zipcodeFlag" value="{zipcodeFlag}">
+			<input type="hidden" name="zipcode_type" value="{zipcode_type}">
+			<input type="hidden" name="page" value="{page.nowpage}">
+			<input type="hidden" name="popup" value="{_GET.popup}">
+			<input type="hidden" name="addtext" value="" class="hide">
+			<!--{ @_GET }-->
+			<!--{?!in_array(.key_,array('page','keyword','SIDO','SIGUNGU'))}-->
+			<input type="hidden" name="{.key_}" value="{.value_}" />
+			<!--{ / }-->
+			<!--{ / }-->
+
+			<div class="inputbox_area">
+				<input type="text" name="zipcode_keyword" value="{keyword}" class="zsfText" title="{? zipcode_type=='oldzibun'}읍면동{:}도로명주소{/}" onkeydown="enterchk();" />
+				<button type="button" id="zipcodeSearchButton" class="btn_resp size_b color2 zsfSubmit" onclick="getZipcodeResult(1);">검색</button>
+			</div>
+
+			<!--{? zipcode_type!="oldzibun"}-->
+			<div class="search_ex_area">
+				<b class="title">예)</b><br />
+				'○○○길'이 있는 주소: <span class="ex_point">남부순환로123가길</span> <span class="addtext">(길이름은 공백없이 입력)</span><br />
+				'○○○길'이 없는 주소: <span class="ex_point">남부순환로 8</span><br />
+				건물명: <span class="ex_point">전쟁기념관, 스타타워</span><br />
+				동이름: <span class="ex_point">삼평동 670, 암사동 480-1</span><br />
+			</div>
+			<!--{: zipcode_type=="oldzibun"}-->
+			<div class="search_ex_area">
+				동 이름을 입력하세요.<br />
+				예) <span class="ex_point">압구정동</span>
+			</div>
+			<!--{ / }-->
+
+			<h5 class="title_sub2 v2 Mt15 Pb0"><b class="Pt4 Pb4">주소 검색결과</b></h5>
+
+			<!--{? (keyword && arrSido) || _GET.SIDO }-->
+			<div class="cont_type1">
+				<ul>
+					<li class="th size1">시도</li>
+					<li class="td">:
+						<select name="SIDO" id="SIDO" class="select_style1" onchange="getZipcodeResult('1');">
+							<option value="">전체</option>
+							{ ? ! arrSido }
+							<option value="{_GET.SIDO}" selected>{_GET.SIDO}</option>
+							{ / }
+							<!--{ @ arrSido }-->
+							<option value="{.SIDO}" {? _GET.SIDO == .SIDO}selected{/}>{.SIDO}</option>
+							<!--{ / }-->
+						</select>
+					</li>
+				</ul>
+				<ul>
+					<li class="th size1">시군구</li>
+					<li class="td">:
+						<select name="SIGUNGU" class="select_style1" onchange="getZipcodeResult('1');">
+							<option value="">전체</option>
+							<!--{ @ arrSigungu }-->
+							<option value="{.SIGUNGU}" {? _GET.SIGUNGU == .SIGUNGU}selected{/}>{.SIGUNGU}</option>
+							<!--{ / }-->
+						</select>
+					</li>
+				</ul>
+			</div>
+			<!--{ / }-->
+
+		</form>
+	</div>
+
+	<!-- 도로명/지번( 5자리 ) -->
+	<div class="sub_page_tab_contents Mt0" style="display:none;">
+		<!--{ ? loop }-->
+		<ul class="list_01 zipcodeResult">
+			<!--{ @loop }-->
+			<li onclick="choice_zipcode(this);">
+				<div class="zipcode_number">{.ZIPCODE}</div>
+				<div class="addr">{.ADDRESS_STREET}</div><div class="address_street hide">{.ADDRESS_STREET}</div>
+				<div class="addr">{.ADDRESS}</div><div class="address hide">{.ADDRESS}</div>
+			</li>
+			<!--{ / }-->
+		</ul>
+		<!--{ : }-->
+		<div class="zipcode_result_area">
+			<!--{ ? keyword }-->
+			<div class="zipcode_result_nodata">
+				<p class="txt1">검색 결과가 없습니다.</p>
+				<p class="txt2">
+					주소가 검색되지 않는 경우는 행정안전부 새주소안내시스템<br>
+					<a href="http://www.juso.go.kr" target="_blank" title="새창">http://www.juso.go.kr</a> 에서 확인하시기 바랍니다.
+				</p>
+			</div>
+			<!--{ : }-->
+			<div class="zipcode_no_keyword">
+				주소를 검색해 주세요.
+			</div>
+			<!--{ / }-->
+		</div>
+		<!--{ / }-->
+	</div>
+
+	<!-- 도로명/지번( 6자리 ) -->
+	<div class="sub_page_tab_contents Mt0">
+		<!--{ ? loop }-->
+		<ul class="list_01 zipcodeResult">
+			<!--{ @loop }-->
+			<li onclick="choice_zipcode(this);">
+				<div class="zipcode_number">{.ZIPCODE}</div>
+				<div class="addr">{.ADDRESS_STREET}</div><div class="address_street hide">{.ADDRESS_STREET}</div>
+				<div class="addr">{.ADDRESS}</div><div class="address hide">{.ADDRESS}</div>
+			</li>
+			<!--{ / }-->
+		</ul>
+		<!--{ : }-->
+		<div class="zipcode_result_area">
+			<!--{ ? keyword }-->
+			<div class="zipcode_result_nodata">
+				<p class="txt1">검색 결과가 없습니다.</p>
+				<p class="txt2">
+					주소가 검색되지 않는 경우는 행정안전부 새주소안내시스템<br>
+					<a href="http://www.juso.go.kr" target="_blank" title="새창">http://www.juso.go.kr</a> 에서 확인하시기 바랍니다.
+				</p>
+			</div>
+			<!--{ : }-->
+			<div class="zipcode_no_keyword">
+				주소를 검색해 주세요.
+			</div>
+			<!--{ / }-->
+		</div>
+		<!--{ / }-->
+	</div>
+
+	<!-- (구)지번주소 -->
+	<div class="sub_page_tab_contents Mt0">
+		<!--{ ? loop }-->
+		<ul class="list_01 zipcodeResult">
+			<!--{ @loop }-->
+			<li onclick="choice_zipcode(this);">
+				<div class="zipcode_number">{.ZIPCODE}</div>
+				<div class="addr">{.ADDRESSVIEW}</div><div class="address hide">{.ADDRESS}</div>
+				<div class="addr">{.ADDRESS_STREET}</div><div class="address_street hide">{.ADDRESS_STREET}</div>
+			</li>
+			<!--{ / }-->
+		</ul>
+		<!--{ : }-->
+		<div class="zipcode_result_area">
+			<!--{ ? keyword }-->
+			<div class="zipcode_result_nodata">
+				<p class="txt1">검색 결과가 없습니다.</p>
+				<p class="txt2">
+					주소가 검색되지 않는 경우는 행정안전부 새주소안내시스템<br>
+					<a href="http://www.juso.go.kr" target="_blank" title="새창">http://www.juso.go.kr</a> 에서 확인하시기 바랍니다.
+				</p>
+			</div>
+			<!--{ : }-->
+			<div class="zipcode_no_keyword">
+				주소를 검색해 주세요.
+			</div>
+			<!--{ / }-->
+		</div>
+		<!--{ / }-->
+	</div>
+
+	<!--{ ? page.totalpage > 1 }-->
+	<div class="paging_navigation_pop">
+		<!--{ ? page.first }--><a href="javascript:getZipcodeResultgo('{zipcode_type}','{page.first}');" class="first"></a><!--{ / }-->
+		<!--{ ? page.prev }--><a href="javascript:getZipcodeResultgo('{zipcode_type}','{page.prev}');" class="prev"></a><!--{ / }-->
+		<!--{ @ page.page }-->
+			<!--{ ? page.nowpage ==  .value_ }-->
+				<a href="javascript:getZipcodeResultgo('{zipcode_type}','{.value_}');" class="on"><b>{.value_ }</b></a>
+			<!--{ : }-->
+				<a href="javascript:getZipcodeResultgo('{zipcode_type}','{.value_}');">{.value_ }</a>
+			<!--{ / }-->
+		<!--{ / }-->
+		<!--{ ? page.next }--><a href="javascript:getZipcodeResultgo('{zipcode_type}','{page.next}');" class="next"></a><!--{ / }-->
+		<!--{ ? page.last }--><a href="javascript:getZipcodeResultgo('{zipcode_type}','{page.last}');" class="last"></a><!--{ / }-->
+	</div>
+	<!--{ / }-->
+</div>

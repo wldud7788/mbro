@@ -1,0 +1,115 @@
+
+<script>
+$(function(){
+
+	$("input[name='remove_watermark']").on("click",function(){
+		$(".watermark_2, .watermark_0").hide();
+		$(".watermark_"+$(this).val()).show();
+	});
+	$("input[name='watermark_type']").on("click",function(){
+		$(".watermark_cross, .watermark_position").hide();
+		$(".watermark_"+$(this).val()).show();
+	});
+	{? config_watermark.watermark_image }
+	var remove_watermark = '2';
+	{:}
+	var remove_watermark = '0';
+	{/}
+	$("input[name='remove_watermark'][value='"+remove_watermark+"']").attr('checked',true);
+	$("input[name='remove_watermark'][value='"+remove_watermark+"']").trigger("click");
+	{ ? config_watermark.watermark_type }
+	var watermark_type = '{config_watermark.watermark_type}';
+	{:}
+	var watermark_type = 'cross';
+	{ / }
+	$("input[name='watermark_type'][value='"+watermark_type+"']").attr('checked',true);
+	$("input[name='watermark_type'][value='"+watermark_type+"']").trigger("click");
+	{ @ config_watermark.watermark_position }
+	$("input[name='watermark_position[]'][value='{.value_}']").attr('checked',true);
+	{ / }	
+});
+</script>
+
+<style>
+.popoup-item-title {	
+	background-image:url('../images/common/bullet_tit_m.gif');
+	background-repeat:no-repeat;
+	font-family:"돋움",Dotum,AppleGothic,sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	padding-left:20px; 
+
+}
+</style>
+<form name="watermark_setting_form" enctype="multipart/form-data" method="post" action="../setting_process/watermark_setting" target="actionFrame">
+<div class="content">
+	<div style="padding-top:10px">
+	</div>
+
+	<table class="table_basic">
+	<colgroup>
+		<col width="30%" /><col width="70%" />
+	</colgroup>
+	<tr>
+		<th>워터마크</th>
+		<td>
+			<div class="resp_radio">
+				{ ? config_watermark.watermark_image }
+				<label><input type="radio" name="remove_watermark" value='2' checked> 기존</label>
+				{ / }
+				<label><input type="radio" name="remove_watermark" value='0' {? !config_watermark.watermark_image}checked{/}> 신규 등록</label>
+			</div>
+			
+			<div style="border-top:1px dashed #ddd">
+				{ ? config_watermark.watermark_image }
+				<div class="watermark_2"><img src='{config_watermark.watermark_image}' border="0"  style="max-height:100px";></div>
+				{ / }
+				<div class="watermark_0">
+					<input type="file" name="watermark_file" size="30" style="height:20px;"  />
+					<ul class="bullet_hyphen resp_message">
+						<li>투명한 파일로 등록하세요. (확장자 .PNG)</li>
+					</ul>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>워터마크 스타일</th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="watermark_type" value="cross"> 대각선 반복</label>
+				<label><input type="radio" name="watermark_type" value="position"> 위치 선택</label>
+			</div>
+
+			<div  style="border-top:1px dashed #ddd" class="pd10">
+				<div class="watermark_cross" style="width:298px;height:186px;background-image:url('../images/common/watermark_sample_diagonal.gif');"></div>
+				<div class="watermark_position">
+					<table style="width:298px;height:186px;background-image:url('../images/common/watermark_sample_position.gif');">
+						<tr>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="0">&nbsp;&nbsp;</label></td>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="1">&nbsp;&nbsp;</label></td>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="2">&nbsp;&nbsp;</label></td>
+						</tr>
+						<tr>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="3">&nbsp;&nbsp;</label></td>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="4">&nbsp;&nbsp;</label></td>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="5">&nbsp;&nbsp;</label></td>
+						</tr>
+						<tr>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="6">&nbsp;&nbsp;</label></td>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="7">&nbsp;&nbsp;</label></td>
+							<td class="center"><label>&nbsp;&nbsp;<input type="checkbox" name="watermark_position[]" value="8">&nbsp;&nbsp;</label></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</td>
+	</tr>
+	</table>
+</div>
+
+<div class="footer">
+	<button type="submit" class="resp_btn active size_XL">저장</button>
+	<button type="button" onClick="closeDialog('{=sc.layerid}')" class="resp_btn v3 size_XL">취소</button>
+</div>
+</form>

@@ -1,0 +1,163 @@
+{ #layout_header }
+
+<!-- 스크립트 영역 시작-->
+<script>
+var bsSeq = {bsSeq};
+</script>
+<script type="text/javascript" src="/app/javascript/js/broadcast/admin/detail.js?dummy={=uniqid()}"></script>
+<!-- 스크립트 영역 종료 -->
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title bs-page-title" >
+			<h2><!-- 방송 제목 --></h2>
+		</div>
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><span class="btn large black"><button onclick="location.href='../broadcast/regist?bs_seq={bsSeq}'">수정</button></span></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div id="bs-detail" class="gon_resp_wrap mini">
+	<div class="resp_row_table">
+		<ul>
+			<li class="th">
+				<p>쇼핑몰</p>
+			</li>
+			<li class="td">
+				<span class="language_country_img language_country_img_KR">퍼스트몰 반응형</span>
+			</li>
+		</ul>
+		<ul>
+			<li class="th">
+				<p>방송 시간</p>
+			</li>
+			<li class="td">
+				<ul class="live_time_setting">
+					<li class="broadcast_live">
+						<span class="title">시작 :</span>
+						<span class="bs-start-time"></span>
+					</li>
+					<li class="broadcast_end">
+						<span class="title">종료 :</span>
+						<span class="bs-end-time"></span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li class="th">
+				<p>시청 제한</p>
+			</li>
+			<li class="td grant_type"></li>
+		</ul>
+		<ul>
+			<li class="th">
+				<p>방송 상품</p>
+			</li>
+			<li class="td goodsInfo"></li>
+		</ul>
+	</div>
+
+	<!-- 타임 세일 -->
+	<div class="btn_area">
+		<button type="button" id="timeSale" class="btn_resp size_c color6 bold btn-timesale-start" disabled="disabled" style="width:100%; height:62px; line-height:60px;"></button>
+	</div>
+
+
+	<!-- 시청 데이터 -->
+	<div class="resp_row_table bs-stats-table">
+		<ul>
+			<li class="th">
+				<p>방송알림</p>
+			</li>
+			<li class="td noti"></li>
+		</ul>
+		<ul>
+			<li class="th">
+				<p>총 방송시간</p>
+			</li>
+			<li class="td total_time"></li>
+		</ul>
+		<ul>
+			<li class="th">
+				<p>총 시청자</p>
+			</li>
+			<li class="td total_viewer"></li>
+		</ul>
+		<ul>
+			<li class="th">
+				<p>최대 동시 시청자</p>
+			</li>
+			<li class="td max_viewer"></li>
+		</ul>
+	</div>
+
+	<!-- 하단 버튼 -->
+	<div class="btn_area">
+		<a href="/admin/broadcast/regist?bs_seq={bsSeq}&date={date}" class="btn_resp size_c color2">수정</a> &nbsp;
+		<a href="/admin/broadcast/catalog?date={date}" class="btn_resp size_c">전체 일정</a>
+	</div>
+
+</div>
+
+<div id="liveAlarmSend" class="resp_layer_pop hide">
+	<h4 class="title x2">방송 알림</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			<table cellpadding="0" cellspacing="0" class="row_table tdc">
+				<colgroup>
+					<col class="size_a" />
+					<col class="size_b" />
+					<col />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>신청 일시</th>
+						<th>신청자</th>
+						<th>처리 일시</th>
+					</tr>
+				</thead>
+				<tbody id="liveAlarmBody"></tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="layer_bottom_btn_area2 v2">
+		<!-- 발송창 열기전 발송 페이크 버튼 -->
+		<ul id="alarmBtnsFake" class="basic_btn_area2">
+			<li><button type="button" class="btn_resp size_c color4" onclick="alarmSendOpen();">알림 발송</button></li>
+			<li><button type="button" class="btn_resp size_c" onclick="alarmSendClose(); hideCenterLayer();">취소</button></li>
+		</ul>
+
+		<!-- 리얼 방송발송 창 -->
+		<div id="alarmBtnsReal" style="display:none;">
+			<div style="padding-left:5px; padding-right:5px;">
+				<h5 class="title2">방송알림 발송</h5>
+				<table cellpadding="0" cellspacing="0" class="row_table tdc">
+					<tbody>
+						<tr>
+							<td><a href="/admin/member/sms" target="_blank" class="blue">SMS &gt;</a></td>
+							<td id="smsCount"></td>
+						</tr>
+						<tr>
+							<td><a href="/admin/member/kakaotalk_msg" target="_blank" class="blue">카카오 알림톡 &gt;</a></td>
+							<td id="kakaoCount"></td>
+						</tr>
+					</tbody>
+				</table><br />
+			</div>
+			<ul class="basic_btn_area2">
+				<li><button type="submit" class="btn_resp size_c color2">발송하기</button></li>
+			</ul>
+			<a href="javascript:void(0)" class="btn_pop_close v2" title="발송 레이어 닫기" onclick="alarmSendClose()"></a>
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" title="방송 알림 레이어 닫기" onclick="alarmSendClose(); hideCenterLayer()"></a>
+</div>
+
+{ #layout_footer }

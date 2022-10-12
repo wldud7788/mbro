@@ -1,0 +1,436 @@
+<!--{ ? !record && page == 1}-->
+	<tr class="list-row">
+		<td colspan="11" align="center">검색어가 없거나 검색 결과가 없습니다.</td>
+	</tr>
+<!--{ : }-->
+	<!--{ @ record }-->
+
+		<!--{ ? .end_step_cnt }-->
+		<!-- 합계 : 시작 -->
+		<tr class="list-end-row">
+			<td colspan="11" class="list-end-row-td">
+				<ul class="left-btns clearbox" style="margin-top:2px">
+					<li>
+						<select class="list-select custom-select-box-multi" name="select_{.end_step}"  rows="4">
+						<option value="select">전체선택</option>
+						<option value="not-select">선택안함</option>
+						<option value="important">별표선택</option>
+						<option value="not-important">별표없음</option>
+						</select>
+					</li>
+					<li>
+						<span class="btn small"><button name="goods_print" id="{.end_step}" class="hand resp_btn v3" align="absmiddle"><img src="../images/common/icon_order_2.png"/><span>프린트</span></button></span>	
+							
+						<!--{ ? status_invoice_cnt[.end_step] }-->
+						<span class="btn small"><button name="invoice_print" id="{.end_step}" class="hand resp_btn v3" align="absmiddle"><img src="../images/common/icon_order_3.png"/><span>프린트</span></button></span>					
+						<!--{ / }-->
+
+						<!--{? .end_step == '45' }-->
+						<span class="btn small red" onclick="export_proc('45','{.end_step}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+						<!--{ : .end_step == '55' }-->
+						<span class="btn small red" onclick="export_proc('55','{.end_step}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+						<!--{ : .end_step == '65' }-->
+						<span class="btn small red" onclick="export_proc('65','{.end_step}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+						<!--{ / }-->
+						
+						<!--{ ? .end_step == '45' || (scm_cfg['use'] != 'Y' && .end_step == '55') || .end_step == '65'}-->
+							<span class="hand reverse_export resp_btn v3" id="{.end_step}">
+								<!--{ ? .end_step == '45' }-->
+								'상품준비' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+								<!--{ : scm_cfg['use'] != 'Y' && .end_step == '55' }-->
+								'출고준비' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+								<!--{ : .end_step == '65' }-->
+								'출고완료' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+								<!--{ / }-->
+							</span>
+							<!--{ ? .end_step == '45' }-->
+							<span class="helpicon" title="출고 준비된 상품을 상품준비로 되돌릴 수 있습니다."></span>
+							<!--{ : scm_cfg['use'] != 'Y' && .end_step == '55' }-->
+							<span class="helpicon" title="출고 완료된 상품을 출고준비로 되돌릴 수 있습니다.<br/>이 때 출고완료 시 차감된 재고 수량이 환원됩니다."></span>
+							<!--{ : .end_step == '65' }-->
+							<span class="helpicon" title="배송 중인 상품을 출고완료로 되돌릴 수 있습니다."></span>
+							<!--{ / }-->							
+						<!--{ / }-->
+					</li>
+				</ul>
+				<div class="list-end-total-amount">
+					<span class="order-step-color-{.end_step}">{.end_mstep}</span> <span class="darkgray">합계</span> &nbsp; {=number_format(.end_step_cnt)}건
+					&nbsp;&nbsp;&nbsp;
+					￦ <span class="fx14 order-step-color-{.end_step}">{=number_format(.end_step_settleprice)}</span>
+				</div>
+			</td>
+		</tr>
+		<!-- 합계 : 끝 -->
+		<!--{ / }-->
+
+		<!--{ ? .start_step }-->
+		<!-- 리스트타이틀(주문상태 및 버튼) : 시작 -->
+		<tr class="list-title-row">
+			<td colspan="11" class="list-title-row-td list-title-row-td-step-{.status}">
+				<div class="relative clearbox">
+					<div class="ltr-title ltr-title-step-{.status}">
+						<!--{ ? .status == 45 }-->
+						<span class="small_group">출고준비</span> <span class="helpicon" title="출고완료를 처리하세요.출고수량만큼 재고가 자동 차감됩니다."></span>
+						<!--{ : .status == 55 }-->
+						<span class="small_group">출고완료</span> <span class="helpicon" title="배송완료를 처리하세요.회원에게 마일리지가 지급됩니다."></span>
+						<!--{ : .status == 65 }-->
+						<span class="small_group">배송중</span> <span class="helpicon" title="배송완료를 처리하세요.회원에게 마일리지가 지급됩니다."></span>
+						<!--{ : .status == 75 }-->
+						<span class="small_group">배송완료</span> <span class="helpicon" title="배송완료가 처리되어 회원에게 마일리지가 지급되었습니다."></span>
+						<!--{ / }-->
+					</div>
+					<ul class="left-btns">
+						<li>
+							<select class="list-select custom-select-box-multi" name="select_{.status}"  rows="5">
+							<option value="select">전체선택</option>
+							<option value="not-select">선택안함</option>
+							<option value="important">별표선택</option>
+							<option value="not-important">별표없음</option>
+							</select>
+						</li>
+						<li>
+							<span class="btn small"><button name="goods_print" id="{.status}" class="hand resp_btn v3" align="absmiddle"><img src="../images/common/icon_order_2.png"/><span>프린트</span></button></span>	
+							
+							<!--{ ? status_invoice_cnt[.status] }-->
+							<span class="btn small"><button name="invoice_print" id="{.status}" class="hand resp_btn v3" align="absmiddle"><img src="../images/common/icon_order_3.png"/><span>프린트</span></button></span>	
+							<!--{/}-->					
+
+							<!--{? .status == '45' }-->
+							<span class="btn small red" onclick="export_proc('45','{.status}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+							<!--{ : .status == '55' }-->
+							<span class="btn small red" onclick="export_proc('55','{.status}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+							<!--{ : .status == '65' }-->
+							<span class="btn small red" onclick="export_proc('65','{.status}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+							<!--{ / }-->
+
+							<!--{ ? .status == '45' || (scm_cfg['use'] != 'Y' && .status == '55') || .status == '65' }-->
+								<span class="hand reverse_export resp_btn v3" id="{.status}">
+									<!--{ ? .status == '45' }-->
+									'상품준비' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+									<!--{ : scm_cfg['use'] != 'Y' && .status == '55' }-->
+									'출고준비' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+									<!--{ : .status == '65' }-->
+									'출고완료' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+									<!--{ / }-->
+								</span>
+								<!--{ ? .status == '45' }-->
+								<span class="helpicon" title="출고 준비된 상품을 상품준비로 되돌릴 수 있습니다."></span>
+								<!--{ : scm_cfg['use'] != 'Y' && .status == '55' }-->
+								<span class="helpicon" title="출고 완료된 상품을 출고준비로 되돌릴 수 있습니다.<br/>이 때 출고완료 시 차감된 재고 수량이 환원됩니다."></span> 
+								<!--{ : .status == '65' }-->
+								<span class="helpicon" title="배송 중인 상품을 출고완료로 되돌릴 수 있습니다."></span>
+								<!--{ / }-->								
+							<!--{ / }-->
+						</li>
+					</ul>
+					<!-- EXCEL -->
+					<ul class="right-btns">
+						<li>
+							<select class="custom-select-box" id="select_down_{.status}">
+								<option value="">양식선택</option>
+								<option value="EXPORT">출고번호별 한줄</option>
+								<option value="ITEM">상품별 한줄</option>
+							</select>
+
+							<span class="btn small"><button name="download_list" class="resp_btn v3">항목설정<span class="arrowright"></span></button></span>
+							<span class="btn small"><button name="excel_down" status="{.status}" data-provider='admin' class="resp_btn v3"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>일괄다운로드</span></button></span>
+							<span class="btn small"><button name="excel_upload" status="{.status}" class="resp_btn v3"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>일괄업로드(출고)</span></button></span>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<!-- 리스트타이틀(주문상태 및 버튼) : 끝 -->
+		<!--{ / }-->
+
+		<!-- 리스트데이터 : 시작 -->
+		<tr class="list-row step{.status}">
+			<td align="center">
+				<input type="checkbox" name="export_code[]" class="export_code_{.status} resp_checkbox" value="{.export_code}" order_seq="{.order_seq}" goods_kind="{.goods_kind}"/>
+			</td>
+			<td align="center">
+				<!--{ ? .important == "1" }-->
+				<span class="icon-star-gray hand checked list-important important-{.status}" id="important_{.export_seq}"></span>
+				<!--{ / }-->
+				<!--{ ? .important == "2" }-->
+				<span class="icon-star-gray hand soldout list-important important-{.status}"
+				id="important_{.export_seq}"></span>
+				<!--{ / }-->
+				<!--{ ? .important == "0" }-->
+				<span class="icon-star-gray hand list-important important-{.status}" id="important_{.export_seq}"></span>
+				<!--{ / }-->
+			</td>
+			<td align="center">{.no}</td>
+			<td align="center">
+				<div class="origin_order">
+					<a href="../order/catalog?hsb_kind=order&header_search_keyword={.order_seq}" target="_blank"><img src='../images/common/btn_orig_order.gif' border="0" align="absmiddle" alt="해당 출고의 주문을 확인합니다"></a>
+				</div>
+				<!--{? .is_bundle_export == 'Y'}-->
+				<div class="hand under_div_view relative">
+					(합포장)
+					<div class="absolute under_div_view_contents hide">
+						<div class="sale_price_layer">
+							<table width="300" border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<th class="gr" width="50%">주문</th>
+									<th class="ends" width="50%">출고</th>
+								</tr>
+								<!--{ @ .bundle_order_list }-->
+								<tr>
+									<td>
+										<a href="../order/view?no={..value_}" target="_blank">{..value_}</a>
+									</td>
+									<td class="ends">
+										<a href="../export/catalog?keyword_type=ord.order_seq&keyword={..value_}">해당 주문의 출고검색</a>
+									</td>
+								</tr>
+								<!--{ / }-->
+							</table>
+						</div>
+					</div>
+				</div>
+				<!--{ / }-->
+			</td>
+			<td align="center">
+				<!--{ ? .status_date }-->
+				{=.status_date}
+				<!--{ : }-->
+				-
+				<!--{ / }-->
+			</td>
+			<td align="left">
+				<!-- ######################## 16.12.16 gcs yjy : 검색조건 유지되도록 -->
+				<a href="javascript:exportView('{.export_code}')" target="_self">
+				{?.buy_confirm=='none'}
+				<span class="icon-buy-none"></span>
+				{ : }
+				<span class="icon-buy-confirm"></span>
+				{ / }
+				<span class="hand bold order-step-color-{.status}">{.export_code}</span>
+				</a>
+				<a href="javascript:printExportView('{.order_seq}','{.export_code}', 'catalog')"><span class="icon-print-export"></span></a>
+				{?.invoice_send_yn=='y'}
+				<a href="javascript:printInvoiceView('{.order_seq}','{.export_code}')"><span class="icon-print-invoice"></span></a>
+				{/}
+				<a href="view?no={.export_code}" target="_blank"><span class="btn-administration"><span class="hide">새창</span></span></a>
+				<span class="btn-direct-open"><span class="hide">바로열기</span></span>
+				{?.linkage_mall_code}
+				<div class="left pdl30 blue bold">&nbsp;{linkage_mallnames[.linkage_mall_code]}</div>
+				{/}
+			</td>
+			<td align="left" style='line-height:17px;' class="left">
+				<!--{ ? .goods_type == 'gift'}-->
+				<img src="/admin/skin/default/images/common/icon_gift.gif" align="absmiddle" />
+				<!--{ / }-->
+				<!--{ ? .opt_type == 'sub'}-->
+				<img src="../images/common/icon_add.gif" align="absmiddle" />
+				<!--{ / }-->
+				<!--{? .item_title }-->
+				{.item_title}
+				<span class="desc">({.goods_name})</span>
+				<!--{ : }-->
+				{.goods_name}
+				<!--{ / }-->
+				{ ? .item_count > 1}외 {.item_count-1}종{ / }
+				<!--{ ? .goods_kind == 'coupon' }-->
+				<span class="btn"><img src="../images/common/btn_ok_use.gif" class="coupon_use_btn" order_seq="{.order_seq}" onclick="excoupon_use_btn(this)" /></span>
+				<!--{ / }-->
+			</td>
+			<td align="center">{.ea}/{.item_count}</td>
+			<td align="center">
+				<table class="sub_tb" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td width="45%">
+						<div class="recipient_info">
+							{.recipient_user_name}<br/>
+							<!--{ ? .recipient_cellphone }-->
+							{.recipient_cellphone}
+							<!--{ : }-->
+							{.recipient_phone}
+							<!--{ / }-->
+						</div>
+					</td>
+					<td width="10%">/</td>
+					<td width="45%">
+						<div class="order_info hand" onclick="open_crm_summary(this,'{.member_seq}','{.order_seq}','right');">
+						<!--{ ? .member_seq }-->
+							{?.member_type=='개인'}<img src="../images/common/icon/icon_personal.gif" title="개인" />
+							{:.member_type=='기업'}<img src="../images/common/icon/icon_besiness.gif" title="기업" />{/}
+							{.order_user_name}
+							<!--{? .sns_rute }-->
+							<div>
+								(<img src="../images/sns/sns_{=substr(.sns_rute,0,1)}0.gif" align="absmiddle" class="btnsnsdetail">/<span class="blue">{.group_name}</span>)
+								<div id="snsdetailPopup{=.step}{.key_}" class="snsdetailPopup absolute hide" style="margin-left:73px;margin-top:-16px;"></div>
+							</div>
+							<!--{ : }-->
+								<!--{ ? .mbinfo_rute == 'facebook' //facebook 회원인경우 }-->
+							<div>
+								(<img src="../images/board/icon/sns_f0.gif" align="absmiddle">{.mbinfo_email}</span>/<span class="blue" member_seq="{.member_seq}">{.group_name}</span>)
+							</div>
+								<!--{ : }-->
+							<div>
+								(<span class="blue" member_seq="{.member_seq}">{.group_name}</span>)
+							</div>
+								<!--{ / }-->
+							<!--{ / }-->
+						<!--{ : }-->
+							<div><img src="../images/common/icon/icon_personal.gif" /> {.order_user_name}</div>
+							<div>(<span class="desc">비회원</span>)</div>
+						<!--{ / }-->
+						</div>
+					</td>
+				</tr>
+				</table>
+			</td>
+			<td align="center">
+				<input type="text" name="export_date[{.export_code}]" class="line datepicker waybill_number tahoma" size="10" value="{.export_date}" style="font-size:11px; width:90px;" />
+			</td>
+			<!--{ ? .goods_kind == 'coupon' }-->
+			<td align="left" class="pdl10">
+				<div class="desc normal">{ .email }</div>
+				<div class="desc normal">{ .cellphone }</div>
+			</td>
+			<!--{ : }-->
+			<td align="left" class="shipping_info_{.export_code} left">
+				<!-- 배송 정보 :: START -->
+				<input type="hidden" name="export_shipping_group[{.export_code}]" class="export_shipping_group" value="{.shipping_group}" />
+				<input type="hidden" id="export_shipping_method_{.export_code}" name="export_shipping_method[{.export_code}]" class="export_shipping_method" value="{.shipping_method}" />
+				<input type="hidden" name="export_shipping_set_name[{.export_code}]" class="export_shipping_set_name" value="{.shipping_set_name}" />
+				<!--{ ? serviceLimit('H_AD') }-->
+				<div>{.provider_name}</div>
+				<!--{ / }-->
+				<div class="blue">
+					<span class="shipping_set_name_{.export_code}">{.shipping_set_name}</span>
+				</div>
+				<div class="delivery_lay {?!in_array(.shipping_method, array('delivery', 'postpaid'))}hide{/}">
+					<!--{ ? .international == 'domestic' }-->
+					<select name="delivery_company_code[{.export_code}]" class="waybill_number delivery_company_code" style="width:90px; padding:4px 0px !important;" chkVal="{.delivery_company_code}">
+						<!--{ @ .delivery_company_array }-->
+							<!--{ ? substr(..key_,0,5)=='auto_' && ..key_ == .delivery_company_code }-->
+						<option value='{..key_}' style='background-color:yellow' selected>{..company}</option>
+							<!--{ : ..key_ == .delivery_company_code }-->
+						<option value='{..key_}' selected="selected">{..company}</option>
+							<!--{ : }-->
+						<option value='{..key_}' {?substr(..key_,0,5)=='auto_'}style='background-color:yellow'{/}>{..company}</option>
+							<!--{ / }-->
+						<!--{ / }-->
+					</select>
+					<input type="text" name="delivery_number[{.export_code}]" class="line waybill_number delivery_number" value="{.delivery_number}" style="width:100px; padding:5px!important;"/>
+						<!--{ ? .delivery_company_code && .delivery_number }-->	
+							<span class="btn small cyanblue"><button type="button" class="hand resp_btn v2" onclick="goDeliverySearch(this);">조회</button></span>										
+						<!--{ : .delivery_company_code=='auto_hlc' && .delivery_number }-->
+					<a href="{.tracking_url}" target="_blank"><span class="btn small cyanblue"><button type="button" class="hand resp_btn v2">조회</button></span></a>
+						<!--{ / }-->
+						<!--{ ? (.delivery_company_code=='auto_hlc' || .delivery_company_code=='auto_epostnet') && !.delivery_number }-->
+					<div><a href="javascript:;" onclick="invoice_export_resend(this,'{.export_code}')"><span class='red'>[송장재발급]</span></a></div>
+						<!--{ / }-->
+					<!--{ : }-->
+					<select name="international_shipping_method[{.export_code}]" class="waybill_number {?.international!='international' || !.international_company_array }hide{/}">
+						<!--{ @.international_company_array }-->
+							<!--{ ? ..company == .international_shipping_method }-->
+						<option value='{..company}' style='background-color:yellow' selected>{=str_replace('선불 > ','',..method)}</option>
+							<!--{ : }-->
+						<option value='{..company}'>{=str_replace('선불 > ','',..method)}</option>
+							<!--{ / }-->
+						<!--{ / }-->
+					</select>
+					<input type="text" name="international_delivery_no[{.export_code}]" class="line waybill_number delivery_number" value="{.international_delivery_no}" style="width:90%;" />
+					<!--{ / }-->
+				</div>
+
+				<input type="hidden" name="shipping_provider_seq" class="shipping_provider_seq" value="{=.shipping_provider_seq}" />
+
+				<!-- 매장선택 :: START -->
+				<div class="store_lay {?.shipping_method!='direct_store'}hide{/}">
+					<input type="hidden" class="store_scm_type_{.export_code}" name="export_store_scm_type[{.export_code}]" value="{.store_scm_type}" />
+					<select name="export_address_seq[{.export_code}]" onchange="store_set(this, '{.export_code}');">
+					<!--{ @ .shipping_store_info }-->
+						<option value="{..shipping_address_seq}" scm_type="{..store_scm_type}" {?..shipping_address_seq==.shipping_address_seq}selected{/}>{..shipping_store_name}</option>
+					<!--{ / }-->
+					</select>
+				</div>
+				<!-- 매장선택 :: END -->
+
+				<!-- 출고지 정보 :: START -->
+				<div class="address_lay {?.shipping_method=='direct_store'}hide{/}">
+					<span class="hand" onclick="address_pop('{.sending_address['address_category']}','{.sending_address['address_name']}','{.sending_address['view_address']}','{.sending_address['shipping_phone']}');">{.sending_address['address_name']}</span>
+				</div>
+				<!-- 출고지 정보 :: END -->
+				
+				<!-- 배송 정보 :: END -->
+			</td>
+			<!--{ / }-->
+		</tr>
+		<tr class="list-row hide">
+			<td colspan="11" class="list-end-row-td"><div class="detail"></div></td>
+		</tr>
+		<!-- 리스트데이터 : 끝 -->
+
+		<!--{ ? .last_step_cnt }-->
+		<!-- 합계 : 시작 -->
+		<tr class="list-end-row">
+			<td colspan="11" class="list-end-row-td">
+				<ul class="left-btns clearbox" style="margin-top:2px">
+					<li>
+						<select class="list-select custom-select-box-multi" name="select_{.status}"  rows="4">
+						<option value="select">전체선택</option>
+						<option value="not-select">선택안함</option>
+						<option value="important">별표선택</option>
+						<option value="not-important">별표없음</option>
+						</select>
+					</li>
+					<li>
+						<span class="btn small"><button name="goods_print" id="{.status}" class="hand resp_btn v3" align="absmiddle"><img src="../images/common/icon_order_2.png"/><span>프린트</span></button></span>	
+				
+						<!--{ ? status_invoice_cnt[.status] }-->
+						<span class="btn small"><button name="invoice_print" id="{.status}" class="hand resp_btn v3" align="absmiddle"><img src="../images/common/icon_order_3.png"/><span>프린트</span></button></span>					
+						<!--{ / }-->
+
+						<!--{? .status == '45' }-->
+						<span class="btn small red" onclick="export_proc('45','{.status}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+						<!--{ : .status == '55' }-->
+						<span class="btn small red" onclick="export_proc('55','{.status}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+						<!--{ : .status == '65' }-->
+						<span class="btn small red" onclick="export_proc('65','{.status}');"><button type="button" class="resp_btn active">출고상태변경</button></span>
+						<!--{ / }-->
+
+						<!--{ ? .status == '45' || (scm_cfg['use'] != 'Y' && .status == '55') || .status == '65' }-->
+							<span class="hand reverse_export resp_btn v3" id="{.status}">
+								<!--{ ? .status == '45' }-->
+								'상품준비' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+								<!--{ : scm_cfg['use'] != 'Y' && .status == '55' }-->
+								'출고준비' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+								<!--{ : .status == '65' }-->
+								'출고완료' 상태로 되돌리기 <img src="../images/common/icon_arrow_back.gif" align="absmiddle" />
+								<!--{ / }-->
+							</span>
+
+							<!--{ ? .status == '45' }-->
+							<span class="helpicon" title="출고 준비된 상품을 상품준비로 되돌릴 수 있습니다."></span> 
+							<!--{ : scm_cfg['use'] != 'Y' && .status == '55' }-->
+							<span class="helpicon" title="출고 완료된 상품을 출고준비로 되돌릴 수 있습니다.<br/>이 때 출고완료 시 차감된 재고 수량이 환원됩니다."></span>
+							<!--{ : .status == '65' }-->
+							<span class="helpicon" title="배송 중인 상품을 출고완료로 되돌릴 수 있습니다."></span>
+							<!--{ / }-->
+						<!--{ / }-->
+					</li>
+				</ul>
+				<div class="list-end-total-amount">
+					<span class="order-step-color-{.step}">{.mstatus}</span> <span class="darkgray">합계</span> &nbsp; {=number_format(.last_step_cnt)}건
+					&nbsp;&nbsp;&nbsp;
+					￦ <span class="fx14 order-step-color-{.step}">{=number_format(.last_step_settleprice)}</span>
+				</div>
+			</td>
+		</tr>
+		<!-- 합계 : 끝 -->
+		<!--{ / }-->
+
+	<!--{ / }-->
+	<!--{ ? record }-->
+	<tr class="list-row pageoverflow">
+		<td colspan="11" align="center" class="btn_destory" ><span class="btn large"><button type="button" name="order_admin_person" class="resp_btn v2 size_S" onclick="get_catalog_ajax();">더 보기 <span class="arrowright"></span></button></span></td>
+	</tr>
+	<!--{ / }-->
+<!--{ / }-->
+	<input type="hidden" id="{page}_no" value="{final_no}" />
+	<input type="hidden" id="{page}_step" value="{final_step}" />

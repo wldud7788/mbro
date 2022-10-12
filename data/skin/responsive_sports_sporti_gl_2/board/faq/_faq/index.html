@@ -1,0 +1,104 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ FAQ List/View @@
+- 파일위치 : [스킨폴더]/board/faq/_faq/index.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{? viewlist != 'view' }-->
+<form name="boardsearch" id="boardsearch">
+	<input type="hidden" name="id" value="{_GET.id}">
+	<input type="hidden" name="popup" value="{_GET.popup}">
+	<input type="hidden" name="iframe" value="{_GET.iframe}">
+	<input type="hidden" name="goods_seq" value="{_GET.goods_seq}">
+	<input type="hidden" name="score" id="score" value="{_GET.score}">
+	<input type="hidden" name="perpage" id="perpage" value="{_GET.perpage}">
+	<input type="hidden" name="page" id="page" value="{_GET.page}">
+	<input type="hidden" name="category" id="category" value="{_GET.category}">
+
+	<ul class="bbs_top_wrap">
+		<li class="left">
+			<!--{? categorylist}-->
+			<select name="category" id="searchcategory">
+				<option value="" selected="selected">- 질문유형전체 -</option>
+				<!--{@ categorylist}-->
+				<option value="{.value_}" {? _GET.category == .value_} selected="selected" {/}>{.value_}</option>
+				<!--{/}-->
+			</select>
+			<!--{ / }-->
+		</li>
+		<li class="right2">
+			<span class="searchform">
+				<input type="text" name="search_text" id="search_text" class="res_bbs_search_input" value="{_GET.search_text}" title="제목, 내용" />
+				<button type="submit" class="btn_resp size_b">검색</button>
+				<button type="button" class="btn_resp size_b hide" onclick="document.location.href='{boardurl->resets}'">초기화</button>
+			</span>
+		</li>
+	</ul>
+</form>
+<div class="article_info hide">
+	{? sc.totalcount> sc.searchcount }검색 {=number_format(sc.searchcount)}개/{/}총 {=number_format(sc.totalcount)}개 (현재 {? sc.total_page== 0 }0{:}{=((sc.page/sc.perpage)+1)}{/}/총 {=number_format(sc.total_page)}페이지)
+</div>
+<!--{ / }-->
+
+{? loop }
+	<ul class="faq_new">
+		{@ loop }
+		<li>
+			<div class="question">
+				<p class="subject">{.subject} {.iconnew} {.iconhot} {.iconfile} {.iconhidden}</p>
+				<p class="add_info">
+					<span class="hide">번호:  {.number}</span>
+					{? strstr(manager.list_show,'[writer]') }작성자: {.name}{/}
+					{? strstr(manager.list_show,'[date]') }등록일: {.date}{/}
+					{? strstr(manager.list_show,'[hit]') }조회수: {.hit}{/}
+				</p>
+			</div>
+			<div id="faqcontent_{.seq}" class="answer {? _GET.seq != .seq }hide{/}">
+				{? .filelist}
+				<ul class="filelist">
+					{@ .filelist}
+					<li>
+						<span class="realfilelist hand highlight-link" realfiledir="{..realfiledir}" realfilename="{..orignfile}" board_id="{.boardid}" filedown="../board_process?mode=board_file_down&board_id={.boardid}&realfiledir={..realfiledir}&realfilename={..orignfile}">
+							{..orignfile} <span class="gray_05">({..realsizefile})</span>
+							<button type="button"  class="btn_resp size_a">down</button>
+						</span>
+					</li>
+					{/}
+				</ul>
+				{/}
+				{.contents}
+			</div>
+		</li>
+		{/}
+	</ul>
+{ : }
+	<div class="no_data_area2">
+		등록된 게시글이 없습니다.
+	</div>
+{ / }
+
+{? pagin }
+<div id="pagingDisplay" class="paging_navigation">{pagin}</div>
+{/}
+
+<ul class="bbs_bottom_wrap hide">
+	<li class="right">
+		<button type="button" name="boad_write_btn{manager.isperm_write}" {? _GET.iframe }id="goods_boad_write_btn{manager.isperm_write}"{:}id="boad_write_btn{manager.isperm_write}"{/} board_id="{boardid}" fileperm_read="{manager.fileperm_write}" class="btn_resp size_b color2 hidden" />{manager.name} 쓰기</button>
+	</li>
+</ul>
+
+<div id="BoardPwCk" class="hide BoardPwCk">
+	<div class="msg">
+		<h3>비밀번호 확인</h3>
+		<div>게시물 등록시에 입력했던 비밀번호를 입력해 주세요.</div>
+	</div>
+	<form name="BoardPwcheckForm" id="BoardPwcheckForm" method="post" action="{=sslAction('../board_process')}" target="actionFrame ">
+		<input type="hidden" name="seq" id="pwck_seq" value="" />
+		<input type="hidden" name="returnurl" id="pwck_returnurl" value="" />
+		<div class="ibox">
+			<input type="password" name="pw" id="pwck_pw" class="input" />
+			<input type="submit" id="BoardPwcheckBtn" value=" 확인 " class="btnblue" />
+			<input type="button" value=" 취소 " class="btngray" onclick="$('#BoardPwCk').dialog('close');" />
+		</div>
+	</form>
+</div>
+<!-- //비밀번호 확인 -->

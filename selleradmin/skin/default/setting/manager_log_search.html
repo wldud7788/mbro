@@ -1,0 +1,71 @@
+<table class="table_search">
+	<tr>
+        <th>처리일시</th>
+        <td>
+            <input type="text" name="regist_date[]" value="{?_GET.regist_date[0]}{=_GET.regist_date[0]}{:}{=sdate}{/}"  class="datepicker line sdate"  maxlength="10" size="10" default_none/>
+				-
+            <input type="text" name="regist_date[]" value="{?_GET.regist_date[1]}{=_GET.regist_date[1]}{:}{=edate}{/}"  class="datepicker line edate" maxlength="10" size="10" default_none />
+            <div class="resp_btn_wrap">
+                <input type="button" value="오늘" id="today" class="select_date resp_btn{? !_GET.select_date_regist || _GET.select_date_regist == 'today'} on{/}"{? _GET.select_date_regist == 'today' || !_GET.select_date_regist} style="position:relative; z-index: 999;"{/} settarget="regist_date"/>
+                <input type="button" value="3일간" id="3day" class="select_date resp_btn{? _GET.select_date_regist == '3day'} on{/}" {? _GET.select_date_regist == '3day'} style="position:relative; z-index: 999;"{/} settarget="regist_date"/>
+                <input type="button" value="일주일" id="1week" class="select_date resp_btn{? _GET.select_date_regist == '1week'} on{/}"{? _GET.select_date_regist == '1week'} style="position:relative; z-index: 999;"{/} settarget="regist_date"/>
+                <input type="button" value="1개월" id="1month" class="select_date resp_btn{? _GET.select_date_regist == '1month'} on{/}"{? _GET.select_date_regist == '1month'} style="position:relative; z-index: 999;"{/} settarget="regist_date"/>
+                <input type="button" value="3개월" id="3month" class="select_date resp_btn{? _GET.select_date_regist == '3month'} on{/}"{? _GET.select_date_regist == '3month'} style="position:relative; z-index: 999;"{/}settarget="regist_date"/>
+                <!--<input type="button" value="6개월" id="6month" class="select_date resp_btn" settarget="regist_date" />
+                <input type="button" value="전체" id="all" class="select_date resp_btn" settarget="regist_date" />-->
+				<input name="select_date_regist" value="today" class="select_date_input" type="hidden" />
+            </div>
+            
+        </td>
+    </tr>
+    <tr>
+        <th>처리자</th>
+        <td>
+            <div class="ui-widget">
+				<table>
+					<tr>
+						<td>
+							<select name="manager_seq" style="width:160px;">
+								<option value="0" selected>- 처리자 전체 -</option>
+								{ @ managers }
+								<option value="{managers.key_}" { ? _GET.manager_seq == managers.key_ } selected{/}>{managers.value_.manager_id} ({managers.value_.mname})</option>
+								{ / }
+							</select>
+						</td>
+					</tr>
+				</table>
+            </div>
+            <span class="ptc-charges hide"></span>
+        </td>
+    </tr>
+    <tr>
+        <th>구분/업무</th>
+        <td>
+            <div class="ui-widget">
+                <select name="action_type" style="width:160px;">
+                    <option value="0" { ? !_GET.action_type } selected{/}>- 구분 전체 -</option>
+                    <!-- { @ action_type } -->
+                    <option value="{action_type.key_}" { ? _GET.action_type == action_type.key_ } selected{/}>{action_type.value_}</option>
+                    <!-- { / } -->
+                </select>
+                
+                <select name="action_menu" style="width:160px;">
+                    <!-- { ? !_GET.action_type } -->
+                    <option value="0" selected>- 메뉴 전체 -</option>
+                    <!-- { : } -->
+                    <option value="0" selected>- 메뉴 전체 -</option>
+                    <!-- { @ action_menu } -->
+                    <option value="{action_menu.key_}" { ? _GET.action_menu == action_menu.key_ } selected{/}>{action_menu.value_}</option>
+                    <!-- { / } { / } -->
+                </select>
+            </div>
+            <span class="ptc-charges hide"></span>
+        </td>
+    </tr>
+</table>
+<div class="footer">
+    <div>
+        <button type="submit" class="search_submit resp_btn active size_XL">검색</button>
+        <button type="button" class="search_reset resp_btn v3 size_XL" onclick="search_init();">초기화</button>
+    </div>
+</div>

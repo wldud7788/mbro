@@ -1,0 +1,220 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	code_flag = false;
+
+	$(function(){
+		<!--{?_GET.no}-->
+		classCont('{_GET.no}');
+		<!--{:}-->
+		classCont('1');
+		<!--{/}-->
+
+		$('#alert_reset').click(function(){
+			$('#result').html('');
+		});
+		$('#alert_submit').click(function(){
+			$('.update_form').each(function(){
+				$.ajax({
+					url: "/admin/setting_process/set_alert",
+					type: "post",
+					data : $(this).serialize(),
+					success : function(e){
+					}
+				});
+			});
+			openDialogAlert("설정이 저장되었습니다.",'400','160',function(){location.reload()});
+		});
+	});
+
+	var add_alert = function(){
+		$('#result').html('');
+		openDialog("메시지 추가하기", "insert_popup", {"width":"900","height":"410","show" : "fade","hide" : "fade"});
+	};
+
+	function formMove(gb, no){
+		classCont(no);
+		$("form[name='alert_form'] input[name='gb']").val(gb);
+		$("form[name='alert_form'] input[name='no']").val(no);
+		$("form[name='alert_form']").attr('action','../setting/alert_setting');
+		$("form[name='alert_form']").submit();
+	}
+
+	function classCont(no){		
+		$(".tabEvent > li > a").removeClass("current");
+		$(".tabEvent > li").eq(no-1).find("a").addClass("current");		
+	}
+
+</script>
+<style type="text/css">
+	.lang {position:relative}
+	.lang li{ margin:5px 0;line-height: 27px;};
+	.lang li:first-child{margin-top:0px;}
+	.lang input{width:88%;position:absolute;right:20px}
+	
+	.info-table-style .its-th-align {padding:0 !important; border-bottom:0 !important; line-height:280%;}
+	.table_basic.v5{margin-top:-1px;}
+	input[type='text'] {background: none; padding-top: 0 !important; padding-bottom: 0!important;}
+</style>
+
+<div id="lang_wrap">
+	<!-- 페이지 타이틀 바 : 시작 -->
+	<div id="page-title-bar-area">
+		<div id="page-title-bar">			
+			{#require_info}
+
+			<!-- 타이틀 -->
+			<div class="page-title">
+				<h2>안내 메시지</h2>
+			</div>
+
+			<!-- 우측 버튼 -->
+			<div class="page-buttons-right">
+				<button class="resp_btn active size_L" type="button" id="alert_submit">저장</button>
+			</div>
+
+		</div>
+	</div>
+	<!-- 페이지 타이틀 바 : 끝 -->
+
+	<!-- 서브 레이아웃 영역 : 시작 -->	
+		<!-- 서브메뉴 바디 : 시작-->			
+	<div class="contents_dvs v2">
+		<div class="dvs_box">
+		<!-- 상단 단계 링크 : 시작 -->
+		<ul class="tab_01 tabEvent">
+			<li><a href="javascript:void(0);" onclick="formMove('gv',1);">상품상세</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('mp',2);">마이페이지</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('oc',3);">장바구니</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('os',4);">주문/결제</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('mo',5);">주문내역</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('mb',6);">회원</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('dv',7);">배송</a></li>
+			<li><a href="javascript:void(0);" onclick="formMove('et',8);">기타</a></li>
+		</ul>			
+		<!-- 상단 단계 링크 : 끝 -->			
+		<table class="table_basic" >
+			<colgroup>
+				<col width="18%" /><col width="18%" /><col width="64%" /><col/>
+			</colgroup>
+			<thead>	
+			<tr>
+				<th>구분</th>
+				<th>설명</th>
+				<th>안내 메시지 언어별 설정</th>
+			</tr>
+			</thead>					
+			</table>
+			{? loop }
+				{@ loop }
+				<form class="update_form" action="/admin/setting_process/set_alert" method="post" target="actionFrame">
+				<table width="100%" class="table_basic v7 {.index_}">
+				<colgroup>
+					<col width="18%" /><col width="18%" /><col width="64%" /><col/>
+				</colgroup>
+				{@.value_}
+				<tr>
+					<td>
+						{..location}
+					</td>
+					<td>
+						{?..isTitle == 1}<strong>[제목]</strong>{/} {..comment}
+					</td>
+					<td height="130px">
+						<ul class="lang lang_{.index_}">
+							<li><strong>한국어</strong><input type="text" name="KR[{..seq}]" value="{=htmlspecialchars(..KR)}" /></li>
+							<li><span class="desc">원본</span><input type="text" class="bak_lang" value="{=htmlspecialchars(..KR_ORI)}" readonly /></li>
+							<li><strong>영&nbsp;&nbsp어</strong><input type="text" name="US[{..seq}]" value="{=htmlspecialchars(..US)}" /></li>
+							<li><span class="desc">원본</span><input type="text" class="bak_lang" value="{=htmlspecialchars(..US_ORI)}" readonly /></li>
+							<li><strong>중국어</strong><input type="text" name="CN[{..seq}]" value="{=htmlspecialchars(..CN)}" /></li>
+							<li><span class="desc">원본</span><input type="text" class="bak_lang" value="{=htmlspecialchars(..CN_ORI)}" readonly /></li>
+							<!--<li><strong>일본어</strong><input type="text" name="JP[{..seq}]" value="{=htmlspecialchars(..JP)}" /></li>
+							<li><span class="desc">원본</span><input type="text" class="bak_lang" value="{=htmlspecialchars(..JP_ORI)}" readonly /></li>-->
+						</ul>
+					</td>
+				</tr>
+				{/}
+				</table>
+				</form>
+				{/}
+			{/}
+			<br style="line-height:10px;" />
+			<div class="paging_navigation" style="margin:auto;">{page.html}</div>
+		</div>
+	</div>
+
+	<form name="alert_form" id="alert_form" method="get" action="../setting/alert_setting">
+		<input type="hidden" name="gb" />
+		<input type="hidden" name="no" />
+	</form>
+
+	<div id="insert_popup" class="hide">
+		<form id="insert_form" action="/admin/setting_process/insert_alert" method="post" target="actionFrame">
+		<table width="100%" class="info-table-style">
+		<colgroup>
+		<col width="120" /><col/>
+		</colgroup>
+		<tbody>
+		<tr>
+			<th class="its-th">구분</th>
+			<td class="its-td">
+				<select name="location">
+					<option value="gv">상품상세</option>
+					<option value="mp">마이페이지</option>
+					<option value="oc">장바구니</option>
+					<option value="os">주문/결제</option>
+					<option value="mo">주문내역</option>
+					<option value="mb">회원</option>
+					<option value="et">기타</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">상세설명</th>
+			<td class="its-td">
+				<input type="text" name="comment" size="80" />
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">제목 여부</th>
+			<td class="its-td">
+				<select name="isTitle" >
+					<option value="0">제목아님</option>
+					<option value="1">제목</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th">메세지 종류</th>
+			<td class="its-td">
+				 <select name="alert_type">
+					<option value="dialog">커스텀 팝업</option>
+					<option value="alert">윈도우 팝업</option>
+					<option value="confirm">윈도우 컨펌</option>
+					<option value="dislog_popup">커스텀 팝업 컨펌</option>
+				 </select>
+			</td>
+		</tr>
+		<tr>
+			<th class="its-th" height="110px">안내언어 설정</th>
+			<td class="its-td">
+				 <ul class="lang">
+					<li><span>한국어</span><input type="text" name="KR" value="" /></li>
+					<li><span>영&nbsp;&nbsp어</span><input type="text" name="US" value="" /></li>
+					<li><span>중국어</span><input type="text" name="CN" value="" /></li>
+					<li><span>일본어</span><input type="text" name="JP" value="" /></li>
+				 </ul>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		<div class="center mt10">
+		<span class="btn large cyanblue" id="insert_alert"><button type="submit">저장<span class="arrowright"></span></button></span>
+		<span class="btn large cyanblue" id="alert_reset"><button type="reset">초기화<span class="arrowright"></span></button></span>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+{ #layout_footer }

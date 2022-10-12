@@ -1,0 +1,60 @@
+ <!-- Start Script for channeltalk (장바구니에 물품 등록시)-->
+ <script type='text/javascript'>
+    $(document).ready(function(){
+        $('#addCart').on('click', function() {
+            var id = '{ data.goods_seq }';
+            var name = '{ data.goods_name }';
+            var quantity = 0;
+            var amount = 0; 
+            var data = {};
+            var ret;
+
+            // 수량 체크
+            if ($("input[name*=optionEa]").length > 0) {
+                if ($("input[name*=optionEa]").length === 1){
+                    data.quantity = $("input[name*=optionEa]").val();
+                } else {
+                    data.quantity = [];
+                    $("input[name*=optionEa]").each(function() {
+                        data.quantity.push(this.value);
+                    });
+                }
+            };
+
+            if ($(".out_option_price").length > 0) {
+                // 금액 체크
+                data.amount = [];
+                $(".out_option_price").each(function() {
+                    data.amount.push($(this).text());
+                });
+            } else { // 옵션없는 상품이라면
+                if ($('#total_goods_price').length > 0) {
+                    data.amount = $('#total_goods_price').text();
+                };
+            };
+
+            if (Object.keys(data).length > 0) {
+                // 타입체크 
+                ret = check_obj(data);                
+                // 금액이나 수량은 반드시 숫자로 반환
+                if (ret.quantity && typeof ret != 'undefined') {
+                    quantity = ret.quantity;
+                };
+                if (ret.amount && typeof ret != 'undefined') {
+                    amount = ret.amount;
+                };
+            } 
+
+            if (typeof ChannelIO != 'undefined' && quantity > 0) {
+                ChannelIO('track', 'AddToCart', {
+                    'id': id,
+                    'name': name,
+                    'quantity': quantity,
+                    'amount': amount
+            });
+            }
+
+        });
+    });
+</script>
+<!-- End Script for channeltalk -->

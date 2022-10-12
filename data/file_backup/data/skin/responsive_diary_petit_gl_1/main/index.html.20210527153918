@@ -1,0 +1,236 @@
+{=showDesignLightPopup(6)}
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ index @@
+- 파일위치 : [스킨폴더]/main/index.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{=showDesignLightPopup(5)}
+{=showDesignLightPopup(4)}
+{=showDesignLightPopup(3)}
+{=showDesignLightPopup(2)}
+{=showDesignLightPopup(1)}
+<!-- //띠배너/팝업 -->
+
+<style type="text/css">
+	#layout_header { border-bottom:0; }
+	#layout_body { max-width:100%; padding-left:0; padding-right:0; }
+    .store_box{background:url(../images/design_resp/main_center03.jpg);}
+    .main_bmp_btnbox{position: absolute;width: 45%;height: 100%;right: 0; top: 0; box-sizing: border-box;}
+    .main_bmp_btnbox>a{ width: 43%;float: left;height: 67%; margin:3.5% 2.7%; transition: all 0.2s;}
+    .main_bmp_btnbox>a:hover{background-color: rgba(255,255,255,0.3);}
+    .pc_bmp_banner{text-align:center; position:relative; max-width: 1920px; margin: 20px auto 0 auto;}
+
+    .mobile_bmp_banner{display: none;text-align:center; position:relative; max-width: 1920px; margin: 20px auto 0 auto;}
+    .mobile_main_bmp_btnbox{position: absolute;width: 70%;height: 100%;right: 0; top: 0; box-sizing: border-box;}
+    .mobile_main_bmp_btnbox>a{     width: 85%;height: 42%;margin: 29% 6% 0;transition: all 0.2s;display: block;}
+    .mobile_main_bmp_btnbox>a:hover{background-color: rgba(255,255,255,0.3);}
+
+    .community{max-width: 1920px; margin: 0 auto; overflow:hidden;}
+    .community>ul{width: 100%;}
+    .community>ul>li{width: 25%; height: 250px; border: 2px solid #ddd; float: left; box-sizing: border-box;}
+    .community>ul>li:nth-of-type(1), .community>ul>li:nth-of-type(2), .community>ul>li:nth-of-type(3){border-right: none;}
+
+    .community>ul>li>a{display: block;width: 100%; height: 100%; padding:55px; box-sizing: border-box;}
+    .community>ul>li:nth-of-type(4){padding:55px 60px 20px;}
+    .community>ul>li:nth-of-type(4)>p{font-size: 2.5em; font-weight: bold; color: #444;}
+    .community>ul>li:nth-of-type(4)>a{padding:10px; border: 2px solid #ddd; text-align: center; width: 55%; height: auto; transition: all 0.2s; font-weight: bold; font-size: 1.3em;}
+    .community>ul>li:nth-of-type(4)>a:nth-of-type(1){margin-top: 15px; border-bottom: none;}
+    .community>ul>li:nth-of-type(4)>a:hover{opacity: 0.6;}
+    .community>ul>li>a>p{transition: all 0.3s;}
+    .community>ul>li>a>p:nth-of-type(1){font-size: 2.5em; font-weight: bold;}
+    .community>ul>li>a>p:nth-of-type(2){font-size: 1.5em; margin-top: 15px; }
+    .community>ul>li>a>p:nth-of-type(3){font-size: 1.5em; margin-top: 5px; }
+    .community>ul>li>a>p:nth-of-type(3)>span{font-size: 0.7em;}
+
+    .community>ul>li>a:hover p{opacity: 0.6;}
+    .community>ul>li>a:hover p:nth-of-type(3){text-decoration: underline;}
+    .comm_1{background: url(../images/design_resp/playground.jpg);}
+    .comm_2{background: url(../images/design_resp/notice2.jpg);}
+    .comm_3{background: url(../images/design_resp/event.jpg);}
+    .comm_4{background: url(../images/design_resp/bmp_main_img.png);}
+
+    .mobile_community_box{display: none;}
+
+    @media (max-width:500px) {
+		.pc_bmp_banner{display: none;}
+		.mobile_bmp_banner{display: block;}
+
+		.community{display: none;}
+		.mobile_community_box{display: block;}
+	}
+</style>
+
+<!-- 메인 슬라이드 배너 -->
+<!-- 슬라이드 배너 영역 (light_style_1_21) :: START -->
+<div class="diary_custom_slider custom_slider sliderA center">
+	{=showDesignBanner(21)}
+</div>
+<!-- <div class="pc_bmp_banner">
+    <img src="../images/main_bmp_banner.jpg" alt="" title="">
+    <div class="main_bmp_btnbox">
+ 		<a href="https://musicbroshop.com/coin/coin_notice"></a>
+ 		<a href="https://bmpbrave.com/"></a>
+    </div>
+</div>
+
+<div class="mobile_bmp_banner">
+    <img src="../images/mobile_main_bmp_banner.jpg" alt="" title="">
+    <div class="mobile_main_bmp_btnbox">
+ 		<a href="https://musicbroshop.com/coin/coin_notice"></a>
+    </div>
+</div> -->
+<div class="mobile_community_box diary_custom_slider custom_slider sliderB center">
+	{=showDesignBanner(29)}
+</div>
+<div class="community">
+	<ul>
+		<li>
+			<a href="#" class="comm_1">
+				<p>자유게시판</p>
+				<p>뮤직브로만의 놀이터!</p>
+				<p>바로가기 <span>></span></p>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="comm_2">
+				<p>공지사항</p>
+				<p>뮤직브로 소식, 공지, 이슈</p>
+				<p>바로가기 <span>></span></p>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="comm_3">
+				<p>이벤트</p>
+				<p>뮤직브로의 이벤트!</p>
+				<p>바로가기 <span>></span></p>
+			</a>
+		</li>
+		<li class="comm_4">
+
+			<p>BMP 사용하기</p>
+			<a href="#">
+				BMP코인 → 캐시
+			</a>
+			<a href="#">
+				BMP코인이란?
+			</a>
+	
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript">
+	$(function () {
+		$(".light_style_1_21").not(".slick-initialized").slick({
+			// $('.light_style_타입num_배너num')에서 '배너num'는 showDesignBanner(배너num)과 반드시 일치해야 합니다
+			dots: true, // 도트 페이징 사용( true 혹은 false )
+			autoplay: true, // 슬라이드 자동( true 혹은 false )
+			speed: 1000, // 슬라이딩 모션 속도 ms( 밀리세컨드, ex. 600 == 0.6초 )
+			fade: true, // 슬라이딩 fade 모션 사용( true 혹은 fasle )
+			autoplaySpeed: 3000, // autoplay 사용시 슬라이드간 시간 ms( 밀리세컨드, ex. 3000 == 3초 )
+			customPaging: function (slide, i) {
+			// 슬라이드 번호 부분으로 전문가가 아니면 수정을 추천하지 않습니다.
+			i = i + 1 + "/" + slide.slideCount;
+			return i;
+			},
+			// 이 외 slick 슬라이더의 자세한 옵션사항은 http://kenwheeler.github.io/slick/ 참고
+		});
+	});
+</script>
+<!-- 슬라이드 배너 영역 (light_style_1_21) :: END -->
+<!-- //메인 슬라이드 배너 -->
+
+
+<div class="resp_wrap">
+	<div class="display_diary_right" style="padding-top:20px;">
+		<!-- 상품디스플레이 (NEW ARRIVALS) -->
+		<div class="title_group1">
+			<h3 class="title1"><span designElement="text">여러가지 멜로디 <strong>추천 앨범</strong></span></h3>
+			<a href="/goods/brand_main" designElement="text">브랜드 자세히 보기</a>
+		</div>
+		<div class="show_display_col4">
+			{=showDesignDisplay(10311)}
+		</div>
+		<!-- //상품디스플레이 (NEW ARRIVALS) -->
+	</div>
+
+	<div class="display_diary_custom">
+		<div class="title_group1">
+			<h3 class="title1"><span designElement="text">알록달록 느낌대로 모아보기</span></h3>
+		</div>
+		<div class="main_bnr_d1">
+			<li class="left_area">
+                <!-- 슬라이드 배너 영역 (light_style_1_20) :: START -->
+				{=showDesignBanner(20)}				
+				<script type="text/javascript">
+                    $(function () {
+                        $(".main_bnr_d1 .light_style_1_20").slick({
+                            dots: true, // 도트 페이징 사용( true 혹은 false )
+                            autoplay: true, // 슬라이드 자동( true 혹은 false )
+                            speed: 800, // 슬라이딩 모션 속도 ms( 밀리세컨드, ex. 800 == 0.8초 )
+                            autoplaySpeed: 4000, // autoplay 사용시 슬라이드간 시간 ms( 밀리세컨드, ex. 4000 == 4초 )
+                        });
+                        // 이 외 slick 슬라이더의 자세한 옵션사항은 http://kenwheeler.github.io/slick/ 참고
+                    });
+				</script>
+				<!-- 슬라이드 배너 영역 (light_style_1_20) :: END -->
+                <a href="#" class="text1" designElement="text" target="_self">뮤직브로만의 특색있는 트렌드 아이템!</a>
+				<a href="#" class="text2" designElement="text" target="_self">2021 S/S Fashion item</a>
+			</li>
+			<li class="right_area">
+				<ul class="main_bnr_d1_2">
+					<li>
+						<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0013&per=40&sorting=ranking&filter_display=lattice"><img src="../images/design_resp/main_goods01.jpg" alt="" /></a>
+						<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0013&per=40&sorting=ranking&filter_display=lattice" class="text1" designElement="text">K-GOODS 모아보기 </a>
+						<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0013&per=40&sorting=ranking&filter_display=lattice" class="text2" designElement="text">다양한 K-굿즈 상품</a>
+					</li>
+					<li>
+						<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0019&per=40&sorting=ranking&filter_display=lattice" target='_self'><img src="../images/design_resp/main_life01.jpg" title="" alt="" /></a>
+						<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0017&per=40&sorting=ranking&filter_display=lattice" class="text1" designElement="text">STYLE 모아보기 </a>
+						<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0017&per=40&sorting=ranking&filter_display=lattice" class="text2" designElement="text">의류,  생활용품 등</a>
+					</li>
+				</ul>
+			</li>
+		</div>
+	</div>
+
+	<div class="display_diary_right">
+		<!-- 상품디스플레이 -->
+		<div class="title_group1">
+			<h3 class="title1"><span designElement="text">가성비 갑! <strong>인기 상품</strong></span></h3>
+			<a href="/goods/brand_main" designElement="text">브랜드 자세히 보기</a>
+		</div>
+		<div class="show_display_col3">
+			{=showDesignDisplay(10001)}
+		</div>
+		<!-- //상품디스플레이 -->
+	</div>
+
+	<!-- 이미지 배너 -->
+	<ul class="cost_bnr_wrap clearbox">
+		<li>
+			<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0008&per=40&sorting=ranking&filter_display=lattice" target='_self'><img src="../images/design_resp/main_center02.jpg" title="" alt="" /></a>
+		</li>
+		<li>
+			<a href="https://musicbroshop.com/goods/catalog?page=1&searchMode=catalog&category=c0013&per=40&sorting=ranking&filter_display=lattice" target='_self'><img src="../images/design_resp/main_center01.jpg" title="" alt="" /></a>
+         
+		</li>
+	</ul>
+	<!-- //이미지 배너 -->
+
+	<!-- 상품디스플레이 -->
+	<div class="title_group1">
+		<h3 class="title1"><span designElement="text"><strong>MD’</strong>s Pick</span></h3>
+	</div>
+	<div class="show_display_col4">
+		{=showDesignDisplay(10313)}
+	</div>
+	<!-- //상품디스플레이 -->
+
+	<!--{ ? sns.ntalk_connect == 'Y' && sns.ntalk_use == 'Y' && sns.ntalk_use_mobile_main == 'Y' }-->
+	<!-- 네이버 톡톡 -->
+	<div class="btn_talk_area">
+		<button type="button" class="btn_talk v2" onclick="location.href='https://talk.naver.com/{sns.ntalk_connect_id}#nafullscreen';">쇼핑할땐 &nbsp;<img src="../images/icon/icon_talk.png" class="talk_img" alt="네이버톡톡" /> 톡톡하세요</button>
+	</div>
+	<!--{ / }-->
+</div>

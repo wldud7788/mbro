@@ -1,0 +1,177 @@
+{ #layout_header_popup }
+<script type="text/javascript">
+	var categoryUrl 	= gl_protocol+"goods/catalog?code=";
+	var info_item_config = {
+		'brand_title'	: ['kind','font_decoration','wrapper'],
+		'goods_name'	: ['kind','font_decoration'],
+		'summary'		: ['kind','font_decoration'],
+		'consumer_price': ['kind','font_decoration','position','postfix','compare'/*,'zoomicon'*/],
+		'price'			: ['kind','font_decoration','position','postfix','compare'/*,'zoomicon'*/],
+		'sale_price'	: ['kind','font_decoration','position','postfix','compare'/*,'zoomicon'*/],
+		'count'			: ['kind','buy_count','time_count'],
+		'fblike'		: ['kind','fblike'],
+		'icon'			: ['kind','list_icon_desc','list_icon_cpn','list_icon_freedlv','list_icon_video'],
+		'status_icon'	: ['kind','status_icon_desc','status_icon_runout','status_icon_purchasing','status_icon_unsold'],
+		'score'			: ['kind','score_desc'],
+		'provider_name'	: ['kind','font_decoration'],
+		'color'			: ['kind','color_desc'],
+		'bigdata'		: ['kind','font_decoration','bigdata']
+	};
+
+	var basic_currency		= "{=basic_currency}";
+	var currency_list		= {=currencySymbol};
+
+	var sort_page			= 0;
+	var sort_goods_cnt		= 0;
+	var sort_perpage		= 10;
+	var scrollTopPosition	= 0;
+
+	$(function () {
+
+		$(document).resize(function(){
+			//$('#ifrmCategorySetting',parent.document).height($('form').height());
+		}).resize();
+
+		Editor.onPanelLoadComplete(function(){
+			$(document).resize();
+		});
+
+		changeFileStyle();
+		
+		/* 추천상품 자동노출 설정 */
+		$("input[name='auto_use']").bind('change',function(){
+			if($(this).is(':checked')){
+				$(".goods_select_container th,.goods_select_container td").css('opacity',0.5);
+				$(".auto_order_container").css('opacity',1);
+				$(".auto_order_container input").removeAttr('disabled');
+			}else{
+				$(".goods_select_container th,.goods_select_container td").css('opacity',1);
+				$(".auto_order_container").css('opacity',0.5);
+				$(".auto_order_container input").attr('disabled',true);
+			}
+		}).change();		
+		
+		/* 하위카테고리에 동일적용 버튼 */
+		$(".childset_btn").bind('click',function(){
+			var div = $(this).attr('name').replace('childset_','');
+			var category_code = $("input[name='categoryCode']").val();
+			var categoryTitle = $(".categoryTitle").text();
+			parent.openDialogConfirm("적용 내용 : ["+categoryTitle+"] 카테고리 디자인 영역<br />적용 대상 카테고리 : ["+categoryTitle+"] 카테고리의 하위 카테고리<br /><br />적용하시겠습니까?",600,280,function(){
+				$("iframe[name='actionFrame']").attr('src','../category_process/childset_category_save?div='+div+'&category_code='+category_code);	
+			});
+			
+		});
+
+		$(".use_cont").on("click",function(){
+			var chkVal = $(this).find("input:radio:checked").attr('name');
+			if($(this).find("input:radio:checked").val() == '1' || $(this).find("input:radio:checked").val() == 'y'){
+				$(this).closest('td').children('div').not('div:first').show();
+			}else{
+				$(this).closest('td').children('div').not('div:first').hide();
+			}
+			$(document).resize();
+		});
+
+	});
+
+	function set_category_sort(acttype){
+		var topbody			= top.document.documentElement || top.document.body;
+		scrollTopPosition	= topbody.scrollTop;
+
+		$chk_arr	= [];
+		$("input[name='category_link_seqs[]']").each(function(){
+			if	($(this).is(":checked")){
+				$chk_arr.push({"seq":$(this).val(),"sortval":$("input[name='sortval["+$(this).val()+"]']").val()});
+		}});
+
+		if	(acttype == 'resetAll' || $chk_arr.length > 0){
+			if	(!sort_page)	sort_page	= 1;
+			$.ajax({
+				type: "get",
+				url: "../category_process/chgCategorySort",
+				data: {"categoryCode":"{categoryCode}","page":sort_page,"perpage":sort_perpage,"acttype":acttype,"target":$chk_arr},
+				success: function(page){
+					//show_next_sortgoods(page);
+				}
+			});
+		}
+	}
+
+	function opendDisplayPopup(kind){
+		window.open("../design/display_edit?kind="+kind+"&category_code={categoryData.category_code}&popup=1",'',"width=1200,height=700,scrollbars=1");
+	}
+</script>
+
+<form name="categorySettingForm" method="post" target="actionFrame" action="../category_process/catalog_design">
+<input type="hidden" name="page" value="{page}" />
+<input type="hidden" name="categoryCode" value="{categoryCode}" />
+<input type="hidden" name="recommend_display_seq" value="{categoryData.recommend_display_seq}" />
+<input type="hidden" name="m_recommend_display_seq" value="{categoryData.m_recommend_display_seq}" />
+
+<div class="warp ml15">
+	<div class="item-title">
+		카테고리 페이지 꾸미기 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/category', '#categorytip2', 'sizeM')"></span>
+	</div>
+	<table class="table_basic thl">
+		<tr>
+			<th>카테고리명</th>
+			<td>
+				<span class='categoryTitle'>{categoryData.title}</span>
+			</td>
+		</tr>
+	<tr>
+		<th>배너</th>
+		<td>
+			<div class='resp_radio use_cont'>
+				<label><input type="radio" name='use_top_html' value='1' {=checked['use_top_html']['y']}> 사용</label>
+				<label class='ml10'><input type="radio" name='use_top_html' value='0' {=checked['use_top_html']['n']}> 사용 안함</label>
+			</div>
+			<div class='right mb5 pdt5 {?checked['use_top_html']['n']}hide{/}' style='border-top:1px solid #ddd'>
+				<button type="button" class="resp_btn childset_btn" name="childset_top_html">하위 카테고리 적용</button>
+			</div>
+			<div class='{?checked['use_top_html']['n']}hide{/}'>
+				<textarea name="top_html" class="daumeditor" contentHeight="150">{categoryData.top_html}</textarea>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>추천 상품</th>
+		<td>
+			<div class='resp_radio use_cont'>
+				<label><input type="radio" name='use_recommend' value='1' {=checked['use_recommend']['y']}> 사용</label>
+				<label class='ml10'><input type="radio" name='use_recommend' value='0' {=checked['use_recommend']['n']}> 사용 안함</label>
+			</div>
+			<div class='mb5 pdt5 {?checked['use_recommend']['n']}hide{/}' style='border-top:1px solid #ddd'>
+				<button type="button" class="resp_btn v2" onclick="opendDisplayPopup('category_recommend')">설정</button>
+				<button type="button" class="resp_btn childset_btn" name="childset_recommend">하위 카테고리 적용</button>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>검색 필터</th>
+		<td>
+			<div class='resp_radio'>
+				<label><input type="radio" name='use_search' value='y' {=checked['use_search']['y']}> 사용</label>
+				<label class='ml10'><input type="radio" name='use_search' value='n' {=checked['use_search']['n']}> 사용 안함</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<th>상품 디스플레이</th>
+		<td>
+			<div class='resp_radio use_cont'>
+				<label><input type="radio" name='use_list' value='y' {=checked['use_list']['y']}> 사용</label>
+				<label class='ml10'><input type="radio" name='use_list' value='n' {=checked['use_list']['n']}> 사용 안함</label>
+			</div>
+			<div class='mb5 pdt5 {?checked['use_list']['n']}hide{/}' style='border-top:1px solid #ddd'>
+				<button type="button" class="resp_btn v2" onclick="opendDisplayPopup('category')">설정</button>
+				<button type="button" class="resp_btn childset_btn" name="childset_category">하위 카테고리 적용</button>
+			</div>
+		</td>
+	</tr>
+	</table>
+</div>
+
+</form>
+{ #layout_footer_popup }

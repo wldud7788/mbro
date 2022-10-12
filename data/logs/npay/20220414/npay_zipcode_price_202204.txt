@@ -1,0 +1,32 @@
+[2022-04-14 14:31:19.164536000]
+REMOTE_IP : 125.209.251.216
+Array
+(
+    [zipcode] => 03780
+    [address1] => 7ISc7Jq47Yq567OE7IucIOyEnOuMgOusuOq1rCDsi6DstIzsl63roZwgMTcgKOuMgO2YhOuPmSwg7ZiE64yA7Lqg7Y2867mMKQ
+    [productId] => Array
+        (
+            [0] => 2308
+        )
+
+    [popup] => 
+    [iframe] => 
+)
+
+
+[2022-04-14 14:31:41.460139000]
+REMOTE_IP : 125.209.251.198
+Array
+(
+    [zipcode] => 03780
+    [address1] => 7ISc7Jq47Yq567OE7IucIOyEnOuMgOusuOq1rCDsi6DstIzsl63roZwgMTcgKOuMgO2YhOuPmSwg7ZiE64yA7Lqg7Y2867mMKQ
+    [productId] => Array
+        (
+            [0] => 2308
+        )
+
+    [popup] => 
+    [iframe] => 
+)
+
+

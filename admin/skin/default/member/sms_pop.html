@@ -1,0 +1,115 @@
+
+<script type="text/javascript">
+$(document).ready(function() {
+	{? page == 'refund'}
+		$("select[name='memo_type']").live('change',function(){
+			if($(this).val()=='direct'){
+				$("input[name='memo_direct']").show();
+			}else{
+				$("input[name='memo_direct']").hide();
+			}
+		});
+
+		$("input[name='send_sms']").bind('click',function(){
+			if($(this).attr("checked")){
+				$(".sms").attr("disabled",false);
+				// 개인정보 마스킹 처리 입력폼 비활성화
+				{? private_masking }
+				$("input[name='cellphone']").attr('disabled',true);
+				{ / }
+			}else{
+				$(".sms").attr("disabled",true);
+			}
+		});
+
+		$("#smsFrm input[name='msg']").bind("keydown",function(){
+			str = $(this).val();
+			$(this).parent().find(".sms_byte").html(chkByte(str));
+		});
+	{ : }
+		//내용입력 byte
+		addTextByteEvent()
+	{ / }
+
+	{? type == "provider_person"}
+		$("button[name='smsSubmitButton']").bind('click',function(){
+			openDialogConfirm('입점사에게 문자를 발송합니다. 발송하시겠습니까?',400,140,function(){
+				$('#smsFrm').submit();
+			});
+		});
+	{/}
+});
+
+</script>
+
+<form name="smsFrm" id="smsFrm" method="post" target="actionFrame" action="/admin/member_process/sms_pop" >
+<input type="hidden" name="member_seq" value="{member_seq}"/>
+<input type="hidden" name="order_seq" value="{order_seq}"/>
+<input type="hidden" name="type" value="{type}"/>
+
+<!--{? page == 'refund'}-->
+<table width="100%" class="info-table-style">
+<tbody>
+<tr>
+	<th class="its-th-align">
+
+	<table width="100%">
+	<tr>
+		<td>
+			<div class="mb5"><input type="checkbox" name="send_sms" value="Y" {?count<1}disabled{/} class="resp_checkbox">SMS 전송  [ 보유SMS건수 : {count}통, 90 bytes 이상 시 LMS로 발송이 되며 3건이 차감됩니다.]</div>
+			<input type="text" name="cellphone" value="{? bcellphone}{bcellphone}{:}{cellphone}{/}" class="line sms" disabled size="14">
+			<input type="text" name="msg" class="line sms" {? certify_code_msg } value="{certify_code_msg}" {/} title="메시지를 입력하세요."  size="49">
+			<b class="sms_byte">0</b>byte
+		</td>
+	</tr>
+	<tr><td height="10"></td></tr>
+	<tr>
+		<td>
+		<span class="btn large cyanblue"><button {? isdemo.isdemo }  type="button"  {isdemo.isdemojs1} {:}  type="submit"  id="send_submit" {/} class="resp_btn active">확인</button></span>
+		</td>
+	</tr>
+	</table>
+
+	</th>
+</tr>
+</tbody>
+</table>
+<!--{ : }-->
+<div class="item-title">SMS 발송</div>
+<table class="table_basic thl">		
+	<tr>
+		<th>잔여 건수</th>
+		<td>잔여 {count}건</td>
+	</tr>	
+	
+	<tr>
+		<th>받는 사람</th>
+		<td>
+			{? hcellphone }
+			{hcellphone}
+			<input type="hidden" name="cellphone" class="sms" value="{cellphone}">
+			{:}
+			<input type="text" name="cellphone" class="sms" value="{? bcellphone}{bcellphone}{:}{cellphone}{/}"
+				{?private_masking}disabled{/}>
+			{/}
+		</td>
+	</tr>
+
+	<tr>
+		<th>내용</th>
+		<td>			
+			<input type="checkbox" name="send_sms" value="Y" {?count<1}disabled{:}checked{/} class="hide">
+			<div class="resp_limit_text textByteEvent">
+				<input type="text" name="msg" class="resp_text sms" {? default_massage } value="{default_massage}" {/} title="메시지를 입력하세요." size="49"  maxByte="" {?count<1}disabled{/}>		
+			</div>		
+		</td>
+	</tr>	
+</table>
+<div class="resp_message">- 90 bytes 이상 시 LMS로 발송이 되며 3건이 차감됩니다.</div>
+<div class="footer">
+	<button class="resp_btn active size_XL" {? isdemo.isdemo }  type="button"  {isdemo.isdemojs1} {:}  type="submit"  id="send_submit" name="smsSubmitButton" {/} >발송</button>	
+	<button class="resp_btn v3 size_XL" type="button" onclick="closeDialogEvent(this);">취소</button>	
+</div>	
+<!--{ / }-->
+
+</form>

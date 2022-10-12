@@ -1,0 +1,229 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 회원가입 > 약관동의 @@
+- 파일위치 : [스킨폴더]/member/agreement.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<style>
+	.selection{display:inline-block;padding:10px 9px; color:#333;}
+	.selection>li{margin-left: 40px;}
+</style>
+{is_file_kakao_tag}
+<!-- 타이틀 -->
+<div class="title_container">
+	<h2><span designElement="text">약관 동의</span></h2>
+</div>
+
+<div class="resp_login_wrap Mt0">
+	<form name="agreeFrm" id="agreeFrm" target="actionFrame" method="post" action="../member_process/register">
+	<input type="hidden" name="join_type" value="{=join_type}"/>
+	<input type="hidden" name="kid_agree" value="">
+		<div class="mem_agree_area">
+			<label id="pilsuAgreeAll" class="pilsu_agree_all"><input type="checkbox"> <span designElement="text">약관 전체 동의</span></label>
+			<ul id="agreeList" class="agree_list3">
+				<li class="agree_section">
+					<a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#agreementDeatilLayer')"><span designElement="text">보기</span></a>
+					<label><input type="checkbox" name="agree" value="Y" class="pilsu" > <span designElement="text">쇼핑몰 이용약관</span> <span class="desc pointcolor4 imp" designElement="text">(필수)</span></label>
+				</li>
+				<li class="agree_section">
+					<a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#privacyDeatilLayer')"><span designElement="text">보기</span></a>
+					<label><input type="checkbox" name="agree2" value="Y" class="pilsu"> <span designElement="text">개인정보 수집 및 이용</span> <span class="desc pointcolor4 imp" designElement="text">(필수)</span></label>
+				</li>
+				{? joinform_optionYN == 'Y'}
+				<li class="agree_section">
+					<a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#joinformDeatilLayer')"><span designElement="text">보기</span></a>
+					<label><input type="checkbox" name="agree3" value="Y" class="pilsu"> <span designElement="text">개인정보 수집 및 이용</span> <span class="desc pointcolor4 imp" designElement="text">(선택)</span></label>
+				</li>
+				{ / }
+				{? join_type == 'member' && (email_use == 'Y' || cellphone_use == 'Y') }
+				<li class="agree_section">
+					<a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#marketingDeatilLayer')"><span designElement="text">보기</span></a>
+					<label><input type="checkbox" name="marketing" id="marketing" value="Y" class="pilsu"> <span designElement="text">마케팅 및 광고 활용 동의</span> <span class="desc pointcolor4 imp" designElement="text">(선택)</span></label>
+					<ul id="agreeList2" class="selection">
+						{? email_use == 'Y' }
+						<li class="agree_section" style="float: left;margin-left: 14px;">
+							<label><input type="checkbox" name="mailing" id="mailing" value="y" class="pilsu"> <span designElement="text">이메일 수신</span></label>
+						</li>
+						{ / }
+						{? cellphone_use == 'Y'}
+						<li class="agree_section" style="float: left;margin-left: 14px;">
+							<label><input type="checkbox" name="sms" id="sms" value="y" class="pilsu"> <span designElement="text">SMS 수신</span></label>
+						</li>
+						{ / }
+					</ul>
+				</li>
+				{: join_type == 'business' && (bemail_use == 'Y'|| bcellphone_use == 'Y') }
+				<li class="agree_section">
+					<a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#marketingDeatilLayer')"><span designElement="text">보기</span></a>
+					<label><input type="checkbox" name="marketing" id="marketing" value="Y" class="pilsu"> <span designElement="text">마케팅 및 광고 활용 동의</span> <span class="desc pointcolor4 imp" designElement="text">(선택)</span></label>
+					<ul id="agreeList2" class="selection">
+						{? bemail_use == 'Y'}
+						<li class="agree_section" style="float: left;margin-left: 14px;">
+							<label><input type="checkbox" name="mailing" id="mailing" value="y" class="pilsu"> <span designElement="text">이메일 수신</span></label>
+						</li>
+						{ / }
+						{?  bcellphone_use == 'Y'}
+						<li class="agree_section" style="float: left;margin-left: 14px;">
+							<label><input type="checkbox" name="sms" id="sms" value="y" class="pilsu"> <span designElement="text">SMS 수신</span></label>
+						</li>
+						{ / }
+					</ul>
+				</li>
+				{ / }
+			</ul>
+			{ ? mtype == 'member' && in_array(joinform.kid_join_use, array('Y','N'))}
+				<label class="pilsu_agree_all">
+					<input name="kid_agree_tmp" type="checkbox" value="Y"><span designElement="text"></span> 만 14세 이상입니다.
+					<span class="pointcolor4" designElement="text">{ ? joinform.kid_join_use == 'Y' }(선택){ : joinform.kid_join_use == 'N' }(필수){/}</span>
+				</label>
+			{/}
+		</div>
+
+		<div class="btn_area_c">
+			<button type="button" id="btn_submit" class="btn_resp size_c color2 Wmax"><span designElement="text">다음 단계</span></button>
+		</div>
+	</form>
+</div>
+
+<div id="agreementDeatilLayer" class="resp_layer_pop hide">
+	<h4 class="title">쇼핑몰 이용약관</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			{=nl2br(policy_agreement)}
+		</div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<div id="privacyDeatilLayer" class="resp_layer_pop hide">
+	<h4 class="title">개인정보 수집 및 이용</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			{=nl2br(policy_joinform)}
+		</div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<div id="joinformDeatilLayer" class="resp_layer_pop hide">
+	<h4 class="title">개인정보 수집 및 이용</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			{=nl2br(policy_joinform_option)}
+		</div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<div id="marketingDeatilLayer" class="resp_layer_pop hide">
+	<h4 class="title">마케팅 및 광고 활용 동의</h4>
+	<div class="y_scroll_auto2">
+		<div class="layer_pop_contents v5">
+			{=nl2br(policy_marketing)}
+		</div>
+	</div>
+	<div class="layer_bottom_btn_area2">
+		<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<script src="/app/javascript/js/skin-snslogin.js?v={=date('Ymd')}"></script>
+
+<script type="text/javascript">
+var return_url	= "../main/index";
+{?_GET.return_url }
+return_url			= "{_GET.return_url}";
+{: return_url }
+return_url			= "{return_url}";
+{/}
+var mobileapp		= "{mobileapp}";
+var m_device		= "{m_device}";
+var fbuserauth		= "{fbuserauth}";
+var snstype			= '{=substr(join_type,0,2)}';
+var jointype		= '{=join_type}';
+var apple_authurl	= '{apple_authurl}';
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	// 약관 전체동의
+	$('#pilsuAgreeAll > input[type=checkbox]').on('change', function() {
+		if ( $(this).prop('checked') ) {
+			$(this).closest('.mem_agree_area').find('input[type=checkbox].pilsu').attr('checked', 'checked');
+			$(this).closest('.mem_agree_area').find('input[type=checkbox].pilsu').closest('li').addClass('end');
+		} else {
+			$(this).closest('.mem_agree_area').find('input[type=checkbox].pilsu').removeAttr('checked');
+			$(this).closest('.mem_agree_area').find('input[type=checkbox].pilsu').closest('li').removeClass('end');
+		}
+	});
+	// 개별 약관 선택시
+	$('#agreeList input[type=checkbox]').on('change', function() {
+		if ( $(this).prop('checked') ) {
+			$(this).closest('li').addClass('end');
+		} else {
+			$(this).closest('li').removeClass('end');
+		}
+	});
+
+	$('#btn_submit').click(function() {
+		if(jointype){
+			if(!$("input[name='agree']").is(":checked")){
+				//이용약관에 동의하셔야합니다.
+				alert(getAlert('mb001'));
+				return false;
+			}
+			if(!$("input[name='agree2']").is(":checked")){
+				//개인정보처리방침에 동의하셔야합니다.
+				alert(getAlert('mb261'));
+				return false;
+			}
+		}
+
+		{? !join_type || join_type == 'member' || join_type == 'business' //sns아닌경우 }
+			$('#agreeFrm').submit();
+		{:}
+			var kid_agree_tmp = $('input:checkbox[name="kid_agree_tmp"]').is(":checked");
+			if(typeof kid_agree_tmp == "undefined") kid_agree_tmp = '';
+			if('{=mtype}' == 'member' && '{joinform.kid_join_use}' == 'N' && !kid_agree_tmp){
+				//만 14세 미만 회원으로 쇼핑몰 회원가입이 불가합니다.
+				alert(getAlert('mb262'));
+				return false;
+			}else{
+				kid_agree = kid_agree_tmp ? 'Y' : 'N';
+				joinwindowopen();
+			}
+		{/}
+	});
+
+	$('input:checkbox[name="kid_agree_tmp"]').on("click", function(){
+		var kid_agree = $(this).is(":checked") ? 'Y' : 'N';
+		$('input[name="kid_agree"]').val(kid_agree);
+	});
+
+	$("#marketing").click(function(){
+		if($("#marketing").is(":checked")){
+			$("#mailing").attr("checked","checked");
+			$("#sms").attr("checked","checked");
+		}else{
+			$("#mailing").removeAttr("checked");
+			$("#sms").removeAttr("checked");
+		}
+	});
+
+	$("#mailing, #sms").click(function(){
+		if($("#mailing, #sms").is(":checked")){
+			$("#marketing").attr("checked","checked");
+		} else {
+			$("#marketing").removeAttr("checked");
+		}
+	});
+
+});
+</script>

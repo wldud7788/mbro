@@ -1,0 +1,42 @@
+<table class="table_basic option-select-table">
+	<colgroup>
+		<col width="50"/>
+		<col />
+		<col width="130" />
+	</colgroup>
+	<thead class="lth">
+		<tr>
+			<th><label class="resp_checkbox"><input type="checkbox" name="all_selected_option_seqs" value="1" onclick="package_toggle_option_all(this);"></label></th>
+			<th>옵션</th>
+			<th>판매가</th>
+		</tr>
+	</thead>
+	<tbody class="ltb">
+		<!--{ @ record }-->
+		<tr class="list-row" style="height:35px;">
+			<td class="center">
+				<label class="resp_checkbox"><input type="checkbox" name="selected_option_seqs[]" value="{.option_seq}" goods_name="{=strip_tags(.goods_name)}" combine_option="{.combine_option}" goods_seq="{.goods_seq}"
+				stock="{.stock}"
+				badstock="{.badstock}"
+				safe_stock="{.safe_stock}"
+				rstock="{.rstock}"
+				optioncode="{.option_codes}"
+				weight="{.weight}"
+				{?.index_==0}checked{/} onclick="package_toggle_option_color();"/>
+				</label>
+			</td>
+			<td class="hand left pdl5" onclick="package_toggle_option(this);">
+			<!--{ ? .combine_option }-->
+				{.combine_option}
+			<!--{ : }-->
+				기본
+			<!--{ / }-->
+			</td>
+			<td class="hand right pdr5" onclick="package_toggle_option(this);">
+				{=get_currency_price(.price,2)}
+			</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+</table>
+<script type="text/javascript">package_toggle_option_color();</script>

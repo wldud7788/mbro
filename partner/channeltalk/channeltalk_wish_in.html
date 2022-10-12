@@ -1,0 +1,74 @@
+<!-- Start Script for channeltalk (위시리스트에 물품 등록시)-->
+<script type='text/javascript'>
+    function return_wish(id,name,amount) {
+        var ret;    
+
+        if (amount != '') {
+            // 타입체크
+            ret = check_number(amount);
+            if (ret != null && typeof ret != 'undefined') {
+                // 금액이나 수량은 반드시 숫자로 반환
+                amount = ret;
+            }
+
+        }
+                
+        AddToWish(id,name,amount);
+        //e.preventDefault(); 더이상에 이벤트 발생하고 싶지 않을때
+    }
+
+    $(document).ready(function(){ 
+
+        // 장바구니에서 위시리스트를 조회했을경우
+        if ($('.btn_select_wishlist').length > 0 ) {
+            $('.btn_select_wishlist').click(function(e){
+                // 장바구니에서 찜하고자하는 물품 체크여부 확인
+                var goods_seq_arr = [];
+                $("input[name='cart_option_seq[]']:checked").each(function() {
+                    if (goods_seq_arr.indexOf($(this).attr('rel')) === -1 && typeof $(this).attr('rel') != 'undefined') {
+                        goods_seq_arr.push($(this).attr('rel'));
+
+                        
+                        // if ($(this).closest('td').length > 0) {  // (전용스킨)일 경우
+                        //     channeltalk_wish_in($(this).attr('rel'),'cart_wish',$(this).closest('td'));
+                        // } else { // (반응형스킨)일 경우
+                            channeltalk_wish_in($(this).attr('rel'));
+                      //  }
+                        
+                    }
+                });
+            
+            });
+
+        };
+
+        // 상세페이지에서 위시리스트를 조회했을경우
+        if ( $('a[href^="/mypage/wish_add"]').length > 0 ||  $('#wishimg').length > 0 ) {
+            var id = '{ data.goods_seq }';
+            var name = '{ data.goods_name }';
+            var amount = '{ data.price }';
+            var ret;
+            
+            // (전용스킨) 상세페이지에 위시리스트 버튼으로 클릭시
+            $('a[href^="/mypage/wish_add"]').click(function(e){
+
+                return_wish(id,name,amount);
+
+            });
+
+            // (반응형스킨) 상세페이지내 찜이미지가 있는경우
+            $('#wishimg').on('click', function() {
+
+                if($('#wishimg').attr('usewish') == 'n'){
+                    
+                    return_wish(id,name,amount);
+                    
+                }
+            });
+        };
+
+    });
+</script>
+<!-- End Script for channeltalk -->
+
+

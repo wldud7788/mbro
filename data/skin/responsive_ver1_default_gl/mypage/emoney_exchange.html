@@ -1,0 +1,176 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 혜택 교환 > 마일리지로 사은품 교환 @@
+- 파일위치 : [스킨폴더]/mypage/emoney_exchange.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">마일리지로 사은품 교환</span></h2>
+		</div>
+		
+		<div class="tab_basic">
+			<ul>
+				<!--{ ? emoney_exchange_use == 'y' }-->
+				<li>
+					<a href="/mypage/point_exchange">포인트 → <span class="Dib">마일리지</span></a>
+				</li>
+				<!--{ / }-->
+				<li>
+					<a href="/mypage/promotion">포인트 → <span class="Dib">할인코드</span></a>
+				</li>
+				<li class="on">
+					<a href="/mypage/emoney_exchange">마일리지 → <span class="Dib">사은품</span></a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="resp_table_row th_size2 mt20">
+			<ul class="tr">
+				<li class="th">{userInfo.user_name}님의 보유 마일리지</li>
+				<li class="td">
+					<strong class="strong1">{=get_currency_price(myemoney,2)}</strong>
+				</li>
+			</ul>
+			<ul class="tr">
+				<li class="th">이번달 소멸 예정 마일리지</li>
+				<li class="td">
+					<strong class="strong1">{=get_currency_price(extinction.reserve,2)}</strong>
+				</li>
+			</ul>
+		</div>
+		<input type="hidden" name="point" value="{=get_member_money('point',userInfo.member_seq)}"/>
+
+		<!--{? gift_loop }-->
+			<!--{@ gift_loop }-->
+			<h3 class="title_sub1">{.title}</h3>
+			<div class="gift_loop_title">
+				<ul>
+					<li class="title">
+						<strong class="tt1">교환 마일리지 {=number_format(.sprice)}</strong> 
+						<span class="ss1">사은품 가격만큼 {? gift_info.goods_rule == "reserve" }마일리지{ : }포인트{ / }가 차감됩니다.</span>
+					</li>
+					<li class="date">
+						<span class="Dib">{.start_date}</span> <span class="Dib">~ {.end_date}</span>
+					</li>
+				</ul>
+				<!--{? .gift_contents}-->
+				<!--<div class="gift_loop_desc">{.gift_contents}</div>-->
+				<!--{/}-->
+			</div>
+			<ul class="gift_loop_items">
+				<!--{@ .goods }-->
+				<li>
+					<ul class="item_detail">
+						<li class="img_area"><img class="item_img" src="{=get_gift_image(..value_,'list1')}" onerror="this.src='../images/common/noimage.gif';" alt="{=get_gift_name(..value_)}" /></li>
+						<li class="name_area">{=get_gift_name(..value_)}</li>
+						<li class="price_area hide">{? gift_info.goods_rule == "reserve" }마일리지{ : }포인트{ / } : <strong>{=number_format(.sprice)}</strong></li>
+						<li class="num_area">남은수량 : <strong class="strong1">{=number_format(get_gift_stock(..value_))}개</strong></li>
+						<!--{? get_gift_stock(..value_) > 0 }-->
+						<li class="btn_area">
+							<button type="button" class="req_gift btn_resp size_b Wmax" point="{.sprice}" seq="{..value_}" goods_rule="{gift_info.goods_rule}" goods_name="{=get_gift_name(..value_)}">신청하기</button>
+						</li>
+						<!--{ / }-->
+					</ul>
+				</li>
+				<!--{/}-->
+			</ul>
+			<!--{/}-->
+		<!--{/}-->
+
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+
+<div id="giftPopup" class="resp_layer_pop hide">
+	<h4 class="title">사은품 신청</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v4"></div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+<!--div id="giftPopup" style="display:none"></div--> 
+
+<script type="text/javascript" src="/app/javascript/plugin/zeroclipboard/ZeroClipboard.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".req_gift").click(function(){
+			var my_point = $("input[name='point']").val();
+			var my_reserve = "{myemoney}";
+			var seq		= $(this).attr("seq");
+			var point	= $(this).attr("point");
+			var goods_rule	= $(this).attr("goods_rule");
+			var goods_name	= $(this).attr("goods_name");
+			
+			if(goods_rule == "reserve"){
+				//alert(my_point+" : "+$(this).attr("point"));
+				if(parseInt(my_reserve) < parseInt($(this).attr("point"))){
+					//해당 사은품은 증정 받기 위한 잔여 마일리지가 부족합니다
+					alert(getAlert('mp186'));
+					return;
+				}
+			}else{
+				//alert(my_point+" : "+$(this).attr("point"));
+				if(parseInt(my_point) < parseInt($(this).attr("point"))){
+					//해당 사은품은 증정 받기 위한 잔여 포인트가 부족합니다
+					alert(getAlert('mp181'));
+					return;
+				}
+			}
+			//alert($(this).attr("point")+" : "+$(this).attr("seq"));
+
+			$.get('/mypage/buy_gift?seq='+seq+'&point='+point+'&goods_rule='+goods_rule+'&goods_name='+escape(goods_name), function(data) {
+				$('#giftPopup .layer_pop_contents').html(data);
+				//사은품 신청
+				showCenterLayer('#giftPopup');
+			});
+			//사은품 신청
+			//openDialog(getAlert('mp182'), "giftPopup", {"width":"1000","height":700});
+		});
+	});
+
+	function clipBoard(name, id){
+		var clip = new ZeroClipboard.Client();
+		clip.setHandCursor( true );
+		clip.setCSSEffects( true );
+		clip.setText($("input[name='"+name+"']").val());
+		clip.addEventListener( 'complete', function(client, text) {
+			//클립보드에 복사되었습니다.
+			alert(getAlert('mp183'));
+		});
+		clip.glue(id);
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

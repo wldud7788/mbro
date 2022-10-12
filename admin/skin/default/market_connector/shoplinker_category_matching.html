@@ -1,0 +1,265 @@
+<script type="text/javascript" src="/app/javascript/js/admin-addInfoRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-categoryMatching.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript">
+var seller_id	= '';
+var shopName	= '{=strip_tags(addslashes(config_basic.shopName))}';
+</script>
+
+<div class="title_top">카테고리 매칭</div>
+
+<div class="contents_container">
+	<div id="distTop" class="search_container">
+	<!-- 검색폼 : 시작 -->
+	<form name="marketSerachFrom" id="marketSerachFrom" method="get" action="/admin/market_connector/market_setting">
+		<input type="hidden" name="pageMode" value="{pageMode}" cannotbeReset=1 />
+		<input type="hidden" name="page" value="1" />
+		<input type="hidden" name="perpage" value="{sc.perpage}" />
+		<input type="hidden" name="market" id="market" value="{market}" cannotbeReset=1 />
+		<input type="hidden" name="sellerId" id="sellerId" value="{sellerId}" cannotbeReset=1  />
+		<table class="table_search">
+			<tr>
+				<th>판매 마켓</th>
+				<td>				
+					<select name="searchMarket" id="searchMarket" data-pagemode='AddInfoListSet'>
+						<option value="">전체</option>
+						<!-- {@ marketAccountGroup} -->
+						<option value="{.marketCode}" {? searchMarket == .marketCode}selected{/}>{.marketName}</option>
+						<!-- { / } -->				
+					</select>					
+				</td>
+			</tr>
+
+			<tr>
+				<th>쇼핑몰 카테고리</th>
+				<td>
+					<select name="searchCategory1" size="1" class="wx110"><option value="">1차</option></select>
+					<select name="searchCategory2" size="1" class="wx110"><option value="">2차</option></select>
+					<select name="searchCategory3" size="1" class="wx110"><option value="">3차</option></select>
+					<select name="searchCategory4" size="1" class="wx110"><option value="">4차</option></select>
+				</td>
+			</tr>
+		</table>
+
+		<div class="footer search_btn_lay"></div>
+	</form>
+	</div>
+
+	<div class="list_info_container">
+		<div class="dvs_left"><div class="left-btns-txt">검색 <b>{=number_format(sc.searchCount)}</b>개 (총 <b>{=number_format(sc.totalCount)}</b>개)</div></div>	
+		<div class="dvs_right">
+			<span class="display_quantity" perpage="{=sc.perpage}"></span>
+		</div>
+	</div>
+
+	<div class="table_row_frame">	
+		<div class="dvs_top">	
+			<div class="dvs_left"><button type="button" class="resp_btn v3 deleteBtn">선택 삭제</button></div>
+			<div class="dvs_right"><button type="button" onClick="addCategoryMatching()" class="resp_btn active">카테고리 매칭</button></div>
+		</div>
+
+		<table class="table_row_basic tdc">		
+			<caption>카테고리 매칭</caption>
+			<colgroup>
+				<col width="7%" />
+				<col />				
+				<col />
+				<col />
+				<col />
+				<col width="10%" />
+				<col width="10%" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th><label class="resp_checkbox"><input type="checkbox" class="allCheckBtn" /></label></th>
+				<th>판매 마켓</th>	
+				<th>판매 아이디</th>	
+				<th>쇼핑몰 카테고리</th>
+				<th>오픈마켓 카테고리</th>
+				<th>관리</th>
+				<th>삭제</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!--{@ list }-->
+			<tr >
+				<td><label class="resp_checkbox"><input type="checkbox" class="chk" name="seq[]" value="{.seq}" /></label></td>
+				<td class="left">{.marketName}</td>	
+				<td class="left">{.marketID}</td>	
+				<td class="left">{.fmCategoryName}</td>
+				<td class="left">{.fullCategoryName}</td>
+				<td>
+					<button type="button" onClick="shoplinkerAddCategoryMatching('{.fm_category_code}','{.seller_id}');" class="resp_btn v2">수정</button>				
+				</td>
+				<td><button type="button" onClick="doMatchingDelete('{.seq}', 'list');" class="resp_btn v3">삭제</button>	</td>
+			</tr>
+			<!--{ : }-->
+			<tr>
+				<td colspan="7">
+					등록된 매칭 카테고리가 없습니다.
+				</td>
+			</tr>
+			<!--{ / }-->
+			</tbody>
+		</table>
+	<!-- 주문리스트 테이블 : 끝 -->
+		<div class="dvs_bottom">	
+			<div class="dvs_left"><button type="button" class="resp_btn v3 deleteBtn">선택 삭제</button></div>
+			<div class="dvs_right"><button type="button" onClick="addCategoryMatching()" class="resp_btn active">카테고리 매칭</button></div>
+		</div>
+	</div>
+</div>
+
+<!-- 페이징 -->
+<div class="paging_navigation" style="margin:20px auto;">{paging}</div>
+
+<div id="categoryMatchingLay" class="hide market_setting">
+	<div class="content">
+		<div class="item-title">오픈 마켓 정보</div>
+		<div id="open_matching_form"></div>
+		<table class="table_basic thl">		
+			<tr>
+				<th>판매 마켓 <span class="required_chk"></span></th>
+				<td>
+					<select name="selMarket" id="selMatchingMarket" class="wx200">
+						<option value="">판매 마켓</option>
+					</select>
+				</td>
+			</tr>	
+			<tr>
+				<th>셀러 아이디 <span class="required_chk"></span></th>
+				<td>
+					<select name="selMarketUserId" id="selMatchingMarketUserId" class="wx200">
+						<option value="">셀러 아이디</option>
+					</select>
+				</td>
+			</tr>	
+		</table>
+		
+		<div class="item-title">쇼핑몰 카테고리</div>
+		<table class="table_basic tdc">
+			<colgroup>			
+				<col width="22.5%"/>
+				<col width="22.5%"/>
+				<col width="22.5%"/>
+				<col width="22.5%" />
+				<col width="10%" />
+			</colgroup>		
+			<tr>				
+				<th>1차 카테고리</th>
+				<th>2차 카테고리</th>
+				<th>3차 카테고리</th>
+				<th>4차 카테고리</th>
+				<th>선택</th>
+			</tr>		
+			<tbody>
+				<tr>				
+					<td><select class="width-90per" name="selectCategory1" id="selectCategory1"><option value="">선택</option></select></td>
+					<td><select class="width-90per" name="selectCategory2" id="selectCategory2"><option value="">선택</option></select></td>
+					<td><select class="width-90per" name="selectCategory3" id="selectCategory3"><option value="">선택</option></select></td>
+					<td><select class="width-90per" name="selectCategory4" id="selectCategory4"><option value="">선택</option></select></td>
+					<td><button type="button" id="setMyCategory" class="resp_btn v2">선택</button></td>
+				</tr>				
+			</tbody>
+		</table>
+		<table class="table_basic thl mt10">		
+			<tr>
+				<th>선택된 카테고리 <span class="required_chk"></span></th>
+				<td>
+					<span id="selectedCateName"></span>
+					<input type="hidden" name="fmCategoryCode" id="fmCategoryCode" value=""/>
+				</td>
+			</tr>		
+		</table>
+		
+		<div class="item-title">오픈 마켓 카테고리</div>
+		<table class="table_basic tdc" id="open_category_list">
+			<colgroup>			
+				<col width="22%"/>
+				<col width="22%"/>
+				<col width="22%"/>
+				<col width="22%"/>			
+				<col width="12%" />
+			</colgroup>			
+			<tr>			
+				<th>1차 카테고리</th>
+				<th>2차 카테고리</th>
+				<th>3차 카테고리</th>
+				<th>4차 카테고리</th>
+				<th>선택</th>
+			</tr>			
+			<tbody>
+				<tr>				
+					<td>
+						<select id="dep1_category_sel" class="marketCategory width-90per" onChange="getCategory('dep2_category', this.value)">
+							<option value="">셀러 아이디를 선택해주세요</option>
+						</select>
+						<input type="hidden" name="dep1_category_name" id="dep1_category_name" class="marketCategoryInfo" value="">
+						<input type="hidden" name="dep1_category_code" id="dep1_category_code" class="marketCategoryInfo" value="" >
+					</td>
+					<td>
+						<select id="dep2_category_sel" class="marketCategory width-90per" onChange="getCategory('dep3_category', this.value)">
+							<option value="">셀러 아이디를 선택해주세요</option>
+						</select>
+						<input type="hidden" name="dep2_category_name" id="dep2_category_name" class="marketCategoryInfo" value="">
+						<input type="hidden" name="dep2_category_code" id="dep2_category_code" class="marketCategoryInfo" value="" >
+					</td>
+					<td>
+						<select id="dep3_category_sel" class="marketCategory width-90per" onChange="getCategory('dep4_category', this.value)">
+							<option value="">셀러 아이디를 선택해주세요</option>
+						</select>
+						<input type="hidden" name="dep3_category_name" id="dep3_category_name" class="marketCategoryInfo" value="">
+						<input type="hidden" name="dep3_category_code" id="dep3_category_code" class="marketCategoryInfo" value="" >
+					</td>
+					<td>
+						<select id="dep4_category_sel" class="marketCategory width-90per" onChange="getCategory('dep5_category', this.value)">
+							<option value="">셀러 아이디를 선택해주세요</option>
+						</select>
+						<input type="hidden" name="dep4_category_name" id="dep4_category_name" class="marketCategoryInfo" value="">
+						<input type="hidden" name="dep4_category_code" id="dep4_category_code" class="marketCategoryInfo" value="">
+					</td>
+					<td>
+						<button type="button" onclick="doCategoryMatch()" class="resp_btn v2">매칭</button>
+						<input type="hidden" name="category_code" id="category_code" class="marketCategoryInfo" value="" />
+					</td>
+				</tr>
+
+				<tr class="requiredAddInfo hide" market="storefarm">
+					<th>스마트스토어 추가정보</th>
+					<td colspan="6" class="left">
+						<select id="StorefarmCertification" name="StorefarmCertification" class="width-50per requiredAddInfoValue" market="storefarm" itemName="인증정보">
+							<option value="">마켓을 선택해주세요</option>
+						</select>
+						<br/>
+						※ 실제 인증 값은 상품의 상품의 "추가 정보 > 직접입력"에 "인증번호" 항목으로 정보 값을 입력하여 주시기 바랍니다.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div class="item-title">연결된 카테고리</div>
+		<table class="table_basic tdc">
+			<colgroup>
+				<col width="18%"/>
+				<col width="18%"/>
+				<col width="18%"/>
+				<col width="18%"/>
+				<col width="18%"/>
+				<col width="10%" />
+			</colgroup>
+			<tr>
+				<th>판매 마켓</th>
+				<th>판매처 아이디</th>
+				<th>매칭 카테고리 코드</th>
+				<th>매칭 카테고리</th>
+				<th>마켓 기타 정보</th>
+				<th>삭제</th>
+			</tr>			
+			<tbody id="matchedCategoryList">
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="footer">		
+		<button onclick="closeDialog('categoryMatchingLay')" class="resp_btn v3 size_XL">닫기</button>
+	</div>
+</div>

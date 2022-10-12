@@ -1,0 +1,33 @@
+<!--{ ? target_list }-->
+	<!--{ @ target_list }-->
+<tr>
+	<td class="center">
+		<label class='resp_checkbox'><input type="checkbox" class="chk" name="code[]" value="{.key_}" /></label>
+	</td>
+	<td class="left">{.title}</td>
+	<!--{? .node_gnb_type == 'text'}-->
+	<td class="center"><!--{= .node_gnb_text_normal}--></td>
+	<td class="center"><!--{= .node_gnb_text_over}--></td>
+	<!--{: .node_gnb_type == 'image'}-->
+	<td class="center"><!--{? .node_gnb_image_normal}--><span class="imgPopup resp_message bullet_hyphen link_blue_01" value="{= .node_gnb_image_normal}">보기</span><!--{:}--><span class='resp_message'>미등록</span><!--{/}--></td>
+	<td class="center"><!--{? .node_gnb_image_over}--><span class="imgPopup resp_message bullet_hyphen link_blue_01" value="{= .node_gnb_image_over}">보기</span><!--{:}--><span class='resp_message'>미등록</span><!--{/}--></td>
+	<!--{:}-->
+	<td class="center"><span class='resp_message'>미등록</span></td>
+	<td class="center"><span class='resp_message'>미등록</span></td>
+	<!--{/}-->
+	<td class="center">
+		<button type='button' class='resp_btn v2' onclick="pop_target_update('modify','{.key_}');">수정</button>
+	</td>
+</tr>
+	<!--{ / }-->
+<!--{ : }-->
+	<!--{ ? target_code }-->
+<tr>
+	<td class="center" colspan="5">하위 목록이 없습니다.</td>
+</tr>
+	<!--{ : }-->
+<tr>
+	<td class="center" colspan="5">대상을 먼저 선택하여 주세요.</td>
+</tr>
+	<!--{ / }-->
+<!--{ / }-->

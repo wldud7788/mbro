@@ -1,0 +1,20 @@
+[2022-05-05 09:41:33.182996000]
+MODE : Request
+REMOTE_IP : 122.46.233.77
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1879]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MjhmZmRjZDYxNGNiMjQ5MjU4YjkxNmI2ZWU2NjE5ODllYzYwOTFiMF8xNjUxNzExMjkz</merchantCustomCode1></interface><product><id>1879</id><merchantProductId>MjhmZmRjZDYxNGNiMjQ5MjU4YjkxNmI2ZWU2NjE5ODllYzYwOTFiMF8xNjUxNzExMjkzQG9wdDExMzU2OQ==</merchantProductId><ecMallProductId>1879</ecMallProductId><name><![CDATA[포토카드 세트 PHOTOCARD SET]]></name><basePrice>8000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1879]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1879_tmp_32ccc0f471e84018394441bacb6c975f3000list1.jpg]]></imageUrl><single><quantity>5</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-05-05 09:41:33.232095000]
+MODE : Response
+REMOTE_IP : 122.46.233.77
+SUCCESS:npkxDPK5RxqBIOPOajewuw:200337588
+
+[2022-05-05 09:42:24.308755000]
+MODE : Request
+REMOTE_IP : 122.46.233.77
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=1879]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>MjhmZmRjZDYxNGNiMjQ5MjU4YjkxNmI2ZWU2NjE5ODllYzYwOTFiMF8xNjUxNzExMzQ0</merchantCustomCode1></interface><product><id>1879</id><merchantProductId>MjhmZmRjZDYxNGNiMjQ5MjU4YjkxNmI2ZWU2NjE5ODllYzYwOTFiMF8xNjUxNzExMzQ0QG9wdDExMzU2OQ==</merchantProductId><ecMallProductId>1879</ecMallProductId><name><![CDATA[포토카드 세트 PHOTOCARD SET]]></name><basePrice>8000</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=1879]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/24/2021/07/1879_tmp_32ccc0f471e84018394441bacb6c975f3000list1.jpg]]></imageUrl><single><quantity>5</quantity></single><shippingPolicy><groupId>398_425_delivery</groupId><method>DELIVERY</method><feeType>CHARGE</feeType><feePayType>PREPAYED</feePayType><feePrice>3500</feePrice><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-05-05 09:42:24.345616000]
+MODE : Response
+REMOTE_IP : 122.46.233.77
+SUCCESS:HL1E0J2NS5yZP2wlozb-cA:200337588
+

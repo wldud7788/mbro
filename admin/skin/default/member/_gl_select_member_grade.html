@@ -1,0 +1,45 @@
+<script type="text/javascript">
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+    gMemberGradeSelect.searchMemberGrade(0);
+  };
+}, true);
+</script>
+
+<div class="content">
+	<table class="table_basic member_grade_list">
+		<colgroup>
+			<col width="10%" />
+			<col width="60%" />
+			<col width="30%" />
+		</colgroup>
+		<thead>
+			<tr class="nodrag nodrop">
+				<th><label class="resp_checkbox"><input type="checkbox" name="chkAll" title="전체선택"></label></th>
+				<th>등급</th>
+				<th>인원</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!--{ @ record }-->
+			<tr rownum="{=.group_seq}" {? in_array(.group_seq,sc.select_lists)}class="bg-gray"{/}>
+				<td class="center">
+					{? sc.issued_seq || !in_array(.group_seq,sc.select_lists)}
+					<label class="resp_checkbox"><input type="checkbox" name="select_member_grade_seq[]" class="chk" value="{.group_seq}" {? in_array(.group_seq,sc.select_lists)}checked{/}></label>
+					{/}
+					<input type="hidden" name="select_member_grade_title[]" grade_seq="{.group_seq}" value="{=.group_name}">
+				</td>
+				<td class="center">{.group_name}</td>
+				<td class="center">{=.count}명</td>
+			</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+
+	<div class="paging_navigation">{=page.html}</div>
+</div>
+
+<div class="footer">
+	<button type="button" class="confirmSelectMemberGrade resp_btn active size_XL">선택</button>
+	<button type="button" class="btnLayClose resp_btn v3 size_XL">닫기</button>
+</div>

@@ -1,0 +1,50 @@
+ <!-- Start Script for channeltalk (결제 완료시)-->
+ <script type='text/javascript'>
+    var id = '{ data.orders.order_seq }';
+    var totalAmount = '{ data.orders.settleprice }';
+    var shippingAmount = '{ data.orders.shipping_cost }';
+    var products = '{ data.goods }';
+    var data = {};
+    var ret;
+
+    if (totalAmount != '') {
+        data.totalAmount = totalAmount;
+    };
+    
+    if (shippingAmount != '') {
+        data.shippingAmount = shippingAmount;
+    };
+    
+    if (Object.keys(data).length > 0) {
+        // 타입체크
+        ret = check_obj(data);
+
+        // 금액이나 수량은 반드시 숫자로 반환
+        if (ret.totalAmount && typeof ret != 'undefined' && ret != null) {
+            totalAmount = ret.totalAmount;
+        } 
+
+        if (ret.shippingAmount && typeof ret != 'undefined' && ret != null) {
+            shippingAmount = ret.shippingAmount;
+        }
+    }
+
+    if (typeof products == 'undefined' || products == null) {
+        products = '';
+    };
+
+    if (products != ''){
+        products = JSON.parse(products);
+    };
+
+    // 주문번호와 총 상품이 존재하고 ChannelIO 객체가 존재할때 이벤트가 동작
+    if (typeof ChannelIO != 'undefined' && id != '' && products != '') {
+        ChannelIO('track', 'CheckoutComplete', {
+            'id': id, 
+            'totalAmount': totalAmount,
+            'shippingAmount' : shippingAmount,
+            'products': products
+        });
+    }
+</script>
+<!-- End Script for channeltalk -->

@@ -1,0 +1,106 @@
+<script type="text/javascript">
+	$(function(){
+		/* 관련상품 조건 선택 버튼 */
+		$("#set_option_view_lay button.btnRelationSetting").on("click",function(){
+			var displayResultId			= $(this).attr('dp_id');
+			var auto_condition_use_id	= $(this).attr('use_id');
+			var criteria				= $("#set_option_view_lay  .relationCriteria").val();
+			if (criteria=="") {
+				criteria = "admin∀type=select_auto,provider=all,month=1,act=recently,min_ea=1";
+			}
+			//openDialog("조건 선택", "#displayGoodsSelectPopup", {"width":"960","height":"560","show" : "fade","hide" : "fade"});
+	//		set_goods_list("displayGoodsSelect",displayResultId,'criteria',criteria);
+	
+			var kind = 'criteria';
+			{? sub_kind == "relation"} kind = 'relation'; { / }
+			//set_goods_list_auto("displayGoodsSelect",displayResultId,criteria,'relation',kind);
+
+			open_criteria_condition(displayResultId,auto_condition_use_id,criteria,kind,'default');
+
+		});
+	});
+</script>
+<form name="ovFrm" method="post" action="../goods_process/set_option_view_count" target="actionFrame" class="hx100">
+<input type="hidden" name="goods_kind" value="{=goods_kind}" />
+<input type="hidden" name="sub_kind" value="{=sub_kind}" />
+<input type="hidden" name="editor_view" value="N" />
+<div class="content">
+	<table class="table_basic thl">	
+	{? sub_kind == "option"}
+	<colgroup>
+		<col width="35%">
+		<col width="65%">
+	</colgroup>
+	<tr>
+		<th>필수 옵션</th>
+		<td>
+			기본 <input type="text" size="5" name="option_view_count" class="right" value="{config_goods.option_view_count}" /> 개씩 보기
+		</td>
+	</tr>
+	<tr>
+		<th>추가 구성 옵션</th>
+		<td>
+			기본 <input type="text" size="5" name="suboption_view_count" class="right" value="{config_goods.suboption_view_count}" /> 개씩 보기
+		</td>
+	</tr>
+	{ : sub_kind == "relation"}
+	<tr>
+		<th>관련 상품</th>
+		<td>
+			<button type="button" class="btnRelationSetting resp_btn active" dp_id='relationCriteria' use_id='auto_condition_use' kind='relation' >조건 설정</button>
+
+			<input type='hidden' class="displayCriteria relationCriteria" id="relationCriteriaDeault" name='relation_criteria' value="{?config_goods.relation_criteria}{config_goods.relation_criteria}{:}{/}" />
+			<div class="displayCriteriaDesc"></div>
+		</td>
+	</tr>
+	{ : sub_kind == "commonContents"}
+	<colgroup>
+		<col width="30%">
+		<col width="70%">
+	</colgroup>
+	<tr>
+		<th>상품 공통 정보</th>
+		<td>
+			<select name="common_info_seq" class="wp85">
+				{? config_goods.common_info_loop}
+				<option value="">선택하세요</option>
+				{@ config_goods.common_info_loop }
+				{? .info_name!='== 선택하세요 ==' && .info_name!='== ←좌측에 상품 공통 정보명을 입력하여 새로운 상품 공통 정보를 만드시거나 또는 ↓아래에서 이미 만들어진 상품 공통 정보를 불러오세요 ==' }
+				<option value="{.info_seq}" {?.info_seq==config_goods.common_info_seq}selected="selected"{/}>{.info_name} &nbsp;[고유번호 : {.info_seq}]</option>
+				{/}
+				{/}
+				{:}
+					<option value="">상품 공통 정보가 없습니다.</option>
+				{/}
+			</select>
+
+		</td>
+	</tr>
+	{:}
+	<tr>
+		<th>노출 항목 선택</th>
+		<td>
+			<label class='resp_checkbox mr20'><input type="checkbox" name="list_default_condition[category]" value="y" {?config_goods.list_condition_category=='y'}checked{/} /> 대표 카테고리</label>
+			<label class='resp_checkbox mr20'><input type="checkbox" name="list_default_condition[brand]" value="y" {?config_goods.list_condition_brand=='y'}checked{/} /> 대표 브랜드</label>
+			<label class='resp_checkbox'><input type="checkbox" name="list_default_condition[stringprice]" value="y" {?config_goods.list_condition_stringprice=='y'}checked{/} /> 가격 대체 문구</label>
+		</td>
+	</tr>
+	{/}
+	</table>
+	{? sub_kind != "options"}
+	<ul class="bullet_hyphen resp_message">
+		{ ? sub_kind == "commonContents"}
+		<li>기본 정보 설정 시, 선택한 내용이 기본 상품 공통 정보로 제공됩니다.</li>
+		{: sub_kind != "relation"}
+		<li>설정은 관리자 ID 당 저장됩니다.</li>
+		{:}
+		<li>선택한 조건은 상품 등록 시 기본 조건으로 제공 됩니다.</li>	
+		{/}
+	</ul>
+	{/}
+</div>
+<div class="footer">
+	<button type="submit" class="resp_btn active size_XL">저장</button>
+	<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('set_option_view_lay');">취소</button>
+</div>
+</form>

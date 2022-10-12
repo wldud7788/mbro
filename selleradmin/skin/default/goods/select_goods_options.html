@@ -1,0 +1,233 @@
+<script type="text/javascript" src="/app/javascript/plugin/jquery.search.keyword.dropdown.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}}"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.tablednd.js"></script>
+<style>
+	.selectedGoods{ background-color:#e7f2fc; }
+	.targetGoods {padding:4px; overflow:hidden; cursor:pointer}
+	.targetGoods .image {padding-right:4px;}
+	.targetGoods .name {display:block; width:300px; overflow:hidden; white-space:nowrap;}
+	.rborder { border-right:1px solid #ddd;}
+	#selectGoodsOptionsDialog .ui-dialog .ui-dialog-content {padding:0px;}
+	#selectGoodsOptionsDialog .content { padding:0px; }
+	.options table#package_select_form_table1 tr th.th-package1 tr th,
+	.suboptions table#package_select_form_table1 tr th.th-package1 tr th{
+		width:auto;
+	}
+
+	.options table#option_select_form_table, .options table#package_select_form_table1,
+	.suboptions table#option_select_form_table, .suboptions table#package_select_form_table1 {
+		table-layout: fixed;
+		margin-left:0px;
+		margin-top:-1px;
+	}
+	
+	.options th, .suboptions th, .suboptions td, .th-option {height:67px;}
+	table#option_select_form_table .td-common, table#package_select_form_table1 .td-common,table.package_select_form_table2{
+		height:67px;
+	}	
+
+	table.package_select_form_table2 tr td {
+		border-bottom: 1px solid #dadada;
+	}
+	.options table#option_select_form_table tr th.th-option, .options table#option_select_form_table tr td.td-option,
+	.suboptions table#option_select_form_table tr th.th-option:first-child, .suboptions table#option_select_form_table tr td.td-option:first-child  {
+		border-left: 0px;
+		margin-left: 0px;
+	}
+	.options table#package_select_form_table1 td.td-package1,.suboptions table#package_select_form_table1 td.td-package1{
+		width:240px;
+		table-layout: fixed;
+	}
+
+	.options table#package_select_form_table1 tr th:first-child, .options table#package_select_form_table1 tr td:first-child,
+	.suboptions table#package_select_form_table1 tr th:first-child, .suboptions table#package_select_form_table1 tr td:first-child  {
+		border-left: 0px;
+	}
+	.options table#package_select_form_table1 tr:last-child td,.suboptions table#package_select_form_table1 tr:last-child td{
+		border-bottom:0px;
+	}
+	.options table.package_select_form_table2.v3, .suboptions table.package_select_form_table2.v3{
+		margin-left:0px;
+		border-left: 0px;
+	}
+	.options table.package_select_form_table2 tr td.goods, .suboptions table.package_select_form_table2 tr td.goods {
+		text-align:left;
+	}
+	.options table.package_select_form_table2 tr td:first-child, .suboptions table.package_select_form_table2 tr td:first-child{
+		border-left: 0px;
+	}
+	.options table.package_select_form_table2 tr:last-child td,
+	.suboptions table.package_select_form_table2 tr:last-child td, 
+	.suboptions table#option_select_form_table tbody tr:last-child td {
+		border-bottom: 0px !important;
+	}
+	.options table#package_select_form_table2, .suboptions table#package_select_form_table2 {
+		table-layout: fixed;
+	}
+	.options .package_goods_box, .suboptions .package_goods_box {
+		width:250px;
+		height:25px;
+		white-space: nowrap;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		word-wrap: normal !important;
+		display:inline-block;
+		vertical-align:middle;
+	} 
+	.options div.package_option_name {
+		width:250px;
+		height:25px;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		word-wrap: normal !important;
+		display: block;
+	}
+	.options span.option-title {
+		word-wrap: normal !important;
+		display: block;
+	}
+	.options span.option-value {		
+		white-space: nowrap;
+		word-wrap: normal !important;
+		display: block;
+	}
+	.search_container {
+		margin:0px; margin-bottom:20px; padding:0px; width:100%;
+	}
+	#option_select_form_table .option-value, .package_select_form_table2 .package_goods_info { margin-left:6px; min-width:94px;}
+	.table_basic.v3 .table_basic.v3, .table_basic .table_basic {border-left: 0 !important;}
+	.table_basic .table_basic {border-right: 0 !important;}
+</style>
+<script>
+	
+var search_opitons = {
+			'pageid'			:'gl_select_goods',
+			'search_mode'		:'{sc.searchmode}',
+			'defaultPage'		:1,
+			'divSelectLayId'	:'selectGoodsOptionsDialog',
+			'searchFormId'		:'selectGoodsFrm',
+			'formEditorUse'		:true,
+			'searchFormEditView':true,
+			'onlyGoodsKind'		:'normal',
+			'select_date'		:'{=sc.select_date}',
+			'selectProviders'	:'{=sc.select_providers}',
+			'sc'				:{=scObj},
+			};
+$(function(){
+	/* 상단 대쉬보드 스크롤처리 */
+	/*
+	var packageDashObj = $("#step2-title-bar");
+	if(packageDashObj[0]){
+		var defaultDashBoardTop = parseInt(packageDashObj.offset().top);
+		$("div#selectGoodsOptionsDialog").on('scroll resize',function(){
+			var scrollTop = parseInt($("div#selectGoodsOptionsDialog").scrollTop());
+			if( scrollTop > defaultDashBoardTop )
+			{
+				packageDashObj.addClass('flyingMode');
+			}
+			else
+			{
+				packageDashObj.removeClass('flyingMode');
+			}
+		});
+	}
+	*/
+
+	$("#selectGoodsFrm").attr("name","goodsForm");
+	$("#selectGoodsFrm").attr("action","../goods/select_goods_options_list?");
+	$("#selectGoodsFrm").attr("target","select_{=sc.displayId}");
+	$("#selectGoodsFrm").removeAttr("onsubmit");
+	$("#selectGoodsFrm input[name='provider_seq']").attr("cannotBeReset","1");
+	$("#selectGoodsFrm select[name='provider_seq_selector']").attr("cannotBeReset","1");
+	gSearchForm.init(search_opitons);
+
+});
+</script>
+<input type="hidden" name="selected_option_seq" value="" />
+<input type="hidden" name="selected_goods_seq" value="" />
+<input type="hidden" name="selected_goods_name" value="" />
+<input type="hidden" name="selected_options" value="" />
+<input type="hidden" name="selected_stock" value="" />
+<input type="hidden" name="selected_rstock" value="" />
+<input type="hidden" name="selected_badstock" value="" />
+<input type="hidden" name="selected_safe_stock" value="" />
+<input type="hidden" name="selected_optioncode" value="" />
+<input type="hidden" name="selected_weight" value="" />
+<input type="hidden" name="selected_tmp_seq" value="{loop[0].tmp_no}" />
+
+<div class="content" style="overflow-x: auto;">
+	<div class="item-title">상품 검색</div>
+
+	<!-- 상품 검색폼 : 시작 -->
+	<div id="search_container">
+	{ #goods_search_form }
+	</div>
+	<!-- 상품 검색폼 : 끝 -->
+
+	<table class="goods-select-layout-table" cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+			<td width="55%" valign="top" height="450">
+				<iframe width="100%" height="450" frameborder="0" src="../goods/select_goods_options_list?onlyType={sc.onlyType}&adminshipping={sc.adminshipping}&adminOrder={sc.adminOrder}&init=Y&goods_review={sc.goods_review}&order_seq={=sc.order_seq}&goods_seq={=sc['goods_seq']}&selectKeyword={=urlencode(sc.selectKeyword)}&member_seq={=sc.member_seq}&cart_table={=sc.cart_table}&provider_seq={=sc.provider_seq}&package={=sc.package}&{=time()}" name="select_{sc.displayId}" scrolling="no"></iframe>
+			</td>
+			<td width="2%" valign="top"></td>
+			<td width="45%" valign="top">
+				<div id="selectGoodsOptionsView" style="overflow:auto; height:420px;">
+					<table class="table_basic">
+					<colgroup>
+						<col width="50" />
+						<col />
+						<col width="90" />
+					</colgroup>
+					<thead class="lth">
+						<tr>
+							<th></th>
+							<th>옵션</th>
+							<th>판매가</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="list-row" style="height:35px;">
+							<td class="left pdl5" colspan="3">
+								왼쪽 상품을 선택하세요.
+							</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<div class="item-title">상품 연결</div>
+
+	<!--{ ? sc.opt_type=='opt' }-->
+		{#select_option_package}
+		<!-- _select_option_package.html -->
+	<!--{ : }-->
+		{#select_suboption_package}
+		<!-- _select_suboption_package.html -->
+	<!--{ / }-->
+
+	<div class="cboth"></div>
+	<div class="center mt20">
+		<button name="apply_package_option" onclick="apply_package_option();" class="resp_btn active size_XL">연결</button></span>
+	</div>
+
+	<div class="mt40"></div>
+</div>
+
+<div id="step2-title-bar" class="footer">
+	
+	<!--{ ? sc.opt_type=='opt' }-->
+	<button type="button" name="apply_package_option" onclick="goods_package_apply();" class="resp_btn active size_XL">적용</button></span>
+	<!--{ : }-->
+	<button name="apply_package_suboption" type="button" onclick="goods_package_suboption_apply();" class="resp_btn active size_XL">적용</button></span>
+	<!--{ / }-->
+	<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('selectGoodsOptionsDialog')">취소</button>
+</div>
+
+
+

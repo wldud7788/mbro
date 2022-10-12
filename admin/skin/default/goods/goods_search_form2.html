@@ -1,0 +1,109 @@
+<div id="search_container" class="search_container">
+	
+	<form name="goodsForm" id="goodsForm">
+	<input type="hidden" name="query_string"/>
+	<input type="hidden" name="no" />
+	<input type="hidden" name="goods_type" value="gift" />
+	<input type="hidden" name="sort" value="{=sort}"/>
+	<table class="table_search thl">					
+		<tr>
+			<th><span>검색어</span></th>
+			<td>
+				<select name="search_field">
+					<option value="all">전체</option>
+					<option value="goods_name">사은품명</option>
+					<option value="goods_seq">사은품번호</option>
+					<option value="goods_code">사은품코드</option>
+					<option value="hscode">수출입상품 코드</option>
+				</select>
+				<span class='search_keyword keyword'><input type="text" name="keyword" id="search_keyword"  class='resp_text wp85' title="사은품명, 사은품번호 , 사은품코드, 수출입상품 코드" /></span>
+			</td>
+		</tr>
+		<!--{ ? serviceLimit('H_AD') }-->
+		<tr>
+			<th><span>입점사</span></th>
+			<td>
+				<div class="ui-widget">
+					<select name="provider_seq_selector" style="width:125px;">
+					</select>
+					<span style="margin-left:20px;">&nbsp;</span>
+					<input type="hidden" class="provider_seq" name="provider_seq" value="" />
+				</div>
+				<span class="ptc-charges hide"></span>
+			</td>
+		</tr>
+		<!--{/}-->
+		<tr>
+			<th><span>날짜</span></th>
+			<td>
+				<div class="sc_day_date date_range_form">
+					<select name="date_gb" class="resp_select wx110">
+						<option value="regist_date">등록일</option>
+						<option value="update_date">수정일</option>
+					</select>
+					<input type="text" name="sdate" class="datepicker line sdate"  maxlength="10" />
+					-
+					<input type="text" name="edate" class="datepicker line edate" maxlength="10"  />
+					<div class="resp_btn_wrap">
+						<input type="button"  range="today" value="오늘" class="select_date resp_btn" />
+						<input type="button"  range="3day" value="3일간" class="select_date resp_btn" />
+						<input type="button"  range="1week" value="일주일" class="select_date resp_btn" />
+						<input type="button"  range="1month" value="1개월" class="select_date resp_btn" />
+						<input type="button"  range="3month" value="3개월" class="select_date resp_btn" />
+						<input type="button"  range="select_date_all"  value="전체" class="select_date resp_btn"/>
+						<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden" />
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th><span>판매 상태</span></th>
+			<td>
+				<label class='resp_radio mr20'><input type="radio" name="goodsStatus" value="" checked /> 전체</label>
+				<label class='resp_radio mr20'><input type="radio" name="goodsStatus" value="normal" /> 정상</label>
+				<label class='resp_radio mr20'><input type="radio" name="goodsStatus" value="runout"/> 품절</label>
+				<label class='resp_radio mr20'><input type="radio" name="goodsStatus" value="purchasing" /> 재고 확보 중</label>
+				<label class='resp_radio'><input type="radio" name="goodsStatus" value="unsold"/> 판매 중지</label>
+			</td>
+		</tr>
+		<tr>
+			<th><span>재고</span></th>
+			<td>
+				<input type="hidden" name="stock_compare" value="stock" />
+				<input type="text" name="sstock"  class="resp_text wx70 onlyNumber" /> 개
+				~ <input type="text" name="estock" class="resp_text wx70 onlyNumber"  /> 개
+			</td>
+		</tr>
+		<tr>
+			<th><span>재고에 따른 판매</span></th>
+			<td>
+				<label class='resp_radio mr20'><input type="radio" name="goods_runout" value="" checked /> 전체</label>
+				<label class='resp_radio mr20'><input type="radio" name="goods_runout" value="stock" /> 재고가 있으면 판매</label>
+				<label class='resp_radio mr20'><input type="radio" name="goods_runout" value="ableStock" /> 가용재고가 있으면 판매</label>
+				<label class='resp_radio'><input type="radio" name="goods_runout" value="unlimited" /> 재고와 상관없이 판매</label>
+			</td>
+		</tr>
+		<tr>
+			<th><span>사은품 이벤트</span></th>
+			<td>
+				<input type="hidden" name="event_type" value="gift" />
+				<select name="gift_goods_seq">
+					<option value="">사은품 이벤트 선택</option>
+					<!--{ @ gift_list }-->
+					<option value="{.gift_seq}" {?sc.gift_goods_seq==.gift_seq}selected{/}>{.gift_title}</option>
+					<!--{ / }-->
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th><span>중요사은품</span></th>
+			<td>
+				<label class='resp_radio mr20'><input type="radio" name="favorite_chk" value=""  checked /> 전체</label>
+				<label class='resp_radio mr20'><input type="radio" name="favorite_chk" value="checked" /> 체크</label>
+				<label class='resp_radio'><input type="radio" name="favorite_chk" value="none"/> 미체크</label>
+			</td>
+		</tr>
+	</table>
+	<div class="footer search_btn_lay"></div>
+	</form>
+</div>

@@ -1,0 +1,35 @@
+
+<div class="slc-head pdt5">
+<ul>
+	<li><span class="mitem"><a href="sales_sales">매출액</a></span></li>
+	<!--{ ? serviceLimit('H_FR') }-->
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">상품</a></span></li>
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">유입경로</a></span></li>
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">카테고리/브랜드</a></span></li>
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">환경</a></span></li>
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">수단</a></span></li>
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">성별/연령/지역</a></span></li>
+		<li><span class="mitem"><a href="#" onclick="{=serviceLimit('A1')}">매장별 매출</a></span></li>
+	<!--{ : }-->
+		<li><span class="mitem"><a href="sales_goods">상품</a></span></li>
+		<li><span class="mitem"><a href="sales_referer">유입경로</a></span></li>
+		<li><span class="mitem"><a href="sales_category">카테고리/브랜드</a></span></li>
+		<li><span class="mitem"><a href="sales_platform">환경</a></span></li>
+		<li><span class="mitem"><a href="sales_payment">결제수단</a></span></li>
+		<li><span class="mitem"><a href="sales_etc">성별/연령/지역</a></span></li>
+		<!--{ ? serviceLimit('H_AD') }-->
+		<li><span class="mitem"><a href="sales_seller">입점사별</a></span></li>
+		<!--{ / }-->
+		<!--{ ? checkO2OService }-->
+			<!--{ # o2o_statistic_sales_menu }-->
+		<!--{ / }-->
+	<!--{ / }-->
+
+</ul>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("div.slc-head a[href='{selected_sales_menu}']").parent().parent().addClass("selected");
+});
+</script>

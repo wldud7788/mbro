@@ -1,0 +1,383 @@
+
+<link rel="stylesheet" type="text/css" href="../css/admin_cart.css" />
+<script type="text/javascript">
+function order_price_calculate(){
+	var f				= $("form#orderFrm");
+	var action			= "/order/calculate";
+
+	f.attr("action",action);
+	f.attr("target","actionFrame");
+	f[0].submit();
+}
+$(document).ready(function(){
+
+	$(".detailDescriptionLayerBtn").click(function(){
+		$('div.detailDescriptionLayer').not($(this).next('div.detailDescriptionLayer')).hide();
+		$(this).next('div.detailDescriptionLayer').show();
+	});
+	$(".detailDescriptionLayerCloseBtn").click(function(){
+		$(this).closest('div.detailDescriptionLayer').hide();
+	});
+	order_price_calculate();
+});
+</script>
+
+<div><b>개인결제타이틀 : </b>{record.title}</div>
+<form name="orderFrm" id="orderFrm" method="post" action="cacluate" target="actionFrame">
+<input type="hidden" name="mode" value="cart" />
+<input type="hidden" name="adminOrder" value="admin" />
+<input type="hidden" name="adminOrderType" value="person" />
+<input type="hidden" name="member_seq" id="member_seq" value="{_GET.member_seq}" />
+<input type="hidden" name="person_seq" id="person_seq" value="{_GET.person_seq}" />
+<div class="admin_cart" style="margin-top:10px;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list_table_style">
+	<caption>주문상품</caption>
+	<colgroup>
+		<col /><col style="width:8%" /><col style="width:10%" /><col style="width:10%" />
+		<col style="width:10%" /><col style="width:16%" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col">주문상품</th>
+			<th scope="col">수량</th>
+			<th scope="col">상품금액</th>
+			<th scope="col">할인</th>
+			<th scope="col">할인금액</th>
+			<!--<th scope="col" class="hide">적립</th>-->
+			<th scope="col">배송비</th>
+		</tr>
+	</thead>
+	<tbody>
+<!--{ ? shipping_group_list }-->
+	<!--{ @ shipping_group_list }-->
+		<!--{ @ .goods }-->
+		<tr>
+			<td class="relative">
+				<dl class="order_thumb_wrap">
+					<dt style="display:inline-block;">
+						<a href="/goods/view?no={..goods_seq}"><img src="{..image}" class="order_thumb" onerror="this.src='../images/common/noimage_list.gif'" width="60" alt="{..goods_name}" /></a>
+					</dt>
+					<dd style="top:0px;margin:0px;line-height:120% !important;display:inline-block;">
+						<a href="/goods/view?no={..goods_seq}" title="{..goods_name}" class="order_name">{..goods_name}</a>
+						<div>
+							<!--{ ? ..adult_goods == 'Y' }-->
+							<img src="../images/common/auth_img.png" height="17" align="absmiddle" alt="성인" />
+							<!--{ / }-->
+							<!--{ ? ..option_international_shipping_status == 'y' }-->
+							<img src="../images/common/icon/plane_on.png" height="14" align="absmiddle" alt="해외배송상품" />
+							<!--{ / }-->
+							<!--{ ? ..cancel_type == '1' }-->
+							<span class="btn_move icon mt3">청약철회불가</span>
+							<!--{ / }-->
+							<!--{ ? ..tax == 'exempt' }-->
+							<span class="btn_move icon mt3">비과세</span>
+							<!--{ / }-->
+						</div>
+						<!--{ ? ..option1!=null }-->
+						<div class="order_option mt3">
+							<span class="btn_gray icon">옵션</span>
+							{? ..title1 }
+							{..title1}:{ / }{..option1}{? ..option2 }, {? ..title2 }
+							{..title2}:{ / }{..option2}{ / }{? ..option3 }, {? ..title3 }
+							{..title3}:{ / }{..option3}{ / }{? ..option4 }, {? ..title4 }
+							{..title4}:{ / }{..option4}{ / }{? ..option5 }, {? ..title5 }
+							{..title5}:{ / }{..option5}{ / }
+						</div>
+						<!--{ / }-->
+						<!--{ ? ..cart_inputs }-->
+							<!--{ @ ..cart_inputs }-->
+								<!--{ ? ...input_value }-->
+								<div class="order_option mt3">
+									<span class="btn_gray icon">옵션</span>
+									{?...type=='file'}
+										{?...input_title}{...input_title}:{ / } <a href="/mypage_process/filedown?file={...input_value}" target="actionFrame"><img src="/mypage_process/filedown?file={...input_value}" width="13" height="13" title="크게 보기" align="absmiddle" /> <span class="desc">{...input_value}</span></a>
+									{:}
+										{?...input_title}{...input_title}:{ / }{...input_value}
+									{/}
+								</div>
+								<!--{ / }-->
+							<!--{ / }-->
+						<!--{ / }-->
+					</dd>
+				</dl>
+				<!-- 배송불가 -->
+				<dl class="ship_no {?.ship_possible=='Y'}hide{/}">
+				<!--{ ? .ship_possible == 'N' }-->
+					<dt>선택하신 국가로 배송이 불가한 상품입니다.</dt>
+				<!--{ : .ship_possible == 'H' }-->
+					<dt>선택하신 국가로 희망배송이 불가한 상품입니다.</dt>
+				<!--{ / }-->
+					<dd></dd>
+				</dl>
+				<!-- //배송불가 -->
+			</td>
+			<td>
+				<div>{=number_format(..ea)}</div>
+			</td>
+			<td class="right">{=get_currency_price(..price*..ea,3)}</td>
+			<td class="right">
+				<div id="cart_option_sale_total_{..cart_option_seq}">
+					<!--{ ? ..sales.total_sale_price > 0 }-->
+					{=get_currency_price(..sales.total_sale_price,3)}
+					<!--{ : }-->
+					-
+					<!--{ / }-->
+				</div>
+				<!-- 할인내역 LAYER :: START -->
+				<div id="cart_option_sale_detail_{..cart_option_seq}" { ? ..sales.total_sale_price > 0 }{ : }class="hide"{ / }>
+					<button type="button" class="mt3 btn_move small detailDescriptionLayerBtn">내역</button>
+					<div class="detailDescriptionLayer hide" style="width:280px;">
+						<div class="layer_wrap">
+							<h1>할인내역</h1>
+							<div class="layer_inner">
+								<table class="tbl_col" width="100%" border="0" cellpadding="0" cellspacing="0">
+									<caption>할인내역</caption>
+									<colgroup>
+										<col style="width:50%" /><col />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">항목</th>
+											<th scope="col">할인금액</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!--{ @ ..sales.title_list }-->
+										<tr id="cart_option_{...key_}_saletr_{..cart_option_seq}" { ? ..sales.sale_list[...key_] > 0 }{ : }class="hide"{ / }>
+											<th scope="row">{..sales.title_list[...key_]}</th>
+											<td>
+												{=get_currency_price(..sales.sale_list[...key_],3,'','<span id="cart_option_'+ ...key_+'_saleprice_' + ..cart_option_seq +'">_str_price_</span>')}
+											</td>
+										</tr>
+										<!--{ / }-->
+									</tbody>
+								</table>
+							</div>
+							<a href="javascript:;" class="detailDescriptionLayerCloseBtn"></a>
+						</div>
+					</div>
+				</div>
+				<!-- 할인내역 LAYER :: END -->
+			</td>
+			<td class="right bold">
+				{=get_currency_price(..sales.result_price,3,'','<span class="cart_option_price_' + ..cart_option_seq+'">_str_price_</span>')}
+			</td>
+			<!--{ ? ..index_ == 0 }-->
+			<td class="left" rowspan="{.row_cnt}">
+				<table cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td>
+						<div class="blue">{.shipper_name}</div>
+						<div>{.cfg.baserule.shipping_set_name}</div>
+					<!--{ ? .grp_shipping_price > 0 }-->
+						<div>{=get_currency_price(.grp_shipping_price,3)}</div>
+					<!--{ : }-->
+						<!--{ ? .ship_possible == 'Y' }-->
+						<div>무료</div>
+						<!--{ : }-->
+						<div class="red">배송불가</div>
+						<!--{ / }-->
+					<!--{ / }-->
+					</td>
+				</tr>
+				</table>
+				<!--{ ? .cfg.baserule.shipping_set_code == 'direct_store' }-->
+				<div class="ship_info">수령매장 : {.store_info.shipping_store_name}</div>
+				<!--{ : }-->
+					<!--{ ? .grp_shipping_price > 0 }-->
+						<!--{ ? .shipping_prepay_info == 'delivery' }-->
+				<div class="ship_info">(주문시 결제)</div>
+						<!--{ : }-->
+				<div class="ship_info">(착불)</div>
+						<!--{ / }-->
+					<!--{ / }-->
+				<!--{ / }-->
+				<!--{ ? .shipping_hop_date }-->
+				<div class="ship_info">희망배송일 : {.shipping_hop_date}</div>
+				<!--{ : .reserve_sdate }-->
+				<div class="ship_info">예약배송일 : {.reserve_sdate}</div>
+				<!--{ / }-->
+			</td>
+			<!--{ / }-->
+		</tr>
+		<!--{ @ ..cart_suboptions }-->
+		<tr class="sub_bg">
+			<td>
+				<dl class="order_thumb_wrap">
+					<dt>
+						<img src="../images/common/icon_add_arrow.gif" class="pdr15" alt="" />
+					</dt>
+					<dd class="order_option">
+						<span class="btn_gray icon" style="margin-left:3px;">추가</span>
+						{ ? ...suboption }
+							{ ? ...suboption_title }{...suboption_title}:{ / }{...suboption}
+						{ / }
+					</dd>
+				</dl>
+			</td>
+			<td>{=number_format(...ea)}</td>
+			<td class="right">{=get_currency_price(...price*...ea,3)}</td>
+			<td class="right">
+				<div id="cart_suboption_sale_total_{...cart_suboption_seq}">
+					<!--{ ? ...sales.total_sale_price > 0 }-->
+					{=get_currency_price(...sales.total_sale_price,3)}
+					<!--{ : }-->
+					-
+					<!--{ / }-->
+				</div>
+				<div id="cart_suboption_sale_detail_{...cart_suboption_seq}" { ? ...sales.total_sale_price > 0 }{ : }class="hide"{ / }>
+					<button type="button" class="mt3 btn_move small detailDescriptionLayerBtn">내역</button>
+					<div class="detailDescriptionLayer hide" style="width:280px;">
+						<div class="layer_wrap">
+							<h1>할인내역</h1>
+							<div class="layer_inner">
+								<table class="tbl_col" width="100%" border="0" cellpadding="0" cellspacing="0">
+									<caption>할인내역</caption>
+									<colgroup>
+										<col style="width:50%" /><col />
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">항목</th>
+											<th scope="col">할인금액</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!--{ @ ...sales.sale_list }-->
+										<tr id="cart_suboption_{....key_}_saletr_{...cart_suboption_seq}" { ? ....value_ > 0 }{ : }class="hide"{ / }>
+											<td class="gr">{...sales.title_list[....key_]}</td>
+											<td class="bolds ends prices">
+												{=get_currency_price(....value_,3,'','<span id="cart_suboption_'+....key_+'_saleprice_'+ ...cart_suboption_seq+'">_str_price_</span>')}
+											</td>
+										</tr>
+										<!--{ / }-->
+									</tbody>
+								</table>
+							</div>
+							<a href="javascript:;" class="detailDescriptionLayerCloseBtn"></a>
+						</div>
+					</div>
+				</div>
+			</td>
+			<td class="right bold">
+				{=get_currency_price(...sales.result_price,3,'','<span id="cart_suboption_price_'+  ..cart_suboption_seq+'">_str_price_</span>')}
+			</td>
+			<td class="hide">
+				<table align="center" border="0">
+					<tbody>
+						<tr>
+							<td><img src="/admin/skin/default/images/common/icon/icon_ord_emn.gif" title="마일리지" /></td>
+							<td class="right">{=get_currency_price(...reserve,3,'','<span id="suboption_reserve_'+ ...cart_suboption_seq +'">_str_price_</span>')}</td>
+						</tr>
+						<!--{ ? isplusfreenot && isplusfreenot.ispoint}-->
+						<tr>
+							<td><img src="/admin/skin/default/images/common/icon/icon_ord_point.gif" title="포인트" /></td>
+							<td class="right"><span id="suboption_point_{...cart_suboption_seq}">{=get_currency_price(...point)}</span>P</td>
+						</tr>
+						<!--{ / }-->
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<!--{ / }-->
+		<!--{ / }-->
+	<!--{ / }-->
+<!--{ : }-->
+		<tr>
+			<td class="nodata" colspan="6">주문 상품이 없습니다.</td>
+		</tr>
+<!--{ / }-->
+	</tbody>
+</table>
+<!-- //주문상품 테이블 -->
+</div>
+
+<!-- 결제정보입력/결제하기 -->
+<div class="order_settle clearbox">
+	<div class="benefit fx12">
+		<div class="pd10">
+			<dl class="clearbox" style="padding:10px 0px 0px 0px;">
+				<dt>구매적립 혜택</dt>
+				<dd>
+					구매확정 시 : 마일리지 {=get_currency_price(total_reserve,3,'','<span id="total_reserve" class="bold">_str_price_</span>')}<!--{ ? isplusfreenot && isplusfreenot.ispoint}-->, 포인트 <span id="total_point" class="bold">{=get_currency_price(total_point)}</span>P
+					<!--{ / }-->
+				</dd>
+			</dl>
+			<dl class="clearbox" style="padding:5px 0px 0px 0px;">
+				<dt>결제수단</dt>
+				<dd>
+					{@pay_types}
+					{? .value_ } {? .key_ > 0} / {/}{.value_} {/}
+					{/}
+				</dd>
+			</dl>
+			<dl class="clearbox" style="padding:5px 0px 10px 0px;">
+				<dt>에누리</dt>
+				<dd>
+					{=get_currency_price(record.enuri,3)}
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="settle bgcolor">
+		<dl class="clearbox">
+			<dt class="total" style="padding:10px 0px;border:0px;">결제금액</dt>
+			<dd class="total price" style="padding:10px 0px;border:0px;">
+				{=get_currency_price(orderData.settleprice,3,'','<span class="settle_price tahoma" id="total_settle_price">_str_price_</span>')}
+			</dd>
+			<span class="price_cell settle_price_compare fx20 bold tahoma total_result_price">{=total_price_compare}</span>
+		</dl>
+
+	</div>
+</div>
+<!-- //결제금액 -->
+
+
+<!-- 주문자/배송지 정보 -->
+<div class="order_settle clearbox">
+	<div class="benefit ">
+		<h4>배송지</h4>
+		
+		{? ! orderData.order_seq }
+		<ul class="list_inner fx12">
+			<li>배송지 정보는 개인 결제 시 구매자께서 직접 입력하시게 됩니다.</li>
+		</ul>
+		{ : }
+		<ul class="list_inner">
+			<li class="delivery_member">
+				<div><span class="bold recipient_user_name">{orderData.recipient_user_name}</span></div>
+				<div class="bold">
+					(<span class="recipient_zipcode">{orderData.recipient_zipcode}</span>)
+
+					<span class="recipient_address">{? orderData.recipient_address_type=='street'}{orderData.recipient_address_street}{:}{orderData.recipient_address}{/}</span> <span class="recipient_address_detail">{orderData.recipient_address_detail}</span>
+				</div>
+				<div>
+					<span class="bold cellphone">{orderData.recipient_cellphone}</span> / <span class="bold phone">{orderData.recipient_phone}</span>
+				</div>
+				<div>
+					배송국가 : <span class="international_nation">{ini_info.kr_nation}</span>
+				</div>
+				<div>
+					배송메세지 : <span class="international_nation">{orderData.memo}</span>
+				</div>
+			</li>
+		</ul>
+		{ / }
+	</div>
+	<div class="settle bgcolor fx12">
+		<h4>주문자</h4>
+		<ul class="list_inner">
+			<!-- 회원일 경우 :: START -->
+			<li class="order_member">
+				<ul>
+					<li>{record.order_user_name}</li>
+					<li>{record.order_cellphone} / {record.order_phone}</li>
+					<li>{record.order_email}</li>
+				</ul>
+			</li>
+			<!-- 회원일 경우 :: END -->
+		</ul>
+	</div>
+	<!-- //주문자 정보 -->
+</div>
+</form>

@@ -1,0 +1,38 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 티켓 사용 상세 @@
+- 파일위치 : [스킨폴더]/mypage/coupon_view.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!-- 티켓 정보 :: START -->
+<div class="coupon_info Hauto">
+	<div class="coupon_name">{item.goods_name}</div>
+	<div class="coupon_option">{coupon.coupon_start_date} ~ {coupon.coupon_end_date}</div>
+	<div class="coupon_serial">{coupon.coupon_serial}</div>
+</div>
+
+<div class="coupon_detail Hauto">
+	총 {=number_format(coupon.coupon_value)}{coupon.coupon_unit} 중 {=number_format(coupon.coupon_remain_value)}{coupon.coupon_unit} 사용가능
+</div>
+
+<!--{ ? use_history }-->
+<div class="res_table">
+	<ul class="thead">
+		<li style="width:150px;">티켓 사용 일시</li>
+		<li style="width:80px;">티켓 사용</li>
+		<li>사용 장소</li>
+		<li>장소 정보</li>
+	</ul>
+	<!--{ @ use_history }-->
+	<ul class="tbody">
+		<li><span class="mtitle">사용일시:</span> {.regist_date}</li>
+		<li><span class="mtitle">티켓사용:</span> {=number_format(.coupon_use_value)}{coupon.coupon_unit}</li>
+		<li class="L"><span class="mtitle">사용장소:</span> {.coupon_use_area}</li>
+		<li class="L"><span class="mtitle">장소정보:</span> {.coupon_use_memo}</li>
+	</ul>
+	<!--{ / }-->
+</div>
+<!--{ : }-->
+<div class="no_data_area2 Bx">
+	사용 내역이 없습니다.
+</div>
+<!--{ / }-->

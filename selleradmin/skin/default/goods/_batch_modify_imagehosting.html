@@ -1,0 +1,193 @@
+<br class="table-gap" />
+
+<table class="list-table-style" cellspacing="0">
+	<colgroup>
+		<col width="15%" /><!--대상 상품-->
+		<col /><!--아래와 같이 업데이트-->
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th>대상 상품</th>
+		<th>아래와 같이 업데이트</th>
+	</tr>
+	</thead>
+</table>
+<table cellspacing="0" width="100%">
+	<col width="15%" /><!--대상 상품-->
+	<col /><!--아래와 같이 업데이트-->
+	<tbody class="ltb if_category">
+		<tr class="list-row" style="height:70px;">
+			<td align="center" class="td">
+			검색된 상품에서  →
+			<select name="modify_list"  class="line">
+				<option value="choice">선택 </option>
+				<option value="all">전체 </option>
+			</select>
+			</td>
+			<td>
+			<table width="100%">
+			<col width="30%"/>
+			<col />
+			<tr>
+			<td valign="top">
+				<div style="padding-top:10px">
+				상품 설명 이미지를 이미지 호스팅에 일괄 업로드({imagehostingftp.imagehostingdir} 디렉토리) 합니다.<br/>
+				상품 설명 이미지의 주소(URL)를 이미지 호스팅 주소로 일괄 업데이트 합니다.
+				</div>
+			</td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<br class="table-gap" />
+
+<ul class="left-btns clearbox">
+	<li>
+		<div style="margin-top:rpx;" id="search_count" class="hide">
+			총 <b>0</b> 개
+		</div>
+	</li>
+	<li><span class="desc">이용방법 : [검색하기]버튼으로 검색 후 상품정보를 업데이트 하세요.</span></li>
+</ul>
+
+<div class="fr">
+	<div class="clearbox">
+		<ul class="right-btns clearbox">
+		<li><select class="custom-select-box-multi" name="orderby">
+			<option value="goods_seq" {?orderby=='goods_seq'}selected{/}>최근등록순</option>
+			<option value="goods_name" {?orderby=='goods_name'}selected{/}>상품명순</option>
+			<option value="page_view" {?orderby=='page_view'}selected{/}>페이지뷰순</option>
+		</select></li>
+		<li><select  class="custom-select-box-multi" name="perpage">
+			<option id="dp_qty10" value="10" {? perpage == 10 } selected{/} >10개씩</option>
+			<option id="dp_qty50" value="50" {? perpage == 50 } selected{/} >50개씩</option>
+			<option id="dp_qty100" value="100" {? perpage == 100 } selected{/} >100개씩</option>
+			<option id="dp_qty200" value="200" {? perpage == 200 } selected{/} >200개씩</option>
+		</select></li>
+	</ul>
+	</div>
+</div>
+<br style="line-height:2px;" />
+<table class="list-table-style" cellspacing="0">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="50" /><!--체크-->
+		{ ? serviceLimit('H_AD') }<col width="100" /><!--입점-->{ / }
+		<col width="60" /><!--상품이미지-->
+		<col  /><!--상품명-->
+		<col width="140" /><!--정가-->
+		<col width="140" /><!--할인가(판매가)-->
+		<col width="100" /><!--부가세-->
+		<col width="140" /><!--재고(가용)-->
+		<col width="140" /><!--이미지 호스팅 변환-->
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th><input type="checkbox" id="chkAll" /></th>
+		{ ? serviceLimit('H_AD') }<th>입점</th>{ / }
+		<th colspan="2">상품명</th>
+		<th>정가</th>
+		<th>할인가(판매가)</th>
+		<th>부가세</th>
+		<th>재고 (가용)</th>
+		<th>이미지 호스팅 변환<br/>
+		<span class="desc">변환갯수/미변환갯수</span></th>
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<tbody class="ltb">
+	<!--{? loop }-->
+	<!--{@ loop }-->
+		<tr class="list-row" style="height:70px;">
+			<td align="center"><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></td>
+			<!--{ ? serviceLimit('H_AD') }-->
+			{?.provider_seq=='1'}
+			<td class="bg-blue white bold center">
+				{?.lastest_supplier_name}
+				매입 - {.lastest_supplier_name}
+				{:}
+				매입
+				{/}
+			</td>
+			{:}
+			<td class="bg-red white bold center">{.provider_name}</td>
+			{/}
+			<!--{ / }-->
+			<td align="center"><a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" width="50"></a></td>
+			<td align="left" style="padding-left:10px;">
+				{? .tax=='exempt' && .cancel_type == '1'}
+					<div>
+					<span style="color:red;" class="left" >[비과세]</span>
+					<span class="order-item-cancel-type left" >[청약철회불가]</span>
+					</div>
+				{: .tax=='exempt' }
+					<div>
+					<span style="color:red;" class="left" >[비과세]</span>
+					</div>
+				{: .cancel_type == '1'}
+					<div>
+					<span class="order-item-cancel-type left" >[청약철회불가]</span>
+					</div>
+				{/}
+				{? .goods_code }<div class="goods_option fx11 goods_code_icon">[상품코드: {.goods_code}]</div>{/}
+			<a href="../goods/regist?no={.goods_seq}" target="_blank">{=getstrcut(.goods_name,80)}</a> <div style="padding-top:5px;">{.catename}</div>
+			</td>
+			<td class="option_td" style="text-align:right;padding-right:5px;">{=get_currency_price(.consumer_price)}</td>
+			<td class="option_td" style="text-align:right;padding-right:5px;">{=get_currency_price(.price)}</td>
+			<td class="option_td" style="text-align:right;padding-right:5px;">
+				{? .tax=='exempt'}0{:}{=get_currency_price(.price - (.price / 1.1))}{/}</td>
+			<td class="option_td" align="center">{=number_format(.stock)} ({.able_stock})</td>
+			<td style="padding-left:15px;" align="center">
+				{? imagehostingftp.hostname && .convert_image_date > 0 }
+					<span class="hand" alt="이미지 호스팅에 있는 이미지 수" title="이미지 호스팅에 있는 이미지 수" >{=number_format(.convert_image_cnt)}</span> /	<span class="hand"  alt="이미지 호스팅에 없는 이미지 수" title="이미지 호스팅에 없는 이미지 수" >{=number_format(.noconvert_image_cnt)}</span>
+				{:}
+					<span class="gray">한적없음</span>
+				{/}
+			</td>
+		</tr>
+	<!--{ / }-->
+	<!--{ : }-->
+	<tr class="list-row">
+		<td align="center" colspan="9">
+			<!--{ ? search_text }-->
+				'{search_text}' 검색된 상품이 없습니다.
+			<!--{:}-->
+				등록된 상품이 없습니다.
+			<!--{/}-->
+		</td>
+	</tr>
+	<!--{ / }-->
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>
+<!-- 주문리스트 테이블 : 끝 -->
+
+{? openmarketuse }
+<div id="openmarketimghostinglay" class="hide">{ #openmarketimghosting }</div>
+{/}
+
+<script type="text/javascript">
+<!--{ ? config_system.goods_count < 10000 }-->
+$.ajax({
+	type: "get",
+	url: "./count",
+	data: "param={param_count}",
+	dataType : "json",
+	success: function(obj){
+		$("div#search_count").removeClass("hide");
+		$("div#search_count b").html(comma(obj.cnt));
+		var first	= obj.cnt - {=(_GET.perpage * (_GET.page - 1))};
+		$(".page_no").each(function(idx){
+			$(this).html(first-idx);
+		});
+	}
+});
+<!--{ / }-->
+</script>

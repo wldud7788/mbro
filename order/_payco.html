@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="utf-8" lang="utf-8">
+<head>
+    <title>페이코 결제 페이지</title>
+	<meta http-equiv="cache-control" content="no-cache"/>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/app/javascript/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/app/javascript/js/common-function.js" charset="urf-8"></script>
+	<script type="text/javascript" src="/data/js/language/L10n_{config_system.language}.js?dummy={=date('YmdHis')}"></script>
+
+	<!-- 페이코 ------------------------------------------------- -->
+	<script type="text/javascript">
+	function succ_pg(order_seq){
+		parent.document.location.href='../order/complete?no=' + order_seq;
+	}
+	function fail_pg(code){
+		// 결제에 실패했습니다
+		alt_msg = getAlert('os217') + ' [ERR:' + code + ']';
+		alert(alt_msg);
+		cancel_pg();
+	}
+	function cancel_pg(){
+		clear_layer();
+		parent.closeDialog('#payco_action_layer');
+	}
+	function clear_layer(){
+		$("#lay_mask", parent.document).remove();
+	    parent.reverse_pay_button();
+	}
+
+	$(document).ready(function(){
+
+		// 모바일의 경우 백 레이어 처리
+		
+		$("body",parent.document).prepend('<div id="lay_mask" style="position:fixed; background:gray; z-index:300; opacity:0.4; filter:alpha(opacity=40); background:rgba(0,0,0,.4); filter: progid: DXImageTransform.Microsoft.gradient(startColorstr=#4C000000, endColorstr=#4C000000);display: none;">');
+		var mask = $("#lay_mask",parent.document);
+
+		//화면의 높이와 너비를 구한다.
+		var maskHeight = $(parent.document).height();
+		var maskWidth = $(parent.window).width();
+
+		//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+		mask.css({'width':maskWidth,'height':maskHeight});
+		mask.show();
+		
+		var maskHeight	= parent.window.innerHeight - 20;		// 720
+		var maskWidth	= parent.window.innerWidth - 20;			// 645
+		var scrollYn	= "";
+		
+		<!--{ ? agent == 'PC' }-->
+		var maskHeight	= 645;		// 720
+		var maskWidth	= 720;			// 645
+		var scrollYn	= " scrolling='no' ";
+		<!--{ / }-->
+		
+	    $("body", parent.document).find(".payco_action_layer").remove();
+	    var obj = $("<div id='payco_action_layer' class='payco_action_layer'><iframe id='paycoActionFrame' style='width:"+maskWidth+"px;height:"+maskHeight+"px;border:0;'"+scrollYn+"></iframe></div>");
+		$("body", parent.document).append(obj);
+		parent.openDialogNew('Payco 간편결제','payco_action_layer',  {"width":"auto","height":"auto"}, clear_layer);
+		$("#paycoActionFrame", parent.document).attr("src", "{=param.orderSheetUrl}");
+	});
+	</script>
+</head>
+<body>
+loading..
+<form name="payForm" id="payForm" action="../payment/payco"  method="post" accept-charset="utf-8">
+<input type="hidden" name="reserveOrderNo" value="{=param.reserveOrderNo}" />
+<input type="hidden" name="orderSheetUrl" value="{=param.orderSheetUrl}" />
+</form>
+</body>
+<script>
+//	openpop_payco();
+</script>
+</html>

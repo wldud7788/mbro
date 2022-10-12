@@ -1,0 +1,35 @@
+<!--@deprecated-->
+<!-- 상품 리스트 시작 -->
+<!--{? count(data) > 0 }-->
+<!--{@ data}-->
+<div class="row goods-row">
+	<div class="info-cell">
+		<div class="checkbox-cell">
+			<input type="checkbox" class="goods-checkbox" name="goods_seqs[]" value="{.goods_seq}">
+		</div>
+		<ul class="info-ul">
+			<li class="info-li-title">{.regist_date} {.goods_type} - {.goods_seq}</li>
+			<li class="info-li-name">{.goods_name}</li>
+			<li class="info-li-price">{.default_price}</li>
+			<li class="info-li-status">
+			<!--{? serviceLimit('H_AD')}-->
+				<span>#{.provider_status}</span>
+			<!--{ / }-->
+				<span>#{.goods_status_text}</span>
+				<span>#{.goods_view}</span>
+			<!--{? serviceLimit('H_AD')}-->
+				<span>#{.provider_name}</span>
+			<!--{ / }-->
+				<span>#{.runout_policy}</span>
+			</li>
+			<li class="info-li-timesale"></li>
+		</ul>
+	</div>
+</div>
+<!--{ / }-->
+<!--{ : }-->
+<div class="goods-row">
+	등록된 상품이 없습니다.
+</div>
+<!--{ / }-->
+<!-- 상품 리스트 종료 -->

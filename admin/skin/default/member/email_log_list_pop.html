@@ -1,0 +1,53 @@
+<script type="text/javascript">
+$(document).ready(function() {	
+	$(".selectEmailBtn").live("click", function(){
+
+		if($("input[name='radioSeq']:checked").val()){
+			$.get('../member_process/logmail?seq='+$("input[name='radioSeq']:checked").val(), function(response) {
+				var data = eval(response)[0];
+				$("#title").val(data.title);
+				Editor.switchEditor($("#contents").data("initializedId"));
+				Editor.modify({"content" : data.contents});
+			});
+		}else{
+			$("#title").val('');
+			Editor.switchEditor($("#contents").data("initializedId"));
+			Editor.modify({"content" : " "});
+		}
+		closeDialog('emailLogListPopup');
+	});
+});
+
+</script>
+
+
+<form name="emailLogFrm" method="post" style="height:100%;">
+	<div class="content">
+		<table class="table_basic tdc">
+			<colgroup>
+				<col width="60" />
+				<col width="170" />
+				<col />
+			</colgroup>	
+			<thead>
+				<tr>
+					<th>선택</th>
+					<th>발송 날짜</th>
+					<th>제목</th>
+				</tr>
+			</thead>
+			<tbody>
+			{@ loop }
+			<tr onclick="$('#radioSeq{.index_}').attr('checked',true);" class="hand">
+				<td><label class="resp_radio"><input type="radio" name="radioSeq" id="radioSeq{.index_}" value="{.seq}" {? .index_ == 0}checked{/}></label></td>
+				<td>{.regdate}</td>
+				<td class="left">{.subject}</td>
+			</tr>
+			{ / }
+	</table>
+	</div>
+	<div class="footer">
+		<button type="button" class="selectEmailBtn resp_btn active size_XL">불러오기</button>
+		<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('emailLogListPopup');">취소</button>
+	</div>
+</form>

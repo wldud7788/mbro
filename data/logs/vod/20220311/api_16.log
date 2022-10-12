@@ -1,0 +1,122 @@
+ [2022-03-11 16:58:11653413000]
+[REMOTE_ADDR : 14.138.9.185]
+Array
+(
+    [url] => https://vod.firstmall.kr/api/auth/login
+    [body] => Array
+        (
+            [username] => 159982
+            [password] => dil6quy8
+        )
+
+    [method] => 
+    [call_method] => post
+    [headers] => 
+    [response] => stdClass Object
+        (
+            [token] => eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvdm9kLmZpcnN0bWFsbC5rclwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0Njk4NTQ5MSwiZXhwIjoxNjQ2OTg5MDkxLCJuYmYiOjE2NDY5ODU0OTEsImp0aSI6IlFxQkhzazVYRjRpZWR1ak0iLCJzdWIiOjEyOCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.6BRCc67AvT4Fno8OUxBEMQvt_lcW_xuk4EhYZLKGVt8
+            [token_type] => bearer
+            [expires_in] => 3600
+        )
+
+)
+
+ [2022-03-11 16:58:11844241000]
+[REMOTE_ADDR : 14.138.9.185]
+Array
+(
+    [url] => https://vod.firstmall.kr/api/auth/me?with_used_vod=1
+    [body] => 
+    [method] => 
+    [call_method] => get
+    [headers] => Array
+        (
+            [Authorization] => Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvdm9kLmZpcnN0bWFsbC5rclwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0Njk4NTQ5MSwiZXhwIjoxNjQ2OTg5MDkxLCJuYmYiOjE2NDY5ODU0OTEsImp0aSI6IlFxQkhzazVYRjRpZWR1ak0iLCJzdWIiOjEyOCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.6BRCc67AvT4Fno8OUxBEMQvt_lcW_xuk4EhYZLKGVt8
+        )
+
+    [response] => stdClass Object
+        (
+            [id] => 128
+            [username] => 159982
+            [domain] => music-brother.firstmall.kr
+            [role] => user
+            [available_cnt] => 10
+            [used_cnt] => 0
+            [status] => 9
+            [created_at] => 2022-01-21 11:52:13
+            [expire_date] => 2022-04-05
+            [deleted_at] => 
+            [updated_at] => 2022-03-05 09:31:13
+            [used_live_traffics] => 0
+            [used_vod_quota] => 0
+            [used_vod_traffics] => 0
+        )
+
+)
+
+ [2022-03-11 16:59:25216996000]
+[REMOTE_ADDR : 14.138.9.185]
+Array
+(
+    [url] => https://vod.firstmall.kr/api/auth/me?with_used_vod=1
+    [body] => 
+    [method] => 
+    [call_method] => get
+    [headers] => Array
+        (
+            [Authorization] => Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvdm9kLmZpcnN0bWFsbC5rclwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0Njk4NTQ5MSwiZXhwIjoxNjQ2OTg5MDkxLCJuYmYiOjE2NDY5ODU0OTEsImp0aSI6IlFxQkhzazVYRjRpZWR1ak0iLCJzdWIiOjEyOCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.6BRCc67AvT4Fno8OUxBEMQvt_lcW_xuk4EhYZLKGVt8
+        )
+
+    [response] => stdClass Object
+        (
+            [id] => 128
+            [username] => 159982
+            [domain] => music-brother.firstmall.kr
+            [role] => user
+            [available_cnt] => 10
+            [used_cnt] => 0
+            [status] => 9
+            [created_at] => 2022-01-21 11:52:13
+            [expire_date] => 2022-04-05
+            [deleted_at] => 
+            [updated_at] => 2022-03-05 09:31:13
+            [used_live_traffics] => 0
+            [used_vod_quota] => 0
+            [used_vod_traffics] => 0
+        )
+
+)
+
+ [2022-03-11 16:59:43650122000]
+[REMOTE_ADDR : 14.138.9.185]
+Array
+(
+    [url] => https://vod.firstmall.kr/api/auth/me?with_used_vod=1
+    [body] => 
+    [method] => 
+    [call_method] => get
+    [headers] => Array
+        (
+            [Authorization] => Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvdm9kLmZpcnN0bWFsbC5rclwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0Njk4NTQ5MSwiZXhwIjoxNjQ2OTg5MDkxLCJuYmYiOjE2NDY5ODU0OTEsImp0aSI6IlFxQkhzazVYRjRpZWR1ak0iLCJzdWIiOjEyOCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.6BRCc67AvT4Fno8OUxBEMQvt_lcW_xuk4EhYZLKGVt8
+        )
+
+    [response] => stdClass Object
+        (
+            [id] => 128
+            [username] => 159982
+            [domain] => music-brother.firstmall.kr
+            [role] => user
+            [available_cnt] => 10
+            [used_cnt] => 0
+            [status] => 9
+            [created_at] => 2022-01-21 11:52:13
+            [expire_date] => 2022-04-05
+            [deleted_at] => 
+            [updated_at] => 2022-03-05 09:31:13
+            [used_live_traffics] => 0
+            [used_vod_quota] => 0
+            [used_vod_traffics] => 0
+        )
+
+)
+

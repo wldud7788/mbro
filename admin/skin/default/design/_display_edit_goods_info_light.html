@@ -1,0 +1,17 @@
+		<tr>
+			<th class="dsts-th">
+				<div class="mb10">상품정보</div>
+				<span class="btn small cyanblue"><button type="button" onclick="openDialog('상품정보 노출 조건', '#displayGoodsInfoCondition', {'width':'930', 'height':'700', 'show':'fade', 'hide':'fade'});">노출 조건 안내</button></span>
+			</th>
+			<td class="dsts-td left" style="padding:0;" colspan="2">
+				<input type="radio" class="hide decoration_type" name="goods_decoration_type" value="favorite" checked />
+				<div class="clearbox">
+					<!--{ @ fileList }-->
+					<label class="resp_info_select">
+					<input type="radio" class="hide goods_info_style" name="goods_info_style" value="{=.name}" {?data.goods_decoration_favorite_key == .name}checked{/}/>
+					<div data-type="{=.name}" style="display: inline-flex; flex-direction: row;" class="hand goods_file_list {?data.goods_decoration_favorite_key == .name}current{/}">{.contents}</div>
+					</label>
+					<!--{ / }-->
+				</div>
+			</td>
+		</tr>

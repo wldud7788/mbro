@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>new all@pay 결제 요청</title>
+<script type="text/javascript" charset='euc-kr' src="https://tx.allatpay.com/common/NonAllatPayRE.js"></script>
+<script type="text/javascript">
+	//결제 페이지 호출
+	function ftn_approval(dfm) {
+		AllatPay_Approval(dfm);
+		//결제창 자동종료 체크 시작
+		AllatPay_Closechk_Start();
+	}
+
+	//결과값 반환 (receive 페이지에서 호출)
+	function result_submit(result_cd,result_msg,enc_data) {
+
+		//결제창 자동 종료 체크 시작
+		AllatPay_Closechk_End();
+
+		if( result_cd != '0000' ){
+			window.setTimeout(function(){
+				alert(result_cd + ' : 결제가 취소 되었습니다.');
+				parent.location.reload();
+			},1000);
+			
+		} else {
+			fm.allat_enc_data.value = enc_data;
+
+			fm.action = "/allat/receive";
+			fm.method = "post";
+			fm.target = "_self";
+			fm.submit();
+		}
+	}
+</script>
+</head>
+<body>
+<form method="post" name="fm" action="/allat/receive">
+<!--{ @ param}-->
+	<input type='hidden' name='{.key_}' id='{.key_}' value='{.value_}'>
+<!--{ / }-->
+</form>
+</body>
+<script type="text/javascript">ftn_approval(document.fm)</script>
+</html>

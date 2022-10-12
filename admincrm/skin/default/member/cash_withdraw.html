@@ -1,0 +1,75 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// SMS 전송 체크박스
+	$("input[name='send_sms']").bind('click',function(){
+		if($(this).attr("checked")){
+			$(".sms").attr("disabled",false);
+		}else{
+			$(".sms").attr("disabled",true);
+		}
+	});
+});
+
+</script>
+
+
+<form name="emoneyFrm" id="emoneyFrm" method="post" target="actionFrame" action="../member_process/cash_withdraw">
+	<!-- 현재 보유 예치금 노출 -->
+	<input type="hidden" name="member_seq" value="{member_seq}"/>
+	<table width="100%" class="info-table-style">
+		<tbody>
+			<tr>
+				<th class="its-th-align"><span style="font-size:14px;font-weight:bold;">{user_name}</span>({userid}) 회원님이 보유한 예치금은 <span style="font-size:14px;font-weight:bold;">{=number_format(cash)}</span>원 입니다.</th>
+			</tr>
+		</tbody>
+	</table>
+	
+	<!-- 예치금 인출 처리 영역 -->
+	<div class="item-title" style="width:92%">예치금 인출</div>
+	<table width="100%" class="info-table-style">
+		<colgroup>
+			<col width="120" />
+			<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<th class="its-th-align"><span class="red">*</span> 인출금액</th>
+				<td class="its-td-align pdl10"><input type="text" name="cash" /> {= config_system.basic_currency}</td>
+			</tr>
+			<tr>
+				<th class="its-th-align"><span class="red">*</span> 인출사유</th>
+				<td class="its-td-align pdl10"><input type="text" style="width: 350px;" name="reason" placeholder="인출사유를 입력하여 주세요."/></td>
+			</tr>
+			<tr>
+				<th class="its-th-align">처리자</th>
+				<td class="its-td-align pdl10">{= managerInfo.manager_id}</td>
+			</tr>
+			<tr>
+				<th class="its-th-align">입금계좌</th>
+				<td class="its-td-align pdl10">
+					<select name="bank">
+						<!--{ @ code_load('bankCode') }-->
+						<option value='{.codecd}'>{.value}</option>
+						<!--{ / }-->
+					</select>
+					<input type="text" name="depositor" placeholder="예금주"/>
+					<input type="text" name="account" placeholder="계좌번호" style="width: 200px;"/>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th-align">SMS 전송</th>
+				<td class="its-td-align pdl10">					
+					<div><input type="checkbox" name="send_sms" value="Y" {?count<1 || !send_phone}disabled{/}>SMS 전송  [ 보유SMS건수 : {=number_format(count)}통, 80바이트 이상 시 여러 통으로 나눠 발송됩니다. ]</div>
+					<input type="text" name="cellphone" value="{cellphone}" class="line sms" disabled size="14">
+					<input type="text" name="msg" class="line sms" title="메시지를 입력하세요." disabled size="50">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="center pd20">
+		<span class="btn large cyanblue"><button type="submit" id="send_submit">확인</button></span>
+	</div>
+
+</form>

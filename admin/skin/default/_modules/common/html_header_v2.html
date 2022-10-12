@@ -1,0 +1,61 @@
+<?php
+/**
+ * Admin Page Layout (v2) - html header
+ * 
+ * Copyright (C) Gabia C&S Inc. All Rights Reserved.
+ *
+ * @category   Admin
+ * @package    Firstmall
+ * @author     Keunhwan Kim <kgh@gabiacns.com>
+ * @copyright  2020 Gabia C&S
+ */
+
+/** 콘텐츠 보안 정책을 설정합니다. 인라인 script를 사용하려는 경우 nonce를 전달해야 할 수 있습니다. */
+// set_content_security_policy([
+//   'self',
+//   'unsafe-eval',
+// 	'nonce-'.script_nonce()
+// ]);
+
+requirejs([
+  ['/app/javascript/jquery/jquery.min.js', 0],
+  ['/app/javascript/jquery/jquery-ui.min.js', 50],
+  ['/app/javascript/plugin/jquery.hotkeys.js', 50],
+  ['/app/javascript/plugin/jquery.poshytip.min.js', 50],
+  ['/app/javascript/plugin/jquery.activity-indicator-1.0.0.min.js', 50],
+  ['/app/javascript/plugin/jquery.cookie.js', 50],
+  ['/app/javascript/plugin/custom-select-box.js', 50],
+  ['/app/javascript/js/dev-tools.js', 50],
+  ['/data/js/language/L10n_'.$TPL_VAR["config_system"]["language"].'.js', 50],
+  ['/app/javascript/js/common.js', 50],
+  ['/app/javascript/js/admin-common-ui.js', 50],
+  ['/app/javascript/jquery/html5shiv.js', 50],
+  ['/app/javascript/jquery/respond.min.js', 50],
+  // ['/app/javascript/plugin/editor/js/editor_loader.js', 50],
+  // ['/app/javascript/plugin/editor/js/daum_editor_loader.js', 50],
+  ['/app/javascript/plugin/validate/jquery.validate.js', 50],
+  ['/app/javascript/js/admin-chatbot.js', 50],
+  ['/app/javascript/js/admin-layout.js', 60],
+  ['/app/javascript/js/admin-bundles.js', 60],
+  ['/app/javascript/js/admin/entry.js'],
+
+  ['/admin/skin/default/css/style-v2.css', 60],
+  ['/app/javascript/plugin/editor/css/editor.css', 50],
+  ['/admin/skin/default/css/common-ui-v2.css', 50],
+]);
+
+?>
+<!doctype html>
+<html lang="ko">
+ <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+<!--{ ? meta_title }-->
+  <title>{meta_title}</title>
+<!--{ : }-->
+  <title>{config_basic.shopName}{ ? !preg_match('/order_print/',_SERVER.REDIRECT_QUERY_STRING)} 관리자환경 :: 퍼스트몰, 오직 운영자만을 생각한 가장 앞선 쇼핑몰입니다.{ / }</title>
+<!--{ / }-->
+<!--{ ? config_system.favicon }-->
+  <link rel="shortcut icon" href="{config_system.favicon}">
+<!--{ / }-->
+ </head>

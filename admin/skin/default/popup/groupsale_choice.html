@@ -1,0 +1,55 @@
+<script type="text/javascript">
+<!--
+$(function(){
+	// default-set
+	var p_sale_seq = $("[name='sale_seq']").val();
+	$("#groupScalePopup input:radio[name='p_sale_seq']:input[value='"+p_sale_seq+"']").attr('checked', true);
+
+	// event
+	$("#groupScalePopup button[name='submit_btn']").click(function(){
+		var obj = $('#groupScalePopup [name="p_sale_seq"]:checked');
+		var p_sale_seq = obj.val()||'';
+
+		if(!p_sale_seq) {
+			openDialogAlert('적용할 <b>회원 등급별 할인 세트</b>를 선택해주세요.');
+			return false;
+		}
+		 
+		$(".btnMemberGradeEventView").html(obj.attr("data-member_sale"));
+
+		typeof groupsale_choice == 'function' && groupsale_choice(p_sale_seq);
+		closeDialog('groupScalePopup');
+	});
+});
+//-->
+</script>
+<div class="content">
+	<table class="table_basic">
+	<colgroup>
+		<col width="15%">
+		<col width="75%">
+	</colgroup>
+		<thead>
+			<th>선택</th>
+			<th>혜택 세트명(번호)</th>
+		</thead>
+		<tbody>
+		<!--{ @ group_sale_lists }-->
+		<tr>
+			<td class="center"><label class="resp_radio"><input type="radio" name="p_sale_seq" value="{.sale_seq}" data-member_sale="{.sale_title} ({.sale_seq})" /></label></td>
+			<td><a href="../setting/member?gb=member_sale" target="_blank"><span class="underline">{.sale_title} ({.sale_seq})</span></a></td>
+		</tr>
+		<!--{ : }-->
+		<tr><td class="center" colspan="2">적용가능한 <b>회원 등급별 혜택 세트</b>가 존재하지 않습니다.</td></tr>
+		<!--{ / }-->
+		</tbody>
+	</table>
+
+	<ul class="bullet_hyphen resp_message">
+		<li>구매 등급별 혜택은 <a href="../setting/member?gb=member_sale" target="_blank"><span class="underline blue">등급별 구매 혜택</span></a> 에서 설정할 수 있습니다</li>
+	</ul>
+</div>
+<div class="footer">
+	<button name="submit_btn" class="submit_btn resp_btn active size_XL">적용</button>
+	<button id="cancel_btn" name="cancel_btn" onClick="closeDialog('groupScalePopup')" class="resp_btn v3 size_XL">취소</button>
+</div>

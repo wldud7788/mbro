@@ -1,0 +1,20 @@
+[2022-06-06 15:56:06.807711000]
+MODE : Request
+REMOTE_IP : 66.249.65.65
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-06-06 15:56:06.853791000]
+REMOTE_IP : 66.249.65.65
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

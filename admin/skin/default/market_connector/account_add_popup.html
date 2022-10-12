@@ -1,0 +1,48 @@
+{ #layout_header_popup}
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/market_connector.css?v={=date('Ymd')}" />
+<script type="text/javascript" src="/app/javascript/js/admin-connectorCommon.js?dummy={=date('Ymd')}"></script>
+<script>
+	$('document').ready(function(){
+		$(".marketList").on("change", function(){
+			var val = $(this).val();		
+			if(val=="") return;				
+			window.location.href = './account_add_popup?market=' + $(this).val();			
+		})
+	});
+</script>
+<style type="text/css">
+	.market_setting {padding:2px 15px;}
+	.market_setting .account li .dt, .dt-auth { width:120px !important;}
+	.contents_container {padding:20px;}
+</style>
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" role="dialog" aria-labelledby="ui-dialog-title-couponDownloadDialog" style=" position:relative; width:99.8%; height:auto;">
+	
+	<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+		<span class="ui-dialog-title" id="ui-dialog-title-couponDownloadDialog">마켓 등록</span>
+		<a class="ui-dialog-titlebar-close ui-corner-all" role="button" href="#" onClick="self.close()"><span class="ui-icon ui-icon-closethick">close</span></a>
+	</div>
+
+	<div class="contents_container">
+		<div class="item-title">계정 설정</div>		
+		<table class="table_basic thl">		
+			<tr>
+				<th>판매 마켓</th>
+				<td>
+					<select class="marketList popup">
+					<!--{@ supportMarketList}-->
+						<!--{? market == .key_}-->
+						<option value="{.key_}"  selected="selected">{.name}</option>
+						<!--{ : }-->
+						<option value="{.key_}">{.name}</option>
+						<!--{ / }-->
+					<!--{ / }-->
+					</select>
+				</td>
+			</tr>								
+		</table>		
+		{# ACCOUNT_FORM}
+	</div>
+
+</div>
+{ #layout_footer }

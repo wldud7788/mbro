@@ -1,0 +1,20 @@
+[2022-06-15 16:05:22.196075000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2731]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NTEyYWNhZWUwODAxNjZhNTUyOTNmMjYwMDQxMzM3YTA3MGExYjkyN18xNjU1Mjc2NzIy</merchantCustomCode1></interface><product><id>2731</id><merchantProductId>NTEyYWNhZWUwODAxNjZhNTUyOTNmMjYwMDQxMzM3YTA3MGExYjkyN18xNjU1Mjc2NzIyQG9wdDExNTcxMw==</merchantProductId><ecMallProductId>2731</ecMallProductId><name><![CDATA[[플러피솝] 쥬씨바이트 Fluffi Soap - Juicy Bite]]></name><basePrice>9800</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2731]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/32/2022/04/_tmp_e39f7b23981515d32e134952240544117730list1.jpeg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>824_884_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>30000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-06-15 16:05:22.262688000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:rN9IvfgQRDOWGZc616PfWw:200337588
+
+[2022-06-15 16:05:25.487100000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2731]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>NTEyYWNhZWUwODAxNjZhNTUyOTNmMjYwMDQxMzM3YTA3MGExYjkyN18xNjU1Mjc2NzI1</merchantCustomCode1></interface><product><id>2731</id><merchantProductId>NTEyYWNhZWUwODAxNjZhNTUyOTNmMjYwMDQxMzM3YTA3MGExYjkyN18xNjU1Mjc2NzI1QG9wdDExNTcxMw==</merchantProductId><ecMallProductId>2731</ecMallProductId><name><![CDATA[[플러피솝] 쥬씨바이트 Fluffi Soap - Juicy Bite]]></name><basePrice>9800</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2731]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/32/2022/04/_tmp_e39f7b23981515d32e134952240544117730list1.jpeg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>824_884_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>30000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-06-15 16:05:25.528737000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:67t_EK54TGGb2cU3kG8S1g:200337588
+

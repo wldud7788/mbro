@@ -1,0 +1,33 @@
+{ #layout_header }
+<script type="text/javascript">
+$(function() {
+	$(".broadcastUse").on('click', function() {
+
+		$.ajax({
+			type	 : "PUT",
+			url		 : "/api/broadcast/use",
+			data	 : "use="+$(this).data('use'),
+			success: function(res){ 
+				if(res.success === true) {
+					alert('설정이 변경되었습니다.');
+					document.location.reload();
+				}
+			},
+			error: function(request, status, error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText);
+		}
+	});
+	});
+});
+</script>
+<div class="box_style_05 mt20">
+	<div style="width:100%;height:500px">라이브 커머스 안내 페이지</div>
+</div>
+<div class="center mt10">
+	<!--{? isUse }-->
+	<button type="button" class="resp_btn v3 size_XL broadcastUse" data-use="N">해지</button>
+	<!--{:}-->
+	<button type="button" class="resp_btn active size_XL broadcastUse" data-use="Y">신청</button>
+	<!--{/}-->
+</div>
+{ #layout_footer }

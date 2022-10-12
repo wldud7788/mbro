@@ -1,0 +1,82 @@
+<!-- 게시판 스킨이 썸네일일 경우 공지글, 팝업, 비밀글 기능 비활성화 by hed 기획팀 요청 jhs -->
+<!--{ ? manager.skin != 'gallery02' }-->
+<tr>
+	<th>공지 기간 제한</th>
+	<td >
+		<span class="resp_radio">
+			<label>
+				<input type="radio" name="onlynotice" id="onlynotice0" value="0"{? !(notice == '1' && onlynotice == '1') } checked{/}/>
+				<span>기간 제한 없음</span>
+			</label>
+			<label>
+				<input type="radio" name="onlynotice" id="onlynotice1" value="1"{? notice == '1' && onlynotice == '1' } checked{/}/>
+				<span>기간 제한</span>
+			</label>
+		</span>
+		<span>
+			<input type="text" name="onlynotice_sdate" id="onlynotice_sdate" value="{? substr(onlynotice_sdate,0,10) != '0000-00-00' }{=substr(onlynotice_sdate,0,10)}{/}" maxlength="10" size="10">
+			<span>~</span>
+			<input type="text" name="onlynotice_edate" id="onlynotice_edate" value="{? substr(onlynotice_edate,0,10) != '0000-00-00' }{=substr(onlynotice_edate,0,10)}{/}" maxlength="10" size="10">
+		</span>
+	</td>
+</tr>
+
+{? _GET.id == 'gs_seller_notice' }
+<tr>
+	<th>팝업 기간 제한</th>
+	<td>
+		<span class="resp_radio">
+			<label>
+				<input type="radio" name="onlypopup" id="onlypopup0" value="y"{? onlypopup == 'y' } checked{/}>
+				<span>기간 제한 없음</span>
+			</label>
+			<label>
+				<input type="radio" name="onlypopup" id="onlypopup1" value="d"{? onlypopup == 'd' } checked{/}>
+				<span>기간 제한</span>
+			</label>
+		</span>
+		<span>
+			<input type="text" name="onlypopup_sdate" id="onlypopup_sdate" value="{? substr(onlypopup_sdate,0,10) != '0000-00-00' }{=substr(onlypopup_sdate,0,10)}{/}" maxlength="10" size="10">
+			<span>~</span>
+			<input type="text" name="onlypopup_edate" id="onlypopup_edate" value="{? substr(onlypopup_edate,0,10) != '0000-00-00' }{=substr(onlypopup_edate,0,10)}{/}" maxlength="10" size="10">
+		</span>
+	</td>
+</tr> 
+{/}
+
+{? manager.secret_use == 'Y' || manager.secret_use == 'A' || (seq && hidden == 1 ) //비밀글사용인경우 }
+<tr>
+	<th>비밀글</th>
+	<td>
+		<label class="resp_checkbox">
+			<input type="checkbox" name="hidden" id="boardhidden" value="1" {hiddenckeck}>
+			<span>비밀글</span>
+		</label>
+	</td>
+</tr>
+<tr{? !seq || !hiddenckeck || strpos(hiddenckeck,"checked") === false || true } class="hide"{/}>
+	<th>비밀번호 입력</th>
+	<td>
+		{? seq }
+			{? mseq && mseq < 0 }
+				{? pw }
+					<input type="hidden" name="oldpw" value="{pw}">
+				{/}
+				<input type="password" name="pw" id="boardpw" value="{pw}" password="password"{? !hiddenckeck || strpos(hiddenckeck,"checked") === false } disabled{/} class="class_check_password_validation">
+				<button type="button" class="resp_btn hidden_sms_send" board_id="{_GET.id}" board_seq="{seq}">SMS 보내기</button>
+			{/}
+		{:}
+			<input type="password" name="pw" id="boardpw" value password="password"{? !hiddenckeck || strpos(hiddenckeck,"checked") === false } disabled{/} class="class_check_password_validation">
+		{/}
+		<div id="sendPopup" class="hide"></div>
+	</td>
+</tr>
+<script>
+$(document).ready(function() {
+	$(".class_check_password_validation").each(function(){
+		init_check_password_validation($(this));
+	});
+});
+</script>
+{/}
+<!--{ / }-->

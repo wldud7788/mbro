@@ -1,0 +1,280 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js?mm={=date('Ymd')}"></script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/layer_stock.css?mm={=date('Ymd')}">
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/admin_catalog.css?mm={=date('Ymd')}">
+<script type="text/javascript">
+	var gl_goods_config = {=arr_gl_gooda_config};
+</script>
+<script type="text/javascript" src="/app/javascript/js/admin/goodsCatalog.js?mm={=date('Ymd')}"></script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>패키지 상품 조회</h2>
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li></li>
+		</ul>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><span class="icon-goods-kind-{goods.goods_kind}"></span><button onclick="location.href='regist?package_yn=y';" class="resp_btn active size_L">상품 등록<span class="arrowright"></span></button></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 상품 검색폼 : 시작 -->
+{ #goods_search_form }
+<!-- 상품 검색폼 : 끝 -->
+
+<div class="contents_dvs v2">
+	<div class="list_info_container">
+		<div class="dvs_left">	
+			<div class="left-btns-txt">검색 <b>{=number_format(page.searchcount)}</b> 개 (총 <b>{=number_format(page.totalcount)}</b>개)</div>
+		</div>
+		<div class="dvs_right">	
+			<span class="display_sort" sort="{=sc.sort}"></span>
+			<span class="display_quantity" perpage="{=sc.perpage}"></span>
+		</div>
+	</div>
+
+	<div class="table_row_frame">
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" class="goods_delete_btn resp_btn v3">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+				<button type='button' name='' class='btn_goods_default_set resp_btn v2' data-kind="package_goods">리스트 항목</button>
+			</div>
+		</div>
+
+		<div class="sub-choose-lay">
+			<div class="choose-down-lay">
+				<ul>
+					<li class="choose-title">다운로드</li>
+					<li onclick="excel_down('new');" class="choose-item">실물 다운로드</li>
+					<!--{ ? scm_cfg['use'] == 'Y' }-->
+					<!--{ : }-->
+					<li onclick="excel_down('old');" class="choose-item">(구) 실물 다운로드</li>
+					<!--{ / }-->
+					<!--{ ? checkO2OService }-->
+						<!--{ # o2o_barcode_download }-->
+					<!--{ / }-->
+				</ul>
+			</div>
+			<div class="choose-form-lay">
+				<ul>
+					<li class="choose-title">다운로드항목설정</li>
+					<li onclick="excel_form('new');" class="choose-item">실물 다운로드항목설정</li>
+					<li onclick="excel_form('old');" class="choose-item">(구) 실물 다운로드항목설정</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 엑셀다운로드/다운로드항목설정 -->
+		{ #excel_download_form }
+
+		<form name="goodsList" id="goodsList">
+		<!-- 주문리스트 테이블 : 시작 -->
+		<table class="table_row_basic list pd5">
+		<!-- 테이블 헤더 : 시작 -->
+		<thead class="lth">
+		<tr>
+			<th style="min-width:35px"><label class='resp_checkbox'><input type="checkbox" id="chkAll" /></label></th>
+			<th style="min-width:35px">중요<!--span class="icon-star-gray hand {?sc.orderby=='favorite_chk' && sc.sort=='desc'}checked{/}" id="order_star"></span--></th>
+			<th style="min-width:40px">번호</th>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<th style="min-width:70px">입점사</th>
+			<!--{ / }-->
+			<th colspan="2">패키지/복합 상품명</th>
+			<th style="min-width:70px">정가</th>
+			<th style="min-width:70px">판매가</th>
+			<th style="min-width:100px">구성상품</th>
+			<th style="min-width:70px">재고판매
+				<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#catalog_stock2', 'sizeS')"></span>
+			</th>
+			<th style="min-width:90px;max-width:130px">배송비</th>
+			<th style="min-width:45px">조회</th>
+			<th style="min-width:120px">등록일/수정일</th>
+			<th style="min-width:60px">상태</th>
+			<th style="min-width:50px">노출</th>
+			<th style="min-width:50px">통계</th>
+			<th style="min-width:50px">관리</th>
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+
+		<!-- 리스트 : 시작 -->
+		<tbody>
+	<!--{? loop }-->
+		<!--{@ loop }-->
+			<tr  style="height:70px;">
+				<td class="center">
+					<label class='resp_checkbox'><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" { ? scm_cfg['use'] == 'Y' } scm_rtotal_stock={.rtotal_stock} { / } data-provider_seq="{ = .provider_seq }"/></label>
+				</td>
+				<td class="center"><span class="icon-star-gray star_select {.favorite_chk}" goods_seq="{.goods_seq}"></span></td>
+				<td class="center page_no">{._no}</td>
+			<!--{ ? serviceLimit('H_AD') }-->
+				<!--{ ? .provider_seq == '1' }-->
+				<td class="center blue ">
+					{?.lastest_supplier_name}
+					본사 - {=getstrcut(.lastest_supplier_name,5)}
+					{:}
+					본사
+					{/}
+				</td>
+				<!--{ : }-->
+					<td class="center"><div class="overflow-breakall center" style="width:75px;margin:auto;"><a href="../provider/provider_reg?no={=.provider_seq}" target="_blank" class="red">{=.provider_name}</a></div></td>
+				<!--{ / }-->
+			<!--{ / }-->
+				<td class="center" style="width:60px"><a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" width="50"></a></td>
+				<td class="left" style="min-width:100px;max-width:350px;">
+					<div class="overflow-breakall minw120">
+						<div class="fx11">
+						<!--{ ? cfg_goods_default.list_condition_brand == 'y' && .brand_default}-->
+						[{.brand_default}]
+						<!--{ / }-->
+						<!--{ ? cfg_goods_default.list_condition_category == 'y' && .category_default}-->
+						{.category_default}
+						<!--{ / }-->
+						</div>
+					{=showBatchGoodsData(.value_)}
+					</div>
+				</td>
+				<td class="right">
+					<div class="pdr5">{=get_currency_price(.consumer_price,2)}</div>
+				</td>
+				<td class="right">
+					<div class="pdr5">{=get_currency_price(.price,2)}</div>
+					<!--{ ? cfg_goods_default.list_condition_stringprice == 'y' && ( .string_price_use || .member_string_price_use || .allmember_string_price_use ) }-->
+					<div class="list-string-price-lay">
+						<button type="button" onmouseover="viewStringPrice('open', this);" onmouseout="viewStringPrice('close', this);" class="resp_btn size_S v3" >가격 노출 제한</button>
+						<div class="view-string-price-lay hide">
+							<table class="table_basic mt5" style="width:100%;border-top:1px solid #ccc !important;border-right:1px solid #ccc !important;">
+							<!--{ ? .string_price_use }-->
+							<tr>
+								<th width="140px" class="center">비회원</th>
+								<td>{=.string_price}</td>
+							</tr>
+							<!--{ / }-->
+							<!--{ ? .member_string_price_use }-->
+							<tr>
+								<th class="center">기본 등급</th>
+								<td>{=.member_string_price}</td>
+							</tr>
+							<!--{ / }-->
+							<!--{ ? .allmember_string_price_use }-->
+							<tr>
+								<th class="center">추가 등급</th>
+								<td>{=.allmember_string_price}</td>
+							</tr>
+							<!--{ / }-->
+							</table>
+						</div>
+					</div>
+					<!--{ / }-->
+				</td>
+				<td class="center">
+					<span class="" goods_seq="{.goods_seq}">{=number_format(.options[0].package_count)} 종</span>
+					<span class="wh_option hand" onclick="goods_option_btn('{.goods_seq}',this,'2')">
+						<span class="option-stock" optType="option" optSeq=""></span>
+						<span class="btn-administration goodsOptionBtn" goods_seq="{.goods_seq}"><span class="hide">옵션</span></span>
+					</span>
+				</td>
+				<td class="center">
+					<!--{ ? .runout_policy }-->
+							<!--{ ? .runout_policy == 'stock' }-->
+					<!--img src="../images/common/icon/ico_goods_stock.png" class="help" title="[개별설정] 주문수량 ≤ 재고" align="absmiddle" /-->
+					재고
+							<!--{ : .runout_policy == 'ableStock' }-->
+					<!--img src="../images/common/icon/ico_goods_ablestock.png" class="help" title="[개별설정] 주문수량 ≤ 가용재고" align="absmiddle" /-->
+					가용재고
+							<!--{ : .runout_policy == 'unlimited' }-->
+					<!--img src="../images/common/icon/ico_goods_nolimit.png" class="help" title="[개별설정] 무제한" align="absmiddle" /-->
+					무제한
+						<!--{ / }-->
+					<!--{ : }-->
+							<!--{ ? cfg_order.runout == 'stock' }-->
+					<!--img src="../images/common/icon/ico_config_stock.png" class="help" title="[통합설정] 주문수량 ≤ 재고" align="absmiddle" /-->
+					재고
+							<!--{ : cfg_order.runout == 'ableStock' }-->
+					<!--img src="../images/common/icon/ico_config_ablestock.png" class="help" title="[통합설정] 주문수량 ≤ 가용재고" align="absmiddle" /-->
+					가용재고
+							<!--{ : cfg_order.runout == 'unlimited' }-->
+					<!--img src="../images/common/icon/ico_config_nolimit.png" class="help" title="[통합설정] 무제한" align="absmiddle" /-->
+					무제한
+							<!--{ / }-->
+					<!--{ / }-->
+				</td>
+				<td class="center overflow-breakall">
+					<a href="../setting/shipping_group_regist?shipping_group_seq={=.shipping_group_seq}{?.provider_seq>1&&.trust_shipping=='N'}&provider_seq={=.provider_seq}{/}" target="_blank"><span class="underline black">{.shipping_group_name}({.shipping_group_seq})</span></a>
+					<!--{ ? .provider_seq > 1 && .trust_shipping == 'Y' }-->
+						위탁배송
+					<!--{ / }-->
+				</td>
+				<td class="center">
+					{=number_format(.page_view)}
+				</td>
+				<td class="center">{=substr(.regist_date,0,16)}<br/>{=substr(.update_date,0,16)}</td>
+				<td class="center">
+					{?.provider_status_reason}<div>{.provider_status_reason}</div>{/}
+					<!--{ ? serviceLimit('H_AD') }--><div>{.provider_status_text}</div><!--{/}--><div>{.goods_status_text}<div/>
+				</td>
+				<td class="center">
+					<!--{ ? .display_terms == 'AUTO' }-->
+					<span class="display-terms-{.goods_seq} underline black" onclick="openGoodsDisplayTerms('{.goods_seq}');">노출 예약</span><br/>
+					<!--{ / }-->
+					<span class="display-goods-view-{.goods_seq} { ? .display_terms == 'AUTO' }hide{ / }">{.goods_view_text}</span>
+				</td>
+				<td class="center">
+					<div><button type="button" onclick="openAdvancedStatistic('{.goods_seq}');" class="resp_btn v3">통계</button></div>
+				</td>
+				<td class="center">
+					<div><button type="button" name="manager_modify_btn" goods_seq="{.goods_seq}" onclick="goodsView('{.goods_seq}', true);"class="resp_btn v2">수정</button></div>
+					<div class="mt2"><button type="button" goods_seq="{.goods_seq}" class="manager_copy_btn resp_btn v2">복사</button></div>
+				</td>
+			</tr>
+		<!--{ / }-->
+	<!--{ : }-->
+		<tr class="list-row">
+			<td class="center" height="40" { ? serviceLimit('H_AD') }colspan="17"{ : }colspan="16"{ / }>
+				<!--{ ? search_text }-->
+					'{search_text}' 검색된 상품이 없습니다.
+				<!--{:}-->
+					등록된 상품이 없습니다.
+				<!--{/}-->
+			</td>
+		</tr>
+	<!--{ / }-->
+		</tbody>
+		<!-- 리스트 : 끝 -->
+
+		</table>
+		<!-- 주문리스트 테이블 : 끝 -->
+		</form>
+
+		<div class="dvs_bottom">	
+			<div class="dvs_left">	
+				<button type="button" class="goods_delete_btn resp_btn v3">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+				<button type='button' name='' class='btn_goods_default_set resp_btn v2' data-kind="package">리스트 항목</button>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<!-- 페이징 -->
+<div class="paging_navigation">{page.html}</div>
+
+<!--### 옵션보기 설정 -->
+<div id="set_option_view_lay" class="hide"></div>
+
+{ #layout_footer }

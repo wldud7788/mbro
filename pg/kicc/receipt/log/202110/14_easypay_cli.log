@@ -1,0 +1,15 @@
+1014-121205.970 - 15490 - GA000873AEFmoqMp     - MSG : START - tr_cd=[00201050]+mall_id=[GA000873]+order_no=[]
+1014-121206.017 - 15490 - GA000873AEFmoqMp     - MSG : PG_서버_접속__정상
+1014-121206.029 - 15490 - GA000873AEFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+1014-121206.054 - 15490 - GA000873AEFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+1014-121206.055 - 15490 - GA000873AEFmoqMp     - MSG : ENDED - res=[res_cd=E985res_msg=PG거래번호 없음]
+1014-151835.077 -  2047 - GA000873AEFmoqMp     - MSG : START - tr_cd=[00201050]+mall_id=[GA000873]+order_no=[2021101415181617530]
+1014-151835.087 -  2047 - GA000873AEFmoqMp     - MSG : PG_서버_접속__정상
+1014-151835.098 -  2047 - GA000873AEFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+1014-151835.198 -  2047 - GA000873AEFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+1014-151835.199 -  2047 - GA000873AEFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=현금 영수증 정상 발급cno=21101415183510461636amount=1000auth_no=588854406tran_date=20211014151836]
+1014-152207.357 -  4290 - GA000873AEFmoqMp     - MSG : START - tr_cd=[00201050]+mall_id=[GA000873]+order_no=[]
+1014-152207.366 -  4290 - GA000873AEFmoqMp     - MSG : PG_서버_접속__정상
+1014-152207.378 -  4290 - GA000873AEFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+1014-152207.401 -  4290 - GA000873AEFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+1014-152207.402 -  4290 - GA000873AEFmoqMp     - MSG : ENDED - res=[res_cd=E985res_msg=PG거래번호 없음]

@@ -1,0 +1,25 @@
+[2022-08-03 20:30:01.509112000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [InquiryID] => 273219275
+            [OrderID] => 2022080298883950
+            [ProductOrderID] => 2022080217157920
+            [ProductName] => 아프로 (APRO) - Avenue
+            [ProductID] => 4421
+            [ProductOrderOption] => 
+            [CustomerID] => okone***
+            [Title] => 상품 배송 가능한가요
+            [Category] => 상품
+            [InquiryDateTime] => 2022-08-03T11:22:15.00Z
+            [InquiryContent] => 안녕하세요 주문했는데 오늘 상품란을 보니 품절로 되어있네요. 상품배송 가능한 부분일까요
+            [AnswerContent] => 
+            [IsAnswered] => false
+            [CustomerName] => 이오균
+        )
+
+)
+
+

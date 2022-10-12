@@ -1,0 +1,27 @@
+[2022-09-19 21:50:19.646193000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [totalcnt] => 1
+    [general] => Array
+        (
+            [0] => Array
+                (
+                    [CreateYmdt] => 2022-09-19T12:36:20.24Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 1879
+                    [ProductName] => 포토카드 세트 PHOTOCARD SET
+                    [ProductOrderID] => 2022091457837950
+                    [PurchaseReviewId] => 4086872099
+                    [PurchaseReviewScore] => 2
+                    [Title] => 가성비가 넘 좋은거 같아요~ 근데 배송비가 너무너무 비쌉니다. ㅜㅜ
+                    [WriterId] => vKjMbDHOqZKK2zNQmJ7Bbg==
+                    [timestamp] => 2022-09-19T12:49:21.072Z5328
+                    [PurchaseReviewScore_new] => 5
+                )
+
+        )
+
+)
+
+

@@ -1,0 +1,220 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/goodsBarcode.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript" src="/app/javascript/js/scm.common.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript">
+var scObj 		= {=scObj};
+var pageid 		= 'barcode_catalog';
+</script>
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>바코드 인쇄</h2>
+		</div>
+		
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><button type='button' name="barcode_excel_btn" class='resp_btn v3 size_L'><img src="../images/common/btn_img_ex.gif" /> 일괄 등록</button></li>
+			<li><button type='button' name="barcode_write_btn" class='resp_btn size_L active'>바코드 일괄 등록</button></li>
+		</ul>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!--검색 폼-->
+<div id="search_container" class="search_container">
+<form name="barcodeSearchForm" id="barcodeSearchForm" method="get" action="">
+<input type="hidden" name="sort" value="{=sort}"/>
+<input type="hidden" name="mode" value=""/>
+
+<!-- 바코드 검색폼 : 시작 -->
+{ #barcode_search_form }
+<!-- 바코드 검색폼 : 끝 -->
+</form>
+</div>
+<form name="barcodeFrm" id="barcodeFrm" method="get" action="">
+<input type="hidden" name="mode">
+<div class="contents_dvs v2">
+	<div class="list_info_container">
+		<div class="dvs_left">	
+			<div class="left-btns-txt">검색 <b>{=number_format(page.searchcount)}</b> 개 (총 <b>{=number_format(page.totalcount)}</b>개)</div>
+		</div>
+		<div class="dvs_right">	
+			<span class="display_sort" sort="{=sc.sort}"></span>
+			<span class="display_quantity" perpage="{=sc.perpage}"></span>
+		</div>
+	</div>
+	<div class="table_row_frame">
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" name="barcode_print_btn" desc="print" class="barcode_print_btn resp_btn active">바코드 인쇄</button>
+			</div>
+			<div class="dvs_right">
+				<button type="button" name="codetype_btn" class="resp_btn v2">바코드 형식</button>
+				<button type='button' name="barcode_excel_down" desc="download" class='barcode_print_btn resp_btn v3'><img src="../images/common/btn_img_ex.gif" /> 다운로드</button>
+			</div>
+		</div>
+		<table class="table_row_basic v2">
+			<colgroup>
+				<col width="3%" />
+				<col width="5%" />
+				<col width="13%" />
+				<col width="7%" />
+				<col width="7%" />
+				<col width="8%"/>
+				<col width="8%" />
+				<col width="*" />
+				<col width="15%" />
+				<col width="8%" />
+				<col width="8%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th rowspan="2"><label class="resp_checkbox"><input type="checkbox" id="chkAll" /></label></th>
+					<th rowspan="2">번호</th>
+					<th>
+						인쇄수
+						<select class="sel-stock" name="stock">
+							<option value="0">현재재고</option>
+							<option value="1">직접입력</option>
+						</select>
+					</th>
+					<th colspan="2">바코드(상품코드)</th>
+					<th rowspan="2">상품 번호</th>
+					<th rowspan="2">옵션 번호</th>
+					<th rowspan="2">상품명</th>
+					<th rowspan="2">옵션명</th>		
+					<th rowspan="2">재고</th>
+					<th rowspan="2">불량 재고</th>
+				</tr>
+				<tr>
+					<th>	
+						<input type="text" id="target_stock" class="resp_text" disabled="disabled" size="10" />
+						<span class="btn small gray"><button type="button" id="btn_all_stock" class="resp_btn v2 arrow">▼</button></span>
+					</th>
+					<th>기본코드</th>
+					<th>옵션코드</th>
+				</tr>				
+			</thead>
+			<!-- 리스트 : 시작 -->
+			<tbody class="ltb">
+			<!--{? listdata }-->
+				<!--{@ listdata }-->
+				<tr>
+					<td class="center">
+						<input type="hidden" class="total_ea" value="{.total_ea}"/>
+						<label class="resp_checkbox"><input type="checkbox" class="chk" name="goods_seq[{=._no}]" value="{.goods_seq}|{.option_seq}" /></label>
+					</td>
+					<td class="center"><!--{=._no}--></td>
+					<td>
+						<input type="hidden" class="tmp_stock right" value="{.total_ea}"/>
+						<input type="text" class="chk_stock right" name="goods_stock[{=._no}]" value="{.total_ea}" size="10"/>
+					</td>
+					<td>{=.goods_code}</td>
+					<td>{=.option_code}</td>
+					<td>{=.goods_seq}</td>
+					<td>{=.option_seq}</td>
+					<td class="left"><a href="/admin/goods/regist?query_string=&no={=.goods_seq}" target="_blank"><span class="underline black">{=.goods_name}</span></a></td>
+					<td class="left">{=.option_title}</td>
+					<td class="right">{=.prefix}{.total_ea}{=.suffix}</td>
+					<td class="right">({=.total_bad_ea})</td>
+				</tr>		
+				<!--{ / }-->
+			<!--{ : }-->
+				<tr>
+					<td class="center" colspan="11" height="40">
+						<!--{ ? keyword }-->
+							'<!--{keyword}-->' 검색된 바코드가 없습니다.
+						<!--{:}-->
+							등록된 바코드가 없습니다.
+						<!--{/}-->
+					</td>
+				</tr>
+			<!--{ / }-->
+			</tbody>	
+			<!-- 리스트 : 끝 -->
+		</table>
+		<div class="dvs_bottom">
+			<div class="dvs_left">
+				<button type="button" name="barcode_print_btn" desc="print" class="barcode_print_btn resp_btn active">바코드 인쇄</button>
+			</div>
+			<div class="dvs_right">
+				<button type="button" name="codetype_btn" class="resp_btn v2">바코드 형식</button>
+				<button type='button' name="barcode_excel_down" desc="download" class='barcode_print_btn resp_btn v3'><img src="../images/common/btn_img_ex.gif" /> 다운로드</button>
+			</div>
+		</div>
+	</div>
+	<div class="paging_navigation">{page.html}</div>
+
+</div>
+</form>
+
+<!-- 페이징 -->
+
+{ #barcode_info_popup }
+
+<div id="barcode_type_popup" class="hide">
+	<div class="content">
+		<form id="bartypeFrm" name="bartypeFrm" method="post" action="../barcode_process/set_barcodeid" target="actionFrame">
+		<table class="table_basic thl">
+		<colgroup>
+			<col style="width:15%">
+			<col />
+		</colgroup>
+		<tr>
+			<th>주문, 출고 번호</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_code_order" value="code39" <!--{? use_code_order.id == 'code39'}-->checked="checked"<!--{/}-->/> Code 39</label>
+					<label><input type="radio" name="use_code_order" value="code128_a" <!--{? use_code_order.id == 'code128_a'}-->checked="checked"<!--{/}-->/> Code 128-A</label>
+					<label><input type="radio" name="use_code_order" value="code128_b" <!--{? use_code_order.id == 'code128_b'}-->checked="checked"<!--{/}-->/> Code 128-B</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>상품</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_code" value="code39" <!--{? use_code.id == 'code39'}-->checked="checked"<!--{/}-->/> Code 39 + ISBN</label>
+					<label><input type="radio" name="use_code" value="code128_a" <!--{? use_code.id == 'code128_a'}-->checked="checked"<!--{/}-->/> Code 128-A + ISBN</label>
+					<label><input type="radio" name="use_code" value="code128_b" <!--{? use_code.id == 'code128_b'}-->checked="checked"<!--{/}-->/> Code 128-B + ISBN</label>
+					<label><input type="radio" name="use_code" value="code128_c" <!--{? use_code.id == 'code128_c'}-->checked="checked"<!--{/}-->/> Code 128-C + ISBN</label>
+				</div>
+				<ul class="bullet_hyphen">
+					<li>ISBN 바코드 체계로 입력된 상품은 ISBN으로 자동 인쇄됩니다.</li>
+				</ul>
+			</td>
+		</tr>
+		</table>
+		</form>
+	</div>
+	<div class="footer">
+		<button type="button" name='barcode_btn' onClick="$('#bartypeFrm').submit()" class="resp_btn active size_XL">저장</button>
+		<button type="button" class="resp_btn v3 size_XL btn_close" data-layId='barcode_type_popup'>취소</button>
+	</div>
+</div>
+
+<div id="barcode_print_popup" class="hide">
+	<div class="content">
+		<table class="table_basic thl">
+			<tr>
+				<th><span class="print_desc"></span> 범위</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="barcode_print" value="all" checked />검색 상품 (<span class="search_count">{=number_format(page.searchcount)}</span>개)</label>
+						<label><input type="radio" name="barcode_print" value="select"/>선택 상품 (<span class="select_count"></span>개)</label>					
+					</div>
+				</td>	
+			</tr>
+		</table>
+	</div>
+	<div class="footer">
+		<button type="button" name='btn_barcode_print' class="resp_btn active size_XL"><span class="print_desc"></span></button>
+		<button type="button" class="resp_btn v3 size_XL btn_close" data-layId='barcode_print_popup'>취소</button>
+	</div>
+</div>
+<div id="goods_scm_warehouse_info" class="hide"></div>
+{ #layout_footer }

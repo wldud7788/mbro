@@ -1,0 +1,482 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin-common-ui.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/batch.js?v={=date('Ymd')}"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	$("input[name='domain']").val(document.domain);
+
+	$("#send_submit").click(function(){
+		if($("input[name='agree_yn']").attr("checked")){
+			if($("input[name='excel_files[]']").val() && $("#send_message").val()){
+				openDialog('처리','processDiv', {'width':550,'height':140});
+				document.smsForm.submit();
+			}else{
+				openDialogAlert('받는사람 또는 문자내용은 필수입니다.', 300, 130);
+				return;
+			}
+		}else{
+			openDialogAlert('‘정보통신망이용 촉진 및 정보보호등에 관한 법률 및 시행령’ 위반에 따른 책임은 귀사에게 있음에 동의하셔야만 발송이 가능합니다.', 600, 150);
+			return;
+		}
+	});
+
+
+	$(".sms_contents").live('keyup change',function(){
+		send_byte_chk(this);
+	});
+
+	// SPECIAL CHARACTER
+	$("#special_cont").click(function(){
+		if($("#special_view").css("display")=='none') $("#special_view").show();
+		else $("#special_view").hide();
+	});
+
+	$(".special_char").click(function(){
+		var str = $("#send_message").val();
+		$("#send_message").val(str+$(this).attr('conts'));
+		send_byte_chk($("#send_message"));
+	});
+
+	send_byte_chk($("#send_message"));
+
+
+	$(".tabPlusBtn").on('click',function(){
+		//$(".displayTabMakeInputs:last-child").after($(".displayTabMakeInputs:last-child").clone());
+		var obj = $(".displayTabMakeImages:last-child").clone().find("input[type='text']").val("").end();
+		$(".displayTabMakeImages:last-child").after(obj);
+		obj.show();
+	});
+
+	$(document).on("change","input[type='file']",function(){
+		changeFileBind(this);
+	});
+
+	$(document).on("click",".tabMinusBtn",function(){
+		removeFileUpload(this);
+	});
+
+	var makeTabSampleHtml = function(){
+		$(".displayTabList").each(function(){
+			$(".tabPlusBtn:gt(0)",this).hide();
+			//$(".tabMinusBtn",this).hide();
+			$(".tabMinusBtn:gt(0)",this).show();
+		});
+	};
+
+	changeFileStyle();
+	makeTabSampleHtml();
+});
+
+function changeFileBind(el) {
+	$(el).parents('label').next('input').val($(el).val());
+}
+
+function removeFileUpload(el) {
+	var tabIdx = $(".displayTabMakeImages").index($(el).closest(".displayTabMakeImages"));
+	if(tabIdx > 0) $(".displayTabMakeImages").eq(tabIdx).remove();
+}
+
+function emailFormOpen(){
+	var screenWidth;
+	var screenHeight;
+
+	screenWidth = screen.width;
+	screenHeight = screen.height;
+	
+	if(screenWidth > 1250) screenWidth = "1250";
+	if(screenHeight > 1024) screenHeight = "1024";
+	
+	window.open('../batch/email_form',"send_email","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=yes,width=" + screenWidth + ", height=" + screenHeight);
+	/*
+	$("#container").css("height","0px");
+	$("#container").attr("src","email_form");
+	$("#container").show();
+	*/
+}
+
+function sms_loading_stop(){
+	$(".sms_form_table").css({'opacity':'1'}).activity(false);
+	$("#send_submit_span").show();
+}
+
+function loadSmsForm(value){
+	$("input[name='category']").val(value);
+	$("input[name='page']").val('');
+	sms_form_container();
+}
+
+function send_byte_chk(textareaObj){
+	var str = $(textareaObj).val();
+	var smsarea	= $(textareaObj).closest("li");
+	str = sms_replace(str);
+	$("#sms_text").html(str);
+	smsarea.find(".send_byte").html(chkByte(str));
+	if(chkByte(str) > 90){
+		smsarea.find(".minus_count").html("3");
+	}else{
+		smsarea.find(".minus_count").html("1");
+	}
+}
+
+function chkByte(str){
+	var cnt = 0;
+	for(i=0;i<str.length;i++) {
+		cnt += str.charCodeAt(i) > 128 ? 2 : 1;		
+	}
+	return cnt;
+}
+
+function agree_yn_check(){
+	var agree_text = "";
+	if($("input[name='agree_yn']").attr("checked")){
+		agree_text= "위 내용에 대하여 {=date('Y년m월d일 H시i분s초')}에 {managerInfo.mname}({managerInfo.manager_id})께서 동의하셨습니다.";
+		$("#agree_text").show();
+	}else{
+		$("#agree_text").hide();
+	}
+	
+	$("#agree_text").html(agree_text);
+}
+
+function select_sms_form(){
+	
+	$.get('/admin/member/sms_form_list_pop', function(data) {
+		$('#smsFormListPopup').html(data);		
+		openDialog("SMS 불러오기", "smsFormListPopup", {"width":"900","height":"700"});
+	});
+}
+
+</script>
+
+<style>
+/* 자세히 보기 링크 */
+a.detail_link {
+	color: #5583dd !important;
+	margin-left:5px;
+}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>SMS 대량 발송</h2>
+		</div>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<form name="smsForm" id="smsForm" method="post" target="processFrame" action="//sms2.firstmall.kr/smsouth/setSmsData" enctype="multipart/form-data" callPage='sms'>
+<input type="hidden" name="sms_id" value="{chk}">
+<input type="hidden" name="requestToken" value="{requestToken}">
+<input type="hidden" name="accessToken" value="{accessToken}">
+<input type="hidden" name="domain" value="">
+
+<input type="hidden" name="table" value="{table}" />
+<input type="hidden" name="page" value="{_GET.page}"/>
+<input type="hidden" name="category"/>
+<input type="hidden" name="send_num"/>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="serialize" id="serialize" value="">
+<input type="hidden" name="mcount" value="0">
+
+<input type="hidden" name="searchSelect" value="search">
+<input type="hidden" name="selectMember" value="">
+
+<div class="contents_dvs">
+	<div class="item-title">SMS 대량 발송</div>
+
+	<table class="table_basic thl">		
+		<tr>
+			<th>잔여 건수</th>
+			<td>잔여 {=number_format(count)}건</td>
+		</tr>
+		
+		<tr>
+			<th>보내는 사람</th>
+			<td>
+				{? send_phone}{send_phone}{:}등록된 발신번호가 없습니다.{/}
+				<input type="hidden" name="send_sms" value="{send_phone}" title="전화번호를 입력하세요"/>
+			</td>
+		</tr>
+
+		<tr>
+			<th>받는 사람</th>
+			<td>
+				<button type="button" id="searchMemberBtn" callpage="batch_sms" class="resp_btn">회원 검색</button>
+
+				<table class="displayTabList table_basic tdc wauto mt5" >
+					<colgroup>
+						<col width="80%" />					
+						<col width="20%" />						
+					</colgroup>
+					<tr>
+						<th>엑셀 파일 업로드</th>
+						<th><span class="tabPlusBtn btn_plus"/></th>
+					</tr>
+
+					<tr class="displayTabMakeImages">
+						<td><input type="file" name="excel_files[]" size="30" mode="new" class="hide" iclass="resp_text pointer" /></td>
+						<td><span class="tabMinusBtn btn_minus"/></td>
+					</tr>
+				</table>
+
+				<ul class="bullet_hyphen resp_message v2">
+					<li>
+						반드시 규정된 포맷으로 파일을 업로드해주세요.
+						<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip8', '500')"></span>
+					</li>		
+					<li>파일 형식 csv</li>		
+				</ul>				
+			</td>
+		</tr>
+		<tr>
+			<th>
+				내용
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip4', 'sizeM')"></span>
+			</th>
+			<td>
+				<ul class="ul_list_01">
+					<li class="wp65">
+						<div class="title_dvs mt0">
+							<div class="item-title">내용 입력</div>
+							<div class="resp_btn_dvs mb0">					
+								<button type="button" id="special_cont" class="resp_btn v2">특수 문자</button>	
+								<div id="special_view" class="hide">
+									<table cellpadding="5" cellspacing="1" border="0" width="100%">
+									<tr>
+									{@ sms_cont}
+										{?.index_%15==0}</tr><tr>{/}
+										<td align="center"><span class="special_char" conts="{.value_}" style="cursor:pointer;">{.value_}</span></td>
+									{ / }
+									</tr>
+									</table>									
+								</div>								
+							</div>							
+						</div>					
+
+						<textarea name="send_message" id="send_message" class="sms_contents wp100" rows="10"></textarea>	
+
+						<div class="mt5">
+							<b id="send_byte" class="send_byte">0</b>byte
+						</div>				
+						
+						<div id="special_view" style="position:absolute;width:340px;z-index:100;display:none; margin-left: 161px; margin-top: -20px;border:2px solid #aaaaaa;padding:3px;background-color:#eeffee;">
+							<table cellpadding="5" cellspacing="1" border="0" width="100%">
+							<tr>
+							{@ sms_cont}
+								{?.index_%15==0}</tr><tr>{/}
+								<td align="center"><span class="special_char" conts="{.value_}" style="cursor:pointer;">{.value_}</span></td>
+							{ / }
+							</tr>
+							</table>
+						</div>
+					</li>
+					<li class="wp30">
+						<div class="item-title">미리보기</div>
+						<textarea name="sms_text" id="sms_text" class="wp95" rows="10" readonly disabled></textarea>
+					</li>
+				</ul>
+				
+				<div class="resp_message v2">
+					- ‘정보통신망이용 촉진 및 정보 보호 등의 관한 법률 및 시행령’에 따라 광고 전송 시 (광고)를 표시해주세요.
+					<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip2')"></span>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="contents_dvs">
+	<div class="item-title">발송 시간</div>	
+	<table class="table_basic thl">		
+		<tr>
+			<th>1만 건 이하</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sms_reserve_yn" value="n" checked> 즉시 발송</label>
+					<label>
+						<input type="radio" name="sms_reserve_yn" value="y">
+						<select name="reserve_hour">
+							<option value="08">8시</option>
+							<option value="09">9시</option>
+							<option value="10">10시</option>
+							<option value="11">11시</option>
+							<option value="12">12시</option>
+							<option value="13">13시</option>
+							<option value="14">14시</option>
+							<option value="15">15시</option>
+							<option value="16">16시</option>
+							<option value="17">17시</option>
+							<option value="18">18시</option>
+							<option value="19">19시</option>
+							<option value="20">20시</option>
+						</select>
+
+						<select name="reserve_min">
+							<option value="00">00분</option>
+							<option value="10">10분</option>
+							<option value="20">20분</option>
+							<option value="30">30분</option>
+							<option value="40">40분</option>
+							<option value="50">50분</option>
+						</select>
+						예약 발송
+					</label>
+				</div>
+			</td>
+		</tr>	
+		
+		<tr>
+			<th>
+				1만 건 초과
+				<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip9')"></span>
+			</th>
+			<td>
+				<input type="radio" name="sms_reserve2_yn" value="n" checked class="hide">
+				<input type="text" name="reserve2_date" value="" class="datepicker line" size="12">
+				<select name="reserve2_hour">
+					<option value="08">8시</option>
+					<option value="09">9시</option>
+					<option value="10">10시</option>
+					<option value="11">11시</option>
+					<option value="12">12시</option>
+					<option value="13">13시</option>
+					<option value="14">14시</option>
+					<option value="15">15시</option>
+					<option value="16">16시</option>
+					<option value="17">17시</option>
+					<option value="18">18시</option>
+					<option value="19">19시</option>
+					<option value="20">20시</option>
+				</select>
+
+				<select name="reserve2_min">
+					<option value="00">00분</option>
+					<option value="10">10분</option>
+					<option value="20">20분</option>
+					<option value="30">30분</option>
+					<option value="40">40분</option>
+					<option value="50">50분</option>
+				</select>
+				<div class="resp_message v2">- 검수 후 승인 완료 시, 입력한 시간에 발송됩니다.</div>
+			</td>
+		</tr>	
+	</table>
+
+	<div class="center mt20">
+		<label class="resp_checkbox"><input type="checkbox" name="agree_yn" value="y" onclick="agree_yn_check();"> ‘정보통신망이용 촉진 및 정보보호등에 관한 법률 및 시행령’ 위반에 따른 책임은 당사에게 있음에 동의합니다.</label>
+	</div>
+	
+	<div class="footer mb20"><button type="button" id="send_submit" {? count < 1}disabled{/} class="resp_btn active size_XL">발송</button></div>
+</div>
+</form>
+<!-- 여기서 부터 기존 폼-->
+
+<a name="sms_form"></a>
+
+<div id="add_sms_popup" class="hide">
+<form name="popForm" method="post" action="../member_process/sms_process" target="actionFrame">
+<input type="hidden" name="mode" value="sms_form"/>
+<input type="hidden" name="album_seq"/>
+	<table width="100%" cellspacing="0">
+	<tr><td>
+			<select name="sms_form_group" id="sms_form_group">
+				<option value="">= 그룹을 선택하세요 =</option>
+				{@ sms_loop}
+				<option value="{.category}">{.category}</option>
+				{ / }
+			</select> <span class="btn small gray"><button type="button" id="add_sms_group">그룹추가</button></span>
+			<span id="sms_form_id" class="hide"><input type="text" name="sms_form_name"> <span class="btn small gray"><button type="button" id="del_sms_group">취소</button></span></span>
+	</td></tr>
+	<tr><td>
+		<div style="padding:2px;">
+			<div class="sms-define-form">
+				<div class="sdf-head clearbox">
+					<div class="fl"><img src="../images/common/sms_i_antena.gif"></div>
+					<div class="fr"><img src="../images/common/sms_i_battery.gif"></div>
+				</div>
+				<div class="sdf-body-wrap">
+					<div class="sdf-body">
+						<textarea name="sms_form_text" id="sms_form_text"  class="sms_contents"></textarea>
+						<div class="sdf-body-foot clearbox">
+							<div class="fl"><b id="send_byte" class="send_byte">0</b>byte</div>
+							<div class="fr"><img src="../images/common/sms_btn_send.gif" align="absmiddle" class="del_message" /></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</td></tr>
+	</table>
+	<span class="btn small gray center"><button type="button" onclick="document.popForm.submit();">확인</button></span>
+</form>
+</div>
+
+<div id="save_sms" class="hide">
+	<!-- ### RECEIVE MESSAGE FORM -->
+	<table width="100%" cellspacing="0">
+	<tr>
+		<td>
+			<table width="100%" cellspacing="0">
+			<tr>
+				<td valign="top">
+
+					<table width="100%" class="info-table-style">
+					<tr>
+					{@ sms_loop}
+						{?.index_%5==0}</tr><tr>{ / }
+						<td class="its-td-align" style="border-top:1px solid #dddddd;border-right:1px solid #dddddd;text-align:center;width:20%;">{? .index_==0 }<a href="javascript:loadSmsForm('');">{ : }<a href="javascript:loadSmsForm('{.category}');">{ / }{.category}</a></td>
+					{ / }
+					</tr>
+					</table>
+
+				</td>
+				<td valign="top" align="right">
+				<span class="btn small gray"><button type="button" id="add_sms_form">추가</button></span>
+				</td>
+			</tr>
+			</table>
+
+			</div>
+
+		</td>
+	</tr>
+	<tr><td height="10"></td></tr>
+	<tr>
+		<td align="center">
+			<input type="text" name="sms_search" class="line" style="height:12px;"/><span class="btn small gray"><button type="button" id="sms_form">검색</button></span>
+		</td>
+	</tr>
+	<tr><td height="10"></td></tr>
+	<tr>
+		<td align="center">
+
+		<div id="sms_form_container"></div>
+
+		<div id="sms_form_page" style="width:100%;text-align:center;"></div>
+
+		</td>
+	</tr>
+	</table>
+</div>
+<div id="authPopup" class="hide"></div>
+
+<div id="processDiv" class="hide">
+<div style='height:10px;'></div>
+<table width="100%" cellspacing="0" cellpadding="0" style='border:1px solid #d2d2d2'>
+	<tr>
+		<td>
+		<iframe src="//sms2.firstmall.kr/smsouth/sms_send_ready" name="processFrame" frameborder="0" width="100%" height="30" scrolling="no"></iframe>
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="smsFormListPopup" class="hide"></div>
+{#member_download_info}
+{ #layout_footer }

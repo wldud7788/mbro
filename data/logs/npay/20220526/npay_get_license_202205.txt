@@ -1,0 +1,160 @@
+[2022-05-26 13:21:23.708319000]
+MODE : Request
+REMOTE_IP : 66.249.75.187
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 13:21:23.768372000]
+REMOTE_IP : 66.249.75.187
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 13:21:23.819726000]
+MODE : Request
+REMOTE_IP : 66.249.75.187
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 13:21:23.860620000]
+REMOTE_IP : 66.249.75.187
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 13:51:05.728456000]
+MODE : Request
+REMOTE_IP : 112.171.113.190
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 13:51:05.772671000]
+REMOTE_IP : 112.171.113.190
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 13:51:12.248762000]
+MODE : Request
+REMOTE_IP : 112.171.113.190
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 13:51:12.291994000]
+REMOTE_IP : 112.171.113.190
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 13:51:17.300925000]
+MODE : Request
+REMOTE_IP : 112.171.113.190
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 13:51:17.347130000]
+REMOTE_IP : 112.171.113.190
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 16:47:05.729209000]
+MODE : Request
+REMOTE_IP : 121.66.118.180
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 16:47:05.770066000]
+REMOTE_IP : 121.66.118.180
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 16:47:37.385235000]
+MODE : Request
+REMOTE_IP : 121.66.118.180
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 16:47:37.424131000]
+REMOTE_IP : 121.66.118.180
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-05-26 16:47:40.478360000]
+MODE : Request
+REMOTE_IP : 121.66.118.180
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-05-26 16:47:40.516935000]
+REMOTE_IP : 121.66.118.180
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

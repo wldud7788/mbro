@@ -1,0 +1,123 @@
+<script type="text/javascript" src="/app/javascript/js/admin-connectorSetting.js?dummy={=date('Ymd')}"></script>	
+<script type="text/javascript">
+	$(document).ready(function() {
+		radioInInputClickEvent()
+	})
+</script>
+<form id="accountForm" method="post">
+<input type="hidden" name="mode" value="regist"/>
+	<!--{?supportMarketList}-->
+	<ul class="market_tab popup">
+	<!--{@ supportMarketList}-->
+		<!--{? market == .key_}-->
+		<li class="active"><span onclick="#"><img src="../images/common/ico_connector_{.key_}.png" align="absmiddle" alt="{.name}"> {.name}</span></li>
+		<!--{ : }-->
+		<li><span onclick="marketChange('{.key_}')"><img src="../images/common/ico_connector_{.key_}.png" align="absmiddle" alt="{.name}"> {.name}</span></li>
+		<!--{ / }-->
+	<!--{ / }-->
+	</ul>
+	<!--{/}-->
+
+	<div class="item-title">계정 설정</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>판매 마켓</th>
+			<td>
+				<select name="mallSort" id="mallSort">
+					<option value="">분류선택</option>
+					<option value="1">오픈마켓</option>
+					<option value="2">종합쇼핑몰</option>
+					<option value="3">홈쇼핑</option>
+					<option value="4">전문쇼핑몰</option>
+					<option value="5">복지몰</option>
+					<option value="7">기타쇼핑몰</option>
+				</select>
+
+				<select name="linkageMall" id="linkageMall">
+					<option value="">마켓선택</option>
+				</select>	
+			</td>
+		</tr>	
+		<tr>
+			<th>아이디</th>
+			<td><input type="text" name="sellerId" id="sellerId" value=""/></td>
+		</tr>	
+
+		<tr id="masterId" style="display:none;">
+			<th>마스터 아이디</th>
+			<td><input type="text" name="masterId" id="masterId" value=""/></td>
+		</tr>	
+	</table>
+
+	<div class="item-title">판매 가격 설정</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>판매 가격</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="goodsPriceSet[adjustment][use]" class="goodsPriceSetAdjustmentUse variableCheck" value="N" checked/> 판매가격 동일</label>
+					<label>
+						<input type="radio" name="goodsPriceSet[adjustment][use]" class="goodsPriceSetAdjustmentUse variableCheck" value="Y"/>
+						판매 가격에
+						<input type="text" name="goodsPriceSet[adjustment][value]" class="priceAdjustmentUse" value="" style="width:50px" />					
+						<select name="goodsPriceSet[adjustment][unit]" class="priceAdjustmentUse" >
+							<option value="PER"> % </option>
+							<option value="CUR"> 원 </option>
+						</select>
+						<select name="goodsPriceSet[adjustment][type]" class="priceAdjustmentUse" >
+							<option value="PLUS">+</option>
+							<option value="MINUS">-</option>
+						</select>					
+					</label>
+				</div>
+			</td>
+		</tr>	
+		<tr class="goodsPriceSet_Y hide">
+			<th>금액 절사</th>
+			<td>
+				<label class="resp_checkbox">
+					<input type="checkbox" name="goodsPriceSet[cutting][use]" id="goodsPriceSetCuttingUse" class="priceAdjustmentUse" value="Y"/>
+					금액의
+					<select name="goodsPriceSet[cutting][unit]" class="priceCuttingUse" disabled>
+						<option value="10">일원</option>
+						<option value="100">십원</option>
+						<option value="1000">백원</option>
+					</select>
+					단위에서
+					<select name="goodsPriceSet[cutting][type]" class="priceCuttingUse" disabled>
+						<option value="DOWN">버림</option>
+						<option value="UP">올림</option>
+						<option value="ROUND">반올림</option>
+					</select>					
+				</label>
+			</td>
+		</tr>	
+	</table>
+
+	<div class="item-title">재고 설정</div>
+	<table class="table_basic thl">		
+		<tr>
+			<th>재고 수량</th>
+			<td>
+				<div class="resp_radio">
+					<label>
+						<input type="radio" name="goodsStockSet[adjustment][use]" class="goodsStockSetAdjustmentUse variableCheck" value="N" checked/>
+						재고 수량 동일
+					</label>
+					<label>
+						<input type="radio" name="goodsStockSet[adjustment][use]" class="goodsStockSetAdjustmentUse number" value="Y"/>					
+						<input type="text" name="goodsStockSet[adjustment][value]" class="stockAdjustmentUse" value="" style="width:50px" />
+						개
+					</label>
+				</div>
+			</td>
+		</tr>		
+	</table>
+
+	<div class="footer">
+		<button type="button" id="accountSetShoplinkerBtn" class="resp_btn active size_XL">추가</button>
+		<button type="button" onClick="closeDialog('shoplinker_setting_div');" class="resp_btn v3 size_XL">닫기</button>
+	</div>
+</form>
+
+	

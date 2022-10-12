@@ -1,0 +1,128 @@
+/*공통*/
+#container {width: 100%; height: 500%;padding-top:20px;}
+.jsgrid-table tr td a {text-decoration: underline;}
+
+.width-95per {width:95%}
+.width-90per {width:90%}
+.width-80per {width:80%}
+.width-50per {width:50%}
+.message-lay {position: relative; background-color: #d6d6d6; padding: 4px; margin: 10px 0; border-radius: 5px;}
+.grid-lay {background-color:#ffffff; border-right:0px solid #ccc;}
+.grid-wrap-lay-one {background-color: #C3C3C3; padding:5px; margin-top:5px;}
+.gird-text-overflow {overflow: hidden; text-overflow: ellipsis;}
+
+
+/*상품배포*/
+#distBottom {position: relative; width: 100%; height: 40px; background-color: #32323a;}
+#standByList {position: relative; width: calc(60% - 30px); height: 100%; float: left}
+#distributeList {position: relative; width: calc(40% - 30px); height: 100%; float: right}
+.distributor-message {width: calc(100% - 10px); height: calc(100% - 10px); padding: 5px; background-color: #F9F9F9;}
+.lay-title {width:100%; padding: 8px 0 5px 0; text-align: center; font-weight: bold; font-size: 15px;}
+.action-buttions {position: relative; background-color: #32323a;  height:40px; padding: 0 10px; margin: 5px 0 10px 0; border-radius: 5px; z-index:0}
+
+.action-buttions .buttons-left {position:relative; z-index:2; float:left; padding-top:8px; padding-left:5px;}
+.action-buttions .buttons-left li {display:inline;}
+.action-buttions .buttons-right {position:relative; z-index:2; float:right; padding-top:8px; padding-left:5px;}
+.action-buttions .buttons-right li {display:inline;}
+
+
+/*주문수집배포*/
+#orderList, #claimList, #marketQnaList  {position: relative; height: 100%;}
+.order-message,.claim-message {width: calc(100% - 20px); height: calc(100% - 20px); padding: 10px; background-color: #F9F9F9; font-size:15px; font-weight: bold; color: #0000FF;}
+
+
+/*배포 상품 리스트*/
+#marketProductList {position: relative; width: calc(100% - 410px); height: 400px; float: left}
+#marketProductLog {position: relative; width: 350px; height: 400px; float: right}
+.grid-wrap-lay:after {content:""; display:block; clear:both;}
+
+select.line {height:23px}
+
+/* 판매마켓 등록 */
+.market_regist {position:relative; min-height:600px;}
+.market_regist .icon {position:absolute; top:50%; left:50%; margin:-85px 0 0 -85px; width:170px; padding-top:130px; background:url('../images/common/ico_regist.png') no-repeat center top; text-align:center; font-size:14px; font-weight:bold; cursor:pointer;}
+.market_regist .icon2 {position:absolute; top:50%; left:50%; margin:-50px 0 0 -85px; width:170px; padding-top:100px; background:url('../images/common/ico_regist2.png') no-repeat center top; text-align:center; font-size:14px; font-weight:bold;}
+
+/* 판매마켓 탭메뉴*/
+.market_tab {margin:10px 0 20px; border-bottom:1px solid #d6d6d6; zoom:1;}
+.market_tab:after {clear:both; display:block; content:'';}
+.market_tab li {float:left; min-width:120px;}
+.market_tab.popup li {min-width:100px;}
+.market_tab li span {display:block; margin-bottom:-1px; border-top:1px solid #d6d6d6; border-right:1px solid #d6d6d6; line-height:30px; text-align:center; background:#eee; font-size:12px; font-weight:bold; color:#757575; cursor:pointer;}
+.market_tab li:first-child span {border-left:1px solid #d6d6d6;}
+.market_tab li.active span {border-bottom:1px solid #fff; background:#fff; color:#333;}
+
+/* 마켓 연동 설정 테이블 */
+.market-table-style {border-top:1px solid #aaa;}
+.market-table-style > tbody > tr > td {border:1px solid #dadada; border-top:none;}
+.market-table-style > tbody > tr > td:first-child {border-top:none; border-right:none;}
+.market-table-style .th-seller {border-bottom:1px solid #dadada; background:#f1f1f1; line-height:40px; padding-left:10px; text-align:left; font-weight:bold;}
+.market-table-style .th-setting {border-bottom:1px solid #dadada; background:#f1f1f1; line-height:40px; padding-left:15px; text-align:left; font-weight:bold; zoom:1;}
+.market-table-style .th-setting:after {clear:both; display:block; content:'';}
+.market-table-style .th-setting .set-btns {float:right; padding:10px 15px 0 0;}
+
+/* 판매자 아이디 */
+.market_seller dt {border-bottom:1px solid #d6d6d6; background:url('../images/common/ico_market.png') no-repeat right 0; line-height:40px; padding-left:10px; cursor:pointer;}
+.market_seller dt.active {background:url('../images/common/ico_market.png') no-repeat right -40px; font-weight:bold; color:#009ef7;}
+.market_seller dd {display:none;}
+.market_seller dd ul {border-bottom:1px solid #d6d6d6;}
+.market_seller dd li {line-height:32px; padding-left:30px; cursor:pointer;}
+.market_seller dd li.act {background:url('../images/common/ico_market.png') no-repeat left -80px;}
+.market_seller dd li.add {background:url('../images/common/ico_market.png') no-repeat left -112px;}
+.market_seller dd li.ctg {background:url('../images/common/ico_market.png') no-repeat left -144px;}
+.market_seller dd li.on {background-color:#e9e9e9; font-weight:bold;}
+.market_seller dd li:hover {background-color:#f1f1f1;}
+
+/* 판매마켓 설정 */
+.market_setting {padding:0 15px 20px;}
+.market_setting.popup {margin-top:-15px; padding:0;}
+.market_setting .account {border-bottom:1px solid #d6d6d6; padding:10px 0;}
+.market_setting .account:first-child {border-top:none;}
+.market_setting .account li {line-height:20px; padding:4px 0;}
+.market_setting .account li span.dt {display:inline-block; width:100px;}
+.market_setting .account li span.dt-auth {display:inline-block; width:100px;}
+.market_setting .th-title {padding:30px 0 10px 0; font-weight:bold;}
+.market_setting .th-title:first-child {padding-top:20px;}
+.market_setting .th-title .step {color:#009ef7;}
+.market_setting .market-btn {padding-top:20px; text-align:center;}
+
+#rightContentLay {min-height:630px; padding:0 10px;}
+
+/* swipe toggle ui */
+.btn-onoff {position:relative; width:60px; height:30px; padding:5px; box-sizing:border-box; background:url('../images/common/app-bg-settings-bg.png') no-repeat center top; background-size:100% 100%; box-shadow:0px 0px 10px rgba(256,256,256,0.3); border-radius:30px; cursor:pointer;}
+.btn-onoff.on {background:url('../images/common/app-bg-settings-bg-on.png') no-repeat center top; background-size:100% 100%;}
+.btn-onoff button {position:absolute; left:0; margin-left:5px; border:none; width:20px; height:20px; text-indent:-999em; cursor:pointer;}
+.btn-onoff .btn-off.on, .btn-onoff .btn-on.on {background:url('../images/common/app-btn-setting-ball.png') no-repeat center top; background-size:100% 100%;}
+
+.market_clause {width:calc(100% - 20px);}
+.helperLay p {line-height:20px;}
+
+/* 수정 (2017) */
+.search-form-container .market_search {margin-top:10px; background-color:#edf3f6; padding:5px 0;}
+.search-form-container .market_search .sf-option-table, .search-form-container .market_search2 .sf-option-table {width:750px; margin:0 auto;}
+.search-form-container .market_search2 {margin:15px 0 0 0;}
+.search-form-container .market_search3 .sf-option-table {width:880px; margin:0 auto;}
+.search-form-container .market_search3 {margin:15px 0 5px;}
+.search-form-container .market_btn {width:90px; cursor:pointer;}
+#container {padding-top:0;}
+.grid-lay {margin-bottom:0; border-top:0; background:#fff;}
+.grid-wrap-lay-one {margin:0; background:#fff; padding:0;}
+#orderList, #claimList {width:calc(100% - 0px);}
+.message-lay {margin:0; height:100px; border:1px solid #ccc; border-radius:0; background:#ccc; padding:0;}
+.message-lay .distributor-message {width:calc(100% - 20px); height:calc(100% - 20px); padding:10px;}
+
+#standByList {width:calc(60% - 10px);}
+#distributeList {width:calc(40% - 10px);}
+#marketProductList {width:calc(70% - 10px);}
+#marketProductLog {width:calc(30% - 10px);}
+.action-buttions {position:relative; height:auto; background:#fff; padding:0; margin:0; border-radius:0px; z-index:0;}
+.action-buttions .buttons-left {padding:15px 0 5px 5px;}
+.action-buttions .buttons-right {padding:15px 0 5px 0;}
+.jsgrid-grid-header {border:0;}
+.jsgrid-header-row > th {border-bottom:1px solid #dadada; background:#f6f6f6 /*url('/admin/skin/default/images/common/th_bg_l.gif') repeat-x*/; font-weight:normal; padding:8px 0;}
+.jsgrid-nodata-row > td {padding:20px 0;}
+#container .paging_navigation {margin:20px auto;}
+
+.jsgrid-alt-row > td, .jsgrid-row > td {text-align:center;}
+.jsgrid-grid-body{border-left: 0px solid #ccc; border-bottom: 0px solid #dadada;}
+.jsgrid-grid-header{border-top: 1px solid #ccc;}

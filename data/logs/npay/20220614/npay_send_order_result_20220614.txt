@@ -1,0 +1,139 @@
+[2022-06-14 09:50:36.689146000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [result] => true
+            [order_insert] => 
+            [order_seq] => 2022060913554917531
+            [npay_order_id] => 2022060919035441
+            [npay_product_order_id] => 2022060965476350
+            [goods_seq] => 1881
+            [option_type] => option
+            [package_yn] => y
+            [payment] => 신용카드 간편결제
+            [is_receiver_changed] => false
+            [is_payed_shipping] => n
+            [message] => Array
+                (
+                    [0] => 주문 조회 시작
+                    [1] => fm_order 주문서 존재함
+                    [2] => fm_order_shipping 존재함 (6893)
+                    [3] => fm_order_item 주문상품 존재함 (10449)
+                    [4] => fm_order_item_option 주문상품 옵션 존재함 (12571)
+                )
+
+            [old_step] => 65
+            [step] => 75
+            [npay_status] => PURCHASE_DECIDED
+            [npay_claimtype] => 
+            [npay_claimstatus] => 
+            [request_timestamp] => 2022-06-14T00:45:08.653Z3505
+        )
+
+    [order_shipping_cost] => Array
+        (
+            [2022060913554917531] => Array
+                (
+                    [2022060965476350] => Array
+                        (
+                            [cnt] => 1
+                        )
+
+                    [settleprice] => 23500
+                    [npayAmount] => 23500
+                )
+
+        )
+
+)
+
+
+[2022-06-14 17:49:00.617722000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [result] => true
+            [order_insert] => 1
+            [order_seq] => 2022061417490017530
+            [npay_order_id] => 2022061436078451
+            [npay_product_order_id] => 2022061462445310
+            [goods_seq] => 2769
+            [option_type] => option
+            [package_yn] => y
+            [payment] => 신용카드 간편결제
+            [is_receiver_changed] => false
+            [is_payed_shipping] => n
+            [message] => Array
+                (
+                    [0] => 주문 조회 시작
+                    [1] => fm_order insert success
+                    [2] => fm_order_shipping insert success (6899)
+                    [3] => fm_order_item insert success (10461)
+                    [4] => fm_order_item_option insert success (12587)
+                )
+
+            [old_step] => 
+            [step] => 25
+            [npay_status] => PAYED
+            [npay_claimtype] => 
+            [npay_claimstatus] => 
+            [request_timestamp] => 2022-06-14T08:40:06.324Z4465
+        )
+
+    [1] => Array
+        (
+            [result] => true
+            [order_insert] => 
+            [order_seq] => 2022061417490017530
+            [npay_order_id] => 2022061436078451
+            [npay_product_order_id] => 2022061462445320
+            [goods_seq] => 2778
+            [option_type] => option
+            [package_yn] => y
+            [payment] => 신용카드 간편결제
+            [is_receiver_changed] => false
+            [is_payed_shipping] => n
+            [message] => Array
+                (
+                    [0] => 주문 조회 시작
+                    [1] => fm_order 주문서 존재함
+                    [2] => fm_order_shipping 존재함 (6899)
+                    [3] => fm_order_item insert success (10462)
+                    [4] => fm_order_item_option insert success (12588)
+                )
+
+            [old_step] => 
+            [step] => 25
+            [npay_status] => PAYED
+            [npay_claimtype] => 
+            [npay_claimstatus] => 
+            [request_timestamp] => 2022-06-14T08:40:06.324Z4465
+        )
+
+    [order_shipping_cost] => Array
+        (
+            [2022061417490017530] => Array
+                (
+                    [2022061462445310] => Array
+                        (
+                            [cnt] => 1
+                        )
+
+                    [settleprice] => 34600
+                    [npayAmount] => 34600
+                    [2022061462445320] => Array
+                        (
+                            [cnt] => 1
+                        )
+
+                )
+
+        )
+
+)
+
+

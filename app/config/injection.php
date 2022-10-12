@@ -1,0 +1,3 @@
+<?php
+$config['injection_pattern'] = "\<script|delete[[:space:]]+from|drop[[:space:]]+database|drop[[:space:]]+table|drop[[:space:]]+column|drop[[:space:]]+procedure|create[[:space:]]+table|union[[:space:]]+all|union[[:space:]]+select|update.+set.+=|insert[[:space:]]+into.+values|select.+from|bulk[[:space:]]+insert|or[[:space:]]*[0-9‘’`]+[[:space:]]*=[[:space:]]*[0-9‘’`]+|alter[[:space:]]+table|into[[:space:]]+outfile|\/\*|\*\/|sleep\([0-9]+\)";
+// end file

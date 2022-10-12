@@ -1,0 +1,146 @@
+<div style="font-weight:bolder;font-size:16pt;margin:10px 0;text-align:center;">Purchase Order</div>
+<table cellpadding="0" cellspacing="0" border="0" align="right"><tbody>
+<tr><td style="text-align:left;">PO Number</td><td style="text-align:left;padding-left:10px;"><b>{sorder_code}</b></td></tr>
+<tr><td style="text-align:left;">PO Date</td><td style="text-align:left;padding-left:10px;">{=date('F d, Y', strtotime(sorder_complite))}</td></tr>
+</tbody></table>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<colgroup>
+	<col width="20%">
+	<col width="30%">
+	<col width="20%">
+	<col>
+</colgroup>
+<thead>
+<tr><th colspan="2" style="height:30px;text-align:left;font-weight:bold;font-size:14pt;">Ordered By</th>
+<th colspan="2" style="height:30px;text-align:left;font-weight:bold;font-size:14pt;">Deliver To</th></tr>
+</thead>
+<tbody>
+<tr><td style="height:20px;">Buyer Company name</td><td>{basic.shopName}</td>
+<td style="height:20px;">Seller Company name</td><td>{trader.trader_name}</td></tr>
+<tr><td style="height:20px;">Street Address</td><td></td>
+<td style="height:20px;">Street Address</td><td></td></tr>
+<tr><td style="height:20px;">City</td><td></td>
+<td style="height:20px;">City</td><td></td></tr>
+<tr><td style="height:20px;">Country</td><td></td>
+<td style="height:20px;">Country</td><td></td></tr>
+<tr><td style="height:20px;">Postcode</td><td></td>
+<td style="height:20px;">Postcode</td><td></td></tr>
+<tr><td style="height:20px;">Tel : </td><td>{basic.companyPhone}</td>
+<td style="height:20px;">Tel : </td><td>{trader.phone_number}</td></tr>
+<tr><td style="height:20px;">Fax : </td><td>{basic.companyFax}</td>
+<td style="height:20px;">Fax : </td><td>{trader.fax_number}</td></tr>
+<tr><td style="height:20px;">Email : </td><td>{basic.companyEmail}</td>
+<td style="height:20px;">Email : </td><td>{trader.email}</td></tr>
+</tbody>
+</table>
+
+<div style="text-align:left;margin:10px 0;">Gentlemen ;</div>
+
+<div style="text-align:left;margin:3px 0;">
+<ul>
+	<li style="line-height:25px;">Please kindly supply the following goods under the terms and conditions as below :</li>
+	<li style="line-height:25px;">1. Origin :&nbsp;<span style="color: rgb(0, 0, 0); font-family: 돋움, Dotum, AppleGothic, sans-serif;">Made in U.S.A</span></li>
+	<li style="line-height:25px;">2. Shipping Port :&nbsp;<span style="color: rgb(0, 0, 0); font-family: 돋움, Dotum, AppleGothic, sans-serif;">New York Port, U.S.A</span></li>
+	<li style="line-height:25px;">3. Destination :&nbsp;<span style="color: rgb(0, 0, 0); font-family: 돋움, Dotum, AppleGothic, sans-serif;">Busan Port, Korea</span></li>
+</ul>
+</div>
+
+<div style="margin:10px 0;">
+	<table style="border-top:1px solid #aaa; border-right:1px solid #dadada;width:100%;">
+	<colgroup>
+		<col width="20%">
+		<col width="30%">
+		<col>
+		<col width="20%">
+	</colgroup>
+	<thead>
+	<tr>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>SHIPPING DATE</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>SHIPPING TERMS</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>PAYMENT TERMS</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>CURRENCY</b></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:center;">{shipping_date}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:center;">{trade_terms}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:center;">{payment_date}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:center;">{currency}</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+<div style="margin:10px 0;">
+	<table style="border-top:1px solid #aaa; border-right:1px solid #dadada;width:100%;">
+	<colgroup>
+		<col width="5%">
+		<col width="15%">
+		<col>
+		<col width="13%">
+		<col width="17%">
+		<col width="20%">
+	</colgroup>
+	<thead>
+	<tr>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>No.</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>CODE</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>DESCRIPTION OF GOODS</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>QUANTITY</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>UNIT PRICE</b></th>
+		<th style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:8px 0px 8px 0; background-color:#f1f1f1; font-weight:normal;text-align:center;"><b>AMOUNT</b></th>
+	</tr>
+	</thead>
+	<tbody>
+	<!--{ @ goodsData }-->
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:center;">{.index_ + 1}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:left;padding-left:5px;">{.goods_code}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:left;padding-left:5px;">{.goods_name} {.option_name}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">{=number_format(.ea)}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">{=number_format(.supply_price,2)}</td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">{=number_format(.supply_price * .ea,2)}</td>
+	</tr>
+	<!--{ / }-->
+	</tbody>
+	<tfoot>
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right; pdr10" colspan="5"><b>SUBTOTAL</b></td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">{=number_format(total_goods_price,2)}</td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right; pdr10" colspan="5"><b>TAX</b></td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;"></td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right; pdr10" colspan="5"><b>SHIPPING</b></td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">
+		<!--{ ? trade_terms != 'CIN' }-->
+			{=number_format(total_freight_price, 2)}
+		<!--{ / }-->
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right; pdr10" colspan="5"><b>OTHER</b></td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">
+		<!--{ ? trade_terms != 'CFR' }-->
+			{=number_format(total_insurance_price, 2)}
+		<!--{ / }-->
+		</td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right; pdr10" colspan="5"><b>TOTAL AMOUNT</b></td>
+		<td style="border-left:1px solid #dadada; border-bottom:1px solid #dadada; padding:5px 0 5px 0; line-height:180%; letter-spacing:0px;text-align:right;padding-right:5px;">
+	<!--{ ? trade_terms == 'CFR' }-->
+			{=number_format(total_goods_price + total_freight_price, 2)}
+	<!--{ : trade_terms == 'CIN' }-->
+			{=number_format(total_goods_price + total_insurance_price, 2)}
+	<!--{ : }-->
+			{=number_format(total_goods_price + total_freight_price + total_insurance_price, 2)}
+	<!--{ / }-->
+		</td>
+	</tr>
+	</tfoot>
+	</table>
+</div><p><br></p>

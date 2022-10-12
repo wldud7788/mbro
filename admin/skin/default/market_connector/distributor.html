@@ -1,0 +1,103 @@
+{ #layout_header }
+<style>
+body{overflow: auto;}
+</style>
+<script type="text/javascript">
+	var seller_id	= '';
+	var marketObj	= {marketsObj};
+	var shopName	= '{=strip_tags(addslashes(config_basic.shopName))}';
+
+	//객체동결(변경금지)
+	Object.freeze(marketObj);
+</script>
+
+<form name="processFrom" id="processFrom" method="get" action="/admin/market_connector/market_setting">
+	<input type="hidden" name="pageMode" value="{pageMode}" />
+	<input type="hidden" name="searchMarket" value="" />
+	<input type="hidden" name="detailMarket" value="" />
+	<input type="hidden" name="accountSeq" value="" />
+	<input type="hidden" name="chkSeq" value="" />
+	<input type="hidden" name="linkMode" value="" />
+	<input type="hidden" name="groupId" value="" />				
+</form>
+
+<style>
+	.jsgrid-table { width: 100% !important; word-break: break-word;}
+</style>
+
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!--ul class="page-buttons-left">
+			<li>
+				<span class="btn large red"><button onclick="location.href='event_view?mode=sale_event';">전체 이벤트 페이지 설정</button></span>
+			</li>
+		</ul-->
+		
+		<!-- {? MarketLinkage.shopCode == 'shoplinker'} -->
+		<div class="page-buttons-right">
+			{#scm_login}
+		</div>
+		<!-- { / } -->		
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>상품 등록</h2>
+		</div>		
+
+	</div>
+</div>
+<!-- //페이지 타이틀 바 -->
+
+<!--div id="distTop" class="search-form-container" style=""></div-->
+<!-- //검색폼 -->
+<div id="container">
+	<input type="hidden" name="page" id="page" value="{params.page}"/>
+	<input type="hidden" name="limit" id="limit" value="100" />
+	<input type="hidden" name="totalCount" id="totalCount" value="0" />
+	
+	<div id="standByList" class="grid-wrap-lay mt20">
+		<div class="contents_dvs v2 mt0">
+
+			<div class="item-title">등록 대기 상품</div>			
+			<div class="table_row_frame">	
+				<div class="dvs_top">	
+					<div class="dvs_left">	
+						<button type="button" onclick="distDelete()" class="resp_btn v3">선택 삭제</button>
+					</div>
+					<div class="dvs_right">	
+						<button  id="distProductAdd" type="button" class="resp_btn active">상품추가</button>
+						<button id="distStart" onClick="distStart();" type="button" class="resp_btn v2">배포시작</button>
+					</div>
+				</div>
+
+				<div id="standByGrid" class="grid-lay"></div>					
+			</div>					
+		</div>
+		<div id="pagingNavigation" class="paging_navigation"></div>
+	</div>	
+
+	<div id="distributeList" class="grid-wrap-lay mt20">
+		<div class="contents_dvs v2 mt0">
+			<div class="item-title">등록 결과</div>
+			<div class="table_row_frame">	
+				<div class="dvs_top">
+					
+					<div class="dvs_right">	
+						<button type="button" id="distPause" onClick="distPause();"  class="resp_btn v2">일시중지</button>
+						<button type="button" id="distStop" onClick="distStop();"  class="resp_btn v2">배포중지</button>
+					</div>
+				</div>
+
+				<div id="resultGrid" class="grid-lay"></div>
+			</div>			
+			<div class="item-title">로그</div>
+			<div class="message-lay"><div id="message" class='distributor-message'></div></div>
+		</div>
+	</div>
+</div>	
+
+<!--div id="distBottom" class="grid-lay"></div-->
+<div id="lay_goods_select"></div><!-- 상품선택 레이어 -->
+{# distributor}
+
+{ #layout_footer }

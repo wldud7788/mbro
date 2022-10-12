@@ -1,0 +1,254 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 티켓 사용 @@
+- 파일위치 : [스킨폴더]/mypage/coupon_use.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<form name="frmCoupon" method="post" action="../mypage_process/usecoupon" target="actionFrame" onsubmit="return useCouponSubmit(this);">
+<input type="hidden" name="version" value="3.0" />
+<input type="hidden" name="usetype" id="usetype" value="{usetype}" />
+<input type="hidden" name="export_code" value="{coupon.export_code}" />
+<input type="hidden" name="coupon_serial" value="{coupon.coupon_serial}" />
+
+<div class="resp_pop_layout">
+	<!-- 탭 -->
+	<div class="tab_basic size1">
+		<ul>
+			<li class="on">
+				<a href="javascript:void(0);" class="cp_tap" usetype="one"><span designElement="text">1장 사용</span></a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="cp_tap" usetype="multi"><span designElement="text">여러 장 사용</span></a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 티켓정보 -->
+	<div class="coupon_info Hauto">
+		<div class="coupon_name">{item.goods_name}</div>
+		<div class="coupon_option">{coupon.coupon_start_date} ~ {coupon.coupon_end_date}</div>
+		<!--{? usetype == 'one'}-->
+		<div class="coupon_serial">{coupon.coupon_serial}</div>
+		<!--{ / }-->
+	</div>
+
+	<div class="coupon_detail">
+		{coupon.coupon_start_date} ~ {coupon.coupon_end_date}<br/>
+		<!--{? usetype == 'multi'}-->
+		티켓 1장 당
+		<!--{ / }-->
+		총 {=number_format(coupon.coupon_value)}{coupon.coupon_unit} 중 {=number_format(coupon.coupon_remain_value)}{coupon.coupon_unit} 사용가능
+	</div>
+
+	<!-- 티켓 사용 정보 -->
+	<div class="table_top_line1"></div>
+	<table class="table_row_a" cellpadding="0" cellspacing="0">
+	<colgroup><col width="84"><col></colgroup>
+	<tbody>
+	<!--{? usetype == 'multi'}-->
+		<!--{? max_coupon >= 1 }-->
+		<tr>
+			<th scope="row"><p>사용 장수</p></th>
+			<td>
+				<select name="multi_use_coupon" id="multi_use_coupon" class="M">
+				<!--{ @ range(1, max_coupon) }-->
+				<option value="{.value_}" {? max_coupon == .value_}selected{/} style="text-align:center;">{.value_}</option>
+				<!--{ / }-->
+			</select> 장
+			</td>
+		</tr>
+		<!--{ : }-->
+		<tr>
+			<th scope="row"><p>사용 장수</p></th>
+			<td>
+				<select name="multi_use_coupon" id="multi_use_coupon" class="M">
+					<option value="0">0</option>
+				</select> 장
+			</td>
+		</tr>
+		<!--{ / }-->
+	<!--{ / }-->
+		<tr>
+			<th scope="row"><p>사용 회수</p></th>
+			<td>
+				<input type="text" name="use_coupon_value" id="use_coupon_value" style="width:60px;" value="{?_GET.use_coupon_value && coupon.coupon_remain_value>=_GET.use_coupon_value}{_GET.use_coupon_value}{:}{coupon.coupon_remain_value}{/}" /> {coupon.coupon_unit}
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><p>사용 장소</p></th>
+			<td>
+				<select name="use_coupon_area" id="use_coupon_area">
+					<option value="">사용장소(매장)</option>
+				<!--{ ? address }-->
+					<!--{ @ address }-->
+					<option value="{.value_}" {?_GET.use_coupon_area==.value_}selected{/}>{.value_}</option>
+					<!--{ / }-->
+				<!--{ / }-->
+					<option value="direct" {?_GET.use_coupon_area=='direct'}selected{/}>직접입력</option>
+				</select>
+
+				<div id="use_coupon_area_direct_area" class="Mt5" style="display:none;">
+					<input type="text" name="use_coupon_area_direct" id="use_coupon_area_direct" class="size_full" title="사용처를 직접 입력해 주세요" value="{_GET.use_coupon_area_direct}" />
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><p>메모</p></th>
+			<td><input type="text" name="use_coupon_memo" id="use_coupon_memo" class="size_full" title="메모를 남겨주세요" value="{_GET.use_coupon_memo}" /></td>
+		</tr>
+		<tr>
+			<th scope="row"><p>확인 코드</p></th>
+			<td><input type="text" name="manager_code" id="manager_code" class="size_full" title="확인코드를 입력해 주세요" value="{_GET.manager_code}"/></td>
+		</tr>
+	</tbody>
+	</table>
+
+	<!--{? max_coupon > 1 && usetype != 'multi'}-->
+	<div class="Pt15 C pointcolor2">
+		<label for="next_coupon"><input type="checkbox" name="next_coupon" id="next_coupon" value="1" checked /> 동일한 티켓을 계속 인증하여 사용합니다.</label>
+	</div>
+	<!--{ / }-->
+	<!--{? usetype == 'multi'}-->
+	<div class="Pt15 C pointcolor2">
+		<strong id="multi_coupon_cnt">{? max_coupon >= 1}{max_coupon}{:}0{/}</strong>장의 티켓을 사용합니다.
+	</div>
+	<!--{ / }-->
+
+	<div class="btn_area_b">
+	<!--{ ? chk.result == 'success' }-->
+		<!--{ ? (max_coupon >= 1 && usetype == 'multi') || usetype == 'one' }-->
+		<button type="submit" class="btn_resp size_c color2">티켓 사용</button>
+		<!--{ : }-->
+		<button type="button" class="btn_resp size_c color5" disabled>티켓 사용</button>
+		<!--{ / }-->
+	<!--{ : }-->
+		<button type="button" class="btn_resp size_c color5" disabled>티켓 사용</button>
+	<!--{ / }-->
+	</div>
+
+</div>
+</form>
+
+<div id="ajaxLoadingLayer"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 탭 멀티 쿠폰 사용
+		$(".cp_tap").bind('click', function(){
+			var sel_usetype = $(this).attr('usetype');
+			location.replace('./coupon_use?code={_GET.code}&scode={_GET.scode}&popup=1&usetype='+sel_usetype);
+		});
+		// 사용장소
+		$("#use_coupon_area").bind('change', function(){
+			$("#use_coupon_area_direct_area").hide();
+			if	($("#use_coupon_area option:selected").val() == 'direct'){
+				$("#use_coupon_area_direct").val('');
+				$("#use_coupon_area_direct_area").show();
+			}
+		});
+		// 사용 횟수 및 금액 결정
+		$("#use_coupon_value").bind('change', function(){
+			var remain_val = "{coupon.coupon_remain_value}";
+			if(parseInt($("#use_coupon_value").val()) > parseInt(remain_val)){
+				//최대 '+remain_val+'{coupon.coupon_unit} 사용 가능합니다.
+				alert(getAlert('mp100',remain_val+'{coupon.coupon_unit}'));
+				$("#use_coupon_value").val('{coupon.coupon_remain_value}');
+			}
+		});
+
+		// 여러장 사용 시
+		$("#multi_use_coupon").bind('change', function(){
+			$("#multi_coupon_cnt").html($(this).val());
+		});
+
+		// 사용금지 처리
+		{? max_coupon < 1 && usetype == 'multi'}
+		disable_coupon();
+		{ / }
+
+		// 직접 입력시 처리
+		{? _GET.use_coupon_area == 'direct' }
+		$("#use_coupon_area_direct_area").show();
+		{ / }
+
+		// 티켓사용 버튼
+		sel_chk_type();
+	});
+
+	// 쿠폰 타입 결정
+	function sel_chk_type(){
+		var sel_use_type = $("#usetype").val();
+		var use_type = '';
+		$(".cp_tap").each(function (){
+			use_type = $(this).attr('usetype');
+			if(use_type == sel_use_type){
+				$(this).parent('li').addClass('on');
+			}else{
+				$(this).parent('li').removeClass('on');
+			}
+		});
+	}
+
+	// 쿠폰 사용 금지처리
+	function disable_coupon(){
+		$("#use_coupon_value").val(0);
+		$("#use_coupon_value").attr("disabled",true);
+		$("#use_coupon_area").attr("disabled",true);
+		$("#use_coupon_area_direct").attr("disabled",true);
+		$("#use_coupon_memo").attr("disabled",true);
+		$("#manager_code").attr("disabled",true);
+	}
+
+	function focusCouponSerial(obj){
+		if	($(obj).val() == $(obj).attr('title'))
+			$(obj).val('');
+	}
+
+	// 쿠폰 사용하기
+	function useCouponSubmit(fObj){
+
+		focusCouponSerial($("#use_coupon_memo"));
+
+		var coupon_value	= $("#use_coupon_value").val();
+		if	(!coupon_value || coupon_value == 0){
+			{ ? coupon.coupon_unit == '원' }
+			//쿠폰 사용금액을 입력해 주세요.
+			openDialogAlert(getAlert('mp101'), 400, 150);
+			{ : }
+			//쿠폰 사용횟수를 입력해 주세요.
+			openDialogAlert(getAlert('mp102'), 400, 150);
+			{ / }
+			return false;
+		}
+
+		if	(coupon_value.search(/[^0-9]/) != -1){
+			{ ? coupon.coupon_unit == '원' }
+			//쿠폰 사용금액은 숫자로 입력해 주세요.
+			openDialogAlert(getAlert('mp103'), 400, 150);
+			{ : }
+			//쿠폰 사용횟수는 숫자로 입력해 주세요.
+			openDialogAlert(getAlert('mp104'), 400, 150);
+			{ / }
+			return false;
+		}
+
+		if	(!$("#use_coupon_area option:selected").val() || ($("#use_coupon_area option:selected").val() == 'direct' && !$("#use_coupon_area_direct").val())){
+			//사용장소를 선택(입력)해 주세요.
+			openDialogAlert(getAlert('mp105'), 400, 150);
+			return false;
+		}
+
+		if	(!$("#manager_code").val() || $("#manager_code").val().search(/[^0-9a-zA-Z]/) != -1){
+			//확인코드를 정확히 입력해 주세요.
+			openDialogAlert(getAlert('mp106'), 400, 150);
+			return false;
+		}
+
+		loadingStart();
+		return true;
+	}
+
+	{ ? err_msg }
+	alert("{ err_msg }");
+	self.close();
+	{ / }
+</script>

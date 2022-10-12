@@ -1,0 +1,43 @@
+<form>
+	<div align="center">
+	<table class="sf-option-table">
+		<colgroup>
+			<col width="" />
+			<col width="{? selected_sales_menu == 'sales_monthly' }180{:}250{/}" />
+		</colgroup>
+	<tr>
+		<td>
+			{? selected_sales_menu == 'sales_monthly' }
+				<select name="year">
+				<option value="">= 연도 선택 =</option>
+				{@range(date('Y'),2010)}
+					<option value="{.value_}" {?_GET.year==.value_}selected{/}>{.value_} 년</option>
+				{/}
+				</select>
+
+				<span class="btn small"><input type="submit" value="검색" /></span>
+				<span class="helpicon" title="배송완료일 기준입니다"></span>
+			{:}
+				<select name="year">
+				<option value="">= 연도 선택 =</option>
+				{@range(date('Y'),2010)}
+					<option value="{.value_}" {?_GET.year==.value_}selected{/}>{.value_} 년</option>
+				{/}
+				</select>
+
+				<select name="month">
+				<option value="">= 월 선택 =</option>
+				{@range(12,1)}
+					<option value="{.value_}" {?_GET.month==.value_}selected{/}>{.value_} 월</option>
+				{/}
+				</select>
+
+				<span class="btn small"><input type="submit" value="검색" /></span>
+				<span class="helpicon" title="배송완료일 기준입니다"></span>
+			{/}
+		</td>
+	</tr>
+	</table>
+	</div>
+
+</form>

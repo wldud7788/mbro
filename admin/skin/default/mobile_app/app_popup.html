@@ -1,0 +1,144 @@
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var popup_type = '{=popup_type}';
+	popup_style_view(popup_type);
+
+	$(".realtime_txt").on('change', function(){
+		var chg_txt		= $(this).val().replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		var txt_type	= $(this).attr('txt_type');
+		if(txt_type == 'coupon_unit'){
+			if(chg_txt == 'per')	chg_txt = '%';
+			else					chg_txt = '원';
+		}
+		$("."+txt_type).html(chg_txt);
+	});
+});
+
+// 타입에 따른 화면 설정
+function popup_style_view(popup_type){
+	$(".popup_style").hide();
+	$(".type_view").hide();
+	$("#div_"+popup_type).show();
+	$("."+popup_type).show();
+}
+
+// 앱설치 권장 팝업 미리보기 적용
+function popup_style_set(){
+	var pop_obj = $("#div_{=popup_type}").html();
+	$("#preview_area").html(pop_obj);
+
+	var name	= null;
+	var value	= null;
+	var input	= null;
+	$(".realtime_txt").each(function(idx, obj){
+		name	= $(this).attr('name');
+		value	= $(this).val().replace('<br/>', '\r\n');
+		input	= '<input type="hidden" name="'+name+'" value="'+value+'"/>';
+		$("#preview_area").append(input);
+	});
+	$("#preview_area").append('<input type="hidden" name="new_popup_type" value="{=popup_type}"/>');
+	$("#preview_area").append('<textarea name="pop_html" style="display:none;">'+pop_obj+'</textarea>');
+	closeDialog("popupImg_lay");
+}
+</script>
+<div class="content">
+	<div class="item-title">팝업 이미지 설정</div>
+	<table class="table_basic thl">
+		<tr>
+			<th>스타일</th>
+			<td>{=popup_type_txt}</td>
+		</tr>
+
+		<tr>
+			<th>제목</th>
+			<td>
+				<input type="text" name="pop_title" id="pop_title" class="realtime_txt" value="{=pop_title}"  size='52' txt_type="tit" />
+			</td>
+		</tr>
+
+		<tr class="type_view img_a img_b">
+			<th>설명</th>
+			<td>
+				<textarea name="pop_subtitle" id="pop_subtitle" class="realtime_txt wid-input line" cols="50" rows="3" txt_type="txt">{=pop_subtitle}</textarea>
+			</td>
+		</tr>
+
+		<tr class="type_view img_a">
+			<th>할인율</th>
+			<td>
+				<input type="text" name="pop_sale" id="pop_sale" class="realtime_txt line" value="{=pop_sale}" size="7" txt_type="coupon_txt" />
+				<select name="pop_sale_unit" class="realtime_txt" txt_type="coupon_unit">
+					<option value="per">%</option>
+					<option value="won">원</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<th>하단 버튼</th>
+			<td>
+				<div class="type_view img_a">
+					<input type="text" name="pop_footer_txt" id="pop_footer_txt" class="realtime_txt wid-input line" size='52' value="{=pop_footer_txt}" txt_type="popup_style_close_day" />
+				</div>
+				<div>
+					<input type="text" name="pop_footer_close" id="pop_footer_close" class="realtime_txt wid-input line" size='52' value="{=pop_footer_close}" txt_type="popup_style_close" />
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<th>미리 보기</th>
+			<td>
+				<!-- img_a 팝업 스타일 -->
+				<div class="popup_style hide" id="div_img_a">
+					<div class="popWrap popWrap-border">
+						<div class="cont hand" onclick="appClosepopup('set');">
+							<div class="tit">{=pop_title}</div>
+							<div class="txt"><pre>{=pop_subtitle}</pre></div>
+							<div class="coupon">
+								<div class="coupon_lay">
+									<span class="coupon_txt">{=pop_sale}</span><span class="coupon_unit">{?pop_sale_unit=='per'}%{:}원{/}</span>
+								</div>
+							</div>
+						</div>
+						<ul class="bont">
+							<li>
+								<span class="hand popup_style_close_day" onclick="appClosepopup('day');">{=pop_footer_txt}</span>
+							</li>
+							<li><a class="hand popup_style_close" onclick="appClosepopup('close');">{=pop_footer_close}</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- img_b 팝업 스타일 -->
+				<div class="popup_style hide" id="div_img_b">
+					<div class="popWrap popWrap-border">
+						<div class="cont bg hand" onclick="appClosepopup('set');">
+							<div class="tit">{=pop_title}</div>
+							<div class="txt"><pre>{=pop_subtitle}</pre></div>
+						</div>
+						<div class="bont bg">
+							<a class="hand popup_style_close" onclick="appClosepopup('day');">{=pop_footer_close}</a>
+						</div>
+					</div>
+				</div>
+				<!-- btn 팝업 스타일 -->
+				<div class="popup_style hide" id="div_btn">
+					<div class="popBtn">
+						<div class="m_btn1 hand" onclick="appClosepopup('set');">
+							<a class="tit">{=pop_title}</a>
+						</div>
+						<div class="m_btn2 hand" onclick="appClosepopup('day');">
+							<a class="popup_style_close">{=pop_footer_close}</a>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>		
+	</table>
+</div>
+
+<div class="footer">
+	<button onclick="popup_style_set();" class="resp_btn active size_XL">저장</button>
+	<button onclick="closeDialog('popupImg_lay');"class="resp_btn v3 size_XL">취소</button>
+</div>

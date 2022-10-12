@@ -1,0 +1,47 @@
+<!--{ ? target_info }-->
+<table class="info-table-style" width="100%" cellspacing="0" cellpadding="0" id="inner_html">
+<colgroup>
+	<col width="30%" />
+	<col width="*" />
+</colgroup>
+<thead class="lth">
+<tr>
+	<th class="its-th-align">기본</th>
+	<td class="its-td-align center">
+		<!--{? target_info.node_gnb_type == 'image'}-->
+			<!--{? target_info.node_gnb_image_normal != ''}-->
+			<span class="btn small gray"><button type="button" class="imgPopup" value="{= target_info.node_gnb_image_normal}">이미지</button></span>
+			<!--{:}-->
+			이미지 없음
+			<!--{/}-->
+		<!--{: target_info.node_gnb_type == 'text'}-->
+			{=target_info.node_gnb_text_normal}
+		<!--{/}-->
+	</td>
+</tr>
+</thead>
+<tbody class="ltb">
+<tr>
+	<th class="its-th-align">마우스오버</th>
+	<td class="its-td-align center">
+		<!--{? target_info.node_gnb_type == 'image'}-->
+		<!--{? target_info.node_gnb_image_over != ''}-->
+			<span class="btn small gray"><button type="button" class="imgPopup" value="{= target_info.node_gnb_image_over}">이미지</button></span>
+			<!--{:}-->
+			이미지 없음
+			<!--{/}-->
+		<!--{: target_info.node_gnb_type == 'text'}-->
+			{=target_info.node_gnb_text_over}
+		<!--{/}-->
+	</td>
+</tr>
+</tbody>
+</table>
+<!--{ : }-->
+잘못된 접근입니다.
+<!--{ / }-->
+<script type="text/javascript">
+	$(document).ready(function(){
+		bindImagePopup();
+	});
+</script>

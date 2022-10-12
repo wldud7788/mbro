@@ -1,0 +1,44 @@
+[2022-06-18 07:50:07.472652000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [totalcnt] => 2
+    [general] => Array
+        (
+            [0] => Array
+                (
+                    [CreateYmdt] => 2022-06-17T22:35:40.27Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 2769
+                    [ProductName] => 인생닭 닭가슴살 소시지 훈제맛 100g 10팩
+                    [ProductOption] => 제품: 10팩
+                    [ProductOrderID] => 2022061462445310
+                    [PurchaseReviewId] => 4023569126
+                    [PurchaseReviewScore] => 2
+                    [Title] => 너무맛있어요 갓성비 갑
+                    [WriterId] => Qca7fwyc5hCtbrvfWoTH4g==
+                    [timestamp] => 2022-06-17T22:49:05.933Z1927
+                    [PurchaseReviewScore_new] => 5
+                )
+
+            [1] => Array
+                (
+                    [CreateYmdt] => 2022-06-17T22:35:59.03Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 2778
+                    [ProductName] => 인생닭 닭가슴살 소시지 볶음양파맛 100g 10팩
+                    [ProductOption] => 제품: 10팩
+                    [ProductOrderID] => 2022061462445320
+                    [PurchaseReviewId] => 4023569177
+                    [PurchaseReviewScore] => 2
+                    [Title] => 식욕 없을때 영양보충 짱
+                    [WriterId] => Qca7fwyc5hCtbrvfWoTH4g==
+                    [timestamp] => 2022-06-17T22:49:05.933Z1927
+                    [PurchaseReviewScore_new] => 5
+                )
+
+        )
+
+)
+
+

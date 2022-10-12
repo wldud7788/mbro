@@ -1,0 +1,275 @@
+{ #layout_header_popup }
+
+<div>
+
+<div style="text-align:center;font-size:20px;letter-spacing:-1px;font-weight:bold;padding-top:20px;">출고내역서</div>
+
+
+
+<table class="search-form-table">
+<tr>
+	<td width="85%" align="right">주문일</td><td>: {order.regist_date}</td>
+</tr>
+<tr>
+	<td width="85%" align="right">주문번호</td><td>: {order.order_seq}</td>
+</tr>
+<tr>
+	<td width="85%" align="right">출고일</td><td>: {data_export.export_date}</td>
+</tr>
+</table>
+
+<table style="width:100%">
+<tr>
+	<td style="padding-left:20px;"><b>{order.order_user_name}</b>님의 출고상품 정보 입니다.</td>
+</tr>
+<tr>
+	<td align="center">
+
+	<table class="order-summary-table" style="width:95%;" border=0>
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col />
+		<col width="150" />
+		<col width="50" />
+		<col width="50" />
+		<col width="80" />
+		<col width="80" />
+		<col width="80" />
+		<col width="80" />
+		<col width="80" />
+	</colgroup>
+	<thead class="lth">
+	<tr>
+		<th>상품명</th>
+		<th>상품옵션</th>
+		<th>주문수량</th>
+		<th>출고수량</th>
+		<th>정가</th>
+		<th>할인가</th>
+		<th>개별배송비</th>
+		<th>할인</th>
+		<th>재고/가용</th>
+	</tr>
+	</thead>
+	<tbody class="otb">
+		<!--{ @ data_export_item }-->
+		<tr class="order-item-row">
+			<td class="info left">
+				<div class="left">
+				<span class="order-item-image"><img class="small_goods_image" src="{.image}" /></span>
+				{? .cancel_type == '1' }<span class="order-item-cancel-type " >[청약철회불가]</span>{/}
+				<!--{ ? .option1 }-->
+				<span class="goods_name1">{.goods_name}</span>
+				<!--{ : }-->
+				<span class="goods_name2">{.goods_name}</span>
+				<!--{ / }-->
+			</td>
+			<td class="info">
+				<!--{ ? .option1 }-->
+				<span class="option">{.title1} : {.option1}</span>
+				<!--{ / }-->
+				<!--{ ? .option2 }-->
+				<span class="option">{.title2} : {.option2}</span>
+				<!--{ / }-->
+				<!--{ ? .option3 }-->
+				<span class="option">{.title3} : {.option3}</span>
+				<!--{ / }-->
+				<!--{ ? .option4 }-->
+				<span class="option">{.title4} : {.option4}</span>
+				<!--{ / }-->
+				<!--{ ? .option5 }-->
+				<span class="option">{.title5} : {.option5}</span>
+				<!--{ / }-->
+				</div>
+				{? .goods_code }<div class="goods_option fx11 goods_code_icon">[상품코드: {.goods_code}]</div>{/}
+
+			</td>
+			<td class="price info">{.opt_ea}</td>
+			<td class="price info">{.ea}</td>
+			<td class="price info">{=number_format(.out_consumer_price)}</td>
+			<td class="price info">{=number_format(.out_price)}</td>
+			<td class="price info">{=number_format(.goods_shipping_cost)}</td>
+			<td class="price info">{=number_format(.out_coupon_sale + .out_member_sale + .out_fblike_sale + .out_mobile_sale)}</td>
+			<td class="info" align="center">{.real_stock}/{.stock}</td>
+		</tr>
+		<!--{ / }-->
+	</tbody>
+	</table>
+
+
+<table style="width:97%;padding-left:4px;">
+<tr>
+	<td valign="top" width="100%">
+		<div class="item-title" style="text-align:left;">주문내역(전체)</div>
+	</td>
+</tr>
+</table>
+
+	<table class="order-price-information-table noborder-table" style="width:95%">
+	<tr>
+		<td>
+			<dl>
+				<dt style="color:#ff9966">할인가</dt>
+				<dd style="color:#ff9966"><span class="price-text">{=number_format(tot.consumer_price)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt style="color:#ff9966">개별배송비</dt>
+				<dd style="color:#ff9966"><span class="price-text">+ {=number_format(tot.goods_shipping_cost)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt>기본배송비</dt>
+				<dd><span class="price-text">+ {=number_format(orders.shipping_cost)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt style="color:#33cccc">상품쿠폰</dt>
+				<dd style="color:#33cccc"><span class="price-text">- {=number_format(tot.coupon_sale)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt style="color:#33cccc">회원등급</dt>
+				<dd style="color:#33cccc"><span class="price-text">- {=number_format(tot.member_sale)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt style="color:#33cccc">상품LIKE</dt>
+				<dd style="color:#33cccc"><span class="price-text">- {=number_format(tot.fblike_sale)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt style="color:#33cccc">MOBILE</dt>
+				<dd style="color:#33cccc"><span class="price-text">- {=number_format(tot.mobile_sale)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt>배송비쿠폰</dt>
+				<dd><span class="price-text">- {=number_format(order.coupon_sale)}</span> 원</dd>
+			</dl>
+		</td>
+		<td>
+			<dl>
+				<dt>마일리지사용</dt>
+				<dd><span class="price-text">- {=number_format(order.emoney)}</span> 원</dd>
+			</dl>
+		</td>
+		{? order.enuri }
+		<td>
+			<dl>
+				<dt>에누리</dt>
+				<dd>- {order.enuri} 원</dd>
+			</dl>
+		</td>
+		{ / }
+		<td>
+			<dl>
+				<dt>최종결제금액</dt>
+				<dd>
+				<span class="price-text">= {=number_format(order.settleprice)}</span> 원
+				</dd>
+			</dl>
+		</td>
+	</tr>
+	</table>
+
+
+
+	</td>
+</tr>
+</table>
+
+<table style="width:97%;padding-left:20px;">
+<tr>
+	<td valign="top" width="50%">
+
+	<div class="item-title">결제정보</div>
+	<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="25%" />
+		<col width="75%" />
+	</colgroup>
+	<tbody>
+	<tr>
+		<th class="its-th-align center">주문자</th>
+		<td class="its-td">{order.order_user_name}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">결제일자</th>
+		<td class="its-td">{order.deposit_date}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">결제방법</th>
+		<td class="its-td">{order.mpayment}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">결제금액</th>
+		<td class="its-td">{=number_format(order.settleprice)}</td>
+	</tr>
+	</tbody>
+	</table>
+
+	</td>
+	<td valign="top" width="50%">
+
+	<div class="item-title">배송지정보 (출고정보)</div>
+	<table class="info-table-style" style="width:100%">
+	<colgroup>
+		<col width="25%" />
+		<col width="75%" />
+	</colgroup>
+	<tbody>
+	<tr>
+		<th class="its-th-align center">수령인</th>
+		<td class="its-td">{order.recipient_user_name}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">수령지주소</th>
+		<td class="its-td">
+		(우편번호) {=implode('-',order.recipient_zipcode)}<br>
+		<span {? order.recipient_address_type != "street"}style="font-weight:bold;"{/}>(지번)</span> {order.recipient_address} <br>
+		<span {? order.recipient_address_type == "street"}style="font-weight:bold;"{/}>(도로명)</span> {order.recipient_address_street} <br>
+		(공통상세) {order.recipient_address_detail}
+		</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">연락처</th>
+		<td class="its-td">핸드폰 : {order.recipient_cellphone}&nbsp;&nbsp;&nbsp;&nbsp;
+		일반전화 : {order.recipient_phone}</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">메모</th>
+		<td class="its-td">{order.memo}</td>
+	</tr>
+	</tbody>
+	</table>
+
+	</td>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	window.print();
+});
+</script>
+
+
+{ #layout_footer_popup }

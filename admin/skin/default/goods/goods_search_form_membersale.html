@@ -1,0 +1,170 @@
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/goods_admin.css?v={=date('Ymd')}" />
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/goodsSearch.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript">
+var scObj = {=scObj};
+{? socialcpuse  || preg_match('/goods\/batch_modify/',_SERVER.REQUEST_URI) }
+var sosialcpuse = true;
+{:}
+var sosialcpuse = false;
+{/}
+	$(document).ready(function() {
+		
+		// 입점사 검색 select 박스 생성
+		$("#goodsForm select[name='provider_seq_selector']").css({'width': 125}).combobox().change(function(){
+
+			var selectedProviderSeq	= $(this).val();
+
+			if( selectedProviderSeq > 0 ){
+				$("#goodsForm input[name='provider_seq']").val(selectedProviderSeq);
+				$("#goodsForm input[name='provider_name']").val($("option:selected",this).text());
+			}else{
+				$("#goodsForm input[name='provider_seq']").val('');
+				$("#goodsForm input[name='provider_name']").val('');
+			}
+			
+			// 입점사 번호 별로 브랜드 연결상품 노출
+			brand_load(selectedProviderSeq);
+
+		}).next(".ui-combobox").children("input").css({'width': 125})
+		.bind('focus',function(){
+			if($(this).val()==$( "#goodsForm select[name='provider_seq_selector'] option:first-child" ).text()){
+				$(this).val('');
+			}
+		})
+		.bind('mouseup',function(){
+			if($(this).val()==''){
+				$( "#goodsForm select[name='provider_seq_selector']").next(".ui-combobox").children("a.ui-combobox-toggle").click();
+			}
+		});
+
+		// 엑셀 업로드 버튼 이벤트 : batch_modify.html
+		$("button[name='update_excel']").bind("click",function(){
+			
+		});
+		
+		// 페이지 로드 시 초기 검색설정 세팅 
+		brand_load({_GET.provider_seq});
+	});
+
+
+	// 입점사별 브랜드 및 연결상품 개수 가져오기 :: 2019-09-19
+	function brand_load(provider_seq){
+
+		// 입점사 미선택 시 경고창
+		if(!(provider_seq > 0)){
+			$('#brand_list').empty();
+			$('#brand_desc').text('본사 또는 입점사를 선택하세요!');
+			return false;
+		}
+		
+		// 데이터 조회 후 검색영역에 노출
+		$.ajax({
+			type: "GET",
+			url: "/admin/brand/get_brand_goods_count",
+			data: "provider_seq=" + provider_seq,
+			dataType: 'json',
+			success: function(result){
+				var brand_cell = '';
+
+				$.each(result, function(key, data){
+					var disabled_style	= data.cnt > 0 ? '' : 'silver';
+					var onclick_event	= data.cnt > 0 ? 'onclick="brand_excel_download(\'' + data.category_code + '\');"' : '';
+					brand_cell += '<span class="underline hand ml20 mr20 ' + disabled_style + '"><a ' + onclick_event + '>' + data.title + ' (' + data.cnt + ')</a></span>';
+				});
+
+				$('#brand_list').html(brand_cell);
+				$('#brand_desc').text('다운로드(↓아래 링크) 받은 엑셀을 수정 후 업로드 하세요!');
+			}
+		});
+	}
+
+	// 브랜드 선택 시 엑셀 다운로드 
+	function brand_excel_download(brand_code){
+		openDialogConfirm('다운로드 받으시겠습니까?', 500, 160, function(){
+			excel_download(brand_code);
+		},function(){
+		
+		});
+	}
+
+	// 엑셀 다운로드 함수
+	function excel_download(brand_code){
+		var queryString = $('#goodsForm').serialize();
+		queryString		= queryString + '&category_code=' + brand_code;
+
+		ajaxexceldown_spout('/cli/excel_down/create_membersale', queryString);
+	}
+
+	// 다운로드 ajax 처리
+	function ajaxexceldown_spout(url, queryString){
+		
+		$.ajax({      
+			type: "POST",  
+			url: url,      
+			data: queryString, 
+			success:function(args){ 
+				loadingStop();
+				var exe = args.split('.').pop();
+				if(exe == "csv" || exe == "zip" || exe == "xlsx"){
+					window.location.href = '/admin/excel_spout/file_download?url=' + args; 
+				} else {
+					alert(args);
+				}
+			}, error:function(e){  
+				alert(e.responseText);  
+			}  
+		});
+	}
+</script>
+<style type="text/css">
+	div.search-form-container table label {margin-right:0px;}
+</style>
+<div id="search_container" class="search_container">
+<form name="goodsForm" id="goodsForm" class='search_form'>
+	<input type="hidden" name="mode"		value="{=mode}" 			cannotBeReset=1  noSaveData=1 />
+	<input type="hidden" name="excel_type" value="search"/>
+	<div class="search-form-container">
+		<table class="search-form-table search_detail_form {? _GET.show_search_form=='close'}hide{:gdsearchdefault.search_form_view=='close'}hide{/}" id="serch_tab" style="min-width: 920px; text-align: center;">
+			<tr id="goods_search_form" style="display:none;"><td></td></tr>
+			<tr>
+				<td>
+					<table class="sf-option-table">
+						<colgroup>
+							<col width="40%" />
+							<col width="*" />
+						</colgroup>
+						<!--{ ? serviceLimit('H_AD') }-->
+						<tr>
+							<th class="pdr10 right">입점사</th>
+							<td>
+								<div>
+									<select name="provider_seq_selector" style="width:125px;">
+									</select>
+									<span style="margin-left:20px;">&nbsp;</span>
+									<input type="hidden" class="provider_seq" name="provider_seq" value="{_GET.provider_seq}" />
+									<input type="hidden" name="provider_name" value="{_GET.provider_name}" readonly />
+								</div>
+								<span class="ptc-charges hide"></span>
+							</td>
+						</tr>
+						<!--{ / }-->
+
+						<tr>
+							<td colspan="2" class="center">
+								<div>
+									<span id="brand_desc"></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="center" id="brand_list"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</form>
+</div>

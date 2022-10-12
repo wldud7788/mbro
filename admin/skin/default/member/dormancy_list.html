@@ -1,0 +1,91 @@
+
+<div class="list_info_container">
+	<div class="dvs_left">	
+		검색 <b>{=number_format(sc.searchcount)}</b>개 (총 <b>{=number_format(sc.totalcount)}</b>개)
+	</div>
+	<div class="dvs_right">	
+		<select  name="perpage" id="display_quantity">
+			<option id="dp_qty10" value="10" {? sc.perpage == 10 } selected{/} >10개씩</option>
+			<option id="dp_qty50" value="50" {? sc.perpage == 50 } selected{/} >50개씩</option>
+			<option id="dp_qty100" value="100" {? sc.perpage == 100 } selected{/} >100개씩</option>
+			<option id="dp_qty200" value="200" {? sc.perpage == 200 } selected{/} >200개씩</option>
+		</select>
+	</div>
+</div>
+<div class="table_row_frame">	
+	<div class="dvs_top">			
+		<div class="dvs_right">		
+			<button type="button" class="resp_btn v2 smsBtn">SMS 휴면 고지</button>
+            <button type="button" class="resp_btn v2 emailBtn">이메일 휴면 고지</button>
+		</div>
+	</div>
+
+	<!-- 주문리스트 테이블 : 시작 -->
+	<table class="table_row_basic tdc">
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>
+			<col width="5%" /><col/><col/><col/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>구분</th>
+			<th>아이디</th>
+			<th>날짜</th>
+			<th>마일리지</th>
+			<th>포인트</th>
+			<th>예치금</th>
+			<th>구매/주문/리뷰/방문</th>
+			<th>관리</th>			
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+
+		<!-- 리스트 : 시작 -->
+		<tbody >
+	{? loop }
+		{@ loop }
+			<!-- 리스트타이틀(주문상태 및 버튼) : 시작 -->
+			<tr>
+				<td>{.log_seq}</td>
+				<td>{?.log_type == 'on'}휴면{:}휴면 해제{/}</td>
+				<td>{.userid}</td>
+				<td>{.log_date}</td>				
+				<td class="right">{=get_currency_price(.emoney)}</td>
+				<td class="right">{=get_currency_price(.point)}</td>
+				<td class="right">{=get_currency_price(.cash)}</span></td>
+				<td>{=number_format(.order_cnt)}/{=number_format(.order_sum)}/{=number_format(.review_cnt)}/{=number_format(.login_cnt)}</td>
+				<td><input type="button" name="manager_modify_btn" value="상세" {? pageType != "search"}onclick="window.open('/admincrm/main/user_detail?member_seq={.member_seq}');"{ / } class="resp_btn v2"/></span></td>				
+			</tr>
+			<!-- 리스트데이터 : 끝 -->
+		{ / }
+	{ : }
+			<!-- 리스트타이틀(주문상태 및 버튼) : 시작 -->
+			<tr>
+				<td colspan="9">
+					{ ? search_text }
+						'{search_text}' 검색된 회원이 없습니다.
+					{:}
+						등록된 회원이 없습니다.
+					{/}
+				</td>
+			</tr>
+			<!-- 리스트데이터 : 끝 -->
+	{ / }
+		</tbody>
+		<!-- 리스트 : 끝 -->
+
+	</table>
+	<!-- 주문리스트 테이블 : 끝 -->
+
+	<div class="dvs_bottom">			
+		<div class="dvs_right">		
+			<button type="button" class="resp_btn v2 smsBtn">SMS 휴면 고지</button>
+            <button type="button" class="resp_btn v2 emailBtn">이메일 휴면 고지</button>
+		</div>
+	</div>
+</div>
+
+<div id="sendPopup" class="hide"></div>
+<div id="emoneyPopup" class="hide"></div>
+<div id="download_list_setting" class="hide"></div>

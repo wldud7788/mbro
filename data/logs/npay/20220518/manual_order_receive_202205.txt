@@ -1,0 +1,32 @@
+[2022-05-18 09:39:13.196426000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+Array
+(
+    [mode] => order_receive
+    [server_info] => ec
+    [storeid] => np_zuxru165363
+)
+
+
+[2022-05-18 09:39:13.272587000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+a:2:{s:6:"result";s:5:"error";s:7:"message";s:52:"수집할 네이버페이 주문건이 없습니다.";}
+
+[2022-05-18 15:09:22.292660000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+Array
+(
+    [mode] => order_receive
+    [server_info] => ec
+    [storeid] => np_zuxru165363
+)
+
+
+[2022-05-18 15:09:22.340538000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+a:2:{s:6:"result";s:5:"error";s:7:"message";s:52:"수집할 네이버페이 주문건이 없습니다.";}
+

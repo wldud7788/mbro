@@ -1,0 +1,37 @@
+/**/
+.btn100 input{width:100px; height:100px; display:inline-block; border:1px solid;}
+
+/* 이벤트 */
+.popWrap {width:300px; background:#fff; text-align:center; font-family:"Helvetica", sans-serif; font-size:12px;}
+.popWrap .cont {padding:30px;}
+.popWrap .cont .tit {font-size:22px; font-weight:600; color:#000; letter-spacing:-1px;}
+.popWrap .cont .txt {padding:20px 0; font-size:15px; color:#414141;}
+.popWrap .cont .txt pre {font-family:"Helvetica", sans-serif;}
+.popWrap .cont .coupon {width:213px; margin:0 auto; height:100px; background:url('/admin/skin/default/images/app/coupon.png') no-repeat; background-size:contain;}
+.popWrap .cont .coupon .coupon_lay {padding-top:20px; font-size:30px; color:#fff;line-height:200%;}
+.popWrap .cont .coupon .coupon_txt {font-size:50px; font-weight:500;}
+.popWrap .cont .down {padding-top:25px;}
+.popWrap .cont .down a {font-size:14px; color:#0099ff;}
+.popWrap .bont {border-top:1px solid #e0e0e0; *zoom:1;}
+.popWrap .bont:after {display:block; clear:both; content:'';}
+.popWrap .bont li {float:left; width:50%; height:60px; line-height:60px; font-size:12px; color:#575757;}
+.popWrap .bont li a {display:block; border-left:1px solid #e0e0e0; color:inherit; text-decoration:none;}
+
+/* 설치 혜택 */
+.popWrap .cont.bg {height:61px; background:url('/admin/skin/default/images/app/event_bg.png') no-repeat; background-size:contain; padding:80px 30px;}
+.popWrap .bont.bg {border-top:0; background:#333; height:60px; line-height:60px; font-size:12px; color:#fff;}
+.popWrap .bont.bg a {display:block; color:inherit; text-decoration:underline;}
+
+/* 설치 버튼 */
+.popBtn {width:300px; padding:120px 0;}
+.popBtn .m_btn1 {margin-bottom:3px; height:60px; line-height:60px; border-bottom:3px solid #006bb2; background:#0086df url('/admin/skin/default/images/app/icon_dn.png') no-repeat 230px; background-size:30px 28px;}
+.popBtn .m_btn2 {height:60px; line-height:60px; background:#8a8a8a url('/admin/skin/default/images/app/icon_go.png') no-repeat 240px; background-size:15px 28px;}
+.popBtn .m_btn1 a, .popBtn .m_btn2 a {padding-left:40px; font-size:14px; color:#fff; text-decoration:none;}
+
+/* 파일 선택 */
+.app_popup_use_Y .webftpFormItem {position: relative; display: inline-block;}
+.app_popup_use_Y .popup_type_custom_btn {display: inline-block;}
+#popup_type, .custom_popup, .webftpFormItem {vertical-align: middle !important;}
+
+div.webftpFormItem .resp_btn.v2 {margin-top:0px}
+div.image-preview-wrap {margin:0;}

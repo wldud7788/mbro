@@ -1,0 +1,159 @@
+		<tr style="height:150px">
+			<th class="dsts-th" style="border-top:none">
+				기본 스타일
+			</th>
+			<td colspan="2" class="table_td_bottom" height="150px">
+				<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+					<col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+					<tr>
+						{@styles}
+						{?.key_ != 'cache'}
+						<td class="center table_td_left">
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="{.key_}" {?.key_==data.style}checked="checked"{/} limit="{.limit_func}" /><img src="../images/design/img_display_{.key_}.jpg" title="{.name}" /></label></div>
+						</td>
+						{/}
+						{/}
+					</tr>
+				</table>
+			</td>
+		</tr>
+		{? custom_style }
+		{@custom_style}
+		<tr>
+			<th class="dsts-th">
+				추가 스타일
+			</th>
+			<td colspan="2" class="table_td_bottom" height="150px">
+				<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+					<col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+					<tr>
+
+						{@.value_}
+						<td class="center table_td_left">
+							{?..value_}
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="{..name}" {?..name==data.style}checked="checked"{/} limit="{..limit_func}" /><div class="imageCheckboxItemCustomImg"><div class="desc">[추가 스타일]</div>{..name}</div></label></div>
+							{/}
+						</td>
+						{/}
+					</tr>
+				</table>
+			</td>
+		</tr>
+		{/}
+		{/}
+		<tr>
+			<th class="dsts-th">노출 개수</th>
+			<td colspan="2" class="table_td_bottom" height="80px">
+				<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" class="display_count_wrap">
+					<col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" />
+					<td class="table_td_left" align="center">
+						가로 <input type="text" name="count_w" value="{data.count_w}" class="line select_style" size="2" maxlength="2" attr="lattice_a" />
+						X
+						세로 <input type="text" name="count_h" value="{?data.count_h}{data.count_h}{:}1{/}" class="line select_style" size="2" maxlength="3" attr="lattice_a" />
+						= 총 <b><span class="count_total"></span></b>개
+					</td>
+					<!--{? !relation_flag }-->
+					<td class="table_td_left" align="center">
+						가로
+						<input type="text" name="count_w_lattice_b" value="{data.count_w_lattice_b}" class="line select_style" size="2" maxlength="2" attr="lattice_b" />
+						X
+						세로 <input type="text" name="count_h_lattice_b" value="{data.count_h_lattice_b}" class="line select_style" size="2" maxlength="2" attr="lattice_b" />
+						= 총 <b><span class="lattice_b_count_total"></span></b>개
+					</td>
+					<td class="table_td_left" align="center">
+						가로 1
+						X
+						세로 <input type="text" name="count_h_list" value="{data.count_h_list}" class="line select_style" size="2" maxlength="2" attr="list" />
+						= 총 <b><span class="h_list_count_total"></span></b>개
+					</td>
+					<!--{ / }-->
+					<!--{? !category_flag }-->
+					<td class="table_td_left" align="center">
+						가로 <input type="text" name="count_w_rolling_h" value="{data.count_w_rolling_h}" class="line select_style" size="2" maxlength="2" attr="rolling_h" />
+						X
+						<input type="text" name="count_h_rolling_h" value="{data.count_h_rolling_h}" class="line select_style" size="2" maxlength="2" attr="rolling_h" />
+						= 총 <b><span class="w_rolling_count_total"></span></b>개
+					</td>
+					<!--{? !recommend_flag && !relation_flag }-->
+					<td class="table_td_left" align="center">
+						세로 <input type="text" name="count_w_rolling_v" value="{data.count_w_rolling_v}" class="line select_style" size="2" maxlength="2" attr="rolling_v" />
+						X
+						<input type="text" name="count_h_rolling_v" value="{data.count_h_rolling_v}" class="line select_style" size="2" maxlength="2" attr="rolling_v" />
+						= 총 <b><span class="h_rolling_count_total"></span></b>개
+					</td>
+					<!--{ / }-->
+					<!--{ / }-->
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">이미지 사이즈</th>
+			<td colspan="2" height="50px" class="table_td_bottom">
+				<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+					<col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" />
+					<tr>
+						{@styles}
+						<td class="table_td_left pd5 center">
+							{?.key_ == 'lattice_a'}
+							<select name="image_size" class="image_size select_style" attr="{.key_}">
+								{:}
+							<select name="image_size_{.key_}" class="image_size select_style" attr="{.key_}">
+								{/}
+								{@.image}
+								<option value="{..key_}" width="{..width}" height="{..height}" {?..key_==.image_selected || (!.image_selected && ..key_=='list2')}selected="selected"{/} >{..value_.name}</option>
+								{/}
+							</select>
+							{?.key_ == 'lattice_a'}
+							<div class="mt5">
+								<label><input type="checkbox" name="img_opt_{.key_}" class="img_opt_{.key_}" value="1" {?.image_opt == 1}checked{/}/> 최적화 </label>
+								<select name="img_padding_{.key_}" class="img_padding_{.key_}" style="width:80px;">
+									<option value="">=이미지 간격=</option>
+									<option value="0" {?.image_padding == 0}selected{/}>0%</option>
+									<option value="1" {?.image_padding == 1}selected{/}>1%</option>
+									<option value="3" {?.image_padding == 3}selected{/}>3%</option>
+									<option value="5" {?.image_padding == 5}selected{/}>5%</option>
+									<option value="10" {?.image_padding == 10}selected{/}>10%</option>
+									<option value="15" {?.image_padding == 15}selected{/}>15%</option>
+								</select>
+								<span class="helpicon" title="상품 이미지를 페이지에 자동으로 최적화합니다." options="{alignX: 'right'}"></span>
+							</div>
+							{/}
+						</td>
+						{/}
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!--{? !category_flag }-->
+		<tr>
+			<th class="dsts-th">롤링 옵션</th>
+			<td colspan="2" height="40px">
+				<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+					<col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" />
+					<tr>
+						<td class="table_td_left center">
+							―
+						</td>
+						{?data.kind!='relation' && data.kind!='relation_seller' && data.kind!='bigdata'}
+						<td class="table_td_left center">
+							―
+						</td>
+						<td class="table_td_left center">
+							―
+						</td>
+						{/}
+						<td class="table_td_left center">
+							<label class="mr10"><input type="radio" name="h_rolling_type" value="" {?!data.h_rolling_type}checked{/}/> 한줄씩</label>
+							<label><input type="radio" name="h_rolling_type" value="moveSlides" {?data.h_rolling_type}checked{/}/> 한개씩</label>
+						</td>
+						<!--{? !recommend_flag && !relation_flag }-->
+						<td class="table_td_left center">
+							<label class="mr10"><input type="radio" name="v_rolling_type" value="" {?!data.v_rolling_type}checked{/}/> 한줄씩</label>
+							<label><input type="radio" name="v_rolling_type" value="moveSlides" {?data.v_rolling_type}checked{/}/> 한개씩</label>
+						</td>
+						<!--{ / }-->
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!--{ / }-->

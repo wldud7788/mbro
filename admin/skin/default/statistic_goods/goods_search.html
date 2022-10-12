@@ -1,0 +1,153 @@
+{ #layout_header }
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/excanvas.min.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/jquery.jqplot.min.js"></script>
+<script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script language="javascript" type="text/javascript" src="/app/javascript/plugin/jqplot/plugins/jqplot.donutRenderer.min.js"></script>   
+<link class="include" rel="stylesheet" type="text/css" href="/app/javascript/plugin/jqplot/jquery.jqplot.min.css" />
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		gSearchForm.init({'pageid':'goods_search', 'sc':{=scObj}});
+
+		$("#order_by").live("change", function(){
+			$("input[name='order_by']").val($(this).find("option:selected").val());
+			$("form[name='sc']").submit();
+		});
+
+		$("span.btn-direct-open").bind("click",function(){
+			
+			var nClass		= $(this).attr('class');
+			var obj = $(this).closest("tr").next().find("td").eq(0);
+			var keyword = $(this).closest("td").find("span").eq(0).html();		
+			var keysort = $(this).attr('keysort');
+			var url = "goods_search_view?keyword="+keyword+"&keysort="+keysort;
+			if( nClass.search(/opened/) == -1 ){
+				$(this).addClass('opened');
+				obj.html('<iframe frameborder="0" width="100%" height="250" scrolling="no"></iframe>');
+				obj.find("iframe").attr("src",url);
+				obj.removeClass("hide");
+			}else{
+				$(this).removeClass('opened');
+				obj.addClass("hide");
+			}
+		});
+
+		$("span.btn-administration").bind("click",function(){
+			var keyword = $(this).closest("td").find("span").eq(0).html();
+			var url = "goods_search_detail?keyword="+keyword;				
+			$("div#dialog_goods_search_detail > .content").html("<iframe src='"+url+"' frameborder='0' width=960' height='620'></iframe>");		
+			openDialog("검색어 자세히 - "+keyword, "dialog_goods_search_detail", {"width":1000,"height":780}); 
+		});
+	});
+
+	function set_date(start,end){
+		$("input[name='sdate']").val(start);
+		$("input[name='edate']").val(end);
+	}
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 좌측 버튼 -->
+		<div class="page-buttons-left"></div>
+		<!-- 타이틀 -->
+		<div class="page-title"><h2>상품 검색어 통계</h2></div>
+		<!-- 우측 버튼 -->
+		<div class="page-buttons-right"></div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+	<div id="search_container" class="search_container">
+		<form class='search_form'>
+		<input type="hidden" name="order_by" value="{sc.order_by}" />
+		<table class="table_search">
+			<tr>
+				<th>검색어</th>
+				<td><input type="text" name="keyword" value="{sc.keyword}" size="80" /></td>
+			</tr>	
+			<tr>
+				<th>기간</th>
+				<td>
+					<div class="date_range_form">
+						<input type="text" name="sdate" value="{sc.sdate}" class="datepicker sdate"  maxlength="10" />
+						-
+						<input type="text" name="edate" value="{sc.edate}" class="datepicker edate" maxlength="10"  />
+
+						<div class="resp_btn_wrap">
+							<input type="button"  range="today" value="오늘" class="select_date resp_btn" />
+							<input type="button"  range="3day" value="3일간" class="select_date resp_btn" />
+							<input type="button"  range="1week" value="일주일" class="select_date resp_btn" />
+							<input type="button"  range="1month" value="1개월" class="select_date resp_btn" />
+							<input type="button"  range="3month" value="3개월" class="select_date resp_btn" />
+							<input type="button"  range="all"  value="전체" class="select_date resp_btn"/>
+							<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden">
+						</div>
+					</div>
+				</td>
+			</tr>			
+		</table>
+		<div class="search_btn_lay"></div>
+		</form>
+	</div>
+
+	<!-- 서브메뉴 바디 : 시작-->
+	<div class="contents_dvs v2">
+		<div class="title_dvs">
+			<div class="item-title">검색어</div>
+			<div class="resp_btn_dvs">
+				<select id="order_by">
+					<option value="counts" {?sc.order_by=='counts'}selected{/}>검색 횟수↑</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="goods_cart_list">
+			<table class="table_basic v7">
+			<colgroup>
+				<col width="7%" />
+				<col />
+				<col width="7%" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th>순위</th>
+				<th>검색어</th>
+				<th>검색 횟수</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- { ? statlist } -->
+				<!-- { @ statlist } -->						
+			<tr>
+				<td align="center">{=.index_+1}</td>
+				<td>
+					<span style="display:inline-block;width:90%;">{.keyword}</span>
+					<span class="btn-direct-open" keysort="{=.index_+1}"><span class="hide">바로열기</span></span>
+					<span class="btn-administration"><span class="hide">새창</span></span>
+				</td>
+				<td class="right">{=number_format(.keyword_cnt)}회</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center" class="hide">						
+				</td>
+			</tr>
+				<!-- { / } -->
+			<!-- { : } -->
+			<tr>
+				<td colspan="3" align="center">검색된 통계가 없습니다.</td>
+			</tr>
+			<!-- { / } -->
+			</tbody>
+			</table>
+		</div>
+	</div>	
+</div>
+<div id="dialog_goods_search_detail" class="hide">
+	<div class="content"></div>
+	<div class="footer"><button type="button" onclick="closeDialogEvent(this)" class="resp_btn v3 size_XL">닫기</button></div>
+</div>
+{ #layout_footer }

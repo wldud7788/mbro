@@ -1,0 +1,191 @@
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/js/goods-display.js?dummy={=date('YmdHis')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gGoodsSelectList.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	
+		//선택삭제
+		$(".select_goods_del").on("click",function(){
+			gGoodsSelect.select_delete('chk',$(this));
+		});
+
+		// 상품선택
+		$(".btn_select_goods").on("click",function(){
+			
+			var params = {
+						'goodsNameStrCut':30,
+						'select_goods':$(this).attr("data-goodstype"),
+						'selector':this,
+						'service_h_ad':window.Firstmall.Config.Environment.serviceLimit.H_AD
+						};
+			gGoodsSelect.open(params);
+
+		});
+
+		// 구분 변경
+		$("select.tkind").change(function(){
+			var kind	= $(this).closest("div.set-bigdata-lay").attr('kindName');
+			$("span."+kind+"-title-text").html($(this).find('option:selected').html());
+		}).change();
+
+		// 저장
+		$("button.submit-form").click(function(){
+			if	(!$(this).closest('span').hasClass('btn-disable'))
+				$("form#bigdataFrm").submit();
+		});
+
+		$("button.mshopCriteriaButton").live("click",function(){
+			var displayResultId = $(this).attr('dp_id');
+			var criteria = $("#"+displayResultId).val();
+			var kind = $(this).attr('kind');
+			open_criteria_condition(displayResultId,'',criteria,kind);
+		});
+
+		/* 상품 검색 버튼 */
+		$("button.displayGoodsButton").live("click",function(){
+			this_platform		= 'displayGoods';
+
+			set_goods_list("displayGoodsSelect",'displayGoods','goods','');
+		});
+		
+		// 직접선정 상품 위치 이동 스크립트 실행
+		$(".displayGoods").sortable();
+		$(".displayGoods").disableSelection();
+		
+		// 추천상품 타입 변경 시 각 타입별 영역 노출처리
+		$("select.auto_criteria_type").live('change',function(){
+			that = $(this).closest('th');
+			type = $(this).val();
+			$(this).closest('tr').find('.mshopCriteriaButton').attr('auto_type',type);
+			type = type.replace('auto_sub','auto');
+			$(this).closest("tr").find(".displayTabAutoTypeContainer").hide();
+			$(this).closest("tr").find(".displayTabAutoTypeContainer[type='"+type+"']").show();
+			if($('.m_list_use').is(':checked')){
+				$('.tab_contents_mobile').hide();
+			}
+			setCriteriaDescription_upgrade();
+		}).change();
+
+		// 추천상품 타입에 맞는 영역 노출 처리
+		var auto_type = '{= strtolower(auto_criteria_type)}';
+		auto_type = auto_type == '' ? 'auto' : auto_type;
+
+		$(".displayTabAutoTypeContainer").hide();
+		$(".displayTabAutoTypeContainer[type='"+auto_type+"']").show();
+		
+		// 초기 텍스트 데이터 세팅
+		setCriteriaDescription_upgrade();		
+	});	
+
+	function open_criteria_condition(displayResultId,auto_condition_use_id,criteria,kind){
+		openDialog("추천 상품 조건 선택", "#displayGoodsSelectPopup", {"width":"1000px","height":"600","show" : "fade","hide" : "fade"});
+		set_goods_list_auto("displayGoodsSelect",displayResultId,criteria,auto_condition_use_id,kind);
+	};
+
+	function set_goods_list_auto(displayId,inputGoods,criteria,auto_condition_use_id,kind){
+		$.ajax({
+			type: "get",
+			url: "../goods/select_auto_condition",
+			data: "displayKind="+kind+"&kind=none&auto_condition_use_id="+auto_condition_use_id+"&inputGoods="+inputGoods,
+			success: function(result){
+				$("div#"+displayId).html(result);
+			}
+		});
+	}
+
+	function set_goods_list(displayId,inputGoods){
+		$.ajax({
+			type: "get",
+			url: "../goods/select",
+			data: "page=1&inputGoods="+inputGoods+"&displayId="+displayId,
+			success: function(result){
+				$("div#"+displayId).html(result);
+			}
+		});
+		openDialog("상품 검색", displayId, {"width":"1000","height":"700","show" : "fade","hide" : "fade"});
+	}
+</script>
+<div class="displayTabGoodsContainer displayTabAutoTypeContainer" type="auto">
+	<input type="hidden" class="isBigdataTest" value="1"/>
+	<button type="button" class="mshopCriteriaButton displayCriteriaType resp_btn active" dp_id='mshopCriteria' attr="responsive" kind='mshop' auto_type="auto">조건 선택</button>
+	<div class="clearbox" style="height:5px;"></div>
+	<input type='hidden' class="displayCriteria" id="mshopCriteria" name='auto_criteria' value="{auto_criteria}" />
+	<div class="displayCriteriaDesc"></div>    
+</div>
+<div class="displayTabAutoTypeContainer" type="manual">
+	<input type='hidden' name='auto_goods_seqs[]' />
+	<input type="button" value="상품 선택" class="btn_select_goods resp_btn active" data-goodstype='displayGoods' />
+	<span class="span_select_goods_del {? count(items) == 0 }hide{/}"><input type="button" value="선택 삭제" class="select_goods_del resp_btn v3 " selectType="goods" /></span>
+	<div class="mt10 wx600 {? count(items) == 0 }hide{/}">
+		<div class="goods_list_header">
+			<table class="table_basic tdc">
+				<colgroup>
+					<col width="10%" />
+					<!--{ ? serviceLimit('H_AD') }-->
+					<col width="25%" />
+					<col width="45%" />
+					<!--{ : }-->
+					<col width="70%" />
+					<!--{ / }-->
+					<col width="20%" />
+				</colgroup>
+				<tbody>
+					<tr>
+					<th><label class="resp_checkbox"><input type="checkbox" name="chkAll" onClick="gGoodsSelect.checkAll(this)" value="goods"></label></th>
+					<!--{ ? serviceLimit('H_AD') }-->
+					<th>입점사명</th>
+					<!--{ / }-->
+					<th>상품명</th>
+					<th>판매가</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="goods_list">
+			<table class="table_basic tdc">
+				<colgroup>
+					<col width="10%" />
+					<!--{ ? serviceLimit('H_AD') }-->
+					<col width="25%" />
+					<col width="45%" />
+					<!--{ : }-->
+					<col width="70%" />
+					<!--{ / }-->
+					<col width="20%" />
+				</colgroup>
+				<tbody>
+					<tr rownum=0 {? count(items) == 0 }class="show"{:}class="hide"{/}>
+						<td class="center" colspan="4">상품을 선택하세요</td>
+					</tr><!-- issueGoods, issueGoodsSeq  ==> select_goods_list -->
+					<!--{ @ items }-->
+					<tr rownum="{=.goods_seq}">
+						<td><label class="resp_checkbox"><input type="checkbox" name='select_goods_list[]' class="chk" value='{.goods_seq}' /></label>
+							<input type="hidden" name='displayGoods[]' class="chk" value='{.goods_seq}' />
+							<input type="hidden" name="displayGoodsSeq[{.goods_seq}]" value="{.issuegoods_seq}" /></td>
+						<!--{ ? serviceLimit('H_AD') }-->
+							<td>{=.provider_name}</td>
+						<!--{ / }-->
+						<td class='left'>
+							<div class="image"><img src="{=viewImg(.goods_seq,'thumbView')}" width="50"></div>
+							<div class="goodsname">
+								{? .goods_code}<div>[상품코드:{=.goods_code}]</div>{/}
+								<div><a href="/admin/goods/regist?no={.goods_seq}" target="_blank">[{=.goods_seq}]{=getstrcut(strip_tags(.goods_name),30)}</a></div>
+							</div>
+						</td>
+						<td class='right'>{=get_currency_price(.price,2)}</td>
+					</tr>
+				<!--{ / }-->
+				</tbody>
+			</table>
+		</div>
+	</div>	
+</div>
+<div class="displayTabAutoTypeContainer" type="text">
+	<textarea name="auto_contents" style="width:100%" contentHeight="150px" class="daumeditor hide" tinyMode="1">{auto_contents}</textarea><br />
+</div>
+
+<div id="displayGoodsSelectPopup">
+	<div id="displayGoodsSelect"></div>
+</div>

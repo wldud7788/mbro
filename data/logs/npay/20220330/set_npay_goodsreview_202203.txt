@@ -1,0 +1,28 @@
+[2022-03-30 14:00:06.177821000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [totalcnt] => 1
+    [general] => Array
+        (
+            [0] => Array
+                (
+                    [CreateYmdt] => 2022-03-30T04:49:52.28Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 2302
+                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                    [ProductOption] => 포스터 포함: 포스터 (지관통 포함)
+                    [ProductOrderID] => 2022030737552190
+                    [PurchaseReviewId] => 3399496923
+                    [PurchaseReviewScore] => 2
+                    [Title] => 지관통 문제로 친절하게 상담해주셨고 배송도 잘 받았습니다. 쇼케이스도 무사히 다녀왔구요. 너무 좋습니다!!
+                    [WriterId] => J0UrHgSC+T+4vqkXElGmyA==
+                    [timestamp] => 2022-03-30T04:57:41.898Z7311
+                    [PurchaseReviewScore_new] => 5
+                )
+
+        )
+
+)
+
+

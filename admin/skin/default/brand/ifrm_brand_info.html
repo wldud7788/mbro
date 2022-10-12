@@ -1,0 +1,476 @@
+{ #layout_header_popup }
+<style>
+	body{overflow-y:hidden;}
+</style>
+
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-font-decoration.js"></script>
+<script type="text/javascript" src="/app/javascript/js/base64.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js"></script>
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/category_ifrm.js?v={=date('Ymd)}"></script>
+<script type="text/javascript">
+	var categoryType 	= 'brand';
+	var categoryCode 	= '{=categoryCode}';
+	var categoryUrl 	= gl_protocol+"{_SERVER.HTTP_HOST}/goods/brand?code=";
+	$(function () {
+		
+		// 브랜드 그룹 관련 추가
+		$("#brandClassificationPopupBtn").click(function(){
+			$useSeqAry = [];
+			$("input[name='classification_seq[]']").each(function(idx, data){
+				$useSeqAry[idx] = $(data).val();
+			});
+			
+			$.post("/admin/brand_process/classification/list", {"not_in_seq" : $useSeqAry}, function(response){
+				$option = "";
+				$(response).each(function(idx, data){
+					$option += "<option value=\""+data.title+"\" data-seq=\""+data.seq+"\">"+data.title+"</option>";
+				});
+				
+				$("#setClassificationPopup select.list").html($option);
+				openDialog("브랜드 그룹 설정", "setClassificationPopup", {"width":"512","height":"400","position":[100,100]});
+			}, "json");
+		});
+		
+		// 브랜드 그룹 등록
+		$("#ClassificationPopupFm a.regist").click(function(){
+			$.post("/admin/brand_process/classification/insert", {"title" : $("#ClassificationPopupFm input[name='title']").val()}, function(response){
+				
+				$option = "<option value=\""+response.title+"\" data-seq=\""+response.seq+"\">"+response.title+"</option>";
+				$("#setClassificationPopup select.list").prepend($option);
+				$("#ClassificationPopupFm input[name='title']").val("");
+			},"json");
+		});
+		
+		// 오른쪽으로 넣기
+		$("#ClassificationPopupFm .insert").click(function(){
+			$("#setClassificationPopup select.list > option:selected").remove().appendTo("#setClassificationPopup select.foruse");
+		});
+		
+		// 왼쪽으로 빼기
+		$("#ClassificationPopupFm .delete").click(function(){
+			$("#setClassificationPopup select.foruse > option:selected").remove().appendTo("#setClassificationPopup select.list");
+		});
+		$("#ClassificationPopupFm .up").click(function(){
+			$("#setClassificationPopup select.foruse > option:selected").each(function(idx, data){
+				$listItem = $(this);
+				$listItemPosition = $("#setClassificationPopup select.foruse > option").index($listItem) + 1;
+				if ($listItemPosition == 1) return false;
+				$listItem.insertBefore($listItem.prev());
+			});
+		});
+		$("#ClassificationPopupFm .down").click(function(){
+			$itemsCount = $("#setClassificationPopup select.foruse > option").length;
+			$($("#setClassificationPopup select.foruse > option:selected").get().reverse()).each(function() {
+				$listItem = $(this);
+				$listItemPosition = $("#setClassificationPopup select.foruse > option").index($listItem) + 1;
+				if ($listItemPosition == $itemsCount) return false;
+				$listItem.insertAfter($listItem.next());
+			});
+		});
+		$("#ClassificationPopupFm .item_delete").click(function(){
+			if(confirm("삭제하시겠습니까?")) {
+				$("#setClassificationPopup select.list > option:selected").each(function(idx, data){
+					$seq = $(this).attr("data-seq");
+					$.post("/admin/brand_process/classification/delete",{ "seq" : $seq});
+					$(this).remove();
+				});
+			}
+		});
+		
+		$("#ClassificationPopupFm").submit(function(){
+			$txtAry = [];
+			$html = "";
+			$("#setClassificationPopup select.foruse > option").each(function(idx, data){
+				$seq = $(data).attr("data-seq");
+				$txt = $(data).val();
+				$html += "<input type=\"hidden\" name=\"classification_seq[]\" value=\""+$seq+"\" />" ;
+				$html += "<input type=\"hidden\" name=\"classification_txt[]\" value=\""+$txt+"\" />" ;
+				$txtAry[idx] = $txt;
+			});
+			$html += $txtAry.join(",");
+			$("#brandClassificationCfg").html($html);
+			closeDialog("setClassificationPopup");
+			return false;
+		});
+		
+		//브랜드 > 국가 선택시 
+		$("#countrySelect").change(function(){
+			$seq = $(this).val();
+			if($seq === "brand_country_add") {
+				$("#brandCountryCfg").html("");
+				$("#brandFlagImg").html("");
+				// 브랜드 국가관련 설정
+				openDialog("국가 직접등록", "setCountryPopup", {"width":"482","height":"220","position":[100,100]});
+
+			} else {
+				$img = $(this).find("option:selected").attr("data-flag");
+
+				$("#brandCountryCfg").html("");
+
+				if($seq!=''){
+					$("#brandCountryCfg").append("<span class='btn small gray'><input type='button' class='countryModifyBtn' value='수정' /></span>");
+				}
+				$("#brandFlagImg").html('');
+				if( $img ) {
+					$imgtag = "<img src=\"/data/brand_country/"+$img+"\" style=\"max-height:20px;\" />"; 
+					$("#brandFlagImg").html($imgtag);
+				}
+			}
+
+		});
+		
+		//브랜드 > 국가 수정폼
+		$(".countryModifyBtn").live('click',function(){
+			// 브랜드 국가관련 설정
+			openDialog("국가 수정", "setCountryModifyPopup", {"width":"482","height":"220","position":[100,100]});
+			$("#setCountryModifyPopup input[name='country_seq']").val($("#countrySelect").val());
+			$("#setCountryModifyPopup input[name='name']").val($("#countrySelect option:selected").text());
+			var flaghtml = $("#brandFlagImg").html();
+			if( $("#brandFlagImg").html()) {
+				flaghtml += " <span class='btn small gray'><input type='button' class='countryImgDeleteBtn' value='삭제'  country_seq=\""+$("#countrySelect").val()+"\" /></span>";
+			}
+			$("#setCountryModifyPopup .flagimg").html(flaghtml);
+		});
+		
+		//브랜드 > 국가 > 이미지 삭제
+		$(".countryImgDeleteBtn").live('click',function(){
+			var country_seq = $(this).attr("country_seq"); 
+			if(confirm("삭제하시겠습니까?")) {
+				$.ajax({
+					'url' : '../brand_process/country/imgdelete',
+					'data' : {'country_seq':country_seq},
+					'type' : 'post',
+					'dataType': 'json',
+					'success' : function(response){ 
+						if( response.result ) {
+							$("#brandFlagImg").html("");  
+							closeDialog("setCountryModifyPopup");
+						}else{ 
+							alert(response.msg); 
+						}
+					}
+				});
+			}
+		});
+		
+	});
+
+	//수정/등록후 
+	function setCountryView(resultTxt){
+		$data = jQuery.parseJSON(resultTxt);
+		var vselected = false;
+
+		$("select[name='country_seq']").each(function() {
+			if ( $(this).find("option:selected").val() == 'brand_country_add' ) {
+					vselected = true;
+			}else{ 
+				if( $data.seq ==  $(this).find("option:selected").val() ){//동일할 경우 이름 점검
+					if( $data.name != $(this).find("option:selected").text() ) {//이름 변경시
+						$(this).find("option:selected").text($data.name);
+					}
+					if( $data.flagimg != $(this).find("option:selected").attr("data-flag") ) {//이미지 변경시
+						$(this).find("option:selected").attr("data-flag",$data.flagimg);
+					} 
+				}
+			}
+		});
+
+		if( vselected ) {//등록후 폼추가  brand_country_add
+			$("select[name='country_seq']").append('<option value="'+$data.seq+'" data-flag="'+$data.flagimg+'"  selected="selected" >'+$data.name+'</option>');
+		}
+		if($data.flagimg) {
+			$imgtag = "<img src=\"/data/brand_country/"+$data.flagimg+"\" style=\"max-height:20px;\" /> " ;
+			$("#brandFlagImg").html($imgtag);
+		}else{
+			$("#brandFlagImg").html("");  
+		}
+		$html = "";
+		$html += "<span class='btn small gray'><input type='button' class='countryModifyBtn' value='수정' /></span>" ;
+		$("#brandCountryCfg").html($html);
+		closeDialog("setCountryPopup");
+		closeDialog("setCountryModifyPopup");
+	}
+
+	function setCountry(resultTxt){
+		$data = jQuery.parseJSON(resultTxt);
+		//$("#countrySelect").attr("<option value=\""+$data.seq+"\" data-flag=\""+$data.flagimg+"\" selected=\"selected\">"+$data.name+"</option>");
+		if($data.flagimg) {
+			$imgtag = "<img src=\"/data/brand_country/"+$data.flagimg+"\" style=\"max-height:20px;\" /> " ;
+			$("#brandFlagImg").html($imgtag);
+		}else{
+			$("#brandFlagImg").html(""); 
+		}
+		
+		$html = "";
+		$html += "<input type=\"hidden\" name=\"country_seq\" value=\""+$data.seq+"\" />" ;
+		$html += $data.name ;
+		
+		$("#brandCountryCfg").html($html);
+		closeDialog("setCountryPopup");
+	}
+
+	//국가 수정폼
+	function setCountryModify(resultTxt){
+		$("#brandFlagImg").html(""); 
+		$data = jQuery.parseJSON(resultTxt);
+		$("#countrySelect option[value='"+$data.seq+"']").text($data.name);
+		if($data.flagimg) {
+			$imgtag = "<img src=\"/data/brand_country/"+$data.flagimg+"\" style=\"max-height:20px;\" /> <span class='btn small gray'><input type='button' class='countryImgDeleteBtn' value='삭제' country_seq=\""+$data.seq+"\" /></span>" ;
+			$("#brandFlagImg").html($imgtag);
+		}
+		$html = "";
+		$html += "<span class='btn small gray'><input type='button' class='countryModifyBtn' value='수정' /></span>" ;
+
+		$("#brandCountryCfg").html($html);
+		closeDialog("setCountryModifyPopup");
+	}
+
+	function view(result){
+		var len = result.length - 1;
+		var arr = new Array();
+		var isGroups = false;
+		for(var i=0;i<=len;i++){
+			arr[i] = result[i].title;
+			if(i == len){
+
+				// 페이지 접속 기간
+				var allow_type = result[i].catalog_allow != null ? result[i].catalog_allow : 'show';
+				if(allow_type == 'period'){
+					$("#catalog_allow_sdate").text(result[i].catalog_allow_sdate=='0000-00-00'?'':result[i].catalog_allow_sdate);
+					$("#catalog_allow_edate").text(result[i].catalog_allow_edate=='0000-00-00'?'':result[i].catalog_allow_edate);
+				}
+				$("#catalog_allow_"+allow_type).removeClass('hide');
+
+				// 페이지 배너
+				if(result[i].top_html != ''){
+					$('#layerPageBanner').html(result[i].top_html);
+					$('.banner_wrap').html('<button type="button" class="resp_btn" onclick=\'openDialog("페이지배너", "layerPageBanner", {"width":"800","height":"500"});\'>미리 보기</button>').removeClass('hide');
+				}else{
+					$('.banner_wrap').text('미사용').removeClass('hide');
+				}
+				
+				// 카테고리 네비게이션
+				if(result[i].hide == '1')	$('#navHide').text('미노출');
+				else						$('#navHide').text('노출');
+
+				// 전체 카테고리 네비게이션
+				if(result[i].hide_in_gnb == '1')	$('#allNavHide').text('미노출');
+				else								$('#allNavHide').text('노출');
+				
+				// 추천상품
+				if(window.Firstmall.Config.Environment.OperationType == "light") {
+					recommend_display = result[i].recommend_display_light_seq;
+				} else {
+					recommend_display = result[i].recommend_display_seq;
+				}
+				if(parseInt(recommend_display) > 0 ) {
+					$.ajax({
+						global:false,
+						type: "POST",
+						url: "/admin/page_manager/ajax_get_recommend",
+						data	: {'page_type':'brand', 'code':"{categoryCode}"},
+						dataType: 'html',
+						success: function(display){
+							$('#page_recommend_desc').html(display);
+							$(document).resize();
+						}
+					});
+				}
+console.log(result);
+				// 검색필터
+				if(result[i].use_search_filter == 'Y')  $('#use_search_filter').text(result[i].set_search_filter);
+				else									$('#use_search_filter').text('미사용');
+
+				if(result[i].groups){
+					for(var j=0;j<result[i].groups.length;j++){
+						$("input[type='checkbox'][name='memberGroup'][value='"+ result[i].groups[j].group_seq +"']").attr('checked',true);
+					}
+					isGroups = true;
+				}
+				
+				if(result[i].types){
+					$(result[i].types).each(function(idx, data){
+						$("input[type='checkbox'][name='userType'][value='"+ data.user_type +"']").attr('checked',true);
+					});
+				}
+
+				$("#goodsCnt").html(comma(result[i].goodsCnt));
+				$("input[name='categoryCode']").val(result[i].category_code);
+				var categoryCode = $("input[name='categoryCode']").val();
+				$("#urlLocation").html(categoryUrl+categoryCode);
+			}
+		}
+		if(!isGroups)$("input[type='checkbox'][name='memberGroup']").attr("checked",false);
+		$("#categoryNavi").html(arr.join(" > "));
+
+		$(".customFontDecoration").customFontDecoration();
+
+		disableNodeTypeDecoration();
+		disableNodeCatalogTypeDecoration();
+		disableNodeGnbTypeDecoration();
+		//disableNodeCategoryTypeDecoration();
+	}
+
+</script>
+<style>
+	.info-table-style .its-th {padding-left:10px !important;}
+	.point_star{color:#cc0000}
+</style>
+
+<!-- 서브메뉴 바디 : 시작-->
+<form name="categorySettingForm" method="post" target="actionFrame" action="../brand_process/brand_info">
+<input type="hidden" name="categoryCode" value="" />
+
+<div class="warp ml15">
+	<div class="item-title">브랜드 정보</div>
+	<table class="table_basic thl">
+	<tr>
+		<th>브랜드명</th>
+		<td>{categoryData.title}</td>
+		<th>브랜드 번호</th>
+		<td>
+			{categoryData.category_code}
+		</td>
+	</tr>
+	<tr>
+		<th>브랜드 영문명</th>
+		<td colspan='3'>
+			<input type="text" name="title_eng" value="{=htmlspecialchars(categoryData.title_eng)}" class="wx400 resp_text" />
+		</td>
+	</tr>
+	<tr>
+		<th>주소</th>
+		<td colspan='3'>				
+			<button type="button" class="resp_btn" id='viewCategory'>보기</button>
+			<button type="button" class="resp_btn v2" id='clipboard'>주소복사</button>
+		</td>
+	</tr>
+	<tr>
+		<th>상품 수</th>
+		<td colspan="3">
+			<span id="goodsCnt"></span>개 (하위 브랜드 포함)
+		</td>
+	</tr>
+	<tr>
+		<th>
+			브랜드 코드 <span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/category', '#brandtip1', 'sizeS')"></span>
+		</th>
+		<td>
+		<!--{ ? serviceLimit('H_FR') }-->
+			<span class="desc">코드값 기능은 업그레이드가 필요합니다.</span> <img src="../images/common/btn_upgrade.gif" class="hand" onclick="serviceUpgrade();" align="absmiddle" />
+		<!--{ : }-->
+			<input type="text" name="brand_goods_code" class="resp_text" value="{categoryData.brand_goods_code}" />
+		<!--{ / }-->
+		</td>
+		<th>베스트 브랜드</th>
+		<td>
+			<label class='resp_checkbox'><input type="checkbox" name="best" value="Y" {? categoryData.best=='Y' }checked{ / }/> <span class="point_star">★</span></label>
+		</td>
+	</tr>
+	<tr>
+		<th>QR 코드</th>
+		<td colspan='3'>
+			<button type="button" class="qrcodeGuideBtn resp_btn" target="parent" key="category" value="{categoryCode}">자세히</button>
+		</td>
+	</tr>
+	<!--{? categoryData.level == '2' && operation_type == 'light'}-->
+	<tr>
+		<th>단독 네비게이션</th>
+		<td colspan='3'>
+			<button type="button" class="resp_btn" onclick="copy_navigation();">치환코드 복사</button>
+		</td>
+	</tr>
+	<!--{/}-->
+	</table>
+
+	<div class="title_dvs">
+		<div class="item-title">브랜드 설정</div>
+		<button type='button' class='resp_btn v2 btn_page_move fr' data-type='brand'>설정</button>
+	</div>	
+	
+	<table class="table_basic thl">
+	<tr>
+		<th>접속 허용</th>
+		<td>{=access_limit_txt}</td>
+		<th>접속 기한 제한</th>
+		<td>
+			<div id="catalog_allow_show" class="mr10 hide">없음</div>
+			<div id="catalog_allow_period" class="mr10 hide">
+				<span id="catalog_allow_sdate"></span> ~ <span id="catalog_allow_edate"></span> 허가
+			</div>
+			<div id="catalog_allow_none" class="mr10 hide">금지</div>
+		</td>
+	</tr>
+	<tr>
+		<th>배너</th>
+		<td colspan="3">
+			<!--{ ? serviceLimit('H_FR') }-->
+				<span class="desc">배너 영역 기능은 업그레이드가 필요합니다.</span>
+				<img src="../images/common/btn_upgrade.gif" class="hand" onclick="serviceUpgrade();" align="absmiddle" />
+			<!--{:}-->
+				<div class="banner_wrap hide">
+
+				</div>
+			<!--{/}-->
+
+		</td>
+	</tr>
+	<tr>
+		<th>추천 상품</th>
+		<td colspan="3">
+			<span id="page_recommend_desc">없음</span>
+		</td>
+	</tr>
+	<tr>
+		<th>검색 필터</th>
+		<td colspan="3"><span id="use_search_filter"></span></td>
+	</tr>
+	<tr>
+		<th>네비게이션</th>
+		<td colspan="3"><span id="navHide"></span></td>
+	</tr>
+	<tr>
+		<th>전체 네비게이션</th>
+		<td colspan="3"><span id="allNavHide"></span></td>
+	</tr>
+	</table>
+
+</div>
+</form>
+<!-- 서브메뉴 바디 : 끝 -->
+
+<div id="layerPageBanner" class="hide"></div>
+<div id="layerSingleNavigation" class="hide">
+	<div class="wx200 fr right">
+		네비게이션 안내<span class="helpicon2 detailDescriptionLayerBtn" title="네비게이션 안내"></span>
+		<div class="detailDescriptionLayer hide">네비게이션(가로형/세로형) 생성</div>
+	</div>
+	<table class="info-table-style cboth" width="100%" cellspacing="0" cellpadding="0">
+		<colgroup>
+			<col width="33%"/>
+			<col width="33%"/>
+			<col width="*"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<th class="its-th">타입</th>
+				<th class="its-th">영역</th>
+				<th class="its-th">소스복사</th>
+			</tr>
+			<tr>
+				<td class="its-td">브랜드</td>
+				<td class="its-td">단독 네비게이션</td>
+				<td class="its-td">
+					<a href="javascript:;" onclick="copy_navigation();">소스복사</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+{ #layout_footer_popup }

@@ -1,0 +1,160 @@
+[2022-09-18 12:52:44.822207000]
+MODE : Request
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 12:52:44.871916000]
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 12:52:44.949895000]
+MODE : Request
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 12:52:44.994248000]
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 12:52:50.557287000]
+MODE : Request
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 12:52:50.601126000]
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 12:52:50.607032000]
+MODE : Request
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 12:52:50.646435000]
+REMOTE_IP : 115.21.218.193
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 14:09:48.36656000]
+MODE : Request
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 14:09:48.83174000]
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 14:09:48.89442000]
+MODE : Request
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 14:09:48.128419000]
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 14:09:51.465746000]
+MODE : Request
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 14:09:51.509314000]
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+
+[2022-09-18 14:09:51.514685000]
+MODE : Request
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [version] => 2.1
+    [use] => y
+    [mode] => license
+)
+
+
+[2022-09-18 14:09:51.555871000]
+REMOTE_IP : 211.244.223.65
+Array
+(
+    [license_key] => 74
+    [secreat_key] => 52
+)
+
+

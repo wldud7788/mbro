@@ -1,0 +1,87 @@
+[2022-03-11 13:10:19.166392000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [0] => Array
+        (
+            [result] => true
+            [order_insert] => 
+            [order_seq] => 2022030718310817582
+            [npay_order_id] => 2022030745068580
+            [npay_product_order_id] => 2022030738189270
+            [goods_seq] => 2302
+            [option_type] => option
+            [package_yn] => y
+            [payment] => 신용카드
+            [is_receiver_changed] => false
+            [is_payed_shipping] => n
+            [message] => Array
+                (
+                    [0] => 주문 조회 시작
+                    [1] => fm_order 주문서 존재함
+                    [2] => fm_order_shipping 존재함 (6493)
+                    [3] => fm_order_item 주문상품 존재함 (10009)
+                    [4] => fm_order_item_option 주문상품 옵션 존재함 (12114)
+                )
+
+            [old_step] => 35
+            [step] => 85
+            [npay_status] => PAYED
+            [npay_claimtype] => CANCEL
+            [npay_claimstatus] => CANCEL_REQUEST
+            [request_timestamp] => 2022-03-11T04:05:03.312Z4736
+        )
+
+    [1] => Array
+        (
+            [result] => true
+            [order_insert] => 
+            [order_seq] => 2022030718310817582
+            [npay_order_id] => 2022030745068580
+            [npay_product_order_id] => 2022030738189280
+            [goods_seq] => 2302
+            [option_type] => option
+            [package_yn] => y
+            [payment] => 신용카드
+            [is_receiver_changed] => false
+            [is_payed_shipping] => n
+            [message] => Array
+                (
+                    [0] => 주문 조회 시작
+                    [1] => fm_order 주문서 존재함
+                    [2] => fm_order_shipping 존재함 (6493)
+                    [3] => fm_order_item 주문상품 존재함 (10009)
+                    [4] => fm_order_item_option 주문상품 옵션 존재함 (12115)
+                )
+
+            [old_step] => 35
+            [step] => 85
+            [npay_status] => PAYED
+            [npay_claimtype] => CANCEL
+            [npay_claimstatus] => CANCEL_REQUEST
+            [request_timestamp] => 2022-03-11T04:05:03.312Z4736
+        )
+
+    [order_shipping_cost] => Array
+        (
+            [2022030718310817582] => Array
+                (
+                    [2022030738189270] => Array
+                        (
+                            [cnt] => 1
+                        )
+
+                    [settleprice] => 33800
+                    [npayAmount] => 33800
+                    [2022030738189280] => Array
+                        (
+                            [cnt] => 1
+                        )
+
+                )
+
+        )
+
+)
+
+

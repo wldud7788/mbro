@@ -1,0 +1,81 @@
+<!-- 시작 -->
+<div class="list_info_container">
+    <div class="dvs_left">	
+		검색 <b>{=number_format(list_total)}</b>개
+    </div>
+
+    <div class="dvs_right">	
+		<select  name="perpage" id="display_quantity">
+			<option id="dp_qty10" value="10" {? _GET.perpage == 10 } selected{/} >10개씩</option>
+			<option id="dp_qty50" value="50" {? _GET.perpage == 50 } selected{/} >50개씩</option>
+			<option id="dp_qty100" value="100" {? _GET.perpage == 100 } selected{/} >100개씩</option>
+			<option id="dp_qty200" value="200" {? _GET.perpage == 200 } selected{/} >200개씩</option>
+        </select>
+    </div>
+</div>
+
+<div class="table_row_frame">	
+    <div class="dvs_top">	
+		<div class="dvs_right">	
+			<button type="button" class="excel_down resp_btn v3"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>다운로드</span></button>
+		</div>
+    </div>
+	<!-- 바디 : 시작-->
+	<table class="table_row_basic tdc">
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>		
+			<col width="5%" /><!-- No. -->
+			<col width="10%" /><!-- 구분 -->
+			<col width="20%" /><!-- 메뉴 -->
+            <col width="15%" /><!-- 수행업무 -->
+            { ? serviceLimit('H_AD') == true }
+            <col width="10%"/><!-- 입점사 -->
+            { / }	
+			<col width="13%"/><!-- 접속자 -->
+			<col width="15%"/><!-- 접속일시 -->
+			<col width="12%" /><!-- 접속 IP -->
+		</colgroup>	
+        <thead class="lth">
+            <tr>
+                <th>No.</th>
+                <th>구분</th>
+                <th>메뉴</th>
+                <th>수행업무</th>
+                { ? serviceLimit('H_AD') == true }
+                <th>입점사</th>
+                { / }
+                <th>접속자</th>		
+                <th>접속일시</th>
+                <th>접속 IP</th>
+            </tr>
+        </thead>
+        <tbody>
+            { ? count(loop) > 0} {@ loop }
+            <tr>
+                <td>{.no}</td>
+                <td>{.type}</td>
+                <td class="align_left">{.menu}</td>			
+                <td class="align_left">
+                    {.desc}{? .detail_seq > 0 } <input type="button" class="resp_btn size_S button_detail" data-seq="{.detail_seq}" value="상세" />{/}
+                </td>
+                { ? serviceLimit('H_AD') == true }
+                <td>{.provider}</td>
+                { / }
+                <td>{.manager_name}</td>
+                <td>{.regist_date}</td>
+                <td>{.access_ip}</td>
+            </tr>
+            { / }{ : }
+            <tr>
+                <td colspan="8">검색 된 내용이 없습니다.</td>
+            </tr>
+            { / }
+        </tbody>
+    </table>
+    <div class="dvs_bottom">
+        <div class="dvs_right">	
+            <button type="button" class="excel_down resp_btn v3"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /><span>다운로드</span></button>	
+        </div>
+    </div>
+</div>
+<!-- 끝 -->

@@ -1,0 +1,64 @@
+<div class="resp_message mb10">  
+   메인페이지를 미리 저장해 두어 더 빠른 속도로 페이지를 접속할 수 있게 합니다.
+   <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/cache', '#tip4', 'sizeR')"></span> 
+</div>
+<table width="100%" class="table_row_basic tdc">
+<colgroup>
+	<col width="90" />
+	<col width="200" />
+	<col width="" />
+	<col width="150" />
+	<col width="150" />    
+	<col width="200" />
+</colgroup>
+<thead>
+	<tr>        
+		<th>번호</th>
+		<th>[플랫폼] 영역</th>
+		<th>스킨명</th>                    
+		<th>캐시파일 생성</th>
+		<th>
+			캐시파일 사용
+			<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/cache', '#tip3', '280')"></span>
+		</th>
+		<th>캐시파일</th>
+	</tr>
+</thead>
+<tbody>
+	<!--{ @ main_display_list }-->
+	<tr>        
+		<td>{ .index_ + 1 }</td>
+		<td class="left">
+			[{?.platform=='pc'}데스크톱{:.platform=='mobile'}모바일{:.platform=='fammerce'}페이스북{/}] 메인페이지
+		</td>                    
+		<td class="left">
+			{.skin_name}
+		</td>
+		<td>
+			<!--{ ? .cache_able }-->
+			<span class="resp_btn goods-display-cach-btn" onclick="chgMainCache('{.platform}')">생성/갱신</span>
+			<!--{ : }-->
+			<span class="resp_btn_txt v2" onclick="chgMainCacheErr()">불가</span>
+			<!--{ / }-->
+		</td>
+		<td class="select_style">
+			<!--{ ? .file_time && .skin_cache == 'y' }-->
+			<span class="resp_btn view-goods-display-cach-set-btn" onclick="setMainCachePrn(this, '{.platform}');">사용</span>
+			<!--{ : .file_time }-->
+			<span class="resp_btn view-goods-display-cach-set-btn" onclick="setMainCachePrn(this, '{.platform}');">미사용</span>
+			<!--{ : }-->
+			<span class="resp_btn_txt v2" onclick="setMainCachePrnErr();">불가</span>
+			<!--{ / }-->            
+		</td>
+		<td>
+			<!--{ ? .file_time }-->
+			{.file_time}
+			<span class="link" onclick="viewMainCache(this, '{.platform}');">보기</span>
+			<!--{ : }-->
+			-
+			<!--{ / }-->
+		</td>
+	</tr>
+	<!--{ / }-->
+</tbody>
+</table>

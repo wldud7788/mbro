@@ -1,0 +1,164 @@
+{ #layout_header }
+
+<script src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+
+<style type="text/css">
+.talk_src { width:90%; margin:0 auto; }
+.talk_src_lay { border:solid 1px #d3d3d3; padding:5px 20px; margin-top:10px; }
+.talk_src_tb th { font-weight:bold; height:30px; }
+.talk_log_list { width:90%; margin:0 auto; margin-top:20px; }
+.lh15 { line-height:15px; }
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		gSearchForm.init({'pageid':'kakaotalk_log','search_mode':'{=sc.search_mode}','select_date':'{=sc.select_date}'});
+
+		$('#kakaotalk_charge').on('click', function (){
+			$.get('kakaotalk_payment', function(data) {
+				$('#kakaotalkPopup').html(data);
+				openDialog("SMS/카카오 알림톡 충전 <span class='desc'>&nbsp;</span>", "kakaotalkPopup", {"width":"1200","height":"800"});
+			});
+		});		
+	});
+
+	// 발송 로그 상세
+	function detail_pop(uid, date){
+		$.ajax({
+			type		: 'post',
+			url			: 'kakaotalk_log_detail',
+			dataType	: 'html',
+			data		: {	'uid' : uid, 'date' : date },
+			success: function(html){
+				$("#sendLogPopup").html(html);
+				openDialog("알림톡 발송결과 상세 <span class='desc'>&nbsp;</span>", "sendLogPopup", {"width":"600","height":"600"});
+			}
+		});
+	}
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>카카오 알림톡 발송</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+{#top_menu}
+
+<div id="search_container" class="search_container">
+	<form action="./kakaotalk_log" class='search_form' >
+	<input type="hidden" name="searchcount" value="{searchcount}">
+	<table class="table_search">
+		<tr>
+			<th>기간</th>
+			<td>
+				<input type="text" name="s_date" value="{=sc.s_date}" class="datepicker" maxlength="10" />
+				~
+				<input type="text" name="e_date" value="{=sc.e_date}" class="datepicker" maxlength="10" />
+			</td>
+		</tr>
+
+		<tr>
+			<th>전송 결과</th>
+			<td>
+				<select name="status_yn" class="wx110">
+					<option value="">전체</option>
+					<option value="Y" {?sc.status_yn=='Y'}selected{/}>성공</option>
+					<option value="N" {?sc.status_yn=='N'}selected{/}>실패</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<th>발송 상황</th>
+			<td>
+				<select name="kkoBizCode" class="wx110">
+					<option value="">전체</option>
+					<!--{ ? templateList }-->
+						<!--{ @ templateList }-->
+					<option value="{.kkoBizCode}" {?sc.kkoBizCode==.kkoBizCode}selected{/}>{.msg_txt}</option>
+						<!--{ / }-->
+					<!--{ / }-->
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<th>수신 번호</th>
+			<td>
+				<input type="text" name="mobile" value="{=sc.mobile}" size="40" />
+				<span class="gray">(- 제외)</span>
+			</td>
+		</tr>
+	</table>
+
+	<div class="footer search_btn_lay"></div>
+	</form>
+</div>
+
+<div class="contents_dvs v3">
+<!-- 서브 레이아웃 영역 : 시작 -->
+<!-- 알림톡 리스트 영역 -->
+	<div class="list_info_container">
+		<div class="dvs_left">검색 <b>{total}</b>개</div>
+		<div class="dvs_right">- 최근 1년 이내의 내역만 조회 가능, 검색 기간 최대 3개월</div>
+	</div>
+
+	<table class="table_row_basic">
+		<colgroup>
+			<col width="7%" />
+			<col width="14%"/>
+			<col width="23%"/>
+			<col width="14%"/>
+			<col width="14%"/>
+			<col width="14%"/>
+			<col width="14%"/>
+		</colgroup>
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>발송 상황</th>	
+			<th>발송 내용</th>
+			<th>수신 번호</th>				
+			<th>전송 결과</th>
+			<th>발송 일시</th>
+			<th>SMS 대체 발송</th>
+		</tr>
+		</thead>
+		<tbody>
+		<!--{ ? sendList }-->
+			<!--{ @ sendList }-->
+		<tr>
+			<td>{=.no}</td>			
+			<td>{=msg_type_arr[.msg_code]}</td>
+			<td class="left"><a onclick="detail_pop('{=.uid}','{=.regist_date}');" class="resp_btn_txt v2">{=getstrcut(.message,'40')}</a></td>
+			<td>{=.mobile}</td>			
+			<td>{?.status_yn=='Y'}성공{:}실패{/}</td>
+			<td>{=.regist_date}</td>
+			<td>{=.sms_send}</td>
+		</tr>
+			<!--{ / }-->
+		<!--{ : }-->
+		<tr>
+			<td colspan="7" class="center">조회된 결과가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</tbody>
+	</table>	
+</div>
+<!-- 페이징 -->
+<div class="paging_navigation">{pagin}</div>	
+<!-- 알림톡 발송내역 영역 :: END -->
+<!-- 서브 레이아웃 영역 : 끝 -->
+
+<!-- 알림톡 충전 -->
+<div id="kakaotalkPopup" class="hide"></div>
+<!-- 알림톡 상세 -->
+<div id="sendLogPopup" class="hide"></div>
+
+{ #layout_footer }

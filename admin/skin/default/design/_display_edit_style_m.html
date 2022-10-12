@@ -1,0 +1,93 @@
+		<tr>
+			<th class="dsts-th">
+			기본 스타일
+			</th>
+			<td class="dsts-td left" colspan="2">
+				<div class="imageCheckboxContainer">
+					<table border="0" cellpadding="0" cellspacing="0">
+					{?skinVersion > 2}
+					<tr>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="newmatrix" {?data.style=='newmatrix'}checked="checked"{/} limit="{mobile_styles.newmatrix.limit_func}"/><img src="../images/design/m_img_display_lattice_a.gif" title="격자형(개수고정형)" /></label></div>
+						</td>
+						<td width="5"></td>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="responsible" {?data.style=='responsible'}checked="checked"{/} /><img src="../images/design/m_img_display_lattice_responsible.gif" title="격자형(반응형)" limit="{mobile_styles.responsible.limit_func}" /></label></div>
+						</td>
+					</tr>					
+					{? data.kind != 'search' }
+					<tr>
+						<td colspan="2" height="5"></td>
+					</tr>
+					<tr>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="newswipe" {?data.style=='newswipe'}checked="checked"{/} limit="{mobile_styles.newswipe.limit_func}" /><img src="../images/design/m_img_display_newswipe.gif" title="슬라이드형(개수고정)" /></label></div>
+						</td>
+						<td width="5"></td>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="sizeswipe" {?data.style=='sizeswipe'}checked="checked"{/} limit="{mobile_styles.sizeswipe.limit_func}" /><img src="../images/design/m_img_display_sizeswipe.gif" title="슬라이드형(크기고정)" /></label></div>
+						</td>
+					</tr>
+					{/}
+					{:}
+					<tr>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="newmatrix" {?data.style=='newmatrix'}checked="checked"{/} /><img src="../images/design/m_img_display_lattice_a.gif" title="격자형(개수고정형)" /></label></div>
+						</td>
+						<td width="5"></td>
+						<td>
+							<div class="imageCheckboxItem"><label><input type="radio" name="style" value="newswipe" {?data.style=='newswipe'}checked="checked"{/} /><img src="../images/design/m_img_display_newswipe.gif" title="슬라이드형(개수고정)" /></label></div>
+						</td>
+					</tr>
+					{/}
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">노출 개수</th>
+			<td class="dsts-td left" colspan="2">
+				<table>
+				<col width="150" /><col /><col width="30" /><col width="80" /><col width="30" /><col />
+				<tr>
+					<td height="24">격자형(개수고정)</td>
+					<td>가로 <input type="text" name="count_w" value="{data.count_w}" class="line" size="2" maxlength="2" />개</td>
+					<td align="center">X</td>
+					<td>세로 <input type="text" name="count_h" value="{?data.count_h}{data.count_h}{:}1{/}" class="line" size="3" maxlength="3" />개</td>
+					<td align="center">=</td>
+					<td>총 <b><span class="count_total"></span></b>개 상품</td>
+				</tr>
+				{?skinVersion > 2}
+				<tr>
+					<td height="24">격자형(반응형)</td>
+					<td>가로 자동</td>
+					<td align="center">X</td>
+					<td>세로 자동</td>
+					<td align="center">=</td>
+					<td>총 <b><input type="text" name="count_r" value="{?data.count_r}{data.count_r}{:}4{/}" class="line" size="3" maxlength="3" /></b>개 상품</td>
+				</tr>
+				{/}
+				
+				{? data.kind != 'search' }
+					<tr>
+						<td height="24">슬라이드형(개수고정)</td>
+						<td>가로 <input type="text" name="count_w_swipe" value="{?data.count_w_swipe}{data.count_w_swipe}{:}2{/}" class="line" size="2" maxlength="2" />개</td>
+						<td align="center">X</td>
+						<td>세로 <input type="text" name="count_h_swipe" value="{?data.count_h_swipe}{data.count_h_swipe}{:}1{/}" class="line" size="3" maxlength="3" />개</td>
+						<td align="center">=</td>
+						<td>총 <b><span class="count_total_swipe"></span></b>개 상품씩 총 <input type="text" name="count_max_swipe" value="{?data.count_max_swipe}{data.count_max_swipe}{:}8{/}" size="3" maxlength="3" />개의 상품이 스와이프 됨 <br />(탭이 존재할 경우 다음 탭으로 스와이프)</td>
+					</tr>
+					{?skinVersion > 2}
+					<tr>
+						<td height="24">슬라이드형(크기고정)</td>
+						<td>가로 자동</td>
+						<td align="center">X</td>
+						<td>세로 1 개</td>
+						<td align="center">=</td>
+						<td>최대 <b>20</b>개 상품</td>
+					</tr>
+					{/}
+				{/}
+				</table>
+			</td>
+		</tr>

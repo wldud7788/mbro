@@ -1,0 +1,328 @@
+{? pageType != "search"}
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+{/}
+<script type="text/javascript">
+	//기본검색설정
+	var default_search_pageid	= "member";
+	var default_obj_width		= 750;
+	var default_obj_height		= 700;
+	var callPage				= "{=callPage}";
+	var amail					= "{=amail}";
+
+	$(document).ready(function() {		
+		// ### 검색 가입/방문일 //
+		setContentsSelect("sc_money_type", "{=sc.sc_money_type}");
+		setContentsSelect("sc_count_type", "{=sc.sc_count_type}");
+		setContentsSelect("sc_specialDay_type", "{=sc.sc_specialDay_type}");
+		setContentsSelect("sc_day_type", "{=sc.sc_day_type}");
+	});
+</script>
+<!-- 회원리스트 검색폼 : 시작 -->
+
+<table class="table_search">
+	<tr>
+		<th><label class="resp_checkbox"><input type="checkbox" name="search_form_editor[]" value="sc_keyword" class="hide"></label> 검색어</th>
+		<td>
+			<select name="search_type" class="resp_select wx110">
+				<option value="">전체</option>
+				<!--{@ search_type_arr }-->
+				<option value="{.key_}" {=sc['selected']['search_type'][.key_]} >{.value_}</option>
+				<!--{ / }-->
+			</select>
+			<input type="text" name="keyword" value="{sc.keyword}" size="80"/>			
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_regist_date',sc_form.default_field)}class='hide'{/}>
+		<th><span>날짜</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_regist_date" class="hide"></label></th>
+		<td>
+			<div class="sc_day_date date_range_form">
+				<select name="sc_day_type" class="resp_select">
+					<option value="regist" {=sc['selected']['sc_day_type']['regist']}>가입일</option>
+					<option value="lastlogin" {=sc['selected']['sc_day_type']['lastlogin']}>최종 방문일</option>					
+				</select>
+				<select name="lastlogin_search_type" class="sc_day_type_lastlogin hide">
+					<option value="in" {=sc['selected']['lastlogin_search_type']['in']}>기간 내 방문</option>
+					<option value="out" {=sc['selected']['lastlogin_search_type']['out']}>기간내 미방문</option>
+				</select>
+				<input type="text" name="regist_sdate" value="{sc.regist_sdate}"  class="datepicker line sdate"  maxlength="10" size="10" default_none/>
+				-
+				<input type="text" name="regist_edate" value="{sc.regist_edate}"  class="datepicker line edate" maxlength="10" size="10" default_none />
+				<div class="resp_btn_wrap">
+					<input type="button" value="오늘" range="today" class="select_date resp_btn" settarget="regist" />
+					<input type="button" value="3일간" range="3day" class="select_date resp_btn" settarget="regist" />
+					<input type="button" value="일주일" range="1week" class="select_date resp_btn" settarget="regist" />
+					<input type="button" value="1개월" range="1month" class="select_date resp_btn" settarget="regist" />
+					<input type="button" value="3개월" range="3month" class="select_date resp_btn" settarget="regist" />
+					<input type="button" value="전체" range="all" class="select_date resp_btn" settarget="regist" row_bunch />
+					<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden" />
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr {? !in_array('sc_grade',sc_form.default_field)}class='hide'{/}>
+		<th><span>등급</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_grade" class="hide"></label></th>
+		<td>
+			<select name="grade" class="wx110">
+				<option value="">전체</option>
+				{@ group_arr }
+				<option value="{.group_seq}" {=sc['selected']['grade'][.group_seq]}>{.group_name}</option>
+				{ / }
+			</select>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_business',sc_form.default_field)}class='hide'{/}>
+		<th><span>가입 유형</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_business" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="business_seq" value=""  checked/> 전체</label>
+				<label><input type="radio" name="business_seq" value="n" {=sc['checkbox']['business_seq']['n']} /> 개인</label>
+				<label><input type="radio" name="business_seq" value="y" {=sc['checkbox']['business_seq']['y']} /> 사업자</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_status',sc_form.default_field)}class='hide'{/}>
+		<th><span>가입 승인(휴면)</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_status" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="status" value="" checked/> 전체</label>
+				<label><input type="radio" name="status" value="done" {=sc['checkbox']['status']['done']} /> 승인</label>
+				<label><input type="radio" name="status" value="hold" {=sc['checkbox']['status']['hold']} /> 미승인</label>
+				<label><input type="radio" name="status" value="dormancy" {=sc['checkbox']['status']['dormancy']} /> 휴면</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_order_sum',sc_form.default_field)}class='hide'{/}>
+		<th><span>결제 금액</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_order_sum" class="hide"></label></th>
+		<td>
+			<input type="text" name="sorder_sum" value="{sc.sorder_sum}" class="right onlynumber nostyle" size="7" row_group="order_sum" defaultValue="0"/> {=basic_currency_info['currency_symbol']}
+			~ 
+			<input type="text" name="eorder_sum" value="{sc.eorder_sum}" class="right onlynumber nostyle" size="7" row_group="order_sum"/> {=basic_currency_info['currency_symbol']}
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_order_cnt',sc_form.default_field)}class='hide'{/}>
+		<th><span>주문 횟수</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_order_cnt" class="hide"></label></th>
+		<td>
+			<input type="text" name="sorder_cnt" value="{sc.sorder_cnt}" class="right onlynumber nostyle" size="7" row_group="order_cnt" defaultValue="0"/> 건 
+			~ 
+			<input type="text" name="eorder_cnt" value="{sc.eorder_cnt}" class="right onlynumber nostyle" size="7" row_group="order_cnt"/> 건
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_money',sc_form.default_field)}class='hide'{/}>
+		<th><span>마일리지/포인트/예치금</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_money" class="hide"></label></th>
+		<td>
+			<select name="sc_money_type" class="resp_select">
+				<option value="emoney">마일리지</option>
+				<option value="point">포인트</option>		
+				<option value="cash">예치금</option>		
+			</select>	
+
+			<span>
+				<input type="text" name="semoney" value="{sc.semoney}" class="right onlyfloat nostyle" size="7" row_group="emoney" defaultValue="0"/>
+				<span class="sc_money_type_cash sc_money_type_emoney">{=basic_currency_info['currency_symbol']}</span>
+				<span class="sc_money_type_point">P</span>
+				~ 
+				<input type="text" name="eemoney" value="{sc.eemoney}" class="right onlyfloat nostyle" size="7" row_group="emoney"/>
+				<span class="sc_money_type_cash sc_money_type_emoney">{=basic_currency_info['currency_symbol']}</span>
+				<span class="sc_money_type_point">P</span>
+			</span>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_count',sc_form.default_field)}class='hide'{/}>
+		<th><span>방문/리뷰수</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_count" class="hide"></label></th>
+		<td>
+			<select name="sc_count_type" class="resp_select">
+				<option value="login_cnt">방문수</option>
+				<option value="review_cnt">리뷰수</option>							
+			</select>	
+
+			<span>
+				<input type="text" name="slogin_cnt" value="{sc.slogin_cnt}" class="right onlynumber nostyle" size="7" defaultValue="0" />
+				<span class="sc_count_type_login_cnt">회</span>
+				<span class="sc_count_type_review_cnt">건</span>					
+				~ 
+				<input type="text" name="elogin_cnt" value="{sc.elogin_cnt}" class="right onlynumber nostyle" size="7" />
+				<span class="sc_count_type_login_cnt">회</span>
+				<span class="sc_count_type_review_cnt">건</span>		
+			</span>
+		</td>
+	</tr>
+	<!--{ ? serviceLimit('H_AD') }-->
+	<tr {? !in_array('sc_provider',sc_form.default_field)}class='hide'{/}>
+		<th><span>단골 미니샵</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_provider" class="hide"></label></th>
+		<td>
+			<div class="ui-widget">
+				<select name="provider_seq_selector" style="vertical-align:middle;">
+				</select>
+				<input type="hidden" class="provider_seq" name="provider_seq" value="{sc.provider_seq}" />
+			</div>
+		</td>
+	</tr>
+	<!--{ / }-->
+	<tr {? !in_array('sc_sitetype',sc_form.default_field)}class='hide'{/}>
+		<th><span>회원가입 환경</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_sitetype" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="sitetype" value="" checked/> 전체</label>
+				<!--{ @ sitetypeloop }-->
+				<label><input type="radio" name="sitetype" value="{.key_}" {=sc['checkbox']['sitetype'][.key_]} /> {.name}</label>
+				<!--{ / }-->
+			</div>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_snsrute',sc_form.default_field)}class='hide'{/}>
+		<th><span>회원가입 방법</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_snsrute" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="snsrute" value="" checked/> 전체</label>
+				<!--{ @ ruteloop }-->
+				<label><input type="radio" name="snsrute" value="{.key_}" {=sc['checkbox']['snsrute'][.key_]}  /><!-- <img src="../images/common/icon/{.image}"> --> {.name}</label>
+				<!--{ / }-->
+			</div>
+		</td>
+	</tr>
+	<tr {? !in_array('sc_referer',sc_form.default_field)}class='hide'{/}>
+		<th><span>회원가입 경로</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_referer" class="hide"></label></th>
+		<td>
+			<select name="referer" style="width:135px;">
+				<option value="">선택하세요</option>
+				{ @ referer_list }
+				<option value="{ . referer_group_name }" { ? sc.referer == .referer_group_name }selected{/}>{ . referer_group_name }</option>
+				{ / }
+				<option value="기타" { ? sc.referer == '기타' }selected{/}>기타</option>
+			</select>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_sms',sc_form.default_field)}class='hide'{/}>
+		<th><span>SMS 수신</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_sms" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="sms" value="" checked/> 전체</label>
+				<label><input type="radio" name="sms" value="y"/> 동의</label>
+				<label><input type="radio" name="sms" value="n"/> 거부</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_mailing',sc_form.default_field)}class='hide'{/}>
+		<th><span>이메일 수신</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_mailing" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="mailing" value="" checked/> 전체</label>
+				<label><input type="radio" name="mailing" value="y"/> 동의</label>
+				<label><input type="radio" name="mailing" value="n"/> 거부</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_sex',sc_form.default_field)}class='hide'{/}>
+		<th><span>성별</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_sex" class="hide"></label></th>
+		<td>
+			<div class="resp_radio">			
+				<label><input type="radio" name="sex" value="" checked/> 전체</label>
+				<label><input type="radio" name="sex" value="male" {? sc.sex== 'male' } checked {/}/> 남성</label>
+				<label><input type="radio" name="sex" value="female" {? sc.sex== 'female' } checked {/}/> 여성</label>
+			<div class="resp_radio">
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_age',sc_form.default_field)}class='hide'{/}>
+		<th><span>나이</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_age" class="hide"></label></th>
+		<td>만
+			<input type="text" name="sage" value="{sc.sage}" class="right onlyfloat nostyle" size="7" row_group="age" defaultValue="0"/> 세
+			~ 
+			<input type="text" name="eage" value="{sc.eage}" class="right onlyfloat nostyle" size="7" row_group="age"/> 세
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_specialDay',sc_form.default_field)}class='hide'{/}>
+		<th><span>생일/기념일</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_specialDay" class="hide"></label></th>
+		<td>
+			<select name="sc_specialDay_type" class="resp_select wx110">
+				<option value="birth" selected="selected">생일</option>
+				<option value="anniversary">기념일</option>							
+			</select>	
+			
+			<span class="sc_specialDay_type_birth hide ">
+				<div class="date_range_form">
+				<input type="text" name="birthday_sdate" value="{sc.birthday_sdate}" readonly class="datepicker sdate"  maxlength="10" size="12" default_none />
+				-
+				<input type="text" name="birthday_edate" value="{sc.birthday_edate}" readonly class="datepicker edate" maxlength="10" size="12" default_none />
+				<div class="resp_btn_wrap">
+					<input type="button" value="오늘" range="today" class="select_date resp_btn" settarget="birthday" />
+					<input type="button" value="3일간" range="3day" class="select_date resp_btn" settarget="birthday" />
+					<input type="button" value="일주일" range="1week" class="select_date resp_btn" settarget="birthday" />
+					<input type="button" value="1개월" range="1month" class="select_date resp_btn" settarget="birthday" />
+					<input type="button" value="3개월" range="3month" class="select_date resp_btn" settarget="birthday" />
+					<input type="button" value="전체" range="all" class="select_date resp_btn" settarget="birthday" row_bunch />
+					<input name="select_date_birthday" value="{=sc.select_date_birthday}" class="select_date_input" type="hidden">
+					<label class="resp_checkbox ml10"><input type="checkbox" name="birthday_year_except" value="Y" defaultValue="false" {?sc.birthday_year_except == 'Y'}checked{/}/> 연도 제외</label>
+				</div>
+				</div>
+			</span>
+			
+			<span class="sc_specialDay_type_anniversary hide">
+				<div class="date_range_form">
+				<select name="anniversary_sdate[]" onchange="chgAnniversaryOption('s', 0, 1);" default_none class="sdate">
+					<option value=""></option>
+					<!--{ @ m_arr }-->
+					<option value="{.value_}" {?sc.anniversary_sdate[0]==.value_ }selected{/}>{.value_}</option>
+					<!--{ / }-->
+				</select>
+				월
+				<select name="anniversary_sdate[]" onchange="chgAnniversaryOption('s', 1, 0);" default_none class="sdate">
+					<option value=""></option>
+					<!--{ @ d_arr }-->
+					<option value="{.value_}" {?sc.anniversary_sdate[1]==.value_ }selected{/}>{.value_}</option>
+					<!--{ / }-->
+				</select>
+				일
+				<span class="gray" style="margin:0 5px;">-</span>
+				<select name="anniversary_edate[]" onchange="chgAnniversaryOption('e', 0, 1);" default_none class="edate">
+					<option value=""></option>
+					<!--{ @ m_arr }-->
+					<option value="{.value_}" {?sc.anniversary_edate[0]==.value_ }selected{/}>{.value_}</option>
+					<!--{ / }-->
+				</select>
+				월
+				<select name="anniversary_edate[]" onchange="chgAnniversaryOption('e', 1, 0);" default_none class="edate">
+					<option value=""></option>
+					<!--{ @ d_arr }-->
+					<option value="{.value_}" {?sc.anniversary_edate[1]==.value_ }selected{/}>{.value_}</option>
+					<!--{ / }-->
+				</select>
+				일
+				<div class="resp_btn_wrap" format="onlyDate">
+					<input type="button" value="오늘" range="today" class="select_date resp_btn" settarget="anniversary" />
+					<input type="button" value="3일간" range="3day" class="select_date resp_btn" settarget="anniversary" />
+					<input type="button" value="일주일" range="1week" class="select_date resp_btn" settarget="anniversary" />
+					<input type="button" value="1개월" range="1month" class="select_date resp_btn" settarget="anniversary" />
+					<input type="button" value="3개월" range="3month" class="select_date resp_btn" settarget="anniversary" />
+					<input type="button" value="전체" range="all" class="select_date resp_btn" settarget="anniversary" row_bunch />
+					<input name="select_date_anniversary" value="{=sc.select_date_anniversary}" class="select_date_input hide" type="text">
+				</div>
+				</div>
+			</span>
+		</td>
+	</tr>
+
+	<tr {? !in_array('sc_mall_t',sc_form.default_field)}class='hide'{/}>
+		<th>
+			<span>테스트용 회원</span><label class="resp_checkbox hide"><input type="checkbox" name="search_form_editor[]" value="sc_mall_t" class="hide"></label>
+			<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip1')"></span>
+		</th>
+		<td><label class="resp_checkbox"><input type="checkbox" name="mall_t_check" value="Y" {? sc.mall_t_check == 'Y'}checked{/}> 테스트용 회원만 검색</label></td>
+	</tr>
+</table>
+<div class="footer search_btn_lay"></div>
+
+<div id="setPopup" class="hide"></div>

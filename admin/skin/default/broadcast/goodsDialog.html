@@ -1,0 +1,307 @@
+<!--@deprecated-->
+<!-- CSS 시작 -->
+<style>
+	/*
+	 * 임시로 제작한 CSS
+	 * @author Sunha Ryu
+	 */
+#write-broadcast-dialog {
+	padding: 0px;
+}
+
+#write-broadcast-dialog .row {
+    border: 1px solid rgba(86,61,124,.2);
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#write-broadcast-dialog .title-row {
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#write-broadcast-dialog .title-row .title {
+	font-size: 1.4em;
+}
+
+#write-broadcast-dialog .title-row .btn-close {
+	background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+	margin-left:2px;
+	float: left;
+}
+
+#write-broadcast-dialog .title-row .country {
+	margin-right:2px;
+	float: right;
+}
+
+#write-broadcast-dialog .search-row {
+	position: relative;
+}
+
+#write-broadcast-dialog .search-row .search-input {
+    display: block;
+    width: 100%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    height: 100%;
+}
+
+#write-broadcast-dialog .search-row span.search-filter {
+	position: absolute;
+    right: 5px;
+    bottom: 6px;
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+}
+
+#write-broadcast-dialog .goods-row {
+	position: relative;
+}
+
+#write-broadcast-dialog .goods-row .checkbox-cell {
+    width: 25px;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    margin-left:3px;
+    margin-right:3px;
+}
+
+#write-broadcast-dialog .goods-row .checkbox-cell > input[type=checkbox] {
+    width: 25px;
+    height: 25px;
+}
+
+#write-broadcast-dialog .goods-row .info-cell {
+	display: table;
+}
+
+#write-broadcast-dialog .goods-row .info-cell .info-ul .info-li-title {
+	font-size: 13px;
+}
+
+#write-broadcast-dialog .goods-row .info-cell .info-ul .info-li-name, #write-broadcast-dialog .goods-row .info-cell .info-ul .info-li-price {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+#write-broadcast-dialog .goods-row .info-cell .info-ul .info-li-status {
+	font-size: 13px;
+	color: #999;
+}
+
+#write-broadcast-dialog .goods-row .info-cell .info-ul .info-li-status > span{
+	font-size: 13px;
+}
+
+#write-broadcast-dialog .overlay {
+    background-color: #8b8b8b;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0.6;
+    z-index: 1;
+    overflow-y: hidden;
+}
+  
+#write-broadcast-dialog .goods-link-area {
+    position: absolute;
+    top: 0px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+
+#write-broadcast-dialog .goods-link-broadcast {
+	position: absolute;
+    top: 0px;
+    width: 100%;
+    background-color: black;
+    color: #FFF;
+    text-align: center;
+}
+
+#write-broadcast-dialog .goods-link-conf {
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    background-color: #FFF;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-timesale-btn-wrap {
+    
+}
+
+#write-broadcast-dialog .goods-link-closebtn {
+	background-color: transparent;
+    border: 0px;
+    font-size: 15px;
+    cursor:pointer;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-link-closebtn {
+	color: #FFF;
+	padding-top:5px;
+    padding-bottom:5px;
+    width:100%;
+}
+
+#write-broadcast-dialog .goods-link-conf .goods-link-closebtn {
+    margin-right: 5px;
+    font-weight: bold;
+	color: #000;
+	float: right;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-link-closebtn:hover {
+	background-color: #333333;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-link-broadcast-ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	display: inline-block;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-link-broadcast-ul li {
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 16px;
+	text-decoration: none;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-link-broadcast-ul li:hover {
+	background-color: #333333;
+}
+
+#write-broadcast-dialog .goods-link-broadcast .goods-link-broadcast-ul li > .goods-link-broadcast-btn {
+	margin-top:5px;
+	background-color: transparent;
+    border: 0px;
+    color: #FFF;
+    font-size: 15px;
+}
+
+</style>
+<!-- CSS 종료 -->
+
+<!-- 스크립트 시작 -->
+<script>
+// 닫힘 버튼 Click Event
+$(document).on('click', '#write-broadcast-dialog .btn-close', function() {
+	$("#write-broadcast-dialog").dialog('close');
+});
+
+// 검색 필터 Click Event
+$(document).on('click', "#write-broadcast-dialog .search-row span.search-filter", function() {
+	console.log('test');
+});
+
+// 상품명 검색 inputbox에서 Enter키를 입력했을 때 Event
+$(document).on('keypress', '#write-broadcast-dialog .search-row .search-input', function(e) {
+	if (e.which === 13 ) {
+		// 상품 목록 가져오는 함수 호출
+		goodsList();
+	}
+});
+
+// 상품 연결 시도
+$(document).on('click', '.goods-checkbox', function() {
+	showLinkLayer();
+});
+
+// 레이어 닫기
+$(document).on('click', '.goods-link-closebtn', function() {
+	hideLinkLayer();
+});
+
+// 타임세일 레이어 노출
+function showLinkLayer() {
+	$.ajax({
+		'cache' : false,
+		'url' : "/admin/broadcast/goodsLink",
+		'type' : 'GET',
+		'data' : {'goods_seq':'', 'bs_seq':''},
+		'success' : function(result){
+			$("#write-broadcast-dialog .goods-link-area").html(result);
+			$("#write-broadcast-dialog .overlay").show();
+			$("#write-broadcast-dialog .goods-link-area").show();
+			$("#write-broadcast-dialog").css("overflow-y", "hidden");
+		},
+		'error' : function(err) {
+			alert(getAlert('gv054'));
+		}
+	});
+	
+	
+}
+
+//타임세일 레이어 숨김
+function hideLinkLayer() {
+	$("#write-broadcast-dialog .overlay").hide();
+	$("#write-broadcast-dialog .goods-link-area").hide();
+	$("#write-broadcast-dialog").css("overflow-y", "auto");
+	$("#write-broadcast-dialog .goods-link-area").html('');
+}
+
+// document ready
+$(function() {
+	// 상품 목록 가져오는 함수 최초 호출
+	goodsList();
+});
+
+/**
+ * 상품 목록을 가져오는 함수
+ */
+function goodsList()
+{
+	$.ajax({
+		'cache' : false,
+		'url' : "/admin/broadcast/goodsList",
+		'type' : 'GET',
+		'data' : {},
+		'success' : function(result){
+			$("#write-broadcast-dialog .goods-area").html(result);
+			$("#write-broadcast-dialog .goods-area").show();
+		},
+		'error' : function(err) {
+			alert(getAlert('gv054'));
+		}
+	});
+}
+</script>
+<!-- 스크립트 종료 -->
+
+<div class="row title-row">
+	<button type="button" class="btn-close">닫기</button>
+	<img class="country" src="/data/brand_country/kr.png">
+	<span class="title">라이브 방송</span>
+</div>
+<div class="row search-row">
+	<input type="text" class="search-input" placeholder="상품명을 입력해주세요.">
+	<span class="search-filter">전체 √</span>
+</div>
+<!-- 상품 노출 영역 시작 -->
+<div class="goods-area" style="display:none"></div>
+<!-- 상품 노출 영역 종료 -->
+
+<!-- 오버레이 시작 -->
+<div class="overlay" style="display:none"></div>
+<!-- 오버레이 종료 -->
+
+<!-- 타임세일 설정 영역 시작 -->
+<div class="goods-link-area" style="display:none"></div>
+<!-- 타임세일 설정 영역 종료 -->

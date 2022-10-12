@@ -1,0 +1,94 @@
+{ #layout_header }
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".modify").click(function(){
+		var seq = $(this).attr("seq");
+		document.location.href = "/admin/order/download_write?seq="+seq+"&callPage={?_GET.callPage=='company_catalog'}company_catalog{:}catalog{/}";
+	});
+
+	$(".delete").click(function(){
+		var seq = $(this).attr("seq");
+		if(!confirm("삭제하시겠습니까?")) return;
+		$("input[name='seq']").val(seq);
+		$("#input_form").submit();
+	});
+
+	$("#orderListBtn").on("click", function(){			
+		location.href="/admin/order/"+"{?_GET.callPage=='company_catalog'}company_catalog{:}catalog{/}";
+	})
+
+	
+	$("#addItemBtn").on("click", function(){			
+		location.href="/admin/order/download_write"+"?callPage={?_GET.callPage=='company_catalog'}company_catalog{:}catalog{/}";
+	})
+});
+</script>
+
+<form id="input_form" name="input_form" method="post" action="../order_process/download_delete" target="actionFrame">
+<input type="hidden" name="seq" />
+</form>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>다운로드 항목설정</h2>
+		</div>		
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><span class="btn large black"><button type="button" id="addItemBtn" class="resp_btn active size_L">양식추가</button></span></li>
+		</ul>
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+			<li><span class="btn large icon"><button type="button" id="orderListBtn" class="resp_btn v3 size_L "><span class="arrowleft"></span>주문리스트</button></span></li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div class="contents_dvs v2">
+<div class="item-title">다운로드 항목설정 리스트</div>
+<table id="download_item_list" class="info-table-style table_row_basic" style="width:100%">
+	<colgroup>
+		<col width="40%" />
+		<col width="10%"/>
+		<col width="20%" />
+		<col width="20%"/>
+		<col width="10%"/>
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="its-th-align center">파일종류</th>
+			<th class="its-th-align center">항목 수</th>
+			<th class="its-th-align center">생성일</th>
+			<th class="its-th-align center">수정일</th>
+			<th class="its-th-align center">관리</th>
+		</tr>
+	</thead>
+	<tbody>
+	{@ loop }
+		<tr>
+			<td class="its-td-align pdl5">{?.criteria=='ORDER'}주문기준 엑셀파일{:}상품기준 엑셀파일{/} ( {.name} )</td>
+			<td class="its-td-align center">{.count}</td>
+			<td class="its-td-align center">{.regdate}</td>
+			<td class="its-td-align center">{.update_date}</td>
+			<td class="its-td-align center">
+				<span class="btn small gray"><button type="button" class="modify resp_btn" seq="{.seq}">수정</button></span>
+				{? .seq==1 || .seq==2 }{ : }
+				<span class="btn small gray"><button type="button" class="delete resp_btn v3" seq="{.seq}">삭제</button></span>
+				{ / }
+			</td>
+		</tr>
+	{ / }
+	</tbody>
+</table>
+</div>
+
+
+
+
+{ #layout_footer }

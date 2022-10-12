@@ -1,0 +1,123 @@
+[재고기초]
+scmbasic[index]			= 재고기초:../scm_basic/config
+scmbasic[config]		= 기초정보:../scm_basic/config
+scmbasic[trader]		= 거래처:../scm_basic/trader
+scmbasic[warehouse]		= 창고:../scm_basic/warehouse
+scmbasic[store]			= 쇼핑몰 창고:../scm_basic/store
+
+[재고관리]
+scmmanage[index]		= 재고관리:../scm_manage/goods
+scmmanage[goods]		= 상품관리:../scm_manage/goods
+scmmanage[revision]		= 재고조정:../scm_manage/revision
+scmmanage[stockmove]		= 재고이동:../scm_manage/stockmove
+scmmanage[ledger]		= 재고수불부:../scm_manage/ledger
+scmmanage[inven]		= 재고자산명세서:../scm_manage/inven
+
+[발주/입고]
+scmwarehousing[index]		= 발주/입고:../scm_warehousing/autoorder
+scmwarehousing[autoorder]	= 자동발주상품:../scm_warehousing/autoorder
+scmwarehousing[sorder]		= 발주:../scm_warehousing/sorder
+scmwarehousing[warehousing]	= 입고:../scm_warehousing/warehousing
+scmwarehousing[carryingout]	= 반출:../scm_warehousing/carryingout
+scmwarehousing[sordwhs]		= 발주입고현황:../scm_warehousing/sordwhs
+scmwarehousing[sordforwhs]	= 발주대비 입고현황:../scm_warehousing/sordforwhs
+scmwarehousing[traderaccount]	= 거래처 정산:../scm_warehousing/traderaccount
+
+[판매상품]
+goods[index]			= 판매상품:../goods/index
+goods[goods]			= <실물> 상품:../goods/catalog
+goods[package]			= <실물> 패키지/복합 상품:../goods/package_catalog
+goods[social]			= <티켓> 티켓상품:../goods/social_catalog:A1
+goods[gift]			= <실물> 사은품:../goods/gift_catalog:A1
+goods[batch_regist]		= <실물> 상품 빠른등록:../goods/batch_regist
+goods[batch_modify]		= <실물> 일괄 업데이트:../goods/batch_modify:A1
+goods[restock_notify]		= 재입고 알림:../goods/restock_notify_catalog:A1
+goods[category]			= 카테고리:../category/catalog
+goods[brand]			= 브랜드:../brand/catalog
+goods[location]			= 지역:../location/catalog:A1
+goods[barcode]			= 바코드 출력:../barcode/catalog
+goods[excel_download]		= 엑셀 다운로드:../goods/excel_download
+
+[주문]
+order[index]			= 주문:../order/index
+order[order]			= 통합주문리스트:../order/catalog
+order[company_catalog]		= └ 본사배송 주문상품:../order/company_catalog
+order[personal]			= 개인결제리스트:../order/personal:A1
+order[autodeposit]		= 자동입금확인:../order/autodeposit
+order[export]			= 출고리스트:../export/catalog
+order[returns]			= 반품리스트:../returns/catalog
+order[refund]			= 환불리스트:../refund/catalog
+order[sales]			= 매출증빙리스트:../order/sales
+order[temporary]		= 삭제리스트:../order/temporary
+
+[마켓연동]
+market_connector[index]			= 오픈마켓:../market_connector/index
+market_connector[market_order]		= 주문수집/등록:../market_connector/market_order_list
+market_connector[market_cancel]		= 취소관리:../market_connector/market_cancel_list
+market_connector[market_return]		= 반품관리:../market_connector/market_return_list
+market_connector[market_exchange]	= 교환관리:../market_connector/market_exchange_list
+market_connector[distributor]		= 상품등록:../market_connector/distributor
+market_connector[market_product]	= 상품관리:../market_connector/market_product_list
+market_connector[market_linkage]	= 연동설정:../market_connector/market_linkage
+market_connector[market_setting]	= 마켓설정:../market_connector/market_setting
+
+
+
+[회원]
+member[index]			= 회원:../member/index
+member[member]			= 회원리스트:../member/catalog
+member[dormancy_catalog]	= 휴면처리리스트:../member/dormancy_catalog
+member[withdrawal]		= 탈퇴리스트:../member/withdrawal
+member[kakaotalk]		= 카카오알림톡:../member/kakaotalk_index
+member[sms]			= SMS발송관리:../member/sms
+member[batch_sms]		= SMS대량발송:../batch/sms
+member[email]			= 이메일발송관리:../member/email
+member[amail]			= 이메일대량발송:../member/amail
+member[curation]		= SMS/EMAIL 고객리마인드:../member/curation
+member[excel_download]		= 엑셀 다운로드:../member/excel_download
+member[history]			= 마일리지/포인트/쿠폰 지급내역 :../history/payments
+
+[게시판]
+board[index]			= 게시판:../board/index
+board[board]			= 게시글 리스트:../board/index
+board[main]			= 게시판 리스트:../board/main
+board[counsel]			= 고객상담 통합게시판:../board/counsel_catalog
+
+[프로모션/쿠폰]
+coupon[index]			= 프로모션/쿠폰:../coupon/index
+coupon[coupon]			= 할인 쿠폰:../coupon/catalog
+coupon[promotion]		= 할인 코드:../promotion/catalog:A1
+coupon[referer]			= 할인 유입경로:../referer/index:A1
+coupon[event]			= 할인 이벤트:../event/catalog
+coupon[gift_event]		= 사은품 이벤트:../event/gift_catalog:A1
+coupon[joincheck]		= 출석체크:../joincheck/catalog
+
+[마케팅]
+marketing[index]		= 마케팅:../marketing/index
+marketing[marketing]		= 마케팅 소개:../marketing/marketplace
+marketing[marketplace_url]	= 입점마케팅설정:../marketing/marketplace_url
+
+[통계]
+statistic[index]		= 통계:../statistic_summary
+statistic[summary]		= 요약 통계:../statistic_summary
+statistic[visitor]		= 방문 통계:../statistic_visitor
+statistic[member]		= 가입 통계:../statistic_member
+statistic[sales]		= 구매 통계:../statistic_sales
+statistic[goods]		= 상품 통계:../statistic_goods:A1
+statistic[epc]			= 적립 통계:../statistic_epc
+statistic[ga]			= 구글 애널리틱스:../statistic_ga
+
+[입점사]
+provider[index]			= 입점사:../provider/
+provider[provider]		= 입점사리스트:../provider/catalog
+provider[provider_group]	= 입점사등급:../provider/provider_group
+
+[정산]
+account[index]			= 정산:../account/index
+account[account]		= 정산리스트 - 대기:../account/index
+account[complete]		= 정산리스트 - 완료:../account/complete
+
+[앱]
+mobile_app[index]		= 모바일앱:../mobile_app/setting
+mobile_app[setting]		= 앱 설정:../mobile_app/setting
+mobile_app[push]		= 푸시발송관리:../mobile_app/push_manual

@@ -1,0 +1,596 @@
+{ #layout_header_popup }
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common-ui.css?mm={=date('Ymd')}" />
+<script type="text/javascript" src="/app/javascript/js/batch.js?v={=date('Ymd')}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#send_submit").click(function(){
+		var total_count = parseInt($("input[name='mcount']").val());
+		var x			= "";
+		var count 		= parseInt("{=count}");
+
+		if(total_count == 0){
+			openDialogAlert('검색된 회원이 없습니다.', 400, 140);
+			return;
+		}
+
+		if(total_count > parseInt(count) ) {
+			openDialogAlert('SMS 전송 실패 – SMS 잔여건수 부족', 400, 140);
+			return;			
+		}
+
+		if(total_count > 1000){
+			openDialogAlert('1,000명 이상은 받는 사람을 엑셀로 다운로드 받아<br> 대량SMS 발송 기능으로 SMS를 보내 주십시오.', 400, 150);
+			return;
+		}
+
+		if($("input[name='agree_yn']").attr("checked")){
+
+		}else{
+			openDialogAlert('‘정보통신망이용 촉진 및 정보보호등에 관한 법률 및 시행령’ 위반에 따른 책임은 귀사에게 있음에 동의하셔야만 발송이 가능합니다.', 600, 150);
+			return;
+
+		}
+		openDialog('처리','processDiv', {'width':550,'height':140});
+		document.smsForm.submit();
+	});
+
+
+	$(".sms_contents").live('keyup change',function(){
+		send_byte_chk(this);
+	});
+
+	// SPECIAL CHARACTER
+	$("#special_cont").click(function(){
+		if($("#special_view").css("display")=='none') $("#special_view").show();
+		else $("#special_view").hide();
+	});
+
+	$(".special_char").click(function(){
+		var str = $("#send_message").val();
+		$("#send_message").val(str+$(this).attr('conts'));
+		send_byte_chk($("#send_message"));
+	});
+
+	send_byte_chk($("#send_message"));
+
+	$("#downloadMemberBtn").click(function(){
+		{? auth_member_down}
+		if($("input[name='mcount']").val() == 0){
+			openDialogAlert('다운로드 파일이 없습니다.<br />먼저 회원을 검색해 주세요.', 400, 150);
+			return;
+		}
+
+		openDialog('회원정보 다운로드','admin_member_download', {'width':550,'height':420});
+		$(".email_download_hide").hide();
+		{:}
+			openDialogAlert('다운로드 권한이 없습니다.<br /> <a href="../setting/manager"><span class="orange"><b>관리자</b></span></a>에서 설정할 수 있습니다.', 400, 150);
+			return;
+		{/}
+	});
+
+	$(".del_form").live("click",function(){
+		parent.actionFrame.location.href = "../member_process/delete_smsform?seq="+$(this).attr("seq");
+	});
+
+	// POPUP SMS ADD FORM
+	$("#add_sms_group").click(function(){
+		$("#sms_form_id").show();
+		$("select[name='sms_form_group']").attr('disabled',true);
+		$("input[name='sms_form_name']").attr('disabled',false);
+	});
+	$("#del_sms_group").click(function(){
+		$("#sms_form_id").hide();
+		$("select[name='sms_form_group']").attr('disabled',false);
+		$("input[name='sms_form_name']").attr('disabled',true);
+	});
+
+	$("#searchRestockMemberBtn").click(function(){
+		$("input[name='mode']").val("search");
+		openDialog("회원 검색 <span class='desc'>&nbsp;</span>", "memberSearchDiv", {"width":"100%","height":"800"});
+		if($("#memberSearchDiv").html() == "") getSearchMember('', 'start', 'y');
+	});
+});
+
+function select_sms_form(){
+
+	$.get('/admin/member/sms_form_list_pop', function(data) {
+		$('#smsFormListPopup').html(data);		
+		openDialog("SMS 불러오기", "smsFormListPopup", {"width":"900","height":"700"});
+	});
+}
+
+//회원 검색 폼
+function getSearchMember(query_string, callType, callPage){
+	if(callType == "start" && callPage == "y"){
+		query_string = "scriptPaging="+callPage;
+	}
+	
+	$.ajax({
+		type: "get",
+		url: "/admin/goods/restock_notify_catalog",
+		data: query_string,
+		success: function(result){
+			$("#memberSearchDiv").html(result);
+			apply_input_style();
+			searchCount = $("input[name='searchcount']").val();
+		}
+	});
+}
+
+function safeKeyCheck(){
+	var safe_key = $("input[name='member_download_passwd']").val();
+	$.ajax({
+		type: "post",
+		url: "/admin/member_process/safe_key_check",
+		data: "safe_key="+safe_key,
+		dataType: "json",
+		success: function(result){
+			if(result.code == "200"){
+				excelMemberDownloadOk();
+				$("input[name='member_download_passwd']").val('');
+				if(parseInt($("input[name='mcount']").val()) > 2000){
+					setTimeout(function(){
+						loadingStart();
+					},50);
+				}
+			}else{
+				openDialogAlert('보안키가 맞지 않습니다', 400, 150);
+			}
+		}
+	});		
+}
+function serchMemberInput(){
+	if ($("input[name='keyword']").val()==$("input[name='keyword']").attr('title')) {
+		$("input[name='keyword']").val('');
+	}
+
+	searchCount = $("input[name='searchcount']").val();
+	serialize = decodeURIComponent($("#memberForm").serialize());
+
+	$("#searchSelectText").html("검색된");
+	$("#serialize").val(serialize);
+	$("#search_member").html(comma(searchCount));
+	$("input[name='mcount']").val(searchCount);
+	$("input[name='selectMember']").val('');
+	$("input[name='searchSelect']").val('search');
+
+	var reciveTitle = "받는 사람";
+	$('.member_chk').attr("checked", false);
+	$('.all_member_chk').attr("checked", false);
+
+	openDialogAlert('[받는사람-검색회원] 검색된 요청자 '+comma(searchCount)+'명이 '+reciveTitle+'에 들어 갔습니다.', 600, 150);
+	closeDialog("memberSearchDiv");		
+}
+
+function serchMemberInputDown(){
+	if ($("input[name='keyword']").val()==$("input[name='keyword']").attr('title')) {
+		$("input[name='keyword']").val('');
+	}
+	
+	searchCount = $("input[name='searchcount']").val();
+	serialize = decodeURIComponent($("#memberForm").serialize());
+	
+	$("#serialize").val(serialize);
+	$("#search_member").html(comma(searchCount));
+	$("input[name='mcount']").val(searchCount);
+	$("input[name='selectMember']").val('');
+	$("input[name='searchSelect']").val('search');
+
+	closeDialog("memberSearchDiv");		
+	openDialog('회원정보 다운로드','admin_member_download', {'width':550,'height':420});
+}
+
+function selectMemberInput(call){
+	var selectMember 		= $("input[name='selectMember']").val();
+	var selectMemberArray 	= new Array();
+	selectMemberArray 		= selectMember.split(',');
+	
+	if(selectMember == ""){
+		alert("선택된 회원이 없습니다.");
+		return;
+	}
+
+	$("#search_member").html(comma(selectMemberArray.length));
+	$("#searchSelectText").html("선택된");
+	
+	$("input[name='mcount']").val(selectMemberArray.length);
+	$("input[name='searchSelect']").val('select');
+
+	var reciveTitle = "받는 사람";
+	var params = new Array();
+	params['yesMsg'] = "발송화면으로 가기";
+	if(call == "emoney"){
+		reciveTitle = "대상자";
+		params['yesMsg'] = "지급화면으로 가기";		
+	}
+	
+	params['noMsg'] = "계속 선택하기";
+
+	if($("input[name='mcount']").val() > 0){
+		$("#send_submit").prop("disabled",false);
+	}else{
+		$("#send_submit").prop("disabled",true);
+	}
+	openDialogConfirm('[받는사람-선택회원] 선택된 회원 '+comma(selectMemberArray.length)+'명이 '+reciveTitle+'에 들어 갔습니다. (중복된 회원 제외)',600, 150,function(){
+		closeDialog("memberSearchDiv");
+	},function(){
+		
+	}, params);
+}
+
+
+function selectMemberInputDown(){
+	var selectMember = $("input[name='selectMember']").val();
+	var selectMemberArray = new Array();
+	selectMemberArray = selectMember.split(',');
+	
+	if(selectMember == ""){
+		alert("선택된 회원이 없습니다.");
+		return;
+	}
+
+	$("#search_member").html(comma(selectMemberArray.length));
+	$("#searchSelectText").html("선택된");
+	
+	$("input[name='mcount']").val(selectMemberArray.length);
+	$("input[name='searchSelect']").val('select');
+
+	closeDialog("memberSearchDiv");		
+	openDialog('회원정보 다운로드','admin_member_download', {'width':550,'height':420});
+}
+
+
+function allMemberClick(){
+	$('.member_chk').each(function(){
+		selectMemberClick($(this));
+	});
+}
+
+function selectMemberClick(obj){
+	var selectMember = $("input[name='selectMember']").val();
+	var selectMemberArray = new Array();
+	if(selectMember != ""){
+		selectMemberArray = selectMember.split(',');
+	}	
+
+	if($(obj).is(":checked")){
+		
+		var inBoolen = true;
+		for(i=0; i<selectMemberArray.length; i++){
+			if(selectMemberArray[i] == $(obj).val()){
+				inBoolen = false;
+			}
+		}
+
+		if(inBoolen){
+			if(selectMemberArray.length){
+				selectMember += ","+$(obj).val();
+			}else{
+				selectMember = $(obj).val();
+			}
+		}
+		
+		
+	}else{
+		var newSelectMember="";
+		for(i=0; i<selectMemberArray.length; i++){
+			if(selectMemberArray[i] != $(obj).val()){
+				if(newSelectMember == "") newSelectMember = selectMemberArray[i];
+				else newSelectMember += ","+selectMemberArray[i];
+			}
+		}
+		selectMember = newSelectMember;
+		//selectMember = selectMember.replace($(obj).val()+",","");
+		//selectMember = selectMember.replace($(obj).val(),"");	
+	}
+	$("input[name='selectMember']").val(selectMember);
+}
+
+
+function excelMemberDownloadOk(){
+	closeDialog('admin_member_download');
+	document.smsForm.action ="../batch_process/restock_member_download";
+	document.smsForm.submit();
+	document.smsForm.action ="../batch_process/restock_notify_send_sms";
+}
+function sms_loading_stop(){
+	$(".sms_form_table").css({'opacity':'1'}).activity(false);
+	$("#send_submit_span").show();
+}
+
+// SEND MEMBER COUNT - IFRAME CONTROLLER
+function sendMemberSum(){
+	var add_cnt = $("select[name='send_to_list'] option").size();
+	var chk = $("input:radio[name='member']:checked").val();
+	var chk_cnt = 0;
+	if(chk=='all'){
+		chk_cnt = $("input:radio[name='member']:checked").attr("count");
+	}else if(chk=='search'){
+		chk_cnt = parent.$("input[name='searchcount']").val();
+	}else if(chk=='excel'){
+		chk_cnt = 0;
+	}else if(chk=='select'){
+		{?table=='fm_goods_restock_notify'}
+		chk_cnt = parent.$("input:checkbox[name='restock_notify_seq[]']:checked").length;
+		{:}
+		chk_cnt = parent.$("input:checkbox[name='member_chk[]']:checked").length;
+		{/}
+	}
+
+	var add_chk = $("input[name='add_num_chk']").attr('checked');
+	if(add_chk=='checked'){
+		chk_cnt = 0;
+	}
+	var total = parseInt(add_cnt) + parseInt(chk_cnt);
+	$("#send_member").attr("count",total);
+	$("#send_member").html(total);
+}
+
+//
+
+function send_byte_chk(textareaObj){
+
+	var str = $(textareaObj).val();
+	str = sms_replace(str);
+	$("#sms_text").html(str);
+	$(textareaObj).parent().find(".send_byte").html(chkByte(str));
+	if(chkByte(str) > 90){
+		$(textareaObj).parent().find(".minus_count").html("3");
+	}else{
+		$(textareaObj).parent().find(".minus_count").html("1");
+	}
+}
+
+function chkByte(str){
+	var cnt = 0;
+	for(i=0;i<str.length;i++) {
+		cnt += str.charCodeAt(i) > 128 ? 2 : 1;
+	}
+	return cnt;
+}
+
+function agree_yn_check(){
+	var agree_text = "";
+	if($("input[name='agree_yn']").attr("checked")){
+		agree_text= "위 내용에 대하여 {=date('Y년m월d일 H시i분s초')}에 {managerInfo.mname}({managerInfo.manager_id})께서 동의하셨습니다.";
+		$("#agree_text").show();
+	}else{
+		$("#agree_text").hide();
+	}
+	
+	$("#agree_text").html(agree_text);
+}
+
+function limit_goods_name_chg(str){
+	if(str == "y"){
+		$(".goods_name_limit").show();
+	}else{
+		$(".goods_name_limit").hide();
+	}
+}
+
+function limit_goods_option_chg(str){
+	if(str == "y"){
+		$(".goods_option_limit").show();
+	}else{
+		$(".goods_option_limit").hide();
+	}
+}
+</script>
+
+<style>
+.title_dvs > .resp_btn_dvs{right:0;}
+html{overflow-y:hidden !important;}
+</style>
+<!-- 페이지 타이틀 바 : 끝 -->
+<form name="smsForm" id="smsForm" method="post" target="processFrame" action="../batch_process/restock_notify_send_sms">
+<input type="hidden" name="table" value="{table}" />
+<input type="hidden" name="page" value="{_GET.page}"/>
+<input type="hidden" name="category"/>
+<input type="hidden" name="send_num"/>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="serialize" id="serialize" value="">
+<input type="hidden" name="mcount" value="0">
+<input type="hidden" name="searchSelect" value="search">
+<input type="hidden" name="selectMember" value="">
+
+<div class="contents_container">
+	<div class="content">
+		<div class="item-title">SMS 발송</div>
+		<table class="table_basic thl">		
+		<colgroup>
+			<col width="15%" />
+			<col width="*" />
+		</colgroup>
+		<tbody>
+		<tr>
+			<th>잔여 건수</th>
+			<td>잔여 {=number_format(count)}건</td>
+		</tr>
+		<tr>
+			<th>보내는 사람</th>
+			<td>
+				{? send_phone}{send_phone}{:}등록된 발신번호가 없습니다.{/}
+				<input type="hidden" name="send_sms" value="{send_phone}" title="전화번호를 입력하세요"/>
+			</td>
+		</tr>
+		<tr>
+			<th>받는 사람(검색)</th>
+			<td>
+				<input type="checkbox" name="search_member_yn" value="y" checked class='hide'>
+				<span class="search_member_yn_y">
+					검색 회원 <span id="search_member" class="bold">0</span>명
+					<button type="button" id="searchRestockMemberBtn" class="resp_btn v2">알림 요청자 검색</button>
+					<span class="resp_btn v3" id="downloadMemberBtn"><img src="../images/common/btn_img_ex.gif" align="absmiddle" /> <span>다운로드</span></span>
+				</span>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		<div class="resp_message">
+			- 받는 사람이 1,000명 이상 시 받는 사람을 엑셀로 다운로드 받아 <a class="resp_btn_txt" href="/admin/batch/sms_hp_auth" target="_blank">대량 SMS 발송</a> 기능으로 메일을 보내주세요.
+		</div>
+
+		<ul class="ul_list_01 mt20 pd0">
+			<li class="wp65">
+				<div class="title_dvs mt0">
+					<div class="item-title">
+						내용
+						<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip13', 'sizeM')"></span>
+					</div>
+					<div class="resp_btn_dvs" style="margin-right:46px;">					
+						<button type="button" id="special_cont" class="resp_btn v2">특수 문자</button>
+
+						<div id="special_view" class="hide">
+							<table cellpadding="5" cellspacing="1" border="0" width="100%">
+							<tr>
+							{@ sms_cont}
+								{?.index_%15==0}</tr><tr>{/}
+								<td align="center"><span class="special_char" conts="{.value_}" style="cursor:pointer;">{.value_}</span></td>
+							{ / }
+							</tr>
+							</table>
+						</div>
+
+						<button type="button" id="open_save_sms" class="resp_btn v2" onclick="select_sms_form()">SMS 불러오기</button>						
+					</div>
+				</div>
+				<textarea name="send_message" id="send_message" class="sms_contents wp95" rows="10">{send_message}</textarea>
+				<div class="mt5">
+					<b id="send_byte" class="send_byte">0</b>byte / <b id="minus_count" class="minus_count">0</b>건 차감
+				</div>
+				<div class="gray">
+					- ‘정보통신망이용 촉진 및 정보 보호 등의 관한 법률 및 시행령’에 따라 광고 전송 시 (광고)를 표시해주세요.
+					<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip2')"></span>
+				</div>
+			</li>
+			<li class="wp30">
+				<div class="item-title">미리보기</div>
+				<textarea name="sms_text" id="sms_text" class="wp95" rows="10" readonly disabled></textarea>
+			</li>
+		</ul>
+
+		<div class="item-title">치환코드 설정 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip12', 'sizeM')"></span></div>
+
+		<table class="table_basic thl">		
+		<colgroup>
+			<col width="15%" />
+			<col width="35%" />
+			<col width="15%" />
+			<col width="35%" />
+		</colgroup>
+		<tbody>
+		<tr>
+			<th>상품명 길이</th>
+			<td>
+				<select name="limit_goods_name_yn" onchange="limit_goods_name_chg(this.value);" >
+					<option value="n">제한 없음</option>
+					<option value="y">제한</option>
+				</select>
+				<span class="goods_name_limit hide"><input type="text" name="limit_goods_name" value="" size="3" style="text-align:right;" class="onlynumber resp_text" maxlength="3"> 자 </span>
+			</td>
+			<th>상품옵션 길이</th>
+			<td>
+				<select name="limit_goods_option_yn" onchange="limit_goods_option_chg(this.value);" >
+					<option value="n">제한 없음</option>
+					<option value="y">제한</option>
+				</select>
+				<span class="goods_option_limit hide"><input type="text" name="limit_goods_option" value="" size="3" style="text-align:right;" class="onlynumber resp_text" maxlength="3"> 자 </span>
+			</td>
+		</tr>
+		<tr>
+			<th>상품 URL</th>
+			<td colspan="3">
+				<div class="resp_radio">
+					<label><input type="radio" name="shorten_url_yn" value="n" checked> 전체 URL 사용</label>
+					<label><input type="radio" name="shorten_url_yn" value="y"> 짧은 URL 사용</label>
+					<a href="/admin/member/curation" target="blank"><span class="blue underline">설정하기 &gt;</span></a>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+
+
+
+		<div class="item-title">발송 시간</div>
+		<table class="table_basic thl">		
+		<colgroup>
+			<col width="15%" />
+			<col width="*%" />
+		</colgroup>
+		<tbody>
+		<tr>
+			<th>발송 시간 설정 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/g_member', '#tip5', 'sizeM')"></span></th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="sms_reserve_yn" value="n" checked>즉시 발송</label>
+					<label>
+						<input type="radio" name="sms_reserve_yn" value="y"> 예약 발송
+						<select name="reserve_hour">
+							<option value="08">8시</option>
+							<option value="09">9시</option>
+							<option value="10">10시</option>
+							<option value="11">11시</option>
+							<option value="12">12시</option>
+							<option value="13">13시</option>
+							<option value="14">14시</option>
+							<option value="15">15시</option>
+							<option value="16">16시</option>
+							<option value="17">17시</option>
+							<option value="18">18시</option>
+							<option value="19">19시</option>
+							<option value="20">20시</option>
+						</select>
+
+						<select name="reserve_min">
+							<option value="00">00분</option>
+							<option value="10">10분</option>
+							<option value="20">20분</option>
+							<option value="30">30분</option>
+							<option value="40">40분</option>
+							<option value="50">50분</option>
+						</select>
+					</label>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		<div class="gray mt5">
+			- 예약 발송 선택 시, 현재보다 이전 시간으로 설정하시는 경우 SMS가 즉시 발송 됩니다.
+		</div>
+
+
+		<div class="center mt20">
+			<label class="resp_checkbox"><input type="checkbox" name="agree_yn" value="y" onclick="agree_yn_check();"> ‘정보통신망이용 촉진 및 정보보호등에 관한 법률 및 시행령’ 위반에 따른 책임은 당사에게 있음에 동의합니다.</label>
+		</div>
+		
+	</table>
+	</div>
+
+	<div class="footer">
+		<button type="button" id="send_submit" {? count < 1}disabled{/} class="resp_btn active size_XL">발송</button>
+		<button type="button" class="resp_btn v3 size_XL" onclick="window.close();">취소</button>
+	</div>
+
+</div>
+</form>
+<!-- 여기서 부터 기존 폼-->
+
+<div id="smsFormListPopup" class="hide"></div>
+
+<div id="processDiv" class="hide">
+<div style='height:10px;'></div>
+<table width="100%" cellspacing="0" cellpadding="0" style='border:1px solid #d2d2d2'>
+	<tr>
+		<td>
+		<iframe src="" name="processFrame" frameborder="0" width="100%" height="30" scrolling="no"></iframe>
+		</td>
+	</tr>
+</table>
+</div>
+
+{#member_download_info}
+
+{ #layout_footer_popup }

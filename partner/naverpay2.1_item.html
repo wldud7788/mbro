@@ -1,0 +1,104 @@
+<products>
+{ @ result }
+	<product>
+		<id>{.goods_seq}</id>
+		<merchantProductId>{.goods_seq}</merchantProductId>
+		<ecMallProductId>{.goods_seq}</ecMallProductId>
+		<name><![CDATA[{.goods_name}]]></name>
+		<basePrice>{.base_price}</basePrice>
+		<taxType>{.taxtype}</taxType>
+		<infoUrl><![CDATA[http://{_SERVER.HTTP_HOST}/goods/view?no={.goods_seq}]]></infoUrl>
+		<imageUrl><![CDATA[{.viewimg}]]></imageUrl>
+		<giftName><![CDATA[]]></giftName>
+		<stockQuantity>{.tot_stock}</stockQuantity>
+		<status>{.status}</status>
+		<optionSupport>{? .optionSupport}true{:}false{/}</optionSupport>
+		<supplementSupport>{ ?.supplementSupport }true{:}false{/}</supplementSupport>
+		{? .returnShippingFee}<returnShippingFee></returnShippingFee>{/}
+		{? .exchangeShippingFee}<exchangeShippingFee></exchangeShippingFee>{/}
+		<returnInfo>
+			<zipcode>{.shipping['return_zipcode']}</zipcode>
+			<address1><![CDATA[{.shipping['return_address1']}]]></address1>
+			<address2><![CDATA[{.shipping['return_address2']}]]></address2>
+			<sellername><![CDATA[{.shipping['return_sellername']}]]></sellername>
+			<contact1><![CDATA[{.shipping['return_contact1']}]]></contact1>
+			<contact2><![CDATA[{.shipping['return_contact2']}]]></contact2>
+		</returnInfo>
+		{?.optionSupport }
+		<option>
+			<!-- 전체 옵션 -->
+			{ @.all_options }
+			{ @..value_ }
+			<optionItem>
+				<type>{..key_}</type>
+				<name><![CDATA[{...key_}]]></name>
+				{ @...value_ }
+				<value>
+					<id>{....id}</id>
+					<text><![CDATA[{....text}]]></text>
+					<status><![CDATA[{....status}]]></status>
+				</value>
+				{ / }
+			</optionItem>
+			{ / }
+			{ / }
+			<!-- optionManageCodes로 필터링 옵션 -->
+			{ @.sel_options }
+			<combination>
+				<manageCode>{..key_}</manageCode>
+				<stockQuantity>{..stock}</stockQuantity>
+				<status>{..status}</status>
+				<price>{..price}</price>
+				{ @..options }
+				<options>
+					<name><![CDATA[{...name}]]></name>
+					<id>{...id}</id>
+				</options>
+				{ / }
+				{ @..input }
+				<options>
+					<name><![CDATA[{...name}]]></name>
+					<id>{...id}</id>
+				</options>
+				{ / }
+			</combination>
+			{ / }
+		</option>
+		{ / }
+		{? .supplementSupport}
+			{@ .suboptions }
+		<supplement>
+			<id>{..id}</id>
+			<name><![CDATA[{..name}]]></name>
+			<price>{..price}</price>
+			<stockQuantity>{..stock}</stockQuantity>
+			<status>{..status}</status>
+		</supplement>
+			{ / }
+		{/}
+		<shippingPolicy>
+			{? .shipping['shipping_type'] == "CHARGE_BY_QUANTITY" }
+			<chargeByQuantity>
+				<type>{.shipping['chargebyquantity']['type']}</type>
+				<repeatQuantity>{.shipping['chargebyquantity']['repeatQuantity']}</repeatQuantity>
+			</chargeByQuantity>
+			{ / }
+			{? .shipping['conditionalFree'] || .shipping['shipping_type'] == 'CONDITIONAL_FREE'}
+			<conditionalFree>
+				<basePrice>{.shipping['basic_price']}</basePrice>
+			</conditionalFree>
+			{ / }
+			<feePayType>{.shipping['shipping_paytype']}</feePayType>
+			<feePrice>{.shipping['shipping_price']}</feePrice>
+			<feeType>{.shipping['shipping_type']}</feeType>
+			<groupId>{.shipping['shipping_group']}</groupId>
+			<method>{.shipping['shipping_method']}</method>
+			{? .shipping['apiSupport'] == 'true' }
+			<surchargeByArea>
+				<apiSupport>true</apiSupport>
+			</surchargeByArea>
+			{ / }
+		</shippingPolicy>
+	</product>
+{ / }
+</products>

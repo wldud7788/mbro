@@ -1,0 +1,154 @@
+<!--{ ? !record && page == 1 }-->
+		<tr class="list-row">
+			<td colspan="{? ajaxCall}10{:}9{/}" align="center">검색어가 없거나 검색 결과가 없습니다.</td>
+		</tr>
+<!--{ : }-->
+	<!--{ @ record }-->
+
+		<!--{ ? .start_step }-->
+		<!-- 리스트타이틀(주문상태 및 버튼) : 시작 -->
+		<tr class="list-title-row">
+			<td colspan="{? ajaxCall}10{:}9{/}" class="list-title-row-td list-title-row-td-step-{.step}">
+				<div class="relative">
+					<div class="ltr-title ltr-title-step-{.step}">
+					<!--{ ? .step == 15 }-->
+					<span class="step_title">(출고 전)</span>주문접수
+					<!--{ : .step == 25 }-->
+					<span class="step_title">(출고 전)</span>결제확인
+					<!--{ : .step == 35 }-->
+					<span class="step_title">(출고 전)</span>상품준비
+					<!--{ : .step == 40 }-->
+					<span class="step_title">(출고 전)</span>부분 출고준비
+					<!--{ : .step == 45 }-->
+					<span class="step_title">(출고 전)</span>출고준비
+					<!--{ : .step == 50 }-->
+					<span class="step_title">(출고 후)</span>부분 출고완료
+					<!--{ : .step == 55 }-->
+					<span class="step_title">(출고 후)</span>출고완료
+					<!--{ : .step == 60 }-->
+					<span class="step_title">(출고 후)</span>부분 배송 중
+					<!--{ : .step == 65 }-->
+					<span class="step_title">(출고 후)</span>배송 중
+					<!--{ : .step == 70 }-->
+					<span class="step_title">(출고 후)</span>부분 배송완료
+					<!--{ : .step == 75 }-->
+					<span class="step_title">(출고 후)</span>배송완료
+					<!--{ : .step == 85 }-->
+					<span class="step_title">(출고 전)</span>결제취소(전체)
+					<!--{ : .step == 95 }-->
+					<span class="step_title">(출고 전)</span>주문무효
+					<!--{ : .step == 99 }-->
+					<span class="step_title">(출고 전)</span>결제실패
+					<!--{ : .step == 0 }-->
+					<span class="step_title">(출고 전)</span>결제시도
+					<!--{ / }-->
+					</div>
+				</div>
+			</td>
+		</tr>
+		<!-- 리스트타이틀(주문상태 및 버튼) : 끝 -->
+		<!--{ / }-->
+
+
+		<tr class="list-row step{.step} important_{.order_seq} { ? .thischeck }checked-tr-background{/}">
+			<td align="center" class="ft11">{=substr(.regist_date,2,-3)}</td>
+			<td align="left" class="ft11">
+				<a href="/admin/order/view?no={.order_seq}" target="_blank"><span class="order-step-color-{.step} bold">{.order_seq}</span></a>
+				{?.linkage_mall_order_id}
+				<div class="blue bold">{.linkage_mall_order_id}</div>
+				{/}
+			</td>
+			<td align="left">
+			<div class="goods_name">{?.gift_cnt>0}<span title="사은품 주문"><img src="../images/design/icon_order_gift.gif" align="absmiddle"/></span>{ / } {.goods_name}</div>
+			</td>
+			<td class="right">
+			{.tot_ea}({.item_cnt}종)
+			</td>
+			<td align="center" class="ft11">
+			</td>
+
+			<td class="ft11 hand" onclick="open_crm_summary(this,'{.member_seq}','{.order_seq}','right');">
+				<!--{ ? .recipient_user_name != .order_user_name}-->
+					<div style="margin-top:5px;">{.recipient_user_name}</div>
+				<!--{ / }-->
+					<div style="margin-bottom:3px;">
+				<!--{ ? .member_seq }-->
+					{?.member_type=='개인'}<img src="/admin/skin/default/images/common/icon/icon_personal.gif" vspace="0" align="absmiddle" />
+					{:.member_type=='기업'}<img src="/admin/skin/default/images/common/icon/icon_besiness.gif" vspace="0" align="absmiddle" />{/}
+					<span>{.order_user_name}</span>
+					{? .sns_rute }
+						<span>(<img src="/admin/skin/default/images/sns/sns_{=substr(.sns_rute,0,1)}0.gif" align="absmiddle" class="btnsnsdetail">/<span class="blue">{.group_name}</span>)
+						</span>
+					{ : }
+						(<span style="color:#d13b00;">{.userid}</span>/<span class="blue">{.group_name}</span></a>)
+					{ / }
+					{? .blacklist}<img src="/admin/skin/default/images/common/ico_blacklist_{.blacklist}.png" align="absmiddle" alt="블랙리스트_{.blacklist}" />{ : }<img src="/admin/skin/default/images/common/ico_angel.png" align="absmiddle" alt="엔젤회원" />{/}
+				<!--{ : }-->
+					<img src="/admin/skin/default/images/common/icon/icon_personal.gif" /> <span>{.order_user_name}</span> (<span class="desc">비회원</span>)
+					{? .ordblacklist}<img src="/admin/skin/default/images/common/ico_blacklist_{.ordblacklist}.png" align="absmiddle" alt="블랙리스트_{.ordblacklist}" />{ : }<img src="/admin/skin/default/images/common/ico_angel.png" align="absmiddle" alt="엔젤회원" />{ / }
+				<!--{ / }-->
+					</div>
+			</td>
+
+			<!--// 결제 수단 //-->
+			<td align="right" class="ft11">
+			<!--{ ? .payment=='bank' }-->
+				<!--{ ? .order_user_name == .depositor }-->
+				<span class="darkgray"><span title="입금자명">{.depositor}</span></span>
+				<!--{ : }-->
+				<span class="blue"><span title="입금자명">{.depositor}</span></span>
+				<!--{ / }-->
+			<!--{ / }-->
+			<!--{ ? .payment == 'escrow_account' }-->
+			<span class="icon-pay-escrow"><span>에스크로</span></span>
+			<span class="icon-pay-account"><span>{.mpayment}</span></span>
+			<!--{ : .payment == 'escrow_virtual' }-->
+			<span class="icon-pay-escrow"><span>에스크로</span></span>
+			<span class="icon-pay-virtual"><span>{.mpayment}</span></span>
+			<!--{ : .pg == 'kakaopay' }-->
+			<span class="icon-pay-{.pg}-simple"><span>{.pg}</span></span>
+			<!--{ : }-->
+			<span class="icon-pay-{.payment}"><span>{.mpayment}</span></span>
+			<!--{ / }-->
+			<!--{ ? .payment=='bank' && .bank_name }-->
+			<span class="darkgray"><span title="은행명">{.bank_name}</span></span>
+			<!--{ / }-->
+			{?.deposit_date}
+			 <div class="pdt5">{=substr(.deposit_date,2,-3)}</div>
+			{ / }
+			</td>
+			<td align="right" style="padding-right:5px;"><b>{=get_currency_price(.settleprice)}</b></td>
+			<td align="center" class="ft11">
+			<div>{.mstep}</div>
+			{ ? .cancel_list_ea || .exchange_list_ea || .return_list_ea  || .refund_list_ea }
+			<div>
+				{ ? .cancel_list_ea }
+				<a href="/admin/refund/catalog?keyword={.order_seq}" target="_blank"><img src='../images/common/icon/icon_list_cancel.gif' align="absmiddle"><span style="font-size:11px;color:#ea3b91">{.cancel_list_ea}</span></a>
+				{ / }
+				{ ? .exchange_list_ea }
+				<a href="/admin/returns/catalog?keyword={.order_seq}" target="_blank"><img src='../images/common/icon/icon_list_return_exchange.gif' align="absmiddle"><span style="font-size:11px;color:#ea3b91">{.exchange_list_ea}</span></a>
+				{ / }
+				{ ? .return_list_ea }
+				<a href="/admin/returns/catalog?keyword={.order_seq}" target="_blank"><img src='../images/common/icon/icon_list_return.gif' align="absmiddle"><span style="font-size:11px;color:#ea3b91">{.return_list_ea}</span></a>
+				{ / }
+				{ ? .refund_list_ea }
+				<a href="/admin/refund/catalog?keyword={.order_seq}" target="_blank"><img src='../images/common/icon/icon_list_refund.gif' align="absmiddle"><span style="font-size:11px;color:#ea3b91">{.refund_list_ea}</span></a>
+				{ / }
+			</div>
+			{ / }
+			</td>
+			{? ajaxCall }
+			<td class="ctd hand" onclick="open_crm_summary(this,'{.member_seq}','{.order_seq}','left');">
+				<span class="btn small valign-middle cyanblue"><input type="button" name="manager_modify_btn" value="CRM" /></span>
+			</td>
+			{/}
+		</tr>
+		<tr class="order-list-summary-row hide">
+			<td colspan="{?ajaxCall}10{:}9{/}" class="order-list-summary-row-td"><div class="order_info"></div></td>
+		</tr>
+		<!-- 리스트데이터 : 끝 -->
+	<!--{ / }-->
+<!--{ / }-->
+		<input type="hidden" id="{page}_no" value="{final_no}" />
+		<input type="hidden" id="{page}_step" value="{final_step}" />
+

@@ -1,0 +1,45 @@
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript">
+var gf_pop = '';
+$(document).ready(function() {
+	parent.loadingStop();
+	try{
+		//gf_pop = window.open( "", "goodsflow_popup", "width=600, height=500, top=0, left=0, scrollbars=yes, status=no, toolbar=no, resizable=no, location=no, menu=no" );
+
+		$("#goodsflow_pop_frm").target = "goodsflow_popup";
+		$("#goodsflow_pop_frm").submit();
+
+		//setTimeout('chkGoodflowPopup()', 1000);
+	}catch(e){
+		alert('이미 운송장 받기가 실행중입니다.');
+	}
+});
+
+// 송장번호 체크하여 입력해주기 - 자동 :: 현재 불가능하여 쓰이지 않음 -> 추후 개선 가능시 사용.
+function chkGoodflowPopup(){
+	try{
+		if(gf_pop.top){
+			setTimeout('chkGoodflowPopup()', 1000);
+		}
+	}catch(e){
+		$("#export_code_frm").submit();
+	}
+}
+</script>
+
+<form name="goodsflow_pop_frm" id="goodsflow_pop_frm" action="{=pop_url}" method="post" target="goodsflow_popup">
+	<br/>id: <input type="text" name="id" value="{=export_log.sessionKey}" />
+	<br/>otp: <input type="text" name="otp" value="{=export_log.otp}" />
+	<br/>responseURL: <input type="text" name="responseURL" value="{domain}/order/gf_export_get" />
+</form>
+
+<form name="export_code_frm" id="export_code_frm" action="./gf_export_input" method="post" target="_self">
+<!--{ ? gf_mode == 'all' }-->
+	<!--{ @ export_code }-->
+	<input type="text" name="export_code[]" value="{.value_}" />
+	<!--{ / }-->
+<!--{ : }-->
+	<input type="text" name="export_code[]" value="{export_code}" />
+<!--{ / }-->
+</form>

@@ -1,0 +1,616 @@
+[2021-11-17 01:00:47] - 2021-11-16 - daily_order start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_order success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_fblike start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_fblike success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_review start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_review success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_restock_notify start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_restock_notify success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_wish start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_wish success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_cart start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_cart success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_view start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_view success
+[2021-11-17 01:00:47] - 2021-11-16 - daily_sales_price start
+[2021-11-17 01:00:47] - 2021-11-16 - daily_sales_price success
+[2021-11-17 01:00:47] - 2021-11-16 - case1 start
+[2021-11-17 01:00:48] - 2021-11-16 - case1 success
+[2021-11-17 01:00:48] - 2021-11-16 - case2 start
+[2021-11-17 01:00:56] - 2021-11-16 - case2 success
+[2021-11-17 01:00:56] - 2021-11-16 - delete start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_fblike_vw start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_fblike_vw success
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_review_vw start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_review_vw success
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_restock_notify_vw start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_restock_notify_vw success
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_wish_vw start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_wish_vw success
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_cart_vw start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_cart_vw success
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_order_vw start
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_order_vw success
+[2021-11-17 01:00:56] - 2021-11-16 - fm_daily_stats_view_vw start
+[2021-11-17 01:00:57] - 2021-11-16 - fm_daily_stats_view_vw success
+[2021-11-17 01:00:57] - 2021-11-16 - delete success
+[2021-11-17 01:00:57] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-17 01:00:57] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-17 01:00:57] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-17 01:00:57] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-17 01:00:57] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-17 01:00:57] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-17 01:00:57] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-17 01:00:57] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-18 01:00:29] - 2021-11-17 - daily_order start
+[2021-11-18 01:00:29] - 2021-11-17 - daily_order success
+[2021-11-18 01:00:29] - 2021-11-17 - daily_fblike start
+[2021-11-18 01:00:29] - 2021-11-17 - daily_fblike success
+[2021-11-18 01:00:29] - 2021-11-17 - daily_review start
+[2021-11-18 01:00:29] - 2021-11-17 - daily_review success
+[2021-11-18 01:00:29] - 2021-11-17 - daily_restock_notify start
+[2021-11-18 01:00:29] - 2021-11-17 - daily_restock_notify success
+[2021-11-18 01:00:29] - 2021-11-17 - daily_wish start
+[2021-11-18 01:00:29] - 2021-11-17 - daily_wish success
+[2021-11-18 01:00:29] - 2021-11-17 - daily_cart start
+[2021-11-18 01:00:29] - 2021-11-17 - daily_cart success
+[2021-11-18 01:00:29] - 2021-11-17 - daily_view start
+[2021-11-18 01:00:30] - 2021-11-17 - daily_view success
+[2021-11-18 01:00:30] - 2021-11-17 - daily_sales_price start
+[2021-11-18 01:00:30] - 2021-11-17 - daily_sales_price success
+[2021-11-18 01:00:30] - 2021-11-17 - case1 start
+[2021-11-18 01:00:30] - 2021-11-17 - case1 success
+[2021-11-18 01:00:30] - 2021-11-17 - case2 start
+[2021-11-18 01:00:38] - 2021-11-17 - case2 success
+[2021-11-18 01:00:38] - 2021-11-17 - delete start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_fblike_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_fblike_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_review_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_review_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_restock_notify_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_restock_notify_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_wish_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_wish_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_cart_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_cart_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_order_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_order_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_view_vw start
+[2021-11-18 01:00:38] - 2021-11-17 - fm_daily_stats_view_vw success
+[2021-11-18 01:00:38] - 2021-11-17 - delete success
+[2021-11-18 01:00:39] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-18 01:00:39] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-18 01:00:39] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-18 01:00:39] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-18 01:00:39] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-18 01:00:39] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-18 01:00:39] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-18 01:00:39] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-19 01:00:28] - 2021-11-18 - daily_order start
+[2021-11-19 01:00:28] - 2021-11-18 - daily_order success
+[2021-11-19 01:00:28] - 2021-11-18 - daily_fblike start
+[2021-11-19 01:00:28] - 2021-11-18 - daily_fblike success
+[2021-11-19 01:00:28] - 2021-11-18 - daily_review start
+[2021-11-19 01:00:28] - 2021-11-18 - daily_review success
+[2021-11-19 01:00:28] - 2021-11-18 - daily_restock_notify start
+[2021-11-19 01:00:28] - 2021-11-18 - daily_restock_notify success
+[2021-11-19 01:00:28] - 2021-11-18 - daily_wish start
+[2021-11-19 01:00:28] - 2021-11-18 - daily_wish success
+[2021-11-19 01:00:28] - 2021-11-18 - daily_cart start
+[2021-11-19 01:00:28] - 2021-11-18 - daily_cart success
+[2021-11-19 01:00:28] - 2021-11-18 - daily_view start
+[2021-11-19 01:00:29] - 2021-11-18 - daily_view success
+[2021-11-19 01:00:29] - 2021-11-18 - daily_sales_price start
+[2021-11-19 01:00:29] - 2021-11-18 - daily_sales_price success
+[2021-11-19 01:00:29] - 2021-11-18 - case1 start
+[2021-11-19 01:00:29] - 2021-11-18 - case1 success
+[2021-11-19 01:00:29] - 2021-11-18 - case2 start
+[2021-11-19 01:00:39] - 2021-11-18 - case2 success
+[2021-11-19 01:00:39] - 2021-11-18 - delete start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_fblike_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_fblike_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_review_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_review_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_restock_notify_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_restock_notify_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_wish_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_wish_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_cart_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_cart_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_order_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_order_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_view_vw start
+[2021-11-19 01:00:39] - 2021-11-18 - fm_daily_stats_view_vw success
+[2021-11-19 01:00:39] - 2021-11-18 - delete success
+[2021-11-19 01:00:39] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-19 01:00:39] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-19 01:00:39] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-19 01:00:39] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-19 01:00:39] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-19 01:00:39] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-19 01:00:39] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-19 01:00:39] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-20 01:00:28] - 2021-11-19 - daily_order start
+[2021-11-20 01:00:28] - 2021-11-19 - daily_order success
+[2021-11-20 01:00:28] - 2021-11-19 - daily_fblike start
+[2021-11-20 01:00:28] - 2021-11-19 - daily_fblike success
+[2021-11-20 01:00:28] - 2021-11-19 - daily_review start
+[2021-11-20 01:00:28] - 2021-11-19 - daily_review success
+[2021-11-20 01:00:28] - 2021-11-19 - daily_restock_notify start
+[2021-11-20 01:00:28] - 2021-11-19 - daily_restock_notify success
+[2021-11-20 01:00:28] - 2021-11-19 - daily_wish start
+[2021-11-20 01:00:28] - 2021-11-19 - daily_wish success
+[2021-11-20 01:00:28] - 2021-11-19 - daily_cart start
+[2021-11-20 01:00:28] - 2021-11-19 - daily_cart success
+[2021-11-20 01:00:28] - 2021-11-19 - daily_view start
+[2021-11-20 01:00:29] - 2021-11-19 - daily_view success
+[2021-11-20 01:00:29] - 2021-11-19 - daily_sales_price start
+[2021-11-20 01:00:29] - 2021-11-19 - daily_sales_price success
+[2021-11-20 01:00:29] - 2021-11-19 - case1 start
+[2021-11-20 01:00:30] - 2021-11-19 - case1 success
+[2021-11-20 01:00:30] - 2021-11-19 - case2 start
+[2021-11-20 01:00:38] - 2021-11-19 - case2 success
+[2021-11-20 01:00:38] - 2021-11-19 - delete start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_fblike_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_fblike_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_review_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_review_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_restock_notify_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_restock_notify_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_wish_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_wish_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_cart_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_cart_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_order_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_order_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_view_vw start
+[2021-11-20 01:00:38] - 2021-11-19 - fm_daily_stats_view_vw success
+[2021-11-20 01:00:38] - 2021-11-19 - delete success
+[2021-11-20 01:00:39] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-20 01:00:39] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-20 01:00:39] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-20 01:00:39] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-20 01:00:39] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-20 01:00:39] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-20 01:00:39] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-20 01:00:39] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-21 01:00:28] - 2021-11-20 - daily_order start
+[2021-11-21 01:00:28] - 2021-11-20 - daily_order success
+[2021-11-21 01:00:28] - 2021-11-20 - daily_fblike start
+[2021-11-21 01:00:28] - 2021-11-20 - daily_fblike success
+[2021-11-21 01:00:28] - 2021-11-20 - daily_review start
+[2021-11-21 01:00:28] - 2021-11-20 - daily_review success
+[2021-11-21 01:00:28] - 2021-11-20 - daily_restock_notify start
+[2021-11-21 01:00:28] - 2021-11-20 - daily_restock_notify success
+[2021-11-21 01:00:28] - 2021-11-20 - daily_wish start
+[2021-11-21 01:00:28] - 2021-11-20 - daily_wish success
+[2021-11-21 01:00:28] - 2021-11-20 - daily_cart start
+[2021-11-21 01:00:28] - 2021-11-20 - daily_cart success
+[2021-11-21 01:00:28] - 2021-11-20 - daily_view start
+[2021-11-21 01:00:29] - 2021-11-20 - daily_view success
+[2021-11-21 01:00:29] - 2021-11-20 - daily_sales_price start
+[2021-11-21 01:00:29] - 2021-11-20 - daily_sales_price success
+[2021-11-21 01:00:29] - 2021-11-20 - case1 start
+[2021-11-21 01:00:30] - 2021-11-20 - case1 success
+[2021-11-21 01:00:30] - 2021-11-20 - case2 start
+[2021-11-21 01:00:39] - 2021-11-20 - case2 success
+[2021-11-21 01:00:39] - 2021-11-20 - delete start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_fblike_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_fblike_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_review_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_review_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_restock_notify_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_restock_notify_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_wish_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_wish_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_cart_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_cart_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_order_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_order_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_view_vw start
+[2021-11-21 01:00:39] - 2021-11-20 - fm_daily_stats_view_vw success
+[2021-11-21 01:00:39] - 2021-11-20 - delete success
+[2021-11-21 01:00:39] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-21 01:00:39] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-21 01:00:39] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-21 01:00:39] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-21 01:00:39] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-21 01:00:39] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-21 01:00:39] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-21 01:00:39] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-22 01:00:36] - 2021-11-21 - daily_order start
+[2021-11-22 01:00:36] - 2021-11-21 - daily_order success
+[2021-11-22 01:00:36] - 2021-11-21 - daily_fblike start
+[2021-11-22 01:00:36] - 2021-11-21 - daily_fblike success
+[2021-11-22 01:00:36] - 2021-11-21 - daily_review start
+[2021-11-22 01:00:36] - 2021-11-21 - daily_review success
+[2021-11-22 01:00:36] - 2021-11-21 - daily_restock_notify start
+[2021-11-22 01:00:36] - 2021-11-21 - daily_restock_notify success
+[2021-11-22 01:00:36] - 2021-11-21 - daily_wish start
+[2021-11-22 01:00:36] - 2021-11-21 - daily_wish success
+[2021-11-22 01:00:36] - 2021-11-21 - daily_cart start
+[2021-11-22 01:00:36] - 2021-11-21 - daily_cart success
+[2021-11-22 01:00:36] - 2021-11-21 - daily_view start
+[2021-11-22 01:00:37] - 2021-11-21 - daily_view success
+[2021-11-22 01:00:37] - 2021-11-21 - daily_sales_price start
+[2021-11-22 01:00:37] - 2021-11-21 - daily_sales_price success
+[2021-11-22 01:00:37] - 2021-11-21 - case1 start
+[2021-11-22 01:00:38] - 2021-11-21 - case1 success
+[2021-11-22 01:00:38] - 2021-11-21 - case2 start
+[2021-11-22 01:00:46] - 2021-11-21 - case2 success
+[2021-11-22 01:00:46] - 2021-11-21 - delete start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_fblike_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_fblike_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_review_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_review_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_restock_notify_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_restock_notify_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_wish_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_wish_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_cart_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_cart_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_order_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_order_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_view_vw start
+[2021-11-22 01:00:46] - 2021-11-21 - fm_daily_stats_view_vw success
+[2021-11-22 01:00:46] - 2021-11-21 - delete success
+[2021-11-22 01:00:47] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-22 01:00:47] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-22 01:00:47] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-22 01:00:47] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-22 01:00:47] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-22 01:00:47] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-22 01:00:47] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-22 01:00:47] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-23 01:00:28] - 2021-11-22 - daily_order start
+[2021-11-23 01:00:28] - 2021-11-22 - daily_order success
+[2021-11-23 01:00:28] - 2021-11-22 - daily_fblike start
+[2021-11-23 01:00:28] - 2021-11-22 - daily_fblike success
+[2021-11-23 01:00:28] - 2021-11-22 - daily_review start
+[2021-11-23 01:00:28] - 2021-11-22 - daily_review success
+[2021-11-23 01:00:28] - 2021-11-22 - daily_restock_notify start
+[2021-11-23 01:00:28] - 2021-11-22 - daily_restock_notify success
+[2021-11-23 01:00:28] - 2021-11-22 - daily_wish start
+[2021-11-23 01:00:28] - 2021-11-22 - daily_wish success
+[2021-11-23 01:00:28] - 2021-11-22 - daily_cart start
+[2021-11-23 01:00:28] - 2021-11-22 - daily_cart success
+[2021-11-23 01:00:28] - 2021-11-22 - daily_view start
+[2021-11-23 01:00:29] - 2021-11-22 - daily_view success
+[2021-11-23 01:00:29] - 2021-11-22 - daily_sales_price start
+[2021-11-23 01:00:29] - 2021-11-22 - daily_sales_price success
+[2021-11-23 01:00:29] - 2021-11-22 - case1 start
+[2021-11-23 01:00:29] - 2021-11-22 - case1 success
+[2021-11-23 01:00:29] - 2021-11-22 - case2 start
+[2021-11-23 01:00:38] - 2021-11-22 - case2 success
+[2021-11-23 01:00:38] - 2021-11-22 - delete start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_fblike_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_fblike_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_review_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_review_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_restock_notify_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_restock_notify_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_wish_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_wish_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_cart_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_cart_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_order_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_order_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_view_vw start
+[2021-11-23 01:00:38] - 2021-11-22 - fm_daily_stats_view_vw success
+[2021-11-23 01:00:38] - 2021-11-22 - delete success
+[2021-11-23 01:00:38] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-23 01:00:38] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-23 01:00:38] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-23 01:00:38] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-23 01:00:38] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-23 01:00:38] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-23 01:00:38] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-23 01:00:38] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-24 01:00:27] - 2021-11-23 - daily_order start
+[2021-11-24 01:00:27] - 2021-11-23 - daily_order success
+[2021-11-24 01:00:27] - 2021-11-23 - daily_fblike start
+[2021-11-24 01:00:27] - 2021-11-23 - daily_fblike success
+[2021-11-24 01:00:27] - 2021-11-23 - daily_review start
+[2021-11-24 01:00:27] - 2021-11-23 - daily_review success
+[2021-11-24 01:00:27] - 2021-11-23 - daily_restock_notify start
+[2021-11-24 01:00:27] - 2021-11-23 - daily_restock_notify success
+[2021-11-24 01:00:27] - 2021-11-23 - daily_wish start
+[2021-11-24 01:00:27] - 2021-11-23 - daily_wish success
+[2021-11-24 01:00:27] - 2021-11-23 - daily_cart start
+[2021-11-24 01:00:27] - 2021-11-23 - daily_cart success
+[2021-11-24 01:00:27] - 2021-11-23 - daily_view start
+[2021-11-24 01:00:28] - 2021-11-23 - daily_view success
+[2021-11-24 01:00:28] - 2021-11-23 - daily_sales_price start
+[2021-11-24 01:00:28] - 2021-11-23 - daily_sales_price success
+[2021-11-24 01:00:28] - 2021-11-23 - case1 start
+[2021-11-24 01:00:29] - 2021-11-23 - case1 success
+[2021-11-24 01:00:29] - 2021-11-23 - case2 start
+[2021-11-24 01:00:38] - 2021-11-23 - case2 success
+[2021-11-24 01:00:38] - 2021-11-23 - delete start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_fblike_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_fblike_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_review_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_review_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_restock_notify_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_restock_notify_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_wish_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_wish_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_cart_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_cart_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_order_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_order_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_view_vw start
+[2021-11-24 01:00:38] - 2021-11-23 - fm_daily_stats_view_vw success
+[2021-11-24 01:00:38] - 2021-11-23 - delete success
+[2021-11-24 01:00:38] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-24 01:00:38] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-24 01:00:38] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-24 01:00:38] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-24 01:00:38] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-24 01:00:38] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-24 01:00:38] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-24 01:00:38] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-25 01:00:26] - 2021-11-24 - daily_order start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_order success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_fblike start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_fblike success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_review start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_review success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_restock_notify start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_restock_notify success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_wish start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_wish success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_cart start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_cart success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_view start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_view success
+[2021-11-25 01:00:27] - 2021-11-24 - daily_sales_price start
+[2021-11-25 01:00:27] - 2021-11-24 - daily_sales_price success
+[2021-11-25 01:00:27] - 2021-11-24 - case1 start
+[2021-11-25 01:00:28] - 2021-11-24 - case1 success
+[2021-11-25 01:00:28] - 2021-11-24 - case2 start
+[2021-11-25 01:00:37] - 2021-11-24 - case2 success
+[2021-11-25 01:00:37] - 2021-11-24 - delete start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_fblike_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_fblike_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_review_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_review_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_restock_notify_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_restock_notify_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_wish_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_wish_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_cart_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_cart_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_order_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_order_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_view_vw start
+[2021-11-25 01:00:37] - 2021-11-24 - fm_daily_stats_view_vw success
+[2021-11-25 01:00:37] - 2021-11-24 - delete success
+[2021-11-25 01:00:38] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-25 01:00:38] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-25 01:00:38] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-25 01:00:38] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-25 01:00:38] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-25 01:00:38] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-25 01:00:38] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-25 01:00:38] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-26 01:00:27] - 2021-11-25 - daily_order start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_order success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_fblike start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_fblike success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_review start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_review success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_restock_notify start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_restock_notify success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_wish start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_wish success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_cart start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_cart success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_view start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_view success
+[2021-11-26 01:00:27] - 2021-11-25 - daily_sales_price start
+[2021-11-26 01:00:27] - 2021-11-25 - daily_sales_price success
+[2021-11-26 01:00:27] - 2021-11-25 - case1 start
+[2021-11-26 01:00:28] - 2021-11-25 - case1 success
+[2021-11-26 01:00:28] - 2021-11-25 - case2 start
+[2021-11-26 01:00:37] - 2021-11-25 - case2 success
+[2021-11-26 01:00:37] - 2021-11-25 - delete start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_fblike_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_fblike_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_review_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_review_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_restock_notify_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_restock_notify_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_wish_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_wish_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_cart_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_cart_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_order_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_order_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_view_vw start
+[2021-11-26 01:00:37] - 2021-11-25 - fm_daily_stats_view_vw success
+[2021-11-26 01:00:37] - 2021-11-25 - delete success
+[2021-11-26 01:00:37] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-26 01:00:37] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-26 01:00:37] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-26 01:00:37] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-26 01:00:37] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-26 01:00:37] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-26 01:00:37] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-26 01:00:37] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-27 01:00:27] - 2021-11-26 - daily_order start
+[2021-11-27 01:00:27] - 2021-11-26 - daily_order success
+[2021-11-27 01:00:27] - 2021-11-26 - daily_fblike start
+[2021-11-27 01:00:27] - 2021-11-26 - daily_fblike success
+[2021-11-27 01:00:27] - 2021-11-26 - daily_review start
+[2021-11-27 01:00:27] - 2021-11-26 - daily_review success
+[2021-11-27 01:00:27] - 2021-11-26 - daily_restock_notify start
+[2021-11-27 01:00:27] - 2021-11-26 - daily_restock_notify success
+[2021-11-27 01:00:27] - 2021-11-26 - daily_wish start
+[2021-11-27 01:00:27] - 2021-11-26 - daily_wish success
+[2021-11-27 01:00:27] - 2021-11-26 - daily_cart start
+[2021-11-27 01:00:27] - 2021-11-26 - daily_cart success
+[2021-11-27 01:00:27] - 2021-11-26 - daily_view start
+[2021-11-27 01:00:28] - 2021-11-26 - daily_view success
+[2021-11-27 01:00:28] - 2021-11-26 - daily_sales_price start
+[2021-11-27 01:00:28] - 2021-11-26 - daily_sales_price success
+[2021-11-27 01:00:28] - 2021-11-26 - case1 start
+[2021-11-27 01:00:29] - 2021-11-26 - case1 success
+[2021-11-27 01:00:29] - 2021-11-26 - case2 start
+[2021-11-27 01:00:37] - 2021-11-26 - case2 success
+[2021-11-27 01:00:37] - 2021-11-26 - delete start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_fblike_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_fblike_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_review_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_review_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_restock_notify_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_restock_notify_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_wish_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_wish_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_cart_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_cart_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_order_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_order_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_view_vw start
+[2021-11-27 01:00:37] - 2021-11-26 - fm_daily_stats_view_vw success
+[2021-11-27 01:00:37] - 2021-11-26 - delete success
+[2021-11-27 01:00:37] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-27 01:00:37] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-27 01:00:37] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-27 01:00:37] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-27 01:00:37] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-27 01:00:37] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-27 01:00:37] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-27 01:00:37] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-28 01:00:28] - 2021-11-27 - daily_order start
+[2021-11-28 01:00:28] - 2021-11-27 - daily_order success
+[2021-11-28 01:00:28] - 2021-11-27 - daily_fblike start
+[2021-11-28 01:00:28] - 2021-11-27 - daily_fblike success
+[2021-11-28 01:00:28] - 2021-11-27 - daily_review start
+[2021-11-28 01:00:28] - 2021-11-27 - daily_review success
+[2021-11-28 01:00:28] - 2021-11-27 - daily_restock_notify start
+[2021-11-28 01:00:28] - 2021-11-27 - daily_restock_notify success
+[2021-11-28 01:00:28] - 2021-11-27 - daily_wish start
+[2021-11-28 01:00:28] - 2021-11-27 - daily_wish success
+[2021-11-28 01:00:28] - 2021-11-27 - daily_cart start
+[2021-11-28 01:00:28] - 2021-11-27 - daily_cart success
+[2021-11-28 01:00:28] - 2021-11-27 - daily_view start
+[2021-11-28 01:00:29] - 2021-11-27 - daily_view success
+[2021-11-28 01:00:29] - 2021-11-27 - daily_sales_price start
+[2021-11-28 01:00:29] - 2021-11-27 - daily_sales_price success
+[2021-11-28 01:00:29] - 2021-11-27 - case1 start
+[2021-11-28 01:00:30] - 2021-11-27 - case1 success
+[2021-11-28 01:00:30] - 2021-11-27 - case2 start
+[2021-11-28 01:00:38] - 2021-11-27 - case2 success
+[2021-11-28 01:00:38] - 2021-11-27 - delete start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_fblike_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_fblike_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_review_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_review_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_restock_notify_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_restock_notify_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_wish_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_wish_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_cart_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_cart_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_order_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_order_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_view_vw start
+[2021-11-28 01:00:38] - 2021-11-27 - fm_daily_stats_view_vw success
+[2021-11-28 01:00:38] - 2021-11-27 - delete success
+[2021-11-28 01:00:38] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-28 01:00:38] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-28 01:00:38] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-28 01:00:38] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-28 01:00:38] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-28 01:00:38] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-28 01:00:38] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-28 01:00:38] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-29 01:00:33] - 2021-11-28 - daily_order start
+[2021-11-29 01:00:33] - 2021-11-28 - daily_order success
+[2021-11-29 01:00:33] - 2021-11-28 - daily_fblike start
+[2021-11-29 01:00:33] - 2021-11-28 - daily_fblike success
+[2021-11-29 01:00:33] - 2021-11-28 - daily_review start
+[2021-11-29 01:00:33] - 2021-11-28 - daily_review success
+[2021-11-29 01:00:33] - 2021-11-28 - daily_restock_notify start
+[2021-11-29 01:00:33] - 2021-11-28 - daily_restock_notify success
+[2021-11-29 01:00:33] - 2021-11-28 - daily_wish start
+[2021-11-29 01:00:33] - 2021-11-28 - daily_wish success
+[2021-11-29 01:00:33] - 2021-11-28 - daily_cart start
+[2021-11-29 01:00:33] - 2021-11-28 - daily_cart success
+[2021-11-29 01:00:33] - 2021-11-28 - daily_view start
+[2021-11-29 01:00:34] - 2021-11-28 - daily_view success
+[2021-11-29 01:00:34] - 2021-11-28 - daily_sales_price start
+[2021-11-29 01:00:35] - 2021-11-28 - daily_sales_price success
+[2021-11-29 01:00:35] - 2021-11-28 - case1 start
+[2021-11-29 01:00:35] - 2021-11-28 - case1 success
+[2021-11-29 01:00:35] - 2021-11-28 - case2 start
+[2021-11-29 01:00:43] - 2021-11-28 - case2 success
+[2021-11-29 01:00:43] - 2021-11-28 - delete start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_fblike_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_fblike_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_review_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_review_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_restock_notify_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_restock_notify_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_wish_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_wish_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_cart_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_cart_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_order_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_order_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_view_vw start
+[2021-11-29 01:00:43] - 2021-11-28 - fm_daily_stats_view_vw success
+[2021-11-29 01:00:43] - 2021-11-28 - delete success
+[2021-11-29 01:00:44] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-29 01:00:44] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-29 01:00:44] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-29 01:00:44] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-29 01:00:44] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-29 01:00:44] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-29 01:00:44] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-29 01:00:44] - 일일통계 데이터 삭제(stats_delete)
+[2021-11-30 01:00:28] - 2021-11-29 - daily_order start
+[2021-11-30 01:00:28] - 2021-11-29 - daily_order success
+[2021-11-30 01:00:28] - 2021-11-29 - daily_fblike start
+[2021-11-30 01:00:28] - 2021-11-29 - daily_fblike success
+[2021-11-30 01:00:28] - 2021-11-29 - daily_review start
+[2021-11-30 01:00:28] - 2021-11-29 - daily_review success
+[2021-11-30 01:00:28] - 2021-11-29 - daily_restock_notify start
+[2021-11-30 01:00:28] - 2021-11-29 - daily_restock_notify success
+[2021-11-30 01:00:28] - 2021-11-29 - daily_wish start
+[2021-11-30 01:00:28] - 2021-11-29 - daily_wish success
+[2021-11-30 01:00:28] - 2021-11-29 - daily_cart start
+[2021-11-30 01:00:28] - 2021-11-29 - daily_cart success
+[2021-11-30 01:00:28] - 2021-11-29 - daily_view start
+[2021-11-30 01:00:30] - 2021-11-29 - daily_view success
+[2021-11-30 01:00:30] - 2021-11-29 - daily_sales_price start
+[2021-11-30 01:00:30] - 2021-11-29 - daily_sales_price success
+[2021-11-30 01:00:30] - 2021-11-29 - case1 start
+[2021-11-30 01:00:30] - 2021-11-29 - case1 success
+[2021-11-30 01:00:30] - 2021-11-29 - case2 start
+[2021-11-30 01:00:39] - 2021-11-29 - case2 success
+[2021-11-30 01:00:39] - 2021-11-29 - delete start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_fblike_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_fblike_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_review_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_review_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_restock_notify_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_restock_notify_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_wish_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_wish_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_cart_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_cart_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_order_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_order_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_view_vw start
+[2021-11-30 01:00:39] - 2021-11-29 - fm_daily_stats_view_vw success
+[2021-11-30 01:00:39] - 2021-11-29 - delete success
+[2021-11-30 01:00:39] - 상품별 3개월 구매수량 등록(goods_purchase_ea)
+[2021-11-30 01:00:39] - 입점사 정산 주기 변경(account_seller_period_update)
+[2021-11-30 01:00:39] - 입점사별 정산 집계(account_seller_stats)
+[2021-11-30 01:00:39] - 불필요한 이월데이터 삭제(account_seller_del_sales)
+[2021-11-30 01:00:39] - 일일통계 (주문,좋아요,리뷰,재입고알림,찜,장바구니,보기) 집계(daily_stats)
+[2021-11-30 01:00:39] - 마일리지, 포인트,캐쉬 통계 집계(statistic_epc)
+[2021-11-30 01:00:39] - referer 도메인 업데이트(set_referer_domain)
+[2021-11-30 01:00:39] - 일일통계 데이터 삭제(stats_delete)

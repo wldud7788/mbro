@@ -1,0 +1,53 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 옵션/수량 변경 @@
+- 파일위치 : [스킨폴더]/order/_optional_changes.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<script type="text/javascript" src="/app/javascript/plugin/jquery_selectbox/js/jquery.selectbox-0.2.js"></script>
+<link href="/app/javascript/plugin/jquery_selectbox/css/jquery.selectbox.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript">
+	{ ? goods.price }
+	gl_goods_price = {goods.price};
+	{ / }
+	{ ? goods.price > goods.sale_price }
+	gl_goods_price = {goods.sale_price};
+	{ / }
+	$(document).ready(function(){
+		$('button#change_cart').bind('click', function(){
+			{? _GET['mode'] == "tmp" }
+			var data = $('form#optional_changes_form').serialize();
+			cart_tmp('{=cart_table}','tmp',data,'{_GET.tmp_cart}','{goods.goods_seq}');
+			{ : }
+			$('form#optional_changes_form').submit();
+			{ / }
+		});
+	});
+</script>
+<form name="optional_changes_form" id="optional_changes_form" method="post" enctype="multipart/form-data" action="/order/optional_modify" target="actionFrame">
+<input type='hidden' name='mode'		value='{_GET.mode}'>
+{? _GET.tmp_cart}<input type='hidden' name='tmp_cart'		value='{_GET.tmp_cart}'>{/}
+<!--{ ? _GET.old_option_seq }--> <!--재매칭 수량 체크용-->
+<input type='hidden' name='old_option_seq'		value='{_GET.old_option_seq}'>
+<!--{ / }-->
+<input type='hidden' name='cart_option_seq' value='{cart_options[0].cart_option_seq}'>
+<!--{ ? cart_table }-->
+<input type='hidden' name='cart_table' value='{cart_table}'>
+<!--{ / }-->
+<input type="hidden" name="hop_select_date" value="{cart.shipping_hop_date}" />
+<input type="hidden" name="shipping_prepay_info" value="{cart.shipping_prepay_info}" />
+<input type="hidden" name="shipping_store_seq" value="{cart.shipping_store_seq}" />
+
+<ul class="resp_content2">
+	<li><a href="/goods/view?no={goods.goods_seq}" target="_blank" title="새창"><img src="{goods.image}" onerror="this.src='../images/common/noimage.gif'" alt="" style="max-width:80px; border:1px #eee solid;" /></a></li>
+	<li><span class="Fs14 gray_01">{goods.goods_name}</span></li>
+</ul>
+
+{ # OPTION_SELECT }
+
+<div class="layer_bottom_btn_area v2">
+	<ul class="basic_btn_area2 v2">
+		<li class="Pt5">총 금액 : {=get_currency_price(goods.price,2,'','<span id="total_goods_price" class="pointcolor">_str_price_</span>','Fs15')}</li>
+		<li style="width:45%;"><button type="button" id="change_cart" class="btn_resp size_c color2">변경하기</button></li>
+	</ul>
+</div>
+</form>

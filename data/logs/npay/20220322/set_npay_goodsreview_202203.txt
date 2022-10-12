@@ -1,0 +1,68 @@
+[2022-03-22 12:31:09.948575000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [totalcnt] => 1
+    [general] => Array
+        (
+            [0] => Array
+                (
+                    [CreateYmdt] => 2022-03-22T03:20:04.49Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 2302
+                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                    [ProductOption] => 포스터 포함: 포스터 (지관통 포함)
+                    [ProductOrderID] => 2022030741333550
+                    [PurchaseReviewId] => 3393457236
+                    [PurchaseReviewScore] => 2
+                    [Title] => 영롱한 앨범 감사합니다
+                    [WriterId] => H70EZBf35K46KmqwnNvNRA==
+                    [timestamp] => 2022-03-22T03:29:15.099Z8524
+                    [PurchaseReviewScore_new] => 5
+                )
+
+        )
+
+)
+
+
+[2022-03-22 19:11:12.602455000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [totalcnt] => 1
+    [premium] => Array
+        (
+            [0] => Array
+                (
+                    [CreateYmdt] => 2022-03-22T10:01:16.95Z
+                    [MallID] => np_zuxru165363
+                    [ProductID] => 2302
+                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                    [ProductOption] => 포스터 포함: 포스터 (지관통 포함)
+                    [ProductOrderID] => 2022030738350900
+                    [PurchaseReviewId] => 3393784953
+                    [PurchaseReviewScore] => 13
+                    [Title] => 쁘밍아웃 이후 계속 구매중
+노래 좋아요
+계속 새로운 장르 도전하는 모습이
+보기 너무 좋습니다
+                    [WriterId] => fAJYzgAYPE3TuoFb3L4UdQ==
+                    [Content] => <div class="review_text">
+	<p class="word">쁘밍아웃 이후 계속 구매중
+노래 좋아요
+계속 새로운 장르 도전하는 모습이
+보기 너무 좋습니다</p>
+
+				<img src="https://phinf.pstatic.net/checkout.phinf/20220322_280/1647943268445PvNwg_JPEG/review-attachment-b1d09257-5ba8-4a06-b2e3-13cb20c7c380.jpeg?type=w640" width="3024" height="4032" class="photo">
+				<br>
+</div>
+                    [timestamp] => 2022-03-22T10:09:22.103Z2525
+                    [PurchaseReviewScore_new] => 5
+                )
+
+        )
+
+)
+
+

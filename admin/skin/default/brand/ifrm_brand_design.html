@@ -1,0 +1,271 @@
+{ #layout_header_popup }
+
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-font-decoration.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-compare-currency.js?v={=date('YmdHis')}"></script>
+<script type="text/javascript" src="/app/javascript/js/base64.js"></script>
+<script type="text/javascript" src="/app/javascript/js/goods-display.js?v={=date('Ymd')}"></script>
+<script type="text/javascript">
+	var categoryUrl = gl_protocol+"{_SERVER.HTTP_HOST}/goods/brand?code=";
+	var info_item_config = {
+		'brand_title'	: ['kind','font_decoration','wrapper'],
+		'goods_name'	: ['kind','font_decoration'],
+		'summary'		: ['kind','font_decoration'],
+		'consumer_price': ['kind','font_decoration','position','postfix','compare'/*,'zoomicon'*/],
+		'price'			: ['kind','font_decoration','position','postfix','compare'/*,'zoomicon'*/],
+		'sale_price'	: ['kind','font_decoration','position','postfix','compare'/*,'zoomicon'*/],
+		'count'			: ['kind','buy_count','time_count'],
+		'fblike'		: ['kind','fblike'],
+		'icon'			: ['kind','list_icon_desc','list_icon_cpn','list_icon_freedlv','list_icon_video'],
+		'status_icon'	: ['kind','status_icon_desc','status_icon_runout','status_icon_purchasing','status_icon_unsold'],
+		'score'			: ['kind','score_desc'],
+		'provider_name'	: ['kind','font_decoration'],
+		'color'			: ['kind','color_desc'],
+		'bigdata'		: ['kind','font_decoration','bigdata']
+	};
+
+	var basic_currency		= "{=basic_currency}";
+	var currency_list		= {
+	{@ currency_symbol_list }'{=.key_}' : [{@ .value_[0]['value'] }"{=..value_}",{/}],
+	{ / }
+	};
+
+	var sort_page			= 0;
+	var sort_goods_cnt		= 0;
+	var sort_perpage		= 10;
+	var scrollTopPosition	= 0;
+
+	$(function () {
+
+		$(document).resize(function(){
+			//$('#ifrmCategorySetting',parent.document).height($('form').height()+200);
+		}).resize();
+
+		Editor.onPanelLoadComplete(function(){
+			$(document).resize();
+		});
+
+		$("input[name='use_top_html']").change(function(){
+			if($(this).is(":checked")){
+				$(".use_top_html_division").removeAttr('disabled').show();
+			}else{
+				$(".use_top_html_division").attr('disabled',true).hide();
+			}
+			$(document).resize();
+		}).change();
+
+		$("input[name='use_recommend']").change(function(){
+			if($(this).is(":checked")){
+				$(".use_recommend_division").show().removeAttr('disabled');
+			}else{
+
+				$(".use_recommend_division").hide().attr('disabled',true);
+			}
+			$(document).resize();
+		}).change();
+		
+		$("input[name='use_list']").change(function(){
+			if($(this).is(":checked")){
+				$(".use_list_division").show();
+			}else{
+				$(".use_list_division").hide();
+			}
+			$(document).resize();
+		}).change();
+
+		changeFileStyle();
+		
+		/* 추천상품 자동노출 설정 */
+		$("input[name='auto_use']").bind('change',function(){
+			if($(this).is(':checked')){
+				$(".goods_select_container th,.goods_select_container td").css('opacity',0.5);
+				$(".auto_order_container").css('opacity',1);
+				$(".auto_order_container input").removeAttr('disabled');
+			}else{
+				$(".goods_select_container th,.goods_select_container td").css('opacity',1);
+				$(".auto_order_container").css('opacity',0.5);
+				$(".auto_order_container input").attr('disabled',true);
+			}
+		}).change();	
+		
+		/* 하위브랜드에 동일적용 버튼 */
+		$(".childset_btn").bind('click',function(){
+			var div = $(this).attr('name').replace('childset_','');
+			var category_code = $("input[name='categoryCode']").val();
+			var categoryTitle = $(".categoryTitle").text();
+			parent.openDialogConfirm("적용 내용 : ["+categoryTitle+"] 브랜드 디자인 영역<br />적용 대상 브랜드 : ["+categoryTitle+"] 브랜드의 하위 브랜드<br /><br />적용하시겠습니까?",600,280,function(){
+				$("iframe[name='actionFrame']").attr('src','../brand_process/childset_category_save?div='+div+'&category_code='+category_code);	
+			});
+			
+		});
+	});
+
+	function set_category_sort(acttype){
+		var topbody			= top.document.documentElement || top.document.body;
+		scrollTopPosition	= topbody.scrollTop;
+
+		$chk_arr	= [];
+		$("input[name='category_link_seqs[]']").each(function(){
+			if	($(this).is(":checked")){
+				$chk_arr.push({"seq":$(this).val(),"sortval":$("input[name='sortval["+$(this).val()+"]']").val()});
+		}});
+
+		if	(acttype == 'resetAll' || $chk_arr.length > 0){
+			if	(!sort_page)	sort_page	= 1;
+			$.ajax({
+				type: "get",
+				url: "../brand_process/chgCategorySort",
+				data: {"categoryCode":"{categoryCode}","page":sort_page,"perpage":sort_perpage,"acttype":acttype,"target":$chk_arr},
+				success: function(page){
+					show_next_sortgoods(page);
+				}
+			});
+		}
+	}
+
+	function opendDisplayPopup(kind){
+		window.open("../design/display_edit?kind="+kind+"&category_code={categoryData.category_code}&popup=1",'',"width=1200,height=700,scrollbars=1");
+	}
+</script>
+<style>
+	.info_item {min-height:30px;line-height:30px;padding:0 3px;border:0px solid #ddd;background-color:#fff;margin:1px;}
+	.info_item_holder {min-height:30px;line-height:30px;padding:0 3px;border:1px solid #ddd;background-color:#ffeecc;margin:1px;}
+	.use_recommend_division {display:none; border-top:0px; border-bottom:0px;}
+
+	.goodsSortItem {min-width:600px; margin-bottom:1px; margin-right:5px; padding:4px 5px 2px 5px; background-color:#ffffff; border:1px solid #ddd;}
+	.goodsSortItem_seq {float:left; padding-right:5px; height:100px; line-height:100px; cursor:move; font-size:11px; color:#666;}
+	.goodsSortItem_image {float:left; padding-right:5px; cursor:move; }
+	.goodsSortItem_image img {width:100px; height:100px;}
+	.goodsSortItem_name {float:left; height:100px; line-height:100px; width:300px; overflow:hidden; white-space:nowrap; cursor:move;}
+	.goodsSortItem_btns {float:right; padding-top:38px;}
+	.goodsSortItem_btns div {float:left; padding-left:4px;}
+
+	.btn-container		{ width:100%;}
+	.btn-container div	{ float:left; }
+	.paging-container { text-align:center; }
+	.paging-container2 { text-align:center; }
+
+	table.quick_shopping_container {border-collapse:collapse; table-layout:fixed; cursor:pointer}
+	table.quick_shopping_container td {height:14px; text-align:center; border:1px solid #e5e5e5; background-color:#fff; font-size:11px; letter-spacing:-1px;}
+</style>
+
+<form name="categorySettingForm" method="post" target="actionFrame" action="../brand_process/brand_design">
+<input type="hidden" name="page" value="{page}" />
+<input type="hidden" name="categoryCode" value="{categoryCode}" />
+<input type="hidden" name="recommend_display_seq" value="{categoryData.recommend_display_seq}" />
+<input type="hidden" name="m_recommend_display_seq" value="{categoryData.m_recommend_display_seq}" />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td valign="top">
+
+		<table width="100%" class="info-table-style">
+		<col >
+		<tr>
+			<th class="its-section left" style="padding:6px 10px">
+				<div class="fl mt5">
+					<span id="categoryNavi"></span> [<strong class="categoryTitle">{categoryData.title}</strong>] 브랜드 페이지 꾸미기 
+					<span class="helpicon" title="브랜드를 클릭하였을 때 해당 브랜드의 상품이 나오는 페이지입니다.<br />크게 5가지 영역으로 나눌 수 있습니다.<br />① 브랜드 네비게이션 영역 - 해당 브랜드와 연관된 브랜드 영역<br />② 브랜드의 카테고리 영역 - 해당 브랜드에 속한 카테고리 영역<br />③ 디자인 영역 - 해당 브랜드를 배너 등으로 꾸밀 수 있는 영역<br />④ 추천상품 영역 - 해당 브랜드에서 추천하는 상품이 보이는 영역<br />⑤ 상품 영역 - 해당 브랜드의 상품이 보이는 영역" options="{alignX:'center',alignY:'bottom',offsetY:10}"></span>
+				</div>
+				<span class="btn small orange fr"><input type="button" value="안내) 꾸미기 영역" onclick="parent.openDialogAlert('<img src=\'../images/common/category_design_sample.gif\' />',850,1000,null,{'hideButton':true})" /></span>
+			</th>
+		</tr>
+		<tr>
+			<th class="its-section-bg" colspan="3">
+				<table width="100%">
+				<tr>
+					<td align="left" width="50"><label><input type="checkbox" name="use_top_html" {?categoryData.top_html}checked="checked"{/} /> 사용</label></td>
+					<td align="left">[{categoryData.title}] <b>브랜드 페이지에서 디자인 영역</b></td>
+					<td align="right"><span class="btn small red"><input type="button" class="childset_btn" name="childset_top_html" value="하위브랜드에 동일 적용" /></span></td>
+				</tr>
+				</table>
+			</th>
+		</tr>
+		</table>
+
+		<table width="100%" class="info-table-style use_top_html_division">
+		<tr>
+			<td class="its-td pd5" colspan="3"><textarea name="top_html" class="daumeditor" contentHeight="150">{categoryData.top_html}</textarea></td>
+		</tr>
+		</table>
+
+		<table width="100%" class="info-table-style">
+		<col width="160" />
+		<tr>
+			<th class="its-section-bg" colspan="3">
+				<table width="100%" border="0">
+				<tr>
+					<td align="left" width="50"><label><input type="checkbox" name="use_recommend" {?categoryData.recommend_display_seq}checked="checked"{/} /> 사용</label></td>
+					<td align="left">[{categoryData.title}] <b>브랜드 페이지에서 추천상품 영역</b></td>
+					<td align="right"><span class="btn small red"><input type="button" class="childset_btn" name="childset_recommend" value="하위브랜드에 동일 적용" /></span></td>
+				</tr>
+				</table>
+			</th>
+		</tr>
+		</table>
+
+		<table width="100%" class="info-table-style use_recommend_division">
+		<col width="160" />
+		<tbody>
+		<tr>
+			<td class="its-th">
+			추천상품 영역
+			</td>
+			<td class="its-td" colspan="2">
+				<span class="btn small cyanblue"><button type="button" onclick="opendDisplayPopup('brand_recommend')">설정하기</button></span>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+		
+		<table width="100%" class="info-table-style">
+		<col width="160" />
+		<tr>
+			<th class="its-section-bg" colspan="3">
+				<table width="100%">
+				<tr>
+					<td align="left" width="50"><label><input type="checkbox" name="use_search" {?categoryData.search_use=='y'}checked="checked"{/} /> 사용</label></td>
+					<td align="left">[{categoryData.title}] <b>브랜드 페이지에서 검색 영역</b> <span class="desc">(한꺼번에 꾸미기에서 상세하게 세팅 하세요.)</span></td>
+				</tr>
+				</table>
+			</th>
+		</tr>
+		</table>
+
+		<table width="100%" class="info-table-style">
+		<tr>
+			<td class="its-section-bg">
+				<table width="100%" border="0">
+				<tr>
+					<td align="left" width="50"><label><input type="checkbox" name="use_list" {?categoryData.list_use=='y'}checked="checked"{/} /> 사용</label></td>
+					<td align="left">[{categoryData.title}] <b>브랜드 페이지에서 상품 영역</b></th>
+					<td align="right"><span class="btn small red"><input type="button" class="childset_btn" name="childset_category" value="하위브랜드에 동일 적용" /></span></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+
+		<table width="100%" class="info-table-style use_list_division">
+		<col width="160" />
+		<tbody>
+		<tr>
+			<td class="its-th">
+				상품영역
+			</td>
+			<td class="its-td" colspan="2">
+				<span class="btn small cyanblue"><button type="button" onclick="opendDisplayPopup('brand')">설정하기</button></span>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>
+</tr>
+</table>
+
+</form>
+
+{ #layout_footer_popup }

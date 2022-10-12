@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>{config_basic.shopName} - 아이디자인 테스트 로그인</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/layout.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/buttons.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/boardnew.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/page.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/jqueryui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/jqueryui/black-tie/jquery-ui-1.8.16.custom.css" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/poshytip/style.css" />
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/editor/css/goods_image_popup.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/jquploadify/uploadify.css" />
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="/app/javascript/js/dev-tools.js?v={=date('Ymd')}"></script>
+</head>
+<body>
+<div class="pd20">
+	<h4 style="color:#00006F;">로그인 후의 화면을 디자인할 때 사용하는 회원 계정을 아래에서 선택하세요.</h4><br/>
+	<table width="100%" class="info-table-style">
+		<colgroup>
+			<col width="20%"><col width="20%"><col width="20%"><col width="20%"><col width="20%">
+		</colgroup>
+		<thead>
+			<tr>
+				<th class="its-th-align">승인</th>
+				<th class="its-th-align">등급</th>
+				<th class="its-th-align">유형</th>
+				<th class="its-th-align">이름</th>
+				<th class="its-th-align">선택</th>
+			</tr>
+		</thead>
+		<tbody class="dlts-body">
+			<!--{ ? mall_i_test }-->
+			<!--{ @ mall_i_test}-->
+			<tr>
+				<td class="its-td-align center">{.status_nm}</td>
+				<td class="its-td-align center">{.group_name}</td>
+				<td class="its-td-align center">{.type}</td>
+				<td class="its-td-align center">{.user_name}</td>
+				<!--{? .status_nm == "승인"}-->
+				<td class="its-td-align center">
+					<span onclick="t_id_login('{.member_seq}');" style="cursor:pointer;color:#045EE9;">로그인&nbsp;></span>
+				</td>
+				<!--{ : }-->
+				<td class="its-td-align center">
+					<span style="cursor:default;color:#E7E7E7;">로그인&nbsp;></span>
+				</td>
+				<!--{ / }-->
+			</tr>
+			<!--{ / }-->
+			<!--{ : }-->
+			<tr>
+				<td colspan=5>
+					<span>설정된 테스트 계정이 없습니다.</span>
+					<span style="margin-left:20px;color:#045EE9;cursor:pointer;" onclick="open_mem_list();">설정하기></span>
+				</td>
+			</tr>
+			<!--{ / }-->
+		</tbody>
+	</table>
+
+	<script>
+		function t_id_login(t_m_no) {
+			$.ajax({
+				type: "post",
+				url: "/login_process/login",
+				data: "log_code=eyedesign_t_id&t_mem_no="+t_m_no,
+				success: function(result){
+					if( result == 'success') {
+						alert('로그인 화면이 되었습니다.');
+						parent.location.href = '/';
+					}
+				}
+			});
+		}
+		function open_mem_list() {
+			window.open('/admin/member/catalog','_blank');
+		}
+	</script>
+</div>
+</body>
+</html>

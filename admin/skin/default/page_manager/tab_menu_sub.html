@@ -1,0 +1,56 @@
+<style type="text/css">
+    .tab_v2 .ctab, .tab_v2 .ctab-on { width: 170px; line-height:40px; font-size:12px; font-family:'Malgun Gothic'; color:#555; border-color:#bbb; }
+    .tab_v2 .ctab-on { color:#000; border-bottom-color:#fff; }
+   
+    </style>
+
+    <!--{ ? page_type == 'brand_main' }-->
+    <!-- 상단 단계 링크 : 시작 -->
+    <div class="left" id="rn_join">    
+        <div style="position:absolute;">
+            <table cellpadding="0" cellspacing="0" class="tab_v2">
+                <tr>
+                    <td class="ctab{tab1} t1 wx300"><span class="hand" onclick="formMoveSub('main',1);">브랜드 메인</span></td>
+                    <td class="ctab{tab2} t2 wx300"><span class="hand" onclick="formMoveSub('image',2);">베스트 브랜드, 베스트 아이콘, 브랜드 이미지</span></td>
+                </tr>
+            </table>
+        </div>
+        <table height="42" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #bbb;">
+            <tr>
+                <td align="center"></td>
+            </tr>
+        </table>
+    </div>
+    <!-- 상단 단계 링크 : 끝 -->
+    
+    <script type="text/javascript">
+    function formMoveSub(gb, no){
+        $(".ctab-on").addClass("ctab");
+        $(".ctab-on").removeClass("ctab-on");
+        $(".t"+no).addClass("ctab-on");
+        if(gb == 'main')	location.href = './subpage_layout?cmd={_GET.cmd}&tab='+gb;
+        else				location.href = './page_layout?cmd={_GET.cmd}&tab='+gb;
+    }
+    </script>
+    <!--{ : }-->
+    <!-- 상단 단계 링크 : 시작 -->
+    <div class="left" id="rn_join">    
+        <ul class="tab_01 v3">
+            { @  page_sub_type_arr }
+            <li><a href="javascript:void(0)" {? .code == page_tab}class="current"{/} onclick="formMoveSub('{.code}',{.key_});">{.title}</a></li>
+            { / }
+        </ul>
+    </div>
+    <!-- 상단 단계 링크 : 끝 -->
+    
+    <script type="text/javascript">
+    function formMoveSub(gb, no){
+        $(".ctab-on").addClass("ctab");
+        $(".ctab-on").removeClass("ctab-on");
+        $(".t"+no).addClass("ctab-on");
+    
+        if(gb == 'goods_info')	location.href = './subpage_layout?cmd={_GET.cmd}&tab='+gb;
+        else					location.href = './page_layout?cmd={_GET.cmd}&tab='+gb+'&tabno='+no;
+    }
+    </script>
+    <!--{ / }-->

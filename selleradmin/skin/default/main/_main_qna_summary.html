@@ -1,0 +1,63 @@
+<script>
+$(function(){
+
+	var idx = $(".mqs-menu td").index($(".mqs-menu td.selected"));
+
+	$("table.mqs-qna-table").eq(idx).show();
+
+})
+
+
+</script>
+<style>
+#main-qna-summary .mqs-qna-table	{display:none; margin-top:8px;}
+#main-qna-summary .mqs-qna-row 	{padding:2px 0px}
+#main-qna-summary .mqs-qna-title	{color:#7b8085; font-size:12px;}
+#main-qna-summary .mqs-qna-date	{color:#999999; font-size:11px;}
+.mqs-qna-title .subject {display:inline-block;white-space:nowrap;overflow:hidden;width:219px;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align:middle}
+</style>
+
+<!-- 상품후기 -->
+<table class="mqs-qna-table" width="100%">
+<!-- 리스트데이터 : 시작 -->
+{? goodsreviewloop }
+	{@ goodsreviewloop }
+	<tr>
+		<td class="mqs-qna-row mqs-qna-title left">
+			{.iconmobile}
+			<span class="subject">{.subject}</span>
+			{.iconnew}
+			{.iconhot}
+			{.iconfile}
+			{.iconhidden}
+
+		</td>
+		<td class="mqs-qna-row mqs-qna-date right">{=str_replace("-",".",substr(.date,5,5))}</td>
+	</tr>
+	{/}
+{:}
+	<tr ><td colspan="2"  class="mqs-qna-row mqs-qna-title left"> 등록된 게시글이 없습니다. </td><tr>
+{/}
+</table>
+
+<!-- 상품문의 -->
+<table class="mqs-qna-table" width="100%">
+{? goodsqnaloop }
+	{@ goodsqnaloop }
+	<tr>
+		<td class="mqs-qna-row mqs-qna-title left">
+			{.iconmobile}
+			{.subject}
+			{.iconnew}
+			{.iconhot}
+			{.iconfile}
+			{.iconhidden}
+			{? !(.re_contents) }<img src="../images/common/icon_yet_unattended.gif" align="absmiddle" />{/}
+		</td>
+		<td class="mqs-qna-row mqs-qna-date right">{=str_replace("-",".",substr(.date,5,5))}</td>
+	</tr>
+	{/}
+{:}
+	<tr ><td colspan="2"  class="mqs-qna-row mqs-qna-title left"> 등록된 게시글이 없습니다. </td><tr>
+{/}
+</table>

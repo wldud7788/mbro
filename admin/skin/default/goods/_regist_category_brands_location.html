@@ -1,0 +1,199 @@
+	<!-- 카테고리 시작 -->
+	<a name="01" alt="카테고리"></a>
+	<div class="bx-lay" data-bxcode="category">
+		<div class="bx-title">
+			<div class="item-title">카테고리</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont">
+			<table class="table_basic thl">
+			<tr>
+				<th>카테고리 선택</th>
+				<td>
+					<div class="mb5 right" style="max-width:1000px;">
+						<button type="button" id="categoryConnectPopup" class="resp_btn v2">최근 연결 카테고리</button>
+					</div>
+					<div id="lay_category_select" class="mb5"></div>
+				</td>
+			</tr>
+			<tr>
+				<th>선택한 카테고리</th>
+				<td>
+					<div class="category_list_head">
+						<table class="table_basic v7">
+						<colgroup>
+							<col width="10%" />
+							<col width="75%" />
+							<col width="15%" />
+						</colgroup>
+						<thead>
+						<tr>
+							<th>대표</th>
+							<th>카테고리</th>
+							<th>삭제</th>
+						</tr>
+						</thead>
+						</table>
+					</div>
+					<div class="category_list h{? count(categories) > 5}5{:}{=count(categories)}{/}" data-CategoryCnt="{? categories != ''}{=count(categories)}{:}0{/}">
+						<table class="table_basic v7">
+						<colgroup>
+							<col width="10%" />
+							<col width="75%" />
+							<col width="15%" />
+						</colgroup>
+						<thead>
+						<tr><th class="hide">대표</th></tr>
+						</thead>
+						<tbody>
+						<tr rownum=0 {? count(categories) == 0 || categories == ""}class="show"{:}class="hide"{/}>
+							<td class="center" colspan="3">카테고리를 선택해 주세요.</td>
+						</tr>
+						<!--{ @ categories }-->
+						<tr>
+							<td class="center">
+								<div class="resp_radio">
+									<!--{ ? .link }-->
+									<label><input type="radio" name="firstCategory" value="{.category_code}" checked="checked" /></label>
+									<!--{ : }-->
+									<label><input type="radio" name="firstCategory" value="{.category_code}" /></label>
+									<!--{ / }-->
+								</div>
+								<input type="hidden" name="categoryLinkSeq[]" value="{.category_link_seq}" />
+								<input type="hidden" name="connectCategory[]" value="{.category_code}" data-Type='connect' />
+							</td>
+							<td>{.title}</td>
+							<td class="center">
+								<button type="button" class="btn_minus"  data-selectType="category" seq="{=.category_code}" onClick="gCategorySelect.select_delete('minus',$(this))"></button>
+							</td>
+						</tr>
+						<!--{/}-->
+						</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+			</table>
+			<ul class='bullet_hyphen resp_message'>
+				<li>신규 카테고리 생성은 <a href="/admin/category/catalog" target="_blank"><span class="underline blue">카테고리</span></a>에서 가능 합니다.</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 카테고리 종료 -->
+
+	<!-- 브랜드/지역 시작 -->
+	<a name="02" alt="브랜드/지역"></a>
+	<div class="bx-lay" data-bxcode="brand">
+		<div class="bx-title">
+			<div class="item-title">브랜드/지역</div>
+			<div class='right'></div>
+		</div>
+		<div class="cont">
+			<table class="table_basic thl v7">
+			<tr>
+				<th>브랜드</th>
+				<td>
+					<div class="mb5 le">
+						<button type="button" class="brandConnectPopup resp_btn active " data-selectMode="category">브랜드 선택</button>
+						<button type="button" class="brandConnectPopup resp_btn v2" data-selectMode="lastCategory">최근 연결 브랜드</button>
+					</div>
+					<div class="brand_list">
+						<table class="table_basic v7">
+						<colgroup>
+							<col width="10%" />
+							<col width="75%" />
+							<col width="15%" />
+						</colgroup>
+						<thead>
+						<tr>
+							<th>대표</th>
+							<th>브랜드</th>
+							<th>삭제</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr rownum=0 {? count(brands) == 0 || brands == ""}class="show"{:}class="hide"{/}>
+							<td class="center" colspan="3">브랜드를 선택해 주세요.</td>
+						</tr>
+						<!--{ @ brands }-->
+						<tr>
+							<td class="center">
+								<input type="hidden" name="brandLinkSeq[]" value="{.category_link_seq}" />
+								<!--{ ? .link }-->
+								<label class="resp_radio"><input type="radio" name="firstBrand" value="{.category_code}" checked="checked" /></label>
+								<!--{ : }-->
+								<label class="resp_radio"><input type="radio" name="firstBrand" value="{.category_code}" /></label>
+								<!--{ / }-->
+								<input type="hidden" name="connectBrand[]" value="{.category_code}" data-Type='connect' />
+							</td>
+							<td >{.title}</td>
+							<td class="center">
+								<button type="button" class="btn_minus"  data-selectType="brand" seq="{=.category_code}" onClick="gCategorySelect.select_delete('minus',$(this))"></button>
+							</td>
+						</tr>
+						<!--{/}-->
+						</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>지역</th>
+				<td>
+					<div class="resp_checkbox">
+						<label><input type="checkbox" name="location_setting" value='y'> 지역 설정</label>
+					</div>
+					<div class="sub_cont hide">
+						<div class="mb5 le">
+							<!--{ ? serviceLimit('H_FR') }-->
+							<button type="button" class="resp_btn v2  " onclick="{=serviceLimit('A1')}">지역 선택</button>
+							<!--{ : }-->
+							<button type="button" class="locationConnectPopup resp_btn active " data-selectMode="category">지역 선택</button>
+							<!--{ / }-->
+							<button type="button" class="locationConnectPopup resp_btn v2" data-selectMode="lastCategory">최근 연결 지역</button>
+						</div>
+						<div class="location_list">
+							<table class="table_basic v7">
+							<colgroup>
+								<col width="10%" />
+								<col width="75%" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+							<tr>
+								<th>대표</th>
+								<th>지역</th>
+								<th>삭제</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr rownum=0 {? count(locations) == 0 || locations == ""}class="show"{:}class="hide"{/}>
+								<td class="center" colspan="3">지역을 선택해 주세요.</td>
+							</tr>
+							<!--{ @ locations }-->
+							<tr>
+							<td class="center">
+									<input type="hidden" name="locationLinkSeq[]" value="{.location_link_seq}" />
+									<!--{ ? .link }-->
+									<label class="resp_radio"><input type="radio" name="firstLocation" value="{.location_code}" checked="checked" /></label>
+									<!--{ : }-->
+									<label class="resp_radio"><input type="radio" name="firstLocation" value="{.location_code}" /></label>
+									<!--{ / }-->
+									<input type="hidden" name="connectLocation[]" value="{.location_code}" data-Type='connect' />
+								</td>
+								<td>{.title}</td>
+								<td class="center">
+									<button type="button" class="btn_minus"  data-selectType="location" seq="{=.location_code}" onClick="gCategorySelect.select_delete('minus',$(this))"></button>
+								</td>
+							</tr>
+							<!--{/}-->
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+	</div>
+	<!-- 브랜드 종료 -->

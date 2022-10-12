@@ -1,0 +1,180 @@
+[2022-02-17 11:48:12.431842000]
+MODE : Request
+TIMESTAMP : 2022-02-17T02:48:12.424Z2390
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T02:48:12.424Z2390</base:Timestamp><base:Signature>C1Kh94HRAGuuG6dG5QsHaLW5+kHKkt+gYu7QCZdDfdk=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318120</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T02:48:12.402Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.502267000]
+MODE : Response
+TIMESTAMP : 2022-02-17T02:48:12.424Z2390
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>49</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: 659AED247CD9D5F9734590028340A60105C</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T02:48:12.66Z</n1:Timestamp><n1:MessageID>JmeqOzUSR3Cs04IR9V1KUg</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.509143000]
+MODE : Request
+TIMESTAMP : 2022-02-17T02:48:12.509Z8311
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T02:48:12.509Z8311</base:Timestamp><base:Signature>32V2Om/hHv8x/NM94dauSiWi0POtjwCbtP+AC8pXf0g=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318130</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T02:48:12.509Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.560904000]
+MODE : Response
+TIMESTAMP : 2022-02-17T02:48:12.509Z8311
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>47</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: F0A4A5596687992C7F4591784670A60105B</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T02:48:12.73Z</n1:Timestamp><n1:MessageID>_B7Hmt--Qk6mJ48bipGFSw</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.565058000]
+MODE : Request
+TIMESTAMP : 2022-02-17T02:48:12.564Z3742
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T02:48:12.564Z3742</base:Timestamp><base:Signature>0SmXCwN064UAyjzuHRqhP6p1uWAZrKIOB6dzovJ63Ug=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318140</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T02:48:12.564Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.622994000]
+MODE : Response
+TIMESTAMP : 2022-02-17T02:48:12.564Z3742
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>53</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: 659AED247CD9D5F9734590029520A60105C</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T02:48:12.78Z</n1:Timestamp><n1:MessageID>2J54mfh8TYWifNXoK_RQ0A</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.626944000]
+MODE : Request
+TIMESTAMP : 2022-02-17T02:48:12.626Z9889
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T02:48:12.626Z9889</base:Timestamp><base:Signature>NyAtW6Un7zJASK7aIPlkz3Gsjq3VvAdmKnpG3u5lPLQ=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318150</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T02:48:12.626Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.682959000]
+MODE : Response
+TIMESTAMP : 2022-02-17T02:48:12.626Z9889
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>50</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: 659AED247CD9D5F9734590030100A60105C</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T02:48:12.85Z</n1:Timestamp><n1:MessageID>O876QP-8RtiLPp-UNY_8eA</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.687328000]
+MODE : Request
+TIMESTAMP : 2022-02-17T02:48:12.687Z1538
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T02:48:12.687Z1538</base:Timestamp><base:Signature>86CV+uR2fUVxOZ2me7OnD7238t8AVrTzCosARI30TW8=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318160</mall:ProductOrderID><mall:DeliveryCompanyCode>EPOST</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T02:48:12.687Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 11:48:12.743008000]
+MODE : Response
+TIMESTAMP : 2022-02-17T02:48:12.687Z1538
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>50</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: F0A4A5596687992C7F4591786130A60105B</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T02:48:12.90Z</n1:Timestamp><n1:MessageID>2lYiblAFQqyWQPCU_RFDuw</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.351278000]
+MODE : Request
+TIMESTAMP : 2022-02-17T03:05:50.349Z8483
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T03:05:50.349Z8483</base:Timestamp><base:Signature>WkF7vTd/4BpKa7XD/7KuJm/NfLrsbw6gZ8AhN2/BURY=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318120</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T03:05:50.346Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.414431000]
+MODE : Response
+TIMESTAMP : 2022-02-17T03:05:50.349Z8483
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>54</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: F0A4A5596687992C7F4602771480A60105B</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T03:05:50.57Z</n1:Timestamp><n1:MessageID>AMcVtFgMRbO1rVr5TeYSkg</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.422701000]
+MODE : Request
+TIMESTAMP : 2022-02-17T03:05:50.422Z9216
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T03:05:50.422Z9216</base:Timestamp><base:Signature>3v5yxUxQCugzXM0o7ruDsaD6FR2MYJS5j3VuHGWxMhA=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318130</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T03:05:50.422Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.482400000]
+MODE : Response
+TIMESTAMP : 2022-02-17T03:05:50.422Z9216
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>54</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: 659AED247CD9D5F9734601016530A60105C</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T03:05:50.64Z</n1:Timestamp><n1:MessageID>UMWg5S3oQxeIU54BlTd5IA</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.487468000]
+MODE : Request
+TIMESTAMP : 2022-02-17T03:05:50.487Z8382
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T03:05:50.487Z8382</base:Timestamp><base:Signature>4p1boabcTH5w6VFQJA0f9/oWyBJt8nR2sdjt0m5+/sQ=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318140</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T03:05:50.487Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.540758000]
+MODE : Response
+TIMESTAMP : 2022-02-17T03:05:50.487Z8382
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>48</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: 659AED247CD9D5F9734601017070A60105C</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T03:05:50.70Z</n1:Timestamp><n1:MessageID>RuO0xSlPTPuO639hpC5ioA</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.545631000]
+MODE : Request
+TIMESTAMP : 2022-02-17T03:05:50.545Z4128
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T03:05:50.545Z4128</base:Timestamp><base:Signature>NKACnCKI62sf0fbefh8jOyups2FJ1A1trXsnqVHnfp0=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318150</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T03:05:50.545Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.601996000]
+MODE : Response
+TIMESTAMP : 2022-02-17T03:05:50.545Z4128
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>51</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: D2E6B708A137C2DEC24604993320A60105A</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T03:05:50.76Z</n1:Timestamp><n1:MessageID>WZCwnBTfRH6XsdoXU3IbvA</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.606680000]
+MODE : Request
+TIMESTAMP : 2022-02-17T03:05:50.606Z4873
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T03:05:50.606Z4873</base:Timestamp><base:Signature>+ldHamFPcEXno24Ai4lYjZf3d7lNAO9KOldYi3ol44U=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318160</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T03:05:50.606Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 12:05:50.662580000]
+MODE : Response
+TIMESTAMP : 2022-02-17T03:05:50.606Z4873
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>50</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: F0A4A5596687992C7F4602774180A60105B</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T03:05:50.82Z</n1:Timestamp><n1:MessageID>07q-S9XwSgODDNYXdXW8pg</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.688670000]
+MODE : Request
+TIMESTAMP : 2022-02-17T05:24:34.686Z5318
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T05:24:34.686Z5318</base:Timestamp><base:Signature>94QE5pg9lD/ACSNQ1jtYzmGOu3fCt1mc1YrKjV6h++M=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318120</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T05:24:34.682Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.750167000]
+MODE : Response
+TIMESTAMP : 2022-02-17T05:24:34.686Z5318
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>54</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: F0A4A5596687992C7F4690523780A60105B</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T05:24:34.89Z</n1:Timestamp><n1:MessageID>4HzlQOgeTAuL9mk_fX_8_Q</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.754925000]
+MODE : Request
+TIMESTAMP : 2022-02-17T05:24:34.754Z1413
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T05:24:34.754Z1413</base:Timestamp><base:Signature>PmbsD7cXoj4a//RNYOrbcXnIKy7affdqbr2SilWNwZU=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318130</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T05:24:34.754Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.810925000]
+MODE : Response
+TIMESTAMP : 2022-02-17T05:24:34.754Z1413
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>51</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: D2E6B708A137C2DEC24692716020A60105A</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T05:24:34.95Z</n1:Timestamp><n1:MessageID>s5DI7aNYSrG4jIEyb8HXIA</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.815590000]
+MODE : Request
+TIMESTAMP : 2022-02-17T05:24:34.815Z3539
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T05:24:34.815Z3539</base:Timestamp><base:Signature>6WDLQAvaQru5SMi6JNM+NNNqe2OCvI9Fh58Kturg1G8=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318140</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T05:24:34.815Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.881521000]
+MODE : Response
+TIMESTAMP : 2022-02-17T05:24:34.815Z3539
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>60</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: D2E6B708A137C2DEC24692716600A60105A</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T05:24:35.01Z</n1:Timestamp><n1:MessageID>lde65c5fQrqjcallKJfXrQ</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.886118000]
+MODE : Request
+TIMESTAMP : 2022-02-17T05:24:34.885Z8305
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T05:24:34.885Z8305</base:Timestamp><base:Signature>P7eK/XmqyAD6owlsb2xtX4HFsZS3B083O/1yLfkHRpQ=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318150</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T05:24:34.885Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.977316000]
+MODE : Response
+TIMESTAMP : 2022-02-17T05:24:34.885Z8305
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>85</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: 659AED247CD9D5F9734688731670A60105C</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T05:24:35.11Z</n1:Timestamp><n1:MessageID>k1kB1eOHSzKWoSKMnzuWlg</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:34.995492000]
+MODE : Request
+TIMESTAMP : 2022-02-17T05:24:34.995Z9594
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mall="http://mall.checkout.platform.nhncorp.com/" xmlns:base="http://base.checkout.platform.nhncorp.com/"><soapenv:Header/><soapenv:Body><mall:ShipProductOrderRequest><base:AccessCredentials><base:AccessLicense>010001000099dda0fc397fa4cb9fe054535f83f9101cfeef109057022abf77d2188643b676</base:AccessLicense><base:Timestamp>2022-02-17T05:24:34.995Z9594</base:Timestamp><base:Signature>ybX1/4jvPtxF+do95c6Y5BuFRlKOU6GMHIY7x+4OTNk=</base:Signature></base:AccessCredentials><base:DetailLevel>Full</base:DetailLevel><base:Version>5.0</base:Version><mall:ProductOrderID>2022021561318160</mall:ProductOrderID><mall:DeliveryCompanyCode>HYUNDAI</mall:DeliveryCompanyCode><mall:TrackingNumber>직접배송</mall:TrackingNumber><mall:DeliveryMethodCode>DELIVERY</mall:DeliveryMethodCode><mall:DispatchDate><![CDATA[2022-02-17T05:24:34.995Z]]></mall:DispatchDate></mall:ShipProductOrderRequest></soapenv:Body></soapenv:Envelope>
+
+[2022-02-17 14:24:35.56006000]
+MODE : Response
+TIMESTAMP : 2022-02-17T05:24:34.995Z9594
+REMOTE_IP : 14.138.9.185
+<?xml version='1.0' encoding='utf-8'?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:n1="http://base.checkout.platform.nhncorp.com/" xmlns:n="http://mall.checkout.platform.nhncorp.com/"><soapenv:Body><n:ShipProductOrderResponse><n1:ResponseType>ERROR</n1:ResponseType><n1:ResponseTime>55</n1:ResponseTime><n1:Error><n1:Code>ERR-NC-104122</n1:Code><n1:Message>배송송장 오류(비유효송장)</n1:Message><n1:Detail>Transaction ID: F0A4A5596687992C7F4690526850A60105B</n1:Detail></n1:Error><n1:DetailLevel>Full</n1:DetailLevel><n1:Version>5.0</n1:Version><n1:Release>UNKNOWN</n1:Release><n1:Timestamp>2022-02-17T05:24:35.19Z</n1:Timestamp><n1:MessageID>92VF4D33SUuARQceaRzC6A</n1:MessageID></n:ShipProductOrderResponse></soapenv:Body></soapenv:Envelope>
+

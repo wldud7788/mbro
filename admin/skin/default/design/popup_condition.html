@@ -1,0 +1,548 @@
+<script type="text/javascript">
+	$(function(){
+		$("#issueGoodsButtonPopup").bind("click",function(){
+			set_goods_list("issueGoodsSelect","issueGoods");
+		});
+
+		/* 카테고리 불러오기 */
+		category_admin_select_load('','category1_view','');
+		$("select[name='category1_view']").bind("change",function(){
+			category_admin_select_load('category1_view','category2_view',$(this).val());
+			category_admin_select_load('category2_view','category3_view',"");
+			category_admin_select_load('category3_view','category4_view',"");
+		});
+		$("select[name='category2_view']").bind("change",function(){
+			category_admin_select_load('category2_view','category3_view',$(this).val());
+			category_admin_select_load('category3_view','category4_view',"");
+		});
+		$("select[name='category3_view']").bind("change",function(){
+			category_admin_select_load('category3_view','category4_view',$(this).val());
+		});
+
+		$("button#issueCategoryViewButton").bind("click",function(){
+			var obj;
+			var category;
+			var categoryCode;
+
+			obj = $("select[name='category1_view']",that_wrap);
+			if(obj.val()){
+				category = $("select[name='category1_view'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+			obj = $("select[name='category2_view']",that_wrap);
+			if(obj.val()){
+				category += " > " + $("select[name='category2_view'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+			obj = $("select[name='category3_view']",that_wrap);
+			if(obj.val()){
+				category += " > " + $("select[name='category3_view'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+			obj = $("select[name='category4_view']",that_wrap);
+			if(obj.val()){
+				category += " > " + $("select[name='category4_view'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+
+			if(category){
+				if($("input[name='issueCategoryViewCode[]'][value='"+categoryCode+"']",that_wrap).length == 0){
+					var tag = "<div style='padding:5px;'><span style='display:inline-block;width:300px'>"+category+"</span>";
+					tag += "<span class='btn-minus'><button type='button' class='delBtn'></button></span>";
+					tag += "<input type='hidden' name='issueCategoryViewCode[]' value='"+categoryCode+"' /></div>";
+					$("div#issueCategoryView").append(tag);
+				}
+			}
+		});
+
+		/* 브랜드 불러오기 */
+		brand_admin_select_load('','brand1_view','');
+		$("select[name='brand1_view']").live("change",function(){
+			brand_admin_select_load('brand1_view','brand2_view',$(this).val());
+			brand_admin_select_load('brand2_view','brand3_view',"");
+			brand_admin_select_load('brand3_view','brand4_view',"");
+		});
+		$("select[name='brand2_view']").live("change",function(){
+			brand_admin_select_load('brand2_view','brand3_view',$(this).val());
+			brand_admin_select_load('brand3_view','brand4_view',"");
+		});
+		$("select[name='brand3_view']").live("change",function(){
+			brand_admin_select_load('brand3_view','brand4_view',$(this).val());
+		});
+
+		$("button#issueBrandViewButton").bind("click",function(){
+			var obj;
+			var brand;
+			var brandCode;
+
+			obj = $("select[name='brand1_view']",that_wrap);
+			if(obj.val()){
+				brand = $("select[name='brand1_view'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+			obj = $("select[name='brand2_view']",that_wrap);
+			if(obj.val()){
+				brand += " > " + $("select[name='brand2_view'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+			obj = $("select[name='brand3_view']",that_wrap);
+			if(obj.val()){
+				brand += " > " + $("select[name='brand3_view'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+			obj = $("select[name='brand4_view']",that_wrap);
+			if(obj.val()){
+				brand += " > " + $("select[name='brand4_view'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+
+			if(brand){
+				if($("input[name='issueBrandViewCode[]'][value='"+brandCode+"']",that_wrap).length == 0){
+					var tag = "<div style='padding:5px;'><span style='display:inline-block;width:300px'>"+brand+"</span>";
+					tag += "<span class='btn-minus'><button type='button' class='delBtn'></button></span>";
+					tag += "<input type='hidden' name='issueBrandViewCode[]' value='"+brandCode+"' /></div>";
+					$("div#issueBrandView").append(tag);
+				}
+			}
+		});
+
+		/* 카테고리 불러오기 */
+		category_admin_select_load('','category1','');
+		$("select[name='category1']").bind("change",function(){
+			category_admin_select_load('category1','category2',$(this).val());
+			category_admin_select_load('category2','category3',"");
+			category_admin_select_load('category3','category4',"");
+		});
+		$("select[name='category2']").bind("change",function(){
+			category_admin_select_load('category2','category3',$(this).val());
+			category_admin_select_load('category3','category4',"");
+		});
+		$("select[name='category3']").bind("change",function(){
+			category_admin_select_load('category3','category4',$(this).val());
+		});
+
+		$("button#issueCategoryButton").bind("click",function(){
+			var obj;
+			var category;
+			var categoryCode;
+
+			obj = $("select[name='category1']",that_wrap);
+			if(obj.val()){
+				category = $("select[name='category1'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+			obj = $("select[name='category2']",that_wrap);
+			if(obj.val()){
+				category += " > " + $("select[name='category2'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+			obj = $("select[name='category3']",that_wrap);
+			if(obj.val()){
+				category += " > " + $("select[name='category3'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+			obj = $("select[name='category4']",that_wrap);
+			if(obj.val()){
+				category += " > " + $("select[name='category4'] option[value='"+obj.val()+"']").html();
+				categoryCode = obj.val();
+			}
+
+			if(category){
+				if($("input[name='issueCategoryCode[]'][value='"+categoryCode+"']",that_wrap).length == 0){
+					var tag = "<div style='padding:5px;'><span style='display:inline-block;width:300px'>"+category+"</span>";
+					tag += "<span class='btn-minus'><button type='button' class='delBtn'></button></span>";
+					tag += "<input type='hidden' name='issueCategoryCode[]' value='"+categoryCode+"' /></div>";
+					$("div#issueCategory").append(tag);
+				}
+			}
+		});
+
+		/* 브랜드 불러오기 */
+		brand_admin_select_load('','brand1','');
+		$("select[name='brand1']").live("change",function(){
+			brand_admin_select_load('brand1','brand2',$(this).val());
+			brand_admin_select_load('brand2','brand3',"");
+			brand_admin_select_load('brand3','brand4',"");
+		});
+		$("select[name='brand2']").live("change",function(){
+			brand_admin_select_load('brand2','brand3',$(this).val());
+			brand_admin_select_load('brand3','brand4',"");
+		});
+		$("select[name='brand3']").live("change",function(){
+			brand_admin_select_load('brand3','brand4',$(this).val());
+		});
+
+		$("button#issueBrandButton").bind("click",function(){
+			var obj;
+			var brand;
+			var brandCode;
+
+			obj = $("select[name='brand1']",that_wrap);
+			if(obj.val()){
+				brand = $("select[name='brand1'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+			obj = $("select[name='brand2']",that_wrap);
+			if(obj.val()){
+				brand += " > " + $("select[name='brand2'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+			obj = $("select[name='brand3']",that_wrap);
+			if(obj.val()){
+				brand += " > " + $("select[name='brand3'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+			obj = $("select[name='brand4']",that_wrap);
+			if(obj.val()){
+				brand += " > " + $("select[name='brand4'] option[value='"+obj.val()+"']").html();
+				brandCode = obj.val();
+			}
+
+			if(brand){
+				if($("input[name='issueBrandCode[]'][value='"+brandCode+"']",that_wrap).length == 0){
+					var tag = "<div style='padding:5px;'><span style='display:inline-block;width:300px'>"+brand+"</span>";
+					tag += "<span class='btn-minus'><button type='button' class='delBtn'></button></span>";
+					tag += "<input type='hidden' name='issueBrandCode[]' value='"+brandCode+"' /></div>";
+					$("div#issueBrand").append(tag);
+				}
+			}
+		});
+
+		/* 지역 불러오기 */
+		location_admin_select_load('','location1','');
+		$("select[name='location1']").live("change",function(){
+			location_admin_select_load('location1','location2',$(this).val());
+			location_admin_select_load('location2','location3',"");
+			location_admin_select_load('location3','location4',"");
+		});
+		$("select[name='location2']").live("change",function(){
+			location_admin_select_load('location2','location3',$(this).val());
+			location_admin_select_load('location3','location4',"");
+		});
+		$("select[name='location3']").live("change",function(){
+			location_admin_select_load('location3','location4',$(this).val());
+		});
+
+		$("button#issuelocationButton").bind("click",function(){
+			var obj;
+			var location;
+			var locationCode;
+
+			obj = $("select[name='location1']",that_wrap);
+			if(obj.val()){
+				location = $("select[name='location1'] option[value='"+obj.val()+"']").html();
+				locationCode = obj.val();
+			}
+			obj = $("select[name='location2']",that_wrap);
+			if(obj.val()){
+				location += " > " + $("select[name='location2'] option[value='"+obj.val()+"']").html();
+				locationCode = obj.val();
+			}
+			obj = $("select[name='location3']",that_wrap);
+			if(obj.val()){
+				location += " > " + $("select[name='location3'] option[value='"+obj.val()+"']").html();
+				locationCode = obj.val();
+			}
+			obj = $("select[name='location4']",that_wrap);
+			if(obj.val()){
+				location += " > " + $("select[name='location4'] option[value='"+obj.val()+"']").html();
+				locationCode = obj.val();
+			}
+
+			if(location){
+				if($("input[name='issueLocationCode[]'][value='"+locationCode+"']",that_wrap).length == 0){
+					var tag = "<div style='padding:5px;'><span style='display:inline-block;width:300px'>"+location+"</span>";
+					tag += "<span class='btn-minus'><button type='button' class='delBtn'></button></span>";
+					tag += "<input type='hidden' name='issueLocationCode[]' value='"+locationCode+"' /></div>";
+					$("div#issuelocation").append(tag);
+				}
+			}
+		});
+
+		$("button.delBtn").live("click",function(){$(this).parent().parent().remove();});
+
+		$("input[name='view']").click(function(){
+			$('.view').hide();
+			key = $(this).val();
+			if(key == 'category'){
+				$('.view_category').show();
+			}else if(key == 'brand'){
+				$('.view_brand').show();
+			}else if(key == 'goods'){
+				$('.view_goods').show();
+			}
+		});
+
+		arr = ['category','brand','location'];
+		$.each(arr,function(k,v){
+			$("input[name='"+v+"']").bind('click',function(){
+				$('.issue_'+v).hide();
+				if($(this).val() != 'all') $('.issue_'+v).show();
+			});
+		});
+
+		$("input:radio[name='view'][value='{popup_condition.view}']").prop('checked',true).click();
+		$("input:radio[name='category'][value='{popup_condition.category}']").prop('checked',true).click();
+		$("input:radio[name='brand'][value='{popup_condition.brand}']").prop('checked',true).click();
+		$("input:radio[name='location'][value='{popup_condition.location}']").prop('checked',true).click();
+
+		$('.goods').live('mouseover',function(){$(this).removeClass('move')});
+	});
+	var that_wrap = $('#popup_condition_wrap');
+
+	function set_goods_list(displayId,inputGoods){
+		$.ajax({
+			type: "get",
+			'cache': false,
+			url: "../goods/select",
+			data: "page=1&inputGoods="+inputGoods+"&displayId="+displayId,
+			success: function(result){
+				$("div#"+displayId).html(result);
+			}
+		});
+		openDialog("상품 검색", displayId, {"width":"950","height":"700","show" : "fade","hide" : "fade"});
+	}
+
+	function serialize_condition(){
+		formParams = $('#popup_cond').serializeArray();
+		var params = new Array();
+		for(var i in formParams){
+			if(formParams[i].value!=null && formParams[i].value.length>0) params.push("<input type='hidden' name='"+formParams[i].name+ "' value='"+encodeURIComponent(formParams[i].value)+"'>");
+		}
+
+		$('#condition').html(params.join(''));
+		$('#popup_condition_div').dialog('close');
+	}
+</script>
+<style type="text/css">
+	#popup_condition_wrap .popup_goods_ul {padding-top:10px;}
+	#popup_condition_wrap .popup_goods_ul li{padding-bottom:5px;}
+	#popup_condition_wrap .dsts-th{background-color:#eee}
+</style>
+
+<div id="popup_condition_wrap">
+	<form id="popup_cond" method="post">
+	<table class="design-simple-table-style" width="100%">
+		<col width="290px"/>
+		<col width="130px"/>
+		<col />
+		<tr>
+			<th class="dsts-th"><span class="hide mobile_condition">모바일</span> 노출 페이지</th>
+			<th class="dsts-th">노출조건1</th>
+			<th class="dsts-th">노출조건2</th>
+		</tr>
+		<tr>
+			<th class="dsts-th">메인페이지(main/index.html) 및 기타 페이지</th>
+			<td class="dsts-td center">치환코드 삽입 시</td>
+			<td class="dsts-td left">
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">상품상세 페이지 (goods/view.html)</th>
+			<td class="dsts-td center">치환코드 삽입 시</td>
+			<td class="dsts-td left">
+				<ul class="popup_goods_ul">
+					<li>
+						<label><input type="radio" name="view" value="all" checked /> 전체 상품</label>
+					</li>
+					<li>
+						<label><input type="radio" name="view" value="category"/> 지정 카테고리 (상품의 대표카테고리와 설정된 카테고리와 비교)</label>
+					</li>
+					<li class="view_category view hide">
+						<select class="line" name="category1_view">
+							<option value="">1차 카테고리</option>
+						</select>
+						<select class="line" name="category2_view">
+							<option value="">2차 카테고리</option>
+						</select>
+						<select class="line" name="category3_view">
+							<option value="">3차 카테고리</option>
+						</select>
+						<select class="line" name="category4_view">
+							<option value="">4차 카테고리</option>
+						</select>
+						<span class="btn small gray"><button type="button" id="issueCategoryViewButton">선택</button></span>
+					</li>
+					<li class="view_category view hide">
+						<div id="issueCategoryView" >
+							{?popup_condition.view == 'category'}
+							{@issuecategorysView}
+							<div style='padding:5px;'>
+							<span style='display:inline-block;width:300px'>{.category}</span>
+							<span class='btn-minus'><button type='button' class='delBtn'></button></span>
+							<input type="hidden" name='issueCategoryViewCode[]' value='{.code}' />
+							</div>
+							{/}
+							{/}
+						</div>
+					</li>
+					<li>
+						<label><input type="radio" name="view" value="brand"/> 지정 브랜드 (상품의 대표브랜드와 설정된 브랜드와 비교)</label>
+					</li>
+					<li class="view_brand view hide">
+						<select class="line" name="brand1_view" size="1" style="width:100px;"><option value="">1차 브랜드</option></select>
+						<select class="line" name="brand2_view" size="1" style="width:100px;"><option value="">2차 브랜드</option></select>
+						<select class="line" name="brand3_view" size="1" style="width:100px;"><option value="">3차 브랜드</option></select>
+						<select class="line" name="brand4_view" size="1" style="width:100px;"><option value="">4차 브랜드</option></select>
+						<span class="btn small gray"><button type="button" id="issueBrandViewButton">선택</button></span>
+					</li>
+					<li class="view_brand view hide">
+						<div id="issueBrandView">
+							{?popup_condition.view == 'brand'}
+							{@issueBrandView}
+							<div style='padding:5px;'>
+							<span style='display:inline-block;width:300px'>{.brand}</span>
+							<span class='btn-minus'><button type='button' class='delBtn'></button></span>
+							<input type="hidden" name='issueBrandViewCode[]' value='{.code}' />
+							</div>
+							{/}
+							{/}
+						</div>
+					</li>
+					<li>
+						<label><input type="radio" name="view" value="goods"/> 지정 상품</label> <span class="btn small gray"><input type="button" value="설정" id="issueGoodsButtonPopup" /></span>
+					</li>
+					<li class="view_goods view hide">
+						<div id="issueGoods">
+							{?popup_condition.view == 'goods'}
+							{@issueGoods}
+							<div class='goods fl'>
+							<div align='center' class='image'>
+								<img class="goodsThumbView" alt="" src="{.image}" width="50" height="50" onerror="this.src='/admin/skin/default/images/common/noimage_list.gif'">
+							</div>
+							<div align='center' class='name' style='width:70px;min-height:10px;word-wrap:break-word;white-space:nowrap;'>{.goods_name}</div>
+							<div align='center' class='price'>{=number_format(.price)}</div>
+							<input type="hidden" name='issueGoods[]' value='{.goods_seq}' />
+							</div>
+							{/}
+							{/}
+						</div>
+						<div id="issueGoodsSelect"></div>
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">카테고리 페이지 (goods/catalog.html)</th>
+			<td class="dsts-td center">치환코드 삽입 시</td>
+			<td class="dsts-td left">
+				<ul class="popup_goods_ul">
+					<li>
+						<label><input type="radio" name="category" value="all" checked /> 전체 카테고리</label>
+					</li>
+					<li>
+						<label><input type="radio" name="category" value="category"/> 지정 카테고리</label>
+					</li>
+					<li class="issue_category hide">
+						<select class="line" name="category1">
+							<option value="">1차 카테고리</option>
+						</select>
+						<select class="line" name="category2">
+							<option value="">2차 카테고리</option>
+						</select>
+						<select class="line" name="category3">
+							<option value="">3차 카테고리</option>
+						</select>
+						<select class="line" name="category4">
+							<option value="">4차 카테고리</option>
+						</select>
+						<span class="btn small gray"><button type="button" id="issueCategoryButton">선택</button></span>
+					</li>
+					<li class="issue_category hide">
+						<div id="issueCategory" >
+							{?popup_condition.category != 'all'}
+							{@issuecategorys}
+							<div style='padding:5px;'>
+							<span style='display:inline-block;width:300px'>{.category}</span>
+							<span class='btn-minus'><button type='button' class='delBtn'></button></span>
+							<input type="hidden" name='issueCategoryCode[]' value='{.code}' />
+							</div>
+							{/}
+							{/}
+						</div>
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">브랜드 페이지 (goods/brand.html)</th>
+			<td class="dsts-td center">치환코드 삽입 시</td>
+			<td class="dsts-td left">
+				<ul class="popup_goods_ul">
+					<li>
+						<label><input type="radio" name="brand" value="all" checked /> 전체 브랜드</label>
+					</li>
+					<li>
+						<label><input type="radio" name="brand" value="brand"/> 지정 브랜드</label>
+					</li>
+					<li class="issue_brand hide">
+						<select class="line" name="brand1" size="1" style="width:100px;"><option value="">1차 브랜드</option></select>
+						<select class="line" name="brand2" size="1" style="width:100px;"><option value="">2차 브랜드</option></select>
+						<select class="line" name="brand3" size="1" style="width:100px;"><option value="">3차 브랜드</option></select>
+						<select class="line" name="brand4" size="1" style="width:100px;"><option value="">4차 브랜드</option></select>
+						<span class="btn small gray"><button type="button" id="issueBrandButton">선택</button></span>
+					</li>
+					<li class="issue_brand hide">
+						<div id="issueBrand" >
+							{?popup_condition.brand != 'all'}
+							{@issueBrand}
+							<div style='padding:5px;'>
+							<span style='display:inline-block;width:300px'>{.brand}</span>
+							<span class='btn-minus'><button type='button' class='delBtn'></button></span>
+							<input type="hidden" name='issueBrandCode[]' value='{.code}' />
+							</div>
+							{/}
+							{/}
+						</div>
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th">지역 페이지 (goods/location.html)</th>
+			<td class="dsts-td center">치환코드 삽입 시</td>
+			<td class="dsts-td left">
+				<ul class="popup_goods_ul">
+					<li>
+						<label><input type="radio" name="location" value="all" checked /> 전체 지역</label>
+					</li>
+					<li>
+						<label><input type="radio" name="location" value="location"/> 지정 지역</label>
+					</li>
+					<li class="issue_location hide">
+						<select class="line" name="location1">
+							<option value="">1차 지역</option>
+						</select>
+						<select class="line" name="location2">
+							<option value="">2차 지역</option>
+						</select>
+						<select class="line" name="location3">
+							<option value="">3차 지역</option>
+						</select>
+						<select class="line" name="location4">
+							<option value="">4차 지역</option>
+						</select>
+						<span class="btn small gray"><button type="button" id="issuelocationButton">선택</button></span>
+					</li>
+					<li class="issue_location hide">
+						<div id="issuelocation" >
+							{?popup_condition.location != 'all'}
+							{@issueLocation}
+							<div style='padding:5px;'>
+							<span style='display:inline-block;width:300px'>{.location}</span>
+							<span class='btn-minus'><button type='button' class='delBtn'></button></span>
+							<input type="hidden" name='issueLocationCode[]' value='{.code}' />
+							</div>
+							{/}
+							{/}
+						</div>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	</form>
+	<div class="mt20 mb20 center">
+		<span class="btn large cyanblue"><button type="button" onclick="serialize_condition()">확인</button></span>
+	</div>
+</div>

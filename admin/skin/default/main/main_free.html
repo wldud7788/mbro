@@ -1,0 +1,25 @@
+<style>
+/*버튼 class명 변경 start*/
+.resp_btn {vertical-align: middle; border:1px #525f78 solid; background:#fff; border-radius:2px !important; letter-spacing: -1px; display:inline-block; font-size:13px; line-height:28px; outline: none; font-weight:400; padding:0 9px; box-sizing:border-box; text-align:center; color:#525f78; cursor:pointer;}
+a.resp_btn, span.resp_btn{display:inline-block; color:#525f78; outline: none;}
+a.resp_btn:hover, a.resp_btn:link, a.resp_btn:active, a.resp_btn:visited {color:#525f78; outline: none;}
+.resp_btn.disabled {opacity:0.4;}
+.resp_btn.active {background:#525f78; color:#FFF; border:1px solid #525f78;}
+.resp_btn.v3 {color:#666666; border:1px solid #dcdcde;}
+a.resp_btn.v2:hover, a.resp_btn.v2:link, a.resp_btn.v2:active, a.resp_btn.v2:visited {color:#FFF; outline: none;}
+a.active.resp_btn:hover, a.active.resp_btn:link, a.active.resp_btn:active, a.active.resp_btn:visited {color:#FFF; outline: none;}
+.resp_btn.size_L {padding:0 12px; font-weight:400; font-size:13px; height:33px; line-height:32px; min-width:60px;}
+.resp_btn.size_XL {padding:0 20px; font-weight:400; font-size:13px; height:35px; line-height:34px; min-width:85px;}
+.resp_btn.size_S {padding:0 7px; height:25px; line-height:26px; font-size:11px;}
+.resp_btn_txt{color:#4472c4 !important; text-decoration:underline !important; cursor: pointer;}
+.ui-dialog-content .footer, .contents_container .footer{margin-top:20px; text-align:center; }
+.lh18{line-height:180% !important;}
+</style>
+<div class="center lh18">
+	해당 기능은 무료몰에서 제공되지 않습니다.</br>
+	무료몰 제한 기능 <a href="https://www.firstmall.kr/customer/faq/1528" class="resp_btn_txt" target="_blank">자세히 보기</a>
+</div>
+<div class="footer">
+	<a href="https://www.firstmall.kr/buildservice/upgrade" target="_blank" class="resp_btn active size_XL">업그레이드</a>
+	<button type="button" class="resp_btn v3 size_XL" onclick="closeDialogEvent(this);">취소</button>
+</div>

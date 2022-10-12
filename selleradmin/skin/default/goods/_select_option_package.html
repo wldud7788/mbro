@@ -1,0 +1,187 @@
+
+<!--{ @ loop }-->
+	<!--{ ? .index_ == 0 }-->
+	<input type="hidden" name="group_seq" value="{.group_seq}">
+	<input type="hidden" name="goods_seq" value="{.goods_seq}">
+		<!--{ / }-->
+	<input type="hidden" name="option_seq[]" value="{.option_seq}">
+	<input type="hidden" name="temp_seq[]" value="{.temp_seq}">
+	<!--{ / }-->
+	
+	<div class="options">
+		<table class="table_basic" style="width:auto;border-right:1px solid#ccc" cellspacing=0 cellpadding=0>
+		<col width="100"/><col width="940"/>
+		<tr>
+			<td class="clear" valign="top">
+				<div>
+					<table id="option_select_form_table" class="table_basic thl v3" cellspacing=0 cellpadding=0>
+					<col width="100" />
+					<!--{ ? !option_title_loop }-->
+					<thead>
+					<tr>
+						<th class="th-option">옵션명</th>
+					</tr>
+					<tr>
+						<th class="th-option">기본</th>
+					</tr>
+					<tr>
+						<th class="th-option">기본</th>
+					</tr>
+					</thead>
+					<!--{ : }-->
+					<thead>
+					<tr>
+						<th class="th-option">옵션명</th>
+					</tr>
+					<!--{ @ loop }-->
+					<!--{ ? .index_ == 0 }-->
+					<tr>
+						<th class="th-option" style="padding: 0;height: 67px;">
+							<div style="overflow-x:hidden;overflow-y:auto;width: 80px;padding:10px 10px; max-height: 67px; text-align: left;">
+							<span class="option-title hand" title="{ @ range(0,4) }{ ? ..value_ == 0 && option_title_loop[..value_] }{.title1}{ : option_title_loop[..value_] } / {.option_divide_title[..value_]}{ / }{ / } ">
+						<!--{ @ range(0,4) }-->
+							<!--{ ? ..value_ == 0 && option_title_loop[..value_] }-->
+							{.title1}
+							<!--{ : option_title_loop[..value_] }-->
+							/ {.option_divide_title[..value_]}
+							<!--{ / }-->
+						<!--{ / }-->
+							</span>
+							</div>
+						</th>
+					</tr>
+					</thead>
+					<tbody style="overflow-y:hidden; overflow-x:scroll; float:left; width:100px;">
+					<!--{ / }-->					
+					<tr>
+						<td class="td-option td-common clear">
+							<span class="option-value hand" title="{ @ range(0,4) }{ ?  ..value_ == 0 && .opts[..value_] }{.opts[..value_]}{ : .opts[..value_] } / {.opts[..value_]}{ / }{ / }">
+						<!--{ @ range(0,4) }-->
+							<!--{ ?  ..value_ == 0 && .opts[..value_] }-->
+							{.opts[..value_]}
+							<!--{ : .opts[..value_] }-->
+							/ {.opts[..value_]}
+							<!--{ / }-->
+						<!--{ / }-->
+							</span>
+						</td>
+					</tr>					
+					<!--{ / }-->
+					 </tbody>
+					<!--{ / }-->
+					</table>
+				</div>
+			</td>
+			<td valign="top" class="clear">
+				<div class="package_grid" style="width:940px; overflow-x: scroll;">
+					<table id="package_select_form_table1" class="table_basic thl v3">
+						<colgroup>
+							<!--{ @ title_loop }-->
+							<col width="420">
+							<!--{ / }-->
+						</colgroup>
+						<thead>
+						<tr>
+							<th class="th-package1 left" colspan="{=count(title_loop)}">연결 상품 : ‘상품(1)’ 열 만은 필수적으로 연결하세요!</th>
+						</tr>
+						<tr>
+						<!--{ @ range(1,5) }-->
+							<!--{ ? title_loop[.value_] }-->
+							<th class="th-package1 left">
+								<label class="resp_checkbox"><input type="checkbox" name="check_allpackage{.value_}" value="{.value_}" onclick="check_allpackage({.value_},this)" class="check_allpackage" /> 상품({.value_})</label>
+							</th>
+							<!--{ / }-->
+						<!--{ / }-->
+						</tr>
+						</thead>
+						<tbody>
+						<!--{ @package_loop }-->
+						<tr>
+							<!--{@ .value_ }-->
+							<td class="td-package{=..key_} td-common clear">
+								
+								<table class="package_select_form_table2 table_basic thl v3">
+									<colgroup>
+										<col width="12%">
+										<col width="12%">
+										<col width="64%">
+										<col width="12%">
+									</colgroup>
+									<tr>
+										<td class="center clear">
+											<label class="resp_checkbox">
+												<input type="checkbox" name="check_package_option{=..key_}[]" class="check_package_option" value="{=..key_}" />
+											</label>
+										</td>
+										<td class="clear center"><img src="../images/common/icon_move.png" /></td>
+										<td class="goods clear">
+											<input type="hidden" name="package_option_seq{=..key_}[]" class="package_option_seq" value="{..package_option_seq}" />
+											<input type="hidden" name="package_option_stock{=..key_}[]" class="package_option_stock" value="{..package_stock}" rstock="{..package_ablestock}" badstock="{..package_badstock}" safe_stock="{..package_safe_stock}" />
+											<!--{ ? ..error_msg }-->
+											<div class="package_error">
+												{..error_msg}
+											</div>
+											<!--{ / }-->
+											<div class="package_goods_info { ? ..error_msg }hide{/}">
+												<div class="pdt3 package_goods_box">
+													<span class="package_goods_seq{=..key_} package_goods_seq">{?..package_goods_seq}[{..package_goods_seq}]{/}</span>
+													<span class="package_goods_name{=..key_} package_goods_name hand" title="{..package_goods_name}">{..package_goods_name}</span>
+												</div>
+												<div class="package_option_name{=..key_} package_option_name hand" title="{..package_option}">{..package_option}</div>
+											</div>
+										</td>
+										<td class="center clear"><button class="del_package_selected btn_minus" type="button" onclick="del_package_selected(this);"></button></td>
+									</tr>
+									</table>
+							</td>
+							<!--{ / }-->
+						</tr>
+						<!--{ / }-->
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+		</table>
+	</div>
+	
+	<script>
+	$("table.package_select_form_table2").sortable({items:'tr'});
+	// 필수옵션 미사용일 때
+	if( $("input[name='optionUse']:checked").val() == '' ){
+		var cellobj = $("#optionLayer .reg_package_option_tbl");
+		var tobj    = $("table#package_select_form_table1");
+		var tmp_error = '';
+		cellobj.each(function(idx){
+			var tmp_error           = '';
+			var num                 = idx+1;
+			var package_goods_name  = $(this).find(".reg_package_goods_name"+num).html();
+			var package_goods_seq   = $(this).find(".reg_package_goods_seq"+num).html();
+			var package_option      = $(this).find(".reg_package_option"+num).html();
+			var package_unit_ea     = $(this).find("input[name='package_unit_ea"+num+"[]']").val();
+			var package_option_seq  = $(this).find("input[name='reg_package_option_seq"+num+"[]']").val();
+			var optseqObj           = $(this).find(".reg_package_option_seq"+num);
+			var stock               = optseqObj.attr('stock');
+			var rstock              = optseqObj.attr('rstock');
+			var badstock            = optseqObj.attr('badstock');
+			var safe_stock          = optseqObj.attr('safe_stock');
+			var targetObj           = tobj.find("tr td.td-package"+num+" table.package_select_form_table2");
+			var tcellobj            = targetObj.find("tr td.goods");
+			var error               = $(this).find("div.package_error").html();
+			if(error) tmp_error     = error.split('<\/script>');
+	
+			if(package_goods_name){
+				tcellobj.find("input.package_option_seq").val(package_option_seq);
+				tcellobj.find("input.package_option_stock").val(stock);
+				tcellobj.find("input.package_option_stock").attr('stock',stock);
+				tcellobj.find("input.package_option_stock").attr('rstock',rstock);
+				tcellobj.find("input.package_option_stock").attr('badstock',badstock);
+				tcellobj.find("input.package_option_stock").attr('safe_stock',safe_stock);
+				tcellobj.find(".package_goods_name").html(package_goods_name);
+				tcellobj.find(".package_option_name").html(package_option);
+				tcellobj.find(".package_goods_seq").html(package_goods_seq);
+				tcellobj.find(".package_error").html(tmp_error[1]);
+			}
+		});
+	}
+	</script>

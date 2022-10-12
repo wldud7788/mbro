@@ -1,0 +1,228 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {		
+		gSearchForm.init({'pageid':'sales_o2o', 'sc':{=scObj}});
+	})
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 좌측 버튼 -->
+		<ul class="page-buttons-left">
+
+		</ul>
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>판매 매장별 매출 통계</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+
+		</ul>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+
+<div id="search_container" class="search_container">
+	<form class='search_form' >						
+	<table class="table_search">
+		<tr>
+			<th>결제 확인일</th>
+			<td>
+				<select name="year" class="wx80" defaultValue="{=date('Y')}">					
+				{@range(date('Y'),2010)}
+					<option value="{.value_}">{.value_}</option>
+				{/}
+				</select>					
+				
+				<select name="month" class="wx80" defaultValue="{=date('m')}">					
+				{@range(1,12)}					
+					<option value="{? .value_<10 }0{.value_}{:}{.value_}{/}" {? sc.month==.value_}selected{/}>{? .value_<10 }0{.value_}{:}{.value_}{/}</option>
+				{/}
+				</select>
+			</td>
+		</tr>	
+		<tr>
+			<th>매장</th>
+			<td>				
+				<div class="ui-widget">
+					<select name="o2o_store_seq_select" class="o2o_store_seq_select">
+					<option value="" selected="selected" ></option>
+					<!--{ @ o2o_store }-->
+					<option value="{.o2o_store_seq}" {? sc.o2o_store_seq == .o2o_store_seq}selected{/}>{.pos_name}({.store_seq})</option>
+					<!--{ / }-->
+					</select>
+					<input type="hidden" class="o2o_store_seq" name="o2o_store_seq" value="{sc.o2o_store_seq}" />						
+				</div>
+				<span class="ptc-charges hide"></span>
+				<script>
+					$( ".o2o_store_seq_select" )
+					.combobox()
+					.change(function(){
+						$("input[name='o2o_store_base']").removeAttr('checked').change();
+						$("input[name='o2o_store_seq']").val($(this).val());
+						$("input[name='o2o_store_name']").val($("option:selected",this).text());
+					});
+				</script>
+			</td>
+		</tr>			
+	</table>
+	<div class="search_btn_lay"></div>
+	</form>
+</div>
+
+<!-- 서브메뉴 바디 : 시작-->
+<div class='contents_dvs v2'>
+	<div class="title_dvs">
+		<div class="item-title">매장</div>
+		<button type="button" class="resp_btn v3" onclick="divExcelDownload('매장구매통계','#seller_goods_table')" ><img src="../../images/common/btn_img_ex.gif"/><span>다운로드</span></button>
+	</div>				
+
+	<!--/* 리스트 : START */-->
+	<div id="seller_goods_table">
+	<!--{ ? _GET.o2o_store_seq }-->
+		<!--/* 매장 상품 리스트 */-->
+		<table class="table_basic v7">
+		<colgroup>
+			<col />
+			<col width="13%" />
+			<col width="13%" />
+			<col width="13%" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>상품명</th>
+			<th>판매수량</th>
+			<th>판매가합계</th>
+			<th>할인합계</th>
+			<th colspan="2">판매가합계-할인합계</th>
+		</tr>
+		<!--{ ? statList }-->
+		<tbody class="ltb">
+			<!--{ @ statList }-->
+		<tr>
+			<td align="center" {?.index_%2==1}class="linecolor"{/}>
+				{.goods_name}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=number_format(.ea_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.price_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.sale_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/} colspan="2">
+				{=get_currency_price(.sell_price)}
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--/* 총계 */-->
+		<tr class="trLineTop">
+			<td align="center" height="25"><b>총합</b></td>
+			<td align="right"><b>{=number_format(totalSell.ea)}</b></td>
+			<td align="right"><b>{=get_currency_price(totalSell.price)}</b></td>
+			<td align="right"><b>{=get_currency_price(totalSell.sale)}</b></td>
+			<td align="right" colspan="2"><b>{=get_currency_price(totalSell.sell)}</b></td>
+		</tr>
+		<tr>
+			<td colspan="4" rowspan="4">&nbsp;</td>
+			<td align="right">(+)배송비</td>
+			<td align="right"><b>{=get_currency_price(totalSell.shipping)}</b></td>
+		</tr>
+		<tr>
+			<td align="right">(-)환불액</td>
+			<td align="right"><b>{=get_currency_price(totalSell.refund_price)}</b></td>
+		</tr>
+		<tr>
+			<td align="right">
+				합계
+				<span class="helpicon" title="매출액합계-환불액+배송비"></span>
+			</td>
+			<td align="right"><b>{=get_currency_price(totalSell.total_price)}</b></td>
+		</tr>
+		<tr>
+			<td align="right">반품배송비</td>
+			<td align="right"><b>{=get_currency_price(totalSell.return_shipping_price)}</b></td>
+		</tr>
+		</tbody>
+			<!--{ : }-->
+		<tr>
+			<td colspan="6" align="center" height="50px">데이터가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</table>
+	<!--{ : }-->
+		<!--/* 매장별 매출 리스트 */-->
+		<table class="table_basic v7">
+		<colgroup>
+			<col width="4%" />
+			<col />
+			<col width="13%" />
+			<col width="13%" />
+			<col width="13%" />
+			
+		</colgroup>
+		<tr>
+			<th>번호</th>
+			<th>매장명</th>
+			<th>상품판매수(종)</th>
+			<th>상품금액합계</th>
+			<th>할인합계</th>
+		</tr>
+		<!--{ ? statList }-->
+		<tbody class="ltb">
+			<!--{ @ statList }-->
+		<tr>
+			<td align="center" {?.index_%2==1}class="linecolor"{/}>
+				{.index_+1}
+			</td>
+			<td align="center" {?.index_%2==1}class="linecolor"{/}>
+				{.pos_name}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=number_format(.total_ea)} ({=number_format(.goods_ea)})
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.price_sum)}
+			</td>
+			<td align="right" {?.index_%2==1}class="linecolor"{/}>
+				{=get_currency_price(.sale_sum)}
+			</td>
+		</tr>
+			<!--{ / }-->
+		<!--/* 총계 */-->
+		<tr class="trLineTop">
+			<td align="center"></td>
+			<td align="center"><b>총합</b></td>
+			<td align="right">
+				<b>{=number_format(totalSell.total_ea)} ({=number_format(totalSell.goods_ea)})</b>
+			</td>
+			<td align="right"><b>{=get_currency_price(totalSell.price_sum)}</b></td>
+			<td align="right"><b>{=get_currency_price(totalSell.sale_sum)}</b></td>
+		</tr>
+		</tbody>
+			<!--{ : }-->
+		<tr>
+			<td colspan="5" align="center" height="50px">데이터가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</table>
+	<!--{ / }-->
+	</div>
+	<!--/* 리스트 : END */-->
+</div>
+
+
+
+{ #layout_footer }

@@ -1,0 +1,24 @@
+<table class="table_basic tdc v7 pd7">
+	<thead>
+	<tr>
+		<th widht="4%"></th>
+		<th widht="10%">유입경로별 판매횟수</th>
+	{ @ table_title }
+		<th width="*">{.value_}</th>
+	{ / }
+		<th width="7%">합계</th>
+	</tr>
+	</thead>
+	<tbody>
+	{ @ statlist }
+	<tr>
+		<td><label class="resp_checkbox"><input type="checkbox" name="cntCode[]" value="{.key_}" titleName="{.key_}" {?.index_==0}checked{/} /></div></td>
+		<td>{.key_}</td>
+		{ @ .list }
+		<td>{=number_format(..cnt)}</td>
+		{ / }
+		<td>{=number_format(.total_cnt)}</td>
+	</tr>
+	{ / }
+	</tbody>
+</table>

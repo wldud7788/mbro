@@ -1,0 +1,130 @@
+<!--{ ? mode != 'view' }-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<title>{config_basic.shopName}{ ? !preg_match('/order_print/',_SERVER.REDIRECT_QUERY_STRING)} 관리자환경 :: 퍼스트몰, 오직 운영자만을 생각한 가장 앞선 쇼핑몰입니다.{ / }</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<script nonce="{=script_nonce()}">{=front_config_js()}</script>
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/common.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/layout.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/buttons.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/boardnew.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/page.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/jqueryui/jquery-ui.css?dummy=20201128" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/jqueryui/black-tie/jquery-ui-1.8.16.custom.css" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/poshytip/style.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/goods_admin.css?mm={=date('Ymd')}" >
+<link rel="stylesheet" type="text/css" href="/selleradmin/skin/default/css/common-ui.css?mm={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/editor/css/editor.css?mm={=date('Ym')}" />
+
+<!--{ ? config_system.favicon }-->
+<!-- 파비콘 -->
+<link rel="shortcut icon" href="{ config_system.favicon}" />
+<!--{ / }-->
+<!-- 자바스크립트 [순서변경하지마세요] -->
+<!--{? preg_match('/goods\/regist/',_SERVER.REQUEST_URI) || preg_match('/category\/catalog/',_SERVER.REQUEST_URI) }-->
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.1.6.4.js"></script>
+<!--{ : }-->
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<!--{ / }-->
+<script type="text/javascript" src="/app/javascript/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.hotkeys.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.activity-indicator-1.0.0.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.cookie.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-select-box.js"></script>
+<script type="text/javascript" src="/app/javascript/js/dev-tools.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-layout.js?dummy={=date('Ymd')}&krdomain=http://{config_system.subDomain}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsaddlayer.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.colorpicker.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script type="text/javascript" src="/app/javascript/js/selleradmin-layout.js?dummy={=date('Ymd')}&krdomain=http://{config_system.subDomain}"></script>
+<script type="text/javascript" src="/data/js/language/L10n_{config_system.language}.js?dummy={=date('YmdHis')}"></script>
+<script type="text/javascript" src="/app/javascript/js/common-function.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-common-ui.js?mm={=date('Ymd')}"></script>
+<script  type="text/javascript">
+var gl_goods_seq 	= '{goods_seq}';
+var gl_package_yn 	= '{sc.package_yn}';
+var gl_basic_currency						= "{=config_system.basic_currency}";	//기본통화
+	//var gl_skin_currency					= "{=config_system.compare_currency}";		//비교통화
+	var gl_basic_currency_symbol			= "{=config_currency[basic_currency]['currency_symbol']}";
+	var gl_basic_currency_symbol_position	= "{=config_currency[basic_currency]['currency_symbol_position']}";
+	var gl_amout_list						= new Array();
+	{@ config_system.basic_amout }
+	gl_amout_list['{.key_}'] = '{.value_}';
+	{ / }
+	var gl_currency_exchange = "{=config_currency[basic_currency]['currency_exchange']}";	
+
+var scObj			= {=scObj};
+var reload			= '{=reload}';
+var sellerAdmin		= true;
+
+function socialcpinputtype() {
+	<!--{ ? sc.socialcp_input_type }-->
+	var socialcp_input_type = '{sc.socialcp_input_type}';
+	<!--{ : }-->
+		var socialcp_input_type = $("input[name='socialcp_input_type']:checked", window.opener.document).val();
+	<!--{ / }-->
+
+	if(socialcp_input_type) {
+		var couponinputsubtitle = '';
+		$(".couponinputtitle").show();
+		if( socialcp_input_type == 'price' ) {
+			couponinputsubtitle = '금액';
+		}else{
+			couponinputsubtitle = '횟수';
+		}
+		{ ? mode != 'view' }$(".socialcpuseopen").val(socialcp_input_type);{ / }
+		$(".couponinputsubtitle").text(couponinputsubtitle);
+	}
+
+	<!--{ ? mode != 'view' }-->
+	//과세/부가세 체크
+		<!--{ ? sc.goodsTax }-->
+	var goodsTax = '{ sc.goodsTax }';
+		<!--{ : }-->
+	var goodsTax = $("input[name='tax']:checked", window.opener.document).val();
+		<!--{ / }-->
+	$(".goodsTax").val(goodsTax);
+	<!--{ / }-->
+}
+
+<!--{ ? mode != 'view' }-->
+$(window).on("beforeunload", function() { 
+	parent.opener.freqOptionsReload('opt');
+})
+<!--{ / }-->
+
+</script>
+<script type="text/javascript" src="/app/javascript/js/admin/admin-set_options_modify.js?mm={=date('Ymd')}"></script>	
+</head>
+<body>
+
+<div id="dumy" style="display:none"></div>
+
+<!--{ / }-->
+
+<!--
+	EDIT_VIEW		: edit_goods_options.html		: 필수옵션(멀티 등록/수정 팝업)
+	ONLY_VIEW		: view_goods_options.html
+-->
+<!--{ ? mode == 'view' }-->
+	{ # ONLY_VIEW }
+<!--{ : }-->
+	{ # EDIT_VIEW }
+<!--{ / }-->
+
+<div id="packageErrorDialog" class="hide"></div>
+<!--{ ? mode != 'view' }-->
+{ #layout_footer_popup }
+<!--{ / }-->
+
+<!--{ ? mode != 'view' }-->
+<!--{ / }-->
+</body>

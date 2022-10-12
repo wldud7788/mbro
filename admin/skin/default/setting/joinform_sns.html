@@ -1,0 +1,1119 @@
+<script type="text/javascript" src="/app/javascript/js/punycode.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	var pagemode = $("#pagemode").val();
+
+	$("input[name='use_f_lay']").on("click", function(){
+
+		if( $(this).val()=="0" ) {
+			$("#key_f_lay").attr("disabled", true);
+			$("#secret_f_lay").attr("disabled", true);
+			$("#name_f_lay").attr("disabled", true);
+			$('input[name="type_f_lay"]').attr("disabled", true);
+		}else{
+			$("#key_f_lay").attr("disabled", false);
+			$("#secret_f_lay").attr("disabled", false);
+			$("#name_f_lay").attr("disabled", false);
+			$('input[name="type_f_lay"]').attr("disabled", false);
+		}
+	})
+
+	$("input[name='use_t_lay']").on("click", function(){
+
+		if( $(this).val()=="0" ) {
+			$("#key_t_lay").attr("disabled", true);
+			$("#secret_t_lay").attr("disabled", true);
+		}else{
+			$("#key_t_lay").attr("disabled", false);
+			$("#secret_t_lay").attr("disabled", false);
+		}
+	})
+
+	$("input[name='use_k_lay']").on("click", function(){
+
+		if( $(this).val()=="0" ) {
+			$("#key_k_lay").attr("disabled", true);
+			$("#rest_key_k_lay").attr("disabled", true);
+			$('input[name="type_k_lay"]').attr("disabled", true);
+		}else{
+			$("#key_k_lay").attr("disabled", false);
+			$("#rest_key_k_lay").attr("disabled", false);
+			$('input[name="type_k_lay"]').attr("disabled", false);
+		}
+	})
+
+	// 카카오 연동 방식 선택
+	$('input[name="type_k_lay"]').on("click", function () {
+		if($(this).val() == "rest") {
+			$(".row_rest_k").removeClass('hide');
+		} else {
+			$(".row_rest_k").addClass('hide');
+		}
+	})
+
+	// 서비스 타입 카카오싱크 선택
+	$('input[name="service_type"]').on("click", function () {
+		if ($(this).val() == "kakaosync") {
+			if(confirm("카카오싱크 선택 시, 카카오 로그인으로 되돌리기 불가합니다.\n카카오싱크로 변경하시겠습니까?")){
+				$("input:radio[name='service_type']:radio[value='kakaosync']").attr('checked', true);
+				$("#snstable_k").addClass('hide');
+				$("#snstable_ks").removeClass('hide');
+			}else{
+				$("input:radio[name='service_type']:radio[value='kakao']").attr('checked', true);
+			}
+		}
+	})
+
+	// 카카오싱크 연동하기
+	$("#kakaosync_connect").on("click", function(){
+		$.ajax({
+			'url' : '../setting_process/kakaosyncConnect',
+			'type' : 'get',
+			'dataType': 'json',
+			'success': function(res) {
+				if (res.success){
+					window.open(res.data, "_SYNC", "toolbar=no,scrollbars=no,resizable=no,width=650,height=800");
+					window.addEventListener("message", receiveMessage);
+				} else {
+					alert(res.msg);
+					if(res.url) {
+						var openNewWindow = window.open("about:blank");
+						openNewWindow.location.href = res.url;
+					}
+				}
+			}
+		})
+	})
+
+	// 카카오싱크 간편설정 팝업 설정 완료 시 연동정보 노출
+	function receiveMessage(res) {
+		if(res.data.type == "SYNC") {
+			if(res.data.result == "success") {
+				$.ajax({
+					'url' : '../setting_process/kakaosyncConf',
+					'type' : 'get',
+					'dataType': 'json',
+					'success': function(res) {
+						$("#key_ks_lay").val(res.key_k);
+						$("#rest_key_ks_lay").val(res.rest_key_k);
+						$("#status_ks").val(1);
+						$("#kakaosync_connect").css('display', 'none');
+						$("#kakaosync_disconnect").css('display', '');
+					}
+				})
+			} else if(res.data.result == "fail") {
+				alert(res.data.detail);
+			}
+		}
+	}
+
+	// 카카오싱크 연동해제
+	$("#kakaosync_disconnect").on("click", function(){
+		if(confirm("연동 해제 시 기존 카카오 계정으로 가입 고객의 로그인이 불가능합니다. 카카오싱크를 해제하시겠습니까?")){
+			$.ajax({
+				'url' : '../setting_process/kakaosyncDisconnect',
+				'type' : 'get',
+				'dataType': 'json',
+				'success': function(res) {
+					if (res.success){
+						alert('연동 해제가 완료되었습니다.');
+						$("#key_ks_lay").val('');
+						$("#rest_key_ks_lay").val('');
+						$("#status_ks").val(0);
+						$("#kakaosync_connect").css('display', '');
+						$("#kakaosync_disconnect").css('display', 'none');
+						$("input[name='use_ks_lay'][value=0]").attr("checked",true);
+					} else{
+						alert(res.msg);
+					}
+				}
+			})
+		}
+	})
+
+	$("input[name='use_i_lay']").on("click", function(){
+
+		if( $(this).val()=="0" ) {
+			$("#key_i_lay").attr("disabled", true);
+			$("#secret_i_lay").attr("disabled", true);
+		}else{
+			$("#key_i_lay").attr("disabled", false);
+			$("#secret_i_lay").attr("disabled", false);
+		}
+	})
+
+	// 애플 사용여부 클릭
+	$("input[name='use_a_lay']").on("click", function(){
+
+		if( $(this).val()=="0" ) {
+			$("#key_a_lay").attr("disabled", true);
+			$("#team_a_lay").attr("disabled", true);
+			$("#clientid_a_lay").attr("disabled", true);
+			$("#keyfile_a_lay").attr("disabled", true);
+			$("#keyfile_uploader").attr("disabled", true);
+		}else{
+			$("#key_a_lay").attr("disabled", false);
+			$("#team_a_lay").attr("disabled", false);
+			$("#clientid_a_lay").attr("disabled", false);
+			$("#keyfile_a_lay").attr("disabled", false);
+			$("#keyfile_uploader").attr("disabled", false);
+		}
+	})
+
+
+	//페이스북 설정
+
+	$("#facebookbtn").click(function(){
+		if( $("#use_f_lay").is(':checked') ) {
+			if( !$("#key_f_lay").val() ) {
+				alert('페이스북의 [APP ID] 값을 정확히 입력해 주세요.');
+				return false;
+			}
+
+			if( $("#key_f_lay").val() == "455616624457601" ) {
+				alert('페이스북의 [APP ID] 값을 정확히 입력해 주세요.(기본앱불가)');
+				return false;
+			}
+
+			if( !$("#secret_f_lay").val() ) {
+				alert('페이스북의 [APP Secret] 설정값을 정확히 입력해 주세요.');
+				return false;
+			}
+			if( $("#secret_f_lay").val() == "a6c595c16e08c17802ab4e4d8ac0e70b" ) {
+				alert('페이스북의 [APP Secret] 설정값을 정확히 입력해 주세요.(기본앱불가)');
+				return false;
+			}
+
+			if( !$("#name_f_lay").val() ) {
+				alert('페이스북의 [APP Namespace] 설정값을 정확히 입력해 주세요.');
+				return false;
+			}
+
+			if( $("#name_f_lay").val() == "fammerce_plus" ) {
+				alert('페이스북의 [APP Namespace] 설정값을 정확히 입력해 주세요.(기본앱불가)');
+				return false;
+			}
+
+			//$(".use_f").attr("checked",true);
+			$("#use_f").val(1);
+		}else{
+			//$(".use_f").attr("checked",true);
+			$("#use_f").val(0);
+		}
+
+		var submit_use='y';
+		{? sns.use_f == 1 &&  sns.total_f > 0 }
+		if( !$("#use_f_lay").is(':checked') ) {
+			if(confirm("페이스북 계정으로 쇼핑몰을 이용중인 회원이 {=number_format(sns.total_f)}명 있습니다.\n페이스북 SNS계정을 사용하지 않을 경우 {=number_format(sns.total_f)}명의 회원이 \n페이스북 SNS계정으로 로그인을 하지 못하게 됩니다.\n위와 같은 문제가 발생하더라도 계속 진행하시겠습니까?")){
+				submit_use = 'y';
+				$("#use_f_lay").attr("checked",true);
+			}else{
+				submit_use = 'n';
+			}
+		}
+		{/}
+
+		// js -> rest api 로 변경 시 안내 문구 노출
+		oldLoginType = $('#type_f').val();
+		newLoginType = $('input[name="type_f_lay"]:checked').val();
+		if (newLoginType === 'rest') {
+			if(!confirm("현재창 로그인 (권장) 선택 시, 팝업창 로그인으로 되돌리기 불가합니다.\n현재창 로그인 (권장) 으로 변경하시겠습니까?")){
+				return false;
+			}
+			oldLoginType = newLoginType;
+		}
+
+		if(submit_use == 'y'){
+
+			$("#type_f").val(oldLoginType);
+			$("#key_f").val($("#key_f_lay").val());
+			$("#secret_f").val($("#secret_f_lay").val());
+			$("#name_f").val($("#name_f_lay").val());
+			{? sns.sns_req_type && sns.sns_req_type != 'FREE' }
+				$("#sns_req_type").val("{sns.sns_req_type}");
+			{:}
+				$("#sns_req_type").val("BIZPLUS");
+			{/}
+
+
+			if(pagemode == "joinform"){
+				$("#memberForm").submit();
+				$("#snsdiv_f").dialog('close').remove();
+				if($("#facebookguide_cont").css("display") == "block") $("#facebookguide_cont").dialog('close').remove();
+			}else{
+				var data = $("#snsjoinRegist").serialize();
+				data += '&snsmode=facebook';
+				$.ajax({
+					'url' : '../member_process/joinform_sns_update',
+					'type' : 'post',
+					'data': data,
+					'dataType': 'json',
+					'success': function(res) {
+						if(res.result == true){
+							snsDisplayfnc('f','facebook','up');
+							$("#snsdiv_f").dialog('close');
+							if($("#facebookguide_cont").css("display") == "block") $("#facebookguide_cont").dialog('close');
+						}else{
+							openDialogAlert(res.msg,400,140);
+						}
+					}
+					,'error': function(e){
+					}
+				});
+			}
+		}
+	});
+
+	//트위터 설정
+
+
+	$("#twitterbtn").click(function(){
+		if( $("#use_t_lay").is(':checked') ) {
+			if( !$("#key_t_lay").val() ){
+				alert('트위터의 [Consumer Key] 값을 정확히 입력해 주세요.');
+				return false;
+			}
+
+			if( $("#key_t_lay").val() == 'ifHWJYpPA2ZGYDrdc5wQ' ){
+				alert('트위터의 [Consumer Key] 값을 정확히 입력해 주세요.(기본앱불가)');
+				return false;
+			}
+
+			if( !$("#secret_t_lay").val() ){
+				alert('트위터의 [Consumer Secret] 설정값을 정확히 입력해 주세요.');
+				return false;
+			}
+			if( $("#secret_t_lay").val() == 'cH5gWafZTZjY553zTqZ2YEd4pRPCsKjeHkB8TLficwI' ){
+				alert('트위터의 [Consumer Secret] 설정값을 정확히 입력해 주세요.(기본앱불가)');
+				return false;
+			}
+
+			//$(".use_t").attr("checked",true);
+			$("#use_t").val(1);
+		}else{
+			//$(".use_t").attr("checked",false);
+			$("#use_t").val(0);
+		}
+
+		var submit_use='y';
+		{? sns.use_t == 1 &&  sns.total_t > 0 }
+		if( !$("#use_t_lay").is(':checked') ) {
+			if(confirm("트위터 계정으로 쇼핑몰을 이용중인 회원이 {=number_format(sns.total_t)}명 있습니다.\n트위터 SNS계정을 사용하지 않을 경우 {=number_format(sns.total_t)}명의 회원이 \n트위터 SNS계정으로 로그인을 하지 못하게 됩니다.\n위와 같은 문제가 발생하더라도 계속 진행하시겠습니까?")){
+				submit_use = 'y';
+				$("#use_t_lay").attr("checked",true);
+			}else{
+				submit_use = 'n';
+			}
+		}
+		{/}
+
+		if(submit_use == 'y'){
+
+			$("#key_t").val($("#key_t_lay").val());
+			$("#secret_t").val($("#secret_t_lay").val());
+
+			if(pagemode == "joinform"){
+				$("#memberForm").submit();
+				$("#snsdiv_t").dialog('close').remove();
+				if($("#twitterguide_cont").css("display") == "block") $("#twitterguide_cont").dialog('close').remove();
+			}else{
+				var data = $("#snsjoinRegist").serialize();
+				data += '&snsmode=twitter';
+				$.ajax({
+					'url' : '../member_process/joinform_sns_update',
+					'type' : 'post',
+					'data': data,
+					'dataType': 'json',
+					'success': function(res) {
+						if(res.result == true){
+							snsDisplayfnc('t','twitter','up');
+							$("#snsdiv_t").dialog('close');
+							if($("#twitterguide_cont").css("display") == "block") $("#twitterguide_cont").dialog('close');
+						}else{
+							openDialogAlert(res.msg,400,140);
+						}
+					}
+					,'error': function(e){
+					}
+				});
+			}
+		}
+	});
+
+	$("#kakaobtn").click(function(){
+		var submit_use = 'y';
+		var sync_use = 'n';
+		
+		if($("input:radio[name='service_type']:radio[value='kakaosync']").is(':checked')) {
+			sync_use = 'y';
+		}
+
+		if(sync_use == 'n') {
+			oldLoginType = $('#type_k').val();
+			newLoginType = $('input[name="type_k_lay"]:checked').val();
+
+			if( $("#use_k_lay").is(':checked') == true) {
+
+				if( !$("#key_k_lay").val() ){
+					alert('카카오의 [Javascript Key] 값을 정확히 입력해 주세요.');
+					return false;
+				}
+
+				if (!$("#rest_key_k_lay").val() && newLoginType == 'rest') {
+					alert('카카오의 [Rest API Key] 값을 정확히 입력해 주세요.');
+					return false;
+				}
+
+				$("#use_k").val(1);
+			} else {
+				$("#use_k").val(0);
+			}
+
+			{? sns.use_k == 1 &&  sns.total_k > 0 }
+			if( !$("#use_k_lay").is(':checked') ) {
+				if(confirm("카카오 계정으로 쇼핑몰을 이용중인 회원이 {=number_format(sns.total_k)}명 있습니다.\n카카오 SNS계정을 사용하지 않을 경우 {=number_format(sns.total_k)}명의 회원이 \n카카오 SNS계정으로 로그인을 하지 못하게 됩니다.\n위와 같은 문제가 발생하더라도 계속 진행하시겠습니까?")){
+					submit_use = 'y';
+					$("#use_k_lay").attr("checked",true);
+				} else {
+					submit_use = 'n';
+				}
+			}
+			{/}
+
+			// js -> rest api 로 변경 시 안내 문구 노출
+			if (newLoginType === 'rest') {
+				if(!confirm("현재창 로그인 (권장) 선택 시, 팝업창 로그인으로 되돌리기 불가합니다.\n현재창 로그인 (권장) 으로 변경하시겠습니까?")){
+					return false;
+				}
+				oldLoginType = newLoginType;
+			}
+		} else {
+			if( $("#use_ks_lay").is(':checked') == true) {
+				if($("#status_ks").val() != 1) {
+					alert('카카오싱크 신청이 완료되지 않았습니다. 완료 후 다시 시도해주세요.');
+					return false;
+				}
+				$("#use_k").val(1);
+			} else {
+				$("#use_k").val(0);
+			}
+			$("#use_talk_login").val(1);
+		}
+		
+
+		if(submit_use == 'y'){
+
+			if(sync_use == 'n') {
+				$("#type_k").val(oldLoginType);
+				$("#rest_key_k").val($("#rest_key_k_lay").val());
+				$("#key_k").val($("#key_k_lay").val());
+			}
+
+			if(pagemode == "joinform"){
+				$("#memberForm").submit();
+				$("#snsdiv_k").dialog('close').remove();
+				if($("#kakaoguide_cont").css("display") == "block") $("#kakaoguide_cont").dialog('close').remove();
+			}else{
+				var data = $("#snsjoinRegist").serialize();
+				if(sync_use == 'n') {
+					data += '&snsmode=kakao';
+				} else {
+					data += '&snsmode=kakaosync';
+				}
+				$.ajax({
+					'url' : '../member_process/joinform_sns_update',
+					'type' : 'post',
+					'data': data,
+					'dataType': 'json',
+					'success': function(res) {
+						if(res.result == true){
+							$("#snsdiv_k").dialog('close');
+							if($("#kakaoguide_cont").css("display") == "block") $("#kakaoguide_cont").dialog('close');
+							if(sync_use == 'n') {
+								snsDisplayKakao('k','up');
+							} else {
+								snsDisplayKakao('ks','up');
+							}
+						}else{
+							openDialogAlert(res.msg,400,140);
+						}
+					}
+					,'error': function(e){
+					}
+				});
+			}
+		}
+	});
+
+	$("#instagrambtn").click(function(){
+
+
+		if( $("input[name='use_i_lay'][value=1]").is(':checked') ) {
+			if( !$("#key_i_lay").val() ){
+				alert('인스타그램의 [CLIENT ID] 설정값을 정확히 입력해 주세요.');
+				return false;
+			}
+
+			if( !$("#secret_i_lay").val() ){
+				alert('인스타그램의 [CLIENT SECRET] 설정값을 정확히 입력해 주세요.');
+				return false;
+			}
+			$("#use_i").val(1);
+		}else{
+			$("#use_i").val(0);
+		}
+
+
+		var submit_use='y';
+		{? sns.use_i == 1 &&  sns.total_i > 0 }
+		if( !$("input[name='use_i_lay'][value=1]").is(':checked') ) {
+			if(confirm("인스타그램 계정으로 쇼핑몰을 이용중인 회원이 {=number_format(sns.total_i)}명 있습니다.\n인스타그램 계정을 사용하지 않을 경우 {=number_format(sns.total_i)}명의 회원이 \n인스타그램 계정으로 로그인을 하지 못하게 됩니다.\n위와 같은 문제가 발생하더라도 계속 진행하시겠습니까?")){
+				submit_use = 'y';
+				$("input[name='use_i_lay'][value=0]").attr("checked",true);
+			}else{
+				submit_use = 'n';
+			}
+		}
+		{/}
+
+
+		$("#key_i").val($("#key_i_lay").val());
+		$("#secret_i").val($("#secret_i_lay").val());
+		$("#redirect_i").val($("#redirect_i_lay").val());
+		$("#accesstoken_i").val($("#accesstoken_i_lay").val());
+
+
+		if(pagemode == "joinform"){
+			$("#memberForm").submit();
+			$("#snsdiv_i").dialog('close').remove();
+			if($("#daumguide_cont").css("display") == "block") $("#daumguide_cont").dialog('close').remove();
+		}else{
+			var data = $("#snsjoinRegist").serialize();
+			data += '&snsmode=instagram';
+			$.ajax({
+				'url' : '../member_process/joinform_sns_update',
+				'type' : 'post',
+				'data': data,
+				'dataType': 'json',
+				'success': function(res) {
+					if(res.result == true){
+						snsDisplayfnc('i','instagram','up');
+						$("#snsdiv_i").dialog('close');
+					}else{
+						openDialogAlert(res.msg,400,140);
+					}
+				}
+				,'error': function(e){}
+			});
+		}
+
+	});
+
+	// 애플 설정 저장
+	$("#applebtn").click(function(){
+
+
+		if( $("#use_a_lay:checked").val() == '1' ) {
+
+			if( $.trim($("#key_a_lay").val()) == '' ){
+				alert('애플의 [Key ID] 설정값을 정확히 입력해 주세요.');
+				$("#key_a_lay").focus();
+				return false;
+			}
+
+			if( $.trim($("#team_a_lay").val()) == '' ){
+				alert('애플의 [Team ID] 설정값을 정확히 입력해 주세요.');
+				$("#team_a_lay").focus();
+				return false;
+			}
+
+			if( $.trim($("#clientid_a_lay").val()) == '' ){
+				alert('애플의 [Client ID] 설정값을 정확히 입력해 주세요.');
+				$("#clientid_a_lay").focus();
+				return false;
+			}
+
+			if( $.trim($("#keyfile_a_lay").val()) == '' ){
+				alert('애플의 [Key 파일등록]에 키 파일을 등록해주세요.');
+				$("#keyfile_a_lay").focus();
+				return false;
+			}
+
+			$("#use_a").val(1);
+		}else{
+			$("#use_a").val(0);
+		}
+
+
+		var submit_use='y';
+		{? sns.use_a == 1 &&  sns.total_a > 0 }
+		if( $("#use_a_lay:checked").val() == '0' ) {
+			if(confirm("애플 계정으로 쇼핑몰을 이용중인 회원이 {=number_format(sns.total_a)}명 있습니다.\n애플 계정을 사용하지 않을 경우 {=number_format(sns.total_a)}명의 회원이 \n애플 계정으로 로그인을 하지 못하게 됩니다.\n위와 같은 문제가 발생하더라도 계속 진행하시겠습니까?")){
+				submit_use = 'y';
+			}else{
+				submit_use = 'n';
+			}
+		}
+		{/}
+
+		if(submit_use == 'y'){
+
+			$("#use_a").val($("#use_a_lay:checked").val());
+			$("#key_a").val($("#key_a_lay").val());
+			$("#team_a").val($("#team_a_lay").val());
+			$("#clientid_a").val($("#clientid_a_lay").val());
+			$("#keyfile_a").val($("#keyfile_a_lay").val());
+
+			// 회원 > 로그인 및 회원가입
+			if(pagemode == "joinform"){
+				$("#memberForm").submit();
+				$("#snsdiv_a").dialog('close').remove();
+			}
+			// 설정 > SNS/외부연동
+			else{
+				var data = $("#snsjoinRegist").serialize();
+				data	+= '&snsmode=apple';
+				$.ajax({
+					'url' : '../member_process/joinform_sns_update',
+					'type' : 'post',
+					'data': data,
+					'dataType': 'json',
+					'success': function(res) {
+						if(res.result == true){
+							snsDisplayfnc('a','apple','up');
+							$("#snsdiv_a").dialog('close');
+						}else{
+							openDialogAlert(res.msg,400,140);
+						}
+					}
+					,'error': function(e){}
+				});
+			}
+		}
+
+	});
+
+
+	$(".btn_sns_guide").click(function(){
+
+		var gubun = $(this).attr("gubun");
+		switch(gubun){
+			case "facebook":
+				get_sns_guide_ajax(gubun,"{=sns.facebook_logo} 페이스북 앱키(App ID) 발급 방법 안내","facebookguide_cont",1000,550);
+			break;
+			case "twitter":
+				openDialog("{=sns.twitter_logo} 트위터 Consumer Key 발급 방법 안내", "twitterguide_cont", {"width":"1000","height":"550","show" : "fade","hide" : "fade","modal":false});
+			break;
+			case "kakao":
+				openDialog("{=sns.kakako_logo} 카카오 앱키(App Key) 발급 방법 안내", "kakaoguide_cont", {"width":"730","height":"550","show" : "fade","hide" : "fade","modal":false});
+			break;
+			case "instagram":
+				get_sns_guide_ajax(gubun,"{=sns.instagram_logo} 인스타그램 앱키(Client ID) 발급 방법 안내","instagramguide_cont",1000,550);
+			break;
+			case "apple":
+				get_sns_guide_ajax(gubun,"{=sns.apple_logo} 애플 앱키(Client ID) 발급 방법 안내","appleguide_cont",1000,550);
+			break;
+		}
+
+	});
+
+	$(".punycode_helper").click(function(){
+
+		var gubun = $(this).attr("gubun");
+		switch(gubun){
+			case "facebook":
+				$('.sns_name_set').html('페이스북');
+			break;
+			case "twitter":
+				$('.sns_name_set').html('트위터');
+			break;
+			case "kakao":
+				$('.sns_name_set').html('카카오');
+			break;
+			case "apple":
+				$('.sns_name_set').html('애플');
+			break;
+		}
+
+		openDialog("발급 시 주의사항 - 한글도메인 변환하기", "to_punycode_cont", {"width":"660","show" : "fade","hide" : "fade","modal":true});
+
+	});
+
+	$("#punycode_encode").click(function(){
+		var unicode_domain	= $.trim($("#unicode_domain_lay").val());
+		if(unicode_domain.indexOf('http://') > -1){
+			unicode_domain	= unicode_domain.replace('http://', '');
+		}
+
+		$("#unicode_domain_lay").val(unicode_domain);
+
+		if(unicode_domain.length < 4){
+			alert('한글도메인을 정확히 입력해 주세요.');
+			$("#unicode_domain_lay").focus();
+			return;
+		}
+
+		var punycode_domain	= punycode.toASCII(unicode_domain);
+		$(".punycode_domain_lay").html(punycode_domain);
+		$("#puny_domain").val(punycode_domain);
+		$("#uni_domain").val(unicode_domain);
+	});
+
+});
+
+function go_access_token(){
+	$.getJSON('/admin/setting/instargram_ajax', function(data){
+		if(!data.key_i || !data.secret_i){
+			alert('CLIENT ID, CLIENT SECRET를 먼저 저장해주세요.');
+			return false;
+		}
+		var sUri	= 'https://api.instagram.com/oauth/authorize/?response_type=code';
+		sUri		+= '&client_id=' + data.key_i;
+		sUri		+= '&redirect_uri=' + data.redirect_i;
+		var instargramWin = window.open(sUri, "instargramPopup", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=800,height=600");
+	});
+}
+</script>
+<!-- Domain Info -->
+<input type="hidden" name="puny_domain" id="puny_domain" value="{? sns.puny_domain }{sns.puny_domain}{:}{/}" >
+<input type="hidden" name="uni_domain" id="uni_domain" value="{? sns.uni_domain }{sns.uni_domain}{:}{/}" >
+
+{? sns.secret_n  && sns.key_n }
+<input type="hidden" name="secret_n" id="secret_n" value="{? sns.secret_n }{sns.secret_n}{:}{/}">
+<input type="hidden" name="key_n" id="key_n" value="{? sns.key_n }{sns.key_n}{:}{/}">
+{/}
+<input type="hidden" name="use_n" id="use_n"  value="{sns.use_n}" />
+<!-- 카카오 key -->
+<input type="hidden" name="key_k" id="key_k" value="{? sns.key_k }{sns.key_k}{:}{/}">
+<input type="hidden" name="rest_key_k" id="rest_key_k" value="{? sns.rest_key_k }{sns.rest_key_k}{:}{/}">
+<input type="hidden" name="use_k" id="use_k"  value="{sns.use_k}" />
+<input type="hidden" name="type_k" id="type_k"  value="{sns.type_k}" />
+<input type="hidden" name="status_ks" id="status_ks"  value="{sns.status_ks}" />
+<input type="hidden" name="use_talk_login" id="use_talk_login"  value="{sns.use_talk_login}" />
+<!-- facebook key -->
+<input type="hidden" name="callbackurl_f"  id="callbackurl_f"  value="{? sns.callbackurl_f }{sns.callbackurl_f}{:}{config_system.subDomain}{/}" />
+<input type="hidden" name="key_f"  id="key_f"  value="{? sns.key_f }{sns.key_f}{:}{/}" />
+<input type="hidden" name="secret_f"  id="secret_f"  value="{? sns.secret_f }{sns.secret_f}{:}{/}" />
+<input type="hidden" name="name_f"  id="name_f"  value="{? sns.name_f }{sns.name_f}{:}{/}" />
+<input type="hidden" name="sns_req_type" id="sns_req_type"  value="{sns.sns_req_type}" />
+<input type="hidden" name="domain_f" id="domain_f"  value="{sns.domain_f}" />
+<input type="hidden" name="use_f" id="use_f"  value="{sns.use_f}" />
+<input type="hidden" name="type_f" id="type_f"  value="{sns.type_f}" />
+<!-- twitter key -->
+<input type="hidden" name="key_t" id="key_t"value="{? sns.key_t }{sns.key_t}{:}{/}" />
+<input type="hidden" name="secret_t" id="secret_t" value="{? sns.secret_t }{sns.secret_t}{:}{/}" />
+<input type="hidden" name="use_t" id="use_t"  value="{sns.use_t}" />
+<!-- instagram key -->
+<input type="hidden" name="key_i" id="key_i" value="{? sns.key_i }{sns.key_i}{:}{/}">
+<input type="hidden" name="secret_i" id="secret_i" value="{? sns.secret_i }{sns.secret_i}{:}{/}">
+<input type="hidden" name="redirect_i" id="redirect_i" value="{? sns.redirect_i }{sns.redirect_i}{:}{/}">
+<input type="hidden" name="accesstoken_i" id="accesstoken_i" value="{? sns.accesstoken_i }{sns.accesstoken_i}{:}{/}">
+<input type="hidden" name="use_i" id="use_i"  value="{sns.use_i}" />
+<!-- apple key -->
+<input type="hidden" name="key_a" id="key_a" value="{? sns.key_a }{sns.key_a}{:}{/}">
+<input type="hidden" name="team_a" id="team_a" value="{? sns.team_a }{sns.team_a}{:}{/}">
+<input type="hidden" name="clientid_a" id="clientid_a" value="{? sns.clientid_a }{sns.clientid_a}{:}{/}">
+<input type="hidden" name="keyfile_a" id="keyfile_a" value="{? sns.keyfile_a }{sns.keyfile_a}{:}{/}">
+<input type="hidden" name="keyfile_new_a" id="keyfile_new_a" value="n">
+<input type="hidden" name="use_a" id="use_a"  value="{sns.use_a}" />
+
+<!-- 페이스북 설정 레이어 -->
+<div  id="snsdiv_f" class="hide" >
+	<div class="header">
+		<a href="https://www.firstmall.kr/customer/faq/1093" target="_blank" class="btn_sns_guide resp_btn">발급 방법 안내 </a>
+		<button type="button" mode=""  class="punycode_helper resp_btn" gubun="facebook">한글도메인 변환</button>
+	</div>
+	<table class="table_basic thl">
+		<tr>
+			<th>사용 여부</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_f_lay"  id="use_f_lay"  value="1"  {? isdemo.isdemo } {isdemo.isdemodisabled} checked {:}{? sns.use_f == "1"}checked{ / } {/}   /> 사용함</label>
+					<label><input type="radio" name="use_f_lay"  id="use_f_lay"  value="0"  {? isdemo.isdemo } {isdemo.isdemodisabled=="" ||  isdemo.isdemodisabled=="0"} checked {:}{? sns.use_f=="0"||sns.use_f==""  }checked{ / } {/}   /> 사용 안 함</label>
+				</div>
+			</td>
+		</tr>
+
+		<!--{? sns.type_f == '' || sns.type_f == 'js'}-->
+		<tr>
+			<th>동작 방식 <span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/snsconf', '#tip16', 'sizeM')"></span></th>
+			<td>
+				<div class="resp_radio">				
+					<label><input type="radio" name="type_f_lay" value="js" checked {? sns.use_f=="0" ||sns.use_f==""}disabled{ / }/> 팝업창 로그인</label>
+					<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/snsconf', '#tip17', 'sizeM')"></span>
+					<label><input type="radio" name="type_f_lay" value="rest" {? sns.use_f=="0" ||sns.use_f==""}disabled{ / }/> 현재창 로그인 (권장)</label>
+					<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/snsconf', '#tip18', 'sizeM')"></span>
+				</div>
+			</td>
+		</tr>
+		<!--{/}-->
+
+		<tr>
+			<th>APP ID</th>
+			<td><input type='text'  name="key_f_lay"  id="key_f_lay" value="{? sns.key_f != '455616624457601'  }{sns.key_f}{:}{/}"  class="wp95" {? sns.use_f=="0" ||sns.use_f==""}disabled{ / }></td>
+		</tr>
+		<tr>
+			<th>APP Secret</th>
+			<td><input type='text'  name="secret_f_lay"  id="secret_f_lay" value="{? sns.secret_f != 'a6c595c16e08c17802ab4e4d8ac0e70b'  }{sns.secret_f}{:}{/}" class="wp95" {? sns.use_f=="0"||sns.use_f=="" }disabled{ / }></td>
+		</tr>
+		<tr>
+			<th>APP Namespace</th>
+			<td><input type='text'  name="name_f_lay"  id="name_f_lay" value="{? sns.name_f != 'fammerce_plus' }{sns.name_f}{:}{/}" class="wp95" {? sns.use_f=="0"||sns.use_f=="" }disabled{ / }></td>
+		</tr>
+	</table>
+
+	<div class="footer">
+		<button class="resp_btn active size_XL" type="button" {? isdemo.isdemo }  {isdemo.isdemojs1} {:} id="facebookbtn" {/} >저장</button>
+		<button class="resp_btn v3 size_XL" type="button" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+</div>
+<!-- 트위터 설정 레이어 -->
+<div  id="snsdiv_t" class="hide" >
+	<div class="header">
+		<a href="https://www.firstmall.kr/customer/faq/1094" target="_blank" class="btn_sns_guide resp_btn">발급 방법 안내 </a>
+		<button type="button" mode=""  class="punycode_helper resp_btn" gubun="twitter">한글도메인 변환</button>
+	</div>
+
+	<table class="joinform-user-table table_basic thl">
+		<colgroup><col width="30%"><co /></colgroup>
+		<tr>
+			<th>사용 여부</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_t_lay"  id="use_t_lay"  value="1"  {? isdemo.isdemo } {isdemo.isdemodisabled} checked {:}{? sns.use_t =="1" }checked{ / } {/}   /> 사용함</label>
+					<label><input type="radio" name="use_t_lay"  id="use_t_lay"  value="0"  {? isdemo.isdemo } {isdemo.isdemodisabled=="" || isdemo.isdemodisabled="0"} checked {:}{? sns.use_t=="0" || sns.use_t==""}checked{ / } {/} /> 사용 안 함</label>
+				</div>
+			</td>
+		</tr>
+		<tr >
+			<th>Consumer Key(App ID)</th>
+			<td><input type='text'  name="key_t_lay"  id="key_t_lay" value="{? sns.key_t != 'ifHWJYpPA2ZGYDrdc5wQ' }{sns.key_t}{:}{/}" class="wp95" {? sns.use_t=="0" || sns.use_t==""}disabled{ / }></td>
+		</tr>
+		<tr >
+			<th>Consumer  Secret(App Secret)</th>
+			<td><input type='text'  name="secret_t_lay"  id="secret_t_lay" value="{? sns.secret_t != 'cH5gWafZTZjY553zTqZ2YEd4pRPCsKjeHkB8TLficwI' }{sns.secret_t}{:}{/}" class="wp95" {? sns.use_t=="0" || sns.use_t==""}disabled{ / }></td>
+		</tr>
+	</table>
+
+	<div class="footer">
+		<button class="resp_btn active size_XL" type="button" {? isdemo.isdemo }  {isdemo.isdemojs1} {:} id="twitterbtn" {/} >저장</button>
+		<button class="resp_btn v3 size_XL" type="button" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+</div>
+
+<!-- 페이스북 설정 가이드 -->
+<div id="facebookguide_cont" class="hide" style="margin-top:5px;;">
+</div>
+
+<!-- 트위터 설정 가이드 -->
+<div id="twitterguide_cont" class="hide" style="margin-top:5px;;">
+	<table width="100%" class="joinform-user-table info-table-style"  align="center">
+		<col width="150" /><col width="" />
+		<tbody>
+			<tr>
+				<th class="its-th">발급 방법 안내(<a href="https://apps.twitter.com/" target="_blank" ><span class="cyanblue"><u>https://apps.twitter.com/</u></span></a>)</th>
+			</tr>
+			<tr>
+				<td class="its-td center">
+				<img src="../images/sns/sns_tw_step.jpg" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- 카카오 설정 -->
+<div id="snsdiv_k" class="snsdiv_k hide" >
+	<div id="snstable_k" class="{? sns.mode_ks == 'SYNC' || !sns.key_k }hide{/}">
+		<div class="header">
+			<a href="https://www.firstmall.kr/customer/faq/1095" target="_blank" class="btn_sns_guide resp_btn">발급 방법 안내</a>
+			<button type="button" mode=""  class="punycode_helper resp_btn" gubun="kakao">한글도메인 변환</button>
+		</div>
+		<table class="joinform-user-table table_basic thl">
+			<tr>
+				<th>서비스</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="service_type" value="kakao" {? sns.mode_ks == 'SYNC' || !sns.key_k}{:}checked{/}/> 카카오로그인</label>
+						<label><input type="radio" name="service_type" value="kakaosync" {? sns.mode_ks == 'SYNC' || !sns.key_k}checked{:}{/}/> 카카오싱크</label>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>사용 여부</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="use_k_lay"  id="use_k_lay"  value="1"  {? isdemo.isdemo } {isdemo.isdemodisabled} checked {:}{? sns.use_k =="1"}checked{ / } {/} /> 사용함</label>
+						<label><input type="radio" name="use_k_lay"  id="use_k_lay"  value="0"  {? isdemo.isdemo } {isdemo.isdemodisabled=="0" || isdemo.isdemodisabled==""} checked {:}{? sns.use_k=="0" || sns.use_k==""}checked{ / } {/} /> 사용 안 함</label>
+					</div>
+				</td>
+			</tr>
+
+			<!--{? sns.type_k == '' || sns.type_k == 'js'}-->
+			<tr>
+				<th>동작 방식 <span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/snsconf', '#tip19', 'sizeM')"></span></th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="type_k_lay" value="js" checked {? sns.use_k=="0" || sns.use_k=="" }disabled{ / }/> 팝업창 로그인</label>
+						<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/snsconf', '#tip20', 'sizeM')"></span>
+						<label><input type="radio" name="type_k_lay" value="rest" {? sns.use_k=="0" || sns.use_k=="" }disabled{ / }/> 현재창 로그인 (권장)</label>
+						<span class="tooltip_btn" onclick="showTooltip(this, '/admin/tooltip/snsconf', '#tip21', 'sizeM')"></span>
+					</div>
+				</td>
+			</tr>
+			<!--{/}-->
+
+			<tr>
+				<th>Javascript Key</th>
+				<td><input type='text'  name="key_k_lay"  id="key_k_lay" value="{? sns.key_k }{sns.key_k}{:}{/}" class="wp95" {? sns.use_k=="0" || sns.use_k=="" }disabled{ / }></td>
+			</tr>
+
+			<tr class="row_rest_k {? sns.type_k == '' || sns.type_k == 'js'}hide{/}">
+				<th>Rest API Key</th>
+				<td><input type='text'  name="rest_key_k_lay"  id="rest_key_k_lay" value="{? sns.rest_key_k }{sns.rest_key_k}{:}{/}" class="wp95" {? sns.use_k=="0" || sns.use_k=="" }disabled{ / }></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="snstable_ks" class="{? sns.mode_ks == 'SYNC' || !sns.key_k}{:}hide{/}">
+		<div class="header">
+			<a href="https://www.firstmall.kr/customer/faq/1862" target="_blank" class="btn_sns_guide resp_btn">발급 방법 안내</a>
+			<button type="button" mode=""  class="punycode_helper resp_btn" gubun="kakao">한글도메인 변환</button>
+		</div>
+		<table class="joinform-user-table table_basic thl">
+			<tr>
+				<th>서비스</th>
+				<td>
+					<label>
+						카카오싱크
+					</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>사용 여부</th>
+				<td>
+					<div class="resp_radio">
+						<label><input type="radio" name="use_ks_lay"  id="use_ks_lay"  value="1" {? sns.use_k =="1"}checked{ / }/> 사용함</label>
+						<label><input type="radio" name="use_ks_lay"  id="use_ks_lay"  value="0" {? sns.use_k=="0" || sns.use_k==""}checked{ / }/> 사용 안 함</label>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<th>연동 설정</th>
+				<td>
+					<button type="button" id="kakaosync_connect" class="resp_btn active2" {? sns.status_ks=='0' || !sns.status_ks}{:}style="display:none"{/}>간편 연동 신청</button>
+					<button type="button" id="kakaosync_disconnect" class="resp_btn active1 size_M hide" {? sns.status_ks=='0' || !sns.status_ks}style="display:none"{/}>연동 해제</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Javascript Key</th>
+				<td><input type='text'  name="key_ks_lay"  id="key_ks_lay" value="{sns.key_k}" class="wp95" placeholder="신청 완료 후 자동 입력됩니다." disabled></td>
+			</tr>
+
+			<tr>
+				<th>Rest API Key</th>
+				<td><input type='text'  name="rest_key_ks_lay"  id="rest_key_ks_lay" value="{sns.rest_key_k}" placeholder="신청 완료 후 자동 입력됩니다." class="wp95" disabled></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="footer">
+		<button class="resp_btn active size_XL" type="button" {? isdemo.isdemo }  {isdemo.isdemojs1} {:} id="kakaobtn" {/} >저장</button>
+		<button class="resp_btn v3 size_XL" type="button" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+
+</div>
+
+<!-- 카카오 설정 가이드 -->
+<div id="kakaoguide_cont" style="margin-top:5px;display:none;">
+	<table width="100%" align="center" class="joinform-user-table info-table-style">
+	<colgroup>
+		<col width="">
+	</colgroup>
+	<tbody>
+		<tr>
+			<th class="its-th" height="28">카카오 앱키 발급 안내</th>
+		</tr>
+		<tr>
+			<td class="its-td" style="padding:20px; line-height:2.0;">
+				1. 'Kakao Developers <a href="https://developers.kakao.com/apps" target="_blank">(https://developers.kakao.com/apps)</a>'로 접속하여 우측 상단의 [로그인] 을 클릭합니다.<br>
+
+				2. 이용정책 및 개인정보 수집 동의 후 이름과 소속 입력 후 [개발자 등록]을 클릭합니다.<br>
+				<img src="../images/sns/img_kakao_guide1.jpg" alt="" /><br><br>
+
+				3. 앱 이름 입력 후 [앱 만들기] 를 클릭합니다.<br>
+				<img src="../images/sns/img_kakao_guide2.jpg" alt="" /><br><br>
+
+				4. JavaScript 키 값이 발급되었습니다.<br>
+				<img src="../images/sns/img_kakao_guide3.jpg" alt="" /><br><br>
+
+				5. 좌측 메뉴>설정>일반 메뉴를 클릭합니다. 플랫폼 우측 하단의 [플랫폼 추가] 버튼을 클릭합니다.<br>
+				<img src="../images/sns/img_kakao_guide4.jpg" alt="" /><br><br>
+
+				6. '웹' 선택 후 사용하려는 쇼핑몰 주소를 입력합니다. 입력이 완료되었다면 [추가] 버튼을 클릭합니다.<br>
+				<span class="red">도메인은 http://firstmall.kr, http://www.firstmall.kr, http://m.firstmall.kr 등, 모바일 도메인과 www 포함한 것과 포함하지 않은 것 모두 입력합니다.</span><br>
+				<img src="../images/sns/img_kakao_guide5.jpg" alt="" /><br><br>
+
+				7. 좌측 메뉴>설정>사용자 관리 메뉴를 클릭합니다. 사용자 관리 설정 'OFF'를 클릭하여 'ON'으로 변경합니다.<br>
+				<img src="../images/sns/img_kakao_guide6.jpg" alt="" /><br><br>
+
+				8. 동의항목>개인정보보호항목>프로필정보 (닉네임/프로필 사진)>수집목적에 '회원가입 및 로그인'을 입력합니다.<br>
+				<img src="../images/sns/img_kakao_guide7.jpg" alt="" /><br><br>
+
+				9. 화면의 <span class="red" style="display:inline;">사이트 도메인주소</span>와 <span class="red" style="display:inline;">Javascript 키</span> 값을 확인 후  퍼스트몰 관리자 페이지에 API Javascript Key 를 설정합니다.<br>
+
+				10. 사용하여 운영함을 체크하면 쇼핑몰 회원가입, 로그인 화면에 카카오 버튼이 노출됩니다.<br>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+
+<!-- 인스타그램 설정 가이드 -->
+<div id="instagramguide_cont" class="hide" style="margin-top:5px;;">
+</div>
+
+<!-- 한글 도메인 to punycode 레이아웃 -->
+<div id="to_punycode_cont" class="hide">
+	<div>
+		SNS에서 연동 시, 한글 도메인 사용을 원하시는 경우 반드시 퓨니코드로 변환하여 입력해주세요. 그렇지 않는 경우 SNS 연동이 정상적으로 작동되지 않을 수 있습니다.
+	</div>
+	<table class=" table_basic thl mt5">
+		<col width="150" /><col width="" />
+		<tbody>
+			<tr>
+				<th>한글도메인</th>
+				<td>
+					<div class="desc mb5" style="margin-left: 40px;">입력시 예시) 퍼스트몰.com 또는 퍼스트몰.한국</div>
+					http:// <input type='text'  name="unicode_domain_lay"  id="unicode_domain_lay" value="{? sns.uni_domain }{sns.uni_domain}{:}{/}" style="width:70%">
+					<button id="punycode_encode" type="button" class="resp_btn active">변 환</button>
+				</td>
+			</tr>
+			<tr>
+				<th>변환 결과</th>
+				<td>http://<span class="punycode_domain_lay">{? sns.puny_domain }{sns.puny_domain}{:}{/}</span></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onclick="closeDialogEvent(this);">닫기</button>
+	</div>
+</div>
+
+<!-- 인스타그램 설정 -->
+<div id="snsdiv_i" class="snsdiv_i hide" >
+	<div class="header">
+		<a href="https://www.firstmall.kr/customer/faq/1096" target="_blank" class="btn_sns_guide resp_btn">발급 방법 안내 </a>
+		<button type="button" mode=""  class="punycode_helper resp_btn" gubun="instagram">한글도메인 변환</button>
+	</div>
+
+	<table class="table_basic thl">
+		<tr>
+			<th>사용 여부</th>
+			<td>
+				<label class="mr15">
+					<input type="radio" name="use_i_lay"  id="use_i_lay"  value="1"  {? isdemo.isdemo } {isdemo.isdemodisabled} checked {:}{? sns.use_i=="1" }checked{ / } {/} /> 사용함
+				</label>
+				<label>
+					<input type="radio" name="use_i_lay"  id="use_i_lay"  value="0"  {? isdemo.isdemo } {isdemo.isdemodisabled=="0" || isdemo.isdemodisabled==""} checked {:}{? sns.use_i=="0"  || sns.use_i==""}checked{ / } {/} /> 사용 안 함
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th>CLIENT ID</th>
+			<td><input type='text' name="key_i_lay"  id="key_i_lay" value="{sns.key_i}" class="wp95" {? sns.use_i=="0" ||sns.use_i==""}disabled{ / }></td>
+		</tr>
+		<tr>
+			<th>CLIENT SECRET</th>
+			<td><input type='text' name="secret_i_lay"  id="secret_i_lay" value="{sns.secret_i}"class="wp95" {? sns.use_i=="0" ||sns.use_i=="" }disabled{ / }></td>
+		</tr>
+	</table>
+
+	<div class="footer">
+		<button class="resp_btn active size_XL" type="button" {? isdemo.isdemo }  {isdemo.isdemojs1} {:} id="instagrambtn" {/} >저장</button>
+		<button class="resp_btn v3 size_XL" type="button" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+</div>
+
+<!-- 애플 설정 -->
+<div  id="snsdiv_a" class="snsdiv_a hide" >
+
+	<div class="header">
+		<a href="https://www.firstmall.kr/customer/faq/1245" target="_blank" class="btn_sns_guide resp_btn">발급 방법 안내 </a>
+		<button type="button" mode=""  class="punycode_helper resp_btn" gubun="instagram">한글도메인 변환</button>
+	</div>
+
+	<table class="table_basic thl">
+		<tr>
+			<th>사용 여부</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_a_lay"  id="use_a_lay"  value="1"  {? isdemo.isdemo } {isdemo.isdemodisabled} checked {:}{? sns.use_a=="1" }checked{ / } {/} /> 사용함</label>
+					<label><input type="radio" name="use_a_lay"  id="use_a_lay"  value="0"  {? isdemo.isdemo } {isdemo.isdemodisabled=="0" || isdemo.isdemodisabled==""} checked {:}{? sns.use_a=="0"  || sns.use_a==""}checked{ / } {/} /> 사용 안 함</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>Key ID</th>
+			<td><input type='text'  name="key_a_lay"  id="key_a_lay" value="{? sns.key_a }{sns.key_a}{:}{/}" {? sns.use_a=="0"  || sns.use_a==""}disabled{ / }  style="width:95%"></td>
+		</tr>
+		<tr>
+			<th>Team ID</th>
+			<td><input type='text'  name="team_a_lay"  id="team_a_lay" value="{? sns.team_a }{sns.team_a}{:}{/}"  {? sns.use_a=="0"  || sns.use_a==""}disabled{ / }  style="width:95%"></td>
+		</tr>
+		<tr>
+			<th>Client ID</th>
+			<td><input type='text'  name="clientid_a_lay"  id="clientid_a_lay" value="{? sns.clientid_a }{sns.clientid_a}{:}{/}"  {? sns.use_a=="0"  || sns.use_a==""}disabled{ / }  style="width:95%"></td>
+		</tr>
+		<tr>
+			<th>Key 파일등록</th>
+			<td>
+				<div>
+					<span id="keyfile_name">{? sns.keyfile_a }{sns.keyfile_a}{:}{/}</span>
+					<input type="hidden" name="keyfile_a_lay" id="keyfile_a_lay" value="{? sns.keyfile_a }{sns.keyfile_a}{:}{/}"/>
+				</div>
+				<label class="resp_btn v2"><input type="file" id="keyfile_uploader"  accept=".p8" {? sns.use_a=="0"  || sns.use_a==""}disabled{ / }>파일선택</label>
+				<div class="resp_message v2">- 파일형식 p8</div>
+			</td>
+		</tr>
+	</table>
+
+	<div class="footer">
+		<button class="resp_btn active size_XL" type="button" {? isdemo.isdemo }  {isdemo.isdemojs1} {:} id="applebtn" {/} >저장</button>
+		<button class="resp_btn v3 size_XL" type="button" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+
+	<!-- ajax 파일업로드 -->
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js"></script>
+	<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		/* 파일업로드버튼 ajax upload 적용 */
+		var opt			= { 'addData' : 'allow_types=p8'};
+		var callback	= function(res){
+			var that		= this;
+			var result		= eval(res);
+
+			if(result.status) {
+				$('#keyfile_name').text(result.fileInfo.file_name);
+				$('#keyfile_a_lay').val(result.fileInfo.file_name);
+				$('#keyfile_new_a').val('y');
+			}else{
+				$('#keyfile_uploader').val('');
+				$('#keyfile_new_a').val('n');
+				alert(result.msg);
+			}
+		};
+
+		// ajax 이미지 업로드 이벤트 바인딩
+		$('#keyfile_uploader').createAjaxFileUpload(opt, callback);
+	});
+	</script>
+
+</div>

@@ -1,0 +1,503 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	set_search_default();
+});
+
+function colorMultiCheck() {
+	if ($('.colorDefault:not(:checked)').length < 1) {
+	$('.colorDefault').attr('checked', false);
+		$('.colorDefault').parent().removeClass('active');
+	} else {
+		$('.colorDefault').attr('checked', true);
+		$('.colorDefault').parent().addClass('active');
+	}
+}
+
+function set_search_default() {
+	$.getJSON('get_search_default?search_page={search_page}', function(result) {
+		$("#set_search_detail input[type='checkbox']").removeAttr("checked");
+		$("#set_search_detail input[type='text']").val('');
+		$("#set_search_detail select").val('').change();
+		$("#set_search_detail input[type='hidden'][name='select_search_icon']").val('');
+		$("#set_search_detail .msg_select_icon").text('');
+
+		try {
+			var marketArr = [];
+			marketArr["market"] = "";
+			marketArr["sellerId"] = "";
+			for(var i=0;i<result.length;i++){
+				//alert(result[i][0]+" : "+result[i][1]);
+
+				if( $.inArray(result[i][0], ['provider_status_reason_type', 'goodsStatus', 'goodsView', 'taxView', 'cancel_type', 'adult_goods', 'string_price', 'favorite_chk','color_pick']) >= 0 ){
+					$.each(result[i][1], function(k, v){
+						$("#set_search_detail input[name^='"+result[i][0]+"'][value='"+v+"']").attr("checked",true);
+					});
+				}else if( strstr(result[i][0],'provider_status_reason_type') ) {
+					$("#set_search_detail input[name='provider_status_reason_type[]'][value='"+result[i][1]+"']").attr("checked",true);
+				}else if( strstr(result[i][0],'openmarket') ) {
+					$("#set_search_detail input[name='openmarket[]'][value='"+result[i][1]+"']").attr("checked",true);
+				}else if( strstr(result[i][0],'shipping_set_code') ) {
+					$.each(result[i][1], function(k, v){
+						$.each(v, function(kk, vv){
+							$("#set_search_detail input[name='shipping_set_code["+k+"][]'][value='"+vv+"']").attr("checked",true);
+						});
+					});
+				}else if(result[i][0]=='select_search_icon') {
+					$("#set_search_detail [name='"+result[i][0]+"']").val(result[i][1]);
+					var splitCode = $("#set_search_detail input[name='select_search_icon']").val().split(",");
+					$("#set_search_detail .msg_select_icon").text(splitCode.length+"개 선택");
+				}else if(result[i][0]=='regist_date' || result[i][0]=='search_form_view') {
+				}else if(result[i][0]=='market' || result[i][0]=='sellerId') {
+					marketArr[result[i][0]] = result[i][1];
+				} else {
+					$("#set_search_detail select[name='"+result[i][0]+"']").val(result[i][1]);
+					$("#set_search_detail input[name='"+result[i][0]+"'][value='"+result[i][1]+"']").attr("checked",true);
+					$("#set_search_detail [name='"+result[i][0]+"']:not(:checkbox):not(:radio)").val(result[i][1]);
+				}
+				$('#set_search_detail select[name="stock_compare"]').trigger('change');
+			}
+			// 오픈마켓 연동 검색
+			initMarket("set_search_detail",marketArr["market"],marketArr["sellerId"]);
+		} catch (e) {
+			//console.log(e);
+		}
+	});
+}
+</script>
+<style type="text/css">
+table.info-table-style th.its-th { padding-left:10px; }
+table.info-table-style td.its-td { padding-left:5px; }
+</style>
+<form name="set_search_detail" id="set_search_detail" method="post" action="set_search_default" target="actionFrame">
+<input type="hidden" name="search_page" value="{search_page}">
+<div id="contents">
+	<table class="search-form-table" id="serch_tab">
+	<tr id="goods_search_form" style="display:block;">
+	<tr>
+		<td class="its-td">
+			<table class="info-table-style" border='0'>
+			<colgroup>
+				<col width="87" />
+				<col width="310" />
+				<col width="90" />
+				<col width="150" />
+				<col width="65" />
+				<col width="190" />
+				<col width="77" />
+				<col width="203" />
+			</colgroup>
+			<tr>
+				<th class="its-th">상세검색</th>
+				<td class="its-td" colspan="7">
+					<label class="search_label"><input type="radio" name="search_form_view" value="open" {? !_GET.search_form_view || _GET.search_form_view=='open' || gdsearchdefault.search_form_view=='open' } checked="checked" {/}/> 열기</label>
+					<label class="search_label"><input type="radio" name="search_form_view" value="close" {? _GET.search_form_view=='close' || gdsearchdefault.search_form_view=='close' } checked="checked" {/}/> 닫기</label>
+				</td>
+			</tr>
+			<!--{ ? serviceLimit('H_AD') }-->
+			<tr>
+				<th class="its-th">입점사</th>
+				<td class="its-td">
+					<div class="ui-widget">
+						<select name="s_provider_seq_selector" style="vertical-align:middle;width:141px;">
+						<option value="0">- 입점사 검색 -</option>
+						{@provider}
+						<option value="{.provider_seq}">{.provider_name}({.provider_id})</option>
+						{/}
+						</select>
+						<span style="margin-left:20px;">&nbsp;</span>
+						<input type="hidden" class="s_provider_seq" name="s_provider_seq" value="{_GET.provider_seq}" />
+						<input type="text" name="s_provider_name" value="{_GET.provider_name}" style="width:124px;" readonly />
+					</div>
+					<span class="ptc-charges hide"></span>
+
+					<style>
+					.ui-combobox {
+						position: relative;
+						display: inline-block;
+					}
+					.ui-combobox-toggle {
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						margin-left: -1px;
+						padding: 0;
+						/* adjust styles for IE 6/7 */
+						*height: 1.7em;
+						*top: 0.1em;
+					}
+					.ui-combobox-input {
+						margin: 0;
+						padding: 0.3em;
+					}
+					.ui-autocomplete {
+						max-height: 200px;
+						overflow-y: auto;
+						/* prevent horizontal scrollbar */
+						overflow-x: hidden;
+					}
+
+					</style>
+
+					<script>
+					$(function(){
+						var prv_obj = $("select[name='s_provider_seq_selector']").next(".ui-combobox").children("input");
+						prv_obj.val('- 입점사 선택 -');
+						$( "select[name='s_provider_seq_selector']" )
+						.css({'width': 125})
+						.combobox()
+						.change(function(){
+							if( $(this).val() > 0 ){
+								$("input[name='s_provider_seq']").val($(this).val());
+								$("input[name='s_provider_name']").val($("option:selected",this).text());
+							}else{
+								$("input[name='s_provider_seq']").val('');
+								$("input[name='s_provider_name']").val('');
+								//$( "select[name='provider_seq_selector']" ).val('- 입점사 검색 -');
+							}
+						})
+						.next(".ui-combobox").children("input")
+						.css({'width': 125})
+						.bind('focus',function(){
+							if($(this).val()==$( "select[name='s_provider_seq_selector'] option:first-child" ).text()){
+								$(this).val('');
+							}
+						})
+						.bind('mouseup',function(){
+							if($(this).val()==''){
+								$( "select[name='s_provider_seq_selector']").next(".ui-combobox").children("a.ui-combobox-toggle").click();
+							}
+						});
+					});
+					</script>
+				</td>
+				<th class="its-th">승인</th>
+				<td class="its-td" colspan="3">
+				<div style="padding-left:5px;">
+						<label><input type="radio" name="search_provider_status" class="dig_search_provider_status" value="" { ? _GET.search_provider_status == '' }checked{ / } /> 전체</label>
+						<label><input type="radio" name="search_provider_status" class="dig_search_provider_status" value="2" { ? _GET.search_provider_status == 2 }checked{ / } /> 승인</label>
+						<label><input type="radio" name="search_provider_status" class="dig_search_provider_status" value="1" { ? _GET.search_provider_status == 1 }checked{ / } /> 미승인</label>
+					</div>
+					<div style="padding:5px 0 0 5px;">
+						(<label class="ft_11"><input type="checkbox" name="provider_status_reason_type[]" class="dig_provider_status_reason_type" value="1" { ?in_array('1', _GET['provider_status_reason_type']) }checked{ / } title="[자동] 최초 상품등록 후 아직 승인되지 않은 미승인 상품"/> 최초등록</label>
+						<label class="ft_11"><input type="checkbox" name="provider_status_reason_type[]" class="dig_provider_status_reason_type" value="3" { ?in_array('3', _GET['provider_status_reason_type']) }checked{ / } title="[자동] 승인된 상품의 정보가 수정되어 미승인된 상품"/> 정보수정</label>
+						<label class="ft_11"><input type="checkbox" name="provider_status_reason_type[]" class="dig_provider_status_reason_type" value="2" { ?in_array('2', _GET['provider_status_reason_type']) }checked{ / }/> 관리자</label>
+						<label class="ft_11"><input type="checkbox" name="provider_status_reason_type[]" class="dig_provider_status_reason_type" value="e" { ?in_array('e', _GET['provider_status_reason_type']) }checked{ / } title="[수동] 승인된 상품을 관리자(통신판매중계자)가 미승인한 상품"/> 기타</label>)
+					</div>
+					<script type="text/javascript">
+					<!--
+					$(function(){
+						// unbind
+						$('input.dig_search_provider_status').unbind('click');
+						$('input.dig_provider_status_reason_type').unbind('click');
+
+						// bind
+						$('input.dig_search_provider_status').bind('click', function(){
+							var v = $(this).val();
+
+							if(Number(v) > 0) {
+								$('input.dig_provider_status_reason_type').attr('checked', false);
+							}
+						});
+
+						$('input.dig_provider_status_reason_type').bind('click', function(){
+							$('input.dig_search_provider_status').attr('checked', false);
+							$('input.dig_search_provider_status:eq(0)').attr('checked', true);
+						});
+					});
+					//-->
+					</script>
+				</td>
+				<th class="its-th" class="left">정산</th>
+				<td class="its-td">
+					<select name="commission_type_sel" style="width:72px">
+						<option value="">전체</option>
+						<option value="SACO" {? _GET.commission_type_sel == 'SACO'}selected{/}>수수료율(%)</option>
+						<option value="SUCO" {? _GET.commission_type_sel == 'SUCO'}selected{/}>공급율(%)</option>
+						<option value="SUPR" {? _GET.commission_type_sel == 'SUPR'}selected{/}>공급가</option>
+					</select>
+					<input type="text" name="s_commission_rate" value="{_GET.s_commission_rate}" size="3" class="line" style="width:30px;" /><span class="commission_unit {? _GET.commission_type_sel == 'SUPR'}hide{/}"></span> -
+					<input type="text" name="e_commission_rate" value="{_GET.e_commission_rate}" size="3" class="line" style="width:30px;" /><span class="commission_unit {? _GET.commission_type_sel == 'SUPR'}hide{/}"></span>
+				</td>
+			</tr>
+			<!--{ / }-->
+			<tr>
+				<th class="its-th">카테고리</th>
+				<td class="its-td" colspan="5">
+					<select class="line" name="s_category1" size="1" style="width:98px;"><option value="">1차 분류</option></select>
+					<select class="line" name="s_category2" size="1" style="width:98px;"><option value="">2차 분류</option></select>
+					<select class="line" name="s_category3" size="1" style="width:98px;"><option value="">3차 분류</option></select>
+					<select class="line" name="s_category4" size="1" style="width:98px;"><option value="">4차 분류</option></select>
+
+					<label><input type="checkbox" name="goods_category" value="1" {? sc.goods_category }checked{/} /> 대표</label><span class="helpicon" title="체크 시 대표 카테고리를 기준으로 검색됩니다." options="{alignX: 'right'}"></span>
+					<label><input type="checkbox" name="goods_category_no" value="1" {? sc.goods_category_no }checked{/} /> 미연결</label><span class="helpicon" title="체크 시 카테고리가 없는 상품을 검색합니다." options="{alignX: 'right'}"></span>
+				</td>
+				<th class="its-th">과세</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="taxView[]" value="tax" {?sc.taxView && in_array('tax',sc.taxView)}checked{/}/> 과세</label>
+					<span class="pd_td_right">&nbsp;</span>
+					<label><input type="checkbox" name="taxView[]" value="exempt" {?sc.taxView && in_array('exempt',sc.taxView)}checked{/}/> 비과세</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">브랜드</th>
+				<td class="its-td" colspan="5">
+					<select class="line" name="s_brands1" size="1" style="width:98px;"><option value="">1차 분류</option></select>
+					<select class="line" name="s_brands2" size="1" style="width:98px;"><option value="">2차 분류</option></select>
+					<select class="line" name="s_brands3" size="1" style="width:98px;"><option value="">3차 분류</option></select>
+					<select class="line" name="s_brands4" size="1" style="width:98px;"><option value="">4차 분류</option></select>
+
+					 <label><input type="checkbox" name="goods_brand" value="1" {? sc.goods_brand }checked{/} /> 대표</label><span class="helpicon" title="체크 시 대표 브랜드를 기준으로 검색됩니다." options="{alignX: 'right'}"></span>
+
+					 <label><input type="checkbox" name="goods_brand_no" value="1" {? sc.goods_brand_no }checked{/} /> 미연결</label><span class="helpicon" title="체크 시 브랜드가 없는 상품을 검색합니다." options="{alignX: 'right'}"></span>
+				</td>
+				<th class="its-th">상태</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="goodsStatus[]" value="normal" {? (sc.goodsStatus && in_array('normal',sc.goodsStatus) ) || ( in_array('normal',gdsearchdefault.goodsStatus) )}checked{/}/> 정상</label>
+					<label><input type="checkbox" name="goodsStatus[]" value="runout" {? (sc.goodsStatus && in_array('runout',sc.goodsStatus)) || (in_array('runout',gdsearchdefault.goodsStatus))}checked{/}/> 품절</label><br/>
+					<label><input type="checkbox" name="goodsStatus[]" value="purchasing" {? (sc.goodsStatus && in_array('purchasing',sc.goodsStatus)) || (in_array('purchasing',gdsearchdefault.goodsStatus))}checked{/}/> 재고확보중</label>
+					<label><input type="checkbox" name="goodsStatus[]" value="unsold" {? (sc.goodsStatus && in_array('unsold',sc.goodsStatus)) || (in_array('unsold',gdsearchdefault.goodsStatus))}checked{/}/> 판매중지</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">지역</th>
+				<td class="its-td" colspan="5">
+					<select class="line" name="s_location1" size="1" style="width:98px;"><option value="">1차 분류</option></select>
+					<select class="line" name="s_location2" size="1" style="width:98px;"><option value="">2차 분류</option></select>
+					<select class="line" name="s_location3" size="1" style="width:98px;"><option value="">3차 분류</option></select>
+					<select class="line" name="s_location4" size="1" style="width:98px;"><option value="">4차 분류</option></select>
+
+					 <label><input type="checkbox" name="goods_location" value="1" {? sc.goods_location }checked{/} /> 대표</label><span class="helpicon" title="체크 시 대표 지역을 기준으로 검색됩니다." options="{alignX: 'right'}"></span>
+
+					 <label><input type="checkbox" name="goods_location_no" value="1" {? sc.goods_location_no }checked{/} /> 미연결</label><span class="helpicon" title="체크 시 지역이 없는 상품을 검색합니다." options="{alignX: 'right'}"></span>
+				</td>
+				<th class="its-th">노출</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="goodsView[]" value="look" {?sc.goodsView && in_array('look',sc.goodsView)}checked{/}/> 노출</label>
+					<label><input type="checkbox" name="goodsView[]" value="auto" {?sc.goodsView && in_array('auto',sc.goodsView)}checked{/}/> 자동노출</label>
+					<label><input type="checkbox" name="goodsView[]" value="notLook" {?sc.goodsView && in_array('notLook',sc.goodsView)}checked{/}/> 미노출</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">날짜</th>
+				<td class="its-td" colspan="5">
+					<select class="line" name="date_gb" style="width:98px;">
+						<option value="regist_date" {?sc.date_gb=='regist_date' || gdsearchdefault.date_gb=='regist_date'}selected{/}>등록일</option>
+						<option value="update_date" {?sc.date_gb=='update_date' || gdsearchdefault.date_gb=='update_date'}selected{/}>수정일</option>
+					</select>
+					<label class="search_label"><input type="radio" name="regist_date" value="today" {? _GET.regist_date_type=='today' || gdsearchdefault.regist_date=='today' } checked="checked" {/}/> 오늘</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="3day" {? _GET.regist_date_type=='3day' || gdsearchdefault.regist_date=='3day' } checked="checked" {/}/> 3일간</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="7day" {? _GET.regist_date_type=='7day'  || gdsearchdefault.regist_date=='7day' } checked="checked" {/}/> 일주일</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="1mon" {? _GET.regist_date_type=='1mon'  || gdsearchdefault.regist_date=='1mon' } checked="checked" {/}/> 1개월</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="3mon" {? _GET.regist_date_type=='3mon'  || gdsearchdefault.regist_date=='3mon' } checked="checked" {/}/> 3개월</label>
+					<label class="search_label"><input type="radio" name="regist_date" value="all" {?  !_GET.regist_date_type ||
+					_GET.regist_date_type=='all'  || gdsearchdefault.regist_date=='all' } checked="checked" {/}/> 전체</label>
+				</td>
+				<th class="its-th" class="left">재고판매</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="sale_for_stock" value="stock" {?_GET.sale_for_stock == 'stock' }checked{ / }/> 재고판매</label>&nbsp;
+					<label><input type="checkbox" name="sale_for_ableStock" value="ableStock" {?_GET.sale_for_ableStock == 'ableStock' }checked{ / }/> 가용판매</label><br/>
+					<label><input type="checkbox" name="sale_for_unlimited" value="unlimited" {?_GET.sale_for_unlimited == 'unlimited' }checked{ / }/> 재고무관</label>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">가격</th>
+				<td class="its-td">
+					<select class="line" name="price_gb" style="width:98px;">
+						<option value="consumer_price" {?sc.price_gb=='consumer_price'}selected{/}>정상가</option>
+						<option value="price" {?sc.price_gb=='price'}selected{/}>할인가</option>
+					</select>
+					<input type="text" name="sprice" value="{_GET.sprice}" size="7" class="line" style="width:75px;" />
+					<span class="gray">-</span>
+					<input type="text" name="eprice" value="{_GET.eprice}" size="7" class="line" style="width:75px;" />
+				</td>
+				<th class="its-th">배송정책</th>
+				<td class="its-td" colspan="3">
+					<select class="line" name="shipping_group_seq" style="width:205px;">
+						<option value="">판매자의 배송정책 선택</option>
+					<!--{ @ shippingGroupList }-->
+						<option value="{.shipping_group_seq}"
+							{?_GET.shipping_group_seq == .shipping_group_seq}selected{ / }
+							{?_GET.provider_seq > 0 && _GET.provider_seq != .shipping_provider_seq}class="hide"{ / }
+							shipping_provider_seq = "{.shipping_provider_seq}"
+							koreaMethodDesc="{.method_korea_text}" globalMethodDesc="{.method_global_text}"
+						>{.provider_name}{.shipping_group_name} ({.shipping_group_seq})</option>
+					<!--{ / }-->
+					</select>
+				</td>
+				<th class="its-th">재고</th>
+				<td class="its-td">
+					<select name="stock_compare" id="stock_default_compare" style="width:160px;" onchange="select_stock_compare('default');">
+						<option value="">선택하세요</option>
+						<option value="less" {?_GET.stock_compare=='less'}selected{/}>안전재고보다 재고 부족</option>
+						<option value="greater" {?_GET.stock_compare=='greater'}selected{/}>안전재고보다 몇 개 많은</option>
+						<option value="stock" {?_GET.stock_compare=='stock'}selected{/}>입력범위의 재고 검색</option>
+						<option value="safe" {?_GET.stock_compare=='safe'}selected{/}>입력범위의 안전재고 검색</option>
+					</select>
+					<span class="hide"><input type="text" name="sstock" value="{_GET.sstock}" class="line" style="width:25px;" /></span>
+					<span class="hide">- <input type="text" name="estock" value="{_GET.estock}" class="line" style="width:25px;" /></span>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">구매제한</th>
+				<td class="its-td">
+					<label><input type="checkbox" class="string_price_checkbox" name="string_price[0]" value="1" { ? _GET.string_price[0] }checked{/} /> 비회원</label>&nbsp;
+					<label><input type="checkbox" class="string_price_checkbox" name="string_price[1]" value="1" { ? _GET.string_price[1] }checked{/} /> 회원 + 일반등급</label>
+				</td>
+				<th class="its-th">대한민국</th>
+				<td class="its-td" colspan="3">
+					<div id="domesticShippingList" class="{ ? _GET.shipping_group_seq }hide{ / }">
+						<!--{ @ ship_set_code }-->
+						<label><input type="checkbox" name="shipping_set_code[domestic][]" value="{.key_}" {? in_array(.key_,_GET.shipping_set_code.domestic)}checked{/} /> {.value_}</label>
+						<!--{ / }-->
+					</div>
+					<div id="domesticShippingInfo" class="{ ? !sc.shipping_group_seq }hide{ / }"></div>
+				</td>
+				<th class="its-th">무게(kg)</th>
+				<td class="its-td">
+					<input type="text" name="sweight" value="{_GET.sweight}" class="line" style="width:40px;" /> - <input type="text" name="eweight" value="{_GET.eweight}" class="line" style="width:40px;" />
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">등급</th>
+				<td class="its-td">
+					<select name="sale_seq" class="line" style="width:81px;">
+						<option value="">선택</option>
+						{ @ sale_list }
+						<option value="{.sale_seq}" {?_GET.sale_seq==.sale_seq}selected{/}>{.sale_title}</option>
+						{ / }
+					</select>
+				</td>
+				<th class="its-th">해외국가</th>
+				<td class="its-td" colspan="3">
+					<div id="internationalShippingList" class="{ ? _GET.shipping_group_seq }hide{ / }">
+						<!--{ @ ship_set_code }-->
+						<label><input type="checkbox" name="shipping_set_code[international][]" value="{.key_}"  {? in_array(.key_,_GET.shipping_set_code.international)}checked{/} /> {.value_}</label>
+						<!--{ / }-->
+					</div>
+					<div id="internationalShippingInfo" class="{ ? !sc.shipping_group_seq }hide{ / }"></div>
+				</td>
+				<th class="its-th">페이지뷰</th>
+				<td class="its-td">
+					<input type="text" name="spage_view" value="{_GET.spage_view}" class="line" size="4" style="width:40px;" /> - <input type="text" name="epage_view" value="{_GET.epage_view}" class="line" size="4" style="width:40px;" />
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">할인</th>
+				<td class="its-td">
+					<select name="event_seq" class="line" style="width:280px;">
+						<option value="">이벤트 선택</option>
+						{? event_list }
+							{ @ event_list }
+							<option value="{.event_seq}" {?_GET.event_seq==.event_seq}selected{/}>{.event_title}</option>
+							{ / }
+						{ / }
+					</select>
+				</td>
+				<th class="its-th">입점마켓</th>
+				<td class="its-td" colspan="3">
+					<label><input type="checkbox" name="feed_status" value="Y" {?_GET.feed_status=='Y'}checked{/} /> 전달</label>
+					<label><input type="checkbox" name="feed_status" value="N" {?_GET.feed_status=='N'}checked{/} /> 미전달</label>
+				</td>
+				<th class="its-th">청약철회</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="cancel_type[0]" value="0" {?_GET.cancel_type[0] == '0'}checked{/} /> 가능</label>&nbsp;
+					<label><input type="checkbox" name="cancel_type[1]" value="1" {?_GET.cancel_type[1]}checked{/} /> 불가능</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">사은품</th>
+				<td class="its-td">
+					<select name="gift_seq" class="line" style="width:280px;">
+						<option value="">사은품 이벤트 선택</option>
+						{? gift_list }
+							{ @ gift_list }
+							<option value="{.gift_seq}" {?_GET.gift_seq==.gift_seq}selected{/}>{.gift_title}</option>
+							{ / }
+						{ / }
+					</select>
+				</td>
+				<th class="its-th">중요상품</th>
+				<td class="its-td" colspan="3">
+					<label><input type="checkbox" name="favorite_chk[0]" value="1" {?sc.favorite_chk[0]}checked{/}/>  <span class="icon-star-gray hand checked list-important"></span></label> &nbsp;
+					<label><input type="checkbox" name="favorite_chk[1]" value="1" {?sc.favorite_chk[1]}checked{/}/> <span class="icon-star-gray hand list-important "></span></label>
+				</td>
+				<th class="its-th">예약판매</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="layaway_product" value="Y" {?_GET.layaway_product == 'Y'}checked="checked"{/} /> 현재 예약판매중인 상품</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">유입경로</th>
+				<td class="its-td">
+					<select name="referersale_seq" class="line" style="width:280px;">
+						<option value="">유입경로 이벤트 선택</option>
+						{ @ referersale_list }<option value="{.referersale_seq}" { ? _GET.referersale_seq == .referersale_seq }selected{ / }>{.referersale_name}</option>{ / }
+					</select>
+				</td>
+				<th class="its-th">아이콘</th>
+				<td class="its-td" colspan="3">
+					<button type="button" class="s_btn_search_icon"><span class='hide'>검색</span></button>
+					<input type="hidden" name="select_search_icon" value="{_GET.select_search_icon}" />&nbsp;<span class="msg_select_icon"></span>
+				</td>
+				<th class="its-th">성인전용</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="adult_goods[1]" value="Y" {?_GET.adult_goods[1]=='Y' || gdsearchdefault.adult_goods[1]=='Y'}checked="checked"{/} /> 전용</label>
+					<span class="pd_td_right">&nbsp;</span>
+					<label><input type="checkbox" name="adult_goods[0]" value="N" {?_GET.adult_goods[0]=='N' || gdsearchdefault.adult_goods[0]=='N'}checked="checked"{/} /> 일반</label>
+				</td>
+			</tr>
+			<tr>
+				<th class="its-th">대량구매</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="multi_discount" value="Y" {?sc.multi_discount == 'Y'}checked="checked"{/} /> 구매수량별 차등 할인</label>
+				</td>
+				<th class="its-th">색상</th>
+				<td class="its-td" colspan="3">
+					<div class="color-check">
+					<!--{ @ arr_common['colorPickList'] }-->
+					<label style="background-color:#{.key_}" class="{ ? .value_ == 1}active{ / }"><input type="checkbox" class="colorDefault" name="color_pick[]" value="{.key_}" { ? .value_ == 1}checked{ / } /></label>
+					<!--{ / }-->
+					&nbsp;
+					<span class="btn small"><button type="button" onClick="colorMultiCheck();">전체선택</button></span>
+					</div>
+				</td>
+				<th class="its-th">구매대행</th>
+				<td class="its-td">
+					<label><input type="checkbox" name="search_option_international_shipping" value="n" {?_GET.search_option_international_shipping=='n'}checked{/} /> 일반</label>&nbsp;
+					<label><input type="checkbox" name="search_option_international_shipping" value="y" {?_GET.search_option_international_shipping=='y'}checked{/} /> 해외구매대행</label>
+					</td>
+				</td>
+			</tr>
+			<!-- { ? openMarketSeach != "disable" } -->
+			<tr>
+				<th class="its-th">오픈마켓</th>
+				<td class="its-td" colspan="7">
+					<select name="market" id="selMarket" style="width:145px;">
+						<option value="">전체</option>
+					<!--{ @ marketsObj }-->
+						<option value="<!--{=.key_}-->"
+						<!--{ ? .key_ == sc.market}-->selected<!--{/}-->
+						data-seller-list='<!--{=.sellerListJson}-->'
+						><!--{.name}--></option>
+					<!--{ / }-->
+					</select>
+					<select name="sellerId" id="selMarketUserId" style="width:145px">
+						<option value="">관리자아이디</option>
+					</select>
+				</td>
+			</tr>
+			<!-- { / } -->
+			</table>
+		</td>
+	</tr>
+	</table>
+</div>
+<div>
+	<span class="desc pdt5">기본검색 설정은 관리자 ID별로 저장됩니다</span>
+</div>
+<div align="center" style="padding-top:10px;">
+	<span class="btn large black">
+		<button type="submit">저장하기<span class="arrowright"></span></button>
+	</span>
+</div>
+</form>

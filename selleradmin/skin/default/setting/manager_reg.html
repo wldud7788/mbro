@@ -1,0 +1,856 @@
+{ #layout_header }
+<script type="text/javascript">
+var auth_arr = new Array();
+var auth_flag = {? !auth_limit }true{:}false{/};
+var auth_limit = {? auth_limit && manager_yn=='Y'}true{:}false{/};
+
+$(document).ready(function() {
+
+	$(".class_check_password_validation").each(function(){
+		init_check_password_validation($(this));
+	});
+
+	
+	$(".auth").each(function(i){
+		auth_arr[i] = $(this).attr('name');
+	});
+
+	$("#id_chk").click(function(){
+		var id = $("input[name='provider_id']").val();
+		if(!id){
+			$("input[name='provider_id']").focus();
+			return;
+		}
+		$.post("../setting_process/id_chk", { provider_id : id }, function(response){
+			//debug(response);
+			//var text = response.return_result;
+			//var provider_id = response.provider_id;
+			alert(response.return_result);
+		},'json');
+	});
+
+	$("#allClick").click(function(){
+		if($(this).attr("gb")=="none"){
+			$(".auth").attr("checked",true);
+			$("input.authboard").attr("checked",true);
+			$("#click_text").html("전체해제");
+			$(this).attr("gb","click");
+			$("input.board_view_pw").attr("disabled",false);
+			$("input.board_act").attr("disabled",false);
+		}else{
+			$(".auth").attr("checked",false);
+			$("input.authboard").attr("checked",false);
+			$("#click_text").html("전체선택");
+			$(this).attr("gb","none");
+			$("input.board_view_pw").attr("disabled",true);
+			$("input.board_act").attr("disabled",true);
+		}
+		init_auth();
+	});
+
+	$(".board_view").click(function() {
+		if($(this).attr("checked")){
+			$(this).parent().parent().find(".board_view_pw").attr("checked",true);
+			$(this).parent().parent().find(".board_act").attr("checked",true);
+			$(this).parent().parent().find(".board_view_pw").attr("disabled",false);
+			$(this).parent().parent().find(".board_act").attr("disabled",false);
+		}else{
+			$(this).parent().parent().find(".board_view_pw").attr("checked",false);
+			$(this).parent().parent().find(".board_act").attr("checked",false);
+			$(this).parent().parent().find(".board_view_pw").attr("disabled",true);
+			$(this).parent().parent().find(".board_act").attr("disabled",true);
+		}
+	});
+
+	$("input[name='modify_passwd']").click(function(){
+		if($(this).attr("checked")){
+			$("#manager_passwd_confirm").show();
+			$("input[name='mpasswd']").attr("disabled",false);
+			$("input[name='mpasswd_re']").attr("disabled",false);
+		}else{
+			$("#manager_passwd_confirm").hide();
+			$("input[name='mpasswd']").attr("disabled",true);
+			$("input[name='mpasswd_re']").attr("disabled",true);
+		}
+	});
+
+{ ? provider_seq }
+	{? manager_yn=='Y' }
+		$(".auth").attr("checked",true);
+		$(".authprivate").attr("checked",false);
+	{ : }
+		{@ auth }
+			if('{.value_}'=='Y' && !auth_flag) $("input[name='{.key_}']").attr("checked",true);
+		{ / }
+		{@ boardmanagerlist}
+			if(auth_flag && '{.board_view}' == 0){
+				$("input[name='board_view[{.id}]']").closest("label").css('color','#b6b6b6');
+			}
+			if(auth_flag && '{.board_view_pw}' == 0){
+				$("input[name='board_view_pw[{.id}]']").closest("label").css('color','#b6b6b6');
+			}
+			if(auth_flag && '{.board_act}' == 0){
+				$("input[name='board_act[{.id}]']").closest("label").css('color','#b6b6b6');
+			}
+		{/}
+	{ / }
+{ / }
+
+	if(auth_flag || auth_limit){
+		{@ auth}
+			if('{.key_}' == 'private_masking' && '{.value_}'!='Y') {
+				$("input[name='{.key_}']").closest("label").text(' 개인정보 항목 마스킹(*) 표시 처리 안함');
+			}
+		{/}
+
+		$('.auth, .authboard, .authprivate').closest("label").css({'cursor':'default'});
+		$('.auth, .authboard, .authprivate').remove();
+	}
+
+	$("input[name='member_download_passwd']").bind('focus',function(){
+		// 기존 비밀번호 변경시 암호화된 비밀번호 삭제
+		{ ? provider_seq }
+		if ($("input[name='member_download']").is(':checked')) {
+			if ($("input[name='member_download_passwd']").val()) {
+				if ("{member_download_passwd}"==$("input[name='member_download_passwd']").val()) {
+					var chk = confirm("다운로드 비밀번호를 변경하시겠습니까?");
+					if (chk) {
+						$("input[name='member_download_passwd']").val("");
+						$("input[name='member_download_passwd']").focus();
+					} else {
+						$(this).blur();
+					}
+				}
+			}
+		}
+		{/}
+	});
+
+	$(".auth").bind('click',function(){
+		var tmp = $(this).attr("name").split("_");
+		if(tmp[tmp.length-1]=='view'){
+			if($(this).attr("checked")){
+				for(var i=0;i<auth_arr.length;i++){
+					if(tmp[0]=='setting'){
+						var tmp_text = tmp[0]+"_"+tmp[1];
+						if(tmp_text==auth_arr[i].substring(0,tmp_text.length)){
+							if($(this).attr("name")!=auth_arr[i]) $("input[name='"+auth_arr[i]+"']").attr("disabled",false);
+						}
+					}else{
+						if(tmp[0]==auth_arr[i].substring(0,tmp[0].length)){
+							if($(this).attr("name")!=auth_arr[i]) $("input[name='"+auth_arr[i]+"']").attr("disabled",false);
+						}
+					}
+				}
+			}else{
+				for(var i=0;i<auth_arr.length;i++){
+					if(tmp[0]=='setting'){
+						var tmp_text = tmp[0]+"_"+tmp[1];
+						if(tmp_text==auth_arr[i].substring(0,tmp_text.length)){
+							if($(this).attr("name")!=auth_arr[i]){
+								$("input[name='"+auth_arr[i]+"']").attr("checked",false);
+								$("input[name='"+auth_arr[i]+"']").attr("disabled",true);
+							}
+						}
+					}else if(tmp[0]==auth_arr[i].substring(0,tmp[0].length) && tmp[0]!='setting'){
+						if($(this).attr("name")!=auth_arr[i]){
+							$("input[name='"+auth_arr[i]+"']").attr("checked",false);
+							$("input[name='"+auth_arr[i]+"']").attr("disabled",true);
+						}
+					}
+				}
+			}
+		}
+	});
+
+	$("input[name='ip_chk']").click(function(){
+		init_func();
+	});
+
+	$("input[name='hp_chk']").click(function(){
+		init_hp();
+	});
+
+	$("input[name='passwd_chg']").bind("click",function(){
+		if($(this).attr("checked")){
+			$("#r_pass").show();
+			$("#manager_passwd_confirm").show();
+		}else{
+			$("#r_pass").hide();
+			$("#manager_passwd_confirm").hide();
+		}
+	});
+
+	/* 아이피 추가 */
+	$("#ipViewTable button#ipAdd").bind("click",function(){
+		var html="";
+		html = '<tr>';
+		html += '	<td>';
+		html += '	<input type="text" name="limit_ip1[]" value="" class="line limit_ip" size=4 maxlength=3 />.';
+		html += '	<input type="text" name="limit_ip2[]" value="" class="line limit_ip" size=4 maxlength=3 />.';
+		html += '	<input type="text" name="limit_ip3[]" value="" class="line limit_ip" size=4 maxlength=3 />.';
+		html += '	<input type="text" name="limit_ip4[]" value="" class="line limit_ip" size=4 maxlength=3 />';
+		html += '	</td><td><button type="button" id="ipDel" onclick="del_ip(this)" class="btn_minus"></button>';
+		html += '	</td>';
+		html += '</tr>';
+
+		$("#ipViewTable").append(html);
+		init_func();
+	});
+
+	/* 아이피 추가 */
+	$("#adminIpAdd").bind("click",function(){
+		var html		= '';
+		var disabled	= '';
+		if	(!$(this).closest('td').find("input[name='admin_ip_chk']").attr('checked')){
+			disabled	= 'disabled="disabled"';
+		}
+		html += '	<div>';
+		html += '	<input type="text" name="admin_limit_ip1[]" value="" class="line admin_limit_ip" size="4" maxlength="3" ' + disabled + ' />.';
+		html += '	<input type="text" name="admin_limit_ip2[]" value="" class="line admin_limit_ip" size="4" maxlength="3" ' + disabled + ' />.';
+		html += '	<input type="text" name="admin_limit_ip3[]" value="" class="line admin_limit_ip" size="4" maxlength="3" ' + disabled + ' />.';
+		html += '	<input type="text" name="admin_limit_ip4[]" value="" class="line admin_limit_ip" size="4" maxlength="3" ' + disabled + ' />';
+		html += '	<span class="btn-minus"><button type="button" id="adminIpDel" onclick="del_admin_ip(this)"></button></span>';
+		html += '	</div>';
+		$("#adminIpCell").append(html);
+	});
+
+	init_func();
+	init_auth();
+	init_hp();
+	admin_init_func();
+});
+
+function del_ip(obj){
+	var bobj = $(obj);	
+	if($("#ipViewTable tr").length <= 2) return
+	bobj.closest("tr").remove();
+}
+
+function del_admin_ip(obj){
+	var bobj = $(obj);
+	bobj.closest("div").remove();
+}
+
+function init_func(){
+
+	if($("input[name='ip_chk']").attr("checked")){
+		$(".ip_view").show();
+		$(".limit_ip").attr("disabled",false);
+	}else{
+		$(".limit_ip").val('');
+		$(".ip_view").hide();
+		$(".limit_ip").attr("disabled",true);
+	}
+}
+
+function admin_init_func(){
+	if($("input[name='admin_ip_chk']").attr("checked")){
+		$(".admin_limit_ip").attr("disabled",false);
+	}else{
+		$(".admin_limit_ip").val('');
+		$(".admin_limit_ip").attr("disabled",true);
+	}
+}
+
+
+function init_hp(){
+	if($("input[name='hp_chk']").attr("checked")){
+		$(".auth_hp").show(); 
+		$(".auth_hp").attr("disabled",false);
+	}else{
+		$("input[name='auth_hp']").val('');
+		$(".auth_hp").hide();
+		$(".auth_hp").attr("disabled",true);
+	}
+}
+
+
+function init_auth(){
+	for(var z=0;z<auth_arr.length;z++){
+		if(auth_arr[z]=='event_view' || auth_arr[z]=='setting_manager_view'){
+		}else{
+			var tmp = auth_arr[z].split("_");
+			if(tmp[tmp.length-1]=='view'){
+				if(!$("input[name='"+auth_arr[z]+"']").attr("checked")){
+					for(var i=0;i<auth_arr.length;i++){
+						if(tmp[0]=='setting'){
+							var tmp_text = tmp[0]+"_"+tmp[1];
+							if(tmp_text==auth_arr[i].substring(0,tmp_text.length)){
+								if(auth_arr[z]!=auth_arr[i]) $("input[name='"+auth_arr[i]+"']").attr("disabled",true);
+							}
+						}else{
+							if(tmp[0]==auth_arr[i].substring(0,tmp[0].length)){
+								if($("input[name='"+auth_arr[z]+"']").attr("name")!=auth_arr[i]) $("input[name='"+auth_arr[i]+"']").attr("disabled",true);
+							}
+						}
+					}
+				}else{
+					for(var i=0;i<auth_arr.length;i++){
+						if(tmp[0]!='setting'){
+							if(tmp[0]==auth_arr[i].substring(0,tmp[0].length)){
+								if($("input[name='"+auth_arr[z]+"']").attr("name")!=auth_arr[i]) $("input[name='"+auth_arr[i]+"']").attr("disabled",false);
+							}
+						}else{
+							if(tmp[0]==auth_arr[i].substring(0,tmp[0].length)){
+								if($("input[name='"+auth_arr[z]+"']").attr("name")!=auth_arr[i]) $("input[name='"+auth_arr[i]+"']").attr("disabled",false);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function info_policy(){
+	openDialog('안내) 개인정보 보호 법률','admin_policy_info',{'width':800,'height':380});
+}
+
+// IP 필수 입력 확인
+function check_vaild_ip(){
+
+	var ip1	= ip2 = ip3 = '';
+	var chkStatus		= true;
+	var errMsg			= '아이피 대역이 잘못되었습니다.<br />아이피 대역은 0~255 사이의 숫자만 입력해주세요.<br />아이피 3번째 자리까지는 필수 입력하셔야 합니다.';
+	if	($("input[name='ip_chk']").attr('checked')){
+		$("input[name='limit_ip1[]']").each(function(idx){
+			ip1		= $(this).val();
+			ip2		= $("input[name='limit_ip2[]']").eq(idx).val();
+			ip3		= $("input[name='limit_ip3[]']").eq(idx).val();
+			if	( !( ( ip1 > 0 && ip1 <= 255 ) && ( ip2 > 0 && ip2 <= 255 ) && ( ip3 > 0 && ip3 <= 255 ) ) ){
+				chkStatus	= false;
+			}
+		});
+		if	(!chkStatus){
+			openDialogAlert(errMsg, 400,180, function(){});
+			return false;
+		}
+	}
+	if	($("input[name='admin_ip_chk']").attr('checked')){
+		$("input[name='admin_limit_ip1[]']").each(function(idx){
+			ip1		= $(this).val();
+			ip2		= $("input[name='admin_limit_ip2[]']").eq(idx).val();
+			ip3		= $("input[name='admin_limit_ip3[]']").eq(idx).val();
+			if	( !( ( ip1 > 0 && ip1 <= 255 ) && ( ip2 > 0 && ip2 <= 255 ) && ( ip3 > 0 && ip3 <= 255 ) ) ){
+				chkStatus	= false;
+			}
+		});
+		if	(!chkStatus){
+			openDialogAlert(errMsg, 400, 180, function(){});
+			return false;
+		}
+	}
+
+	return true;
+}
+
+// 자신의 아이피를 허용하지 않았을 경우 경고 메시지처리
+function check_self_ip(){
+	var self_ip = '{_SERVER.REMOTE_ADDR}';
+	var apply_exist = false;
+	var self_apply = false;
+	var apply_exist_login = false;
+	var self_apply_login = false;
+	var ip = '';
+	var patt = '';
+	var result = '';
+	var ips = '';
+	var ips_login = '';
+	var ip_num = 0;
+	var ip_num_login = 0;
+
+	if	(!check_vaild_ip())	return false;
+	$("input[name='limit_ip1[]']").each(function(idx){
+		if( $(this).val() ){
+			apply_exist = true;
+			ip = $(this).val();
+			if( $("input[name='limit_ip2[]']").eq(idx).val() ){
+				ip += '.'+$("input[name='limit_ip2[]']").eq(idx).val();
+			}
+			if( $("input[name='limit_ip3[]']").eq(idx).val() ){
+				ip += '.'+$("input[name='limit_ip3[]']").eq(idx).val();
+			}
+			if( $("input[name='limit_ip4[]']").eq(idx).val() ){
+				ip += '.'+$("input[name='limit_ip4[]']").eq(idx).val();
+			}
+			eval('patt = /^'+ip+'/i;');
+			result =  patt.test(self_ip);
+			if( result ){
+				self_apply = true;
+			}
+			if( $("input[name='limit_ip4[]']").eq(idx).val() == '' ){
+				ips += ip+'.1 ~ '+ip+'.255<br>';
+			}else{
+				ips += ip+'<br>';
+			}
+			ip_num++;
+		}
+	});
+	$("input[name='admin_limit_ip1[]']").each(function(idx){
+		if( $(this).val() ){
+			apply_exist_login = true;
+			ip = $(this).val();
+			if( $("input[name='admin_limit_ip2[]']").eq(idx).val() ){
+				ip += '.'+$("input[name='admin_limit_ip2[]']").eq(idx).val();
+			}
+			if( $("input[name='admin_limit_ip3[]']").eq(idx).val() ){
+				ip += '.'+$("input[name='admin_limit_ip3[]']").eq(idx).val();
+			}
+			if( $("input[name='admin_limit_ip4[]']").eq(idx).val() ){
+				ip += '.'+$("input[name='admin_limit_ip4[]']").eq(idx).val();
+			}
+			eval('patt = /^'+ip+'/i;');
+			result =  patt.test(self_ip);
+			if( result ){
+				self_apply_login = true;
+			}
+			if( $("input[name='admin_limit_ip4[]']").eq(idx).val() == '' ){
+				ips_login += ip+'.1 ~ '+ip+'.255<br>';
+			}else{
+				ips_login += ip+'<br>';
+			}
+			ip_num_login++;
+		}
+	});
+
+	var height = 0;
+	if( (!self_apply && apply_exist) || ( !self_apply_login && apply_exist_login ) ){
+		var msg = '<div class="left">';
+		if( !self_apply && apply_exist ){
+			msg += '<b>[관리환경 관리페이지]</b><br>아래는 입력하신 접속허용 IP입니다.<br>'+ips+'<br>현재 접속 IP는 입력하신 접속허용 IP에는 포함되어 있지 않습니다.';
+			msg += '<br>계속 진행하시면 현재 접속 IP에서는';
+			msg += " 관리페이지";
+			msg += '를 접속할 수 없게 됩니다.<br>';
+			height += 6 + ip_num;
+		}
+		if( !self_apply_login && apply_exist_login ){
+			if( !self_apply && apply_exist ){
+				msg += '<br>';
+			}
+			msg += '<b>[관리환경 로그인페이지]</b><br>아래는 입력하신 접속허용 IP입니다.<br>'+ips_login+'<br>현재 접속 IP는 입력하신 접속허용 IP에는 포함되어 있지 않습니다.';
+			msg += '<br>계속 진행하시면 현재 접속 IP에서는';
+			msg += " 로그인페이지";
+			msg += '를 접속할 수 없게 됩니다.';
+			height += 7 + ip_num_login;
+		}
+		msg += '</div>';
+
+		height = height * 20 + 100;
+		openDialogConfirm(msg,550,height,function(){
+			settingForm.submit();
+			return true;
+		},function(){
+			return false;
+		});
+	}else{
+		settingForm.submit();
+	}
+}
+</script>
+<style>
+{? manager_yn=='Y' }
+table#authority_tbl tr td { color:#747474; background:#f9fbfc; }
+table#authority_tbl tr th { color:#747474; }
+table#authority_tbl tr td input[type='checkbox'] {}
+<!--{ / }-->
+table.change_password tr th {font-weight:normal;padding-right:10px;text-align:right;}
+</style>
+<!-- { ? provider_seq } -->
+<form name="settingForm" method="post" enctype="multipart/form-data" action="../setting_process/manager_modify" target="actionFrame">
+<input type="hidden" name="provider_seq" value="{provider_seq}"/>
+<!-- { : } -->
+<form name="settingForm" method="post" enctype="multipart/form-data" action="../setting_process/manager_reg" target="actionFrame">
+<!-- { / } -->
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>관리자</h2>
+		</div>		
+
+		<!-- 우측 버튼 -->
+		<div class="page-buttons-right">
+			<!--{ ? (providerInfo.manager_yn=='Y' && providerInfo.provider_seq == provider_seq) || isdemo.isdemo }-->
+			<button class="resp_btn active size_L" type="button" {? isdemo.isdemo }{isdemo.isdemojs1}{ : } onclick="check_self_ip();"{ / }>저장</button>
+			<!--{ : }-->
+			<button class="resp_btn active size_L" type="submit">저장</button>
+			<!--{ / }-->
+		</div>
+
+		<!-- 좌측 버튼 -->
+		<div class="page-buttons-left">
+			<a href="manager" type="button" class="resp_btn v3 size_L" >관리자 리스트</a>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 시작 -->
+	<!-- 서브메뉴 바디 : 시작-->
+	<div class="contents_dvs">
+		<div class="item-title">관리자 정보</div>
+		<table class="table_basic thl">
+		
+			{ ? provider_seq }
+			<tr>
+				<th>최근 접속일</th>
+				<td>{lastlogin_date}</td>		
+			</tr>
+			
+			<tr>
+				<th>등록일</th>
+				<td>{regdate}</td>
+			</tr>
+			
+			<tr>
+				<th>관리자 구분</th>
+				<td>{? manager_yn=='Y' }대표운영자{ : }부운영자{ / }</td>
+			</tr>
+			{ / }
+
+			<tr>
+				<th>관리자 아이디</th>
+				<td>
+				{ ? provider_seq }
+					<b>{provider_id}</b>
+				{ : }
+					<label>{=substr(providerInfo.provider_id,0,4)}_
+						<input type="text" name="provider_id" value="" class="line"/>
+					</label>
+					<button type="button" class="resp_btn v2" id="id_chk">중복확인</button>
+
+					<div class="resp_message v2">- 첫 글자는 영문이며, 영문 또는 숫자 대소문자 4-16자 이하</div>
+				{ / }
+				</td>
+			</tr>
+			{? provider_seq }
+			<tr>
+				<th>
+					비밀번호
+				</th>
+				<td>					
+					<label class="resp_checkbox"><input type="checkbox" name="passwd_chg" value="Y" /> 변경</label>					
+				</td>
+			</tr>
+			{ / }	
+			<tr id="r_pass" {? provider_seq }style="display:none;"{ / }>
+				<th>
+					비밀번호 설정
+					<span class="tooltip_btn" onClick="showTooltip(this, '/selleradmin/tooltip/manager', '#tip6', 'sizeM')"></span>
+				</th>
+				<td>
+					{? provider_seq }
+					<span>
+
+						<dl class="change_password dl_list_01 w120">
+							<dt>현재 비밀번호</dt>
+							<dd><input type="password" name="manager_password" value="" class="line" /></dd>
+						</dl>
+						<dl class="change_password dl_list_01 w120">
+							<dt>비밀번호 변경</dt>
+							<dd><input type="password" name="mpasswd" class="line class_check_password_validation" /></dd>
+						</dl>
+						<dl class="change_password dl_list_01 w120">
+							<dt>비밀번호 변경 확인</dt>
+							<dd><input type="password" name="mpasswd_re" class="line" /></dd>
+						</dl>
+					</span>
+					{ : }
+
+					<dl class="change_password dl_list_01 w120">
+						<dt>비밀번호</dt>
+						<dd><input type="password" name="mpasswd" class="line class_check_password_validation" /></dd>
+					</dl>
+					<dl class="change_password dl_list_01 w120">
+						<dt>비밀번호 확인</dt>
+						<dd><input type="password" name="mpasswd_re" class="line" /></dd>							
+					</dl>
+					{ / }
+				</td>
+			</tr>
+
+			<tr>
+				<th>관리자명</th>
+				<td><input type="text" name="provider_name" value="{provider_name}" class="line"/></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="contents_dvs">
+		<div class="item-title">
+			관리자 로그인 보안
+			<span class="tooltip_btn" onClick="showTooltip(this, '/selleradmin/tooltip/manager', '#tip1')"></span>
+		</div>
+
+		<table class="table_basic thl">	
+			<tr>
+				<th>비밀번호 변경</th>
+				<td>비밀번호 변경 후 90일 경과 시 비밀번호 변경 자동 안내</td>		
+			</tr>
+			
+			<tr>
+				<th>자동 로그아웃</th>
+				<td>
+					{? autoLogout.auto_logout == "Y" }
+						{? autoLogout.until_time == "0.01"}36초{:}{autoLogout.until_time}시간{/} 동안 액션이 없으면 자동 로그아웃
+					{:}
+						미사용
+						<div class="gray">- 본사 관리자 설정에 따름</div>
+					{/}
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					접속 허용 IP
+					<span class="tooltip_btn" onClick="showTooltip(this, '/selleradmin/tooltip/manager', '#tip7')"></span>
+				</th>
+				<td>
+				{? providerInfo.manager_yn=='Y' }
+					<div class="resp_radio">
+						<label><input type="radio" name="ip_chk" value="Y" {? limit_ip }checked{ / }> 사용함</label>
+						<label><input type="radio"  name="ip_chk" value="N" {? limit_ip=="" || limit_ip=="N"}checked{ / }> 사용 안 함</label>
+					</div>
+				{:}
+					<!--{ ? limit_ip_msg }-->
+						<div>해당 관리자는 아래의 IP에서만 관리페이지 접속 허용</div>
+						<!--{ @ limit_ip_msg }-->
+						<div>
+							{.value_}
+						</div>
+						<!--{ / }-->
+					<!--{ : }-->
+						관리환경 관리페이지 접속 제한 없음
+					<!--{ / }-->
+					{/}
+				</td>
+			</tr>
+
+			<tr class="ip_view">
+				<th>접속 IP 설정</th>
+				<td>
+				{? providerInfo.manager_yn=='Y' }			
+					<table id="ipViewTable" class="table_basic wauto">
+						<tr>
+							<th>IP</th>
+							<th><button type="button" id="ipAdd" class="btn_plus"></button></th>
+						</tr>
+					{? !limit_ip}
+						<tr>
+							<td>
+								<input type="text" name="limit_ip1[]" value="" class="line limit_ip" size=4 maxlength=3/>.
+								<input type="text" name="limit_ip2[]" value="" class="line limit_ip" size=4 maxlength=3/>.
+								<input type="text" name="limit_ip3[]" value="" class="line limit_ip" size=4 maxlength=3/>.
+								<input type="text" name="limit_ip4[]" value="" class="line limit_ip" size=4 maxlength=3/>
+							</td>
+
+							<td>							
+								<button type="button" id="ipDel"  onclick="del_ip(this)" class="btn_minus"></button>						
+							</td>
+						</tr>
+					{:}
+						{@limit_ip}
+							<tr>
+								<td>
+									<input type="text" name="limit_ip1[]" value="{.value_[0]}" class="line limit_ip" size=4 maxlength=3/>.
+									<input type="text" name="limit_ip2[]" value="{.value_[1]}" class="line limit_ip" size=4 maxlength=3/>.
+									<input type="text" name="limit_ip3[]" value="{.value_[2]}" class="line limit_ip" size=4 maxlength=3/>.
+									<input type="text" name="limit_ip4[]" value="{.value_[3]}" class="line limit_ip" size=4 maxlength=3/>
+								</td>
+
+								<td>							
+									<button type="button" id="ipDel"  onclick="del_ip(this)" class="btn_minus"></button>						
+								</td>
+							</tr>
+						{/}
+					{/}
+					</table>
+				{:}
+				
+					{@limit_ip}
+						{.value_[0]}.{.value_[1]}.{.value_[2]}{? .value_[3]}.{.value_[3]}{:}.1 ~ {.value_[0]}.{.value_[1]}.{.value_[2]}.255{/}
+						<br>
+					{/}
+					
+				{/}
+				</td>		
+			</tr>
+
+			<tr>
+				<th>
+					접속 허용 휴대폰
+					<span class="tooltip_btn" onClick="showTooltip(this, '/selleradmin/tooltip/manager', '#tip8')"></span>
+				</th>
+				<td >
+					{? !auth_hp}
+					관리환경 관리페이지 접속 제한 없음
+					{:}
+					해당 관리자는 아래의 휴대폰번호로 인증 시 관리페이지 접속 허용<br>
+					{auth_hp}
+					{/}
+					<div class="gray">- 1일 1회 1기기에 한해 인증 필요, 문자 잔여건수가 없을 경우 미동작</div>
+				</td>
+			</tr>
+
+			<tr class="auth_hp">
+				<th>휴대폰 설정</th>
+				<td>						 
+					<!--{ ? managerInfo.manager_yn=='Y' }-->								
+						<input type="text" name="auth_hp" value="{auth_hp}" class="line auth_hp"/>
+						<!--{ ? sms_st != 'Y' }-->
+						<script>$("input[name='hp_chk']").attr('disabled',true);</script>
+						<!--{ / }-->
+					<!--{ : }-->
+						<!--{? auth_hp }-->								
+						해당 관리자는 아래의 휴대폰번호로 인증 시 관리페이지 접속 허용<br>
+						{auth_hp}
+						<!--{ / }-->
+					<!--{ / }-->
+						<div class="gray">- 1일 1회 1기기에 한해 인증 필요, 문자 잔여건수가 없을 경우 미 동작</div>						
+				</td>
+			</tr>			
+		</table>
+	</div>
+	
+	<div class="contents_dvs">
+		<div class="item-title">
+			메뉴 상단 건수 표기
+			<span class="tooltip_btn" onClick="showTooltip(this, '/selleradmin/tooltip/manager', '#tip2')"></span>
+		</div>
+
+		<table class="table_basic thl">	
+			<tr>
+				<th>주문</th>
+				<td>최근 {noti_acount_priod.order} 동안 처리해야 할 주문 건수 표시</td>		
+			</tr>
+
+			<tr>
+				<th>게시판</th>
+				<td>최근 {noti_acount_priod.board} 동안 답변이 미 완료된 상품 문의		
+				</td>		
+			</tr>
+
+			<!--{ ? is_provider_solution }-->
+			<tr>
+				<th>정산</th>
+				<td>최근{noti_acount_priod.account} 동안 정산 건 중 미 완료건</td>
+			</tr>
+			<!--{ / }-->
+		</table>
+		
+		<div class="title_dvs">
+			<div class="item-title">관리자 권한	</div>
+			{? auth_limit && manager_yn!='Y' }	
+				<button class="resp_btn" type="button" id="allClick" gb="none"><span id="click_text">전체선택</span></button>			
+			{ / }	
+		</div>
+
+		<table class="table_basic thl">	
+			{? auth_limit && manager_yn=='Y' }
+			<tr>
+				<th class="red bold">슈퍼 권한</th>
+				<td colspan="3">
+					슈퍼관리자만이 모든 관리자에 대하여 보기, 삭제, 생성, 변경(권한)이 가능합니다.<br />
+					슈퍼관리자 정보는 본인 외 누설을 절대 금지하십시오.
+				</td>
+			</tr>
+			{/}
+
+			<tr>
+				<th>판매상품</th>
+				<td colspan="2">
+					<label class="resp_checkbox"><input type="checkbox" name="goods_view" value="Y" class="auth"/> 판매상품 보기</label>
+					<label class="resp_checkbox">→ <input type="checkbox" name="goods_act" value="Y" class="auth"/> 판매상품 정보 등록/수정/삭제 (상품데이터 일괄업데이트 포함)</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>주문</th>
+				<td>
+					<label class="resp_checkbox"><input type="checkbox" name="order_view" value="Y" class="auth"/>주문보기</label>
+					<label class="resp_checkbox">→ <input type="checkbox" name="order_goods_export" value="Y" class="auth"/> 출고/배송 처리</label>
+				</td>
+				<td>
+					<label class="resp_checkbox"><input type="checkbox" name="refund_view" value="Y" class="auth"/> 반품/환불보기</label>
+					<label class="resp_checkbox">→ <input type="checkbox" name="refund_act" value="Y" class="auth"/> 반품처리</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>게시판</th>
+				<td colspan="2">
+					<ul>
+						<li>
+							<label class="resp_checkbox"><input type="checkbox" name="board_view" value="Y" class="auth" /> 고객상담 통합게시판 보기</label>
+							<label class="resp_checkbox"><input type="checkbox" name="board_act" value="Y" class="auth" /> 고객상담 통합게시판 관리</label>
+						</li>
+					</ul>
+				</td>
+			</tr>
+
+			<tr>
+				<th>프로모션/쿠폰</th>
+				<td colspan="2">
+					<label class="resp_checkbox"><input type="checkbox" name="coupon_view" value="Y" class="auth"/> 프로모션/쿠폰 보기</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>통계</th>
+				<td colspan="2">
+					<label class="resp_checkbox"><input type="checkbox" name="statistic_goods" value="Y" class="auth"/> 상품</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>정산</th>
+				<td colspan="2">
+					<label class="resp_checkbox"><input type="checkbox" name="account_view" value="Y" class="auth"/> 정산리스트 보기</label>
+				</td>
+			</tr>
+
+			<tr>
+				<th>배송/택배</th>
+				<td colspan="2">
+					<label class="resp_checkbox"><input type="checkbox" name="setting_shipping_view" value="Y" class="auth"/> 택배/배송비 보기</label>
+					<label class="resp_checkbox">→ <input type="checkbox" name="setting_shipping_act" value="Y" class="auth"/> 택배/배송비 설정 권한</label>
+				</td>
+			</tr>
+			</table>
+
+			<div class="item-title">개인정보 보호</div>
+
+			<table class="table_basic thl" id="authority_tbl">
+			<tr>
+				<th>주문</th>
+				<td>
+					<label class="resp_checkbox"><input type="checkbox" name="private_masking" value="Y" class="authprivate"/> 개인정보 항목 마스킹(*) 표시 처리</label>
+					<span class="tooltip_btn" onClick="showTooltip(this, '/selleradmin/tooltip/manager', '#tip12', '')"></span>
+				</td>
+			</tr>
+			</table>
+
+			<div class="item-title">처리 내역</div>
+
+			<table class="table_basic thl">
+			<tr>
+				<th>로그</th>
+				<td>
+					<div style="overflow:auto;height:60px;width:100%;border:1px solid #cccccc;padding: 10px 5px;background:#f7f7f7">{provider_log}</div>
+					<textarea name="provider_log" style="display:none;">{provider_log}</textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 서브메뉴 바디 : 끝 -->
+
+<!-- 서브 레이아웃 영역 : 끝 -->
+</form>
+
+<div id="sendPopup" class="hide"></div>
+
+{ #layout_footer }

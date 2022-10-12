@@ -1,0 +1,150 @@
+
+				{? carryoverloop }
+					{@ carryoverloop }
+					<tr>
+					{? !_GET.account_hidden_sales }
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}">{? ( .minus_sale == '1' )&& .out_ea>0 }-{/}{.out_ea}<!-- 판매수량 --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} right fwbd {? ( .minus_sale == '1' )}red{/}">{? ( .minus_sale == '1' )&& .out_price>0 }-{/}{=number_format(.out_price)}<!-- 판매금액 --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} right {? ( .minus_sale == '1' )}red{/}"><!-- 할인(본사) -->
+						{? ( .minus_sale == '1' )&& .out_salescost_admin>0 }-{/}{=number_format(.out_salescost_admin)}
+						</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' )}red{/}"><!-- 제휴사(무통장:0/pg) -->
+						{? ( .minus_sale == '1' ) && .out_pg_sale_price>0 }-{/}{=number_format(.out_pg_sale_price)}
+						</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} right {? ( .minus_sale == '1' )}red{/}"><!-- 할인(입점사) -->
+						{? ( .minus_sale == '1' )&& .out_salescost_provider>0 }-{/}{=number_format(.out_salescost_provider)}
+						</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right fwbd {? ( .minus_sale == '1' ) }red{/}">{? ( .minus_sale == '1' ) && (.total_payprice)>0  }-{/}{=number_format(.total_payprice)}<!-- 결제금액(A) --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' ) }red{/}">{? ( .minus_sale == '1' ) && .out_sale_price>0  }-{/}{=number_format(.out_sale_price)}<!-- 실결제액 --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' ) }red{/}">{? ( .minus_sale == '1' ) && .out_cash_use>0 }-{/}{=number_format(.out_cash_use)}<!-- 이머니 --></td>
+					{ / }
+					{? !_GET.account_hidden_cal }
+						{? .out_ac_acc_status == 'no_acc'}
+						<td class=" {? .index_ == 0}cal_top{/} cal_no_acc_bg cal_left">
+						<!-- 정산수량 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 정산대상금액 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 정산대상-결제금액 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 정산대상-본사할인 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 정산대상-제휴사할인 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 공급금액 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 수수료율(%) --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg">
+						<!-- 수수료 -->
+						</td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_no_acc_bg cal_right">
+						<!-- 정산금액(B) -->
+						</td>
+						{: .out_ac_acc_status == 'ing_acc'}
+						<td class=" {? .index_ == 0}cal_top{/} cal_bg cal_left">-
+						<!-- 정산수량 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 정산대상(수수료방식) --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 정산대상(수수료방식)-결제금액 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 정산대상(수수료방식)-본사할인 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 정산대상(수수료방식)-제휴사할인 --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 정산대상(공급가방식) --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 수수료율(%) --></td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg">-
+						<!-- 수수료 -->
+						</td>
+						<td class="right {? .index_ == 0}cal_top{/} cal_bg cal_right">-
+						<!-- 정산금액(B) -->
+						</td>
+						{ : }
+						<td class="center {? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg cal_left">{.out_exp_ea}
+						<!-- 정산수량 --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right fwbd {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg">{? ( .minus_sale == '1' ) && .out_total_ac_price>0  }-{/}{=number_format(.out_total_ac_price)}
+						<!-- 정산대상(수수료방식) --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg">{? ( .minus_sale == '1' ) && .out_pg_default_price>0  }-{/}{=number_format(.out_pg_default_price)}
+						<!-- 정산대상(수수료방식)-결제금액 --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg">
+							<!--{ ? in_array(.commission_type, array('SUCO', 'SUPR')) }-->
+								-
+							<!--{ : }-->
+								{? ( .minus_sale == '1' ) && .out_ac_salescost_admin>0  }-{/}{=number_format(.out_ac_salescost_admin)}
+							<!--{ / }-->
+						<!-- 정산대상(수수료방식)-본사할인 -->
+						</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg">
+							<!--{ ? in_array(.commission_type, array('SUCO', 'SUPR')) }-->
+								-
+							<!--{ : }-->
+								{? ( .minus_sale == '1' ) && .out_ac_pg_price>0  }-{/}{=number_format(.out_ac_pg_price)}
+							<!--{ / }-->
+						<!-- 정산대상(수수료방식)-제휴사할인 -->
+						</td>
+						<td class="
+							{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  
+							right  
+							{? ( .minus_sale == '1' ) }red{/} 
+							{? .index_ == 0}cal_top{/} 
+							cal_bg
+							"
+						>
+							<span 
+								{? in_array(.commission_type, array('SUCO', 'SUPR')) }
+								style="color:blue;"
+								{/}
+							>
+							{? ( .minus_sale == '1' ) && .out_ac_consumer_real_price>0  }-{/}
+							{=number_format(.out_ac_consumer_real_price)}
+							</span>
+							<!-- 정산대상(공급가방식) -->
+						</td>
+						<td class="
+							{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}
+							right 
+							{? ( .minus_sale == '1' ) }red{/}
+							{? .index_ == 0}cal_top{/}
+							cal_bg
+							"
+						>
+							<span 
+								{? in_array(.commission_type, array('SUCO', 'SUPR')) }
+								style="color:blue;"
+								{/}
+							>
+							{? ( .minus_sale == '1' ) && .out_ac_fee_rate != 0 }-{/}
+							{? .out_ac_fee_rate != 0}
+								{=.out_ac_fee_rate}%
+							{:}
+								-
+							{/}
+							</span>
+							<!-- 수수료율(%) -->
+						</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right  {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg" title="({.sales_unit_feeprice}*{.out_ea})+{.sales_unit_minfee}+{.sales_feeprice_rest}">{? ( .minus_sale == '1' ) && (.out_sales_unit_feeprice)>0  }-{/}{=number_format(.out_sales_unit_feeprice)}
+						<!-- 수수료 -->
+						</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}  right fwbd {? ( .minus_sale == '1' ) }red{/} {? .index_ == 0}cal_top{/} cal_bg cal_right">{? .account_type == 'refund' }-{/}{=number_format(.out_commission_price)}
+						<!-- 정산금액(B) -->
+							<!-- (B) : {=number_format(.commission_price)}*{=.out_ea}+{=number_format(.commission_price_rest)}  -->
+							 <!-- p>
+								{=number_format((.out_sales_unit_feeprice)+(.out_commission_price))}
+							</p -->
+							<!---->
+						</td>
+						{ / }
+					{ / }
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} left"  style=" mso-number-format:'@';" title="{.out_pg_ordernum}">{=getstrcut(.out_pg_ordernum,24)}	<!-- <br/>{.order_seq} --></td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/}">{.out_order_referer_viewer}</td>
+						<td class="{? .ac_type == 'cal_sales' } its_tr_carryover_not {/} " title="{.out_payment}">{=getstrcut(.out_payment,7)}</td>
+					</tr>
+					{ / }
+				{ / }
+					
+					<script>
+						$("#carry_page").val('{=carry_page+1}');
+						$("#carry_last_num").val('{=carryover_out_num}');
+					</script>

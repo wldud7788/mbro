@@ -1,0 +1,315 @@
+{ #layout_header_popup }
+
+<script type="text/javascript" src="/app/javascript/jquery/jquery.form.js" charset="utf8"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_pagination/jquery.pager.js" charset="utf8"></script>
+<script type="text/javascript">
+$(function() {
+
+	var search_opitons = {'pageid':'promotion_download','search_mode':'{=sc.search_mode}','select_date':'{=sc.select_date}'};
+
+	$('#display_quantity').bind('change', function() {
+		$("#perpage").val($(this).val());
+		$("#promotionsearch").submit();
+	});
+
+	$('#display_orderby').bind('change', function() {
+		$("#orderby").val($(this).val());
+		$("#promotionsearch").submit();
+	});
+
+	$("#download_search_text").click( function(){
+		if($(this).val() == "아이디, 이름" ){
+			$(this).val('');
+		}
+	});
+
+	$(".userinfo").click(function(){
+		var mseq = $(this).attr("mseq");
+		var href = "/admin/member/detail?member_seq="+mseq;
+		var a = window.open(href, 'mbdetail', '');
+		if ( a ) {
+			a.focus();
+		}
+	});
+
+	$('#promotioncode_checkboxAll').on('click', function() {
+		checkAll2(this, '.checkeds');
+	});
+
+
+	// 삭제
+	$(".downloaddelete_btn").on("click", function() {
+		var delseq = '';
+		$('.checkeds').each(function(e, el) {
+			if( $(el).attr('checked') == 'checked' ){
+				delseq += $(el).val() + ",";
+			}
+		});
+		if(!delseq){
+			alert('삭제할 발급 코드를 선택해주세요.');
+			return false;
+		}
+		openDialogConfirm('회원에게 발급된 할인 코드를<br>운영자의 권한으로 삭제하시겠습니까?',400,175,function(){
+			$.ajax({
+				'url' : '../promotion_process/download_delete',
+				'data' : {'delseqar':delseq},
+				'type' : 'post',
+				'dataType': 'json',
+				'success' : function(res){
+					openDialogAlert(res.msg,400,175,function(){
+						if(res.result == true){ getDownAjaxList(); }
+						$("#promotioncode_checkboxAll").prop("checked",false);
+					});
+				}
+			});
+		},function(){});
+	});
+
+	/**
+	 * 페이징 클릭시 페이지를 로딩한다.
+	 * @param int page 페이지번호
+	 */
+	var pageClick = function(page) {
+		$("#getpage").val(page);
+		getDownAjaxList(page);
+	}	
+
+	/**
+	 * 상품을 ajax로 검색한다.
+	 * @param int page 페이지번호
+	 */
+	var getDownAjaxList = function(page) {
+
+		if(page == 'init'){
+			var pageNumber = 1;
+			var pageType = 'init';
+		} else {
+			var pageNumber = page ? page : 1;
+			var pageType = 'search';
+		}
+		$("#getpage").val(pageNumber);
+		$("input[name='no']").val('{promotion.promotion_seq}');
+
+		var queryString = $('#downloadsearch').formSerialize();
+		var perpage = 10;
+		$.ajax({
+			type: 'post',
+			url: '/admin/promotion/downloadlist',
+			data: queryString + '&perpage=' + perpage + '&pageType=' + pageType,
+			dataType: 'json',
+			success: function(data) {
+				$('#ajaxTable').html(data.content);
+				$('#totalsaleprcie').html(get_currency_price(data.totalsaleprcie,2));
+				$('#searchcount').html(setComma(data.page.searchcount));
+				$('#totalcount').html(setComma(data.page.totalcount));
+				//$('#nowpage').html(setComma(data.nowpage));
+				//$('#total_page').html(setComma(data.total_page));
+				$("#pager").pager({ pagenumber: data.nowpage, pagecount: data.pagecount, buttonClickCallback: pageClick });
+
+			}
+		});
+	}
+
+	gSearchForm.init(search_opitons,getDownAjaxList);
+	getDownAjaxList('init');
+
+});
+
+/**
+ * 체크박스 전체 선택
+ * @param string el 전체 선택 체크박스
+ * @param string targetEl 적용될 체크박스 클래스명
+ */
+function checkAll2(el, targetEl) {
+	if( $(el).attr('rel') == 'yes' ) {
+		var do_check = false;
+		$(el).attr('rel', 'no');
+	} else {
+		var do_check = true;
+		$(el).attr('rel', 'yes');
+	}
+	$(targetEl).each(function(e, el) {
+		if( $(el).attr('disabled') != 'disabled' ){//제외
+			$(el).attr('checked', do_check).change();
+		}
+	});
+}
+
+function orderinfo(order_seq) {
+	var href = "/admin/order/view?no="+order_seq;
+	var a = window.open(href, 'orderdetail'+order_seq, '_blank');
+	if ( a ) {
+		a.focus();
+	}
+}
+
+
+function goodsinfo(goods_seq) {
+	var href = "/admin/goods/regist?no="+goods_seq;
+	var a = window.open(href, 'orderdetail'+goods_seq, '_blank');
+	if ( a ) {
+		a.focus();
+	}
+}
+
+function userinfo(mseq){
+	var href = "/admin/member/detail?member_seq="+mseq;
+	var a = window.open(href, 'mbdetail'+mseq, '');
+	if ( a ) {
+		a.focus();
+	}
+}
+
+
+//체크박스 색상
+$("input[type='checkbox'][name='del[]']").live('change',function(){
+	if($(this).is(':checked')){
+		$(this).closest('tr').addClass('checked-tr-background');
+	}else{
+		$(this).closest('tr').removeClass('checked-tr-background');
+	}
+}).change();
+
+</script>
+<!-- 서브 레이아웃 영역 : 시작 -->
+
+<style>
+	h2.item-title {margin:0 20px 0;}
+	div.search_container {margin-top:0px !important; padding: 0px 20px 0px !important; box-shadow:none;}
+</style>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<h2 class="item-title">할인 코드 발급/사용 내역</h2>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<div id="openDialogLayer" class="hide">
+	<div class="center" id="openDialogLayerMsg"></div>
+</div>
+
+<!-- 리스트검색폼 : 시작 -->
+<div id="search_container" class="search_container v2">
+<form name="downloadsearch" id="downloadsearch" >
+<input type="hidden" name="no" value="{promotion.promotion_seq}"  cannotBeReset=1 >
+<input type="hidden" name="page" id="getpage" value="{sc.page}" >
+<input type="hidden" name="orderby" id="orderby" value="{sc.orderby}" cannotBeReset=1 >
+
+	<table class="table_search">
+		<tr>
+			<th>할인 코드명</th>
+			<td>
+				{promotion.promotion_name}
+			</td>
+		</tr>
+
+		<tr>
+			<th>검색어</th>
+			<td>
+				<select name="search_field" class="resp_select">
+					<option value=''>전체</option>
+					<option value="userid" {? sc.search_field == 'userid'}selected{/}>아이디</option>
+					<option value="user_name" {? sc.search_field == 'user_name'}selected{/}>이름</option>
+				</select>
+				<input type="text" name="search_text" id="download_search_text" value="{=htmlspecialchars(sc.search_text)}" size="80"/>
+			</td>
+		</tr>
+		<tr>
+			<th>발급일</th>
+			<td>
+				<div class="sc_day_date date_range_form">
+					<input type="text" name="sdate" value="{sc.sdate}"  class="datepicker line sdate"  maxlength="10" size="12" default_none/>
+					-
+					<input type="text" name="edate" value="{sc.edate}"  class="datepicker line edate" maxlength="10" size="12" default_none />
+					<div class="resp_btn_wrap">
+						<input type="button" value="오늘" range="today" class="select_date resp_btn" settarget="regist" />
+						<input type="button" value="3일간" range="3day" class="select_date resp_btn" settarget="regist" />
+						<input type="button" value="일주일" range="1week" class="select_date resp_btn" settarget="regist" />
+						<input type="button" value="1개월" range="1month" class="select_date resp_btn" settarget="regist" />
+						<input type="button" value="3개월" range="3month" class="select_date resp_btn" settarget="regist" />
+						<input type="button" value="전체" range="all" class="select_date resp_btn" settarget="regist" row_bunch />
+						<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden">
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>사용 여부</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="use_status" value="all" checked/> 전체</label>
+					<label><input type="radio" name="use_status" value="used" {? sc.use_status == 'used' } checked="checked"{/}/> 사용</label>
+					<label><input type="radio" name="use_status" value="unused" {? sc.use_status == 'unused' } checked="checked"{/}/> 미사용</label>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<div class="search_btn_lay center mt10"></div>
+
+</div>
+</form>
+<!-- 리스트검색폼 : 끝 -->
+
+<div class="contents_container">
+	<div class="list_info_container">
+		<div class="dvs_left">
+			검색 <span id="searchcount" class="bold">{sc.searchcount}</span> 개 (총 <span id="totalcount" class="bold">{sc.totalcount}</span> 개)
+		</div>
+		<div class="dvs_right">
+			<div >총 할인 금액 : <span id="totalsaleprcie" class="">{=get_currency_price(promotion_code_sale,2)}</span></div>
+		</div>
+	</div>
+
+	<div class="table_row_frame">	
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" class="downloaddelete_btn resp_btn v3 ">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+			</div>
+		</div>
+		
+		<table class="table_row_basic">
+		<colgroup>
+			<col width="5%" />
+			<col width="6%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="9%" />
+			<col width="8%" />
+		</colgroup>
+		<thead>
+		<tr>
+			<th><label class="resp_checkbox"><input type="checkbox" name="promotioncode_checkboxAll" value="" id="promotioncode_checkboxAll"/></label></th>
+			<th>번호</th>
+			<th>아이디</th>
+			<th>이름</th>
+			<th>유효기간</th>
+			<th>코드 정보</th>
+			<th>사용 여부</th>
+			<th>사용일</th>
+			<th>구매회원</th>
+			<th>할인 금액</th>
+			<th>발급일</th>			
+			<th>주문번호</th>	
+			<th>구매상품</th>	
+		</tr>
+		</thead>
+		<tbody id="ajaxTable">{=content}</tbody>
+		</table>
+
+
+		<div class="dvs_bottom">	
+			<button type="button" class="downloaddelete_btn resp_btn v3">선택 삭제</button>
+		</div>	
+	</div>
+	<div id="pager" class="paging_navigation">{=page.html}</div>
+</div>
+

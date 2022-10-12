@@ -1,0 +1,153 @@
+<script type="text/javascript" src="/app/javascript/js/admin-connectorSetting.js?dummy={=date('Ymd')}"></script>
+<script>
+	var marketObj		= {marketsObj};
+	var goodsPriceSet	= {goodsPriceSet};
+	var goodsStockSet	= {goodsStockSet};
+
+	//객체동결(변경금지)
+	Object.freeze(marketObj);
+	Object.freeze(goodsPriceSet);
+	Object.freeze(goodsStockSet);
+</script>
+<!--{? mode == 'renew'}-->
+<div class="title_top">계정 설정</div>
+<!--{ / }-->
+
+<form id="accountForm" method="post">
+	<input type="hidden" name="mode" id="mode" value="{mode}"/>
+	<input type="hidden" name="market" id="market" value="{market}"/>
+	<input type="hidden" name="linkageMall" id="linkageMall" value="{linkageMall}"/>
+
+	<div class="contents_container">
+		<div class="title_dvs">
+			<div class="item-title">계정 수정</div>
+			<button type="button" id="accountDeleteBtn" class="resp_btn v3">계정 삭제</button>
+		</div>
+		<table class="table_basic thl">		
+			<!--{? mode == 'renew'}-->
+			<tr>
+				<th>사용 설정</th>
+				<td>
+					<div class="btn-onoff">
+						<!--button type="button" class="btn-off on" id="accountOnOff" value="off">버튼</button-->
+						<button type="button" class="on btn-on" id="accountOnOff" value="off">버튼</button>
+					</div>		
+				</td>
+			</tr>
+			<!--{ / }-->
+			<tr>
+				<th>판매 마켓</th>
+				<td>{accountInfo.marketName} ({marketCode})</td>
+			</tr>
+
+			<tr>
+				<th>아이디</th>
+				<td><input type="text" name="sellerId" id="sellerId" value="{accountInfo.sellerId}"/></td>
+			</tr>
+			
+			<!-- {? marketCode == 'APISHOP_0003' || marketCode == 'APISHOP_0010'} -->			
+			<tr>
+				<th>마스터 아이디</th>
+				<td><input type="text" name="masterId" id="masterId" value="{accountInfo.marketAuthInfo.masterId}"/></td>
+			</tr>
+			<!-- { / } -->
+		</table>
+	
+
+		<div class="item-title">판매 가격 설정</div>
+		<table class="table_basic thl">		
+			<tr>
+				<th>판매 가격</th>
+				<td>
+					<div class="resp_radio">
+					<label><input type="radio" name="goodsPriceSet[adjustment][use]" class="goodsPriceSetAdjustmentUse variableCheck" value="N" checked/> 판매가격 동일</label>
+					<label>
+						<input type="radio" name="goodsPriceSet[adjustment][use]" class="goodsPriceSetAdjustmentUse variableCheck" value="Y"/>
+						판매 가격에
+						<input type="text" name="goodsPriceSet[adjustment][value]" class="priceAdjustmentUse" value="" style="width:50px" />					
+						<select name="goodsPriceSet[adjustment][unit]" class="priceAdjustmentUse">
+							<option value="PER"> % </option>
+							<option value="CUR"> 원 </option>
+						</select>
+						<select name="goodsPriceSet[adjustment][type]" class="priceAdjustmentUse" >
+							<option value="PLUS">+ 조정</option>
+							<option value="MINUS">- 조정</option>
+						</select>					
+					</label>
+				</div>
+				</td>
+			</tr>
+			<tr class="goodsPriceSet_Y hide">
+				<th>금액 절사</th>
+				<td>
+					<label class="resp_checkbox">
+						<input type="checkbox" name="goodsPriceSet[cutting][use]" id="goodsPriceSetCuttingUse" class="priceAdjustmentUse" value="Y" />
+						금액의
+						<select name="goodsPriceSet[cutting][unit]" class="priceCuttingUse" disabled>
+							<option value="10">일원</option>
+							<option value="100">십원</option>
+							<option value="1000">백원</option>
+						</select>
+						단위에서
+						<select name="goodsPriceSet[cutting][type]" class="priceCuttingUse" disabled>
+							<option value="DOWN">버림</option>
+							<option value="UP">올림</option>
+							<option value="ROUND">반올림</option>
+						</select>					
+					</label>
+				</td>
+			</tr>
+		</table>
+		
+		<!-- 재고수량 설정 -->
+		<div class="item-title">재고 설정</div>
+		<table class="table_basic thl">		
+			<tr>
+				<th>재고 수량</th>
+				<td>
+					<div class="resp_radio">
+						<label>
+							<input type="radio" name="goodsStockSet[adjustment][use]" class="goodsStockSetAdjustmentUse variableCheck" value="N" checked/>
+							재고 수량 동일
+						</label>
+						<label>
+							<input type="radio" name="goodsStockSet[adjustment][use]" class="goodsStockSetAdjustmentUse number" value="Y"/>					
+							<input type="text" name="goodsStockSet[adjustment][value]" class="stockAdjustmentUse" value="" style="width:50px" />
+							개
+						</label>
+					</div>
+				</td>
+			</tr>		
+		</table>
+		<!-- //재고수량 설정 -->
+
+				
+		<input type="hidden" name="accountUse" id="accountUseYn" value="{? accountInfo.accountUse == 'N'}N{ : }Y{ / }"/>
+		<!-- //사용 설정 -->
+		<div class="footer">
+			<!--{? mode == 'renew'}-->
+			<button type="button" id="accountSetShoplinkerBtn" class="resp_btn active size_XL">수정</button>
+			<button type="button" onClick="location.href='/admin/market_connector/market_setting?pageMode=AccountSet'" class="resp_btn v3 size_XL">목록</button>			
+			<!--{ : }-->
+			<button type="button" id="accountSetShoplinkerBtn" class="resp_btn active size_XL">등록</button>
+			<button type="button"onClick="location.href='/admin/market_connector/market_setting?pageMode=AccountSet'" class="resp_btn v3 size_XL">목록 </button>
+			<!--{ / }-->
+		</div>
+		<!--{ ? mode == 'renew' }-->
+		<br/>
+		<textarea readonly style="width:99.5%; height:100px;">
+<!--{ @ accountInfo.accountLog }-->
+[{.logTime}]
+{.log}
+===============================================================
+<!--{ / }-->
+		</textarea>
+		<!--{ / }-->
+
+	</div>
+</form>
+
+
+<div id="marketAuthHelper" class="hide">
+	<div class="helperLay" id="helperLayContent"></div>
+</div>

@@ -1,0 +1,145 @@
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/buttons.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/layout.css?v={=date('Ymd')}" />
+
+<script type="text/javascript">
+function autoBuyconfirm(){
+	var win = window.open('','buy_confirm');
+	win.location.href = '/_batch/batch_buy_confirm/';
+}
+</script>
+
+<table border=0>
+<tr>
+	<td>
+	<div style='font-weight:bold;line-height:25px;'>
+		<div style="float:left;">
+		** 출고리스트 {_GET.order_seq}
+		{? cfg_order.buy_confirm_use }
+		: 구매확정 사용
+		<span class="darkorange">({=cfg_order.save_term}일</span> 이내에 구매확정, 자동구매확정시 마일리지
+			<span class="darkorange">{? cfg_order.save_type == "exist"}소멸{ : }적립{ / }</span>)</span>
+		{ : }
+		: 구매확정 미사용<span class="darkorange">(반품신청시 배송완료(마일리지 지급)->반품신청)</span>
+		{ / }
+		</div>
+		<div style="margin-left:15px; display:inline-block;">
+			<div style="float:left;">
+			<form method="get" action="/admin/order/export_reserve_ea">
+			<input type="text" name="order_seq" value="{=_GET.order_seq}" size="20">
+			<span class="btn small black"><button type="submit">조회</button></span>
+			</form>
+			</div>
+
+			<div style="float:left;margin:2px 0 0 3px;">
+			<form method="post" action="/admin/order/export_reserve_ea">
+			<input type="hidden" name="order_seq" value="{=_GET.order_seq}">
+			<input type="hidden" name="mode" value="complete_update">
+			<span class="btn small black"><button type="submit">배송완료일수정</button></span>
+			
+			<span class="btn small blue"><button type="button" onclick="autoBuyconfirm()">자동구매확정</button></span>
+
+			</div>
+
+		</div>
+	</div>
+	<table border=0 class="info_table_style">
+	<tr>
+		<th class="its_th_center" width="90">출고번호<br />출고완료일</th>
+		<th class="its_th_center" width="200">상품정보</th>
+		<th class="its_th_center" width="60">주문상태</th>
+		<th class="its_th_center" style="background-color:#FDD9BF;" width="70">(A) = <br />출고수량</th>
+		<th class="its_th_center bg-lightyellow" width="70">(B)<br />지급수량</th>
+		<th class="its_th_center bg-lightyellow" width="80">+ (C)<br />지급예정수량</th>
+		<th class="its_th_center bg-lightyellow" width="70">+ (D)<br />소멸수량</th>
+		<th class="its_th_center bg-lightyellow" width="90">+ (E)<br />지급예정반품</th>
+		<th class="its_th_center" width="55">지급(예정)<br />마일리지</th>
+		<th class="its_th_center" width="55">지급(예정)<br />포인트</th>
+		<th class="its_th_center" style="background-color:#D3CAF0;" width="50">반품<br />수량</th>
+		<th class="its_th_center" style="background-color:#D3CAF0;" width="65">회수할<br />마일리지</th>
+		<th class="its_th_center" style="background-color:#D3CAF0;" width="65">회수할<br />포인트</th>
+		<th class="its_th_center" style="background-color:#D3CAF0;" width="65">회수<br />마일리지<br />수량</th>
+		<th class="its_th_center" width="85">반품<br />(코드/상태)</th>
+		<th class="its_th_center" width="85">환불<br />(코드/상태)</th>
+	</tr>
+
+	{? loop }
+	{@ loop }
+
+	<tr >
+		{? .rowspan }
+		<td class="its_td_center center row{=k}" style="{? count(loop)-1 > .key_ }border-bottom:0px;{/}{? !.complete_date}border-top:0px;{:}border-top:1px solid #dadada !important;{/}"  {? rows[.export_code]['rows'] > 1}rowspan="{=rows[.export_code]['rows']}"{/}>
+			<strong style="letter-spacing:-1px;">{=.export_code}</strong>
+			<br /><input type="text" name="complete_date[{.export_code}]" value="{.complete_date}" size="10" style="text-align:center;" title="배송완료일">
+		</td>
+		{ / }
+		<td class="its_td_center row{=k}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>
+		<img src="{.image}" width="40" align="absmiddle">
+		<span style="padding-left:3px;">{? .opt_type == "sub"}<span class="blue fx11">[추가옵션]</span>{/}{=.goods_nm}</span></td>
+		<td class="its_td_center center row{=k}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{=.step}
+				{? .buy_confirm != "none"}
+				<span style='line-height:12px;font-size:11px;color:#888;'><br />구매확정<br />({=substr(.confirm_date,5,10)})</span>
+				{ / }</td>
+		<td class="its_td_center center row{=k} fx16 bold" style="background-color:#FFECDF;" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{=.ea}</td>
+		<td class="its_td_center center row{=k} fx16 bold {? .reserve_buyconfirm_ea}bg-lightyellow{/}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{? !.reserve_buyconfirm_ea}<span class="gray">{/}{=.reserve_buyconfirm_ea}</td>
+		<td class="its_td_center center row{=k} fx16 bold {? .reserve_ea}bg-lightyellow{/}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{? !.reserve_ea}<span class="gray">{/}{=.reserve_ea}</td>
+		<td class="its_td_center center row{=k} fx16 bold {? .reserve_destroy_ea}bg-lightyellow{/}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{? !.reserve_destroy_ea}<span class="gray">{/}{=.reserve_destroy_ea}</td>
+		<td class="its_td_center center row{=k} fx16 bold {? .reserve_return_ea}bg-lightyellow{/}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{? !.reserve_return_ea}<span class="gray">{/}{=.reserve_return_ea}</td>
+		<td class="its_td_center center row{=k}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{=number_format(.out_reserve)}</td>
+		<td class="its_td_center center row{=k}" {? count(.return) > 1}rowspan="{=count(.return)}"{/}>{=number_format(.out_point)}</td>
+
+		{? count(.return) > 0}
+			{@ .return }
+			 {? ..key_ > 0} </tr><tr> {/}
+		<td class="its_td_center center row{=k}">{=number_format(..return_ea)}</td>
+		<td class="its_td_center center row{=k}">{=number_format(..give_reserve)}{?..reserve_save}<br /><span class="fx11">[{=..reserve_save}]</span>{/}</td>
+		<td class="its_td_center center row{=k}">{=number_format(..give_point)}{?..reserve_save}<br /><span class="fx11">[{=..reserve_save}]</span>{/}</td>
+		<td class="its_td_center center row{=k}">{=number_format(..give_reserve_ea)}</td>
+		<td class="its_td_center center row{=k}">{=..return_code}<br />{=..return_status}</td>
+		<td class="its_td_center center row{=k}">{=..refund_code}<br />{=..refund_status}</td>
+			{/}
+		{/}
+	</tr>
+	{ / }
+	{ : }
+	<tr >
+		<td class="its_td_center center" colspan="16">조회 내역이 없습니다.</td>
+	</tr>
+	{ / }
+	</table>
+	</form>
+
+	
+	<div style='margin-top:25px;font-weight:bold;line-height:25px;'>
+		** 마일리지 내역 {_GET.order_seq}
+	</div>
+	<table border=0 class="info_table_style" width="100%">
+	<tr>
+		<th class="its_th_center" width="5%">순번</th>
+		<th class="its_th_center" width="15%">지급일시</th>
+		<th class="its_th_center" width="">지급내역</th>
+		<th class="its_th_center" width="15%">지급액</th>
+	</tr>
+	{? emoney_loop }
+	{@ emoney_loop }
+
+	<tr >
+		<td class="its_td_center center">{=.key_}</td>
+		<td class="its_td_center center">{=.regist_date}</td>
+		<td class="its_td_center "><span style="padding-left:6px;">{=.memo}</span></td>
+		<td class="its_td_center right"><span style="padding-right:10px;">{? .gb == "minus"}-{/}{=number_format(.emoney)}</span></td>
+	</tr>
+	{ / }
+	{ : }
+	<tr >
+		<td class="its_td_center center" colspan="4">조회 내역이 없습니다.</td>
+	</tr>
+	{ / }
+	</table>
+
+
+	</td>
+</tr>
+</table>

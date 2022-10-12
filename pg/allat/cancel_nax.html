@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+<script language=JavaScript charset='euc-kr' src="\{=get_connet_protocol()}tx.allatpay.com/common/NonAllatPayREPlus.js"></script>
+<script language=Javascript>
+	// 결과값 반환( common/allat_enc_receive 페이지에서 호출 )
+	function allat_result_submit(enc_data) { 
+		document.allatCancelFm.allat_enc_data.value = enc_data;
+		document.allatCancelFm.action = "{actionUrl}";
+		document.allatCancelFm.method = "post";
+		document.allatCancelFm.target = "_self";
+		document.allatCancelFm.submit();
+	}
+	
+	// 문서의 로드가 완료되면 실행되는 함수
+	function ready(fn) {
+	  if (document.readyState != 'loading'){
+	    fn();
+	  } else {
+	    document.addEventListener('DOMContentLoaded', fn);
+	  }
+	}
+	
+	ready(function() {
+		// 문서의 로드가 완료되면 결제취소 스크립트 실행
+		Allat_Plus_Api(document.allatFm);
+	});
+</script>
+</head>
+
+<body>
+	<!-- 결제취소 FORM 시작 -->
+	<form name="allatCancelFm">
+		<!--{@ cancelData}-->
+			<!--{? is_array(cancelData.value_) === true}-->
+				<!--{@ cancelData.value_}-->
+				<input type="hidden" name="{cancelData.key_}[{..key_}]" value="{..value_}">
+				<!--{/}-->
+			<!--{:}-->
+		<input type="hidden" name="{cancelData.key_}" value="{cancelData.value_}">
+			<!--{/}-->
+		<!--{/}-->
+		<!--주문정보암호화필드-->
+		<input type="hidden" name="allat_enc_data" value="">
+	</form>
+	<!-- 결제취소 FORM 종료 -->
+	
+      <!-- 올앳 ENC FORM 시작 -->
+    <form name="allatFm"> <!--승인요청 및 결과수신페이지 지정 //-->
+		<!--상점 ID-->
+		<input type="hidden" name="allat_shop_id" value="{allatData.allat_shop_id}">
+		<!--주문번호-->
+		<input type="hidden" name="allat_order_no" value="{allatData.allat_order_no}">
+		<!--승인금액-->
+		<input type="hidden" name="allat_amt" value="{allatData.allat_amt}">
+		<!--{? isset(allatData.allat_multi_amt)}-->
+		<!--복합과세-->
+		<input type="hidden" name="allat_multi_amt" value="{allatData.allat_multi_amt}">
+		<!--{/}-->
+		<!--{? isset(allatData.allat_vat_amt)}-->
+		<!--부가세-->
+		<input type="hidden" name="allat_vat_amt" value="{allatData.allat_vat_amt}">
+		<!--{/}-->
+		<!--원거래건의 결제방식 -->
+		<input type="hidden" name="allat_pay_type" value="{allatData.allat_pay_type}">
+		<!--인증정보수신URL-->
+		<input type="hidden" name="shop_receive_url" value="{allatData.shop_receive_url}">
+		<!-- 올앳참조필드-->
+		<input type="hidden" name="allat_opt_pin" value="NOUSE">
+		<!-- 올앳참조필드-->
+		<input type="hidden" name="allat_opt_mod" value="APP">
+    	<!--거래일련번호-->
+		<input type="hidden" name="allat_seq_no" value="{allatData.allat_seq_no}">
+		<!-- 테스트 여부 -->
+		<input type="hidden" name="allat_test_yn" value="N">
+		<!--주문정보암호화필드-->
+		<input type="hidden" name="allat_enc_data" value="">
+    </form>
+    <!-- 올앳 ENC FORM 종료 -->
+    
+    <!-- iframe 영역 시작 -->
+    <div id="ALLAT_PLUS_PAY" style="display:none">
+    	<iframe name="ALLAT_PLUS_FRAME"></iframe>
+    </div>
+    <!-- iframe 영역 종료 -->
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!-- 회원설정 : 개인정보처리방침 -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var chk2 = '{p3p_xml}';
+        var chk3 = '{privacy_html}';
+
+        apply_input_style();
+        addAccordionEvent();
+    });
+
+    function clipBoard(name, id){
+        var clip = new ZeroClipboard.Client();
+        clip.setHandCursor( true );
+        clip.setCSSEffects( true );
+        clip.setText($("input[name='"+name+"']").val());
+        clip.addEventListener( 'complete', function(client, text) {
+            alert("클립보드에 복사되었습니다.");
+        });
+        clip.glue(id);
+    }
+
+    function replace_code_copy(tmp){
+        var code = '\{'+tmp+'\}';
+        clipboard_copy(code);
+        alert('치환코드가 복사되었습니다.\nCtrl+V로 붙여넣기 하세요.');
+    }
+</script>
+
+<!-- 상단 단계 링크 : 끝 -->
+<ul id="subTab" class="tab_02 tabEvent mt20">
+	<li><a href="javascript:void(0);" onclick="formMoveSub('agreement',1);" id="agreement">이용약관</a></li>
+	<li><a href="javascript:void(0);" onclick="formMoveSub('privacy',2);" id="privacy">개인정보처리방침</a></li>
+	<li><a href="javascript:void(0);" onclick="formMoveSub('cancellation',4);" id="cancellation" class="current">청약철회 관련방침</a></li>
+	<li><a href="javascript:void(0);" onclick="formMoveSub('policy',5);" id="policy">개인정보 제공 동의</a></li>
+</ul>
+
+<div class="contents_dvs v2">
+    <div class="item-title">
+        청약철회 관련방침
+        <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/order', '#tip9', 'sizeM')"></span>
+    </div>
+
+    <div class="box_style_03">
+        <textarea rows="10" name="policy_cancellation">{policy_cancellation}</textarea>
+    </div>
+</div>
+
+<div class="box_style_05 mt20">
+    <div class="title">안내</div>
+    <ul class="bullet_hyphen ">
+        <li>약관 및 개인정보처리방침 치환 코드 안내 <span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/member', '#tip35', 480)"></span></li>
+        <li>설정한 약관 항목이 스킨에서 보이지 않는 경우 스킨 패치 여부를 확인해 주세요.</li>
+    </ul>
+</div>

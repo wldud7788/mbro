@@ -1,0 +1,174 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "이벤트 메인" 페이지 @@
+- 파일위치 : [스킨폴더]/promotion/event_list.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="search_nav">
+	<a class="home" href="../main/index">홈</a>
+	<span class="navi_linemap on" designElement="text">EVENT</span>
+</div>
+
+<!-- "이벤트 메인" 상단 배너 -->
+<!--{ ? page_config.banner.banner_seq }-->
+<div id="slideBanner_EventMain" class="page_banner_area1 slider_before_loading">
+{=showDesignBanner(page_config.banner.banner_seq,true)}
+</div>
+<!--{ / }-->
+
+<!-- 검색필터 영역 -->
+<form name="searchForm" id="searchForm" method="get" action="./event">
+	<!-- 탭 -->
+	<div class="tab_basic size1 Mt30 Mb0">
+		<ul>
+			<li {?sc.sc_status=='ing'}class="on"{/}>
+				<label><input type="radio" name="sc_status" value="ing" {?sc.sc_status=='ing'}checked{/} /><span designElement="text">진행중인 이벤트</span></label>
+			</li>
+			<!--{ @ page_config.status.chk }-->
+			<li {?sc.sc_status==.value_}class="on"{/}>
+				<label><input type="radio" name="sc_status" value="{=.value_}" {?sc.sc_status==.value_}checked{/} />{=page_config.status.col[.value_]}</label>
+			</li>
+			<!--{ / }-->
+		</ul>
+	</div>
+
+	<!-- 소팅/검색 -->
+	<div class="bbs_top_wrap2">
+		<ul>
+			<li class="resp_sorting_list">
+				<!--{ @ page_config.search_filter }-->
+					<!--{ ? .value_ != 'event' }-->
+					<label {?sc.sc_filter==.value_}class="active"{/}><input type="radio" name="sc_filter" value="{=.value_}" {?sc.sc_filter==.value_}checked{/} />{=page_config.filter_col[0][.value_]}</label>
+					<!--{ / }-->
+				<!--{ / }-->
+			</li>
+			<!--{ ? array_search('event',page_config.search_filter) }-->
+			<li class="area_search">
+				<input type="text" name="event_name" id="event_name" title="이벤트명" value="{=sc.event_name}"/>
+				<button type="submit" class="btn_resp size_b"><span designElement="text">검색</span></button>
+			</li>
+			<!--{ / }-->
+		</ul>
+	</div>
+</form>
+
+<!-- 이벤트 목록 -->
+<div class="event-list2">
+	<!--{? record}-->
+	<ul class="event_bnr1">
+		<!--{@ record}-->
+		<li>
+			<!--{ ?.gift_seq }-->
+			<a href="../promotion/gift_view?gift={.gift_seq}">
+			<!--{ : .event_seq}-->
+			<a href="../promotion/event_view?event={.event_seq}">
+			<!--{ : .joincheck_seq}-->
+			<a href="../joincheck/joincheck_view?seq={.joincheck_seq}">
+			<!--{ / }-->
+				<div class="event-image-box">
+					<!--{? .event_banner}-->
+						<p class="image_event "><img class="event_list_banner" src="/data/event/{.event_banner}" alt="" /></p>
+						<!--{ : .joincheck_banner}-->
+						<p class="image_event "><img class="event_list_banner" src="/data/joincheck/{.joincheck_banner}" alt="" /></p>
+					<!--{ : }-->
+						<!--{? .joincheck_seq}-->
+						<p class="no_image_event"><img src="../images/design/no_images_stamp.png" alt="출석체크 이벤트" /></p>
+						<!--{ : .gift_seq }-->
+						<p class="no_image_event"><img src="../images/design/no_images_gift.png" alt="사은품 이벤트" /></p>
+						<!--{ : .event_seq}-->
+						<p class="no_image_event"><img src="../images/design/no_images_promotion.png" alt="할인/기획전 이벤트" /></p>
+						<!--{ : }-->
+						<img class="none" src="../images/design/noimg_thumb.gif" alt="이미지 준비중입니다" />
+						<!--{ / }-->
+					<!--{ / }-->
+					<!--{? .status == 'close'}--><img class="close-icon" src="/data/icon/event/event_icon01.png" alt="마감임박" /><!--{ / }-->
+					<!--{? .status == 'end'}--><img class="end-icon" src="/data/icon/event/event_icon02.png" alt="종료" /><!--{ / }-->
+				</div>
+				<div class="infobox">
+					<!--{? .event_introduce_color}-->
+					<div class="intorduce" style="color:{.event_introduce_color}">
+					<!--{: .joincheck_introduce_color}-->
+					<div class="intorduce" style="color:{.joincheck_introduce_color}">
+					<!--{ : }-->
+					<div class="intorduce">
+					<!--{ / }-->
+						  {? .event_introduce}{.event_introduce}{: .joincheck_introduce}{.joincheck_introduce}{:}{.title}{/}
+					</div>
+					<div class="period">{.period}</div>
+					<!--{? .event_type == 'solo' }-->
+						<div class="until">남은시간 : <input type="hidden" name="timestamp[]" value="{.timestamp}"><span class="until-day countdown">{.d_day}</span></div>
+					<!--{ / }-->
+					<!--{? .status == 'end'}-->
+						<div class="until"><img src="/data/icon/event/event_end.gif"/></div>
+					<!--{ / }-->
+				</div>
+			</a>
+		</li>
+		<!--{ / }-->
+	</ul>
+	<!--{ : }-->
+	<div class="no_data_area2">이벤트가 없습니다.</div>
+	<!--{ / }-->
+</div>
+
+<!-- 페이징 -->
+<div class="paging_navigation">
+	{pagin}
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input[name='sc_filter'], input[name='sc_status']").on('change',function(){
+		$("#event_name").val('');
+		$("#searchForm").submit();
+	});
+
+	$('.countdown').each(function(key){
+		var setTime	= $(this).prev().val();
+		count_down(this, setTime);
+	});
+
+	// "이벤트 메인" 상단 슬라이드배너 옵션 설정
+	$('#slideBanner_EventMain .custom_slider>div').slick('unslick');
+	$('#slideBanner_EventMain .custom_slider>div').slick({
+		dots: true, // 도트 페이징 사용( true 혹은 false )
+		autoplay: true, // 슬라이드 자동( true 혹은 false )
+		speed: 1000, // 슬라이딩 모션 속도 ms( 밀리세컨드, ex. 600 == 0.6초 )
+		fade: true, // 페이드 모션 사용( 이 부분은 수정하지 마세요 )
+		autoplaySpeed: 5000 // autoplay 사용시 슬라이드간 시간 ms( 밀리세컨드, ex. 5000 == 5초 )
+	});
+});
+
+function count_down(target, setTime){
+	var pad	= "00";
+
+	var key = setInterval(function(){
+		setTime--;
+		if(setTime <= 0){
+			$(target).text("00일 00:00:00");
+			clearInterval(key);
+		}else{
+			day		= Math.floor(setTime / 86400);
+			day_c	= (setTime - day * 86400) % 86400;
+			day_t	= pad.substring(0, pad.length - day.toString().length) + day.toString();
+
+			hour	= Math.floor(day_c / 3600);
+			hour_c	= (day_c - hour * 3600) % 3600;
+			hour_t	= pad.substring(0, pad.length - hour.toString().length) + hour.toString();
+
+			minit	= Math.floor(hour_c / 60);
+			minit_t	= pad.substring(0, pad.length - minit.toString().length) + minit.toString();
+
+			sec		= hour_c % 60;
+			sec_t	= pad.substring(0, pad.length - sec.toString().length) + sec.toString();
+
+			$(target).text(day_t + "일 " + hour_t + ":"+ minit_t + ":" + sec_t);
+		}
+
+	}, 1000);
+}
+</script>

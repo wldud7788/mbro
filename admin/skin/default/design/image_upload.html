@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>이미지 첨부</title>
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/jquploadify/uploadify.css" />
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/editor/css/popup.css" />
+<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery.activity-indicator-1.0.0.min.js"></script>
+<script type="text/javascript" src="/app/javascript/js/common.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/jquery/jquery.ajax.form.js"></script>
+<script type="text/javascript" src="/app/javascript/js/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+	//<![CDATA[
+	//한글도메인체크@2013-03-12
+	var fdomain = document.domain;
+	var krdomain = location.protocol+'{config_system.subDomain}';
+	var kordomainck = false;
+	for(i=0; i<fdomain.length; i++){
+	 if (((fdomain.charCodeAt(i) > 0x3130 && fdomain.charCodeAt(i) < 0x318F) || (fdomain.charCodeAt(i) >= 0xAC00 && fdomain.charCodeAt(i) <= 0xD7A3)))
+	{
+		kordomainck = true;
+		break;
+	}
+	}
+	if( !kordomainck ){
+	krdomain = '';
+	}
+	//]]>
+</script>
+<script type="text/javascript">
+	var _mockdata;
+
+	$(function(){
+		var goodsImageTableObj = $('#goodsImageTable',window.opener.document);
+		
+		/* 파일업로드버튼 ajax upload 적용 */
+		var opt			= {};
+		var callback	= function(res){
+			var that		= this;
+			var result		= eval(res);
+			var mockdata	= {'division':'{_GET.division}','selector':'{_GET.selector}','idx':'{_GET.idx}', 'tmpFile' : '', 'status' : '', 'width' : '', 'height' : ''};
+
+			if(result.status) {				
+				$('.uploadifyQueue').find('.fileName').text(result.fileInfo.client_name);
+				$('.uploadifyQueue').show();
+
+				mockdata.tmpFile	= 'data/tmp/' + result.fileInfo.file_name;
+				mockdata.width		= result.fileInfo.image_width;
+				mockdata.height		= result.fileInfo.image_height;
+				mockdata.status		= '1';
+
+				_mockdata = mockdata;
+			}else{
+				alert(result.msg);
+			}
+		};
+
+		// ajax 이미지 업로드 이벤트 바인딩
+		$('#uploader').createAjaxFileUpload(opt, callback);
+
+		$(".submit").click(function(){
+			if(!_mockdata) {
+				alert('첨부가능한 이미지가 없습니다.');
+				return false;
+			}
+			if(_mockdata) window.opener.default_img(_mockdata);
+			window.self.close();
+		});
+	});
+</script>
+<style>
+/* ajax 로딩중 레이어 */
+#ajaxLoadingLayer {position:fixed; left:0px; top:0px; z-index:50000; width:100%; height:100%; background-color:#333;}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="header">
+		<h1>사진 첨부</h1>
+	</div>
+	<div class="body">
+		<dl class="alert">
+		    <dt>사진 첨부 확인</dt>
+		    <dd>
+				<div><input type="file" id="uploader" /></div>
+				<div id="uploaderQueue" class="uploadifyQueue" style="display: none;">
+					<div class="uploadifyQueueItem completed">
+						<span class="fileName"></span><span class="percentage"> - 첨부 가능</span>															
+					</div>
+				</div>
+			</dd>
+		</dl>
+	</div>
+	<div class="footer">
+		<p style="cursor:pointer"><a onclick="window.self.close();" title="닫기" class="close">닫기</a></p>
+		<ul>
+			<li class="submit" style="cursor:pointer"><a title="등록" class="btnlink">등록</a> </li>
+			<li class="cancel" style="cursor:pointer"><a onclick="window.self.close();" title="취소" class="btnlink">취소</a></li>
+		</ul>
+	</div>
+</div>
+<div id="ajaxLoadingLayer" style="display: none"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<form name="optPopFrm" method="post" action="../goods_process/{submitFunc}" target="actionFrame">
+<input type="hidden" name="goods_seq" value="{goods_seq}" />
+<input type="hidden" name="tmp_seq" value="{tmp_seq}" />
+<input type="hidden" name="popup_id" value="{popup_id}" />
+<table class="table_row_basic" style="width:100%">
+<colgroup>
+	<col width="5%" />
+	<col />
+	<col width="15%"/>
+	<col width="10%"/>
+	<col width="15%" />
+	<col width="15%"/>
+	<col width="15%"/>
+</colgroup>
+<thead>
+<tr>
+	<th class="center"></th>
+	<th class="center">
+		옵션 정보
+	</th>
+	<th class="center">
+		옵션명
+	</th>
+	<!--{ ? service_code != 'P_ADVL'}-->
+	<th class="center">
+		특수 정보
+	</th>	
+	<!--{/}-->
+	<th class="center">
+		옵션 값
+	</th>
+	<th class="center">
+		가격
+	</th>
+	<th class="center">
+		코드
+	</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td class="center pmbtn">
+		<button type="button" class="btn_plus" onclick="addOptionRow(this);"></button>
+	</td>
+	<td class="center">
+		<select name="option_type[]" class="line simple wx130" onchange="select_option_type(this);">
+		<!--{ @ goodsoptionloop }-->
+			<!--{ ? .label_newtype == 'color' || !.label_newtype || .label_newtype == 'none' //실물상품 }-->
+			<option value="goodsoption_{.codeform_seq}" label_type="{.label_type}" label_title="{.label_title}"  label_newtype="{.label_newtype}">{? .label_newtype && .label_newtype != 'none' }[특수]{/}{.label_title}</option>
+			<!--{ / }-->
+		<!--{ / }-->
+			<option value="direct" selected>직접입력</option>
+		</select>
+	</td>
+	<td class="center">
+		<input type="text" name="option_title[]" size="10" value="" title="예) 사이즈" class="wx130"/>
+	</td>
+	<td class="center">
+		<span class="option-type-direct-lay">
+			<select name="option_new_type[]" class="line simple" onchange="chg_option_type(this);">
+				<option value="none" >특수 정보</option>
+				<option value="color" >색상</option>
+			</select>
+		</span>
+		<span class="option-type-codeform-lay btn-lay hide">
+			<button type="button" onclick="select_load_option(this);" class="resp_btn v2">선택</button>
+		</span>
+	</td>
+	<td class="left">
+		<span class="option-type-direct-lay">
+			<input type="text" name="option_value[]" class="line" size="25" value="" title="예) 90, 95, 100" onblur="option_blur_event(this);" />
+			<input type="hidden" name="option_color[]" />
+		</span>
+		<span class="option-type-codeform-lay text-lay hide"></span>
+		<div class="option-color-box-lay hide"></div>
+	</td>
+	<td class="left">
+		<input type="text" name="option_price[]" class="line" size="25" value="" title="예) 0,0,0" />
+	</td>
+	<td class="left">
+		<span class="option-type-direct-lay">
+			<input type="text" name="option_code[]" class="line" size="25" value="" title="예) A090,A095,A100" />
+		</span>
+		<span class="option-type-codeform-lay text-lay hide"></span>
+	</td>
+</tr>
+</tbody>
+</table>
+</form>
+
+<ul class="bullet_hyphen resp_message">
+	<li>특수 정보 안내 <a class="link_blue_01" href="https://www.firstmall.kr/customer/faq/1304" target="_blank">자세히 보기 ></a></li>
+</ul>
+
+<div style="margin-top:20px;width:100%;text-align:center;">
+	<button type="button" class="resp_btn active size_XL" onclick="create_option_submit();">확인</button>
+	<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('create_option_popup')">취소</button>
+</div>
+
+<!--{ @ goodsoptionloop }-->
+	<!--{ ? .label_newtype == 'color' || !.label_newtype || .label_newtype == 'none' //실물상품 }-->
+	<div id="goodsoption_{.codeform_seq}" class="goodsoption_wrap hide">
+		<input type="hidden" class="row-idx" value="test" />
+		<div calss="content">
+			<table class="table_basic">
+			<colgroup>
+				<col width="20%" />
+				<col width="40%" />
+				<col width="40%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th><label class="resp_checkbox"><input type="checkbox" id="chkall" name="chkall" value="y"></label></th>
+					<th>{.label_title}</th>
+					<th>코드값</th>
+				</tr>
+			</thead>
+			</thead>
+			<tbody>
+			<!--{ @ .code_arr }-->
+			<tr>
+				<td class="center">
+					<label class="resp_checkbox"><input type="checkbox" class="chk null chk-code labelCheckbox_{.codeform_seq}"  value="{..value}" code="{..code}" color="{..colors}" newType="{.label_newtype}" { ? ..default == 'Y' }checked{ / }></label>
+				</td>
+				<td class="center">{..value}
+					<!-- {? .label_newtype } -->
+						<!-- {? .label_newtype == 'color' } -->
+							→<div class="colorPickerBtn colorhelpicon" style="background-color:{..colors}" ></div>
+						<!-- { / } -->
+					<!-- { / } -->
+					</td>
+				<td class="center">{..code}</td>
+			</tr>
+			<!--{ / }-->
+			</tbody>
+			</table>
+		</div>
+	
+		<div class="footer">
+			<button type="button" class="resp_btn active size_XL" onclick="apply_load_optionform(this);">선택</button>
+			<button type="button" class="resp_btn v3 size_XL" onclick="closeDialog('goodsoption_{.codeform_seq}')">취소</button>
+		</div>
+	</div>
+		<!--{ / }-->
+	<!--{ / }-->

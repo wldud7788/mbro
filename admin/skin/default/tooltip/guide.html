@@ -1,0 +1,129 @@
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/style.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/common-ui.css?v={=date('Ymd')}" />
+<link rel="stylesheet" type="text/css" href="/app/javascript/plugin/editor/css/editor.css" />
+
+<!--- 타이틀 ----->
+<div class="item-title">SNS 연동 공통 정보</div>
+
+<!---- 툴팁 ------>
+<!------ 기본:400, sizeM:600, sizeR:800 ---------->
+<span class="tooltip_btn" onClick="showTooltip(this, '/admin/skin/default/tooltip/snsconf.html', '#tip1', 'sizeM')"></span>
+
+<!---- 필수 ------>
+<span class="required_chk"></span>
+
+<!---table 1----->
+<table class="table_basic v2 w150">			
+	<tr>
+		<th>PC / Mobile</th>
+		<td>
+			
+		</td>
+	</tr>
+</table>
+
+<!---layout 1----->
+<div id="tip3" class="tip_wrap">
+	<h3>검색엔진 수집 정보-페이지 별</h3>	
+	<ul class="bullet_hyphen exp">
+		<li>검색엔진이 사이트의 페이지 정보를 수집하도록 할 수 있습니다.</li>	
+	</ul>	
+
+	<ul class="bullet_circle_in list_01">
+		<li>
+			작성 방법 안내
+			<ul class="bullet_hyphen">
+				<li>검색엔진의 사이트맵 정보수집 파일이 sitemap.xml 입니다.</li>	
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="popup_wrap">
+	<div class="contents_wrap">
+		<dl>
+			<dt class="mb5">메타태그 설명(Description) 및 SNS용 쇼핑몰간략설명</dt>
+			<dd>
+				<textarea name="metaTagDescription" id="metaTagDescription" width="100%" rows="4" class="line wp95" title="검색엔진에서 수집할 사이트의 설명을 입력하세요" >{=metaTagDescription}</textarea>
+			</dd>
+		</dl>
+
+		<dl class="mt20">
+			<dt class="mb5">메타태그 설명(metaTagkeyword) 및 SNS용 쇼핑몰키워드</dt>
+			<dd>
+				<textarea name="metaTagKeyword" id="metaTagKeyword" width="100%" rows="4" class="line wp95" title="검색엔진에서 수집할 사이트의 키워드(콤마구분)을 입력하세요.{=chr(10)}예) 여성의류, 캐주얼 패션, 청소년 의류">{=metaTagKeyword}</textarea>
+			</dd>
+		</dl>
+	</div>
+	
+	<div class="btn_wrap">
+	<button class="btn_resp b_gray" type="button" id="btnmetatag">등록하기</button></span>
+	</div>
+</div>
+
+<!---------------- 베이직 탭 ---------------------------------------------------------------------------->
+<ul class="tab_01 Tab">
+	<li><a href="javascript:void(0);" data-showcontent="tabCon1" class="current">메뉴1</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="tabCon2">메뉴2</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="tabCon3">메뉴3</a></li>
+	<li><a href="javascript:void(0);" data-showcontent="tabCon4">메뉴4</a></li>
+</ul>
+
+<div id="tabCon1" class="tabContent"></div>	
+<div id="tabCon2" class="tabContent"></div>	
+<div id="tabCon3" class="tabContent"></div>	
+<div id="tabCon4" class="tabContent"></div>
+
+
+<label class="mr10"><input class="check_allow" type="radio" name="location_allow" value="allow" {? location_allow == "allow"}checked="checked"{ / }>사용 함</label>
+<label><input class="check_allow" type="radio"  name="location_allow" value="disallow" {? location_allow == "disallow"}checked="checked"{ / }>사용 안 함</label>
+
+<!------------------- 팝업 ------------------------------------------------------------------------------->
+<div class="header">	
+</div>
+	
+<div class="content">	
+</div>
+
+<div class="footer">
+	<button class="btn_resp b_gray size_a" type="button" {? isdemo.isdemo }  {isdemo.isdemojs1} {:} id="instagrambtn" {/} >저장</button>
+</div>	
+
+
+<!------------------- 테이블 drag&drop ------------------------------------------------------------------------------->
+
+<script type="text/javascript" src="/app/javascript/jquery/jquery.tablednd.js"></script>
+
+<script>
+$(".tablednd").tableDnD({onDragClass: "dragRow"});
+</script>
+
+<table class="tablednd">	
+	<tr class="nodrag nodrop">
+		<th>순서</th>
+		<th>선택</th>								
+	</tr>
+
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+
+
+<!------------------- 안내 ------------------------------------------------------------------------------->
+
+<div class="box_style mt20">
+				<div class="title">기능 안내</div>
+				<ul class="bullet_circle gray">
+					<li>
+						결제 통화 및 결제 수단은 PG사에 따라 달라질 수 있습니다.
+						<span class="tooltip_btn" onClick="showTooltip(this, '/admin/skin/default/tooltip/pg.html', '#tip1', 'sizeR')"></span>
+					</li>
+					<li>전자결제 연동을 위해서는 반드시 퍼스트몰에서 신청 및 계약해야 합니다. PG사에 직접 신청한 경우 퍼스트몰과 연동 되지 않습니다.</li>
+					<li>퍼스트몰에서 제공 하는 곳 이외의 PG사와의 연동은 불가합니다.</li>	
+				</ul>
+			</div>
+
+<!------------------- 필수 ------------------------------------------------------------------------------->
+<span class="required_chk"></span>

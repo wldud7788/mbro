@@ -1,0 +1,106 @@
+<!-- 필수옵션 : 시작 -->
+	<div id="optionLayer" class="mt15">
+		<table class="table_basic v7">
+		<colgroup>
+			<col width="20%"></col>
+			<col width="8%"></col>
+			<col width="8%"></col>
+			<col width="8%"></col>
+			<col width="8%"></col>
+			<col width="8%"></col>
+			<col width="10%"></col>
+			<col></col>
+			<col></col>
+			<col width="8%"></col>
+		</colgroup>
+		<!-- 싱글옵션 -->
+		<thead>
+		<tr>
+			<th>
+				상품코드
+				<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_option_code', 'sizeS')"></span>
+			</th>
+			<th>무게(kg)</th>
+			<th>재고</th>
+			<th>불량</th>
+			<th>가용</th>
+			<th>안전 재고</th>
+			<th class='admin'>매입가(평균)</th>
+			<th>정가</th>
+			<th>판매가</th>
+			<th>부가세</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr class="optionTr">
+			<td class="center">
+				<input type="hidden" name="optionSeq[]" value="{options[0].option_seq}" />
+				<button type="button" id="goodsCodeBtn" class="resp_btn v2" title="기본코드자동생성" >코드생성</button>
+				<input type="text"  name="goodsCode"  size="15" id="goodsCode" value="{goods.goods_code}" />
+			</td>
+			<td class="center">
+				<input class="right onlyfloat input-box-default-text" name="weight[]" value="{ ? options[0].weight}{options[0].weight}{:}0{/}" size="4" type="text">
+			</td>
+
+			<!--{ ? scm_cfg['use'] == 'Y' && goods.goods_seq > 0 && options[0].option_seq }-->
+			<td class="center admin" onclick="goods_option_btn('{goods.goods_seq}',this,{ ? scm_cfg['use'] == 'Y'}'{goods.provider_seq}'{ : }'2'{ / })">
+				<span class="option-stock" optType="option" optSeq="{options[0].option_seq}">{=number_format(options[0].stock)}</span>
+				<input type="hidden" name="stock[]" value="{options[0].stock}" />
+			</td>
+			<!--{ : }-->
+			<td class="center">
+				<!--{? scm_cfg['use'] == 'Y'}-->
+					<label class='admin'>{=number_format(options[0].stock)}</label>
+					<label class='provider hide'><input type="text" name="stock[]" value="{options[0].stock}" size="5" class="right onlynumber" /></label>
+				<!--{ : }-->
+					<input type="text" name="stock[]" value="{options[0].stock}" size="5" class="right onlynumber" />
+				<!--{ / }-->
+			</td>
+			<!--{ / }-->
+
+			<!--{ ? scm_cfg['use'] == 'Y' }-->
+			<td class="center">
+				<label class='admin'>{=number_format(options[0].badstock)}</label>
+				<label class='provider hide'><input type="text" name="badstock[]" value="{options[0].badstock}" size="5" class="right onlynumber" /></label>
+			</td>
+			<!--{ : }-->
+			<td class="center">
+				<input type="text" name="badstock[]" value="{options[0].badstock}" size="5" class="right onlynumber" />
+			</td>
+			<!--{ / }-->
+			<td class="center">
+				<!--{ ? cfg_order.ableStockStep == 15 }-->
+				<span class="optionUsableStock">{=number_format(options[0].stock - options[0].badstock - options[0].reservation15)}</span>
+				<input type="hidden" name="unUsableStock[]" value="{=(options[0].badstock + options[0].reservation15)}" />
+				<!--{ / }-->
+				<!--{ ? cfg_order.ableStockStep == 25 }-->
+				<span class="optionUsableStock">{=number_format(options[0].stock - options[0].badstock - options[0].reservation25)}</span>
+				<input type="hidden" name="unUsableStock[]" value="{=(options[0].badstock + options[0].reservation25)}" />
+				<!--{ / }-->
+				<input type="hidden" name="reservation15[]" value="" />
+				<input type="hidden" name="reservation25[]" value="" />
+			</td>
+			<td class="center">
+				<input type="text" name="safe_stock[]" value="{options[0].safe_stock}" size="5" class="right onlynumber" />
+			</td>
+			<td class="center admin">
+				<!--{ ? scm_cfg['use'] == 'Y' }-->
+				{=get_currency_price(options[0].supply_price)}
+				<input type="hidden" name="supplyPrice[]" value="{options[0].supply_price}" />
+				<!--{ : }-->
+				<input type="text" name="supplyPrice[]" value="{=get_currency_price(options[0].supply_price,1)}" size="10" class="onlyfloat right onlynumber" />
+				<!--{ / }-->
+			</td>
+			<td class="center">
+				<input type="hidden" name="reserveRate[]" class="right onlyfloat" size="3" value="{ options[0].reserve_rate}" />
+				<input type="hidden" name="reserve[]" class="right onlyfloat" value="{options[0].reserve}" size="5" readonly />
+				<input type="text" name="consumerPrice[]" value="{=get_currency_price(options[0].consumer_price,1)}" size="20" class="onlyfloat right onlynumber"/>
+			</td>
+			<td class="center">
+				<input type="text" name="price[]" value="{=get_currency_price(options[0].price,1)}" size="20" class="onlyfloat right readonly-color onlynumber" readonly />	
+			</td>
+			<td class="right tax">0</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>

@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PayPal Express Checkout 範例程式</title>
+</head>
+	<style type="text/css">
+	<!--
+	.txt12 {
+		font-size: 12px;
+		line-height: 20px;
+		color: #333;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	-->
+	</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41328901-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<body>
+<center>
+<form action="ReviewOrder.php" method="POST">
+<input type="text" name="order_seq"  value="11111111111">
+	<div style="width:600px;">
+		<table width="100%" cellpadding="2">
+		  <tr>
+			<td width="22%" align="left"><img border="0" src="https://www.paypal.com/en_US/i/logo/paypal_logo.gif" alt="PayPal"></td>
+			<td align="right" style="color:#036">&nbsp;</td>
+			</tr>
+		  <tr>
+			<td colspan="2" align="left"><p style="color:#036"><strong>Express Checkout (Sandbox)</strong></p></td>
+			</tr>
+		</table>
+		
+	</div>
+
+
+
+
+	<div style="width:600px">
+		<fieldset>
+		<legend style="margin-top:10px; color:#036">Order Summary  </legend>
+		<table width="80%" class="txt12">
+		<tr>
+		<td>Item1</td>
+		<td><input type="text" size="20" maxlength="32" name="L_NAME[]" value="상품명" /></td>
+		<td>Unit</td>
+		<td><input type="text" name="L_AMT[]" size="5" maxlength="7" value="1" /></td>
+		<td>Qty</td>
+		<td><input type="text" size="3" maxlength="3" name="L_QTY[]" value="1" /> </td>
+		</tr>
+		<tr>
+		<td>Item2 </td>
+		<td><input type="text" size="20" maxlength="32" name="L_NAME[]" value="Hand Woven Picnic basket" /> </td>
+		<td>Unit</td>
+		<td><input type="text" name="L_AMT[]" size="5" maxlength="7" value="0"  /> </td>
+		<td>Qty</td>
+		<td><input type="text" size="3" maxlength="3" name="L_QTY[]" value="0"  /> </td>
+		</tr>
+		<tr>
+		<td ><p>Currency</p></td>
+		<td colspan="5">
+			<select name="currencyCodeType">
+            <option value="USD" >USD</option>
+            <option value="SGD" >SGD</option>
+            <option value="TWD" >TWD</option>
+            
+
+		  
+		</select></td>
+		</tr>
+			</table>
+		<p>&nbsp;</p>
+	  </fieldset>
+		<p align="right">
+		  <input type="image" name="submit" src="SunriseBtn_EN.png" />
+		</p>
+	</div>
+</form>
+    </center>
+</body>
+</html>

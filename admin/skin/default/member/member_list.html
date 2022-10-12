@@ -1,0 +1,313 @@
+<div class="list_info_container">
+	<div class="dvs_left">	
+		검색 <b>{=number_format(sc.searchcount)}</b>개 (총 <b>{=number_format(sc.totalcount)}</b>개)
+	</div>
+	<div class="dvs_right">	
+		{? pageType != "search"}
+		<select id="orderby_disp" name="orderby_disp">
+			<option value="A.regist_date desc" {?sc.orderby_disp=='A.regist_date desc'}selected{/}>최근 가입 순</option>
+			<option value="A.emoney desc" {?sc.orderby_disp=='A.emoney desc'}selected{/}>마일리지 많은 순</option>
+			<option value="A.emoney asc" {?sc.orderby_disp=='A.emoney asc'}selected{/}>마일리지 적은 순</option>
+			<option value="member_order_price desc" {?sc.orderby_disp=='member_order_price desc'}selected{/}>구매금액 많은 순</option>
+			<option value="member_order_price asc" {?sc.orderby_disp=='member_order_price asc'}selected{/}>구매금액 적은 순</option>
+			<option value="member_order_cnt desc" {?sc.orderby_disp=='member_order_cnt desc'}selected{/}>주문수 많은 순</option>
+			<option value="member_order_cnt asc" {?sc.orderby_disp=='member_order_cnt asc'}selected{/}>주문수 적은 순</option>
+			<option value="A.review_cnt desc" {?sc.orderby_disp=='A.review_cnt desc'}selected{/}>상품후기 많은 순</option>
+			<option value="A.review_cnt asc" {?sc.orderby_disp=='A.review_cnt asc'}selected{/}>상품후기 적은 순</option>
+			<option value="A.login_cnt desc" {?sc.orderby_disp=='A.login_cnt desc'}selected{/}>방문수 많은 순</option>
+			<option value="A.login_cnt asc" {?sc.orderby_disp=='A.login_cnt asc'}selected{/}>방문수 적은 순</option>
+			<option value="member_recommend_cnt desc" {?sc.orderby_disp=='member_recommend_cnt desc'}selected{/}>추천수 많은 순</option>	
+			<option value="member_recommend_cnt asc" {?sc.orderby_disp=='member_recommend_cnt asc'}selected{/}>추천수 적은 순</option>			
+		</select>
+		{/}
+		<select  name="perpage" id="display_quantity">
+			<option id="dp_qty10" value="10" {? sc.perpage == 10 } selected{/} >10개씩</option>
+			<option id="dp_qty50" value="50" {? sc.perpage == 50 } selected{/} >50개씩</option>
+			<option id="dp_qty100" value="100" {? sc.perpage == 100 } selected{/} >100개씩</option>
+			<option id="dp_qty200" value="200" {? sc.perpage == 200 } selected{/} >200개씩</option>
+		</select>
+	</div>
+</div>
+	
+<div class="table_row_frame">	
+	{? pageType != "search"}
+	<div class="dvs_top">	
+		<!--div class="dvs_left">
+			<button type="button" class="resp_btn v3 withdrawalBtn">회원 탈퇴</button>
+		</div-->
+		<div class="dvs_right">	
+			<button type="button" class="resp_btn v2 batchForm" mode="email">이메일 발송</button>
+			<button type="button" class="resp_btn v2 batchForm" mode="sms" >SMS 발송</button>
+			<button type="button" class="resp_btn v2 batchForm" mode="emoney">마일리지 지급</button>
+			<!--{ ? serviceLimit('H_FR') }-->
+			<span class="{=serviceLimit('C1')}"><button type="button" onclick="{=serviceLimit('A1')}" class="resp_btn v2">포인트 지급</button></span>
+			<!--{ : }-->
+			<button type="button" class="resp_btn v2 {=point_use_button}" mode="point">포인트 지급</button>
+			<!--{ / }-->
+			<button type="button" class="resp_btn v2 gradeForm">승인/등급 일괄 변경</button>
+			<button type="button" name="excel_down" class="resp_btn v3"><img src="../images/common/btn_img_ex.gif" /><span>다운로드</span></button>
+		</div>
+	</div>
+	{/}
+
+	<!-- 주문리스트 테이블 : 시작 -->
+	<table class="table_row_basic tdc">
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>		
+		
+			{? pageType == "search"}
+			<col width="7%" /><!-- checkbox -->
+			<col width="7%" /><!-- 번호 -->
+			<col width="12%" /><!-- 아이디 -->
+			<col width="12%" /><!-- 이름 -->
+			<col /><!-- 이메일/핸드폰 -->			
+			<col width="10%"/><!-- 승인 -->
+			<col width="10%"/><!-- 등급 -->
+			<col width="10%" /><!-- 유형 -->	
+			{:}
+			<col width="5%" /><!-- 번호 -->
+			<col width="15%" /><!-- 아이디 -->
+			<col width="10%" /><!-- 이름 -->
+			<col /><!-- 이메일/핸드폰 -->			
+			<col width="6%"/><!-- 승인 -->
+			<col width="6%"/><!-- 등급 -->
+			<col width="6%" /><!-- 유형 -->
+			<col width="7%" /><!-- 마일리지 -->
+			<col width="7%"/><!-- 포인트 -->
+			<col width="7%" /><!-- 예치금 -->
+			<col width="10%"/><!-- 가입일/최종방문 -->	
+			<col width="5%" /><!-- 관리 -->
+			{/}
+		</colgroup>
+		<thead class="lth">
+		<tr>
+			{? pageType == "search"}
+			<th><label class="resp_checkbox"><input type="checkbox" defaultValue="false" onclick="chkAll(this,'member_chk'); allMemberClick();" class="all_member_chk"/></label></th>
+			{:}
+			<th class="hide"><label class="resp_checkbox"><input type="checkbox" defaultValue="false" onclick="chkAll(this,'member_chk');"/></label></th>
+			{/}
+			<th {? pageType != "search"}class="bdl0"{/}>번호</th>				
+			<th>아이디</th>
+			<th>이름(닉네임)</th>
+			<th>이메일</br>핸드폰</th>			
+			<th>승인</th>
+			<th>등급</th>
+			<th>유형</th>
+			<!--{? pageType != "search"}-->
+			<th>마일리지</th>
+			<th>포인트</th>
+			<th>예치금</th>
+			<th>가입일<br/>최종방문</th>
+			<!--{ / }-->
+			<!--{? loadType != "layer" }-->
+			<th>관리</th>
+			<!--{ / }-->
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+
+		<!-- 리스트 : 시작 -->
+		<tbody>
+	{? loop }
+		{@ loop }
+			<!-- 리스트타이틀(주문상태 및 버튼) : 시작 -->
+			{?.status_nm != '휴면'}
+			<tr>
+				{? pageType == "search"}
+				<td><label class="resp_checkbox"><input type="checkbox" name="member_chk[]" value="{.member_seq}" defaultValue="false" class="member_chk" onclick="selectMemberClick(this);" grade="{.group_seq}"  grade_name="{.group_name}" /></label></td>			
+				{:}
+				<td class="hide"><label class="resp_checkbox"><input type="checkbox" name="member_chk[]" value="{.member_seq}" defaultValue="false" cellphone="{.cellphone}" email="{.email}" grade="{.group_seq}" grade_name="{.group_name}" class="member_chk"/></label></td>					
+				{/}
+
+				<td {? pageType != "search"}class="bdl0"{/}>{.number}</td>
+							
+				<td class="left" >		
+					<span class="resp_btn_txt v2" onclick="window.open('/admincrm/main/user_detail?member_seq={.member_seq}');">
+						<!--{? .snslist }-->
+							<!--{@ .snslist }-->
+							<!--{?..rute}-->
+							<span class="blue">
+							<!--{? ..rute == 'facebook' && ..sns_f_type == 0}-->
+							<img src="../images/sns/sns_f00.gif" align="absmiddle">
+							<!--{ : ..rute == 'twitter' && ..sns_t_type == 0}-->
+							<img src="../images/sns/sns_t0_gray.gif" align="absmiddle">
+							<!--{ : }-->
+							<img src="../images/sns/sns_{=substr(..rute,0,1)}0.gif" align="absmiddle">
+							<!--{ / }-->
+							</span>
+							<!--{ / }-->
+							<!--{ / }-->
+						<!--{ / }-->
+						
+						<!--{ = o2oAdminMemberListRute(.value_) }-->
+						{? (.rute && .rute == 'none') || .sns_change == 1}
+							{.userid}
+						{: (.rute && .rute == 'naver') && .sns_change != 1}
+							{.conv_sns_n}
+						{ : }
+							{.userid}
+						{/}
+					</span>
+
+					{?(.rute && .rute == 'none') || .sns_change == 1}
+						{ ? .mall_t_check == 'Y'}<span style="position:relation;padding:0px 5px 0px 5px;margin-left:7px;color:#FFBB00;border:1px solid;">TEST</span>{/}
+					{/}
+					{?(.rute && .rute == 'naver') && .sns_change != 1}
+						{ ? .mall_t_check == 'Y'}<span style="position:relation;padding:0px 5px 0px 5px;margin-left:7px;color:#FFBB00;border:1px solid;">TEST</span>{/}
+					{/}
+				</td>
+				<td class="left">{.user_name}{ ? .nickname }({=.nickname}){ / }</td>
+
+				<td class="left">
+				<!--{? loadType == "layer" }-->
+					{? (!.email || .email == '--') && (!.bcellphone || .bcellphone == '--') && (!.cellphone || .cellphone == '--') }
+					<span>없음</span>
+					{ : }
+					<span>
+					{ ? .email && .email != '--'}
+					{.email}({=strtoupper(.mailing)})
+					{ : }
+					없음
+					{ / }
+					</span>
+
+					<span>
+					{ ? (.bcellphone && .bcellphone != '--') || (.cellphone  && .cellphone != '--') }
+					{? .bcellphone}{.bcellphone}{:}{.cellphone}{/}({=strtoupper(.sms)})
+					{ : }
+					없음
+					{ / }
+					</span>
+					{ / }
+				<!--{ : }-->
+					{? (!.email || .email == '--') && (!.bcellphone || .bcellphone == '--') && (!.cellphone || .cellphone == '--') }
+					<p>없음</p>
+					{ : }
+					<p class="resp_btn_txt v2">
+					{ ? .email && .email != '--'}
+					<span {? pageType != "search"}onclick="select_email('{.member_seq}', '{.email}');"{/}>{.email}</span>
+					({=strtoupper(.mailing)})
+					{ : }
+					없음
+					{ / }
+					</p>
+
+					<p class="resp_btn_txt v2">
+					{ ? (.bcellphone && .bcellphone != '--') || (.cellphone  && .cellphone != '--') }
+					<span {? pageType != "search"}onclick="select_sms('{.member_seq}');"{/}>{? .bcellphone}{.bcellphone}{:}{.cellphone}{/}</span>
+					({=strtoupper(.sms)})
+					{ : }
+					없음
+					{ / }
+					</p>
+					{ / }
+				<!--{ / }-->
+				</td>
+				<!--td align="center"><a href="javascript:select_email('{.member_seq}');">{.email}</a> ({=strtoupper(.mailing)})</td>
+				<td align="center"><a href="javascript:select_sms('{.member_seq}');">{? .bcellphone}{.bcellphone}{:}{.cellphone}{/}</a> ({=strtoupper(.sms)})</td-->
+				<td>{.status_nm}</td>
+				<td>{.group_name}</td>
+				<td>{.type}</td>				
+				<!--{? pageType != "search"}-->
+				<!--{? loadType == "layer" }-->
+				<td class="right">{=get_currency_price(.emoney)}</td>
+				<td class="right">{=get_currency_price(.point)}</td>
+				<td class="right">{=get_currency_price(.cash)}</td>
+				<!--{ : }-->
+				<td class="right">
+					<a href="/admincrm/member/emoney_list?member_seq={.member_seq}" class="resp_btn_txt v2" target="_blank">{=get_currency_price(.emoney)}</a>
+				</td>
+				<td class="right">
+					{ ? reserveinfo.point_use == 'Y' }
+					<a href="/admincrm/member/point_list?member_seq={.member_seq}" class="resp_btn_txt v2" target="_blank">
+					{:}
+					<a href="javascript:void(0)" onclick="point_not_use();" class="resp_btn_txt v2">
+					{/}
+					{=get_currency_price(.point)}
+					</a>
+				</td>
+				<td class="right">
+					<a href="/admincrm/member/cash_list?member_seq={.member_seq}" class="resp_btn_txt v2" target="_blank">{=get_currency_price(.cash)}</a>
+				</td>
+				<!--{ / }-->
+				<td>{.regist_date}<br/>{.lastlogin_date}</td>
+				<!--{ / }-->
+				<!--{? loadType != "layer" }-->
+				<td><input type="button" name="manager_modify_btn" value="수정" {? pageType != "search"}onclick="window.open('/admincrm/member/detail?member_seq={.member_seq}');"{ / } class="resp_btn v2"/></span></td>
+				<!--{ / }-->
+			</tr>
+			{:}
+			<tr>
+				{? pageType == "search"}
+				<td><label class="resp_checkbox"><input type="checkbox" name="member_chk[]" defaultValue="false" value="{.member_seq}" cellphone="{.cellphone}" email="{.email}" class="member_chk"/></label></td>
+				{:}
+				<td class="hide"><label class="resp_checkbox"><input type="checkbox" name="member_chk[]" defaultValue="false" value="{.member_seq}" cellphone="{.cellphone}" email="{.email}" class="member_chk"/></label></td>
+				{/}
+				<td>{.number}</td>			
+				<td class="left" onclick="window.open('/admincrm/main/user_detail?member_seq={.member_seq}');">			
+					<span class='red'>(휴면)</span>
+					<span class="resp_btn_txt v2">{.userid}</span>
+				</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>				
+				<td>-</td>
+				<td>-</td>
+				<!--{? pageType != "search"}-->
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<!--{ / }-->
+				<!--{? loadType != "layer" }-->
+				<td><input type="button" name="manager_modify_btn" value="수정" {? pageType != "search"}onclick="window.open('/admincrm/main/user_detail?member_seq={.member_seq}');"{ / } class="resp_btn v2"/></td>
+				<!--{ / }-->
+			</tr>
+			{/}
+			<!-- 리스트데이터 : 끝 -->
+		{ / }
+	{ : } 
+			<!-- 리스트타이틀(주문상태 및 버튼) : 시작 -->
+			<tr>
+				<!--{? loadType != "layer" }-->
+				<td colspan="16">
+				<!--{ : }-->
+				<td {? pageType != "search"}colspan="15"{:}colspan="14"{/}>
+				<!--{ / }-->
+					<!--{ ? search_text }-->
+						'{search_text}' 검색된 회원이 없습니다.
+					<!--{ : }-->
+						등록된 회원이 없습니다.
+					<!--{ / }-->
+				</td>
+			</tr>
+			<!-- 리스트데이터 : 끝 -->
+	{ / }
+		</tbody>
+		<!-- 리스트 : 끝 -->
+
+	</table>
+	<!-- 주문리스트 테이블 : 끝 -->
+	{? pageType != "search"}
+	<div class="dvs_bottom">	
+		<!--div class="dvs_left">
+			<button type="button" class="resp_btn v3 withdrawalBtn">회원 탈퇴</button>
+		</div-->
+		<div class="dvs_right">	
+			<button type="button" class="resp_btn v2 batchForm" mode="email">이메일 발송</button>
+			<button type="button" class="resp_btn v2 batchForm" mode="sms" >SMS 발송</button>
+			<button type="button" class="resp_btn v2 batchForm" mode="emoney">마일리지 지급</button>
+			<!--{ ? serviceLimit('H_FR') }-->
+			<span class="{=serviceLimit('C1')}"><button type="button" onclick="{=serviceLimit('A1')}" class="resp_btn v2">포인트 지급</button></span>
+			<!--{ : }-->
+			<button type="button" class="resp_btn v2 {=point_use_button}" mode="point">포인트 지급</button>
+			<!--{ / }-->
+			<button type="button" class="resp_btn v2 gradeForm">승인/등급 일괄 변경</button>
+			<button type="button" name="excel_down" class="resp_btn v3"><img src="../images/common/btn_img_ex.gif"/><span>다운로드</span></button>
+		</div>
+	</div>
+	{/}
+</div>
+<div id="sendPopup" class="hide"></div>
+<div id="emoneyPopup" class="hide"></div>
+<div id="download_list_setting" class="hide"></div>

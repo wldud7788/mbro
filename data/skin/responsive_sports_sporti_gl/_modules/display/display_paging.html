@@ -1,0 +1,58 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 상품디스플레이 페이징 -- style1: 숫자 버튼, style2: "더보기" 버튼, style3: 스크롤 페이징 @@
+- 파일위치 : [스킨폴더]/_modules/display/display_paging.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{ ? paging_style == 'style1' }-->
+
+	<!--{ ? perpage }-->
+	<div class="paging_navigation">
+		<!--{ ? page.first }--><a href="?page={page.first}&amp;{page.querystring}" class="first">◀ 처음</a><!--{ / }-->
+		<!--{ ? page.prev }--><a href="?page={page.prev}&amp;{page.querystring}" class="prev">◀ 이전</a><!--{ / }-->
+		<!--{ @ page.page }-->
+			<!--{ ? page.nowpage ==  .value_ }-->
+				<a href="?page={.value_}&amp;{page.querystring}" class="on">{.value_ }</a>
+			<!--{ : }-->
+				<a href="?page={.value_}&amp;{page.querystring}">{.value_ }</a>
+			<!--{ / }-->
+		<!--{ / }-->
+		<!--{ ? page.next }--><a href="?page={page.next}&amp;{page.querystring}" class="next">다음 ▶</a><!--{ / }-->
+		<!--{ ? page.last }--><a href="?page={page.last}&amp;{page.querystring}" class="last">마지막 ▶</a><!--{ / }-->
+	</div>
+	<!--{ / }-->
+<!--{ : paging_style == 'style2' }-->
+
+	<!--{ ? perpage && (page.nowpage < page.totalpage) }-->
+	<button type="button" class="goods_display_more_btn" nowpage="{=page.nowpage}" tabIdx="{.key_}" perpage="{perpage}">더보기<br /><span class="pages">{page.nowpage}</span></button>
+	<!--{ / }-->
+
+	<!--{? mobileMode || storemobileMode || ISMOBILE_AGENT}-->
+	<script type="text/javascript" src="/app/javascript/js/goods-display-paging-mobile.js?dummy={=date('YmdHis')}"></script>
+	<!--{:}-->
+	<script type="text/javascript" src="/app/javascript/js/goods-display-paging.js?dummy={=date('YmdHis')}"></script>
+	<!--{/}-->
+
+	<script type="text/javascript">
+	var gl_scroll_top = '{sc_top}' ? '{sc_top}' : 0;
+	var gl_sort = '{sort}';
+	var gl_sortUrlQuerystring = '{=html_entity_decode(sortUrlQuerystring)}';
+	</script>
+
+<!--{ : paging_style == 'style3' }-->
+
+	<!--{? mobileMode || storemobileMode || ISMOBILE_AGENT}-->
+	<script type="text/javascript" src="/app/javascript/js/goods-display-paging-mobile.js?dummy={=date('YmdHis')}"></script>
+	<!--{:}-->
+	<script type="text/javascript" src="/app/javascript/js/goods-display-paging.js?dummy={=date('YmdHis')}"></script>
+	<!--{/}-->
+	<script type="text/javascript">
+	var gl_display_window	= $(window);
+	var gl_display_now_page	= 2;
+	var gl_display_style	= '{m_display_style}';
+	var gl_display_key		= '{display_key}';
+	var gl_paging_style		= '{paging_style}';
+	var gl_ajax_ing			= false; //순차적인 호출을 위함
+	var gl_hash_paging		= document.location.hash;
+	var gl_hash_scroll		= 0;
+	</script>
+<!--{ / }-->

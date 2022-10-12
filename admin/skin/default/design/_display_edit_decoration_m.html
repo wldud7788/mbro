@@ -1,0 +1,149 @@
+		<!-- 상품디스플레이 꾸미기 영역 : 시작 -->
+		<tbody class="goodsDisplayDecorationContainer">
+		<input type="hidden" name="info_settings" class="info_settings" style="border:2px solid red; width:100%;" value='{?data.info_settings}{=data.info_settings}{:}{}{/}' />
+		<input type="hidden" name="image_decoration" class="image_decoration" value="" />
+		<input type="hidden" class="image_decoration_icon_type" value="{image_decorations->image_icon_type}" />
+		<tr>
+			<th class="dsts-th">이미지 사이즈</th>
+			<td colspan="2" height="50px">
+				<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="table_td_left pd10">
+						<select name="image_size" class="image_size">
+						{@goodsImageSizes}
+							<option value="{.key_}" width="{.width}" height="{.height}" {?.key_==data.image_size || (!data.image_size && .key_=='list2')}selected="selected"{/} >{.value_.name}</option>
+						{/}
+						</select>
+						{?platform=='mobile' && !preg_match("/mobile_default|mobile_ver2/",mobile_skin)}
+						<span class="height_auto">
+						가로 자동조절 X 세로(가로대비) <input type="text" name="mobile_h" size="3" value="{?data.mobile_h}{data.mobile_h}{:}100{/}"/> %
+						</span>
+						{/}
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th class="dsts-th" rowspan="2">
+				이미지 꾸미기
+				<span class="btn small orange"><input type="button" value="안내) 상품 정보 노출" onclick="top.openDialogPopup('상품 정보 노출','goodsDisplayDescLayer',{'url':'/admin/design/display_desc_layer','width':950})" /></span>
+			</th>
+			 <td  class="dsts-td left pdt10" colspan="2">
+				<div class="clearbox">
+					<label class="mr30"><input type="radio" class="decoration_type" name="image_decoration_type" value="favorite"  id="image_favorite" {?data.image_decoration_type == 'favorite'}checked{/}/> 자주쓰는 꾸미기</label>
+					<label><input type="radio" class="decoration_type" name="image_decoration_type" value="quality" id="image_quality" {?!data.image_decoration_type || data.image_decoration_type == 'quality'}checked{/}/> 고급설정 꾸미기</label>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="dsts-td left" width="">
+				<div class="clearbox image_decoration_favorite decoration_favorite mt10" json="{=base64_encode(json_encode(image_favorite))}" use_key="{data.goods_decoration_favorite_key}" platform="mobile" favorite_type="image_decoration">		
+				</div>
+				<div class="mt20">
+				</div>
+				<div class="clearbox image_decoration_quality decoration_quality mt10 {?data.image_decoration_type == 'favorite'}hide{/}">
+					<!-- 테두리 -->
+					<table class="image_decoration_table" height="">
+					<tr>
+						<td height="25" valign="top">
+							<input type="checkbox" class="use_image_border image_decorate_chk" {?image_decorations->image_border1}checked="checked"{/} /> <select class="image_border_type image_decorate_chk" onchange="display_set_border_mobile(this);"><option value="image" {?image_decorations->image_border_type != 'all'}selected{/}>상품테두리</option><option value="all" {?image_decorations->image_border_type == 'all'}selected{/}>전체테두리</option></select>
+							<input type="text" value="{?image_decorations->image_border1}{image_decorations->image_border1}{:}#000000{/}" class="image_border1 colorpicker isMobile" />
+							<input type="text" value="{image_decorations->image_border1_width}" size="3" maxlength="2" class="image_border1_width line input-text-small onlynumber" />px
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+							<img src="../images/design/img_effect_rollover_border_on.gif" class="img_effect_border_img_m" attr="goods"/>
+							<img src="../images/design/img_effect_rollover_border_on_all.gif" class="img_effect_border_img_m" attr="all"/>
+						</td>
+					</tr>
+					</table>
+
+					<!-- 보내기,찜하기 버튼 -->
+					<table class="image_decoration_table" height="">
+					<tr>
+						<td  valign="top">
+							<input type="checkbox" class="use_image_zzim image_decorate_chk" {?image_decorations->image_zzim}checked="checked"{/} />
+
+							<input type="hidden" class="image_zzim" value="{?image_decorations->image_zzim}{image_decorations->image_zzim}{:}icon_zzim.png{/}" />
+							{?image_decorations->image_zzim}
+							<img src="/data/icon/goodsdisplay/zzim/{image_decorations->image_zzim}" border="0" vspace="4" class="image_zzim_select hand" align="absmiddle">
+							{:}
+							<img src="/data/icon/goodsdisplay/zzim/icon_zzim.png" border="0" vspace="4" class="image_zzim_select hand" align="absmiddle">
+							{/}
+
+							<input type="hidden" class="image_zzim_on" value="{?image_decorations->image_zzim_on}{image_decorations->image_zzim_on}{:}icon_zzim_on.png{/}" />
+							{?image_decorations->image_zzim_on}
+							<img src="/data/icon/goodsdisplay/zzim_on/{image_decorations->image_zzim_on}" border="0" vspace="4" class="image_zzim_on_select hand" align="absmiddle">
+							{:}
+							<img src="/data/icon/goodsdisplay/zzim_on/icon_zzim_on.png" border="0" vspace="4" class="image_zzim_on_select hand" align="absmiddle">
+							{/}
+
+							<img src="../images/design/img_effect_itxt.gif" />
+						</td>
+					</tr>
+					</table>
+
+					<!-- 아이콘 -->
+					<table class="image_decoration_table" height="">
+					<tr>
+						<td>
+							<input type="checkbox" class="use_image_icon image_decorate_chk" {?image_decorations->image_icon}checked="checked"{/} />
+						</td>
+						<td height="25" valign="top">
+							<div style="float:left;width:70px">
+								<input type="hidden" class="image_icon_condition" value="{image_decorations->image_icon_condition}" />
+								<input type="hidden" class="image_icon_type" value="{image_decorations->image_icon_type}" />
+								<input type="hidden" class="image_icon_condition_cnt" value="{image_decorations->image_icon_condition_cnt}" />
+								<input type="hidden" class="image_icon" value="{?image_decorations->image_icon}{image_decorations->image_icon}{:}icon_best.png{/}" />
+								{?image_decorations->image_icon}
+								<img src="/data/icon/goodsdisplay/{image_decorations->image_icon}" border="0" class="image_icon_select hand {?image_decorations->image_icon_type == 'condition'}hide{/}" align="absmiddle">
+								{:}
+								<img src="/data/icon/goodsdisplay/icon_best.png" border="0" class="image_icon_select hand {?image_decorations->image_icon_type == 'condition'}hide{/}" align="absmiddle">
+								{/}
+								<span class="image_icon_select image_icon_select_condition hand {?image_decorations->image_icon_type != 'condition'}hide{/}">아이콘</span>
+							</div>
+
+							<div style="float:left;width:200px">
+								<div class="icon_type_txt {? image_decorations->image_icon_type == 'condition' }hide{/}" attr="no">
+									조건 없이 노출
+								</div>
+								<div class="icon_type_txt {? image_decorations->image_icon_type != 'condition' }hide{/}" attr="condition">
+									조건(<span class="icon_condition_cnt">{image_decorations->image_icon_condition_cnt}</span>개) 만족 시 노출
+								</div>
+								<div>
+									<select class="image_icon_location">
+										<option value="left" {?image_decorations->image_icon_location=='left'}selected="selected"{/}>좌측상단</option>
+										<option value="right" {?image_decorations->image_icon_location=='right'}selected="selected"{/}>우측상단</option>
+									</select>
+									<select class="image_icon_over hide">
+										<option value="n" selected>오버 시</option>
+									</select>
+								</div>
+								<div class="desc mt5" >
+									<img src="../images/design/img_effect_itxt.gif" />
+								</div>
+							</div>
+						</td>
+					</tr>
+					</table>
+					<div class="center pdr30">
+						<span class="btn small cyanblue favorite_btn center"><input type="button" value="자주쓰는 꾸미기로 등록" onclick="open_decoration_save(this, 'mobile', 'image_decoration')"></span>
+					</div>
+				</div>
+			</td>
+			<td class="dsts-td" style="padding:0px;">
+				<table class="goodsDisplayImageTable" width="220" align="center" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td valign="top" class="pd10">
+							<table class="goodsDisplayItemWrap" width="100%" align="right" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td><a href="javascript:;"><span class="goodsDisplayImageWrap" goodsInfo="{=base64_encode(json_encode(sampleGoodsInfo))}"><img src="../images/design/img_effect_sample.gif" class="goodsDisplayImage" width="100%" designElement /></span></a></td>
+							</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>

@@ -1,0 +1,78 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 쿠폰받기( 상품상세 > 쿠폰받기 시 뜨는 레이어 ) @@
+- 파일위치 : [스킨폴더]/coupon/goods_coupon_list.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{ ? list }-->
+<div class="res_table bd1">
+	<ul class="thead">
+		<li style="width:25%;">쿠폰명</li>
+		<li>혜택</li>
+		<li style="width:110px;">유효기간</li>
+		<li style="width:64px;">남은 기간</li>
+		<li style="width:72px;">발급</li>
+	</ul>
+	<!--{ @ list }-->
+	<ul class="tbody { ? .unused_cnt }disabled{ / }">
+		<li style="order:-6">
+			<strong class="gray_01">{.coupon_name}</strong>
+			{? .sale_agent == 'm' || .type == 'mobile' } <img src="../images/board/icon/icon_mobile.gif" alt="사용제한 모바일" title="사용제한 모바일" />{/}
+		</li>
+		<li class="subject pointcolor2 imp">
+			{? .use_type =='offline' }
+				{.benefit}
+			{:}
+				{? .type =='offline_emoney' }
+					마일리지 {=number_format(.offline_emoney)}원 지급
+				{:}
+					{? .type=='shipping' || strstr(.type,'_shipping') }
+						{? .shipping_type == 'free' }
+							기본 배송비 무료 (최대 {=number_format(.max_percent_shipping_sale)}원)
+						{: .shipping_type == 'won' }
+							기본 배송비 {=number_format(.won_shipping_sale)}원 할인
+						{/}
+					{:}
+						{? .sale_type == 'won' }
+							{=number_format(.won_goods_sale)}원 할인
+						{: .sale_type == 'percent' }
+							{.percent_goods_sale}% 할인 (최대할인금액 {=number_format(.max_percent_goods_sale)}원)
+						{/} 
+					{/} 
+				{/} 
+			{/}
+		</li>
+		<li>
+			{? .issue_priod_type == 'day' }
+				발급일 후 {=number_format(.after_issue_day)}일
+			{: .issue_priod_type == 'months' }
+				발급 당월 말일까지
+			{: .issue_priod_type == 'date' }
+				~ {.issue_enddate} 
+			{/}
+		</li>
+		<li>
+			{? .issue_priod_type == 'day' }
+				
+			{: .issue_priod_type == 'date' }
+				{? .issuedaylimituse }{=number_format(.issuedaylimit)}일{:}{=number_format(.issuedaylimit)}일 지남{/}
+			{/}
+		</li>
+		<li>
+			<!--{ ? .unused_cnt }-->
+			발급완료<span class="Dib">({.download_regist_date})</span>
+			<!--{ : }-->
+			<button type="button" name="couponDownloadButton" goods="{_GET.no}" coupon="{.coupon_seq}" class="btn_resp color2 size_a">받기</button>
+			<!--{ / }-->
+		</li>
+	</ul>
+	<!--{ / }-->
+</div>
+<!--{ : }-->
+<div class="no_data_area2">
+	다운로드 가능한 쿠폰이 없습니다.
+</div>
+<!--{ / }-->
+
+
+
+

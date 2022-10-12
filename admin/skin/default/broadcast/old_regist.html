@@ -1,0 +1,182 @@
+{ #layout_header }
+
+<!-- 스크립트 시작 -->
+<script>
+var displayId =  'broadcastGoodsLayer';
+var inputGoods = 'liveGoodsListSortable';
+/*{? date}*/
+var date = '{date}';
+/*{/}*/
+</script>
+<script type="text/javascript" src="/app/javascript/js/broadcast/admin/regist/common.js?dummy={=uniqid()}"></script>
+
+<!--{? bs_seq }-->
+<script>
+var bsSeq = {bs_seq};
+</script>
+<!-- 방송 수정 -->
+<script type="text/javascript" src="/app/javascript/js/broadcast/admin/regist/modify.js?dummy={=uniqid()}"></script>
+<!-- 방송 삭제 -->
+<script type="text/javascript" src="/app/javascript/js/broadcast/admin/regist/drop.js?dummy={=uniqid()}"></script>
+<!--{ : }-->
+<!-- 방송 등록 -->
+<script type="text/javascript" src="/app/javascript/js/broadcast/admin/regist/regist.js?dummy={=uniqid()}"></script>
+<!--{ / }-->
+<!-- 스크립트 종료 -->
+
+<!-- form -->
+<form id="bs-write-form" method="post"  target="actionFrame">
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 좌측 버튼 -->
+		<ul  class="page-buttons-left">
+			<li>
+				<span class="btn large"><button type="button" class="btn-close">전체 일정</button></span>
+			</li>
+		</ul>
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>라이브 방송</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li>
+				<span class="btn large black"><button type="submit" name="save_broadcast btn-save">저장<span class="arrowright"></span></button></span>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 방송 등록 시작 -->
+<div class="gon_resp_wrap mini">
+	<!-- 테이블 시작 -->
+	<div class="resp_row_table">
+		<!--{? count(default.lang) > 0}--> 
+		<!-- 방송 국가 시작 -->
+		<ul>
+			<li class="th"><p>쇼핑몰</p></li>
+			<li class="td">
+				<!--{@ default.lang}-->
+				<label class="list_inline_block">
+					<input type="radio" name="nation_key" {? .key_ === assign.lang}checked="checked"{:}disabled="disabled"{/} value="{.key_}" required/>
+					<span class="language_country_img language_country_img_{.key_}">{.value_}</span></label><br />
+				<!--{ / }-->
+			</li>
+		</ul>
+		<!-- 방송 국가 종료 -->
+		<!--{ / }-->
+		
+		<!-- 방송 제목 시작 -->
+		<ul>
+			<li class="th"><p>방송 제목</p></li>
+			<li class="td">
+				<input type="text" name="title" class="input_resp line" max="100" style="width:80%;">
+				<span class="byte">0/100</span>
+			</li>
+		</ul>
+		<!-- 방송 제목 종료 -->
+		
+		<!-- 방송 시간 시작 -->
+		<ul>
+			<li class="th"><p>방송 시간</p></li>
+			<li class="td">
+				<ul class="live_time_setting">
+				
+					<!-- 방송 시작 시간 시작 -->
+					<li class="broadcast_live">
+						<span class="title">시작 :</span>
+						<input type="text" class="input_resp datepicker line" maxlength="10"  name="start_date" value="{default.today}" style="width:86px;" required/>
+						<select name="start_meri" class="select_resp" required>
+							<!--{@ default.meri}-->
+							<option value="{.key_}">{.value_}</option>
+							<!--{ / }-->
+						</select>
+						<select name="start_hour" class="select_resp required">
+							<!--{@ default.hours}-->
+							<option value="{.value_}">{.value_}시</option>
+							<!--{ / }-->
+						</select>
+						<select name="start_min" class="select_resp" required>
+							<!--{@ default.minutes}-->
+							<option value="{.value_}">{.value_}분</option>
+							<!--{ / }-->
+						</select>
+					</li>
+					<!-- 방송 시작 시간 종료 -->
+					
+					<!-- 방송 종료 시간 시작 -->
+					<li class="broadcast_end">
+						<span class="title">종료 :</span>
+						<input type="text" class="input_resp datepicker line" maxlength="10"  name="end_date" value="{default.today}" style="width:86px;" required />
+						<select name="end_meri" class="select_resp" required>
+							<!--{@ default.meri}-->
+							<option value="{.key_}">{.value_}</option>
+							<!--{ / }-->
+						</select>
+						<select name="end_hour" class="select_resp" required>
+							<!--{@ default.hours}-->
+							<option value="{.value_}">{.value_}시</option>
+							<!--{ / }-->
+						</select>
+						<select name="end_min" class="select_resp" required>
+							<!--{@ default.minutes}-->
+							<option value="{.value_}">{.value_}분</option>
+							<!--{ / }-->
+						</select>
+					</li>
+					<!-- 방송 종료 시간 종료 -->
+				</ul>
+			</li>
+		</ul>
+		<!-- 방송 시간 종료 -->
+		
+		<!-- 시청 제한 시작 -->
+		<ul>
+			<li class="th"><p>시청 제한</p></li>
+			<li class="td">
+				<!--{@ default.grant_types}-->
+				<label><input type="radio" name="grant_type" value="{.key_}" required>{.value_}</label>&nbsp;
+				<!--{ / }-->
+			</li>
+		</ul>
+		<!-- 시청 제한 종료 -->
+		
+		<!-- 방송 상품 시작 -->
+		<ul>
+			<li class="th"><p>방송 상품</p></li>
+			<li class="td">
+				<button type="button" class="btn_resp color4 btn-goods">상품 선택</button>
+				<!-- 방송 상품 선택 레이어 시작 -->
+				<ul id="liveGoodsListSortable" class="live_goods_list ns_sortable" style="margin-top:10px;display:none;"></ul>
+				<!-- 방송 상품 선택 레이어 종료 -->
+				
+				<p class="no_data_area" style="margin-top:10px;">방송 상품이 없습니다!</p>
+			</li>
+		</ul>
+		<!-- 방송 상품 종료 -->
+		
+	</div>
+	<!-- 테이블 종료 -->
+
+
+	<!-- 하단 버튼 시작 -->
+	<div class="btn_area">
+		<button type="submit" class="btn_resp size_c color2 btn-save">저장</button> &nbsp;
+		<button type="button" class="btn_resp size_c btn-close">취소</button>
+		<!--{? bs_seq }-->
+		<!-- 삭제 버튼 -->
+		&nbsp; <button type="button" class="btn_resp size_c color3 btn-drop" disabled="disabled">삭제</button>
+		<!--{ / }-->
+	</div>
+	<!-- 하단 버튼 종료 -->
+	
+</div>
+<!-- 방송 등록 종료 -->
+
+</form>
+{ #layout_footer }

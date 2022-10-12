@@ -1,0 +1,32 @@
+<div>1. 로컬에 등록된 설명 이미지를 이미지호스팅에 업로드(동일파일명 존재 시 덮어쓰기) 합니다.</div>
+<div class="pdt20">
+	<form name="goodsImagehostingForm" id="goodsImagehostingForm">
+	<input type="hidden" name="mode" id="imghostingsavemode" value="{_GET.mode}" /> 
+	<input type="hidden" name="goods_seq" id="imghostingsavegoods_seq" value="" />
+	<table class="info-table-style" style="width:100%">
+	<tr>
+		<th class="its-th-align center" rowspan="3">이미지호스팅</th>
+		<th class="its-th-align center">FTP 접속경로</th>
+		<td class="its-td-align left" >
+			FTP://<input type="text" name="hostname" id="imghostinghostname" value="{imagehostingftp.hostname}" size="24"  class="line" />{imagehostingftp.gabiaimagehostingurl}
+		</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">FTP 아이디</th>
+		<td class="its-td-align left">
+			<input type="text" name="username"  id="imghostingusername" value="" size="30"/>
+		</td>
+	</tr>
+	<tr>
+		<th class="its-th-align center">FTP 비밀번호</th>
+		<td class="its-td-align left">
+			<input type="password" name="password"  id="imghostingpassword" value="" size="30"  autocomplete="off" />
+		</td>
+	</tr>
+	</table>
+	</form>
+</div>
+<div class="pdt20">2. 설명 이미지의 경로를 로컬 경로(URL)에서 이미지호스팅 경로(URL)로 자동 변환하여 저장합니다.</div>
+<div class="pdt30 center">
+	<span class="btn large cyanblue"><button type="button"  id="imagehostinggoodssave">&nbsp;&nbsp;실행&nbsp;&nbsp;</button></span>
+</div>

@@ -1,0 +1,158 @@
+{ #layout_header }
+
+<script type="text/javascript">
+	var board_id = 'goods_qna';
+	var boardlistsurl = '/admin/board/board?id=goods_qna&callPage=crm';
+	var boardwriteurl = '/admin/board/goods_qna_write?id=goods_qna&callPage=crm';
+	var boardviewurl = '/admin/board/goods_qna_view?id=goods_qna&callPage=crm&seq=';
+	var boardmodifyurl = '/admin/board/goods_qna_write?id=goods_qna&callPage=crm&seq=';
+	var boardreplyurl = '/admin/board/goods_qna_write?id=goods_qna&callPage=crm&reply=y&seq=';
+	var file_use = 'Y';
+</script>
+<script type="text/javascript" src="/app/javascript/js/admin-board.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		parent.$("#mbcontainerpont").css("height","0px");
+		$("#mbcontainerpont", parent.document).height($(document).height()+10);
+
+		$("[name='select_date']").click(function() {
+			switch($(this).attr("id")) {
+				case 'today' :
+					$("input[name='sdate']").val(getDate(0));
+					$("input[name='edate']").val(getDate(0));
+					break;
+				case '3day' :
+					$("input[name='sdate']").val(getDate(3));
+					$("input[name='edate']").val(getDate(0));
+					break;
+				case '1week' :
+					$("input[name='sdate']").val(getDate(7));
+					$("input[name='edate']").val(getDate(0));
+					break;
+				case '1month' :
+					$("input[name='sdate']").val(getDate(30));
+					$("input[name='edate']").val(getDate(0));
+					break;
+				case '3month' :
+					$("input[name='sdate']").val(getDate(90));
+					$("input[name='edate']").val(getDate(0));
+					break;
+				default :
+					$("input[name='sdate']").val('');
+					$("input[name='edate']").val('');
+					break;
+			}
+		});
+
+		$(".orderview").click(function(){
+			var order_seq = $(this).attr("order_seq");
+			var href = "/admin/order/view?no="+order_seq;
+			var a = window.open(href, 'orderdetail'+order_seq, '');
+			if ( a ) {
+				a.focus();
+			}
+		});
+	});
+</script>
+
+<div class="orderTitle">상품문의</div>
+<div class="search-form-container" align="center">
+	<table class="search-form-table">
+		<form name="emoneylist" id="emoneylist">
+		<colgroup>
+			<col width="80" /><col />
+		</colgroup>
+		<tbody class="ltb otb" >
+			<tr class="list-row">
+				<td colspan="2">
+					<input type="text" name="sdate" value="{_GET.sdate}" class="datepicker line"  maxlength="10" size="10" />
+					&nbsp;&nbsp;<span class="gray">-</span>&nbsp;&nbsp;
+					<input type="text" name="edate" value="{_GET.edate}" class="datepicker line" maxlength="10" size="10" />
+					&nbsp;&nbsp;
+					<span class="btn small"><input type="button" value="오늘" id="today" name="select_date"/></span>
+					<span class="btn small"><input type="button" value="3일간" id="3day" name="select_date"/></span>
+					<span class="btn small"><input type="button" value="일주일" id="1week" name="select_date"/></span>
+					<span class="btn small"><input type="button" value="1개월" id="1month" name="select_date"/></span>
+					<span class="btn small"><input type="button" value="3개월" id="3month" name="select_date"/></span>
+					<span class="btn small"><input type="button" value="전체" id="all" name="select_date"/></span>
+				</td>
+			</tr>
+			<tr class="list-row">
+				<th class="its-th-align left">
+					문의내역
+				</th>
+				<td class="its-td">
+					<input type="text" name="search_text" size="67" value="{_GET.search_text}" title="상품명, 제목, 내용">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center" class="pdt15">
+					<span class="btn_crm_search"><button type="submit" id="send_submit">검색<span class="arrow"></span></button></span>
+				</td>
+			</tr>
+		</tbody>
+		</form>
+	</table>
+</div>
+<br style="line-height:20px" />
+
+<table class="list-table-style" cellspacing="0" width="100%">
+	<colgroup>
+		<col width="50" />
+		<col width="60" />
+		<col width="100" />
+		<col />
+		<col width="120" />
+		<col width="40" />
+		<col width="50" />
+		<col width="70" />
+		<col width="120" />
+	</colgroup>
+	<thead class="lth">
+		<tr>
+			<th>번호</th>
+			<th>문의번호</th>
+			<th>분류</th>
+			<th>제목</th>
+			<th>등록일</th>
+			<th>조회</th>
+			<th>답변</th>
+			<th>수동지급</th>
+			<th>관리</th>
+		</tr>
+	</thead>
+	<tbody class="ltb otb" >
+{? record }
+	{@ record }
+		<tr class="list-row">
+			<td align="center">{._rno}</td>
+			<td align="center">{.seq}</td>
+			<td align="center">{.category}</td>
+			<td align="left"><span class="boad_view_btn hand" board_id="goods_qna" board_seq="{.seq}" viewlink="/admin/board/goods_qna_view?id=goods_qna&seq={.seq}&callPage=crm">{.subject}</span></td>
+			<td align="center">{.r_date}</td>
+			<td align="center">{.hit}</td>
+			<td align="center">{? .re_contents}완료{:}대기{/}</td>
+			<td align="center">{.emoneylay}</td>
+			<td align="center">
+				{.modifybtn}
+				{.replaybtn}
+			</td>
+		</tr>
+	{ / }
+{ : }
+		<tr class="list-row">
+			<td align="center" colspan="9">등록된 상품문의가 없습니다.</td>
+		</tr>
+{ / }
+	</tbody>
+</table>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0"  width="100%">
+	<tr>
+		<td align="center">
+			<div class="paging_navigation">{pagin}</div>
+		</td>
+	</tr>
+</table>
+{#emoneyform}
+{ #layout_footer }

@@ -1,0 +1,87 @@
+
+<script type="text/javascript">
+var scObj = {=scObj};
+
+function broadcastSearchPaging(page) {
+	var perpage = 10;
+	page = (page-1) * perpage;
+	var selector = "div#broadcast_search_container form";
+	$(selector).find("input[name='page']").val(page);
+	$(selector).find("input[name='searchflag']").remove();
+	$(selector).append("<input type='hidden' name='searchflag' value='1'/>");
+	var queryString = $(selector).serialize();
+	$.ajax({
+		type: 'get',
+		url: '/api/broadcast',
+		data: queryString,
+		success: function(res) {
+			if(res.success === true) {
+				getCatalogAjax(res);
+			}
+		}
+	});
+}
+
+</script>
+<script type="text/javascript" src="/app/javascript/js/admin-common-ui.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/broadcastList.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_pagination/jquery.pager.js" charset="utf8"></script>
+<div class="content" id="broadcast_search_container">
+	
+	<!-- 리스트검색폼 : 시작 -->
+	{#searchForm}
+	<!-- 리스트검색폼 : 끝 -->
+
+	<div class="mt20">
+		<ul class="left-btns clearbox">
+			<li class="left">
+				<div style="margin-top:rpx;">
+					검색 <span id="searchcount" class="bold">{sc.searchcount}</span>개 
+					(총 <span id="totalcount" class="bold">{sc.totalcount}</span>개)
+				</div>
+			</li>
+		</ul>
+		<div class="clearbox"></div>
+		<table class="table_basic list">
+			<colgroup>
+				<col width="5%" /> <!--체크박스-->
+				<col width="8%" /> <!--번호-->
+				<col width="10%" /> <!--방송 제목-->
+				<col width="*" /> <!--방송 제목-->
+				<col width="23%" /> <!--상품-->
+				<col width="23%" /> <!--방송일-->
+				<col width="12%" /> <!--상태-->
+			</colgroup>
+			<thead>
+				<tr>
+					<th>
+						<label class="resp_checkbox"><input type="checkbox" name="chkAll" title="전체선택"></label>
+					</th>
+					<th>번호</th>
+					<!--{ ? isBroadcastVersion('2.0') && serviceLimit('H_AD') }-->
+					<th>승인 여부</th>
+					<!--{/}-->
+					<th colspan="2">방송 제목</th>
+					<th>방송 상품</th>
+					<!--{ ? isBroadcastVersion('2.0') && serviceLimit('H_AD') }-->
+					<th>입점사</th>
+					<!--{/}-->
+					<th>방송일</th>
+					<th>방송 상태</th>
+				</tr>
+			</thead>
+			<tbody id="broad_catalog">
+			</tbody>
+		</table>
+
+		<!-- 페이징 -->
+		<div id="pager" class="paging_navigation center"></div>
+	</div>
+</div>
+
+<div class="footer">
+	<button type="button" class="confirmSelectBroadcasts resp_btn active size_XL">선택</button>
+	<button type="button" class="btnLayClose resp_btn v3 size_XL">닫기</button>
+</div>
+

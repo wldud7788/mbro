@@ -1,0 +1,77 @@
+{#HTML_HEADER}
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 인트로 > 회원전용 @@
+- 파일위치 : [스킨폴더]/intro/member_only.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{is_file_facebook_tag}
+{is_file_kakao_tag}
+
+<div class="layout_intro">
+	<div class="title_container">
+		<h2><span designElement="text">로그인</span></h2>
+	</div>
+	<p class="mypage_greeting pointcolor" designElement="text">본 사이트는 회원만 이용 가능합니다!</p>
+
+	<div class="resp_login_wrap">
+		<form name="loginForm" target="actionFrame" method="post" action="{=sslAction('../login_process/login')}">
+		<input type="hidden" name="return_url" value="{return_url}"/>
+			<fieldset>
+				<ul class="login_real_area">
+					<li class="input_area">
+						<input type="text" name="userid" id="userid" class="box_id" value="{? idsavechecked }{idsavechecked}{/}" placeholder="아이디" />
+						<input type="password" name="password" class="box_pw" placeholder="비밀번호" />
+					</li>
+					<li>
+						<label class="id_save"><input type="checkbox" name="idsave" id="idsave" value="checked"  {? idsavechecked } checked="checked" {/} /> <span designElement="text">아이디 저장</span></label>
+					</li>
+					<li>
+						<button type="submit" class="btn_resp size_login1"><span designElement="text">로그인</span></button>
+					</li>
+					<li class="find_join">
+						<a href="../member/find?mode=findid" designElement="text">아이디 찾기</a> &nbsp;|&nbsp;
+						<a href="../member/find?mode=findpw" designElement="text">비밀번호 찾기</a> &nbsp;|&nbsp;
+						<a class="join" href="/member/agreement" designElement="text">회원가입</a>
+					</li>
+				</ul>
+
+				<!-- SNS 가입폼 -->
+				<!--{? count(joinform.use_sns) > 0 }-->
+				<h3 class="title_sub3 v3"><span designElement="text">또는 SNS 로그인</span></h3>
+				<ul class="sns_login_ul">
+					<!--{@ joinform.use_sns }-->
+					{? .key_ }<li class="sns-login-button" snstype="{=.key_}"><div class="img"><img src="../images/design/sns_icon_{=.key_}.png" alt="{=.key_} 로그인" title="{=.value_['nm']} 로그인"/></div></li>{/}
+					<!--{ / }-->
+				</ul>
+				<!--{/}-->
+			</fieldset>
+		</form>
+
+		<!--{ ? mode }-->
+		<div class="Pt40"><a class="btn_resp size_c color4 Wmax" href="../order/cart" designElement="text">주문하러 가기</a></div>
+		<!--{ / }-->
+	</div>
+</div>
+
+
+
+
+
+
+<script src="/app/javascript/js/skin-snslogin.js"></script>
+<script type="text/javascript">
+var return_url		= "../main/index";
+{?_GET.return_url }
+return_url			= "{_GET.return_url}";
+{: return_url }
+return_url			= "{return_url}";
+{/}
+var mobileapp		= "{mobileapp}";
+var m_device		= "{m_device}";
+var fbuserauth		= "{fbuserauth}";
+var jointype		= '{_GET.join_type}';
+var apple_authurl	= '{apple_authurl}';
+</script>
+
+{#HTML_FOOTER}

@@ -1,0 +1,39 @@
+<!--{ ? target_list }-->
+	<!--{ @ target_list }-->
+<tr>
+	<td class="center">
+		<label class='resp_checkbox'><input type="checkbox" class="chk" name="code[]" value="{.key_}" /></label>
+	</td>
+	<td class="center">{.title}</td>
+	<td class="center">
+		<!--{ ? .grp_name || .user_type }-->
+		{=implode(',', .grp_name)}{?.grp_name&&.user_type} | {/}{=implode(',', .user_type)}
+		<!--{ : }-->
+		모든 사용자
+		<!--{ / }-->
+	</td>
+	<td class="center">
+		<!--{ ? .catalog_allow == 'period' }-->
+		{=.catalog_allow_sdate} ~ {=.catalog_allow_edate}
+		<!--{ : .catalog_allow == 'none' }-->
+		금지
+		<!--{ : .catalog_allow == 'show' }-->
+		제한 없음
+		<!--{ / }-->
+	</td>
+	<td class="center">
+		<button type='button' class='resp_btn v2' onclick="accessLimitModiy(this)">수정</button>
+	</td>
+</tr>
+	<!--{ / }-->
+<!--{ : }-->
+	<!--{ ? target_code }-->
+<tr>
+	<td class="center" colspan="5">하위 목록이 없습니다.</td>
+</tr>
+	<!--{ : }-->
+<tr>
+	<td class="center" colspan="5">대상을 먼저 선택하여 주세요.</td>
+</tr>
+	<!--{ / }-->
+<!--{ / }-->

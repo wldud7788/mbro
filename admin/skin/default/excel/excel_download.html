@@ -1,0 +1,188 @@
+{ #layout_header }
+
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/editor_loader.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/editor/js/daum_editor_loader.js?dummy={=date('YmdH')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/custom-color-picker.js"></script>
+<script src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+<script type="text/javascript">
+	//var gl_first_goods_date = '{config_system.first_goods_date}';
+	<!--{ @code_load('currency', config_system.basic_currency) }-->
+	//var gl_basic_currency_hangul		= '{.value_.value.hangul}';
+	//var gl_basic_currency_nation		= '{.value_.value.nation}';
+	<!--{ / }-->
+	
+	//jquery 스크립트 로드
+	$(document).ready(function() {
+
+		gSearchForm.init({'pageid':'excel_download','sc':'{=scObj}'});
+
+		//다운로드 하기
+		$(".excel_download").on('click',function(){
+			var params = $(this).val().split("|");
+			var category = params[0];
+			if(!category.length) {
+				alert("[Error] 카테고리를 찾을 수 없습니다.");
+				return false;
+			}
+			var file_id = params[1];
+
+			if( file_id > 0 ){
+				$.ajax({      
+					type: 'GET',  
+					url: '/admin/excel_spout/file_download',
+					data: {type: 'list', category: category, id: file_id}, 
+					success:function(args){ 
+						if(args.indexOf("[Error]") >= 0) {
+							alert(args);
+						} else if(args.indexOf('openDialogAlert') >= 0) {
+							$('body').append(args);
+						} else {
+							window.location.href = '/admin/excel_spout/file_download?url=' + args; 
+						}
+					}, error:function(e){  
+						alert(e.responseText);  
+					}  
+				});
+			} else {
+				alert("[Error] 파일이름을 찾을 수 없습니다.");
+				return false;
+			}
+		});
+	});
+</script>
+<link rel="stylesheet" type="text/css" href="/admin/skin/default/css/layer_stock.css?v={=date('Ymd')}" />
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>엑셀 다운로드</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+
+<!-- 상품 검색폼 : 시작 -->
+<div  id="search_container"  class="search_container">
+<form name="searchForm" id="searchForm" method="get" action="/admin/excel_spout/excel_download">
+	<table class="table_search">
+		<tr>	
+			<th>구분</th>
+			<td>
+			<div class="resp_radio">
+				<label class="mr10"><input type="radio" name="category" value="0" /> 전체</label>
+				<label class="mr10"><input type="radio" id="category_goods" name="category" value="1"/> 상품</label>
+				<label class="mr10"><input type="radio" id="category_order" name="category" value="2"/> 주문</label>
+				<label class="mr10"><input type="radio" id="category_member" name="category" value="3" /> 회원</label>
+				<label><input type="radio" id="category_export" name="category" value="4"/> 출고</label>
+			</div>
+			</td>
+		</tr>
+		<!--{ ? serviceLimit('H_AD') == true }-->
+		<tr>
+			<th>입점사</th>
+			<td>
+				<div class="ui-widget">
+				<select name="provider_seq_selector" style="vertical-align:middle;">
+					</select>					
+				<input type="hidden" class="provider_seq" name="provider_seq" value="{sc.provider_seq}" />
+				</div>
+			</td>
+		</tr>
+		<!--{ / }-->
+	</table>
+	<div class="search_btn_lay footer"></div>	
+	</form>
+</div>
+<!-- searchform end -->
+
+<div class="contents_dvs v3">
+	<div class="list_info_container">
+		<div class="dvs_left">	
+			<div class="left-btns-txt">검색 <b>{=number_format(page.searchcount)}</b> 개 (총 <b>{=number_format(page.totalcount)}</b>개)</div>
+		</div>
+		<div class="dvs_right">	
+			<span class="display_quantity" perpage="{=sc.perpage}"></span>
+		</div>
+	</div>	
+
+	<!-- 주문리스트 테이블 : 시작 -->
+	<table class="table_row_basic">	
+		<!-- 테이블 헤더 : 시작 -->
+		<colgroup>
+			<col width="5%" /><!--번호-->
+			<col width="{ ? serviceLimit('H_AD') }7{:}8{/}%" /><!--구분-->
+			<col width="{ ? serviceLimit('H_AD') }13{:}14{/}%" /><!--요청일시-->
+			<!--{ ? serviceLimit('H_AD') == true }--><col width="10%" /><!--{ / }--><!--요청사-->
+			<col width="{ ? serviceLimit('H_AD') }7{:}9{/}%"/><!--요청자-->
+			<col width="{ ? serviceLimit('H_AD') }10{:}12{/}%" /><!--요청내용-->
+			<col width="7%" /><!--요청건수-->
+			<col width="7%" /><!--상태-->
+			<col width="{ ? serviceLimit('H_AD') }13{:}14{/}%" /><!--완료일시-->
+			<col width="{ ? serviceLimit('H_AD') }8{:}10{/}%" /><!--다운로드-->
+			<col  /><!--다운로드 가능 기간-->
+		</colgroup>
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>구분</th>
+			<th>요청일시</th>
+			<!--{ ? serviceLimit('H_AD') == true }--><th>요청사</th><!--{ / }-->
+			<th>요청자</th>
+			<th>요청내용</th>
+			<th>요청건수</th>
+			<th>상태</th>
+			<th>완료일시</th>
+			<th>다운로드</th>
+			<th>다운로드 가능 기간</th>
+		</tr>
+		</thead>
+		<!-- 테이블 헤더 : 끝 -->
+
+		<!-- 시작 -->
+		<tbody>
+		<!--{? loop }-->
+		<!-- 리스트 있으면 -->
+			<!--{@ loop }-->
+			<!-- 리스트 시작 -->
+			<tr class="list-row">
+				<td class="page_no">{._no}</td>
+				<td class="category">{.categoryKR}</td>
+				<td class="request_date">{.reg_date}</td>
+				<!--{ ? serviceLimit('H_AD') == true }--><td class="provider_id">{.provider_name}</td><!--{ / }-->
+				<td class="request_user">{.manager_id}</td>
+				<td class="request_type">{.excel_type}</td>
+				<td class="count">{.count}</td>
+				<td class="status">{.state}</td>
+				<td class="complete_date">{.com_date}</td>
+				<td class="download">
+					{? .state == "완료"} 
+						<button type="button" class="excel_download resp_btn" value='{.category}|{.id}'>다운로드</button>
+					{:}
+						{.state}
+					{/}
+				</td>
+				<td class="expired_date">{.expired_date}</td>
+			</tr>
+			<!--{ / }-->
+			<!-- 리스트 끝 -->
+		<!--{ : }-->
+		<!-- 리스트 없으면 -->
+		<tr>
+			<td class="center" height="40" colspan="<!--{ ? serviceLimit('H_AD') == true }-->11<!--{ : }-->10<!--{ / }-->">등록된 {category_info_kr[sc.category]} 다운로드가 없습니다.</td>
+		</tr>
+		<!--{ / }-->
+		</tbody>
+		<!-- 끝 -->
+
+	</table>
+</div>
+<!-- 주문리스트 테이블 : 끝 -->
+<div class="paging_navigation">{page.html}</div>
+
+
+
+{ #layout_footer }

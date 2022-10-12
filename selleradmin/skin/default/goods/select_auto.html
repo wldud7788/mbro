@@ -1,0 +1,278 @@
+<style type="text/css">
+	#goodsSelectorAuto tr{cursor:move}
+	#goodsSelectorAuto .condition_img{text-align:right !important:border-right:none !important;}
+	#goodsSelectorAuto .border_none{border-left:none !important}
+	#goodsSelectorAuto .condition_detail{display:none;}
+</style>
+<script type="text/javascript">
+limit_condition = {?serviceLimit('H_FR')}1<!--{ : }-->3<!--{ / }-->;
+var displayLay	= ".bigdataGoodsContainer ";
+var displayKind = '{displayKind}';
+var auto_condition_use_id = '{=auto_condition_use_id}';
+getInputGoods	= '{=inputGoods}';
+if(displayKind == "criteria"){
+	displayLay = "#set_option_view_lay ";
+}
+
+$(function(){
+	select_auto_init();
+	$('#goodsSelectorAuto .chg_condition').on("click",set_condition_goods_auto);
+
+	$("#goodsSelectorAuto input[name='condition[]']").on("click",function(){
+		if($(this).is(':checked')){
+			<!--{ ? serviceLimit('H_FR') }-->
+			if((displayKind != 'bigdata' && $(this).val() != 'admin') || (displayKind == 'bigdata' && $(this).val() != 'order')){
+				{=serviceLimit('A3')}
+				return;
+			}
+			<!--{ / }-->
+			if(displayKind != 'bigdata_catalog'){
+				cnt = $("#goodsSelectorAuto input[name=condition[]]:checkbox:checked").length;
+				if(cnt > limit_condition){
+					event.cancelBubble = false;
+					if(limit_condition == 1){
+						{=serviceLimit('A3')}
+						return;
+					}
+					openDialogAlert('최대 '+limit_condition+'개까지 선택할 수 있습니다.','400','160',function(){});
+					return;
+				}
+			}
+
+			//$(this).closest('.condition_txt').css({'color':'#000000'});
+			//$(this).closest('.condition_txt').find('.kind_title').css({'color':'#0655f9'});
+			//$(this).closest('.condition_txt').find('.act_title').css({'color':'#ff0000'});
+			//$(this).closest('.condition_txt').find('.admin_title').css({'color':'#339900'});
+		}else{
+			//$(this).closest('.condition_txt').css({'color':'#c0c0c0'});
+			//$(this).closest('.condition_txt').find('.kind_title').css({'color':'#c0c0c0'});
+			//$(this).closest('.condition_txt').find('.act_title').css({'color':'#c0c0c0'});
+			//$(this).closest('.condition_txt').find('.admin_title').css({'color':'#c0c0c0'});
+		}
+	});
+
+	rank_reset();
+
+	//setAutoConditionDescription(displayKind);	//조건 상세 설명 노출
+
+	$('#goodsSelectorAuto table tbody').sortable({stop : rank_reset});
+});
+
+function select_auto_init(){
+	temp = '{criteria}';
+	if(!temp) return;
+	
+	if(temp.indexOf('∀') > -1){
+		temp_arr = temp.split('Φ');
+		len 		= temp_arr.length;
+		$.each(temp_arr.reverse(),function(k,v){
+			div = v.split('∀');
+			if	(div[0] == 'admin' && displayKind == 'bigdata') return;
+			tr = $("input[name='condition[]'][value='"+div[0]+"']").closest('tr');
+			tr.find("input[name='condition[]']").attr('checked',true);
+			//tr.find('.condition_txt').css({'color':'#000000'});
+			//tr.find('.condition_txt').find('.kind_title').css({'color':'#0655f9'});
+			//tr.find('.condition_txt').find('.act_title').css({'color':'#ff0000'});
+			//tr.find('.condition_txt').find('.admin_title').css({'color':'#339900'});
+			tr.find('.condition_txt .condition_detail').hide();
+
+			if(div[1] != ""){
+				tr.find('span.condition_status').html("설정 완료").removeClass("gray");
+			}
+
+			tr.find($("input[name='auto_condition[]']")).val(div[1]);
+			$('#goodsSelectorAuto .table_basic tbody').prepend('<tr>'+tr.html()+'</tr>');
+			tr.remove();
+		});
+	}
+}
+
+function rank_reset(){
+	i = 0;
+	$('#goodsSelectorAuto .rank').each(function(){$(this).text(++i)});
+}
+
+function set_condition_goods_auto(){
+	//condition_idx 	= $(this).attr("data-idx");
+	condition 		= $(this).closest("tr").find("input[name='auto_condition[]']").val();
+	kind 			= $(this).closest("tr").find("input[name='condition[]']").val();
+	provider_seq 	= '{provider_seq}';
+	$.ajax({
+		type: "get",
+		url: "../goods/select_auto_condition",
+		data: "condition="+encodeURIComponent(condition)+"&kind="+kind+"&displayKind="+displayKind+"&provider_seq="+provider_seq,
+		success: function(result){
+			$("div#condition_change_option").html(result);
+			openDialog('조건 상세 설정', 'condition_change_option', {"width":"800","height":"730","show" : "fade","hide" : "fade"});
+		}
+	});
+}
+
+function auto_condition_set(){
+	cnt = $("#goodsSelectorAuto input[name=condition[]]:checkbox:checked").length;
+	if(cnt > limit_condition && displayKind != 'bigdata_catalog'){
+		if(limit_condition == 1){
+			openDialog("업그레이드 안내", "nostorfreeServiceBigdataPopup", {"width":"80%","show" : "fade","hide" : "fade"});
+		}
+		openDialogAlert('최대 '+limit_condition+'개까지 선택할 수 있습니다.','400','160',function(){});
+		return;
+	}else{
+		var flag = false;
+		var tabIdx 	= $("#"+getInputGoods).closest('.displayTabGoodsContainer').attr('tabIdx');
+		var pmode	= '';
+		condition = new Array();
+		$("#goodsSelectorAuto input[name=condition[]]:checkbox:checked").each(function(){
+			temp = $(this).closest('tr').find("input[name='auto_condition[]']").val();
+			if	(temp == 'isFirst=1'){
+				openDialogAlert('상세조건을 선택해주세요.','400','160',function(){});
+				flag = true;
+				return;
+			}
+			temp = $(this).val()+'∀'+temp;
+			condition.push(temp);
+		});
+		if	(!flag){
+			if	(condition.length > 0)
+				$("#"+getInputGoods).val(condition.join('Φ'));
+			else
+				$("#"+getInputGoods).val('');
+
+			if(displayKind != 'relation' && auto_condition_use_id ){
+				pmode = 'setting';
+			}else{
+				pmode = 'goodsview';
+			}
+
+			if(displayKind != 'bigdata' && displayKind != 'bigdata_catalog'){
+				if(displayKind=='relation'){
+					$("input[name='relation_type'][value='AUTO']").attr("checked",true).change();
+				}else{
+					$("select.contents_type").eq(tabIdx).val("auto").change();
+				}
+
+				if(displayKind !='relation_seller'){
+					$("#"+auto_condition_use_id).val(1);
+				}
+				setCriteriaDescription_upgrade(pmode);
+			}else{
+				if(displayKind=='bigdata_catalog'){
+				setCriteriaDescription_bigdata('catalog');
+				}else{
+					setCriteriaDescription_bigdata('goodsview', true);
+				}
+			}
+
+			closeDialog("displayGoodsSelectPopup");
+		}
+	}
+}
+</script>
+<div id="goodsSelectorAuto">
+	<div class="content">
+		<table class="tablednd table_basic">
+		<col width="60"/>
+		<col width="60"/>
+		<col width="50"/>
+		<col />
+		<col width="80"/>
+		<col width="100"/>
+		<thead>
+		<tr class="nodrag nodrop">
+			<th>순위</th>
+			<th>순서</th>
+			<th>적용</th>
+			<th>조건</th>
+			<th>상세 조건</th>
+			<th>설정여부</th>
+		</tr>
+		</thead>
+		<tbody>
+		{@ bigdata_title_arr }
+		<tr>
+			<td class="center"><span class="rank">{=.index_+1}</span></td>
+			<td class="center"><img src="../images/common/icon_move.png"></td>
+			<td>
+				<label class="resp_checkbox">
+					<input type="checkbox" name="condition[]" value="{=.key_}" />
+				</label>
+			</td>
+			<td>
+				<ul class="condition_txt">
+					<li>{=.value_}</li>
+					<li class="condition_detail">
+						<span class="condition_desc"></span>
+					</li>
+				</ul>
+			</td>
+			<td class="center">
+				<button type="button" class="chg_condition resp_btn v2" data-idx="{=.index_}">설정</button>
+			</td>
+			<td class="center">
+				<span class="condition_status gray">미설정</span>
+				<input type="hidden" name="auto_condition[]" value="isFirst=1"/>
+			</td>
+		</tr>
+		{/}
+		</tbody>
+		</table>
+		<ul class="bullet_hyphen resp_message">
+			<li>추천 상품은 다른 고객의 통계를 바탕으로 상품이 추천됩니다.</li>
+			<li>상품 기준 
+				<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#regist_bigdata_msg1', 'sizeS')"></span>
+			</li>
+		</ul>
+	</div>
+	<div class="footer">
+		<button type="button" onclick="auto_condition_set();" class="resp_btn active size_XL">확인</button>
+		<button type="button" onclick="closeDialog('displayGoodsSelectPopup');" class="resp_btn v3 size_XL">취소</button>
+	</div>
+</div>
+
+
+<div id="nostorfreeServiceBigdataPopup" class="hide">
+	<p>사용중이신 서비스에서는 해당기능이 지원되지 않습니다.</p>
+	<p>상위 버전으로 업그레이드 하시길 바랍니다.</p>
+	<br /><p class="center"> &lt;빅데이터 큐레이션 기능 이용 안내&gt; </p><br />
+	<table class="table_basic" width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="its-th-align center">구분</td>
+			<td class="its-th-align center">서비스 상품</td>
+			<td class="its-th-align center">빅데이터 큐레이션</td>
+			<td class="its-th-align center">비고</td>
+		</tr>
+		<tr>
+			<td class="center" rowspan="2">오픈마켓</td>
+			<td class="center">입점몰 Plus</td>
+			<td class="center">모든 기능 제한 없음</td>
+			<td class="center">큐레이션당 최대 3개까지 복수 설정 가능</td>
+		</tr>
+		<tr>
+			<td class="center">입점몰 Plus Lite</td>
+			<td class="center">모든 기능 제한 없음</td>
+			<td class="center">큐레이션당 최대 3개까지 복수 설정 가능</td>
+		</tr>
+		<tr>
+			<td class="center" rowspan="3">일반 쇼핑몰</td>
+			<td class="center">독립몰 Plus</td>
+			<td class="center">모든 기능 제한 없음</td>
+			<td class="center">큐레이션당 최대 3개까지 복수 설정 가능</td>
+		</tr>
+		<tr>
+			<td class="center">프리미엄몰 Plus</td>
+			<td class="center">모든 기능 제한 없음</td>
+			<td class="center">큐레이션당 최대 3개까지 복수 설정 가능</td>
+		</tr>
+		<tr>
+			<td class="center">무료몰 Plus</td>
+			<td class="center">'관리자가 직접 지정'만 사용 가능</td>
+			<td class="its-td-align center">최대 1개 가능. 다른 조건으로 변경불가</td>
+		</tr>
+	</table>
+	<div class="center mt10">
+		<img align="absmiddle" class="hand" onclick="serviceUpgrade();" src="../skin/default/images/common/btn_upgrade.gif">
+	</div>
+</div>
+
+<!-- 추천상품 조건 선택용 -->
+<div id="condition_change_option">
+</div>

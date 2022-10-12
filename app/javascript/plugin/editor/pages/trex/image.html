@@ -1,0 +1,191 @@
+<?php
+	if ( ! defined('BASEPATH')) {
+		header("location:/common/editor_image");
+		exit('No direct script access allowed');
+	}
+?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>이미지 첨부</title>
+
+	<link rel="stylesheet" href="../../css/goods_image_popup.css" type="text/css"  charset="utf-8"/>
+	<style>
+	.modal_loading_spinner { position:fixed; left:0; top:0; right:0; bottom:0; z-index:9999; width:100%; height:100%; background: rgba(0,0,0,.4); opacity:0.7;}
+	.modal_loading_spinner:after { display:block; content:''; box-sizing:border-box; width:100px; height:100px; position:absolute; left:50%; top:50%; margin:-50px 0 0 -50px; border:10px #fff solid; border-top-color:#2492dd; border-radius:50%;  animation:loader_rotate 1s linear infinite; }
+	@keyframes loader_rotate {
+		0% { transform:rotate(0deg); }
+		100% { transform:rotate(360deg); }
+	}
+
+	</style>
+	<script type="text/javascript" src="/app/javascript/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/app/javascript/plugin/jquploadify/swfobject.js"></script>
+	<script type="text/javascript" src="/app/javascript/plugin/jquploadify/jquery.uploadify.v2.1.4.js"></script>
+	<script type="text/javascript" src="/app/javascript/plugin/editor/js/popup.js"></script>
+<!--  html5 -->
+<script type="text/javascript" src="/app/javascript/plugin/jquery_fileupload/jquery.ui.widget.js?v={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/plugin/jquery_fileupload/jquery.fileupload.js?v={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/browsercheck.js?v={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/image.uploader.js?v={=date('Ymdhi')}"></script>
+
+<script type="text/javascript">
+$(function () {
+	// 단건파일 업로드'전' 실행되는 이벤트
+	singleFileUpload.event.singleAdd(function (file) {
+        var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
+		if(
+			typeof file.originalFiles !== 'undefined'
+			&& !acceptFileTypes.test(file.originalFiles[0]['type'])
+		) {
+            alert('이미지 파일(gif, png, jpeg, jpg)만 선택해 주세요');
+
+			// bool 결과에따라 파일업로드 진행여부 결정된다.
+			return false;
+        }
+
+		$('#modal_loading_spinner').show();
+	});
+
+	// 단건파일 업로드'후' 실행되는 이벤트
+	singleFileUpload.event.singleDone(function (response) {
+		if (response.result[0].status === 1) {
+			var result = response.result[0];
+			
+			var daumEditor = PopupUtil.getOpener().Editor;
+			daumEditor.getSidebar().getAttacher().image.boxonly = false;
+			daumEditor.getSidebar().getAttacher().file.boxonly = true;
+			daumEditor.focus();
+			daumEditor.getSidebar().getAttacher("image").execAttach({
+				'imageurl': result.filePath,
+				'filename': result.fileInfo.client_name,
+				'filesize': parseInt(result.fileInfo.file_size * 1000),
+				'imagealign': 'C',
+				'originalurl': result.filePath,
+				'thumburl': result.filePath
+			});
+
+			if ($("input[name='watermark_apply']").is(":checked")) {
+				$.ajax({
+					'url' : '/common/editor_image_watermark',
+					'type' : 'post',
+					'async' : false,
+					'data' : {'target_image':result.filePath},
+					'success' : function(res){
+						if (res != 'OK') {
+							alert('워터마크 적용 실패');
+						}
+					}
+				});
+			}
+		} else {
+			var fileName = response.files[0].name;
+			var errorMessage = response.result[0].msg;
+			
+			alert('파일명 : ' + fileName + " \n" + errorMessage);
+		}
+	});
+
+	// 모든파일 업로드'후' 실행되는 이벤트
+	singleFileUpload.event.multiDone(function(file){
+		// 업로드 완료되면 팝업창 닫기
+		$('#modal_loading_spinner').hide();
+		closeWindow();
+	});
+
+	// 파일업로드 설정값
+	singleFileUpload.eventRegist({
+		url : '/common/image_temporary_fileupload',
+		fileIdSelector : '#uploader',
+	});
+
+});
+
+
+function initUploader() {
+	var isPopup = (!window.opener) ? false : true;
+	if (isPopup === false) {
+		throw ('잘못된 경로로 접근하셨습니다');
+	}
+
+		{? sc['is_image'] }
+
+			<!--{ ? !service_limit && config_watermark.watermark_setting_status && sc.watermark_apply }-->
+				$.ajax({
+					'url' : '/common/editor_image_watermark',
+					'type' : 'post',
+					'async' : false,
+					'data' : {'target_image':'{sc.imageurl}'},
+					'success' : function(res){
+						if(res!='OK'){
+							alert('워터마크 적용 실패');
+						}
+					}
+				});
+			< !--{ / } -->
+
+			var daumEditor = PopupUtil.getOpener().Editor;
+			daumEditor.getSidebar().getAttacher().image.boxonly = false;
+			daumEditor.getSidebar().getAttacher().file.boxonly = true;
+			daumEditor.focus();
+			daumEditor.getSidebar().getAttacher("image").execAttach({
+				'imageurl': '{sc.imageurl}',
+				'filename': '{sc.filename}',
+				'filesize': '{sc.filesize}',
+				'imagealign': '{sc.imagealign}',
+				'originalurl':'{sc.originalurl}',
+				'thumburl': '{sc.thumburl}'
+			});
+			closeWindow();
+		{:}
+			var _attacher = getAttacher('image', window.opener);
+			registerAction(_attacher);
+		{/}
+	}
+	</script>
+</head>
+<body onload="{? ( !sc.redomain || ( sc.redomain && sc.is_image ) ) }initUploader();{/}">
+<div class="wrapper">
+	<div class="header">
+		<h1>이미지 첨부</h1>
+		<p><a href="javascript:void(0);" onclick="closeWindow();" title="닫기" class="close"> </a></p>
+	</div>
+	<div class="body">
+		<ul class="alert">
+			<!--{ ? !sc['redomain'] }-->
+		    <li class="title description">여러 개의 파일을 한꺼번에 등록 가능합니다. (멀티업로드)</li>
+			<li class="title description">첨부 가능한 용량 및 개수는 아래와 같습니다.
+				<dl>
+					<dt> - 한 개 파일 : 최대 6MB</dt>
+				</dl>
+				<dl>
+					<dt> - 여러 개 파일 : 최대 20MB, 최대 20개</dt>
+				</dl>
+			</li>
+			<!--{ / }-->
+			<!--{ ? !service_limit && config_watermark.watermark_setting_status }-->
+			<li  class="watermark" style="padding-bottom:15px;text-align:left;">
+				<label style="cursor:pointer"><input type="checkbox" name="watermark_apply" value="y" />이미지 파일에 워터마크 적용 (원본 680*3000 이하 가능)</label>
+			</li>
+			<!--{ / }-->
+			
+			<li>
+				<div style="float:left;">
+				<!-- input type="file" id="uploader" /-->
+				<label for="uploader" id="file_image">
+					<img src="/app/javascript/plugin/jquploadify/uploadify-search.gif"/>
+				</label>
+					<input type="file" id="uploader" name="Filedata" style="display:none" {? !sc['redomain'] }multiple{/}  accept="image/*" />
+				</div>
+			</li>
+			<div style="float:left;padding-left:5px;"></div>
+		</ul>
+	</div>
+</div>
+<div id="modal_loading_spinner" class="modal_loading_spinner" style="display:none;"></div>
+</body>
+
+</html>

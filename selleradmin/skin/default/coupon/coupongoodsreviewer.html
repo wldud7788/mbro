@@ -1,0 +1,192 @@
+<script type="text/javascript">
+	$(document).ready(function() { 
+		help_tooltip();
+	}); 
+	</script> 
+	
+	<table class="table_basic thl">
+		<colgroup>
+			<col width="35%" />
+			<col width="65%" />
+		</colgroup> 
+		<tr>
+			<th>쿠폰명 </th>
+			<td>{coupons.coupon_name}</td>
+		</tr>
+		<tr>
+			<th>혜택<!--{ ? serviceLimit('H_AD') }-->(부담비율)<!--{/}--></th>
+			<td>
+		<!-- 혜택 -->
+				{? coupons.coupon_category != 'order' && coupons.use_type =='offline' }
+			{coupons.benefit}
+		{:}
+			{? coupons.type =='offline_emoney' }
+						마일리지 {=get_currency_price(coupons.offline_emoney,2)} 지급
+			
+			{:}
+				{? coupons.type=='shipping' || strstr(coupons.type,'_shipping') }
+					{? coupons.shipping_type == 'free' }
+								기본 배송비 무료, (최대 {=get_currency_price(coupons.max_percent_shipping_sale,2)})
+							{: coupons.shipping_type == 'won' }
+								기본 배송비 {=get_currency_price(coupons.won_shipping_sale,2)} 할인
+					{/}
+				{:}
+					{? coupons.sale_type == 'percent' }
+								{coupons.percent_goods_sale}% 할인  (최대할인금액 {=get_currency_price(coupons.max_percent_goods_sale,2)})
+					{: }
+								{=get_currency_price(coupons.won_goods_sale,2)} 할인
+					{/} 
+				{/} 
+			{/} 
+		{/}
+		{? coupons.duplication_use == 1 //중복 }
+			{? coupons.type =='shipping' || coupons.type =='mobile' || coupons.type =='download' }
+				<div>중복다운로드 및 중복할인 </div>
+			{:}
+				<div>중복할인</div>
+			{/}
+		{/}
+				<!--{ ? serviceLimit('H_AD') }-->
+		<div>( { coupons.salescost_admin }% VS { coupons.salescost_provider }% )</div>
+				<!--{ / }-->
+		</td></tr>
+	
+		{? !(coupons.type =='offline_emoney' || coupons.type =='point') }
+			<tr><th>유효기간 </th>  
+			<td>
+			{? coupons.coupondown }
+				{coupons.issue_startdate} ~ {coupons.issue_enddate} ({? coupons.issuedaylimituse }{=number_format(coupons.issuedaylimit)}일 남음{:}{=number_format(coupons.issuedaylimit)}일 지남{/})
+			{:}
+				{? coupons.issue_priod_type == 'day' }
+					발급일로부터 {=number_format(coupons.after_issue_day)}일 동안 사용 가능
+				{: coupons.issue_priod_type == 'months' }
+					발급 당월 말일까지 
+				{: coupons.issue_priod_type == 'date' }
+					{coupons.issue_startdate} ~ {coupons.issue_enddate} ({? coupons.issuedaylimituse }{=number_format(coupons.issuedaylimit)}일 남음{:}{=number_format(coupons.issuedaylimit)}일 지남{/})
+				{/}
+			{/}
+			</td></tr>
+		{/}
+	
+		<tr>
+			<th colspan="2" >사용제한 </th>
+		</tr>
+		<tr>
+			<td colspan="2" >
+			<div>
+				{? coupons.use_type =='offline' }
+					<ul>
+					{? coupons.limit_txt }<li>√ {coupons.limit_txt}<!-- 매장 사용제한 --></li>{/}
+						<li>√ 
+						{? coupons.sale_agent == 'm' } 
+							{? coupons.use_type == 'offline'}모바일/태블릿 환경에서만 다운로드 가능
+							{:}모바일/태블릿 환경에서만 사용 가능{/}
+						{: coupons.sale_agent == 'app' } 쇼핑몰앱 환경에서만 사용 가능
+						{:}모든 환경에서 사용 가능
+						{/}<!-- 결제수단 -->
+						</li>
+					</ul>
+				{:}
+					<ul>
+						<!--{ ? checkO2OService }-->
+						<li>
+							√ 
+							<!--{? coupons.sale_store == 'all'}-->
+								온/오프 둘 다 사용 가능
+							<!--{: coupons.sale_store == 'on'}-->
+								온라인에서만 사용 가능
+							<!--{: coupons.sale_store == 'off'}-->
+								오프라인에서만 사용 가능
+								<!--{ ? salestoreitemloop }-->
+									<!--{ @ salestoreitemloop }-->
+										<!--{ ? coupons.sale_store == 'off' && in_array(.o2o_store_seq, coupons.sale_store_item_arr) }-->
+											<br/>&nbsp;&nbsp;&nbsp;- <span class="left"><!--{ = .pos_name }--></span>
+										<!--{ / }-->
+									<!--{ /}-->
+								<!--{ /}-->
+							<!--{ / }-->
+						</li>
+						<!-- 온/오프 -->
+						<!--{ / }-->
+						<li>√ {? coupons.coupon_same_time == 'Y'}다른 쿠폰과 동시 사용 가능{:}다른 쿠폰과 동시 사용 불가{/}</li><!-- 단독 -->
+						<li>√ {=get_currency_price(coupons.limit_goods_price,3)} 이상 구매 시</li><!-- 금액 -->
+						<li>√ 
+						{? coupons.sale_agent == 'm' } 
+							{? coupons.use_type == 'offline'}모바일/태블릿 환경에서만 다운로드 가능
+							{:}모바일/태블릿 환경에서만 사용 가능{/}
+						{: coupons.sale_agent == 'app' } 쇼핑몰앱 환경에서만 사용 가능
+						{:}모든 환경에서 사용 가능
+						{/}<!-- 결제수단 -->
+						</li>
+						<li> √ 
+						{? coupons.sale_payment == 'b' }무통장 결제 시 사용 가능
+						{:}모든 결제수단에 사용 가능
+						{/}<!-- 사용환경 --></li>
+						<li>√ 
+						{? coupons.sale_referer == 'n' } 바로 접속 시 사용 가능 
+						{: coupons.sale_referer == 'y' } 특정 유입경로로 방문 시 사용 가능 
+							{? coupons.sale_referer_type == 's' } 
+								{? salserefereritemloop } 
+									{@ salserefereritemloop }
+										<br/>&nbsp;&nbsp;&nbsp;- <span class="left">{.referersale_name}</span>
+									{/}
+								{/} 
+							{:}모든 유입경로
+							{/} 
+						{:}유입경로와 무관하게 사용 가능
+						{/}<!-- 유입경로 -->
+						</li>
+						<!-- 상품 -->
+						{ ? coupons.type=='shipping' || strstr(coupons.type,'_shipping') }
+							<!-- <li>√ 무관합니다.</li> -->
+						{ : }
+							{ ? coupons.issue_type == 'issue' }<li>√ 특정 상품/카테고리에서 사용 가능</li>
+								{? coupons.salescost_provider>0 && coupons.provider_list }
+									<li>√ 특정 입점판매자의 상품에서 사용가능</li>
+								{/}
+							{ : coupons.issue_type == 'except' }<li>√ 특정 상품/카테고리에서는 사용 불가</li>
+								{? coupons.salescost_provider>0 && coupons.provider_list }
+									<li>√ 특정 입점판매자의 상품에서 사용가능</li>
+								{/}
+							{ : } 
+								{? coupons.salescost_provider>0 && coupons.provider_list }
+									<li>√ 특정 입점판매자의 상품에서 사용가능 </li>
+								{:}
+									<li>√ 모든 상품에 사용 가능</li>
+								{/}
+							{ / }
+						{ / }
+					</ul>
+				{/}
+			</div>
+		</td>
+		</tr>
+		{ ? (coupons.issue_type == 'issue' || coupons.issue_type == 'except')  && !coupons.coupondown  }
+		<tr  class="{? (coupons.type =='offline_emoney' || coupons.type =='point') }hide{/}" >
+			<th>상품번호 입력 </th>
+			<td  class="its-td" >
+					<input type="text" name="goods_seq" class='resp_text' />
+					<input type="button" name="goodssearchbtn" value="검색" class='resp_btn v2' onClick='goodsSearch($(this))' coupon_seq="{coupons.coupon_seq}" />
+					<span class="helpicon" title="//{? config_system.domain }{config_system.domain}{:}{config_system.subDomain}{/}/goods/view?no=<span class='red'>{coupons.coupon_seq}</span><br/>상품번호는 상품 URL에 있는 숫자로 상품마다 고유합니다."  options="{alignX: 'right'}"></span>
+			</td></tr>
+			<tr>
+			<td  class="its-td-align {? (coupons.type =='offline_emoney' || coupons.type =='point') }hide{/}"  colspan="2" >
+				<div style="border-left:1px #ececec;border-top:2px #eaeaea;padding:5px; width:98%; height:150px; border:0px;overflow:auto" class="" readonly>
+				<!--{ @ issuegoods }--> 
+					<!-- <div class='goods fl'>
+						<div align='center' class='image'>
+							<img class="goodsThumbView" alt="" src="{.image}" width="50" height="50">
+						</div>
+						<div align='center' class='name' style='white-space:nowrap;'>{.goods_name}</div>
+						<div align='center' class='price'>{=number_format(.price)}</div> 
+					</div> -->
+				<!--{ / }-->
+				<div style="clear: both"></div>
+				<!--{ @ issuecategorys }--> 
+					<div ><a href="/goods/catalog?code={.category_code}" target="_blank" ><span class="blue">{.category}</span></a></div>
+				<!--{ / }--> 
+				</div>
+			</td>
+			</tr>
+		{/}
+	</table>

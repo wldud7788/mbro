@@ -1,0 +1,880 @@
+[2022-03-24 09:16:42.461610000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [npay_cont] => YToyOntzOjEyOiJPcmRlckV0Y0luZm8iO2E6MTp7aToyMDIyMDMwNzMyMjQ4NDkwO2E6MTp7czoxNjoiUFVSQ0hBU0VfREVDSURFRCI7YToxOntzOjQ6Ik5PTkUiO2E6OTp7czo5OiJvcmRlcl9jbnQiO2k6MTtzOjE5OiJpc19yZWNlaXZlcl9jaGFuZ2VkIjtzOjU6ImZhbHNlIjtzOjIwOiJpc19yZWNlaXZlcl9jaGFuZ2VkMiI7YToxOntpOjA7czo1OiJmYWxzZSI7fXM6MTY6Imxhc3RfY2hhbmdlX2RhdGUiO3M6MjM6IjIwMjItMDMtMjRUMDA6MDY6MTYuMDBaIjtzOjE3OiJyZXF1ZXN0X3RpbWVzdGFtcCI7czoyODoiMjAyMi0wMy0yNFQwMDoxMDowNS4zOTJaNTU2MyI7czoxODoicmVxdWVzdF90aW1lc3RhbXAyIjthOjE6e2k6MDtzOjI4OiIyMDIyLTAzLTI0VDAwOjEwOjA1LjM5Mlo1NTYzIjt9czoxODoibGFzdF9jaGFuZ2Vfc3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjE5OiJsYXN0X2NoYW5nZV9zdGF0dXMyIjthOjE6e2k6MDtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjt9czoxNjoibnBheV9zZXJ2ZXJfaW5mbyI7czo0OiJSRUFMIjt9fX19czoyMDoiUHJvZHVjdE9yZGVyUmVzcG9uc2UiO2E6MTp7czoyMDoiUHJvZHVjdE9yZGVySW5mb0xpc3QiO2E6MTp7aTowO2E6Mzp7czo4OiJEZWxpdmVyeSI7YTo4OntzOjEzOiJEZWxpdmVyZWREYXRlIjtzOjIzOiIyMDIyLTAzLTIxVDA1OjUyOjAwLjAwWiI7czoxNToiRGVsaXZlcnlDb21wYW55IjtzOjc6IkhZVU5EQUkiO3M6MTQ6IkRlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjE0OiJEZWxpdmVyeVN0YXR1cyI7czoxMjoi67Cw7Iah7JmE66OMIjtzOjIxOiJJc1dyb25nVHJhY2tpbmdOdW1iZXIiO3M6NToiZmFsc2UiO3M6MTA6IlBpY2t1cERhdGUiO3M6MjM6IjIwMjItMDMtMTdUMDg6NTY6MDAuMDBaIjtzOjg6IlNlbmREYXRlIjtzOjIzOiIyMDIyLTAzLTE4VDA4OjEyOjI1LjQwWiI7czoxNDoiVHJhY2tpbmdOdW1iZXIiO3M6MTI6IjI0MTE3OTg2Mzk5MyI7fXM6NToiT3JkZXIiO2E6MTg6e3M6MjU6IkNoYXJnZUFtb3VudFBheW1lbnRBbW91bnQiO3M6MToiMCI7czozMzoiQ2hlY2tvdXRBY2N1bXVsYXRpb25QYXltZW50QW1vdW50IjtzOjE6IjAiO3M6MjA6IkdlbmVyYWxQYXltZW50QW1vdW50IjtzOjU6IjE4OTAwIjtzOjI5OiJJc0RlbGl2ZXJ5TWVtb1BhcnRpY3VsYXJJbnB1dCI7czo1OiJmYWxzZSI7czoyNToiTmF2ZXJNaWxlYWdlUGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjk6Ik9yZGVyRGF0ZSI7czoyMzoiMjAyMi0wMy0wN1QwNjozNDoxMC4wMFoiO3M6MTk6Ik9yZGVyRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlcmVySUQiO3M6MjQ6Ilhib3JxekdrVWFsRTR2cWNlZ1lxUHc9PSI7czoxMToiT3JkZXJlck5hbWUiO3M6MjQ6ImRWTXVFenZSSUU1U0dIZ1RjOExLTlE9PSI7czoxMToiT3JkZXJlclRlbDEiO3M6MjQ6IlZZR2VQYmdxRGdLQS9vMVB3cnQxZ1E9PSI7czo3OiJPcmRlcklEIjtzOjE2OiIyMDIyMDMwNzQxNDM3NzIwIjtzOjk6Ik9yZGVyVHlwZSI7czo2OiLsnbzrsJgiO3M6MTU6IlBheUxvY2F0aW9uVHlwZSI7czo2OiJNT0JJTEUiO3M6MTE6IlBheW1lbnREYXRlIjtzOjIzOiIyMDIyLTAzLTA3VDA2OjQyOjUzLjAwWiI7czoxMjoiUGF5bWVudE1lYW5zIjtzOjE1OiLrrLTthrXsnqXsnoXquIgiO3M6MTM6IlBheW1lbnROdW1iZXIiO3M6MTE6IjE1MTM4NDc4NTAzIjtzOjE1OiJQYXltZW50Q29yZVR5cGUiO3M6MTU6IuuEpOydtOuyhOqysOygnCI7czoyMToiUGF5TGF0ZXJQYXltZW50QW1vdW50IjtzOjE6IjAiO31zOjEyOiJQcm9kdWN0T3JkZXIiO2E6Mzk6e3M6MTI6IkRlY2lzaW9uRGF0ZSI7czoyMzoiMjAyMi0wMy0yNFQwMDowNjoxNS4wMFoiO3M6Mjk6IkRlbGF5ZWREaXNwYXRjaERldGFpbGVkUmVhc29uIjtzOjIwMjoi7JWI64WV7ZWY7IS47JqULgrso7zrrLjtlbQg7KO87IugIOu4jOugiOydtOu4jOqxuOyKpChCcmF2ZSBHaXJscykgLSDrr7jri4ggNuynkSBbVEhBTksgWU9VXQrsg4HtkojsnYAg7JiI7JW9IOyDge2SiOydtOq4sCDrlYzrrLjsl5Ag7J2067Kk7Yq4IOyiheujjCDtm4QK7Iic7LCo7KCB7Jy866GcIOuwnOyGoeuQqeuLiOuLpC4K6rCQ7IKs7ZWp64uI64ukLiI7czoyMToiRGVsYXllZERpc3BhdGNoUmVhc29uIjtzOjE3OiJSRVNFUlZFRF9ESVNQQVRDSCI7czoyMjoiRGVsaXZlcnlEaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJEZWxpdmVyeUZlZUFtb3VudCI7czo0OiIzMDAwIjtzOjE4OiJEZWxpdmVyeVBvbGljeVR5cGUiO3M6MTU6IuyhsOqxtOu2gOustOujjCI7czoyMjoiRXhwZWN0ZWREZWxpdmVyeU1ldGhvZCI7czo4OiJERUxJVkVSWSI7czoyNDoiRXhwZWN0ZWRTZXR0bGVtZW50QW1vdW50IjtzOjU6IjE1NzQxIjtzOjMxOiJGaXJzdFNlbGxlckJ1cmRlbkRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6NjoiTWFsbElEIjtzOjE0OiJucF96dXhydTE2NTM2MyI7czoxNjoiT3B0aW9uTWFuYWdlQ29kZSI7czo5OiJvcHQxMTQ2NzciO3M6MTE6Ik9wdGlvblByaWNlIjtzOjQ6IjEwMDAiO3M6MTM6IlBhY2thZ2VOdW1iZXIiO3M6MTY6IjIwMjIwMzA3Njg1MzIzMzMiO3M6MTc6IlBheW1lbnRDb21taXNzaW9uIjtzOjM6IjE1OSI7czoxNDoiUGxhY2VPcmRlckRhdGUiO3M6MjM6IjIwMjItMDMtMTBUMTA6MTI6MzAuMDBaIjtzOjIxOiJQbGFjZU9yZGVyUmVsZWFzZURhdGUiO3M6MjM6IjIwMjItMDMtMTVUMTk6MTk6MTUuMDBaIjtzOjE2OiJQbGFjZU9yZGVyU3RhdHVzIjtzOjY6IkNBTkNFTCI7czoxMjoiUHJvZHVjdENsYXNzIjtzOjIxOiLsobDtlantmJXsmLXshZjsg4HtkogiO3M6MjE6IlByb2R1Y3REaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjk6IlByb2R1Y3RJRCI7czo0OiIyMzAyIjtzOjIxOiJQcm9kdWN0SW5mb0FwaVZlcnNpb24iO3M6MTQ6IkFQSV9WRVJTSU9OXzIwIjtzOjExOiJQcm9kdWN0TmFtZSI7czo1Nzoi67iM66CI7J2067iM6rG47IqkKEJyYXZlIEdpcmxzKSAtIOuvuOuLiCA27KeRIFtUSEFOSyBZT1VdIjtzOjEzOiJQcm9kdWN0T3B0aW9uIjtzOjQ2OiLtj6zsiqTthLAg7Y+s7ZWoOiDtj6zsiqTthLAgKOyngOq0gO2GtSDtj6ztlagpIjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMDczMjI0ODQ5MCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjg6IlF1YW50aXR5IjtzOjE6IjEiO3M6MTg6IlNlY3Rpb25EZWxpdmVyeUZlZSI7czoxOiIwIjtzOjI2OiJTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJTZWxsZXJQcm9kdWN0Q29kZSI7czo2ODoiWTJNMU5qazJabVppWkRaa1pERTVNMkl6TTJRMllUVXhOREJqTjJVeFpXWmxZMkU0WmpRNFlWOHhOalEyTmpNME9ESTUiO3M6MTU6IlNoaXBwaW5nQWRkcmVzcyI7YTo3OntzOjExOiJBZGRyZXNzVHlwZSI7czo4OiJET01FU1RJQyI7czoxMToiQmFzZUFkZHJlc3MiO3M6ODg6IkF3RFRiU05VaGhYL0Q3M2YyaDkyWERmRmtqazQzSFo3bmxrS0VEZzRueHpUZjFPdTZoSWVhVU1wN0FSemNKWjVFOE9GV3FvY05lYUtUWmZJU1RrUzhnPT0iO3M6MTU6IkRldGFpbGVkQWRkcmVzcyI7czoyNDoiV1g4bldkV1FNSTRLVGdqY2ErQ0tnUT09IjtzOjQ6Ik5hbWUiO3M6MjQ6ImRWTXVFenZSSUU1U0dIZ1RjOExLTlE9PSI7czo0OiJUZWwxIjtzOjI0OiJvSm1xejlxS25mWlNMTks3dmlWanZBPT0iO3M6NzoiWmlwQ29kZSI7czo1OiIxMjY1MiI7czoxNzoiSXNSb2FkTmFtZUFkZHJlc3MiO3M6NDoidHJ1ZSI7fXM6MTU6IlNoaXBwaW5nRHVlRGF0ZSI7czoyMzoiMjAyMi0wMy0xNVQxNDo1OTo1OS4wMFoiO3M6MTU6IlNoaXBwaW5nRmVlVHlwZSI7czo5OiLshKDqsrDsoJwiO3M6MTg6IlRvdGFsUGF5bWVudEFtb3VudCI7czo1OiIxNTkwMCI7czoxODoiVG90YWxQcm9kdWN0QW1vdW50IjtzOjU6IjE1OTAwIjtzOjk6IlVuaXRQcmljZSI7czo1OiIxNDkwMCI7czoxOToiTWVyY2hhbnRDdXN0b21Db2RlMSI7czo2ODoiWTJNMU5qazJabVppWkRaa1pERTVNMkl6TTJRMllUVXhOREJqTjJVeFpXWmxZMkU0WmpRNFlWOHhOalEyTmpNME9ESTUiO3M6MjA6IkNvbW1pc3Npb25SYXRpbmdUeXBlIjtzOjE1OiLqsrDsoJzsiJjsiJjro4wiO3M6MTA6IkluZmxvd1BhdGgiO3M6MTk6IuuEpOydtOuyhOyHvO2VkSDsmbgiO3M6MTc6Ik1lcmNoYW50UHJvZHVjdElkIjtzOjY4OiJZMk0xTmprMlptWmlaRFprWkRFNU0ySXpNMlEyWVRVeE5EQmpOMlV4WldabFkyRTRaalE0WVY4eE5qUTJOak0wT0RJNSI7fX19fX0=
+)
+
+
+[2022-03-24 09:16:42.464120000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [OrderEtcInfo] => Array
+        (
+            [2022030732248490] => Array
+                (
+                    [PURCHASE_DECIDED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-24T00:06:16.00Z
+                                    [request_timestamp] => 2022-03-24T00:10:05.392Z5563
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-24T00:10:05.392Z5563
+                                        )
+
+                                    [last_change_status] => PURCHASE_DECIDED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PURCHASE_DECIDED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [ProductOrderResponse] => Array
+        (
+            [ProductOrderInfoList] => Array
+                (
+                    [0] => Array
+                        (
+                            [Delivery] => Array
+                                (
+                                    [DeliveredDate] => 2022-03-21T05:52:00.00Z
+                                    [DeliveryCompany] => HYUNDAI
+                                    [DeliveryMethod] => DELIVERY
+                                    [DeliveryStatus] => 배송완료
+                                    [IsWrongTrackingNumber] => false
+                                    [PickupDate] => 2022-03-17T08:56:00.00Z
+                                    [SendDate] => 2022-03-18T08:12:25.40Z
+                                    [TrackingNumber] => 241179863993
+                                )
+
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 18900
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-07T06:34:10.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => XborqzGkUalE4vqcegYqPw==
+                                    [OrdererName] => dVMuEzvRIE5SGHgTc8LKNQ==
+                                    [OrdererTel1] => VYGePbgqDgKA/o1Pwrt1gQ==
+                                    [OrderID] => 2022030741437720
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-07T06:42:53.00Z
+                                    [PaymentMeans] => 무통장입금
+                                    [PaymentNumber] => 15138478503
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DecisionDate] => 2022-03-24T00:06:15.00Z
+                                    [DelayedDispatchDetailedReason] => 안녕하세요.
+주문해 주신 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+상품은 예약 상품이기 때문에 이벤트 종료 후
+순차적으로 발송됩니다.
+감사합니다.
+                                    [DelayedDispatchReason] => RESERVED_DISPATCH
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 3000
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 15741
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114677
+                                    [OptionPrice] => 1000
+                                    [PackageNumber] => 2022030768532333
+                                    [PaymentCommission] => 159
+                                    [PlaceOrderDate] => 2022-03-10T10:12:30.00Z
+                                    [PlaceOrderReleaseDate] => 2022-03-15T19:19:15.00Z
+                                    [PlaceOrderStatus] => CANCEL
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2302
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 포스터 포함: 포스터 (지관통 포함)
+                                    [ProductOrderID] => 2022030732248490
+                                    [ProductOrderStatus] => PURCHASE_DECIDED
+                                    [Quantity] => 1
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => Y2M1Njk2ZmZiZDZkZDE5M2IzM2Q2YTUxNDBjN2UxZWZlY2E4ZjQ4YV8xNjQ2NjM0ODI5
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => AwDTbSNUhhX/D73f2h92XDfFkjk43HZ7nlkKEDg4nxzTf1Ou6hIeaUMp7ARzcJZ5E8OFWqocNeaKTZfISTkS8g==
+                                            [DetailedAddress] => WX8nWdWQMI4KTgjca+CKgQ==
+                                            [Name] => dVMuEzvRIE5SGHgTc8LKNQ==
+                                            [Tel1] => oJmqz9qKnfZSLNK7viVjvA==
+                                            [ZipCode] => 12652
+                                            [IsRoadNameAddress] => true
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-15T14:59:59.00Z
+                                    [ShippingFeeType] => 선결제
+                                    [TotalPaymentAmount] => 15900
+                                    [TotalProductAmount] => 15900
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => Y2M1Njk2ZmZiZDZkZDE5M2IzM2Q2YTUxNDBjN2UxZWZlY2E4ZjQ4YV8xNjQ2NjM0ODI5
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => Y2M1Njk2ZmZiZDZkZDE5M2IzM2Q2YTUxNDBjN2UxZWZlY2E4ZjQ4YV8xNjQ2NjM0ODI5
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-24 12:45:17.960884000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [npay_cont] => YToyOntzOjEyOiJPcmRlckV0Y0luZm8iO2E6MTp7aToyMDIyMDMwNzQ5NzI3MDMwO2E6MTp7czoxNjoiUFVSQ0hBU0VfREVDSURFRCI7YToxOntzOjQ6Ik5PTkUiO2E6OTp7czo5OiJvcmRlcl9jbnQiO2k6MTtzOjE5OiJpc19yZWNlaXZlcl9jaGFuZ2VkIjtzOjU6ImZhbHNlIjtzOjIwOiJpc19yZWNlaXZlcl9jaGFuZ2VkMiI7YToxOntpOjA7czo1OiJmYWxzZSI7fXM6MTY6Imxhc3RfY2hhbmdlX2RhdGUiO3M6MjM6IjIwMjItMDMtMjRUMDM6Mzk6MDEuMDBaIjtzOjE3OiJyZXF1ZXN0X3RpbWVzdGFtcCI7czoyODoiMjAyMi0wMy0yNFQwMzo0MDowNC45MjZaNTgzMSI7czoxODoicmVxdWVzdF90aW1lc3RhbXAyIjthOjE6e2k6MDtzOjI4OiIyMDIyLTAzLTI0VDAzOjQwOjA0LjkyNlo1ODMxIjt9czoxODoibGFzdF9jaGFuZ2Vfc3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjE5OiJsYXN0X2NoYW5nZV9zdGF0dXMyIjthOjE6e2k6MDtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjt9czoxNjoibnBheV9zZXJ2ZXJfaW5mbyI7czo0OiJSRUFMIjt9fX19czoyMDoiUHJvZHVjdE9yZGVyUmVzcG9uc2UiO2E6MTp7czoyMDoiUHJvZHVjdE9yZGVySW5mb0xpc3QiO2E6MTp7aTowO2E6Mzp7czo4OiJEZWxpdmVyeSI7YTo4OntzOjEzOiJEZWxpdmVyZWREYXRlIjtzOjIzOiIyMDIyLTAzLTE5VDAwOjUyOjAwLjAwWiI7czoxNToiRGVsaXZlcnlDb21wYW55IjtzOjc6IkhZVU5EQUkiO3M6MTQ6IkRlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjE0OiJEZWxpdmVyeVN0YXR1cyI7czoxMjoi67Cw7Iah7JmE66OMIjtzOjIxOiJJc1dyb25nVHJhY2tpbmdOdW1iZXIiO3M6NToiZmFsc2UiO3M6MTA6IlBpY2t1cERhdGUiO3M6MjM6IjIwMjItMDMtMTdUMDg6NTY6MDAuMDBaIjtzOjg6IlNlbmREYXRlIjtzOjIzOiIyMDIyLTAzLTE4VDA4OjEyOjMzLjM1WiI7czoxNDoiVHJhY2tpbmdOdW1iZXIiO3M6MTI6IjI0MTE3OTg2MjgwMyI7fXM6NToiT3JkZXIiO2E6MTc6e3M6MjU6IkNoYXJnZUFtb3VudFBheW1lbnRBbW91bnQiO3M6NjoiMTQ5MDAwIjtzOjMzOiJDaGVja291dEFjY3VtdWxhdGlvblBheW1lbnRBbW91bnQiO3M6MToiMCI7czoyMDoiR2VuZXJhbFBheW1lbnRBbW91bnQiO3M6MToiMCI7czoyOToiSXNEZWxpdmVyeU1lbW9QYXJ0aWN1bGFySW5wdXQiO3M6NToiZmFsc2UiO3M6MjU6Ik5hdmVyTWlsZWFnZVBheW1lbnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlckRhdGUiO3M6MjM6IjIwMjItMDMtMDdUMTQ6MTg6MDEuMDBaIjtzOjE5OiJPcmRlckRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiT3JkZXJlcklEIjtzOjI0OiJIMXF5WmpJNEpCTmFSaTNqNExBZldBPT0iO3M6MTE6Ik9yZGVyZXJOYW1lIjtzOjI0OiJQQzlTNHV6RDVCQmR5SzVkSjE1NVFRPT0iO3M6MTE6Ik9yZGVyZXJUZWwxIjtzOjI0OiJxRk91OUdvSXJlOFpvSUoyWWRYa1pBPT0iO3M6NzoiT3JkZXJJRCI7czoxNjoiMjAyMjAzMDc1MjMwMzgwMCI7czo5OiJPcmRlclR5cGUiO3M6Njoi7J2867CYIjtzOjE1OiJQYXlMb2NhdGlvblR5cGUiO3M6MjoiUEMiO3M6MTE6IlBheW1lbnREYXRlIjtzOjIzOiIyMDIyLTAzLTA3VDE0OjE4OjA3LjAwWiI7czoxMjoiUGF5bWVudE1lYW5zIjtzOjE1OiLtj6zsnbjtirjqsrDsoJwiO3M6MTU6IlBheW1lbnRDb3JlVHlwZSI7czoxNToi64Sk7J2067KE6rKw7KCcIjtzOjIxOiJQYXlMYXRlclBheW1lbnRBbW91bnQiO3M6MToiMCI7fXM6MTI6IlByb2R1Y3RPcmRlciI7YTo0MDp7czoxMjoiRGVjaXNpb25EYXRlIjtzOjIzOiIyMDIyLTAzLTI0VDAzOjM5OjAxLjAwWiI7czoyOToiRGVsYXllZERpc3BhdGNoRGV0YWlsZWRSZWFzb24iO3M6MjAyOiLslYjrhZXtlZjshLjsmpQuCuyjvOusuO2VtCDso7zsi6Ag67iM66CI7J2067iM6rG47IqkKEJyYXZlIEdpcmxzKSAtIOuvuOuLiCA27KeRIFtUSEFOSyBZT1VdCuyDge2SiOydgCDsmIjslb0g7IOB7ZKI7J206riwIOuVjOusuOyXkCDsnbTrsqTtirgg7KKF66OMIO2bhArsiJzssKjsoIHsnLzroZwg67Cc7Iah65Cp64uI64ukLgrqsJDsgqztlanri4jri6QuIjtzOjIxOiJEZWxheWVkRGlzcGF0Y2hSZWFzb24iO3M6MTc6IlJFU0VSVkVEX0RJU1BBVENIIjtzOjIyOiJEZWxpdmVyeURpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IkRlbGl2ZXJ5RmVlQW1vdW50IjtzOjE6IjAiO3M6MTg6IkRlbGl2ZXJ5UG9saWN5VHlwZSI7czoxNToi7KGw6rG067aA66y066OMIjtzOjIyOiJFeHBlY3RlZERlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjI0OiJFeHBlY3RlZFNldHRsZW1lbnRBbW91bnQiO3M6NjoiMTQzNDI4IjtzOjMxOiJGaXJzdFNlbGxlckJ1cmRlbkRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6NjoiTWFsbElEIjtzOjE0OiJucF96dXhydTE2NTM2MyI7czoxNjoiT3B0aW9uTWFuYWdlQ29kZSI7czo5OiJvcHQxMTQ2NzYiO3M6MTE6Ik9wdGlvblByaWNlIjtzOjE6IjAiO3M6MTM6IlBhY2thZ2VOdW1iZXIiO3M6MTY6IjIwMjIwMzA3NzAxOTQ5MTgiO3M6MTc6IlBheW1lbnRDb21taXNzaW9uIjtzOjQ6IjU1NzIiO3M6MTQ6IlBsYWNlT3JkZXJEYXRlIjtzOjIzOiIyMDIyLTAzLTEwVDEwOjEyOjI3LjAwWiI7czoyMToiUGxhY2VPcmRlclJlbGVhc2VEYXRlIjtzOjIzOiIyMDIyLTAzLTE1VDE5OjE5OjE2LjAwWiI7czoxNjoiUGxhY2VPcmRlclN0YXR1cyI7czo2OiJDQU5DRUwiO3M6MTI6IlByb2R1Y3RDbGFzcyI7czoyMToi7KGw7ZWp7ZiV7Ji17IWY7IOB7ZKIIjtzOjIxOiJQcm9kdWN0RGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJQcm9kdWN0SUQiO3M6NDoiMjMwMiI7czoyMToiUHJvZHVjdEluZm9BcGlWZXJzaW9uIjtzOjE0OiJBUElfVkVSU0lPTl8yMCI7czoxMToiUHJvZHVjdE5hbWUiO3M6NTc6Iuu4jOugiOydtOu4jOqxuOyKpChCcmF2ZSBHaXJscykgLSDrr7jri4ggNuynkSBbVEhBTksgWU9VXSI7czoxMzoiUHJvZHVjdE9wdGlvbiI7czo2Njoi7Y+s7Iqk7YSwIO2PrO2VqDog7Y+s7Iqk7YSwICjsp4DqtIDthrUg66+47Y+s7ZWoL+ygkeyWtOyEnCDstpzqs6ApIjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMDc0OTcyNzAzMCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjg6IlF1YW50aXR5IjtzOjI6IjEwIjtzOjE4OiJTZWN0aW9uRGVsaXZlcnlGZWUiO3M6MToiMCI7czoyNjoiU2VsbGVyQnVyZGVuRGlzY291bnRBbW91bnQiO3M6MToiMCI7czoxNzoiU2VsbGVyUHJvZHVjdENvZGUiO3M6Njg6IllUY3lNR1EwT0dGbE1qY3dNMlkxWVRnNU1UZGpNakV3TldabE9XVTRZalJsWTJVd016Y3hZbDh4TmpRMk5qWXlOak16IjtzOjE1OiJTaGlwcGluZ0FkZHJlc3MiO2E6Nzp7czoxMToiQWRkcmVzc1R5cGUiO3M6ODoiRE9NRVNUSUMiO3M6MTE6IkJhc2VBZGRyZXNzIjtzOjEyODoiMVM0RXdqeEhadzkyYktnZzdhZGxHTjZSK3UrWWNObGNFZGRzaVhYTGp1bUVFQkRTdU4yWFlCMi9ZMy9VTWhvai9id25Ya0s1ZHJqNTZyc1BBOWwvWWEzK0JIRlBmSnFacS83TTV3MkJQUkczQU4vTVUxZVhzTmpFam44QytFaTAiO3M6MTU6IkRldGFpbGVkQWRkcmVzcyI7czoyNDoiaTBEZkhCSHFUcG5HSU8veC9ubmN4QT09IjtzOjQ6Ik5hbWUiO3M6MjQ6IlBDOVM0dXpENUJCZHlLNWRKMTU1UVE9PSI7czo0OiJUZWwxIjtzOjI0OiI4b2RTS1VoY3UvcldKMzk1MitRd21BPT0iO3M6NzoiWmlwQ29kZSI7czo1OiIxMzYwNyI7czoxNzoiSXNSb2FkTmFtZUFkZHJlc3MiO3M6NDoidHJ1ZSI7fXM6MTU6IlNoaXBwaW5nRHVlRGF0ZSI7czoyMzoiMjAyMi0wMy0xNVQxNDo1OTo1OS4wMFoiO3M6MTU6IlNoaXBwaW5nRmVlVHlwZSI7czo2OiLrrLTro4wiO3M6MTI6IlNoaXBwaW5nTWVtbyI7czoyODoi7ZmN6rOE7KSALzgzMDIxMy8wMTA0NjE0NzYzNiI7czoxODoiVG90YWxQYXltZW50QW1vdW50IjtzOjY6IjE0OTAwMCI7czoxODoiVG90YWxQcm9kdWN0QW1vdW50IjtzOjY6IjE0OTAwMCI7czo5OiJVbml0UHJpY2UiO3M6NToiMTQ5MDAiO3M6MTk6Ik1lcmNoYW50Q3VzdG9tQ29kZTEiO3M6Njg6IllUY3lNR1EwT0dGbE1qY3dNMlkxWVRnNU1UZGpNakV3TldabE9XVTRZalJsWTJVd016Y3hZbDh4TmpRMk5qWXlOak16IjtzOjIwOiJDb21taXNzaW9uUmF0aW5nVHlwZSI7czoxNToi6rKw7KCc7IiY7IiY66OMIjtzOjEwOiJJbmZsb3dQYXRoIjtzOjE5OiLrhKTsnbTrsoTsh7ztlZEg7Jm4IjtzOjE3OiJNZXJjaGFudFByb2R1Y3RJZCI7czo2ODoiWVRjeU1HUTBPR0ZsTWpjd00yWTFZVGc1TVRkak1qRXdOV1psT1dVNFlqUmxZMlV3TXpjeFlsOHhOalEyTmpZeU5qTXoiO319fX19
+)
+
+
+[2022-03-24 12:45:17.963832000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [OrderEtcInfo] => Array
+        (
+            [2022030749727030] => Array
+                (
+                    [PURCHASE_DECIDED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-24T03:39:01.00Z
+                                    [request_timestamp] => 2022-03-24T03:40:04.926Z5831
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-24T03:40:04.926Z5831
+                                        )
+
+                                    [last_change_status] => PURCHASE_DECIDED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PURCHASE_DECIDED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [ProductOrderResponse] => Array
+        (
+            [ProductOrderInfoList] => Array
+                (
+                    [0] => Array
+                        (
+                            [Delivery] => Array
+                                (
+                                    [DeliveredDate] => 2022-03-19T00:52:00.00Z
+                                    [DeliveryCompany] => HYUNDAI
+                                    [DeliveryMethod] => DELIVERY
+                                    [DeliveryStatus] => 배송완료
+                                    [IsWrongTrackingNumber] => false
+                                    [PickupDate] => 2022-03-17T08:56:00.00Z
+                                    [SendDate] => 2022-03-18T08:12:33.35Z
+                                    [TrackingNumber] => 241179862803
+                                )
+
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 149000
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 0
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-07T14:18:01.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => H1qyZjI4JBNaRi3j4LAfWA==
+                                    [OrdererName] => PC9S4uzD5BBdyK5dJ155QQ==
+                                    [OrdererTel1] => qFOu9GoIre8ZoIJ2YdXkZA==
+                                    [OrderID] => 2022030752303800
+                                    [OrderType] => 일반
+                                    [PayLocationType] => PC
+                                    [PaymentDate] => 2022-03-07T14:18:07.00Z
+                                    [PaymentMeans] => 포인트결제
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DecisionDate] => 2022-03-24T03:39:01.00Z
+                                    [DelayedDispatchDetailedReason] => 안녕하세요.
+주문해 주신 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+상품은 예약 상품이기 때문에 이벤트 종료 후
+순차적으로 발송됩니다.
+감사합니다.
+                                    [DelayedDispatchReason] => RESERVED_DISPATCH
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 0
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 143428
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114676
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022030770194918
+                                    [PaymentCommission] => 5572
+                                    [PlaceOrderDate] => 2022-03-10T10:12:27.00Z
+                                    [PlaceOrderReleaseDate] => 2022-03-15T19:19:16.00Z
+                                    [PlaceOrderStatus] => CANCEL
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2302
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 포스터 포함: 포스터 (지관통 미포함/접어서 출고)
+                                    [ProductOrderID] => 2022030749727030
+                                    [ProductOrderStatus] => PURCHASE_DECIDED
+                                    [Quantity] => 10
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => YTcyMGQ0OGFlMjcwM2Y1YTg5MTdjMjEwNWZlOWU4YjRlY2UwMzcxYl8xNjQ2NjYyNjMz
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => 1S4EwjxHZw92bKgg7adlGN6R+u+YcNlcEddsiXXLjumEEBDSuN2XYB2/Y3/UMhoj/bwnXkK5drj56rsPA9l/Ya3+BHFPfJqZq/7M5w2BPRG3AN/MU1eXsNjEjn8C+Ei0
+                                            [DetailedAddress] => i0DfHBHqTpnGIO/x/nncxA==
+                                            [Name] => PC9S4uzD5BBdyK5dJ155QQ==
+                                            [Tel1] => 8odSKUhcu/rWJ3952+QwmA==
+                                            [ZipCode] => 13607
+                                            [IsRoadNameAddress] => true
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-15T14:59:59.00Z
+                                    [ShippingFeeType] => 무료
+                                    [ShippingMemo] => 홍계준/830213/01046147636
+                                    [TotalPaymentAmount] => 149000
+                                    [TotalProductAmount] => 149000
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => YTcyMGQ0OGFlMjcwM2Y1YTg5MTdjMjEwNWZlOWU4YjRlY2UwMzcxYl8xNjQ2NjYyNjMz
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => YTcyMGQ0OGFlMjcwM2Y1YTg5MTdjMjEwNWZlOWU4YjRlY2UwMzcxYl8xNjQ2NjYyNjMz
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-24 14:45:58.930266000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [npay_cont] => YToyOntzOjEyOiJPcmRlckV0Y0luZm8iO2E6Mjp7aToyMDIyMDMwNzQ2MzE0NzQwO2E6MTp7czoxNjoiUFVSQ0hBU0VfREVDSURFRCI7YToxOntzOjQ6Ik5PTkUiO2E6OTp7czo5OiJvcmRlcl9jbnQiO2k6MTtzOjE5OiJpc19yZWNlaXZlcl9jaGFuZ2VkIjtzOjU6ImZhbHNlIjtzOjIwOiJpc19yZWNlaXZlcl9jaGFuZ2VkMiI7YToxOntpOjA7czo1OiJmYWxzZSI7fXM6MTY6Imxhc3RfY2hhbmdlX2RhdGUiO3M6MjM6IjIwMjItMDMtMjRUMDU6Mzk6MTkuMDBaIjtzOjE3OiJyZXF1ZXN0X3RpbWVzdGFtcCI7czoyODoiMjAyMi0wMy0yNFQwNTo0MDowNy4yNTdaNjQ2NSI7czoxODoicmVxdWVzdF90aW1lc3RhbXAyIjthOjE6e2k6MDtzOjI4OiIyMDIyLTAzLTI0VDA1OjQwOjA3LjI1N1o2NDY1Ijt9czoxODoibGFzdF9jaGFuZ2Vfc3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjE5OiJsYXN0X2NoYW5nZV9zdGF0dXMyIjthOjE6e2k6MDtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjt9czoxNjoibnBheV9zZXJ2ZXJfaW5mbyI7czo0OiJSRUFMIjt9fX1pOjIwMjIwMzA3NDYzMTQ3NTA7YToxOntzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjthOjE6e3M6NDoiTk9ORSI7YTo5OntzOjk6Im9yZGVyX2NudCI7aToxO3M6MTk6ImlzX3JlY2VpdmVyX2NoYW5nZWQiO3M6NToiZmFsc2UiO3M6MjA6ImlzX3JlY2VpdmVyX2NoYW5nZWQyIjthOjE6e2k6MDtzOjU6ImZhbHNlIjt9czoxNjoibGFzdF9jaGFuZ2VfZGF0ZSI7czoyMzoiMjAyMi0wMy0yNFQwNTozOToxOS4wMFoiO3M6MTc6InJlcXVlc3RfdGltZXN0YW1wIjtzOjI4OiIyMDIyLTAzLTI0VDA1OjQwOjA3LjI1N1o2NDY1IjtzOjE4OiJyZXF1ZXN0X3RpbWVzdGFtcDIiO2E6MTp7aTowO3M6Mjg6IjIwMjItMDMtMjRUMDU6NDA6MDcuMjU3WjY0NjUiO31zOjE4OiJsYXN0X2NoYW5nZV9zdGF0dXMiO3M6MTY6IlBVUkNIQVNFX0RFQ0lERUQiO3M6MTk6Imxhc3RfY2hhbmdlX3N0YXR1czIiO2E6MTp7aTowO3M6MTY6IlBVUkNIQVNFX0RFQ0lERUQiO31zOjE2OiJucGF5X3NlcnZlcl9pbmZvIjtzOjQ6IlJFQUwiO319fX1zOjIwOiJQcm9kdWN0T3JkZXJSZXNwb25zZSI7YToxOntzOjIwOiJQcm9kdWN0T3JkZXJJbmZvTGlzdCI7YToyOntpOjA7YTozOntzOjg6IkRlbGl2ZXJ5IjthOjg6e3M6MTM6IkRlbGl2ZXJlZERhdGUiO3M6MjM6IjIwMjItMDMtMjFUMDM6NDE6MDAuMDBaIjtzOjE1OiJEZWxpdmVyeUNvbXBhbnkiO3M6NzoiSFlVTkRBSSI7czoxNDoiRGVsaXZlcnlNZXRob2QiO3M6ODoiREVMSVZFUlkiO3M6MTQ6IkRlbGl2ZXJ5U3RhdHVzIjtzOjEyOiLrsLDshqHsmYTro4wiO3M6MjE6IklzV3JvbmdUcmFja2luZ051bWJlciI7czo1OiJmYWxzZSI7czoxMDoiUGlja3VwRGF0ZSI7czoyMzoiMjAyMi0wMy0xN1QwODo1NjowMC4wMFoiO3M6ODoiU2VuZERhdGUiO3M6MjM6IjIwMjItMDMtMThUMDg6MTI6MzIuMzJaIjtzOjE0OiJUcmFja2luZ051bWJlciI7czoxMjoiMjQxMTc5ODY0OTE0Ijt9czo1OiJPcmRlciI7YToxODp7czoyNToiQ2hhcmdlQW1vdW50UGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjMzOiJDaGVja291dEFjY3VtdWxhdGlvblBheW1lbnRBbW91bnQiO3M6MToiMCI7czoyMDoiR2VuZXJhbFBheW1lbnRBbW91bnQiO3M6NToiNjA2MDAiO3M6Mjk6IklzRGVsaXZlcnlNZW1vUGFydGljdWxhcklucHV0IjtzOjU6ImZhbHNlIjtzOjI1OiJOYXZlck1pbGVhZ2VQYXltZW50QW1vdW50IjtzOjE6IjAiO3M6OToiT3JkZXJEYXRlIjtzOjIzOiIyMDIyLTAzLTA3VDEyOjU1OjUxLjAwWiI7czoxOToiT3JkZXJEaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjk6Ik9yZGVyZXJJRCI7czoyNDoiMURPY0IweFBXVGNxandIK08vdDdOdz09IjtzOjExOiJPcmRlcmVyTmFtZSI7czoyNDoiK2RSZE5QbVZkT2dwL2UzR3lBTlZTdz09IjtzOjExOiJPcmRlcmVyVGVsMSI7czoyNDoiVy9wY3VWQUZpbmx4YjJkQ2VOdUhudz09IjtzOjc6Ik9yZGVySUQiO3M6MTY6IjIwMjIwMzA3NTAyNDY2NDAiO3M6OToiT3JkZXJUeXBlIjtzOjY6IuydvOuwmCI7czoxNToiUGF5TG9jYXRpb25UeXBlIjtzOjY6Ik1PQklMRSI7czoxMToiUGF5bWVudERhdGUiO3M6MjM6IjIwMjItMDMtMDdUMTI6NTY6MDEuMDBaIjtzOjEyOiJQYXltZW50TWVhbnMiO3M6MjU6IuyLoOyaqey5tOuTnCDqsITtjrjqsrDsoJwiO3M6MTM6IlBheW1lbnROdW1iZXIiO3M6MTA6IjQwNzgwMTk5MjIiO3M6MTU6IlBheW1lbnRDb3JlVHlwZSI7czoxNToi64Sk7J2067KE6rKw7KCcIjtzOjIxOiJQYXlMYXRlclBheW1lbnRBbW91bnQiO3M6MToiMCI7fXM6MTI6IlByb2R1Y3RPcmRlciI7YTo0MDp7czoxMjoiRGVjaXNpb25EYXRlIjtzOjIzOiIyMDIyLTAzLTI0VDA1OjM5OjE4LjAwWiI7czoyOToiRGVsYXllZERpc3BhdGNoRGV0YWlsZWRSZWFzb24iO3M6MjAyOiLslYjrhZXtlZjshLjsmpQuCuyjvOusuO2VtCDso7zsi6Ag67iM66CI7J2067iM6rG47IqkKEJyYXZlIEdpcmxzKSAtIOuvuOuLiCA27KeRIFtUSEFOSyBZT1VdCuyDge2SiOydgCDsmIjslb0g7IOB7ZKI7J206riwIOuVjOusuOyXkCDsnbTrsqTtirgg7KKF66OMIO2bhArsiJzssKjsoIHsnLzroZwg67Cc7Iah65Cp64uI64ukLgrqsJDsgqztlanri4jri6QuIjtzOjIxOiJEZWxheWVkRGlzcGF0Y2hSZWFzb24iO3M6MTc6IlJFU0VSVkVEX0RJU1BBVENIIjtzOjIyOiJEZWxpdmVyeURpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IkRlbGl2ZXJ5RmVlQW1vdW50IjtzOjE6IjAiO3M6MTg6IkRlbGl2ZXJ5UG9saWN5VHlwZSI7czoxNToi7KGw6rG067aA66y066OMIjtzOjIyOiJFeHBlY3RlZERlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjI0OiJFeHBlY3RlZFNldHRsZW1lbnRBbW91bnQiO3M6NToiMTU2MDMiO3M6MzE6IkZpcnN0U2VsbGVyQnVyZGVuRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo2OiJNYWxsSUQiO3M6MTQ6Im5wX3p1eHJ1MTY1MzYzIjtzOjE2OiJPcHRpb25NYW5hZ2VDb2RlIjtzOjk6Im9wdDExNDY3NyI7czoxMToiT3B0aW9uUHJpY2UiO3M6NDoiMTAwMCI7czoxMzoiUGFja2FnZU51bWJlciI7czoxNjoiMjAyMjAzMDc2OTg3MjQ4MSI7czoxNzoiUGF5bWVudENvbW1pc3Npb24iO3M6MzoiMjk3IjtzOjE0OiJQbGFjZU9yZGVyRGF0ZSI7czoyMzoiMjAyMi0wMy0xMFQxMDoxMjoyOC4wMFoiO3M6MjE6IlBsYWNlT3JkZXJSZWxlYXNlRGF0ZSI7czoyMzoiMjAyMi0wMy0xNVQxOToxOToxNi4wMFoiO3M6MTY6IlBsYWNlT3JkZXJTdGF0dXMiO3M6NjoiQ0FOQ0VMIjtzOjEyOiJQcm9kdWN0Q2xhc3MiO3M6MjE6IuyhsO2Vqe2YleyYteyFmOyDge2SiCI7czoyMToiUHJvZHVjdERpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiUHJvZHVjdElEIjtzOjQ6IjIzMDIiO3M6MjE6IlByb2R1Y3RJbmZvQXBpVmVyc2lvbiI7czoxNDoiQVBJX1ZFUlNJT05fMjAiO3M6MTE6IlByb2R1Y3ROYW1lIjtzOjU3OiLruIzroIjsnbTruIzqsbjsiqQoQnJhdmUgR2lybHMpIC0g66+464uIIDbsp5EgW1RIQU5LIFlPVV0iO3M6MTM6IlByb2R1Y3RPcHRpb24iO3M6NDY6Iu2PrOyKpO2EsCDtj6ztlag6IO2PrOyKpO2EsCAo7KeA6rSA7Ya1IO2PrO2VqCkiO3M6MTQ6IlByb2R1Y3RPcmRlcklEIjtzOjE2OiIyMDIyMDMwNzQ2MzE0NzQwIjtzOjE4OiJQcm9kdWN0T3JkZXJTdGF0dXMiO3M6MTY6IlBVUkNIQVNFX0RFQ0lERUQiO3M6ODoiUXVhbnRpdHkiO3M6MToiMSI7czoxODoiU2VjdGlvbkRlbGl2ZXJ5RmVlIjtzOjE6IjAiO3M6MjY6IlNlbGxlckJ1cmRlbkRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IlNlbGxlclByb2R1Y3RDb2RlIjtzOjY4OiJObVJpTW1aaU5UTTVZVEZoTXpRNU1HVXdPVFE1Wm1FNFpUTTVPVGxsWkdSaVpEWTVObU0zTlY4eE5qUTJOalUzTnpBMiI7czoxNToiU2hpcHBpbmdBZGRyZXNzIjthOjc6e3M6MTE6IkFkZHJlc3NUeXBlIjtzOjg6IkRPTUVTVElDIjtzOjExOiJCYXNlQWRkcmVzcyI7czoxMDg6ImQ0N0EweGxBTnZtTTEyWUlRRHZuQ2xkS3dyWlhkZUpEckVGUUNkUWxqbVFHLzJuUXlNU0ZUeS8wVnVEVzlCU2ovSmpPbWJ3eTcwOWw1VmxYZEZobzhVeCsyeVN4UHRyYkZmRE1lUmZOVDBVPSI7czoxNToiRGV0YWlsZWRBZGRyZXNzIjtzOjQ0OiJTU2VvVms4TmFxWWVJVFlsR1FSSm9OOGVUUHJLWUpvbnRuSnFVZHY4MFZZPSI7czo0OiJOYW1lIjtzOjI0OiIrZFJkTlBtVmRPZ3AvZTNHeUFOVlN3PT0iO3M6NDoiVGVsMSI7czoyNDoiRFJVeWJmUnpMU3lBcmRYeURkZFNKQT09IjtzOjc6IlppcENvZGUiO3M6NToiMzE3MTAiO3M6MTc6IklzUm9hZE5hbWVBZGRyZXNzIjtzOjQ6InRydWUiO31zOjE1OiJTaGlwcGluZ0R1ZURhdGUiO3M6MjM6IjIwMjItMDMtMTVUMTQ6NTk6NTkuMDBaIjtzOjE1OiJTaGlwcGluZ0ZlZVR5cGUiO3M6Njoi66y066OMIjtzOjEyOiJTaGlwcGluZ01lbW8iO3M6NDg6IuyngOq0gO2Gte2VmOuCmOyXkCDtj6zsiqTthLAg64ukIOuLtOyVhOyjvOyEuOyalCI7czoxODoiVG90YWxQYXltZW50QW1vdW50IjtzOjU6IjE1OTAwIjtzOjE4OiJUb3RhbFByb2R1Y3RBbW91bnQiO3M6NToiMTU5MDAiO3M6OToiVW5pdFByaWNlIjtzOjU6IjE0OTAwIjtzOjE5OiJNZXJjaGFudEN1c3RvbUNvZGUxIjtzOjY4OiJObVJpTW1aaU5UTTVZVEZoTXpRNU1HVXdPVFE1Wm1FNFpUTTVPVGxsWkdSaVpEWTVObU0zTlY4eE5qUTJOalUzTnpBMiI7czoyMDoiQ29tbWlzc2lvblJhdGluZ1R5cGUiO3M6MTU6IuqysOygnOyImOyImOujjCI7czoxMDoiSW5mbG93UGF0aCI7czoxOToi64Sk7J2067KE7Ie87ZWRIOyZuCI7czoxNzoiTWVyY2hhbnRQcm9kdWN0SWQiO3M6Njg6Ik5tUmlNbVppTlRNNVlURmhNelE1TUdVd09UUTVabUU0WlRNNU9UbGxaR1JpWkRZNU5tTTNOVjh4TmpRMk5qVTNOekEyIjt9fWk6MTthOjM6e3M6ODoiRGVsaXZlcnkiO2E6ODp7czoxMzoiRGVsaXZlcmVkRGF0ZSI7czoyMzoiMjAyMi0wMy0yMVQwMzo0MTowMC4wMFoiO3M6MTU6IkRlbGl2ZXJ5Q29tcGFueSI7czo3OiJIWVVOREFJIjtzOjE0OiJEZWxpdmVyeU1ldGhvZCI7czo4OiJERUxJVkVSWSI7czoxNDoiRGVsaXZlcnlTdGF0dXMiO3M6MTI6IuuwsOyGoeyZhOujjCI7czoyMToiSXNXcm9uZ1RyYWNraW5nTnVtYmVyIjtzOjU6ImZhbHNlIjtzOjEwOiJQaWNrdXBEYXRlIjtzOjIzOiIyMDIyLTAzLTE3VDA4OjU2OjAwLjAwWiI7czo4OiJTZW5kRGF0ZSI7czoyMzoiMjAyMi0wMy0xOFQwODoxMjozMi4zMloiO3M6MTQ6IlRyYWNraW5nTnVtYmVyIjtzOjEyOiIyNDExNzk4NjQ5MTQiO31zOjU6Ik9yZGVyIjthOjE4OntzOjI1OiJDaGFyZ2VBbW91bnRQYXltZW50QW1vdW50IjtzOjE6IjAiO3M6MzM6IkNoZWNrb3V0QWNjdW11bGF0aW9uUGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjIwOiJHZW5lcmFsUGF5bWVudEFtb3VudCI7czo1OiI2MDYwMCI7czoyOToiSXNEZWxpdmVyeU1lbW9QYXJ0aWN1bGFySW5wdXQiO3M6NToiZmFsc2UiO3M6MjU6Ik5hdmVyTWlsZWFnZVBheW1lbnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlckRhdGUiO3M6MjM6IjIwMjItMDMtMDdUMTI6NTU6NTEuMDBaIjtzOjE5OiJPcmRlckRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiT3JkZXJlcklEIjtzOjI0OiIxRE9jQjB4UFdUY3Fqd0grTy90N053PT0iO3M6MTE6Ik9yZGVyZXJOYW1lIjtzOjI0OiIrZFJkTlBtVmRPZ3AvZTNHeUFOVlN3PT0iO3M6MTE6Ik9yZGVyZXJUZWwxIjtzOjI0OiJXL3BjdVZBRmlubHhiMmRDZU51SG53PT0iO3M6NzoiT3JkZXJJRCI7czoxNjoiMjAyMjAzMDc1MDI0NjY0MCI7czo5OiJPcmRlclR5cGUiO3M6Njoi7J2867CYIjtzOjE1OiJQYXlMb2NhdGlvblR5cGUiO3M6NjoiTU9CSUxFIjtzOjExOiJQYXltZW50RGF0ZSI7czoyMzoiMjAyMi0wMy0wN1QxMjo1NjowMS4wMFoiO3M6MTI6IlBheW1lbnRNZWFucyI7czoyNToi7Iug7Jqp7Lm065OcIOqwhO2OuOqysOygnCI7czoxMzoiUGF5bWVudE51bWJlciI7czoxMDoiNDA3ODAxOTkyMiI7czoxNToiUGF5bWVudENvcmVUeXBlIjtzOjE1OiLrhKTsnbTrsoTqsrDsoJwiO3M6MjE6IlBheUxhdGVyUGF5bWVudEFtb3VudCI7czoxOiIwIjt9czoxMjoiUHJvZHVjdE9yZGVyIjthOjQwOntzOjEyOiJEZWNpc2lvbkRhdGUiO3M6MjM6IjIwMjItMDMtMjRUMDU6Mzk6MTguMDBaIjtzOjI5OiJEZWxheWVkRGlzcGF0Y2hEZXRhaWxlZFJlYXNvbiI7czoyMDI6IuyViOuFle2VmOyEuOyalC4K7KO866y47ZW0IOyjvOyLoCDruIzroIjsnbTruIzqsbjsiqQoQnJhdmUgR2lybHMpIC0g66+464uIIDbsp5EgW1RIQU5LIFlPVV0K7IOB7ZKI7J2AIOyYiOyVvSDsg4HtkojsnbTquLAg65WM66y47JeQIOydtOuypO2KuCDsooXro4wg7ZuECuyInOywqOyggeycvOuhnCDrsJzshqHrkKnri4jri6QuCuqwkOyCrO2VqeuLiOuLpC4iO3M6MjE6IkRlbGF5ZWREaXNwYXRjaFJlYXNvbiI7czoxNzoiUkVTRVJWRURfRElTUEFUQ0giO3M6MjI6IkRlbGl2ZXJ5RGlzY291bnRBbW91bnQiO3M6MToiMCI7czoxNzoiRGVsaXZlcnlGZWVBbW91bnQiO3M6MToiMCI7czoxODoiRGVsaXZlcnlQb2xpY3lUeXBlIjtzOjE1OiLsobDqsbTrtoDrrLTro4wiO3M6MjI6IkV4cGVjdGVkRGVsaXZlcnlNZXRob2QiO3M6ODoiREVMSVZFUlkiO3M6MjQ6IkV4cGVjdGVkU2V0dGxlbWVudEFtb3VudCI7czo1OiI0Mzg2NSI7czozMToiRmlyc3RTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjY6Ik1hbGxJRCI7czoxNDoibnBfenV4cnUxNjUzNjMiO3M6MTY6Ik9wdGlvbk1hbmFnZUNvZGUiO3M6OToib3B0MTE0Njc2IjtzOjExOiJPcHRpb25QcmljZSI7czoxOiIwIjtzOjEzOiJQYWNrYWdlTnVtYmVyIjtzOjE2OiIyMDIyMDMwNzY5ODcyNDgxIjtzOjE3OiJQYXltZW50Q29tbWlzc2lvbiI7czozOiI4MzUiO3M6MTQ6IlBsYWNlT3JkZXJEYXRlIjtzOjIzOiIyMDIyLTAzLTEwVDEwOjEyOjI3LjAwWiI7czoyMToiUGxhY2VPcmRlclJlbGVhc2VEYXRlIjtzOjIzOiIyMDIyLTAzLTE1VDE5OjE5OjE2LjAwWiI7czoxNjoiUGxhY2VPcmRlclN0YXR1cyI7czo2OiJDQU5DRUwiO3M6MTI6IlByb2R1Y3RDbGFzcyI7czoyMToi7KGw7ZWp7ZiV7Ji17IWY7IOB7ZKIIjtzOjIxOiJQcm9kdWN0RGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJQcm9kdWN0SUQiO3M6NDoiMjMwMiI7czoyMToiUHJvZHVjdEluZm9BcGlWZXJzaW9uIjtzOjE0OiJBUElfVkVSU0lPTl8yMCI7czoxMToiUHJvZHVjdE5hbWUiO3M6NTc6Iuu4jOugiOydtOu4jOqxuOyKpChCcmF2ZSBHaXJscykgLSDrr7jri4ggNuynkSBbVEhBTksgWU9VXSI7czoxMzoiUHJvZHVjdE9wdGlvbiI7czo2Njoi7Y+s7Iqk7YSwIO2PrO2VqDog7Y+s7Iqk7YSwICjsp4DqtIDthrUg66+47Y+s7ZWoL+ygkeyWtOyEnCDstpzqs6ApIjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMDc0NjMxNDc1MCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjg6IlF1YW50aXR5IjtzOjE6IjMiO3M6MTg6IlNlY3Rpb25EZWxpdmVyeUZlZSI7czoxOiIwIjtzOjI2OiJTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJTZWxsZXJQcm9kdWN0Q29kZSI7czo2ODoiTm1SaU1tWmlOVE01WVRGaE16UTVNR1V3T1RRNVptRTRaVE01T1RsbFpHUmlaRFk1Tm1NM05WOHhOalEyTmpVM056QTIiO3M6MTU6IlNoaXBwaW5nQWRkcmVzcyI7YTo3OntzOjExOiJBZGRyZXNzVHlwZSI7czo4OiJET01FU1RJQyI7czoxMToiQmFzZUFkZHJlc3MiO3M6MTA4OiJkNDdBMHhsQU52bU0xMllJUUR2bkNsZEt3clpYZGVKRHJFRlFDZFFsam1RRy8yblF5TVNGVHkvMFZ1RFc5QlNqL0pqT21id3k3MDlsNVZsWGRGaG84VXgrMnlTeFB0cmJGZkRNZVJmTlQwVT0iO3M6MTU6IkRldGFpbGVkQWRkcmVzcyI7czo0NDoiU1Nlb1ZrOE5hcVllSVRZbEdRUkpvTjhlVFByS1lKb250bkpxVWR2ODBWWT0iO3M6NDoiTmFtZSI7czoyNDoiK2RSZE5QbVZkT2dwL2UzR3lBTlZTdz09IjtzOjQ6IlRlbDEiO3M6MjQ6IkRSVXliZlJ6TFN5QXJkWHlEZGRTSkE9PSI7czo3OiJaaXBDb2RlIjtzOjU6IjMxNzEwIjtzOjE3OiJJc1JvYWROYW1lQWRkcmVzcyI7czo0OiJ0cnVlIjt9czoxNToiU2hpcHBpbmdEdWVEYXRlIjtzOjIzOiIyMDIyLTAzLTE1VDE0OjU5OjU5LjAwWiI7czoxNToiU2hpcHBpbmdGZWVUeXBlIjtzOjY6IuustOujjCI7czoxMjoiU2hpcHBpbmdNZW1vIjtzOjQ4OiLsp4DqtIDthrXtlZjrgpjsl5Ag7Y+s7Iqk7YSwIOuLpCDri7TslYTso7zshLjsmpQiO3M6MTg6IlRvdGFsUGF5bWVudEFtb3VudCI7czo1OiI0NDcwMCI7czoxODoiVG90YWxQcm9kdWN0QW1vdW50IjtzOjU6IjQ0NzAwIjtzOjk6IlVuaXRQcmljZSI7czo1OiIxNDkwMCI7czoxOToiTWVyY2hhbnRDdXN0b21Db2RlMSI7czo2ODoiTm1SaU1tWmlOVE01WVRGaE16UTVNR1V3T1RRNVptRTRaVE01T1RsbFpHUmlaRFk1Tm1NM05WOHhOalEyTmpVM056QTIiO3M6MjA6IkNvbW1pc3Npb25SYXRpbmdUeXBlIjtzOjE1OiLqsrDsoJzsiJjsiJjro4wiO3M6MTA6IkluZmxvd1BhdGgiO3M6MTk6IuuEpOydtOuyhOyHvO2VkSDsmbgiO3M6MTc6Ik1lcmNoYW50UHJvZHVjdElkIjtzOjY4OiJObVJpTW1aaU5UTTVZVEZoTXpRNU1HVXdPVFE1Wm1FNFpUTTVPVGxsWkdSaVpEWTVObU0zTlY4eE5qUTJOalUzTnpBMiI7fX19fX0=
+)
+
+
+[2022-03-24 14:45:58.934024000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [OrderEtcInfo] => Array
+        (
+            [2022030746314740] => Array
+                (
+                    [PURCHASE_DECIDED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-24T05:39:19.00Z
+                                    [request_timestamp] => 2022-03-24T05:40:07.257Z6465
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-24T05:40:07.257Z6465
+                                        )
+
+                                    [last_change_status] => PURCHASE_DECIDED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PURCHASE_DECIDED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+            [2022030746314750] => Array
+                (
+                    [PURCHASE_DECIDED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-24T05:39:19.00Z
+                                    [request_timestamp] => 2022-03-24T05:40:07.257Z6465
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-24T05:40:07.257Z6465
+                                        )
+
+                                    [last_change_status] => PURCHASE_DECIDED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PURCHASE_DECIDED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [ProductOrderResponse] => Array
+        (
+            [ProductOrderInfoList] => Array
+                (
+                    [0] => Array
+                        (
+                            [Delivery] => Array
+                                (
+                                    [DeliveredDate] => 2022-03-21T03:41:00.00Z
+                                    [DeliveryCompany] => HYUNDAI
+                                    [DeliveryMethod] => DELIVERY
+                                    [DeliveryStatus] => 배송완료
+                                    [IsWrongTrackingNumber] => false
+                                    [PickupDate] => 2022-03-17T08:56:00.00Z
+                                    [SendDate] => 2022-03-18T08:12:32.32Z
+                                    [TrackingNumber] => 241179864914
+                                )
+
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 60600
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-07T12:55:51.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => 1DOcB0xPWTcqjwH+O/t7Nw==
+                                    [OrdererName] => +dRdNPmVdOgp/e3GyANVSw==
+                                    [OrdererTel1] => W/pcuVAFinlxb2dCeNuHnw==
+                                    [OrderID] => 2022030750246640
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-07T12:56:01.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4078019922
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DecisionDate] => 2022-03-24T05:39:18.00Z
+                                    [DelayedDispatchDetailedReason] => 안녕하세요.
+주문해 주신 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+상품은 예약 상품이기 때문에 이벤트 종료 후
+순차적으로 발송됩니다.
+감사합니다.
+                                    [DelayedDispatchReason] => RESERVED_DISPATCH
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 0
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 15603
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114677
+                                    [OptionPrice] => 1000
+                                    [PackageNumber] => 2022030769872481
+                                    [PaymentCommission] => 297
+                                    [PlaceOrderDate] => 2022-03-10T10:12:28.00Z
+                                    [PlaceOrderReleaseDate] => 2022-03-15T19:19:16.00Z
+                                    [PlaceOrderStatus] => CANCEL
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2302
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 포스터 포함: 포스터 (지관통 포함)
+                                    [ProductOrderID] => 2022030746314740
+                                    [ProductOrderStatus] => PURCHASE_DECIDED
+                                    [Quantity] => 1
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => NmRiMmZiNTM5YTFhMzQ5MGUwOTQ5ZmE4ZTM5OTllZGRiZDY5NmM3NV8xNjQ2NjU3NzA2
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => d47A0xlANvmM12YIQDvnCldKwrZXdeJDrEFQCdQljmQG/2nQyMSFTy/0VuDW9BSj/JjOmbwy709l5VlXdFho8Ux+2ySxPtrbFfDMeRfNT0U=
+                                            [DetailedAddress] => SSeoVk8NaqYeITYlGQRJoN8eTPrKYJontnJqUdv80VY=
+                                            [Name] => +dRdNPmVdOgp/e3GyANVSw==
+                                            [Tel1] => DRUybfRzLSyArdXyDddSJA==
+                                            [ZipCode] => 31710
+                                            [IsRoadNameAddress] => true
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-15T14:59:59.00Z
+                                    [ShippingFeeType] => 무료
+                                    [ShippingMemo] => 지관통하나에 포스터 다 담아주세요
+                                    [TotalPaymentAmount] => 15900
+                                    [TotalProductAmount] => 15900
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => NmRiMmZiNTM5YTFhMzQ5MGUwOTQ5ZmE4ZTM5OTllZGRiZDY5NmM3NV8xNjQ2NjU3NzA2
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => NmRiMmZiNTM5YTFhMzQ5MGUwOTQ5ZmE4ZTM5OTllZGRiZDY5NmM3NV8xNjQ2NjU3NzA2
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [Delivery] => Array
+                                (
+                                    [DeliveredDate] => 2022-03-21T03:41:00.00Z
+                                    [DeliveryCompany] => HYUNDAI
+                                    [DeliveryMethod] => DELIVERY
+                                    [DeliveryStatus] => 배송완료
+                                    [IsWrongTrackingNumber] => false
+                                    [PickupDate] => 2022-03-17T08:56:00.00Z
+                                    [SendDate] => 2022-03-18T08:12:32.32Z
+                                    [TrackingNumber] => 241179864914
+                                )
+
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 60600
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 0
+                                    [OrderDate] => 2022-03-07T12:55:51.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => 1DOcB0xPWTcqjwH+O/t7Nw==
+                                    [OrdererName] => +dRdNPmVdOgp/e3GyANVSw==
+                                    [OrdererTel1] => W/pcuVAFinlxb2dCeNuHnw==
+                                    [OrderID] => 2022030750246640
+                                    [OrderType] => 일반
+                                    [PayLocationType] => MOBILE
+                                    [PaymentDate] => 2022-03-07T12:56:01.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4078019922
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DecisionDate] => 2022-03-24T05:39:18.00Z
+                                    [DelayedDispatchDetailedReason] => 안녕하세요.
+주문해 주신 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+상품은 예약 상품이기 때문에 이벤트 종료 후
+순차적으로 발송됩니다.
+감사합니다.
+                                    [DelayedDispatchReason] => RESERVED_DISPATCH
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 0
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 43865
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114676
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022030769872481
+                                    [PaymentCommission] => 835
+                                    [PlaceOrderDate] => 2022-03-10T10:12:27.00Z
+                                    [PlaceOrderReleaseDate] => 2022-03-15T19:19:16.00Z
+                                    [PlaceOrderStatus] => CANCEL
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2302
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 포스터 포함: 포스터 (지관통 미포함/접어서 출고)
+                                    [ProductOrderID] => 2022030746314750
+                                    [ProductOrderStatus] => PURCHASE_DECIDED
+                                    [Quantity] => 3
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => NmRiMmZiNTM5YTFhMzQ5MGUwOTQ5ZmE4ZTM5OTllZGRiZDY5NmM3NV8xNjQ2NjU3NzA2
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => d47A0xlANvmM12YIQDvnCldKwrZXdeJDrEFQCdQljmQG/2nQyMSFTy/0VuDW9BSj/JjOmbwy709l5VlXdFho8Ux+2ySxPtrbFfDMeRfNT0U=
+                                            [DetailedAddress] => SSeoVk8NaqYeITYlGQRJoN8eTPrKYJontnJqUdv80VY=
+                                            [Name] => +dRdNPmVdOgp/e3GyANVSw==
+                                            [Tel1] => DRUybfRzLSyArdXyDddSJA==
+                                            [ZipCode] => 31710
+                                            [IsRoadNameAddress] => true
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-15T14:59:59.00Z
+                                    [ShippingFeeType] => 무료
+                                    [ShippingMemo] => 지관통하나에 포스터 다 담아주세요
+                                    [TotalPaymentAmount] => 44700
+                                    [TotalProductAmount] => 44700
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => NmRiMmZiNTM5YTFhMzQ5MGUwOTQ5ZmE4ZTM5OTllZGRiZDY5NmM3NV8xNjQ2NjU3NzA2
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => NmRiMmZiNTM5YTFhMzQ5MGUwOTQ5ZmE4ZTM5OTllZGRiZDY5NmM3NV8xNjQ2NjU3NzA2
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+[2022-03-24 23:30:59.320637000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [npay_cont] => YToyOntzOjEyOiJPcmRlckV0Y0luZm8iO2E6Mjp7aToyMDIyMDMwNzQ5OTE3OTAwO2E6MTp7czoxNjoiUFVSQ0hBU0VfREVDSURFRCI7YToxOntzOjQ6Ik5PTkUiO2E6OTp7czo5OiJvcmRlcl9jbnQiO2k6MTtzOjE5OiJpc19yZWNlaXZlcl9jaGFuZ2VkIjtzOjU6ImZhbHNlIjtzOjIwOiJpc19yZWNlaXZlcl9jaGFuZ2VkMiI7YToxOntpOjA7czo1OiJmYWxzZSI7fXM6MTY6Imxhc3RfY2hhbmdlX2RhdGUiO3M6MjM6IjIwMjItMDMtMjRUMTQ6MjQ6MTUuMDBaIjtzOjE3OiJyZXF1ZXN0X3RpbWVzdGFtcCI7czoyODoiMjAyMi0wMy0yNFQxNDoyNTowMy4yNjJaNjI0OCI7czoxODoicmVxdWVzdF90aW1lc3RhbXAyIjthOjE6e2k6MDtzOjI4OiIyMDIyLTAzLTI0VDE0OjI1OjAzLjI2Mlo2MjQ4Ijt9czoxODoibGFzdF9jaGFuZ2Vfc3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjE5OiJsYXN0X2NoYW5nZV9zdGF0dXMyIjthOjE6e2k6MDtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjt9czoxNjoibnBheV9zZXJ2ZXJfaW5mbyI7czo0OiJSRUFMIjt9fX1pOjIwMjIwMzA3NDk5MTc5MTA7YToxOntzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjthOjE6e3M6NDoiTk9ORSI7YTo5OntzOjk6Im9yZGVyX2NudCI7aToxO3M6MTk6ImlzX3JlY2VpdmVyX2NoYW5nZWQiO3M6NToiZmFsc2UiO3M6MjA6ImlzX3JlY2VpdmVyX2NoYW5nZWQyIjthOjE6e2k6MDtzOjU6ImZhbHNlIjt9czoxNjoibGFzdF9jaGFuZ2VfZGF0ZSI7czoyMzoiMjAyMi0wMy0yNFQxNDoyNDoxNi4wMFoiO3M6MTc6InJlcXVlc3RfdGltZXN0YW1wIjtzOjI4OiIyMDIyLTAzLTI0VDE0OjI1OjAzLjI2Mlo2MjQ4IjtzOjE4OiJyZXF1ZXN0X3RpbWVzdGFtcDIiO2E6MTp7aTowO3M6Mjg6IjIwMjItMDMtMjRUMTQ6MjU6MDMuMjYyWjYyNDgiO31zOjE4OiJsYXN0X2NoYW5nZV9zdGF0dXMiO3M6MTY6IlBVUkNIQVNFX0RFQ0lERUQiO3M6MTk6Imxhc3RfY2hhbmdlX3N0YXR1czIiO2E6MTp7aTowO3M6MTY6IlBVUkNIQVNFX0RFQ0lERUQiO31zOjE2OiJucGF5X3NlcnZlcl9pbmZvIjtzOjQ6IlJFQUwiO319fX1zOjIwOiJQcm9kdWN0T3JkZXJSZXNwb25zZSI7YToxOntzOjIwOiJQcm9kdWN0T3JkZXJJbmZvTGlzdCI7YToyOntpOjA7YTozOntzOjg6IkRlbGl2ZXJ5IjthOjg6e3M6MTM6IkRlbGl2ZXJlZERhdGUiO3M6MjM6IjIwMjItMDMtMTlUMDM6MjM6MDAuMDBaIjtzOjE1OiJEZWxpdmVyeUNvbXBhbnkiO3M6NzoiSFlVTkRBSSI7czoxNDoiRGVsaXZlcnlNZXRob2QiO3M6ODoiREVMSVZFUlkiO3M6MTQ6IkRlbGl2ZXJ5U3RhdHVzIjtzOjEyOiLrsLDshqHsmYTro4wiO3M6MjE6IklzV3JvbmdUcmFja2luZ051bWJlciI7czo1OiJmYWxzZSI7czoxMDoiUGlja3VwRGF0ZSI7czoyMzoiMjAyMi0wMy0xN1QwODo1NjowMC4wMFoiO3M6ODoiU2VuZERhdGUiO3M6MjM6IjIwMjItMDMtMThUMDg6MTI6MzMuODlaIjtzOjE0OiJUcmFja2luZ051bWJlciI7czoxMjoiMjQxMTc5ODY0OTAzIjt9czo1OiJPcmRlciI7YToxODp7czoyNToiQ2hhcmdlQW1vdW50UGF5bWVudEFtb3VudCI7czoxOiIwIjtzOjMzOiJDaGVja291dEFjY3VtdWxhdGlvblBheW1lbnRBbW91bnQiO3M6MToiMCI7czoyMDoiR2VuZXJhbFBheW1lbnRBbW91bnQiO3M6NToiNTkzMTUiO3M6Mjk6IklzRGVsaXZlcnlNZW1vUGFydGljdWxhcklucHV0IjtzOjU6ImZhbHNlIjtzOjI1OiJOYXZlck1pbGVhZ2VQYXltZW50QW1vdW50IjtzOjQ6IjIyODUiO3M6OToiT3JkZXJEYXRlIjtzOjIzOiIyMDIyLTAzLTA3VDE0OjIzOjA0LjAwWiI7czoxOToiT3JkZXJEaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjk6Ik9yZGVyZXJJRCI7czoyNDoieFhYZlBBSzBLYnZKazJ1SEo1VjRzUT09IjtzOjExOiJPcmRlcmVyTmFtZSI7czoyNDoiWWMvY2szS2ZMZFBiNEVJM2EwRkc0QT09IjtzOjExOiJPcmRlcmVyVGVsMSI7czoyNDoiQi9oalFrRUVJbktsaHJ5aFhaS0s3dz09IjtzOjc6Ik9yZGVySUQiO3M6MTY6IjIwMjIwMzA3NTI0MTYyOTAiO3M6OToiT3JkZXJUeXBlIjtzOjY6IuydvOuwmCI7czoxNToiUGF5TG9jYXRpb25UeXBlIjtzOjI6IlBDIjtzOjExOiJQYXltZW50RGF0ZSI7czoyMzoiMjAyMi0wMy0wN1QxNDoyMzoxMS4wMFoiO3M6MTI6IlBheW1lbnRNZWFucyI7czoyNToi7Iug7Jqp7Lm065OcIOqwhO2OuOqysOygnCI7czoxMzoiUGF5bWVudE51bWJlciI7czoxMDoiNDA3ODI5ODg4MyI7czoxNToiUGF5bWVudENvcmVUeXBlIjtzOjE1OiLrhKTsnbTrsoTqsrDsoJwiO3M6MjE6IlBheUxhdGVyUGF5bWVudEFtb3VudCI7czoxOiIwIjt9czoxMjoiUHJvZHVjdE9yZGVyIjthOjQwOntzOjEyOiJEZWNpc2lvbkRhdGUiO3M6MjM6IjIwMjItMDMtMjRUMTQ6MjQ6MTUuMDBaIjtzOjI5OiJEZWxheWVkRGlzcGF0Y2hEZXRhaWxlZFJlYXNvbiI7czoyMDI6IuyViOuFle2VmOyEuOyalC4K7KO866y47ZW0IOyjvOyLoCDruIzroIjsnbTruIzqsbjsiqQoQnJhdmUgR2lybHMpIC0g66+464uIIDbsp5EgW1RIQU5LIFlPVV0K7IOB7ZKI7J2AIOyYiOyVvSDsg4HtkojsnbTquLAg65WM66y47JeQIOydtOuypO2KuCDsooXro4wg7ZuECuyInOywqOyggeycvOuhnCDrsJzshqHrkKnri4jri6QuCuqwkOyCrO2VqeuLiOuLpC4iO3M6MjE6IkRlbGF5ZWREaXNwYXRjaFJlYXNvbiI7czoxNzoiUkVTRVJWRURfRElTUEFUQ0giO3M6MjI6IkRlbGl2ZXJ5RGlzY291bnRBbW91bnQiO3M6MToiMCI7czoxNzoiRGVsaXZlcnlGZWVBbW91bnQiO3M6MToiMCI7czoxODoiRGVsaXZlcnlQb2xpY3lUeXBlIjtzOjE1OiLsobDqsbTrtoDrrLTro4wiO3M6MjI6IkV4cGVjdGVkRGVsaXZlcnlNZXRob2QiO3M6ODoiREVMSVZFUlkiO3M6MjQ6IkV4cGVjdGVkU2V0dGxlbWVudEFtb3VudCI7czo1OiIyOTIyMyI7czozMToiRmlyc3RTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjY6Ik1hbGxJRCI7czoxNDoibnBfenV4cnUxNjUzNjMiO3M6MTY6Ik9wdGlvbk1hbmFnZUNvZGUiO3M6OToib3B0MTE0Njc2IjtzOjExOiJPcHRpb25QcmljZSI7czoxOiIwIjtzOjEzOiJQYWNrYWdlTnVtYmVyIjtzOjE2OiIyMDIyMDMwNzcwMjA4MjE1IjtzOjE3OiJQYXltZW50Q29tbWlzc2lvbiI7czozOiI1NzciO3M6MTQ6IlBsYWNlT3JkZXJEYXRlIjtzOjIzOiIyMDIyLTAzLTEwVDEwOjEyOjI3LjAwWiI7czoyMToiUGxhY2VPcmRlclJlbGVhc2VEYXRlIjtzOjIzOiIyMDIyLTAzLTE1VDE5OjE5OjE2LjAwWiI7czoxNjoiUGxhY2VPcmRlclN0YXR1cyI7czo2OiJDQU5DRUwiO3M6MTI6IlByb2R1Y3RDbGFzcyI7czoyMToi7KGw7ZWp7ZiV7Ji17IWY7IOB7ZKIIjtzOjIxOiJQcm9kdWN0RGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJQcm9kdWN0SUQiO3M6NDoiMjMwMiI7czoyMToiUHJvZHVjdEluZm9BcGlWZXJzaW9uIjtzOjE0OiJBUElfVkVSU0lPTl8yMCI7czoxMToiUHJvZHVjdE5hbWUiO3M6NTc6Iuu4jOugiOydtOu4jOqxuOyKpChCcmF2ZSBHaXJscykgLSDrr7jri4ggNuynkSBbVEhBTksgWU9VXSI7czoxMzoiUHJvZHVjdE9wdGlvbiI7czo2Njoi7Y+s7Iqk7YSwIO2PrO2VqDog7Y+s7Iqk7YSwICjsp4DqtIDthrUg66+47Y+s7ZWoL+ygkeyWtOyEnCDstpzqs6ApIjtzOjE0OiJQcm9kdWN0T3JkZXJJRCI7czoxNjoiMjAyMjAzMDc0OTkxNzkwMCI7czoxODoiUHJvZHVjdE9yZGVyU3RhdHVzIjtzOjE2OiJQVVJDSEFTRV9ERUNJREVEIjtzOjg6IlF1YW50aXR5IjtzOjE6IjIiO3M6MTg6IlNlY3Rpb25EZWxpdmVyeUZlZSI7czoxOiIwIjtzOjI2OiJTZWxsZXJCdXJkZW5EaXNjb3VudEFtb3VudCI7czoxOiIwIjtzOjE3OiJTZWxsZXJQcm9kdWN0Q29kZSI7czo2ODoiTjJVNE1ERXlPRGswTmpVNU9HRmlObVZrTWpNMU5qRXdOelUyWm1KaE9HUXhObUV6TUdVNE1GOHhOalEyTmpZeU9EVTAiO3M6MTU6IlNoaXBwaW5nQWRkcmVzcyI7YTo3OntzOjExOiJBZGRyZXNzVHlwZSI7czo4OiJET01FU1RJQyI7czoxMToiQmFzZUFkZHJlc3MiO3M6ODg6ImtMejZmRnMvVi9OWDcyQlV5em5CSGlzZCt4NDZaMnZiTGRsNXo1TGE1Z0t1MHVkU1llUnh4aWtpY2VCdmtNQXZWcFdkcWZuelpkd01jMmJ0bEJaZHZBPT0iO3M6MTU6IkRldGFpbGVkQWRkcmVzcyI7czoyNDoidTBWYjhKd2svd0ZMOUhKQnF0Q1RWZz09IjtzOjQ6Ik5hbWUiO3M6MjQ6IlljL2NrM0tmTGRQYjRFSTNhMEZHNEE9PSI7czo0OiJUZWwxIjtzOjI0OiJmWDJRMUl0S0NNRlBxWGVtTFVOSHZBPT0iO3M6NzoiWmlwQ29kZSI7czo1OiIyMjY3OCI7czoxNzoiSXNSb2FkTmFtZUFkZHJlc3MiO3M6NToiZmFsc2UiO31zOjE1OiJTaGlwcGluZ0R1ZURhdGUiO3M6MjM6IjIwMjItMDMtMTVUMTQ6NTk6NTkuMDBaIjtzOjE1OiJTaGlwcGluZ0ZlZVR5cGUiO3M6Njoi66y066OMIjtzOjEyOiJTaGlwcGluZ01lbW8iO3M6Njg6IuyHvOy8gOydtOyKpCDssLjshJ0g7Z2s66ed7J6QIOq5gOq0keuqhSAvIDE5ODEtMTEtMjcgLyAwMTAtNDEyMS01NjU2IjtzOjE4OiJUb3RhbFBheW1lbnRBbW91bnQiO3M6NToiMjk4MDAiO3M6MTg6IlRvdGFsUHJvZHVjdEFtb3VudCI7czo1OiIyOTgwMCI7czo5OiJVbml0UHJpY2UiO3M6NToiMTQ5MDAiO3M6MTk6Ik1lcmNoYW50Q3VzdG9tQ29kZTEiO3M6Njg6Ik4yVTRNREV5T0RrME5qVTVPR0ZpTm1Wa01qTTFOakV3TnpVMlptSmhPR1F4Tm1Fek1HVTRNRjh4TmpRMk5qWXlPRFUwIjtzOjIwOiJDb21taXNzaW9uUmF0aW5nVHlwZSI7czoxNToi6rKw7KCc7IiY7IiY66OMIjtzOjEwOiJJbmZsb3dQYXRoIjtzOjE5OiLrhKTsnbTrsoTsh7ztlZEg7Jm4IjtzOjE3OiJNZXJjaGFudFByb2R1Y3RJZCI7czo2ODoiTjJVNE1ERXlPRGswTmpVNU9HRmlObVZrTWpNMU5qRXdOelUyWm1KaE9HUXhObUV6TUdVNE1GOHhOalEyTmpZeU9EVTAiO319aToxO2E6Mzp7czo4OiJEZWxpdmVyeSI7YTo4OntzOjEzOiJEZWxpdmVyZWREYXRlIjtzOjIzOiIyMDIyLTAzLTE5VDAzOjIzOjAwLjAwWiI7czoxNToiRGVsaXZlcnlDb21wYW55IjtzOjc6IkhZVU5EQUkiO3M6MTQ6IkRlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjE0OiJEZWxpdmVyeVN0YXR1cyI7czoxMjoi67Cw7Iah7JmE66OMIjtzOjIxOiJJc1dyb25nVHJhY2tpbmdOdW1iZXIiO3M6NToiZmFsc2UiO3M6MTA6IlBpY2t1cERhdGUiO3M6MjM6IjIwMjItMDMtMTdUMDg6NTY6MDAuMDBaIjtzOjg6IlNlbmREYXRlIjtzOjIzOiIyMDIyLTAzLTE4VDA4OjEyOjMzLjg5WiI7czoxNDoiVHJhY2tpbmdOdW1iZXIiO3M6MTI6IjI0MTE3OTg2NDkwMyI7fXM6NToiT3JkZXIiO2E6MTg6e3M6MjU6IkNoYXJnZUFtb3VudFBheW1lbnRBbW91bnQiO3M6MToiMCI7czozMzoiQ2hlY2tvdXRBY2N1bXVsYXRpb25QYXltZW50QW1vdW50IjtzOjE6IjAiO3M6MjA6IkdlbmVyYWxQYXltZW50QW1vdW50IjtzOjU6IjU5MzE1IjtzOjI5OiJJc0RlbGl2ZXJ5TWVtb1BhcnRpY3VsYXJJbnB1dCI7czo1OiJmYWxzZSI7czoyNToiTmF2ZXJNaWxlYWdlUGF5bWVudEFtb3VudCI7czo0OiIyMjg1IjtzOjk6Ik9yZGVyRGF0ZSI7czoyMzoiMjAyMi0wMy0wN1QxNDoyMzowNC4wMFoiO3M6MTk6Ik9yZGVyRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo5OiJPcmRlcmVySUQiO3M6MjQ6InhYWGZQQUswS2J2SmsydUhKNVY0c1E9PSI7czoxMToiT3JkZXJlck5hbWUiO3M6MjQ6IlljL2NrM0tmTGRQYjRFSTNhMEZHNEE9PSI7czoxMToiT3JkZXJlclRlbDEiO3M6MjQ6IkIvaGpRa0VFSW5LbGhyeWhYWktLN3c9PSI7czo3OiJPcmRlcklEIjtzOjE2OiIyMDIyMDMwNzUyNDE2MjkwIjtzOjk6Ik9yZGVyVHlwZSI7czo2OiLsnbzrsJgiO3M6MTU6IlBheUxvY2F0aW9uVHlwZSI7czoyOiJQQyI7czoxMToiUGF5bWVudERhdGUiO3M6MjM6IjIwMjItMDMtMDdUMTQ6MjM6MTEuMDBaIjtzOjEyOiJQYXltZW50TWVhbnMiO3M6MjU6IuyLoOyaqey5tOuTnCDqsITtjrjqsrDsoJwiO3M6MTM6IlBheW1lbnROdW1iZXIiO3M6MTA6IjQwNzgyOTg4ODMiO3M6MTU6IlBheW1lbnRDb3JlVHlwZSI7czoxNToi64Sk7J2067KE6rKw7KCcIjtzOjIxOiJQYXlMYXRlclBheW1lbnRBbW91bnQiO3M6MToiMCI7fXM6MTI6IlByb2R1Y3RPcmRlciI7YTo0MDp7czoxMjoiRGVjaXNpb25EYXRlIjtzOjIzOiIyMDIyLTAzLTI0VDE0OjI0OjE1LjAwWiI7czoyOToiRGVsYXllZERpc3BhdGNoRGV0YWlsZWRSZWFzb24iO3M6MjAyOiLslYjrhZXtlZjshLjsmpQuCuyjvOusuO2VtCDso7zsi6Ag67iM66CI7J2067iM6rG47IqkKEJyYXZlIEdpcmxzKSAtIOuvuOuLiCA27KeRIFtUSEFOSyBZT1VdCuyDge2SiOydgCDsmIjslb0g7IOB7ZKI7J206riwIOuVjOusuOyXkCDsnbTrsqTtirgg7KKF66OMIO2bhArsiJzssKjsoIHsnLzroZwg67Cc7Iah65Cp64uI64ukLgrqsJDsgqztlanri4jri6QuIjtzOjIxOiJEZWxheWVkRGlzcGF0Y2hSZWFzb24iO3M6MTc6IlJFU0VSVkVEX0RJU1BBVENIIjtzOjIyOiJEZWxpdmVyeURpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IkRlbGl2ZXJ5RmVlQW1vdW50IjtzOjE6IjAiO3M6MTg6IkRlbGl2ZXJ5UG9saWN5VHlwZSI7czoxNToi7KGw6rG067aA66y066OMIjtzOjIyOiJFeHBlY3RlZERlbGl2ZXJ5TWV0aG9kIjtzOjg6IkRFTElWRVJZIjtzOjI0OiJFeHBlY3RlZFNldHRsZW1lbnRBbW91bnQiO3M6NToiMzExODQiO3M6MzE6IkZpcnN0U2VsbGVyQnVyZGVuRGlzY291bnRBbW91bnQiO3M6MToiMCI7czo2OiJNYWxsSUQiO3M6MTQ6Im5wX3p1eHJ1MTY1MzYzIjtzOjE2OiJPcHRpb25NYW5hZ2VDb2RlIjtzOjk6Im9wdDExNDY3NyI7czoxMToiT3B0aW9uUHJpY2UiO3M6NDoiMTAwMCI7czoxMzoiUGFja2FnZU51bWJlciI7czoxNjoiMjAyMjAzMDc3MDIwODIxNSI7czoxNzoiUGF5bWVudENvbW1pc3Npb24iO3M6MzoiNjE2IjtzOjE0OiJQbGFjZU9yZGVyRGF0ZSI7czoyMzoiMjAyMi0wMy0xMFQxMDoxMjoyNy4wMFoiO3M6MjE6IlBsYWNlT3JkZXJSZWxlYXNlRGF0ZSI7czoyMzoiMjAyMi0wMy0xNVQxOToxOToxNi4wMFoiO3M6MTY6IlBsYWNlT3JkZXJTdGF0dXMiO3M6NjoiQ0FOQ0VMIjtzOjEyOiJQcm9kdWN0Q2xhc3MiO3M6MjE6IuyhsO2Vqe2YleyYteyFmOyDge2SiCI7czoyMToiUHJvZHVjdERpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6OToiUHJvZHVjdElEIjtzOjQ6IjIzMDIiO3M6MjE6IlByb2R1Y3RJbmZvQXBpVmVyc2lvbiI7czoxNDoiQVBJX1ZFUlNJT05fMjAiO3M6MTE6IlByb2R1Y3ROYW1lIjtzOjU3OiLruIzroIjsnbTruIzqsbjsiqQoQnJhdmUgR2lybHMpIC0g66+464uIIDbsp5EgW1RIQU5LIFlPVV0iO3M6MTM6IlByb2R1Y3RPcHRpb24iO3M6NDY6Iu2PrOyKpO2EsCDtj6ztlag6IO2PrOyKpO2EsCAo7KeA6rSA7Ya1IO2PrO2VqCkiO3M6MTQ6IlByb2R1Y3RPcmRlcklEIjtzOjE2OiIyMDIyMDMwNzQ5OTE3OTEwIjtzOjE4OiJQcm9kdWN0T3JkZXJTdGF0dXMiO3M6MTY6IlBVUkNIQVNFX0RFQ0lERUQiO3M6ODoiUXVhbnRpdHkiO3M6MToiMiI7czoxODoiU2VjdGlvbkRlbGl2ZXJ5RmVlIjtzOjE6IjAiO3M6MjY6IlNlbGxlckJ1cmRlbkRpc2NvdW50QW1vdW50IjtzOjE6IjAiO3M6MTc6IlNlbGxlclByb2R1Y3RDb2RlIjtzOjY4OiJOMlU0TURFeU9EazBOalU1T0dGaU5tVmtNak0xTmpFd056VTJabUpoT0dReE5tRXpNR1U0TUY4eE5qUTJOall5T0RVMCI7czoxNToiU2hpcHBpbmdBZGRyZXNzIjthOjc6e3M6MTE6IkFkZHJlc3NUeXBlIjtzOjg6IkRPTUVTVElDIjtzOjExOiJCYXNlQWRkcmVzcyI7czo4ODoia0x6NmZGcy9WL05YNzJCVXl6bkJIaXNkK3g0NloydmJMZGw1ejVMYTVnS3UwdWRTWWVSeHhpa2ljZUJ2a01BdlZwV2RxZm56WmR3TWMyYnRsQlpkdkE9PSI7czoxNToiRGV0YWlsZWRBZGRyZXNzIjtzOjI0OiJ1MFZiOEp3ay93Rkw5SEpCcXRDVFZnPT0iO3M6NDoiTmFtZSI7czoyNDoiWWMvY2szS2ZMZFBiNEVJM2EwRkc0QT09IjtzOjQ6IlRlbDEiO3M6MjQ6ImZYMlExSXRLQ01GUHFYZW1MVU5IdkE9PSI7czo3OiJaaXBDb2RlIjtzOjU6IjIyNjc4IjtzOjE3OiJJc1JvYWROYW1lQWRkcmVzcyI7czo1OiJmYWxzZSI7fXM6MTU6IlNoaXBwaW5nRHVlRGF0ZSI7czoyMzoiMjAyMi0wMy0xNVQxNDo1OTo1OS4wMFoiO3M6MTU6IlNoaXBwaW5nRmVlVHlwZSI7czo2OiLrrLTro4wiO3M6MTI6IlNoaXBwaW5nTWVtbyI7czo2ODoi7Ie87LyA7J207IqkIOywuOyEnSDtnazrp53snpAg6rmA6rSR66qFIC8gMTk4MS0xMS0yNyAvIDAxMC00MTIxLTU2NTYiO3M6MTg6IlRvdGFsUGF5bWVudEFtb3VudCI7czo1OiIzMTgwMCI7czoxODoiVG90YWxQcm9kdWN0QW1vdW50IjtzOjU6IjMxODAwIjtzOjk6IlVuaXRQcmljZSI7czo1OiIxNDkwMCI7czoxOToiTWVyY2hhbnRDdXN0b21Db2RlMSI7czo2ODoiTjJVNE1ERXlPRGswTmpVNU9HRmlObVZrTWpNMU5qRXdOelUyWm1KaE9HUXhObUV6TUdVNE1GOHhOalEyTmpZeU9EVTAiO3M6MjA6IkNvbW1pc3Npb25SYXRpbmdUeXBlIjtzOjE1OiLqsrDsoJzsiJjsiJjro4wiO3M6MTA6IkluZmxvd1BhdGgiO3M6MTk6IuuEpOydtOuyhOyHvO2VkSDsmbgiO3M6MTc6Ik1lcmNoYW50UHJvZHVjdElkIjtzOjY4OiJOMlU0TURFeU9EazBOalU1T0dGaU5tVmtNak0xTmpFd056VTJabUpoT0dReE5tRXpNR1U0TUY4eE5qUTJOall5T0RVMCI7fX19fX0=
+)
+
+
+[2022-03-24 23:30:59.324147000]
+REMOTE_IP : 121.78.114.47
+Array
+(
+    [OrderEtcInfo] => Array
+        (
+            [2022030749917900] => Array
+                (
+                    [PURCHASE_DECIDED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-24T14:24:15.00Z
+                                    [request_timestamp] => 2022-03-24T14:25:03.262Z6248
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-24T14:25:03.262Z6248
+                                        )
+
+                                    [last_change_status] => PURCHASE_DECIDED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PURCHASE_DECIDED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+            [2022030749917910] => Array
+                (
+                    [PURCHASE_DECIDED] => Array
+                        (
+                            [NONE] => Array
+                                (
+                                    [order_cnt] => 1
+                                    [is_receiver_changed] => false
+                                    [is_receiver_changed2] => Array
+                                        (
+                                            [0] => false
+                                        )
+
+                                    [last_change_date] => 2022-03-24T14:24:16.00Z
+                                    [request_timestamp] => 2022-03-24T14:25:03.262Z6248
+                                    [request_timestamp2] => Array
+                                        (
+                                            [0] => 2022-03-24T14:25:03.262Z6248
+                                        )
+
+                                    [last_change_status] => PURCHASE_DECIDED
+                                    [last_change_status2] => Array
+                                        (
+                                            [0] => PURCHASE_DECIDED
+                                        )
+
+                                    [npay_server_info] => REAL
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [ProductOrderResponse] => Array
+        (
+            [ProductOrderInfoList] => Array
+                (
+                    [0] => Array
+                        (
+                            [Delivery] => Array
+                                (
+                                    [DeliveredDate] => 2022-03-19T03:23:00.00Z
+                                    [DeliveryCompany] => HYUNDAI
+                                    [DeliveryMethod] => DELIVERY
+                                    [DeliveryStatus] => 배송완료
+                                    [IsWrongTrackingNumber] => false
+                                    [PickupDate] => 2022-03-17T08:56:00.00Z
+                                    [SendDate] => 2022-03-18T08:12:33.89Z
+                                    [TrackingNumber] => 241179864903
+                                )
+
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 59315
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 2285
+                                    [OrderDate] => 2022-03-07T14:23:04.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => xXXfPAK0KbvJk2uHJ5V4sQ==
+                                    [OrdererName] => Yc/ck3KfLdPb4EI3a0FG4A==
+                                    [OrdererTel1] => B/hjQkEEInKlhryhXZKK7w==
+                                    [OrderID] => 2022030752416290
+                                    [OrderType] => 일반
+                                    [PayLocationType] => PC
+                                    [PaymentDate] => 2022-03-07T14:23:11.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4078298883
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DecisionDate] => 2022-03-24T14:24:15.00Z
+                                    [DelayedDispatchDetailedReason] => 안녕하세요.
+주문해 주신 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+상품은 예약 상품이기 때문에 이벤트 종료 후
+순차적으로 발송됩니다.
+감사합니다.
+                                    [DelayedDispatchReason] => RESERVED_DISPATCH
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 0
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 29223
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114676
+                                    [OptionPrice] => 0
+                                    [PackageNumber] => 2022030770208215
+                                    [PaymentCommission] => 577
+                                    [PlaceOrderDate] => 2022-03-10T10:12:27.00Z
+                                    [PlaceOrderReleaseDate] => 2022-03-15T19:19:16.00Z
+                                    [PlaceOrderStatus] => CANCEL
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2302
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 포스터 포함: 포스터 (지관통 미포함/접어서 출고)
+                                    [ProductOrderID] => 2022030749917900
+                                    [ProductOrderStatus] => PURCHASE_DECIDED
+                                    [Quantity] => 2
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => N2U4MDEyODk0NjU5OGFiNmVkMjM1NjEwNzU2ZmJhOGQxNmEzMGU4MF8xNjQ2NjYyODU0
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => kLz6fFs/V/NX72BUyznBHisd+x46Z2vbLdl5z5La5gKu0udSYeRxxikiceBvkMAvVpWdqfnzZdwMc2btlBZdvA==
+                                            [DetailedAddress] => u0Vb8Jwk/wFL9HJBqtCTVg==
+                                            [Name] => Yc/ck3KfLdPb4EI3a0FG4A==
+                                            [Tel1] => fX2Q1ItKCMFPqXemLUNHvA==
+                                            [ZipCode] => 22678
+                                            [IsRoadNameAddress] => false
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-15T14:59:59.00Z
+                                    [ShippingFeeType] => 무료
+                                    [ShippingMemo] => 쇼케이스 참석 희망자 김광명 / 1981-11-27 / 010-4121-5656
+                                    [TotalPaymentAmount] => 29800
+                                    [TotalProductAmount] => 29800
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => N2U4MDEyODk0NjU5OGFiNmVkMjM1NjEwNzU2ZmJhOGQxNmEzMGU4MF8xNjQ2NjYyODU0
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => N2U4MDEyODk0NjU5OGFiNmVkMjM1NjEwNzU2ZmJhOGQxNmEzMGU4MF8xNjQ2NjYyODU0
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [Delivery] => Array
+                                (
+                                    [DeliveredDate] => 2022-03-19T03:23:00.00Z
+                                    [DeliveryCompany] => HYUNDAI
+                                    [DeliveryMethod] => DELIVERY
+                                    [DeliveryStatus] => 배송완료
+                                    [IsWrongTrackingNumber] => false
+                                    [PickupDate] => 2022-03-17T08:56:00.00Z
+                                    [SendDate] => 2022-03-18T08:12:33.89Z
+                                    [TrackingNumber] => 241179864903
+                                )
+
+                            [Order] => Array
+                                (
+                                    [ChargeAmountPaymentAmount] => 0
+                                    [CheckoutAccumulationPaymentAmount] => 0
+                                    [GeneralPaymentAmount] => 59315
+                                    [IsDeliveryMemoParticularInput] => false
+                                    [NaverMileagePaymentAmount] => 2285
+                                    [OrderDate] => 2022-03-07T14:23:04.00Z
+                                    [OrderDiscountAmount] => 0
+                                    [OrdererID] => xXXfPAK0KbvJk2uHJ5V4sQ==
+                                    [OrdererName] => Yc/ck3KfLdPb4EI3a0FG4A==
+                                    [OrdererTel1] => B/hjQkEEInKlhryhXZKK7w==
+                                    [OrderID] => 2022030752416290
+                                    [OrderType] => 일반
+                                    [PayLocationType] => PC
+                                    [PaymentDate] => 2022-03-07T14:23:11.00Z
+                                    [PaymentMeans] => 신용카드 간편결제
+                                    [PaymentNumber] => 4078298883
+                                    [PaymentCoreType] => 네이버결제
+                                    [PayLaterPaymentAmount] => 0
+                                )
+
+                            [ProductOrder] => Array
+                                (
+                                    [DecisionDate] => 2022-03-24T14:24:15.00Z
+                                    [DelayedDispatchDetailedReason] => 안녕하세요.
+주문해 주신 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+상품은 예약 상품이기 때문에 이벤트 종료 후
+순차적으로 발송됩니다.
+감사합니다.
+                                    [DelayedDispatchReason] => RESERVED_DISPATCH
+                                    [DeliveryDiscountAmount] => 0
+                                    [DeliveryFeeAmount] => 0
+                                    [DeliveryPolicyType] => 조건부무료
+                                    [ExpectedDeliveryMethod] => DELIVERY
+                                    [ExpectedSettlementAmount] => 31184
+                                    [FirstSellerBurdenDiscountAmount] => 0
+                                    [MallID] => np_zuxru165363
+                                    [OptionManageCode] => opt114677
+                                    [OptionPrice] => 1000
+                                    [PackageNumber] => 2022030770208215
+                                    [PaymentCommission] => 616
+                                    [PlaceOrderDate] => 2022-03-10T10:12:27.00Z
+                                    [PlaceOrderReleaseDate] => 2022-03-15T19:19:16.00Z
+                                    [PlaceOrderStatus] => CANCEL
+                                    [ProductClass] => 조합형옵션상품
+                                    [ProductDiscountAmount] => 0
+                                    [ProductID] => 2302
+                                    [ProductInfoApiVersion] => API_VERSION_20
+                                    [ProductName] => 브레이브걸스(Brave Girls) - 미니 6집 [THANK YOU]
+                                    [ProductOption] => 포스터 포함: 포스터 (지관통 포함)
+                                    [ProductOrderID] => 2022030749917910
+                                    [ProductOrderStatus] => PURCHASE_DECIDED
+                                    [Quantity] => 2
+                                    [SectionDeliveryFee] => 0
+                                    [SellerBurdenDiscountAmount] => 0
+                                    [SellerProductCode] => N2U4MDEyODk0NjU5OGFiNmVkMjM1NjEwNzU2ZmJhOGQxNmEzMGU4MF8xNjQ2NjYyODU0
+                                    [ShippingAddress] => Array
+                                        (
+                                            [AddressType] => DOMESTIC
+                                            [BaseAddress] => kLz6fFs/V/NX72BUyznBHisd+x46Z2vbLdl5z5La5gKu0udSYeRxxikiceBvkMAvVpWdqfnzZdwMc2btlBZdvA==
+                                            [DetailedAddress] => u0Vb8Jwk/wFL9HJBqtCTVg==
+                                            [Name] => Yc/ck3KfLdPb4EI3a0FG4A==
+                                            [Tel1] => fX2Q1ItKCMFPqXemLUNHvA==
+                                            [ZipCode] => 22678
+                                            [IsRoadNameAddress] => false
+                                        )
+
+                                    [ShippingDueDate] => 2022-03-15T14:59:59.00Z
+                                    [ShippingFeeType] => 무료
+                                    [ShippingMemo] => 쇼케이스 참석 희망자 김광명 / 1981-11-27 / 010-4121-5656
+                                    [TotalPaymentAmount] => 31800
+                                    [TotalProductAmount] => 31800
+                                    [UnitPrice] => 14900
+                                    [MerchantCustomCode1] => N2U4MDEyODk0NjU5OGFiNmVkMjM1NjEwNzU2ZmJhOGQxNmEzMGU4MF8xNjQ2NjYyODU0
+                                    [CommissionRatingType] => 결제수수료
+                                    [InflowPath] => 네이버쇼핑 외
+                                    [MerchantProductId] => N2U4MDEyODk0NjU5OGFiNmVkMjM1NjEwNzU2ZmJhOGQxNmEzMGU4MF8xNjQ2NjYyODU0
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+

@@ -1,0 +1,60 @@
+{ #layout_header }
+<script type="text/javascript">
+	var marketObj	= {marketsObj};
+	var searchObj	= {search};
+
+	//객체동결(변경금지)
+	if(typeof marketObj == "object") Object.freeze(marketObj);
+	if(typeof searchObj == "object") Object.freeze(searchObj);
+
+	function addNewAccount(market) {
+		if (typeof market == 'undefined' || market == '')
+			window.open('./account_add_popup','accountAdd','toolbar=no, scrollbars=yes, resizable=yes, width=800, height=750');
+		else
+			window.open('./account_add_popup?market=' + market,'accountAdd','toolbar=no, scrollbars=yes, resizable=yes, width=800, height=750');
+	}
+
+	function moveMenu(target) {window.location.href = target}
+
+	$('document').ready(function(){
+		$('.slc-body').resize(function(){
+			alert('dd');
+		});	
+
+		if($.inArray(searchObj.pageMode,['AccountSet','AddInfoListSet','CategoryMatchingListSet']) != -1){
+			gSearchForm.init({'pageid':'market_'+searchObj.pageMode.toLowerCase(),'divSelectLayId':'distTop','searchFormId':'marketSerachFrom'});
+		}
+		//$('#rightContentLay').height($('.slc-body').height() - 90);
+	});
+</script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">		
+		
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>마켓 설정</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<!-- {? MarketLinkage.shopCode == 'shoplinker'} -->
+			<li>{#scm_login}</li>		
+			<!-- { / } -->
+			
+			<!-- {? MarketLinkage.shopCode == 'firstmall'} -->
+			<li><button type="button" onclick="addNewAccount('{market}');" class="resp_btn active size_L">마켓 등록</button></li>	
+			<!-- { / } -->		
+		</ul>
+	</div>
+</div>
+
+<!--{? MarketConnectorClause == 'NOT_YET' }-->
+{# CLAUSE}
+<!--{ : }-->			
+{# CONTENT}
+<!-- { / } -->	
+
+
+{ #layout_footer }

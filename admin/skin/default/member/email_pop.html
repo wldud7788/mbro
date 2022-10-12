@@ -1,0 +1,133 @@
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		console.log("{css}")
+		EditorJSLoader.ready(function(Editor) {
+			DaumEditorLoader.init(".daumeditor");
+		});
+
+		$("select[name='selectEmail']").live("change", function(){
+			if($(this).val()){
+				$.get('/admin/member_process/logmail?seq='+$(this).val(), function(response) {
+					var data = eval(response)[0];
+					$("#title").val(data.title);
+					Editor.switchEditor($("#contents").data("initializedId"));
+					Editor.modify({"content" : data.contents});
+				});
+			}else{
+				$("#title").val('');
+				Editor.switchEditor($("#contents").data("initializedId"));
+				Editor.modify({"content" : " "});
+			}
+		});
+
+		$("#email_send_submit").click(function(){
+			if (Editor.getContent()=="<p><br></p>") {
+				openDialogAlert('내용 항목은 필수입니다.','400','140');
+				return false;
+			}
+			submitEditorForm(document.emailFrm);
+		});
+
+		$("#open_email_list").click(function(){
+			{? private_masking }
+			openDialogAlert("마스킹(*) 처리된 개인정보 항목이 일부 포함되어 있어 이메일 불러오기를 할 수 없습니다.<br/ >대표운영자에게 관리자 권한 수정을 요청해주시기 바랍니다.",600,180,function(){});
+			{:}
+			openDialog("최근 발송한 이메일 <span class='desc'>&nbsp;</span>", "email_log_list", {"width":"800","height":"600"});
+			{/}
+		});
+
+		$(".selectEmailBtn").live("click", function(){
+
+			if($("input[name='radioSeq']:checked").val()){
+				$.get('../member_process/logmail?seq='+$("input[name='radioSeq']:checked").val(), function(response) {
+					var data = eval(response)[0];
+					$("#title").val(data.title);
+					Editor.switchEditor($("#contents").data("initializedId"));
+					Editor.modify({"content" : data.contents});
+				});
+			}else{
+				$("#title").val('');
+				Editor.switchEditor($("#contents").data("initializedId"));
+				Editor.modify({"content" : " "});
+			}
+			closeDialog('email_log_list');
+		});
+
+		$("#email_addr").html($("input[name='email']").val());
+	})
+
+</script>
+
+<form name="emailFrm" id="emailFrm" method="post" target="actionFrame" action="/admin/member_process/email_pop" style="height:100%;">
+	<input type="hidden" name="member_seq" value="{member_seq}"/>
+	<input type="hidden" name="email" value="{email}"/>
+	<input type="hidden" name="order_seq" value="{order_seq}"/>
+	<input type="hidden" name="type" value="{type}"/>
+	<div class="content">
+		<div class="item-title">이메일 발송</div>
+		<table class="table_basic thl">		
+			<tr>
+				<th>잔여 건수</th>
+				<td>{? !email_chk }잔여 {=number_format(mail_count)}건{ / }</td>
+			</tr>
+			
+			<tr>
+				<th>받는 사람</th>
+				<td><span id="email_addr"></span></td>
+			</tr>
+
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="title" id="title" value="" style="width:90%" title="제목을 입력해주세요."/></td>
+			</tr>
+		</table>
+		
+		<div class="title_dvs">
+			<div class="item-title">내용</div>
+			<button type="button" id="open_email_list" class="resp_btn v2">이메일 불러오기</button>
+		</div>
+
+		<textarea name="contents" id="contents" class="daumeditor" style="width:80%" title="내용을 입력해 주세요."></textarea>
+	</div>
+	
+	<div class="footer footer_mah">
+		<button {? isdemo.isdemo } type="button"  {isdemo.isdemojs1} {:} type="submit"  id="email_send_submit" {/} class="resp_btn active size_XL">발송</button>
+		<button type="button"  class="resp_btn v3 size_XL" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+</form>
+
+<div id="email_log_list" class="hide">
+<form name="emailLogFrm" method="post" style="height: 100%;">
+	<div class="content">
+		<table class="table_basic tdc">
+			<colgroup>
+				<col width="60" />
+				<col width="170" />
+				<col />
+			</colgroup>	
+			<thead>
+				<tr>
+					<th>선택</th>
+					<th>발송 날짜</th>
+					<th>제목</th>
+				</tr>
+			</thead>
+			<tbody>
+			{@ loop }
+			<tr onclick="$('#radioSeq{.index_}').attr('checked',true);" class="hand">
+				<td><label class="resp_radio"><input type="radio" name="radioSeq" id="radioSeq{.index_}" value="{.seq}" {? .index_ == 0}checked{/}></label></td>
+				<td>{.regdate}</td>
+				<td class="left">{.subject}</td>
+			</tr>
+			{ / }
+	</table>
+	</div>
+	<div class="footer">
+		<button type="button" class="selectEmailBtn resp_btn active size_XL">불러오기</button>
+		<button type="button" class="resp_btn v3 size_XL" onclick="closeDialogEvent(this);">취소</button>
+	</div>
+</form>
+</div>
+

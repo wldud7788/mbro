@@ -1,0 +1,45 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 전체 지역 @@
+- 파일위치 : [스킨폴더]/_modules/location/all_navigation.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="all_list_contents">
+	<h2 class="all_list_title"><span designElement="text">ALL LOCATION</span></h2>
+	<!--{ @ array_chunk(locationData,99,true) }-->
+	<ul class="all_list_depth1">
+		<!--{@ .value_}-->
+		<li>
+			<a href="/goods/location?code={..location_code}">{..title}</a>
+			<!--{? ..childs}-->
+			<ul class="all_list_depth2">
+				<!--{@ ..childs}-->
+				<li>
+					<a href="/goods/location?code={...location_code}">{...title}</a>
+					<!--{? ...childs}-->
+					<ul class="all_list_depth3">
+						<!--{@ ...childs}-->
+						<li>
+							<a href="/goods/location?code={....location_code}">{....title}</a>
+						</li>
+						<!--{ / }-->
+					</ul>
+					<!--{ / }-->
+				</li>
+				<!--{ / }-->
+			</ul>
+			<!--{ / }-->
+		</li>
+		<!--{ / }-->
+	</ul>
+	<!--{ : }-->
+	<div class="nodata">설정된 지역 메뉴가 없습니다.</div>
+	<!--{ / }-->
+
+	<!--{?location_gnb_banner}-->
+	<div class="all_list_banner">
+		<!--{location_gnb_banner}-->
+	</div>
+	<!--{/}-->
+	<a href="javascript:void(0)" class="locationAllClose all_list_close">닫기</a>
+</div>
+<!-- //지역 전체보기 -->

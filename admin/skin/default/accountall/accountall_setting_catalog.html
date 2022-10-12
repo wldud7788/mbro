@@ -1,0 +1,64 @@
+<div class="content">
+<form name="accountSettingListForm" id="accountSettingListForm">
+<input type="hidden" name="orderby" value="{sc.orderby}"/>
+<input type="hidden" name="sort" value="{sc.sort}"/>
+<input type="hidden" name="totalcount" value="{sc.totalcount}"/>
+<input type="hidden" name="perpage"  id="perpage" value="{sc.perpage}" />
+
+<!-- 주문리스트 테이블 : 시작 -->
+<table class="table_basic tdc">
+	<!-- 테이블 헤더 : 시작 -->
+	<colgroup>
+		<col width="15%" /><!-- 번호 -->
+		<col width="35%" /><!-- 변경일시 -->
+		<col width="20%" /><!-- 변경자 -->
+		<col width="35%" /><!-- 적용월 -->
+	</colgroup>
+	
+	<thead>
+	<tr>
+		<th>번호</th>
+		<th>변경 일시</th>
+		<th>변경자</th>
+		<th>적용 월</th>
+	</tr>
+	</thead>
+	<!-- 테이블 헤더 : 끝 -->
+
+	<!-- 리스트 : 시작 -->
+	<tbody >
+{? loop }
+	{@ loop }
+		<!-- 리스트데이터 : 시작 -->
+		<tr>
+			<td>{.number}</td>
+			<td>{.regist_date}</td>
+			<td>{.manager_name}</td>
+			<td>{.accountall_cofirm_text}</td>
+		</tr>
+		<!-- 리스트데이터 : 끝 -->
+	{ / }
+{ : } 
+		<!-- 리스트데이터 : 시작 -->
+		<tr>
+			<td colspan="4">
+					등록된 이력이 없습니다.
+			</td>
+		</tr>
+		<!-- 리스트데이터 : 끝 -->
+{ / }
+	</tbody>
+	<!-- 리스트 : 끝 -->
+
+</table>
+<!-- 변경이력 테이블 : 끝 -->
+
+</form>
+
+<!-- 페이징 -->
+<div class="paging_navigation mb0" >{pagin}</div>
+</div>
+
+<div class="footer">		
+	<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog(accountSettingListDiv);">닫기</button>
+</div>

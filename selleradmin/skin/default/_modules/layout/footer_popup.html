@@ -1,0 +1,16 @@
+</div>
+
+{ ? _SERVER.REMOTE_ADDR == '127.0.0.1' }
+<iframe name="actionFrame" id="actionFrame" src="/data/index.php" frameborder="1" width="100%" height="1000" class="hide"></iframe>
+{ : }
+<iframe name="actionFrame" id="actionFrame" src="/data/index.php" frameborder="1" width="100%" height="1000" class="hide"></iframe>
+{ / }
+
+<div id="openDialogLayer" style="display: none">
+	<div align="center" id="openDialogLayerMsg"></div>
+</div>
+
+<div id="ajaxLoadingLayer" style="display: none"></div>
+
+</body>
+{ #common_html_footer }

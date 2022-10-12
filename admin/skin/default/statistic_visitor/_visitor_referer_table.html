@@ -1,0 +1,42 @@
+<script type="text/javascript">
+	$(function(){
+		$(".referer_link").click(function(){
+			var refer		= $(this).attr("href");
+			var refer_tmp	= refer.split("?");
+			$(this).attr("href",refer_tmp[0].replaceAll("adcr.naver","search.naver")+"?"+refer_tmp[1]);
+		});
+	});
+</script>
+
+<table class="table_basic v7">
+	<col /><col width="200" />
+	<tr>
+		<th>유입경로</th>
+		<th>방문자수</th>
+	</tr>
+	
+	{@refererData}
+	<?php {refererCountSum} += {.count}?>
+	<tr>
+		<td>
+		<!--{ ? .referer }-->
+			<a href="{.referer}" target="_blank" class="referer_link">{.referer}</a>
+		<!--{ : .referer_sitecd != 'direct' }-->
+			<!--{ ? .referer_sitecd }-->
+			{.referer_sitecd}
+			<!--{ : }-->
+			구분없음
+			<!--{ / }-->
+		<!--{ : }-->
+			직접입력
+		<!--{ / }-->
+		</td>
+		<td class="center"><font color="{seriesColors[1]}">{=number_format(.count)}</font></td>
+	</tr>
+	{/}	
+
+	<tr class="totalBr">
+		<td>합계</td>
+		<td class="center"><font color="{seriesColors[1]}">{=number_format(refererCountSum)}</font></td>
+	</tr>
+</table>

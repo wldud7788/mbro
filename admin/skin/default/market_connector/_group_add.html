@@ -1,0 +1,37 @@
+<button type="button" class="resp_btn active addGroupBtn">그룹 등록</button>
+	
+<div id="group_add_layer" class="hide">
+	<div class="content">
+		<table class="table_basic tdc">	
+			<tr>
+				<th>마켓</th>
+				<th>판매자아이디</th>
+				<th>그룹 등록</th>
+			</tr>	
+			<tbody>
+		<!-- {@ scmLoginList} -->		
+				<tr>
+					<td>{.marketName}</td>
+					<td>{.sellerId}</td>
+					<td><input type="button" value="등록" id="addInfoRegist" onclick="groupAdd('{.sellerId}|{.marketCode}|{.marketSeq}')" class="resp_btn v2"/></td>
+			<!-- { : } -->			
+				<tr>
+					<td colspan="3">
+						등록된 마켓이 없습니다.
+					</td>
+				</tr>
+				
+			<!-- { / } -->	
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="footer">
+		<button type="button" class="resp_btn v3 size_XL" onClick="closeDialog('group_add_layer')">닫기</button>
+	</div>
+</div>
+<script>
+	$(".addGroupBtn").click(function() {
+		openDialog("그룹 등록", "group_add_layer", {"width":"500", "height":"400","show" : "fade","hide" : "fade"});
+	});
+</script>

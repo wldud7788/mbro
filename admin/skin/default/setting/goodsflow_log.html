@@ -1,0 +1,174 @@
+{ #layout_header_popup }
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd')}"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	gSearchForm.init({'pageid':'delivery_company', 'sc':{=scObj}});	
+
+	$("input[name=shipping_provider_seq]").bind('click', function(){	
+		$(this).val() == 'N' ? $(".ui-combobox").show() : $(".ui-combobox").hide();
+	});
+
+	{ ? _GET.shipping_provider_seq == 'Y' || _GET.shipping_provider_seq == '' }
+		$(".ui-combobox").hide();
+	{ / }
+
+	$(".search_reset").on("click", function(){
+		$(".ui-combobox").hide();
+	});
+
+});
+</script>
+<style>
+	div.search_container {margin:0;padding: 0px 0px 0px !important; box-shadow: none;}
+</style>
+
+<div id="search_container" class="search_container v2">
+	<form name="log_search_frm" action="./goodsflow_log" method="get" class='search_form' >					
+	<table class="table_search">
+		<tr>
+			<th>검색어</th>
+			<td>
+				<select name="searchType" class="wx110">
+					<option value="all">전체</option>		
+					<option value="id">주문번호</option>			
+					<option value="code">출고번호</option>
+					<option value="code">주문자</option>
+					<option value="code">수신인명</option>
+				</select>
+				<input type="text" name="keyword" value="{_GET.keyword}" title="" size="80"/>
+			</td>
+		</tr>
+		<tr>
+			<th>조회기간</th>
+			<td>
+				<div class="date_range_form">
+					<input type="text" name="sdate" value="{sc.sdate}" class="datepicker sdate"  maxlength="10" style="width:80px" />
+					-
+					<input type="text" name="edate" value="{sc.edate}" class="datepicker edate" maxlength="10" style="width:80px" />
+					
+					<div class="resp_btn_wrap">
+						<input type="button" range="today" value="오늘" class="select_date resp_btn"/>
+						<input type="button" range="3day" value="3일간" class="select_date resp_btn"/>
+						<input type="button" range="1week" value="일주일" class="select_date resp_btn"/>
+						<input type="button" range="1month" value="1개월" class="select_date resp_btn"/>
+						<input type="button" range="3month" value="3개월" class="select_date resp_btn"/>
+						<input type="button" value="전체" range="all" class="select_date resp_btn" row_bunch />
+						<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden">
+					</div>
+				</div>		
+			</td>
+		</tr>
+		<!--{ ? provider }-->
+		<tr>
+			<th>주문상품</th>
+			<td>
+				<div class="resp_radio">
+					<label><input type="radio" name="shipping_provider_seq" value="Y"/>본사</label>		
+					<label><input type="radio" name="shipping_provider_seq" value="N"/>입점사</label>
+				</div>
+				<select name="provider_seq_selector" disabled class="deliver_provider_seq_selector">					
+				</select>					
+				<input type="hidden" class="provider_seq" name="provider_seq" value="{_GET.provider_seq}" />
+				<label class="resp_checkbox ml15"><input type="checkbox" name="admin_ship" value="1" {?_GET.admin_ship == '1'}checked{/}/> 본사배송그룹</label>	
+			</td>
+		</tr>
+		<!--{ / }-->
+		<tr>
+			<th>결과</th>
+			<td>	
+				<div class="resp_checkbox">
+					<label><input type="checkbox" name="complete_respons[]" class="chkall" value="all" /> 전체</label>
+					<label><input type="checkbox" name="complete_respons[]" value="Y"/> 성공</label>
+					<label><input type="checkbox" name="complete_respons[]" value="N"/> 실패</label>	
+				</div>
+			</td>
+		</tr>		
+	</table>
+	<div class="search_btn_lay"></div>
+	</form>
+</div>
+
+<table class="table_basic v7 tdc sub_info mt30">
+<colgroup>
+	<col width="160px" />
+	<col width="70px" />
+	<col width="100px" />
+	<col width="150px" />
+	<col />
+	<col />
+	<col width="60px"/>	
+</colgroup>
+<tr>
+	<th>날짜</th>
+	<th>구분</th>
+	<th>입점사명</th>
+	<th>주문번호</th>
+	<th>주문자명</th>
+	<th>출고정보</th>
+	<th>결과</th>
+</tr>
+<!--{ ? log_list }-->
+	<!--{ @ log_list }-->
+<tr>
+	<td>{.complete_date}</td>
+	<td>
+		{? .provider_seq != 1 && .shipping_provider_seq == 1}본사배송{:}-{/}
+	</td>
+	<td>
+		{? .provider_seq == 1}본사{:}{.provider_id}<br/>({.provider_name}){/}
+	</td>
+	<td>{.order_seq}</td>
+	<td>{.order_user_name}</td>
+	<td>
+		{.export_code} {?.delivery_number}<br/>[{gf_config['terms'][.delivery_company_code]['name']} {.delivery_number}]{/}
+	</td>
+	<td>
+		{?.complete_respons=='Y'}<span class="blue">성공</span>{:.complete_respons=='N'}<span class="red">실패</span>{/}
+	</td>
+</tr>
+	<!--{ / }-->
+<!--{ : }-->
+<tr>
+	<td colspan="7">검색된 결과가 없습니다.</td>
+</tr>
+<!--{ / }-->
+</table>
+
+
+<!--{ ? pagin }-->
+<div class="paging_navigation" style="margin:15px;">{pagin}</div>
+<!--{ / }-->
+<!--div style="padding-top:10px;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="info-table-style">
+<colgroup>
+	<col width="20%" />
+	<col />
+	<col />
+	<col />
+	<col />		
+</colgroup>
+<tr>
+	<th class="its-th">날짜</th>
+	<th class="its-th">입점사명</th>
+	<th class="its-th">주문번호</th>
+	<th class="its-th">출고정보</th>
+	<th class="its-th">결과</th>
+</tr>
+<tr>
+	<td class="its-td left">2015-03-31 10:16:15</td>
+	<td class="its-td left">TTHH (플로이드)</td>
+	<td class="its-td left">212255555555</td>
+	<td class="its-td left">D20155555555<br/>로젠 155555-22222</td>
+	<td class="its-td left">성공</td>
+</tr>
+<tr>
+	<td class="its-td left">2015-03-31 10:12:11</td>
+	<td class="its-td left">본사</td>
+	<td class="its-td left">255520225555</td>
+	<td class="its-td left">D255520225555<br/>로젠 155555-22222</td>
+	<td class="its-td left">실패</td>
+</tr>
+</table>
+</div-->

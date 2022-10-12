@@ -1,0 +1,190 @@
+{ #layout_header }
+<script type="text/javascript" src="/app/javascript/js/admin-goodsRegist.js?dummy={=date('Ymd')}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript" src="/app/javascript/js/admin/goodsSearch.js?mm={=date('Ymd',mktime)}"></script>
+<script type="text/javascript">
+	var scObj 			= {=scObj};
+	var gl_goods_config = {=arr_gl_gooda_config};
+	//객체동결(변경금지)
+	Object.freeze(scObj);
+	Object.freeze(gl_goods_config);
+</script>
+<script type="text/javascript" src="/app/javascript/js/admin/goodsCatalog.js?mm={=date('Ymd')}"></script>
+
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>사은품 리스트</h2>
+		</div>
+
+		<!-- 우측 버튼 -->
+		<ul class="page-buttons-right">
+			<li><span class="icon-goods-kind-gift"></span><button class="resp_btn active size_L" onclick="location.href='gift_regist'">사은품 등록<span class="arrowright"></button></span></li>
+		</ul>
+
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+
+<!-- 상품 검색폼 : 시작 -->
+{ #goods_search_form }
+<!-- 상품 검색폼 : 끝 -->
+
+<div class="contents_dvs v2" style="min-width:1150px;">
+	<div class="list_info_container">
+		<div class="dvs_left">	
+			<div class="left-btns-txt">검색 <b>{=number_format(page.searchcount)}</b> 개 (총 <b>{=number_format(page.totalcount)}</b>개)</div>
+		</div>
+		<div class="dvs_right">	
+			<span class="display_sort" sort="{=sc.sort}"></span>
+			<span class="display_quantity" perpage="{=sc.perpage}"></span>
+		</div>
+	</div>
+	<div class="table_row_frame">
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" class="goods_delete_btn resp_btn v3">선택 삭제</button>
+			</div>
+		</div>
+		<form name="goodsList" id="goodsList">
+		<table class="table_row_basic list">
+			<colgroup>
+				<col style="max-width:40px" />
+				<col style="max-width:60px" />
+				<col style="max-width:60px" />
+				<col width="60" />
+				<col style="min-width:180px" />
+				<col style="min-width:110px" />
+				<col style="min-width:130px" />
+				<col style="min-width:110px" />
+				<col style="min-width:120px" />
+				<col style="min-width:60px" />
+				<col style="min-width:60px" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th><label class='resp_checkbox'><input type="checkbox" id="chkAll" /></label></th>
+					<th>중요</th>
+					<th>번호</th>
+					<th colspan="2">사은품명</th>
+					<th>정가/판매가</th>
+					<th>재고/가용
+						<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#catalog_stock', 'sizeS')"></span>
+					</th>
+					<th>재고판매
+						<span class="tooltip_btn" onClick="showTooltip(this, '../tooltip/goods', '#catalog_stock2', 'sizeS')"></span>
+					</th>
+					<th>등록일/수정일</th>
+					<th>상태</th>
+					<th>관리</th>
+				</tr>
+			</thead>
+			<!-- 테이블 헤더 : 끝 -->
+			<tbody>
+			<!--{? loop }-->
+			<!--{@ loop }-->
+			<tr>
+				<td>
+					<label class="resp_checkbox"><input type="checkbox" class="chk" name="goods_seq[]" value="{.goods_seq}" /></label>
+				</td>
+				<td><span class="icon-star-gray star_select {.favorite_chk}" goods_seq="{.goods_seq}"></span></td>
+				<td class="page_no">{._no}</td>
+				<td class="right"><a href="../goods/gift_regist?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" width="50"></a></td>
+				<td class="left">
+					<div class="overflow-breakall minw120">
+						<div class="fx11">
+						<!--{ ? cfg_goods_default.list_condition_brand == 'y' && .brand_default}-->
+						[{.brand_default}]
+						<!--{ / }-->
+						<!--{ ? cfg_goods_default.list_condition_category == 'y' && .category_default}-->
+						{.category_default}
+						<!--{ / }-->
+						</div>
+						{=showBatchGoodsData(.value_)}
+					</div>
+				</td>
+				<td class="right">
+					<div class="pdr5">{=get_currency_price(.consumer_price,2)}</div>
+					<div class="pdr5">{=get_currency_price(.price,2)}</div>
+				</td>
+				<td>
+					<table class='gr_col' width="100%" style="padding-left:1px;padding-right:1px;">
+						<tr>
+							<td colspan=2 style="border:0px;height:15px;width:*;text-align:left;">
+								[{=number_format(.a_stock_cnt)}]
+								<!--{? .a_stock_cnt == 0}-->
+								{=.a_stock} / {=.a_rstock}
+								<!--{:}-->
+								{=number_format(.a_stock)} / {=number_format(.a_rstock)}
+								<!--{/}-->
+							</td>
+						</tr>
+						<tr>
+							<td style="border:0px;height:15px;text-align:left;">
+								[{=number_format(.b_stock_cnt)}]
+								<!--{? .b_stock_cnt == 0}-->
+								{=.b_stock} / {=.b_rstock}
+								<!--{:}-->
+								{=number_format(.b_stock)} / {=number_format(.b_rstock)}
+								<!--{/}-->
+							</td>
+							<td style="border:0px;height:15px;text-align:right;padding-right:2px;">
+								<span class="wh_option hand" onclick="goods_option_btn('{.goods_seq}',this,{ ? scm_cfg['use'] == 'Y'}'{.provider_seq}'{ : }'2'{ / })">
+									<span class="option-stock" optType="option" optSeq=""></span>
+									<span class="btn-administration goodsOptionBtn" goods_seq="{.goods_seq}"><span class="hide">옵션</span></span>
+								</span>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td class="center">
+					<!--{ ? .runout_policy }-->
+							<!--{ ? .runout_policy == 'stock' }-->
+					<!--img src="../images/common/icon/ico_goods_stock.png" class="help" title="[개별설정] 주문수량 <= 재고" align="absmiddle" /-->
+					재고
+							<!--{ : .runout_policy == 'ableStock' }-->
+					<!--img src="../images/common/icon/ico_goods_ablestock.png" class="help" title="[개별설정] 주문수량 <= 가용재고" align="absmiddle" /-->
+					가용재고
+							<!--{ : .runout_policy == 'unlimited' }-->
+					<!--img src="../images/common/icon/ico_goods_nolimit.png" class="help" title="[개별설정] 무제한" align="absmiddle" /-->
+					무제한
+						<!--{ / }-->
+					<!--{ : }-->
+							<!--{ ? cfg_order.runout == 'stock' }-->
+					<!--img src="../images/common/icon/ico_config_stock.png" class="help" title="[통합설정] 주문수량 <= 재고" align="absmiddle" /-->
+					재고
+							<!--{ : cfg_order.runout == 'ableStock' }-->
+					<!--img src="../images/common/icon/ico_config_ablestock.png" class="help" title="[통합설정] 주문수량 <= 가용재고" align="absmiddle" /-->
+					가용재고
+							<!--{ : cfg_order.runout == 'unlimited' }-->
+					<!--img src="../images/common/icon/ico_config_nolimit.png" class="help" title="[통합설정] 무제한" align="absmiddle" /-->
+					무제한
+							<!--{ / }-->
+					<!--{ / }-->
+				</td>
+				<td class="center">{=substr(.regist_date,0,16)}<br/>{=substr(.update_date,0,16)}</td>
+				<td class="center"><div>{.goods_status_text}</div></td>
+				<td class="center">
+					<div><input type="button" name="manager_modify_btn" value="수정" goods_seq="{.goods_seq}" class="resp_btn v2" onclick="goodsView('{.goods_seq}');"/></div>
+					<div class="mt2"><button type="button" goods_seq="{.goods_seq}" class="manager_copy_btn resp_btn v2" data-gift='true'>복사</button></div>
+				</td>				
+			</tr>
+			<!--{/}-->
+			<!--{/}-->
+			</tbody>
+		</table>
+		</form>
+		<div class="dvs_bottom">	
+			<div class="dvs_left">	
+				<button type="button" class="goods_delete_btn resp_btn v3">선택 삭제</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="paging_navigation">{page.html}</div>
+</div>
+
+{ #layout_footer }

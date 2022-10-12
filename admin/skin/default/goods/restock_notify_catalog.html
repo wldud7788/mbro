@@ -1,0 +1,570 @@
+<!--{? sc.scriptPaging != 'y'}-->
+{ #layout_header }
+<!--{/}-->
+<script type="text/javascript" src="/app/javascript/js/admin/gSearchForm.js?mm={=date('YmdHis')}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var arrSort = {'regist_date':'최근 등록 순',
+						'goods_name':'상품명 순',
+						'page_view':'페이지뷰 순',};
+		var scObj = {=scObj};
+
+		if("{=sc.scriptPaging}" =='y'){
+			gSearchForm.init({'pageid':'admin/goods/restock_notify_catalog','sc':scObj,'displaySort':arrSort, 'formEditorUse':true,'searchFormEditView':true}, function() {
+				searchSubmit();
+			});
+		} else {
+			gSearchForm.init({'pageid':'admin/goods/restock_notify_catalog','sc':scObj,'displaySort':arrSort});
+		}
+
+        // 카테고리/브랜드/지역 : 미등록 클릭 시 이벤트
+		$(".not_regist").on("click",function(e,mode){
+			if($(this).is(":checked") === true || mode == 'checked'){
+                $(this).closest("td").find("input:checkbox").not($(this)).prop("checked",false).prop("disabled",true);
+				$(this).closest("td").find("select").prop("disabled",true);
+			}else{
+                $(this).closest("td").find("input:checkbox").prop("disabled",false);
+				$(this).closest("td").find("select").prop("disabled",false);
+			}
+		});
+
+		if(scObj.not_regist_category) $("input[name='not_regist_category']").prop("checked",false).trigger('click',['checked']);
+		if(scObj.not_regist_brand) $("input[name='not_regist_brand']").prop("checked",false).trigger('click',['checked']);
+
+		// CHECKBOX
+		$("input:[name='restock_notify_seq[]']").click(function(){
+			chkMemberCount();
+		});
+
+		// SMS
+		$(".btn_form_sms").click(function(){
+			if("{=auth}" != "1") {
+				alert("권한이 없습니다.");
+				return;
+			}
+			$("#container").css("height","0px");
+			$("#container").attr("src","../member/sms_form?table=fm_goods_restock_notify");
+			$("#container").show();
+
+			$(document).scrollTop($("#container").offset().top);
+		});
+
+		/* 카테고리 불러오기 */
+		category_admin_select_load('','category1','',function(){
+			if(scObj.category1){
+				$("select[name='category1']").val(scObj.category1).change();
+			}
+		});
+		$("select[name='category1']").bind("change",function(){
+			category_admin_select_load('category1','category2',$(this).val(),function(){
+				if(scObj.category2){
+					$("select[name='category2']").val(scObj.category2).change();
+				}
+			});
+			category_admin_select_load('category2','category3',"");
+			category_admin_select_load('category3','category4',"");
+		});
+		$("select[name='category2']").bind("change",function(){
+			category_admin_select_load('category2','category3',$(this).val(),function(){
+				if(scObj.category3){
+					$("select[name='category3']").val(scObj.category3).change();
+				}
+			});
+			category_admin_select_load('category3','category4',"");
+		});
+		$("select[name='category3']").bind("change",function(){
+			category_admin_select_load('category3','category4',$(this).val(),function(){
+				if(scObj.category4){
+					$("select[name='category4']").val(scObj.category4).change();
+				}
+			});
+		});
+		////////////////////////////
+
+		/* 브랜드 불러오기 */
+		brand_admin_select_load('','brands1','',function(){
+			if(scObj.brands1){
+				$("select[name='brands1']").val(scObj.brands1).change();
+			}
+		});
+		$("select[name='brands1']").bind("change",function(){
+			brand_admin_select_load('brands1','brands2',$(this).val(),function(){
+				if(scObj.brands2){
+					$("select[name='brands2']").val(scObj.brands2).change();
+				}
+			});
+			brand_admin_select_load('brands2','brands3',"");
+			brand_admin_select_load('brands3','brands4',"");
+		});
+		$("select[name='brands2']").bind("change",function(){
+			brand_admin_select_load('brands2','brands3',$(this).val(),function(){
+				if(scObj.brands3){
+					$("select[name='brands3']").val(scObj.brands3).change();
+				}
+			});
+			brand_admin_select_load('brands3','brands4',"");
+		});
+		$("select[name='brands3']").bind("change",function(){
+			brand_admin_select_load('brands3','brands4',$(this).val(),function(){
+				if(scObj.brands4){
+					$("select[name='brands4']").val(scObj.brands4).change();
+				}
+			});
+		});
+		// SMS
+		$(".restock_sms_form").click(function(){
+			if("{=auth_send}" != "1") {
+				alert("권한이 없습니다.");
+				return;
+			}
+			var screenWidth = 1200;
+			var screenHeight = 900;
+
+			window.open('../batch/restock_notify_sms',"sms_form","menubar=no, toolbar=no, location=yes, status=no, resizble=yes, scrollbars=yes,width=" + screenWidth + ", height=" + screenHeight);
+		});
+
+		$(".btn_delete").click(function(){
+			if("{=auth}" != "1") {
+				alert("권한이 없습니다.");
+				return;
+			}
+			var cnt = $("input:checkbox[name='restock_notify_seq[]']:checked").length;
+			if(cnt<1){
+				alert("삭제할 신청 내역 선택해 주세요.");
+				return false;
+			}else{
+				var queryString = $("input:checkbox[name='restock_notify_seq[]']:checked").serialize();
+				if(!confirm("선택한 신청 내역을 삭제 시키겠습니까? ")) return;
+				$.ajax({
+					type: "get",
+					url: "../goods_process/restock_notify_delete",
+					data: queryString,
+					success: function(result){
+						//alert(result);
+						location.reload();
+					}
+				});
+			}
+		});
+
+		$("#chkAll").click(function(){
+			if($(this).attr("checked")){
+				$(".chk").attr("checked",true).change();
+			}else{
+				$(".chk").attr("checked",false).change();
+			}
+		});
+
+		// 체크박스 색상
+		$("input[type='checkbox'][name='goods_seq[]']").live('change',function(){
+			if($(this).is(':checked')){
+				$(this).closest('tr').addClass('checked-tr-background');
+			}else{
+				$(this).closest('tr').removeClass('checked-tr-background');
+			}
+		}).change();
+	});
+
+	//MEMBER DETAIL
+	function viewDetail(seq){
+		//if(!$(obj).attr('member_seq')) return;
+		//location.href = "detail?member_seq="+$(obj).attr('member_seq');
+
+		$("input[name='member_seq']").val(seq);
+		$("form[name='memberForm']").attr('action','../member/detail');
+		$("form[name='memberForm']").submit();
+	}
+
+	//CHECKBOX COUNT - IFRAME CONTROLLER
+	function chkMemberCount(){
+		var cnt = $("input:checkbox[name='restock_notify_seq[]']:checked").length;
+		$("#container").contents().find("#selected_member").html(cnt);
+
+	}
+
+	function searchMemberCount(){
+		var cnt = $("input[name='searchcount']").val();
+		$("#container").contents().find("#search_member").html(cnt);
+
+	}
+
+	function chkAll(chk, name){
+		if(chk.checked){
+			$("."+name).attr("checked",true).change();
+		}else{
+			$("."+name).attr("checked",false).change();
+		}
+
+	}
+
+	function searchSubmit() {
+		var serialize = $("#memberForm").serialize()+"&searchflag=1";
+		$.ajax({
+			type: "get",
+			url: "/admin/goods/restock_notify_catalog",
+			data: serialize,
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+			success: function(result){
+				$("#memberSearchDiv").html(result);
+				apply_input_style();
+			}
+		});
+	}
+</script>
+
+<!--{? sc.scriptPaging != 'y'}-->
+<!-- 페이지 타이틀 바 : 시작 -->
+<div id="page-title-bar-area">
+	<div id="page-title-bar">
+		<!-- 타이틀 -->
+		<div class="page-title">
+			<h2>재입고 알림</h2>
+		</div>
+	</div>
+</div>
+<!-- 페이지 타이틀 바 : 끝 -->
+<!--{/}-->
+<!--{? sc.scriptPaging == 'y'}-->
+<div class="content">
+<!--{/}-->
+<div id="search_container" class="search_container">
+	<form name="memberForm" id="memberForm" class="search_form">
+	<input type="hidden" name="scriptPaging" value="{=sc.scriptPaging}" cannotBeReset=1 noSaveData="1" />
+	<input type="hidden" name="member_seq" value=""/>
+	<input type="hidden" name="org_keyword" value="{sc.keyword}"/>
+
+	<input type="hidden" name="query_string"/>
+	<input type="hidden" name="searchcount" value="{page.searchcount}"/>
+	<input type="hidden" name="no" />
+	<input type="hidden" name="sort" value="{=sort}"/>
+
+	<!-- 주문리스트 검색폼 : 시작 -->
+	<table class="table_search thl">
+	<tr data-fid='sc_keyword' {? !in_array('sc_keyword',sc_form.default_field)}class='hide'{/}>
+		<th><span>검색어</span></th>
+		<td>
+			<select name="search_field">
+				<option value='all'>전체</option>
+				<option value='goods_name'>상품명</option>
+				<option value='goods_code'>상품코드</option>
+			</select>
+			<input type="text" name="keyword" value="{sc.keyword}" size="100" title="" />
+		</td>
+	</tr>
+	<tr data-fid='sc_regist_date' {? !in_array('sc_regist_date',sc_form.default_field)}class='hide'{/}>
+		<th><span>신청일</span></th>
+		<td>
+			<div class="sc_day_date date_range_form">
+				<input type='hidden' name='date_gb' value='regist_date'>
+				<input type="text" name="sdate" class="datepicker line sdate"  maxlength="10" />
+				-
+				<input type="text" name="edate" class="datepicker line edate" maxlength="10"  />
+				<div class="resp_btn_wrap">
+					<input type="button"  range="today" value="오늘" class="select_date resp_btn" />
+					<input type="button"  range="3day" value="3일간" class="select_date resp_btn" />
+					<input type="button"  range="1week" value="일주일" class="select_date resp_btn" />
+					<input type="button"  range="1month" value="1개월" class="select_date resp_btn" />
+					<input type="button"  range="3month" value="3개월" class="select_date resp_btn" />
+					<input type="button"  range="select_date_all"  value="전체" class="select_date resp_btn"/>
+					<input name="select_date_regist" value="{=sc.select_date_regist}" class="select_date_input" type="hidden" />
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr data-fid='sc_notify_status' {? !in_array('sc_notify_status',sc_form.default_field)}class='hide'{/}>
+		<th><span>재입고 알림 통보</span></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="notifyStatus" value="all" {?!sc.notifyStatus || sc.notifyStatus == 'all'}checked{/}/> <span>전체</span></label>
+				<label><input type="radio" name="notifyStatus" value="none" {?sc.notifyStatus == 'none'}checked{/}/> <span>미통보</span></label>
+				<label><input type="radio" name="notifyStatus" value="complete" {?sc.notifyStatus == 'complete'}checked{/}/> <span>통보</span></label>
+			</div>
+		</td>
+	</tr>
+	<!--{ ? serviceLimit('H_AD') }-->
+	<tr data-fid='sc_provider' {? !in_array('sc_provider',sc_form.default_field)}class='hide'{/}>
+		<th><span>입점사</span></th>
+		<td>
+			<div class="ui-widget">
+				<select name="provider_seq_selector" style="vertical-align:middle;">
+				</select>
+				<input type="hidden" class="provider_seq" name="provider_seq" value="{sc.provider_seq}" />
+			</div>
+		</td>
+	</tr>
+	<!--{ / }-->
+	<tr data-fid='sc_category' {? !in_array('sc_category',sc_form.default_field)}class='hide'{/}>
+		<th><span>카테고리</span></th>
+		<td>
+			<select name="category1" size="1" style="width:100px;"><option value="">1차 분류</option></select>
+			<select name="category2" size="1" style="width:100px;"><option value="">2차 분류</option></select>
+			<select name="category3" size="1" style="width:100px;"><option value="">3차 분류</option></select>
+			<select name="category4" size="1" style="width:100px;"><option value="">4차 분류</option></select>&nbsp;
+			<span class="resp_checkbox">
+				<label><input type="checkbox" name="search_link_category" value="1" {?sc.search_link_category}checked="checked"{/} /> 대표 카테고리 기준</label>
+				<label class="ml10"><input type="checkbox" name="not_regist_category" class="not_regist" value="1" {?sc.not_regist_category}checked="checked"{/} defaultValue='unchecked' /> 카테고리 미등록</label>
+			</span>	
+			<!--span class="helpicon" title='체크 시 대표 카테고리를 기준으로 검색됩니다.'></span>-->
+		</td>
+	</tr>
+	<tr data-fid='sc_brand' {? !in_array('sc_brand',sc_form.default_field)}class='hide'{/}>
+		<th><span>브랜드</span></th>
+		<td>
+			<select class="line" name="brands1" size="1" style="width:100px;"><option value="">1차 분류</option></select>
+			<select class="line" name="brands2" size="1" style="width:100px;"><option value="">2차 분류</option></select>
+			<select class="line" name="brands3" size="1" style="width:100px;"><option value="">3차 분류</option></select>
+			<select class="line" name="brands4" size="1" style="width:100px;"><option value="">4차 분류</option></select>&nbsp;
+			<span class="resp_checkbox">
+				<label><input type="checkbox" name="search_link_brand" value="1" {?sc.search_link_brand}checked="checked"{/} /> 대표 카테고리 기준</label>
+				<label class="ml10"><input type="checkbox" name="not_regist_brand" value="1" class="not_regist"  {?sc.not_regist_brand}checked="checked"{/} defaultValue='unchecked' /> 카테고리 미등록</label>
+			</span>	
+			<!--span class="helpicon" title='체크 시 대표 브랜드를 기준으로 검색됩니다.'></span></label-->
+		</td>
+	</tr>
+	<tr data-fid='sc_goods_status' {? !in_array('sc_goods_status',sc_form.default_field)}class='hide'{/}>
+		<th><span>판매 상태</span></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="goodsStatus" value="all" {?!sc.goodsStatus || sc.goodsStatus == 'all'}checked{/}/> <span>전체</span></label>
+				<label><input type="radio" name="goodsStatus" value="normal" {?sc.goodsStatus == 'normal'}checked{/}/> <span>정상</span></label>
+				<label><input type="radio" name="goodsStatus" value="runout" {?sc.goodsStatus == 'runout'}checked{/}/> <span>품절</span></label>
+				<label><input type="radio" name="goodsStatus" value="purchasing" {?sc.goodsStatus == 'purchasing'}checked{/}/> <span>재고확보중</span></label>
+				<label><input type="radio" name="goodsStatus" value="unsold" {?sc.goodsStatus == 'unsold'}checked{/}/> <span>판매중지</span></label>
+		</td>
+	</tr>
+	<tr data-fid='sc_goods_view' {? !in_array('sc_goods_view',sc_form.default_field)}class='hide'{/}>
+		<th><span>노출 여부</span></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="goodsView" value="all" {?!sc.goodsView || sc.goodsView == 'all'}checked{/}/> <span>전체</span></label>
+				<label><input type="radio" name="goodsView" value="look" {?sc.goodsView == 'look'}checked{/}/> <span>노출</span></label>
+				<label><input type="radio" name="goodsView" value="notLook" {?sc.goodsView == 'notLook'}checked{/}/> <span>미노출</span></label>
+		</td>
+	</tr>
+	<tr data-fid='sc_tax_view' {? !in_array('sc_tax_view',sc_form.default_field)}class='hide'{/}>
+		<th><span>과세</span></th>
+		<td>
+			<div class="resp_radio">
+				<label><input type="radio" name="taxView" value="all" {?!sc.taxView || sc.taxView == 'all'}checked{/}/> <span>전체</span></label>
+				<label><input type="radio" name="taxView" value="tax" {?sc.taxView == 'tax'}checked{/}/> <span>과세</span></label>
+				<label><input type="radio" name="taxView" value="exempt" {?sc.taxView == 'exempt'}checked{/} row_check_all /> <span>비과세</span></label>
+			</div>
+		</td>
+	</tr>
+	<tr data-fid='sc_price' {? !in_array('sc_price',sc_form.default_field)}class='hide'{/}>
+		<th><span>가격</span></th>
+		<td>
+			<select name="price_gb" class="search_select line" default_none>
+				<option value="consumer_price" {?sc.price_gb=='consumer_price'}selected{/}>정가</option>
+				<option value="price" {?sc.price_gb=='price'}selected{/}>판매가</option>
+			</select>
+			<input type="text" name="sprice" value="{sc.sprice}" size="7" class="line onlyfloat" row_group="price"/> {=basic_currency_info['currency_symbol']}
+			-
+			<input type="text" name="eprice" value="{sc.eprice}" size="7" class="line onlyfloat" row_group="price"/> {=basic_currency_info['currency_symbol']}
+		</td>
+	</tr>
+	<tr data-fid='sc_stock' {? !in_array('sc_stock',sc_form.default_field)}class='hide'{/}>
+		<th><span>재고</span></th>
+		<td>
+			<input type="text" name="sstock" value="{sc.sstock}" size="7" class="line onlynumber" row_group="stock"/> 개 
+			- <input type="text" name="estock" value="{sc.estock}" size="7" class="line onlynumber" row_group="stock"/> 개
+		</td>
+	</tr>
+	</table>
+
+	<div class="footer search_btn_lay"></div>
+	</form>
+</div>
+
+<div class="contents_dvs v2">
+	<div class="list_info_container">
+		<div class="dvs_left">
+			<div class="left-btns-txt">검색 <b>{=number_format(page.searchcount)}</b> 개 (총 <b>{=number_format(page.totalcount)}</b> 개)</div>
+		</div>
+		<!--{? sc.scriptPaging != 'y'}-->
+		<div class="dvs_right">
+			<span class="display_sort" sort="{=sc.sort}"></span>
+			<span class="display_quantity" perpage="{=sc.perpage}"></span>
+		</div>
+		<!--{/}-->
+	</div>	
+
+	<div class="table_row_frame">
+		<!--{? sc.scriptPaging != 'y'}-->
+		<div class="dvs_top">	
+			<div class="dvs_left">	
+				<button type="button" class="btn_delete resp_btn v3">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+				<button type="button" class="restock_sms_form resp_btn active " >재입고 알림 통보</button>
+			</div>
+		</div>
+		<!--{/}-->
+		<!-- 주문리스트 테이블 : 시작 -->
+		<table class="table_row_basic tdc list">
+			<colgroup>
+				{? sc.scriptPaging != 'y'}<col width="40" style="max-width:50px;" />{/}
+				<col width="60" style="max-width:60px;"/>
+				<col width="60" />
+				
+				<col>			
+
+				<col style="min-width:80px;" />
+				<col style="min-width:80px;" />
+				<col style="min-width:80px;" />
+
+				<col style="min-width:80px;" />
+				<col style="min-width:60px;" />
+
+				<col style="min-width:95px;" />
+				<col style="width:120px;" />
+				<col style="min-width:100px;" />
+				<col style="width:90px;" />
+			</colgroup>
+			<thead>
+			<tr>
+				<!--{? sc.scriptPaging == 'y'}-->
+				<th><label class='resp_checkbox'><input type="checkbox" onclick="chkAll(this,'member_chk'); allMemberClick();" class="all_member_chk"/></label></th>
+				<!--{:}-->
+				<th><label class='resp_checkbox'><input type="checkbox" id="chkAll" /></label></th>
+				<!--{/}-->
+				<th>번호</th>
+				<th colspan="2">상품명</th>
+
+				<th>정가</th>
+				<th>판매가</th>
+				<th>재고/가용</th>
+
+				<th>상태</th>
+				<th>노출</th>
+
+				<th>신청일</th>
+				<th>아이디</th>
+				<th>휴대폰 번호</th>
+				<th>재입고 통보</th>
+
+			</tr>
+			</thead>
+			<!-- 테이블 헤더 : 끝 -->
+
+			<!-- 리스트 : 시작 -->
+			<tbody>
+		{? loop }
+			{@ loop }
+				<tr class="list-row" style="height:70px;">
+					<!--{? sc.scriptPaging == 'y'}-->
+					<td class="ctd"><label class='resp_checkbox'><input type="checkbox" name="member_chk[]" value="{.restock_notify_seq}" class="member_chk" onclick="selectMemberClick(this);" /></label></td>
+					<!--{:}-->
+					<td class="center">
+						{?.notify_status=='none'}
+						<label class='resp_checkbox'><input type="checkbox" class="chk" name="restock_notify_seq[]" value="{.restock_notify_seq}" /></label>
+						{/}
+					</td>
+					<!--{/}-->
+					<td class="center" class="page_no">{._no}</td>
+					<td class="center"><a href="/goods/view?no={.goods_seq}" target="_blank"><img src="{=viewImg(.goods_seq,'thumbView')}" width="50"></a></td>
+					<td class="left" style="padding-left:10px;">
+						{=showBatchGoodsData(.value_)}
+						
+						<div class="goods_option">
+							<!--{? .title1}-->
+								<img src="../images/common/icon_option.gif" /> {.title1}:
+							<!--{ / }-->{.option1}
+							<!--{?.option2 }{?.title2}-->{.title2}:<!--{ / }-->{.option2}<!--{ / }-->
+							<!--{?.option3 }{?.title3}-->{.title3}:<!--{ / }-->{.option3}<!--{ / }-->
+							<!--{?.option4 }{?.title4}-->{.title4}:<!--{ / }-->{.option4}<!--{ / }-->
+							<!--{?.option5 }{?.title5}-->{.title5}:<!--{ / }-->{.option5}<!--{ / }-->
+						</div>
+					</td>
+					<td class="right">{=get_currency_price(.consumer_price,2)}</td>
+					<td class="right">{=get_currency_price(.price ,2)}</td>
+					<td class="center">
+						<!--{?.stock<0}-->
+						{=number_format(.stock)}
+						<!--{:}-->
+						{=number_format(.stock)}
+						<!--{/}-->
+						/
+						<!--{?.rstock<0}-->
+						{=number_format(.rstock)}
+						<!--{:}-->
+						{=number_format(.rstock)}
+						<!--{/}-->
+					</td>
+					<td class="center">{.goods_status_text}</td>
+					<td class="center">{.goods_view_text}</td>
+					<td class="center">{=substr(.regist_date,0,16)}</td>
+					<td class="center"> 
+						<!--{ ? .member_seq }-->
+							<a onclick="window.open('/admincrm/board/counsel_catalog?member_seq={.member_seq}');" style="text-decoration:underline !important">
+							{? .sns_rute }
+								<img src="../images/sns/sns_{=substr(.sns_rute,0,1)}0.gif" class="absmiddle" class="btnsnsdetail">
+							{ : }
+								{.userid}
+							{ / }
+							</a>
+						<!--{ : }-->
+							비회원
+						<!--{ / }-->
+					</td>
+					<td class="center">{.cellphone}</td>
+					<td class="center">{?.notify_status=='complete'}{=substr(.notify_date,0,10)}<br />{=substr(.notify_date,11,8)}{:}미통보{/}</td>
+				</tr>
+			{ / }
+		{ : }
+			<tr class="list-row">
+				<td class="center" height="40" colspan="13">
+					{ ? search_text }
+						'{search_text}' 검색된 내역이 없습니다.
+					{:}
+						등록된 내역이 없습니다.
+					{/}
+				</td>
+			</tr>
+		{ / }
+			</tbody>
+			<!-- 리스트 : 끝 -->
+
+		</table>
+		<!-- 주문리스트 테이블 : 끝 -->
+
+		{? sc.scriptPaging != 'y'}
+		<div class="dvs_bottom">
+			<div class="dvs_left">	
+				<button type="button" class="btn_delete resp_btn v3">선택 삭제</button>
+			</div>
+			<div class="dvs_right">	
+				<button type="button" class="restock_sms_form resp_btn active" >재입고 알림 통보</button>
+			</div>
+		</div>	
+		{/}
+	</div>
+	<!-- 페이징 -->
+	
+	<!--{? sc.scriptPaging != 'y'}-->
+	<div class="paging_navigation">{page.html}</div>
+	<!--{:}-->
+	<div class="paging_navigation">{pagin}</div>
+	<!--{/}-->
+</div>
+
+<!--{? sc.scriptPaging == 'y'}-->
+</div>
+<!--{/}-->
+
+<!--{? sc.scriptPaging == 'y'}-->
+<div class="footer">
+	<button type="button" class="resp_btn active size_XL" onclick="selectMemberInput('{=sc.callPage}');">선택한 회원 적용</button>
+	<button type="button" class="resp_btn active size_XL" onclick="serchMemberInput('{=sc.callPage}');">검색한 회원 적용</button>
+	<button type="button" class="search_reset resp_btn v3 size_XL" onclick="closeDialog('memberSearchDiv')">취소</button>
+</div>
+<!--{/}-->
+<!-- 주문리스트 검색폼 : 끝 -->
+
+<div>
+<iframe id="container" style="display:none;width:100%;" frameborder="0"></iframe>
+</div>
+
+{? sc.scriptPaging != 'y'}
+{ #layout_footer }
+{/}

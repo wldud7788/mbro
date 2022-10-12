@@ -1,0 +1,98 @@
+<div class="contents_dvs">
+	<div class="item-title">
+		오프라인 매장 회원가입 시 입력 항목
+		<span class="tooltip_btn" onClick="showTooltip(this, '/admin/tooltip/member', '#tip31')"></span>
+	</div>
+	<table class="table_basic v7 tdc joinform-user-table">
+		<colgroup>
+				<col width="190px" />
+				<col/>
+				<col/>
+				<col/>
+				<col/>
+				<col/>			
+				<col/>			
+		</colgroup>
+		<tr>
+			<th>항목</th>
+			<th>사용</th>
+			<th>필수</th>
+			<th colspan="3">항목 설명</th>
+			<th>삭제</th>
+		</tr>
+
+		<tr>
+			<th class="left">핸드폰 (수신 여부)</th>
+			<td><input type="checkbox" name=""value="Y" checked="checked" disabled class="resp_checkbox"/></td>
+			<td><input type="checkbox" name=""value="Y" checked="checked" disabled class="resp_checkbox"/></td>
+			<td colspan="3"  class="left">핸드폰 (수신 여부)</td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<th class="left">이름</th>
+			<td><input type="checkbox" name="o2ousername_use" value="Y" checked="checked" disabled class="resp_checkbox"/></td>
+			<td><input type="checkbox" name="o2ousername_required" value="Y" checked="checked" disabled class="resp_checkbox"/></td>
+			<td colspan="3"  class="left">오프라인 이름 입력</td>
+			<td></td>
+		</tr>
+		
+		<tr>
+			<th class="left">핸드폰 인증</th>
+			<td><input type="checkbox" name="o2oauthnum_use" class="o2oauthnum_essential resp_checkbox" value="Y"/></td>
+			<td><input type="checkbox" name="o2oauthnum_required" class="o2oauthnum_essential resp_checkbox" value="Y" /></td>
+			<td colspan="3"  class="left">오프라인 회원가입 휴대폰인증</td>
+			<td></td>
+		</tr>
+
+		<!-- 오프라인 매장 추가 가입항목 기능
+		<tbody class="labelList_order">
+			{? order_sub}
+			{@ order_sub}
+			<tr class="layer{.joinform_seq}">
+				<td class="its-td">{.label_title}</td>
+				<td class="its-td"><img src="../../images/common/icon_move.gif"  style="cursor:pointer"> [{.label_ctype}] {.label_desc} <span class="btn small gray"><button type="button" class="listJoinBtn" id="listJoinBtn" value="{.joinform_seq}" join_type="order" style="cursor:pointer;">수정</button></span></td>
+				<td class="its-td"><input type="checkbox" name="labelItem[order][{.joinform_seq}][use]" class="order_chUse" order_ch="{.joinform_seq}" value="Y" {?.used == 'Y'} checked {/} /> 사용</td>
+				<td class="its-td"><input type="checkbox" name="labelItem[order][{.joinform_seq}][required]" class="order_chRequired"  value="Y" {?.required == 'Y'} checked {/} /> 필수</td>
+				<td class="its-td">
+					<input type="hidden" name="labelItem[order][{.joinform_seq}][joinform_seq]" value="{.joinform_seq}">
+					<input type="hidden" name="labelItem[order][{.joinform_seq}][name]" value="{.label_title}">
+					<input type="hidden" name="labelItem[order][{.joinform_seq}][type]" value="{.label_type}">
+					<input type="hidden" name="labelItem[order][{.joinform_seq}][exp]" value="{.label_desc}">
+					<input type="hidden" name="labelItem[order][{.joinform_seq}][value]" value="{.label_value}">
+					<span class="btn-minus" onclick="deleteRow(this)"><button type="button"></button></span>
+				</td>
+			</tr>
+			{/}
+			{/}
+		</tbody>
+		-->
+	</table>
+</div>
+	
+				
+
+<div id="o2oauthnum_essential" class="hide">
+	<ul>
+		<li>(O2O) 핸드폰 인증은 사용과 필수는 동시에 이루어집니다. '해제'하시겠습니까?</li>
+	</ul>
+	<div class="center mt20">
+		<span class="btn large cyanblue"><input type="button" onclick="$('.o2oauthnum_essential_ck').prop('checked',false);$('#o2oauthnum_essential').dialog('close')" value="해제"></span>
+		<span class="btn large gray"><input type="button" onclick="$('#o2oauthnum_essential').dialog('close')" value="취소"></span>
+	</div>
+</div>
+				
+<script>
+
+$(document).ready(function() {
+	$('.o2oauthnum_essential').click(function(){
+		if(!$(this).is(':checked')){
+			$('.o2oauthnum_essential_ck').removeClass('o2oauthnum_essential_ck');
+			$('.o2oauthnum_essential').each(function(){
+				$(this).prop('checked',true).addClass('o2oauthnum_essential_ck');
+			});
+			openDialog('알림', 'o2oauthnum_essential', {'width':380,'height':180});
+		}
+	});
+});
+</script>

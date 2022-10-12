@@ -1,0 +1,36 @@
+<!--{ ? !record  }-->
+<tr >
+	<td colspan="11">검색된 방송이 없습니다.</td>
+</tr>
+<!--{ : }-->
+<!--{ @ record }-->
+<tr bsSeq="{=.bsSeq}">
+	<td class="center">
+		<label class='resp_checkbox'><input type="checkbox" class="chk" name="bs_seq[]" value="{.bsSeq}" /></label>
+	</td>
+	<td>{=.rno}</td>
+	<td><div class="list_thumb"><img src="{=.image}"></div></td>
+	<td class="left">
+		<a class="btn-info resp_btn_txt v2">{=.title}</a>
+	</td>
+	<td>{=.goodsName}</td>
+	<td>{=.startDateTxt}</td>
+	<td>{=.sumvisitors}</td>
+	<td>{=.likes}</td>
+	<td>
+		<!--{? .vodKey != 'null'}-->
+		<a href="/broadcast/vod?no={.bsSeq}" target="_blank"><button type="button" class="resp_btn">시청하기</button></a>
+		<!--{ / }-->
+	</td>
+	<td>
+		<input type="hidden" id="display{=.bsSeq}" value="{=.display}" />
+		<div class="btn-onoff" bsSeq="{=.bsSeq}">
+			<button type="button" class="on btn-on" id="displayBtn{=.bsSeq}" value="{=.display}">버튼</button>	
+		</div>
+	</td>
+	<td>
+		<button type="button" class="resp_btn v3 btn-delete" >삭제</button>
+	</td>
+</tr>
+<!--{ / }-->
+<!--{ / }-->

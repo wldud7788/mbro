@@ -1,0 +1,10 @@
+[2022-03-11 14:34:02.18405000]
+MODE : Request
+REMOTE_IP : 14.138.9.185
+<?xml version="1.0" encoding="utf-8"?><order><merchantId>np_zuxru165363</merchantId><certiKey>08A5157D-A544-442F-9B45-40B4E3898118</certiKey><backUrl><![CDATA[https://musicbroshop.com/goods/view?no=2068]]></backUrl><mcstCultureBenefitYn>false</mcstCultureBenefitYn><interface><merchantCustomCode1>YTcyMDQyOGY3ZWI5MDY0OGQzOTk1YTU3YzdlNGFhYTk0NzVhM2M1NV8xNjQ2OTc2ODQx</merchantCustomCode1></interface><product><id>2068</id><merchantProductId>YTcyMDQyOGY3ZWI5MDY0OGQzOTk1YTU3YzdlNGFhYTk0NzVhM2M1NV8xNjQ2OTc2ODQxQG9wdDExMzkxMg==</merchantProductId><ecMallProductId>2068</ecMallProductId><name><![CDATA[bugAboo (버가부) - bugAboo (1ST 싱글앨범)]]></name><basePrice>13400</basePrice><taxType>TAX</taxType><infoUrl><![CDATA[https://musicbroshop.com/goods/view?no=2068]]></infoUrl><imageUrl><![CDATA[https://musicbroshop.com/data/goods/8/2021/10/2068_tmp_4d48e2ae0498f1ca0695d02e0b9b40b48869list1.jpg]]></imageUrl><single><quantity>1</quantity></single><shippingPolicy><groupId>88_504_delivery</groupId><method>DELIVERY</method><feeType>CONDITIONAL_FREE</feeType><feePayType>PREPAYED</feePayType><feePrice>3000</feePrice><conditionalFree><basePrice>50000</basePrice></conditionalFree><surchargeByArea><apiSupport>true</apiSupport></surchargeByArea></shippingPolicy></product></order>
+
+[2022-03-11 14:34:02.127297000]
+MODE : Response
+REMOTE_IP : 14.138.9.185
+SUCCESS:j6uumisfTnWigI6qoBDH8g:200337588
+

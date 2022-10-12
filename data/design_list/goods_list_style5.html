@@ -1,0 +1,126 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ goods_list_style5 @@
+- 파일 위치 : /data/design_list/goods_list_style5.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{ @ record }-->
+<li class="goods_list_style5">
+	<!--{? !issample }-->
+		<div class="item_img_area">
+			<a href="/goods/view?no={.goods_seq}"><img src="{.image}" onerror="this.src='/data/skin/{=skin}/images/common/noimage.gif';" alt="" /></a>
+			<div class="display_zzim">
+				<!--{ ? .wish }-->
+				<img src="/data/icon/goodsdisplay/preview/thumb_zzim_off.png" class="zzimOffImg"  alt="찜하기" style="display:none" data-member="{aParams.member_seq}" data-goods="{.goods_seq}" data-wish="{.wish}" onclick="setWish(this)">
+				<img src="/data/icon/goodsdisplay/preview/thumb_zzim_on.png" class="zzimOnImg" alt="찜하기" data-member="{aParams.member_seq}" data-goods="{.goods_seq}" data-wish="{.wish}" onclick="setWish(this)">
+				<!--{ : }-->
+				<img src="/data/icon/goodsdisplay/preview/thumb_zzim_off.png" class="zzimOffImg" alt="찜하기" data-member="{aParams.member_seq}" data-goods="{.goods_seq}" data-wish="{.wish}" onclick="setWish(this)">
+				<img src="/data/icon/goodsdisplay/preview/thumb_zzim_on.png" class="zzimOnImg" alt="찜하기" style="display:none" data-member="{aParams.member_seq}" data-goods="{.goods_seq}" data-wish="{.wish}" onclick="setWish(this)">
+				<!--{ / }-->
+			</div>
+			<!-- 상품 상태 표시 -->
+			<!--{ ? .goods_status != 'normal' }-->
+			<div class="respGoodsStatus">
+				<a href="/goods/view?no={.goods_seq}" class="area">
+					<!--{ ? .goods_status == 'runout' }-->
+					<span class="status_style type1"><em>SOLD OUT!</em></span>
+					<!--{ : .goods_status == 'purchasing' }-->
+					<span class="status_style type2"><em>재고확보중</em></span>
+					<!--{ : .goods_status == 'unsold' }-->
+					<span class="status_style type3"><em>판매중지</em></span>
+					<!--{/}-->
+				</a>
+			</div>
+			<!--{/}-->
+		</div>
+	<!--{/}-->
+	<ul class="item_info_area">
+		<!--{? .goods_name}-->
+		<li class="goods_name_area">
+			<a href="/goods/view?no={.goods_seq}"><span class="name">{.goods_name}</span></a>
+		</li>
+		<!--{ / }-->
+
+		<!-- 비회원 대체문구 -->
+		<!--{ ? .string_price }-->
+		<li class="goods_price_area">
+			<span class="warning_text">{=.string_price}</span>
+		</li>
+		<!--{ : }-->
+		<li class="goods_price_area">
+			<span class="sale_price">
+			<!--{ ? .sale_price >= 0 }-->
+				{=get_currency_price(.sale_price, 2, '', '<b class="num">_str_price_</b>')}
+			<!--{ : }-->
+				{=get_currency_price(.price, 2, '', '<b class="num">_str_price_</b>')}
+			<!--{ / }-->
+			</span>
+
+			<!--{ ? .consumer_price > .sale_price }-->
+			<span class="consumer_price">
+				{=get_currency_price(.consumer_price, 2, '', '<span class="num">_str_price_</span>')}
+			</span>
+			<!--{ / }-->
+
+			<!--{ ? .sale_per > 0 }-->
+			<span class="discount_rate">
+				<b class="num">{.sale_per}</b>%
+			</span>
+			<!--{ / }-->
+		</li>
+		<!--{ / }-->
+
+		<!--{ ? aParams.searchMode != 'catalog' && .category}-->
+		<li class="goods_category_area">
+			<ul class="cate">
+				<li>{.category}</li>
+			</ul>
+		</li>
+		<!--{ / }-->
+
+		<!--{ ? .shipping_group.free_shipping_use == 'Y' || .shipping_group.gl_shipping_yn == 'Y' }-->
+		<li class="goods_besong_area">
+			<!-- 무료배송 -->
+			<!--{ ? .shipping_group.free_shipping_use == 'Y' }-->
+			<span class="besong">무료배송</span>
+			<!--{ / }-->
+			<!-- 해외배송 -->
+			<!--{ ? .shipping_group.gl_shipping_yn == 'Y' }-->
+			<span class="besong">해외배송</span>
+			<!--{ / }-->
+		</li>
+		<!--{ / }-->
+
+		<!-- (단독이벤트) 판매수량 -->
+		<!--{ ? .event_order_ea > 0 }-->
+		<li class="goods_sold_area">
+			<b class="num"><!--{= number_format(.event_order_ea)}--></b>개 구매
+		</li>
+		<!--{ / }-->
+
+		<!-- (단독이벤트) 남은 시간 -->
+		<!--{ ? !empty(.eventEnd) }-->
+		<li class="goods_event_time displaY_event_time soloEventTd{.goods_seq}">
+			<span class="title">남은시간</span>
+			<span class="time_container">
+				<span class="num2 soloday{.goods_seq}"></span>일 
+				<span class="num2 solohour{.goods_seq}"></span> :
+				<span class="num2 solomin{.goods_seq}"></span> :
+				<span class="num2 solosecond{.goods_seq}"></span>
+			</span>
+		</li>
+		<script type="text/javascript">
+		   $(document).ready(function() {
+				timeInterval{.goods_seq} = setInterval(function(){
+					 var time{.goods_seq} = showClockTime('text', '{.eventEnd.year}', '{.eventEnd.month}', '{.eventEnd.day}', '{.eventEnd.hour}', '{.eventEnd.min}', '{.eventEnd.second}', 'soloday{.goods_seq}', 'solohour{.goods_seq}', 'solomin{.goods_seq}', 'solosecond{.goods_seq}', '{.goods_seq}','class');
+					 if(time{.goods_seq} == 0){
+						  clearInterval(timeInterval{.goods_seq});
+						  $(".soloEventTd{.goods_seq}").html("단독 이벤트 종료");
+					 }
+				},1000);
+		   });
+	   </script>
+	   <!--{ / }-->
+
+	</ul>
+</li>
+<!--{ / }-->

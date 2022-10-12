@@ -1,0 +1,122 @@
+<style>
+
+<!--{? display.over_line_use == 'y'}-->
+.event-list2 .event-image-box{ border:{display.non_line_px}px {display.non_line_color} solid;}
+.event-list2 a:hover .event-image-box{ border:{display.over_line_px}px {display.over_line_color} solid;}
+<!--{ / }-->
+
+<!--{? display.over_opacity_use == 'y'}-->
+.event-list2 li a:hover .event-image-box{zoom:1;filter:alpha(opacity={display.over_opacity_per});opacity:{display.over_opacity_per / 100};}
+<!--{ / }-->
+</style>
+
+
+
+<!-- 타이틀 -->
+<div class="title_container">
+	<h2>이벤트</h2>
+</div>
+
+<!-- 콘텐츠 -->
+<div class="event_section v1" style="background:#bddeff;">
+	<img src="/data/icon/event/event_top.jpg"/>
+</div>
+
+<div class="event_section">
+
+	<!-- basic banner -->
+	<ul class="event_bnr1">
+		<li><img src="/data/icon/event/evnet_banner01.jpg" alt=""/></li>
+		<li><img src="/data/icon/event/evnet_banner02.jpg" alt=""/></li>
+		<li><img src="/data/icon/event/evnet_banner03.jpg" alt=""/></li>
+		<li><img src="/data/icon/event/evnet_banner04.jpg" alt=""/></li>
+	</ul>
+
+	<!-- tab -->
+	<!--{? display.disp_target == 'all'}-->
+	<h3 class="event_title1 Mt40">진행 중인 이벤트</h3>
+	<!--{ : }-->
+	<h3 class="event_title1 Mt40">진행 중인 이벤트</h3>
+	<!--{ / }-->
+
+	<div class="event-list2">
+		<ul>
+			<!--{@ record}-->
+			<li>
+				<!--{? .event_move == 'n' }-->
+				<!--<a href="/page/index?tpl={.tpl_path}">-->
+				<!--{ : }-->
+				<!--<a href="/goods/view?no={.goods_seq}">-->
+				<!--{ / }-->
+				<a href="/page/index?tpl={.tpl_path}">
+					<div class="event-image-box">
+						<!--{? .event_banner}-->
+						<img class="event_list_banner" src="/data/event/{.event_banner}" alt="" />
+						<!--{ : }-->
+						<img class="none" src="../images/design/noimg_thumb.gif"/>
+						<!--{ / }-->
+						<!--{? display.close_lay_use == 'y' && .status == 'close'}--><img class="close-icon" src="{display.close_icon}" alt="마감임박" /><!--{ / }-->
+						<!--{? display.end_lay_use == 'y' && .status == 'end'}--><img class="end-icon" src="{display.end_icon}" alt="종료" /><!--{ / }-->
+					</div>
+					<div class="infobox">
+						<!--{? display.event_intorduce_use == 'y'}--><div class="intorduce" {? .event_introduce_color}style="color:{.event_introduce_color}"{/}>{? .event_introduce}{.event_introduce}{:}{.event_title}{/}</div><!--{ / }-->
+						<!--{? display.event_period_use == 'y'}--><div class="period">{.period}</div><!--{ / }-->
+						<!--{? display.event_until_use == 'y' && .event_type == 'solo'}-->
+							<div class="until">남은시간 : <input type="hidden" name="timestamp[]" value="{.timestamp}"><span class="until-day countdown">{.d_day}</span></div>
+						<!--{ / }-->
+						<!--{? .status == 'end' && display.event_end_icon_use == 'y'}-->
+							<div class="until"><img src="/data/icon/event/event_end.gif"/></div>
+						<!--{ / }-->
+					</div>
+				</a>
+			</li>
+			<!--{ / }-->
+		</ul>
+
+	</div>
+
+	<div class="paging_navigation">
+		{pagin}
+	</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.countdown').each(function(key){
+			var setTime	= $(this).prev().val();
+			count_down(this, setTime);
+		});
+	});
+
+	function count_down(target, setTime){
+		var pad	= "00";
+
+		var key = setInterval(function(){
+			setTime--;
+			if(setTime <= 0){
+				$(target).text("00일 00:00:00");
+				clearInterval(key);
+			}else{
+				day		= Math.floor(setTime / 86400);
+				day_c	= (setTime - day * 86400) % 86400;
+				day_t	= pad.substring(0, pad.length - day.toString().length) + day.toString();
+
+				hour	= Math.floor(day_c / 3600);
+				hour_c	= (day_c - hour * 3600) % 3600;
+				hour_t	= pad.substring(0, pad.length - hour.toString().length) + hour.toString();
+
+				minit	= Math.floor(hour_c / 60);
+				minit_t	= pad.substring(0, pad.length - minit.toString().length) + minit.toString();
+
+				sec		= hour_c % 60;
+				sec_t	= pad.substring(0, pad.length - sec.toString().length) + sec.toString();
+
+				$(target).text(day_t + "일 " + hour_t + ":"+ minit_t + ":" + sec_t);
+			}
+
+		}, 1000);
+	}
+</script>
