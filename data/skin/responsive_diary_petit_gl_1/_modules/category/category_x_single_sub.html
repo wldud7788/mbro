@@ -1,0 +1,29 @@
+<ul class="respCategoryList">
+	<li class="nav_category_all">
+		<a href="javascript:void(0);" class="categoryAllBtn" title="전체 카테고리"></a>
+	</li>
+<!--{ @ category }-->
+	<li class="categoryDepth1">
+		<a class="categoryDepthLink" href="/goods/catalog?code={.category_code}">{.name}</a>
+		<!--{ ? .childs}-->
+		<div class="categorySub">
+			<div class="categorySubWrap">
+				<ul class="categoryDepth2">
+					<!--{ @ .childs}-->
+					<li class="categorySubDepth"><a href="/goods/catalog?code={..category_code}">{..name}</a></li>
+					<!--{ / }-->
+				</ul>
+				<!--{ ? .node_banner }-->
+				<div class="categorySubBanner">
+					{.node_banner}
+				</div>
+				<!--{ / }-->
+			</div>
+		</div>
+		<!--{ / }-->
+	</li>
+<!--{ / }-->
+	<li class="custom_nav_link">
+		<a class="categoryDepthLink" href="/board/?id=custom_bbs2">STORY</a>
+	</li>
+</ul>

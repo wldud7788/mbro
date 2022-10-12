@@ -1,0 +1,10 @@
+<script type='text/javascript'>
+$(document).ready(function(){
+	map_id = $('.goods_mapview').find('._nmap_mapbox').prop('id');
+	$('#'+map_id).html('');
+	callMap(map_id,'{x_lang}','{y_lang}','{width}','{height}','{option}');
+	$('#address').html('{address}');
+	$('#street').html('{street}');
+	$('#biztel').html('{biztel}');
+});
+</script>

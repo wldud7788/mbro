@@ -1,0 +1,286 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 취소/환불 상세 @@
+- 파일위치 : [스킨폴더]/mypage/refund_view.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">취소/환불 상세</span></h2>
+		</div>
+
+		<ul class="myorder_sort">
+			<li class="list1">
+				<span class="th gray_01">상태 : </span>
+				<span class="td">
+					<strong class="pointcolor">{data_refund.mstatus} {?data_refund.status=='complete'}(해당 환불건의 처리가 완료된 상태입니다.){/}</strong>
+				</span>
+			</li>
+		</ul>
+
+		<div class="res_table">
+			<ul class="thead">
+				<li>상품</li>
+				<li style="width:80px;">주문수량</li>
+				<li style="width:90px;">환불신청수량</li>
+				<li style="width:110px;">결제금액</li>
+				<li style="width:120px;">배송비</li>
+			</ul>
+		<!--{ @ refund_shipping_items }-->
+			<!--{ @ .items }-->
+			<ul class="tbody">
+				<li class="item_info">
+					<ul class="oc_item_info_detail">
+						<li class="img_link">
+							<a href='/goods/view?no={..goods_seq}' target='_blank' title="새창"><img src="{..image}" class="order_thumb" alt="{..goods_name}" /></a>
+						</li>
+						<li class="detail_spec">
+							<!--{ ? ..goods_type == 'gift'}--><img src="../images/common/icon_gift.gif" alt="사은품" vspace=3 /><!--{ / }-->
+							{ ? ..cancel_type == '1' }<span class="order-item-cancel-type">[청약철회불가]</span>{ / }
+
+							<div class="goods_name">{..goods_name}</div>
+							
+							<!--{?..option1}-->
+							<div class="oc_res_block">
+								<ul class="goods_options">
+									<!--{ ? ..option1 }-->
+									<li><!--{?..title1}--><span class="xtle">{..title1}</span><!--{ / }--> {..option1}</li>
+									<!--{ / }-->
+									<!--{ ? ..option2 }-->
+									<li><!--{?..title2}--><span class="xtle">{..title2}</span><!--{ / }--> {..option2}</li>
+									<!--{ / }-->
+									<!--{ ? ..option3 }-->
+									<li><!--{?..title3}--><span class="xtle">{..title3}</span><!--{ / }--> {..option3}</li>
+									<!--{ / }-->
+									<!--{ ? ..option4 }-->
+									<li><!--{?..title4}--><span class="xtle">{..title4}</span><!--{ / }--> {..option4}</li>
+									<!--{ / }-->
+									<!--{ ? ..option5 }-->
+									<li><!--{?..title5}--><span class="xtle">{..title5}</span><!--{ / }--> {..option5}</li>
+									<!--{ / }-->
+								</ul>
+							</div>
+							<!--{ / }-->
+
+							{? ..goods_type == "gift" }
+								{? ..gift_title }
+								<div class="mt3">
+									{..gift_title} 
+									<button type="button" class="gift_log btn_resp" order_seq="{=data_refund.order_seq}" item_seq="{..item_seq}">자세히</button>
+								</div>
+								{/}
+							{ / }
+						</li>
+					</ul>
+				</li>
+				<li><span class="motle">주문:</span> {=number_format(..option_ea)}</li>
+				<li>
+					<span class="motle">환불신청:</span>
+					{=number_format(..ea)}
+					<!--{? data_order.download_seq }-->
+						<!--{? data_order.restore_used_coupon_refund }-->
+						<p>상품쿠폰 <input type="button" class="btn_chg small" value="복원완료" /></p>
+						<!--{ / }-->
+					<!--{ / }-->
+					<!--{ ? data_order.shipping_promotion_code_seq}-->
+						<!--{? data_order.restore_used_promotioncode_refund }-->
+						<p>프로모션쿠폰 <input type="button" class="btn_chg small" value="복원완료" /></p>
+						<!--{ / }-->
+					<!--{ / }-->
+				</li>
+				<li class="Pb10">
+					<span class="motle">결제금액:</span>  
+					<!--{ ? ..total_sale > 0 }-->
+					{=number_format(..order_price)}
+					할인 (-){=number_format(..total_sale)}
+					<!--{ / }-->
+					<strong class="pointcolor2">{=number_format(..order_price - ..total_sale)}</strong>
+				</li>
+				<li class="besong_group2 { ? ..index_ == 0}show{ / }">
+					<!--{ ? ..index_ == 0}-->
+						<!--{ ? data_order.payment != 'pos_pay' }-->
+							{ ? ..goods_kind == 'coupon' }
+								티켓
+							{ : ..goods_kind == 'gift' }
+								사은품
+							{ : }
+								{ ? .shipping['international'] == 'international' }<span class="Dib style1">[해외]</span>
+								{ : preg_match('/^each/', .shipping['shipping_method']) }<span class="Dib style1">[개별배송]</span>
+								{ : }<span class="Dib style1">[기본배송]</span>{ / }
+
+								{ ? .shipping['shipping_method'] == 'quick' }<span class="Dib style2">퀵서비스</span>
+								{ : .shipping['shipping_method'] == 'direct' }<span class="Dib style2">직접수령</span>
+								{ : preg_match('/postpaid$/', .shipping['shipping_method']) }<span class="Dib style2">택배(착불)</span>
+								{ : }<span class="Dib style2">택배(선불)</span>{ / }
+
+								{ ? preg_match('/^each/', .shipping['shipping_method']) }
+									<span class="Dib style3"><strong>{=number_format(.shipping['delivery_cost'])}</strong>원</span>
+									{ ? .shipping['add_delivery_cost'] > 0 }
+									<span class="Dib style3">+{=number_format(.shipping['add_delivery_cost'])}</span>
+									{ / }
+								{ : }
+									<span class="Dib style3"><strong>{=number_format(.shipping['shipping_cost'])}</strong>원</span>
+									{ ? .shipping['add_delivery_area'] > 0 }
+									<span class="Dib style3">+{=number_format(.shipping['add_delivery_area'])}</span>
+									{ / }
+								{ / }
+							{ / }
+						<!--{ : }-->
+							<span class="Dib style2"><!--{ =  .shipping['shipping_store_name'] }--></span>
+						<!--{ / }-->
+					<!--{ : }-->
+					-
+					<!--{ / }-->
+				</li>
+			</ul>
+			<!--{ / }-->
+		<!--{ / }-->
+		</div>
+
+		<ul class="order_settle">
+			<li class="col1">
+				<h4 class="title">
+					환불처리&nbsp;
+					<button type="button" onclick="document.location.href='/mypage/myqna_write?category={=urlencode('환불문의')}'" class="btn_resp size_a color2">문의</button>
+				</h4>
+				<div class="resp_table_row2">
+					<ul>
+						<li class="th">환불상태</li>
+						<li class="td">:&nbsp; {data_refund.mstatus}</li>
+					</ul>
+					<ul>
+						<li class="th">환불번호</li>
+						<li class="td">:&nbsp; {data_refund.refund_code}</li>
+					</ul>
+					<ul>
+						<li class="th">환불종류</li>
+						<li class="td">:&nbsp; {data_refund.mrefund_type} 환불</li>
+					</ul>
+					<ul>
+						<li class="th">환불접수일</li>
+						<li class="td">:&nbsp; {=date('Y년 m월 d일',strtotime(data_refund.regist_date))}</li>
+					</ul>
+					<ul>
+						<li class="th">환불완료일</li>
+						<li class="td">:&nbsp; {?data_refund.refund_date && data_refund.refund_date!='0000-00-00'}{=date('Y년 m월 d일',strtotime(data_refund.refund_date))}{/}</li>
+					</ul>
+				</div>
+			</li>
+			<li class="col2" <!--{ ? data_order.payment == 'pos_pay' }-->style="display:none;"<!--{ / }-->>
+				{?data_refund.status=='request'}<form action="../mypage_process/refund_modify" target="actionFrame" method="post">
+				<input type="hidden" name="refund_code" value="{data_refund.refund_code}" />
+				<h4 class="title">
+					환불정보&nbsp;
+					<button type="submit" class="btn_resp size_a color2">변경</button>
+				</h4>{:}<div>
+				<h4 class="title">환불정보</h4>{/}
+				<div class="resp_table_row2{?data_refund.status=='request'} form_style{/}">
+					<ul>
+						<li class="th">환불은행</li>
+						<li class="td">{?data_refund.status=='request'}<input type="text" name="bank_name" value="{data_refund.bank_name}" maxlength="20" />{:}:&nbsp; {data_refund.bank_name}{/}</li>
+					</ul>
+					<ul>
+						<li class="th">예금주</li>
+						<li class="td">{?data_refund.status=='request'}<input type="text" name="bank_depositor" value="{data_refund.bank_depositor}" maxlength="20" />{:}:&nbsp; {data_refund.bank_depositor}{/}</li>
+					</ul>
+					<ul>
+						<li class="th">계좌번호</li>
+						<li class="td">{?data_refund.status=='request'}<input type="text" name="bank_account" value="{data_refund.bank_account}" maxlength="30" />{:}:&nbsp; {data_refund.bank_account}{/}</li>
+					</ul>
+					<ul>
+						<li class="th">상세사유</li>
+						<li class="td">{?data_refund.status=='request'}<textarea name="refund_reason">{data_refund.refund_reason}</textarea>{:}:&nbsp; {data_refund.refund_reason}{/}</li>
+					</ul>
+				</div>
+				{?data_refund.status=='request'}</form>{:}</div>{/}
+			</li>
+		</ul>
+
+		<!--{ ? data_refund.status == 'complete' }-->
+		<ul class="order_settle">
+			<li>
+				<h4 class="title">환불금액</h4>
+				[{data_order.mpayment}<!-- { data_refund.mcancel_type} -->] {=number_format(data_refund.refund_price_sum)} 
+				+ [마일리지] {=number_format(data_refund.refund_emoney)} 
+				+ [예치금] {=number_format(data_refund.refund_cash)} 
+				<!--{? data_refund.return_shipping_price > 0 }--> - [반품배송비] {=get_currency_price(data_refund.return_shipping_price)} <!--{/}-->
+				= <strong class="pointcolor">{=number_format(tot.refund_total_price)}</strong>
+				(상품금액 : {=number_format(data_refund.refund_price_sum - data_refund.refund_delivery)} 
+				+ 배송비 {=number_format(data_refund.refund_delivery)})
+			</li>
+		</ul>
+		<!--{ / }-->
+
+		<div class="btn_area_b">
+			<a href="/mypage/refund_catalog" class="btn_resp size_c">환불 목록</a>
+		</div>
+		
+		<h3 class="title_sub1">환불 절차</h3>
+		<ol class="step_type1">
+			<li>
+				<p class="tle"><span class="num">1</span> 환불신청</p>
+				<p class="cont">고객님의 환불신청이 접수되었습니다.</p>
+			</li>
+			<li>
+				<p class="tle"><span class="num">2</span> 환불처리중</p>
+				<p class="cont">고객님의 환불건을 처리중입니다.</p>
+			</li>
+			<li>
+				<p class="tle"><span class="num">3</span> 환불완료</p>
+				<p class="cont">고객님께 환불해드렸습니다.</p>
+			</li>
+		</ol>
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+
+
+
+
+
+<div id="gift_use_lay" class="resp_layer_pop hide">
+	<h4 class="title">사은품 이벤트 정보</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v3">
+			
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+
+<script type="text/javascript">
+	$(function(){
+		// 사은품 지급 조건 상세
+		$(".gift_log").bind('click', function(){
+			$.ajax({
+				type: "post",
+				url: "./gift_use_log",
+				data: "order_seq="+$(this).attr('order_seq')+"&item_seq="+$(this).attr('item_seq'),
+				success: function(result){
+					if	(result){
+						$("#gift_use_lay .layer_pop_contents").html(result);
+						//사은품 이벤트 정보
+						showCenterLayer('#gift_use_lay');
+						//openDialog(getAlert('mp122'), "gift_use_lay", {"width":"450","height":"220"});
+					}
+				}
+			});
+		});
+	});
+</script>

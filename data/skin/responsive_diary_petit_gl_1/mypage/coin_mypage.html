@@ -1,0 +1,21 @@
+<!--코인 여기에 추가-->
+<? if($_SESSION[user][group_seq] == '3') { ?>
+<h3 class="title_sub6"><span designElement="text">최근 코인 주문 내역</span></h3>
+<br>
+<div id="OcList" class="res_table v2">
+	<ul class="thead">
+		<li class="buy_date"><span designElement="text">날짜</span></li>
+		<li class="order_seq"><span designElement="text">충전번호</span></li>
+		<li class="item_info"><span designElement="text">지갑계좌</span></li>
+		<li class="order_price"><span designElement="text">충전금액</span></li>
+		<li class="order_status"><span designElement="text">상태</span></li>
+	</ul>
+	<ul class="tbody">
+		<li><span><?=$coinorder?></span></li> <!--코인주문날짜-->
+		<li><span>주문번호</span></li> <!--주문번호-->
+		<li><span>지갑계좌</span></li> <!--클릭하면 QR코드 나오도록?-->
+		<li><span>충전금액</span></li> <!--신청한 금액-->
+		<li><span>날짜</span></li> <!--코인 신청한 날짜-->
+	</ul>
+</div>
+<? } ?>

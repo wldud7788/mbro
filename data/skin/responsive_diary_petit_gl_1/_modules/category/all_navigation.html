@@ -1,0 +1,45 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 전체 카테고리 @@
+- 파일위치 : [스킨폴더]/_modules/category/all_navigation.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="all_list_contents">
+	<h2 class="all_list_title"><span designElement="text">ALL CATEGORY</span></h2>
+	<!--{ @ array_chunk(categoryData,99,true) }-->
+	<ul class="all_list_depth1">
+		<!--{@ .value_}-->
+		<li>
+			<a href="/goods/catalog?code={..category_code}">{..title}</a>
+			<!--{? ..childs}-->
+			<ul class="all_list_depth2">
+				<!--{@ ..childs}-->
+				<li>
+					<a href="/goods/catalog?code={...category_code}">{...title}</a>
+					<!--{? ...childs}-->
+					<ul class="all_list_depth3">
+						<!--{@ ...childs}-->
+						<li>
+							<a href="/goods/catalog?code={....category_code}">{....title}</a>
+						</li>
+						<!--{ / }-->
+					</ul>
+					<!--{ / }-->
+				</li>
+				<!--{ / }-->
+			</ul>
+			<!--{ / }-->
+		</li>
+		<!--{ / }-->
+	</ul>
+	<!--{ : }-->
+	<div class="nodata">설정된 카테고리 메뉴가 없습니다.</div>
+	<!--{ / }-->
+
+	<!--{?category_gnb_banner}-->
+	<div class="all_list_banner">
+		<!--{category_gnb_banner}-->
+	</div>
+	<!--{/}-->
+	<a href="javascript:void(0)" class="categoryAllClose all_list_close">닫기</a>
+</div>
+<!-- //카테고리 전체보기 -->

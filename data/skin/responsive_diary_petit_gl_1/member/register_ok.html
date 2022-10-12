@@ -1,0 +1,20 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 회원가입 완료 @@
+- 파일위치 : [스킨폴더]/member/register_ok.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="title_container">
+	<h2 class="pointcolor imp"><span designElement="text">회원가입 완료!</span></h2>
+</div>
+<p class="mypage_greeting Pb30" designElement="text">회원가입을 진심으로 축하드립니다.</p>
+
+<div class="login_ok_menu">
+	<ul>
+		{? userInfo }
+		<li><a class="btn_resp size_c color2" href="../mypage/myinfo" designElement="text">회원정보수정</a></li>
+		{:}
+		<li><a class="btn_resp size_c color2" href="../member/login?return_url={=urlencode('../main/index')}"><span designElement="text">로그인</span></a></li>
+		{/}
+		<li><a class="btn_resp size_c color4" href="../main" designElement="text">쇼핑하러가기</a></li>
+	</ul>
+</div>

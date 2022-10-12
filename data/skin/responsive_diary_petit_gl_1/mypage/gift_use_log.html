@@ -1,0 +1,29 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 사은품 사용 내역 @@
+- 파일위치 : [스킨폴더]/mypage/gift_use_log.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{? giftlog }
+<div class="resp_table_row th_size3">
+	<ul class="tr">
+		<li class="th">이벤트명</li>
+		<li class="td">{=giftlog.gift_title}</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">이벤트기간</li>
+		<li class="td">{=giftlog.gift_sdate} ~ {=giftlog.gift_edate}</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">보내는판매자</li>
+		<li class="td">{=giftlog.provider_name}</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">구매대상상품</li>
+		<li class="td">{=giftlog.goods_rule_text}</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">증정방식</li>
+		<li class="td">{=giftlog.gift_rule_text}</li>
+	</ul>
+</div>
+{ / }

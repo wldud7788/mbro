@@ -1,0 +1,27 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 카테고리 단독 네비게이션 @@
+- 파일위치 : [스킨폴더]/_modules/category/category_gnb_single.html
+- 현재 2뎁스까지 노출 가능( 3뎁스 이하 노출은 스킨제작자 매뉴얼 참고 )
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{ @ category }-->
+	<li class="categoryDepth1">
+		<a class="categoryDepthLink" href="/goods/catalog?code={.category_code}">{.name}</a>
+		<!--{ ? .childs}-->
+		<div class="categorySub">
+			<div class="categorySubWrap">
+				<ul class="categoryDepth2">
+					<!--{ @ .childs}-->
+					<li class="categorySubDepth"><a href="/goods/catalog?code={..category_code}">{..name}</a></li>
+					<!--{ / }-->
+				</ul>
+				<!--{ ? .node_banner }-->
+				<div class="categorySubBanner">
+					{.node_banner}
+				</div>
+				<!--{ / }-->
+			</div>
+		</div>
+		<!--{ / }-->
+	</li>
+<!--{ / }-->

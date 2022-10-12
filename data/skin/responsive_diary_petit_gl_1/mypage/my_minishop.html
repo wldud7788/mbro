@@ -1,0 +1,110 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 나의 단골 미니샵 @@
+- 파일위치 : [스킨폴더]/mypage/my_minishop.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">나의 단골 미니샵</span></h2>
+		</div>
+		<div class="mypage_greeting btm_padding">
+			나의 단골 미니샵은 <span class="pointnum">{=number_format(page.totalcount)}</span>개 입니다.
+		</div>
+
+		<form name="myFrm" method="post" action="/mshop_process/save_memolist" target="actionFrame">
+		<input type="hidden" name="mseq" value="{user.member_seq}" />
+
+		<!--{ ? page.totalcount==0 }-->
+		<div class="no_data_area2">
+			나의 단골 미니샵이 없습니다.
+		</div>
+		<!--{ : }-->
+		<div class="res_table">
+			<ul class="thead">
+				<li style="width:180px;">미니샵</li>
+				<li>메모</li>
+				<li style="width:90px;">등록일</li>
+				<li style="width:160px;">관리</li>
+			</ul>
+			<!--{ @ record }-->
+			<ul class="tbody">
+				<li class="sjb_top" style="order:-10;">
+					<strong class="pointcolor2">{.provider_name}</strong>( {.provider_id} )
+				</li>
+				<li class="deatil">
+					<div class="mowrap3">
+						<span class="motle3" style="width:38px;">메모</span>
+						<span class="mocont3">
+							<textarea name="memo[{.provider_seq}]">{.memo}</textarea>
+						</span>
+					</div>
+				</li>
+				<li class="sjb_top grow mo_r" style="order:-9;"><span class="motle">등록일:</span> {.regist_date}</li>
+				<li class="manage">
+					<button type="button" shopseq="{.provider_seq}" class="goMinishop btn_resp" title="새창">미니샵 바로가기</button>
+					<button type="button" shopseq="{.provider_seq}" class="delMinishop btn_resp">삭제</button>
+				</li>
+			</ul>
+			<!--{ / }-->
+		</div>
+
+		<div class="btn_area_b">
+			<button type="submit" class="btn_resp size_c color4">메모저장</button>
+		</div>
+		<!--{ / }-->
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".goMinishop").live("click", function(){
+			window.open('../mshop/?m='+$(this).attr("shopseq"));
+		});
+		$(".delMinishop").live("click", function(){
+			//단골 미니샵을 삭제하시겠습니까?
+			if	(confirm(getAlert('et059'))){
+				$.getJSON("/mshop_process/delete_myshop", {'mseq':'{user.member_seq}', 'shopno':$(this).attr("shopseq")},function(data){
+					if	(data.result == 'ok'){
+						//삭제되었습니다.
+						alert(getAlert('et060'));
+						location.reload();
+					}
+				});
+			}
+		});
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 본문내용 시작 -->
+
+<!-- //본문내용 끝 -->
+

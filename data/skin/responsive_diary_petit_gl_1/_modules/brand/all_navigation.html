@@ -1,0 +1,45 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 전체 브랜드 @@
+- 파일위치 : [스킨폴더]/_modules/brand/all_navigation.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="all_list_contents">
+	<h2 class="all_list_title"><span designElement="text">ALL BRAND</span></h2>
+	<!--{ @ array_chunk(categoryData,99,true) }-->
+	<ul class="all_list_depth1">
+		<!--{@ .value_}-->
+		<li>
+			<a href="/goods/brand?code={..category_code}">{..title}</a>
+			<!--{? ..childs}-->
+			<ul class="all_list_depth2">
+				<!--{@ ..childs}-->
+				<li>
+					<a href="/goods/brand?code={...category_code}">{...title}</a>
+					<!--{? ...childs}-->
+					<ul class="all_list_depth3">
+						<!--{@ ...childs}-->
+						<li>
+							<a href="/goods/brand?code={....category_code}">{....title}</a>
+						</li>
+						<!--{ / }-->
+					</ul>
+					<!--{ / }-->
+				</li>
+				<!--{ / }-->
+			</ul>
+			<!--{ / }-->
+		</li>
+		<!--{ / }-->
+	</ul>
+	<!--{ : }-->
+	<div class="nodata">설정된 브랜드 메뉴가 없습니다.</div>
+	<!--{ / }-->
+
+	<!--{?category_gnb_banner}-->
+	<div class="all_list_banner">
+		<!--{category_gnb_banner}-->
+	</div>
+	<!--{/}-->
+	<a href="javascript:void(0)" class="brandAllClose all_list_close">닫기</a>
+</div>
+<!-- //브랜드 전체보기 -->

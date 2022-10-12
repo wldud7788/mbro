@@ -1,0 +1,63 @@
+<link rel="stylesheet" type="text/css" href="../../css/o2o.css">
+<script language="javascript" type="text/javascript" src="/app/javascript/js/o2o/o2o-coupon.js?dummy=20180730"></script>
+
+<!--{ ? checkO2OService }-->
+	<!--{ # o2o_mypage_coupon_init }-->
+<!--{ / }-->
+<div class="o2o_back">
+	<div class="o2o_wrap">
+		<h3 class="title coupon">보유쿠폰 <span class="info"><!--{ = memberInfoStr }--></span></h3>
+		<div class="contents_wrap coupon">		
+		{? loop }
+			<ul class="o2o_coupon_list">
+				{@ loop } 
+				<li class="couponstyle {?.use_status=='used' || .use_period=='n'}gray{/}" {? .use_type=='offline'} {?.use_status=='used' || .use_period=='n'}onclick="alert('사용할 수 없습니다.');"{:}onclick="location.href='./my_coupon_detail?coupon_seq={.coupon_seq}&download_seq={.download_seq}'"{/} {/}>
+					<div class="coupon">
+						<div class="text_sect">
+							<div class="coupon_name"  nowrap="nowrap">
+								{.coupon_name}
+							</div>
+							<div class="coupon_salepricetitle">
+								{.salepricetitle}
+							</div>
+							{? .type != 'offline_emoney' }
+							<div class="coupon_date">{=date('Y.m.d',strtotime(.issue_enddate))}까지 <span style="color:#da4d26">{.issuedaylimit}</span></div>
+							{/}
+							<div class="coupon_use">
+								{.use_status_title} | {.limit_price}
+
+								{? .type != 'offline_emoney' } 
+									<button type="button" class="coupongoodsreviewbtn" coupon_type="{? .type == 'offline_coupon' }offline{:}online{/}" coupon_seq="{.coupon_seq}" download_seq="{.download_seq}"  use_type="{.use_type}"  issue_type="{.issue_type}"  coupon_name="{.coupon_name}" />조회</button> 
+								{/}  
+							</div>
+						</div>
+					</div>
+
+					<!--{ = o2oFrontMypageCouponBarcode(.value_) }-->
+				</li>
+							
+		{/}
+			</ul>				
+			<div class="paging_navigation">{pagin}</div>				
+		{:}
+			<div class="no_coupon">보유한 쿠폰이<br/>없습니다.</div>	
+		{/}			
+		</div>
+	</div>
+</div>
+
+<!-- 쿠폰 정보 -->
+<div id="couponTargetLayer" class="resp_layer_pop hide">
+	<h4 class="title">쿠폰 정보</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v3">
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<script type="text/javascript">
+var gl_getTab		= '<!-- { = _GET.tab } -->';
+var gl_serverHttps	= '<!-- { = _SERVER.HTTPS } -->';
+var gl_serverHost	= '<!-- { = _SERVER.HTTP_HOST } -->';
+</script>

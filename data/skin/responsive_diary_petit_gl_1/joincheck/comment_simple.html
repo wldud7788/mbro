@@ -1,0 +1,112 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "출석체크" 댓글 - Simple형 @@
+- 파일위치 : [스킨폴더]/joincheck/comment_simple.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="search_nav">
+	<a class="home" href="/main/index">홈</a>
+	<a class="navi_linemap" href="/promotion/event" designElement="text">이벤트</a>
+	<span class="navi_linemap searched_text">{joincheck.title}</span>
+</div>
+
+<div class="resp_event_dlist">
+	<ul>
+		<li>
+			<span class="title" designElement="text">진행기간</span>
+			<span class="detail"><span class="point">{joincheck.start_date} ~ {joincheck.end_date}</span></span>
+		</li>
+		<li>
+			<span class="title" designElement="text">이벤트 조건</span>
+			<span class="detail">이벤트 기간 중 <span class="point">총 {joincheck.check_clear_count}회 {joincheck.mclear_type} 출석</span> 하는 경우</span>
+		</li>
+		<li>
+			<span class="title" designElement="text">이벤트 혜택</span> 
+			<span class="detail">마일리지 <span class="point">{=get_currency_price(joincheck.emoney,2)}</span> {?joincheck.point > 0} / 포인트 <span class="point">{=number_format(joincheck.point)}P</span>{/} 지급</span>
+		</li>
+		<li>
+			<span class="title" designElement="text">참여 방법</span>
+			<span class="detail">{mdata.type_ment} 1일 1회 자동 참여</span>
+		</li>
+	</ul>
+</div>
+
+<!--{? minfo.member_seq}-->
+<div class="resp_event_status1">
+	{minfo.user_name}님께서는 현재 총 <span class="pointcolor">{mdata.acount}일</span> 출석하였습니다.
+	{?mdata.chage==0}(목표를 달성하셨습니다.){:}({?joincheck.check_clear_type=='straight'}<span class="pointcolor">{mdata.chage}번</span> 더 연속으로{:}해당 기간 내에 <span class="pointcolor">{mdata.chage}번</span> 더{/} 출석을 하셔야 합니다.){/}</span>
+	<button type="button" id="mylog" name="mylog" class="btn_resp size_a Ml4" onclick="my_log('{joincheck.joincheck_seq}','mylog')">내가쓴 댓글</button>
+</div>
+<!--{/}-->
+
+<div class="resp_joincheck">
+	<form name="jcwrite" id="jcwrite" method="post" enctype="multipart/form-data" onsubmit="return sub_wrt_btn()" >
+		<input type='hidden' name='mode' value='comment_wrt'>
+		<input type="hidden" name="joincheck_seq" value="{joincheck.joincheck_seq}" />
+		<input type="hidden" name="member_seq" value="{minfo.member_seq}" />
+		<div class="resp_joincheck_reply">
+			<ul>
+				<li><textarea name='comment' title="댓글을 입력하세요" class="reply_input"></textarea></li>
+				<li class="btns"><button name='comment_wrt_btn' id='comment_wrt_btn' class="btn_reply_reg v2"><img src='/data/joincheck/comment_simple/btn_comment.gif' ></button></li>
+			</ul>
+		</div>
+	</form>
+
+	<div class="joincheck_month Mt30">
+		<span class="prev">{joincheck.prev_day}</span>
+		{joincheck.tdate}
+		<span class="next">{joincheck.next_day}</span>
+	</div>
+
+	{? record }
+	<ul class="resp_reply_contents">
+		{@ record }
+		<li>
+			<ul>
+				<li class="head">{.user_name}({.userid}) &nbsp; {.regist_date}</li>
+				<li class="cont">{.check_comment}</li>
+			</ul>
+		</li>
+		{/}
+	</ul>
+	{:}
+	<div class="no_data_area2">
+		현재 등록된 댓글이 존재하지 않습니다.
+	</div>
+	{/}
+
+	<!-- 페이징 -->
+	<div class="paging_navigation">{page.html}</div>
+
+</div>
+
+<iframe name="actionFrame" src="/data/index.php" frameborder="0" width="100%" height="0"></iframe>
+
+<script type="text/javascript">
+function sub_wrt_btn(){
+	var setform = document.jcwrite;
+	var minfo_seq = setform.member_seq.value;
+	if(!minfo_seq){
+		//로그인 후 참여 가능합니다.
+		alert(getAlert('mb233'));
+		location.href="/member/login";
+		return false;
+	}else{
+		var scomment = setform.comment.value; //.replace(/\s/g,"");
+		var ccomment = setform.comment.value.replace(/\s/g,"");
+
+		if(!ccomment || scomment == setform.comment.getAttribute('title')){
+			//댓글을 입력해주세요.
+			alert(getAlert('mb234'));
+			setform.comment.focus();
+			return false;
+		}else{
+		setform.action="../joincheck_process";
+		setform.target="actionFrame";
+		}
+	}
+}
+
+function my_log(seq,mode){
+	location.href="?seq="+seq+"&mode="+mode;
+}
+</script>

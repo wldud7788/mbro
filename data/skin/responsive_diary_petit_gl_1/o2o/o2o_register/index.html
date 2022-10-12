@@ -1,0 +1,86 @@
+<script language="javascript" type="text/javascript" src="/app/javascript/js/o2o/o2o-register.js?dummy=20180730"></script>
+<link rel="stylesheet" type="text/css" href="../../css/o2o.css">
+
+<div class="o2o_back">
+
+<!-- 본문내용 시작 -->
+<form name="registFrm" id="registFrm" target="actionFrame" method="post" action="{=sslAction('../o2o/o2o_register_process/register_ok')}" onSubmit="registAct()">
+	<input type="hidden" name="pos_key" id="pos_key" value="<!--{ = o2o_auth_info['pos_key'] }-->"/>
+	<input type="hidden" name="store_seq" id="store_seq" value="<!--{ = o2o_auth_info['store_seq'] }-->"/>
+	<input type="hidden" name="pos_seq" id="pos_seq" value="<!--{ = o2o_auth_info['pos_seq'] }-->"/>
+	<div class="o2o_wrap">
+		<h3 class="title center">회원가입</h3>	
+		<div id="o2oJoinForm" class="contents_wrap" data-ezmark="undo">			
+			<div class="contents_area">				
+				<!-- 필수 입력으로 변경 -->
+				<!--{? joinform.o2ousername_use=='Y'}-->
+				<!--{ / }-->
+				<div class="o2o_join_form">
+					<ul>
+						<li><label><input type="text" name="user_name" class="input_text" placeholder="이름 입력"/></label></li>	
+					</ul>
+				</div>
+
+				<!-- O2O 통합 가입 휴대폰번호 인증  -->
+				<!--{ ? checkO2OService }-->
+				<div class="o2o_join_form">
+					<ul>
+						<li>					
+							<ul class="label1">
+								<li><label><input type="tel" name="o2o_cellphone[]" value="010" maxlength="4" class="input_text"/></label></li>
+								<li><label><input type="tel" name="o2o_cellphone[]" value="" maxlength="4" class="input_text " /></label></li>
+								<li><label><input type="tel" name="o2o_cellphone[]" value="" maxlength="4" class="input_text " /></label></li>
+								<input type="hidden" name="cellphone[]" value="010"/>
+								<input type="hidden" name="cellphone[]" value=""/>
+								<input type="hidden" name="cellphone[]" value=""/>
+							</ul>
+						</li>
+						<!--{ ? o2oauthnum_use=='Y' }-->
+						<li class="btns">
+							<script language="javascript" type="text/javascript" src="/app/javascript/js/o2o/o2o-authCellphone.js?dummy=20180730"></script>
+							<div class="authnum_send"><button type="button" class="btn_a btnAuthphone">인증번호 전송</button></div>
+							<div class="hide confirm_authnum"><button type="button" class="btn_a btnAuthphone">재발송</button></div>
+							<input type="hidden" name="call_form" id="call_form" value="<!--{ = call_form }-->" />
+						</li>
+						<!--{ : }-->
+						<!-- 핸드폰 번호 싱크를 위해 스크립트만 호출 -->
+						<script language="javascript" type="text/javascript" src="/app/javascript/js/o2o/o2o-authCellphone.js?dummy=20180730"></script>
+						<!--{ / }-->
+					</ul>
+					
+					<!--{ ? o2oauthnum_use=='Y' }-->
+					<ul class="hide confirm_authnum">
+						<li><label class="label1"><input type="number" class="input_text" name="authnum" id="authnum" value="" placeholder="인증번호 입력"/></label></li>
+						<li class="btns"><button type="button" class="btn_a btnAuthphoneConfirm">인증</button></li>
+					</ul>
+					<!--{ / }-->
+				</div>
+				<!--{ ? o2oauthnum_use=='Y' }-->
+				<div class="remain_time hide auth_timer">
+					남은 시간&nbsp; <span class="time"><span id="timer_min">3</span>:<span id="timer_sec">00</span></span>
+				</div>
+				<!--{ / }-->
+				<!--{ / }-->
+				<div class="agree_area">
+					<label id="o2oAllAgree" class="all_agree"><input type="checkbox" />약관 동의</label>
+					<ul id="o2oAgreeList" class="agree_list2">
+						<li>
+							<label><input type="checkbox" name="argee_agreement" value="Y" />(필수) 이용약관에 동의합니다.</label>
+							<a class="agree_link_btn" href="/service/agreement" target="_blank" title="새창">전문보기</a>
+						</li>
+						<li>
+							<label><input type="checkbox" name="argee_privacy" value="Y" />(필수) 개인 정보 수집 및 이용에 동의합니다.</label>
+							<a class="agree_link_btn" href="/service/privacy" target="_blank" title="새창">전문보기</a>
+						</li>
+						<li>
+							<label><input type="checkbox" name="sms" value="Y" />(선택) SMS 마케팅 정보 수신에 동의합니다.</label>
+						</li>
+					</ul>
+				</div>
+				<div class="center" id="btn_register"><button type="submit" class="btn_submit" >확 인</button></div>
+			</div>			
+		</div>
+	</div>
+</form>
+<!-- //본문내용 끝 -->
+</div>

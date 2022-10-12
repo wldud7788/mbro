@@ -1,0 +1,146 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 배송내역 @@
+- 파일위치 : [스킨폴더]/mypage/export_view.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="sub_title_bar">
+	<h2><span designElement="text">배송내역</span></h2>
+</div>
+
+<!-- 출고 정보 -->
+<div class="export-lay">
+<!--{ ? count(order_shippings) >= 1 }-->
+	<!--{ @ order_shippings }-->
+		<!--{ ? orders.step > 25 }-->
+			<!--{ ? .exports }-->
+				
+				<!--{ @ .exports }-->
+				<div class="sub_division_title">
+					<!--{? ..provider_name}-->
+					[{..provider_name}] 
+					<!--{/}-->
+					<!--{? ..goods_kind == 'coupon' }-->
+					{..mstatus_arr[0]}<span class="pd5">({..mstatus_arr[1]})</span>
+					<!--{:}-->
+					{..mstatus}
+					<!--{/}-->
+					<div class="sub_division_arw"></div>
+				</div>
+				<div class="sub_division_contents">
+					<div class="cart-lay">
+						<div class="cart-list-lay">
+						<!--{ @ ..item }-->
+							<!--{ ? ...opt_type == 'opt' }-->
+							<div class="goods-info-lay">				
+								<table width="100%" border="0" cellpadding="0" cellspacing="0" class="goods-info-table">
+								<tr>
+									<td width="90" valign="top">
+										<a href="../goods/view?no={...goods_seq}"><img src="{=viewImg(...goods_seq, 'thumbCart')}" class="goods_thumb" align="absmiddle" width="80" onerror="this.src='../images/common/noimage_list.gif'" /></a>
+									</td>
+									<td valign="top" class="goods-info">
+										<div class="goods-name">					
+											<!--{ ? ...cancel_type == 1 }-->
+											<span class="canceltypetitle">청약철회불가</span>
+											<!--{ / }-->
+											<a href="../goods/view?no={...goods_seq}">{...goods_name}</a>
+										</div> 
+										<div class="">
+											<span class="">{=get_currency_price(...price, 2)}</span>
+										</div>
+										<!--{ ? ...option1 != '' }-->
+										<div class="goods-option">
+											<!--{ ? ...option1 }-->
+											{ ? ...title1 }{ ...title1 }:{ / }{ ...option1 }
+											<!--{ / }-->
+											<!--{ ? ...option2 }-->
+											{ ? ...title2 }{ ...title2 }:{ / }{ ...option2 }
+											<!--{ / }-->
+											<!--{ ? ...option3 }-->
+											{ ? ...title3 }{ ...title3 }:{ / }{ ...option3 }
+											<!--{ / }-->
+											<!--{ ? ...option4 }-->
+											{ ? ...title4 }{ ...title4 }:{ / }{ ...option4 }
+											<!--{ / }-->
+											<!--{ ? ...option5 }-->
+											{ ? ...title5 }{ ...title5 }:{ / }{ ...option5 }
+											<!--{ / }-->
+										</div>
+										<!--{ / }-->
+										<div class="goods-etc">수량 : {=number_format(...ea)}개</div>
+									</td>
+								</tr>
+								</table>
+							</div>
+										<!--{ : }-->
+							<div class="suboption-lay">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0" class="suboption-table">
+								<tr>
+									<td class="suboption-name">
+											<!--{ ? ...option1 }-->
+										<div> 
+											[추가] { ? ...title1 }{ ...title1 }:{ / }{ ...option1 }
+										</div>
+											<!--{ / }-->
+										<div class="suboption-etc">수량 {=number_format(...ea)}개</div>
+									</td>
+									<td width="94" class="suboption-price">
+										{=get_currency_price(...price, 2)}
+									</td>
+								</tr>
+								</table>
+							</div>
+							<!--{ / }-->
+						<!--{ / }-->
+							<div class="suboption-lay export-summary pd10">
+								<div class="export-summary-border pdt10">
+						<!--{? ..goods_kind == 'coupon' }-->
+							{=implode("-",.recipient_cellphone)} / {.recipient_email}{? ..complete_date} : {..complete_date} 발송{/}
+						<!--{ : }-->
+							<!--{? ..domestic_shipping_method == 'delivery' }-->
+								{..shipping_set_name}{? ..complete_date} : {..complete_date} 발송{/}
+																
+								<!--{? .international == 'international' }-->
+									<div class="pdt10">
+									{? orders.international_address}{orders.international_address}, {/}
+									{? orders.international_town_city}{orders.international_town_city}, {/}
+									{? orders.international_county}{orders.international_county}, {/}
+									{? orders.international_country}{orders.international_country}{/}
+									</div>
+								<!--{:}-->
+									<!--{? .recipient_address_type == 'street'}-->
+									<div class="pdt10">
+									({=implode("-",.recipient_zipcode)}) {.recipient_address_street} {.recipient_address_detail}
+									</div>
+									<div class="pdt10 gray">
+									{.recipient_address} {.recipient_address_detail}
+									</div>
+									<!--{:}-->
+									<div class="pdt10">
+									({=implode("-",.recipient_zipcode)}) {.recipient_address} {.recipient_address_detail}
+									</div>
+									<div class="pdt10 gray">
+									{.recipient_address_street} {.recipient_address_detail}
+									</div>
+									<!--{/}-->
+								<!--{/}-->
+							<!--{: ..domestic_shipping_method == 'direct_store' }-->
+								{..shipping_set_name}({..direct_store.shipping_store_name}){? ..complete_date} : {..complete_date} 수령{/}
+							<!--{:}-->
+								{..shipping_set_name}{? ..complete_date} : {..complete_date} 발송{/}
+							<!--{/}-->
+						<!--{ / }-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--{ / }-->
+				
+			<!--{ / }-->
+		<!--{ / }-->
+	</div>
+	<!--{ / }-->
+<!--{ / }-->
+</div>
+<!-- /출고 정보 -->
+ 

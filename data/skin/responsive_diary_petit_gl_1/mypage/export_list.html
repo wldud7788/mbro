@@ -1,0 +1,134 @@
+<style type="text/css">
+.s1-bd	{ border:1px solid #e5e7e6; }
+.s1-bdt	{ border-top:1px solid #e5e7e6; }
+.s1-bdb	{ border-bottom:1px solid #e5e7e6; }
+.s1-bdr	{ border-right:1px solid #e5e7e6; }
+.s1-bdl	{ border-left:1px solid #e5e7e6; }
+.s2-bd	{ border:1px solid #aaaaaa; }
+.s2-bdt	{ border-top:1px solid #aaaaaa; }
+.s2-bdb	{ border-bottom:1px solid #aaaaaa; }
+.s2-bdr	{ border-right:1px solid #aaaaaa; }
+.s2-bdl	{ border-left:1px solid #aaaaaa; }
+
+.s3-bdt	{ border-top:1px dashed #aaaaaa; }
+.s3-bdb	{ border-bottom:1px dashed #aaaaaa; }
+.s3-bdr	{ border-right:1px dashed #aaaaaa; }
+.s3-bdl	{ border-left:1px dashed #aaaaaa; }
+
+.nbdt		{ border-top:none; }
+.nbdb		{ border-bottom:none; }
+.nbdr		{ border-right:none; }
+.nbdl		{ border-left:none; }
+
+.exp-title {background-color:#99a2b8;padding:5px 0;padding-bottom:9px;font-size:16px;color:#fff;text-align:center;}
+.exp-content {background-color:#fff;font-size:14px;color:#373737;padding:10px 0;}
+.exp-content div {margin:5px 0;}
+.exp-desc	{color:#777777;}
+.coupon-step-msg { font-size:14px;color:#0050d2;}
+
+.btn-coupon-history {width:100%;height:32px;border-radius:3px;border:1px solid #c0c0c0;background: linear-gradient(180deg, #f9f9f9 50%, #eaeaea 100%);font-size:16px;color:#3f63bf;font-weight:bold;padding-bottom:4px;cursor:pointer;}
+
+/* 모바일 마이페이지 주문리스트*/
+.order_list_table {border-collapse:collapse;/* margin-top:10px;*/}
+.order_list_table th.cell,
+.order_list_table td.cell {border:1px solid #aaaaaa}
+.order_list_table th.cell {background:url('../images/design/btn_arw_r_w.png') no-repeat right; background-size:15px 15px; background-position:99%; background-color:#fff; height:32px; line-height:17px; padding:0 12px; font-weight:normal; text-align:left; font-size:12px; color:#4b4b4b; /*font-family:tahoma;*/}
+.order_list_table th.cell b {font-weight:600; font-size:14px; /*font-family:tahoma;*/}
+.order_list_table th.goods_delivery_info { background-color:#fff; padding:8px; margin-top:5px;}
+.order_list_table td.cell {background-color:#fff; height:36px; padding:10px 12px; font-size:12px; color:#000}
+.order_list_table td.cell b {font-weight:600; font-sizE:14px;}
+.order_list_table td.item_cell {padding:10px 12px; border-top:1px dashed #ddd; border-bottom:1px dashed #aaa; border-left:1px solid #aaa; border-right:1px solid #aaa; background-color:#fff}
+.order_list_table td.step_cell {height:30px; line-height:30px; padding-top:0; padding-bottom:0; font-size:14px; color:#427fed; border-top:1px solid #e4e4e4; background-color:#f5f5f5;}
+.order_list_table td.suboption_wrap {border-top:1px solid #e4e4e4;}
+.order_list_table td.status_cell {background-color:#dfdfdf; height:42px; line-height:42px; padding:0 10px; border:1px solid #aaa; border-top:none}
+.order_list_table td.status_cell .mstep {color:#0050d2; font-size:14px}
+.order_list_table td.price_cell {background-color:#fbfbfb; height:32px; line-height:32px; padding:0 10px; border-left:1px solid #aaa; border-right:1px solid #aaa; color:#383838}
+.order_list_table tr:last-child td.item_cell {border-bottom:1px solid #aaaaaa;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".btn-coupon-history").bind('click',function(){
+		document.location.href	= "./coupon_view?code="+$(this).attr('exportCode');
+	});
+	$(".btn-coupon-use").bind('click',function(){
+		if ($(this).attr('exportCode')){
+			document.location.href = "./coupon_use?code=" + $(this).attr('exportCode');
+		}
+	});
+});
+</script>
+<div class="sub_title_bar">
+	<!--{ ? list_type == 'coupon' }-->
+	<h2><span designElement="text">티켓리스트</span></h2>
+	<!--{ : }-->
+	<h2><span designElement="text">발송리스트</span></h2>
+	<!--{ / }-->
+	<a class="stb_back_btn" href="javascript:document.location.href='/mypage/order_catalog?step_type=delivery_ing';"><img width="22" height="22" src="../../images/design/btn_back.png"></a>
+</div>
+
+<div class="bg_gray" style="padding:5px 10px;">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="order_list_table">
+	<colgroup>
+		<col />
+		<col />
+	</colgroup>
+	<thead>
+	<tr>
+		<th style="min-width:200px;" class="exp-title s1-bdr">티켓</th>
+		<th style="min-width:94px;width:94px;" class="exp-title">사용</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!--{ @ export }-->
+		<!--{ ? .index_ > 0}-->
+	<tr><td colspan="2" class="s3-bdt" style="height:8px;"></td></tr>
+		<!--{ : }-->
+	<tr><td colspan="2" style="height:5px;"></td></tr>
+		<!--{ / }-->
+	<tr>
+		<td class="exp-content pdl10 s2-bd">
+			<div>{ .items[0].goods_name }</div>
+			<div>{ .items[0].social_start_date } ~ { .items[0].social_end_date }</div>
+			<div>
+				<!--{ ? .provider_name }-->
+				<span class="exp-desc">[{ .provider_name }]</span>
+				<!--{ / }-->
+				{ .export_date } 발송
+			</div>
+			<div>
+				{ .mstatus_arr[0] } (<span class="coupon-step-msg">{ .mstatus_arr[1] }</span>)
+			</div>
+			<div>{ .items[0].recipient_cellphone } / { .items[0].recipient_email }</div>
+		</td>
+		<td class="exp-content s2-bd nbdl" style="text-align:center;">
+			<div>{=number_format(.coupon_use_value)}
+				{ ?.items[0].coupon_value_type == 'pass' }회{ : }원{ / }</div>
+			<div>/</div>
+			<div>{=number_format(.coupon_input)}
+				{ ?.items[0].coupon_value_type == 'pass' }회{ : }원{ / }</div>
+		</td>
+	</tr>
+	<tr><td colspan="2" style="height:8px;"></td></tr>
+	<tr>
+		<td colspan="2">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td><button type="button" class="btn-coupon-history" exportCode="{.export_code}">사용내역</button></td>
+				<td width="7"></td>
+				<td>
+					<!--{ ? .coupon_check_use['result'] == 'success' }-->
+					<button type="button" class="btn-coupon-use" exportCode="{.export_code}">티켓사용</button>
+					<!--{ : }-->
+					<button type="button" class="btn-coupon-use-disable">티켓사용</button>
+					<!--{ / }-->
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr><td colspan="2" style="height:8px;"></td></tr>
+	<!--{ / }-->
+	</tbody>
+	</table>
+
+</div>

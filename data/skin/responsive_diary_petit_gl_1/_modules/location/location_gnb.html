@@ -1,0 +1,36 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 지역 네비게이션 @@
+- 파일위치 : [스킨폴더]/_modules/location/location_gnb.html
+- 현재 2뎁스까지 노출 가능( 3뎁스 이하 노출은 스킨제작자 매뉴얼 참고 )
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{ @ location }-->
+	<li class="categoryDepth1">
+		<a class="categoryDepthLink" href="/goods/location?code={.category_code}"><em>{.name}</em></a>
+		<!--{ ? .childs}-->
+		<div class="categorySub">
+			<div class="categorySubWrap">
+				<ul class="categoryDepth2">
+					<!--{ @ .childs}-->
+					<li class="categorySubDepth">
+						<!--{ ? ..childs}-->
+						<ul class="categoryDepth3">
+							<!--{ @ ..childs}-->
+							<li><a href="/goods/location?code={...category_code}">{...name}</a></li>
+							<!--{ / }-->
+						</ul>
+						<!--{ / }-->
+						<a href="/goods/location?code={..category_code}">{..name}</a>
+					</li>
+					<!--{ / }-->
+				</ul>
+				<!--{ ? .node_banner }-->
+				<div class="categorySubBanner">
+					{.node_banner}
+				</div>
+				<!--{ / }-->
+			</div>
+		</div>
+		<!--{ / }-->
+	</li>
+<!--{ / }-->

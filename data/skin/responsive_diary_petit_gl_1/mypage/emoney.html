@@ -1,0 +1,131 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 캐시 내역 @@
+- 파일위치 : [스킨폴더]/mypage/emoney.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+<div class="title_container">
+			<h2><span designElement="text">코인전환내역</span></h2>
+		</div>
+		
+		<div class="mypage_greeting btm_padding">
+			<span class="username">입금 신청 후 7일 이내에 입금을 하지 않으시면 취소처리 됩니다. </span>
+		</div>
+		<div class="res_table bmp_check">
+			<ul class="thead">
+				<li style="width:85px;">번호</li>
+				<li style="width:180px;">지갑주소</li>
+				<li style="width:80px;">입금예정내역</li>
+				<li style="width:95px;">신청일자</li>
+				<li style="width:95px;">처리상태</li>
+			</ul>
+			<ul class="tbody">
+				<li>1</li>
+				<li>{=coin_list[4]['walletId']}</li>
+				<li>{=coin_list[4]['price']}</li>
+				<li>{=coin_list[4]['createdAt']}</li>
+				<li>{=coin_list[4]['status']}</li>
+			</ul>
+			<ul class="tbody">
+				<li>2</li>
+				<li>{=coin_list[3]['walletId']}</li>
+				<li>{=coin_list[3]['price']}</li>
+				<li>{=coin_list[3]['createdAt']}</li>
+				<li>{=coin_list[3]['status']}</li>
+			</ul>
+			<ul class="tbody"> 
+				<li>3</li>
+				<li>{=coin_list[2]['walletId']}</li>
+				<li>{=coin_list[2]['price']}</li>
+				<li>{=coin_list[2]['createdAt']}</li>
+				<li>{=coin_list[2]['status']}</li>
+			</ul>
+		
+			<ul class="tbody"> 
+				<li>4</li>
+				<li>{=coin_list[1]['walletId']}</li>
+				<li>{=coin_list[1]['price']}</li>
+				<li>{=coin_list[1]['createdAt']}</li>
+				<li>{=coin_list[1]['status']}</li>
+			</ul>
+			<!-- <script type="text/javascript">
+				$(function(){
+					for (i = 0; i < 10; i++) { 			
+						$(".bmp_check").append('<ul class="tbody"><li>0</li><li>{=coin_list['+']["walletId"]}</li><li>{=coin_list[1]["price"]}</li><li>{=coin_list[1]["createdAt"]}</li><li>{=coin_list[1]["status"]}</li>');   
+					}
+				});
+			</script> -->
+			<ul class="tbody"> 
+				<li>5</li>
+				<li>{=coin_list[0]['walletId']}</li>
+				<li>{=coin_list[0]['price']}</li>
+				<li>{=coin_list[0]['createdAt']}</li>
+				<li>{=coin_list[0]['status']}</li>
+			</ul>
+		</div>
+		<!-- <? var_dump({=coin_list})?>  -->
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">캐시내역</span></h2>
+		</div>
+		
+		<div class="mypage_greeting btm_padding">
+			<span class="username">{user_name}(<span class="usergroup">{userid}</span>)</span>님이 보유한 캐시는 <span class="pointnum">{=number_format(emoney)}</span>C 입니다.
+		</div>
+		{ ? loop }
+		<div class="res_table">
+			<ul class="thead">
+				<li style="width:45px;">번호</li>
+				<li style="width:85px;">날짜</li>
+				<li style="width:80px;">지급/차감</li>
+				<li>사유</li>
+				<li style="width:180px;">내역</li>
+				<li style="width:95px;">유효기간</li>
+			</ul>
+			{@ loop }
+			<ul class="tbody">
+				<li class="mo_hide">{.number}</li>
+				<li class="sjb_top mo_r grow" style="order:-8;">{=date('Y.m.d',strtotime(.regist_date))}</li>
+				<li class="R sjb_top Bo" style="order:-10;">
+					{?.gb=='plus'}<span class="pointcolor2">+ {=number_format(.emoney)}</span>{:}<span class="pointcolor3">- {=number_format(.emoney)}</span>{/} 
+				</li>
+				<li class="subject">
+					{.memo}
+				</li>
+				<li class="L Pb10">
+					<span class="motle">내역:</span> <span class="desc2">{.contents}</span>
+				</li>				
+				<li class="sjb_top" style="order:-9;">
+					<span class="motle">유효기간:</span> 
+					{?.limit_date}~ {.limit_date}{ : }-{ / }
+				</li>
+			</ul>
+			{ / }
+		</div>
+		<div class="paging_navigation">{pagin}</div>
+		{ : }
+		<div class="no_data_area2">
+			캐시 내역이 없습니다.
+		</div>
+		{ / }
+		
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+
