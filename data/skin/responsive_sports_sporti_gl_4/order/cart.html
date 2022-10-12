@@ -1,0 +1,752 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 장바구니 @@
+- 파일위치 : [스킨폴더]/order/cart.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{is_file_facebook_tag}
+
+<div class="title_container">
+	<h2><span designElement="text">장바구니</span></h2>
+</div>
+
+<!-- 본문내용 시작 -->
+<form name="cart_form" id="cart_form" method="post" target="actionFrame" action="order">
+<input type="hidden" name="cart_version" value='3' />
+<input type="hidden" name="nation" value='{ini_info.nation}' />
+<input type="hidden" name="kr_nation" value='{ini_info.kr_nation}' />
+<!-- { ? shipping_group_list } -->
+<ul class="resp_cart_wrap">
+	<!-- ++++++++++++ cart left area +++++++++++ -->
+	<li class="cart_left">
+		<div class="cart_contents">
+
+			<!-- 전체 선택 -->
+			<ul class="cart_contents_top clearbox">
+				<li class="aa">
+					<label class="checkbox_allselect"><input type="checkbox" class="btn_select_all" /> <span class="txt">전체선택</span></label>
+				</li>
+				<li class="bb hide">
+					<input type="button" class="btn_resp size_b btn_shipping_modify" value="배송변경" />
+				</li>
+			</ul>
+
+			<div class="cart_list">
+			<!--{ @ shipping_group_list }-->
+			<ul class="shipping_group_list">
+				<!--{ @ .goods }-->
+					<!--{ ? ..index_ == 0 }-->
+				<li class="goods_delivery_info clearbox" id="sippingInfo{..shipping_group_seq}">
+					<ul class="detail">
+						<li class="th">배송 :</li>
+						<!--{ ? .cfg.baserule.shipping_set_code == 'coupon' // 티켓 }-->
+						<li class="ticket">{?.shipper_name}{.shipper_name} - {/}티켓배송</li>
+						<!--{ : // 실물상품}-->
+						<li class="silmul">
+							<!--{ ? .shipper_name }-->
+							<span class="gray_01">[{.shipper_name}]</span>
+							<!--{ / }-->
+							<span>{.cfg.baserule.shipping_set_name}</span>
+
+							<!--{ ? .cfg.baserule.shipping_set_code != 'direct_store' }-->
+								<!--{ ? .grp_shipping_price > 0 }-->
+									<!--{ ? .shipping_prepay_info == 'delivery' }-->
+							<span class="ship_info">({=getAlert('sy004')})</span>
+									<!--{ : }-->
+							<span class="ship_info">({=getAlert('sy003')})</span>
+									<!--{ / }-->
+								<!--{ / }-->
+							<!--{ / }-->
+							<!--{ ? .grp_shipping_price > 0 }-->
+							<span id="price_{.shipping_group}">{=get_currency_price(.grp_shipping_price,2)}</span>
+							<!--{ : }-->
+								<!--{ ? .ship_possible == 'Y' }-->
+							<span id="price_{.shipping_group}">무료</span>
+								<!--{ : }-->
+							<span id="price_{.shipping_group}" class="red">배송불가</span>
+								<!--{ / }-->
+							<!--{ / }-->
+							
+							<div class="hope">
+								<!--{ ? .cfg.baserule.shipping_set_code == 'direct_store' }-->
+								<span class="ship_info">수령매장 {.store_info.shipping_store_name}</span>
+								<!--{ / }-->
+								<!--{ ? .shipping_hop_date }-->
+								<span class="ship_info">희망배송일 : {.shipping_hop_date}</span>
+								<!--{ : .reserve_sdate }-->
+								<span class="ship_info">예약배송일 : {.reserve_sdate}{.reserve_txt}</span>
+								<!--{ / }-->
+							</div>
+						</li>
+						<li class="btn_area">
+							<button type="button" class="btn_resp" onclick="bundle_goods_search('{.cfg.baserule.shipping_group_seq}');" title="새창">묶음배송 상품보기</button>
+							<input type="button" class="btn_resp btn_shipping_modify" cart_seq="{..cart_seq}" prepay_info="{.shipping_prepay_info}" nation="{.cfg.baserule.delivery_nation}" goods_seq="{..goods_seq}" hop_date="{.shipping_hop_date}" reserve_txt="{.reserve_sdate}{.reserve_txt}" value="배송 변경" />
+						</li>
+						<!--{ / }-->
+					</ul>
+				</li>
+					<!--{ / }-->
+				<li class="cart_goods" id="cart_goods_{..cart_option_seq}">
+					<div class="cart_goods_detail">
+						<div class="cgd_top">
+							<label>
+								<input type="hidden" name="ship_possible[{..cart_option_seq}]" value="{.ship_possible}"/>
+								<input type="checkbox" name="cart_option_seq[]" value="{..cart_option_seq}" stat="{.ship_possible}" rel="{..goods_seq}" />
+								<span class="goods_name">{..goods_name}</span>
+							</label>
+							<button type="button" class="btn_thisitem_del" value="{..cart_option_seq}" title="상품 삭제">삭제 </button>
+						</div>
+						
+						<div class="cgd_contents">
+							<div class="block block1">
+								<ul>
+									<li class="img_area">
+										<a href="../goods/view?no={..goods_seq}"><img src="{..image}" class="goods_thumb" onerror="this.src='../images/common/noimage_list.gif'" /></a>
+									</li>
+									<li class="option_area">
+										<!--{? ..eventEnd }-->
+										<div class="event_area">
+											<span class="soloEventTd{..cart_option_seq}">
+												<span class="title">남은시간</span>
+												<span class="time">
+													<span id="soloday{..cart_option_seq}">0</span>일
+													<span id="solohour{..cart_option_seq}">00</span>:
+													<span id="solomin{..cart_option_seq}">00</span>:
+													<span id="solosecond{..cart_option_seq}">00</span>
+												</span>
+											</span>
+											<script>
+											$(function() {
+												timeInterval{..cart_option_seq} = setInterval(function(){
+													var time{..cart_option_seq} = showClockTime('text', '{..eventEnd.year}', '{..eventEnd.month}', '{..eventEnd.day}', '{..eventEnd.hour}', '{..eventEnd.min}', '{..eventEnd.second}', 'soloday{..cart_option_seq}', 'solohour{..cart_option_seq}', 'solomin{..cart_option_seq}', 'solosecond{..cart_option_seq}', '{..cart_option_seq}');
+													if(time{..cart_option_seq} == 0){
+														clearInterval(timeInterval{..cart_option_seq});
+														$(".soloEventTd{..cart_option_seq}").html("단독 이벤트 종료");
+													}
+												},1000);
+											});
+											</script>
+										</div>
+										<!--{/}-->
+
+										<!--{ ? ..adult_goods == 'Y' || ..option_international_shipping_status == 'y' || ..cancel_type == '1' || ..tax == 'exempt' }-->
+										<div class="icon_area">
+											<!--{ ? ..adult_goods == 'Y' }-->
+											<img src="../images/common/auth_img.png" alt="성인" class="icon1" />
+											<!--{ / }-->
+											<!--{ ? ..option_international_shipping_status == 'y' }-->
+											<img src="../images/common/plane.png" alt="해외배송상품" class="icon2" />
+											<!--{ / }-->
+											<!--{ ? ..cancel_type == '1' }-->
+											<img src="../images/common/nocancellation.gif" alt="청약철회" class="icon3" />
+											<!--{ / }-->
+											<!--{ ? ..tax == 'exempt' }-->
+											<img src="../images/common/taxfree.gif" alt="비과세" class="icon4" />
+											<!--{ / }-->
+										</div>
+										<!--{ / }-->
+										<!--{ ? ..option1!=null }-->
+										<ul class="cart_option">
+											{ ? ..option1 }
+											<li>{?..title1}<span class="xtle">{..title1}</span>{ / } {..option1}</li>
+											{ / }
+											{ ? ..option2 }
+											<li>{?..title2}<span class="xtle">{..title2}</span>{ / } {..option2}</li>
+											{ / }
+											{ ? ..option3 }
+											<li>{?..title3}<span class="xtle">{..title3}</span>{ / } {..option3}</li>
+											{ / }
+											{ ? ..option4 }
+											<li>{?..title4}<span class="xtle">{..title4}</span>{ / } {..option4}</li>
+											{ / }
+											{ ? ..option5 }
+											<li>{?..title5}<span class="xtle">{..title5}</span>{ / } {..option5}</li>
+											{ / }
+										</ul>
+										<!--{ / }-->
+
+										<div class="cart_quantity"><span class="xtle">수량</span> {=number_format(..ea)}개 <span class="add_txt">({=get_currency_price(..price*..ea,2)})</span></div>
+
+										<!--{ ? ..cart_inputs }-->
+										<ul class="cart_inputs">
+											<!--{ @ ..cart_inputs }-->
+												<!--{ ? ...input_value }-->
+											<li>
+												{?...type=='file'}
+													{?...input_title}<span class="xtle v2">{...input_title}</span>{ / } 
+													<a href="/mypage_process/filedown?file={...input_value}" target="actionFrame" title="크게 보기"><img src="/mypage_process/filedown?file={...input_value}" class="inputed_img" /></a>
+												{:}
+													{?...input_title}<span class="xtle v2">{...input_title}</span>{ / }
+													{...input_value}
+												{/}
+											</li>
+												<!--{ / }-->
+											<!--{ / }-->
+										</ul>
+										<!--{ / }-->
+
+										<!--{ ? ..cart_suboptions }-->
+										<ul class="cart_suboptions">
+											<!--{ @ cart_suboptions }-->
+											<li>
+												{ ? ...suboption }
+													{ ? ...suboption_title }
+												<span class="xtle v3">{...suboption_title}</span>
+													{ / }
+												{...suboption}:
+												{ / }
+												{=number_format(...ea)}개
+												<span class="add_txt">({=get_currency_price(...price*...ea,2)})</span>
+											</li>
+											<!--{ / }-->
+										</ul>
+										<!--{ / }-->
+									</li>
+								</ul>
+							</div>
+
+							<ul class="block block2" id="mobile_cart_sale_tr_{..cart_option_seq}">
+								<li class="price_a">
+									<span class="ptitle">상품금액</span> {=get_currency_price(..tot_price,2)}
+								</li>
+								<li class="price_b">
+									<span class="ptitle">
+										할인금액 
+										<!--{ ? ..tot_sale_price > 0 }-->
+										<button type="button" class="btn_resp size_a color5" onclick="showCenterLayer('#cart_sale_detail_{..cart_option_seq}')">내역</button>
+										<!--{ / }-->
+									</span>
+									<!--{ ? ..tot_sale_price > 0 }-->
+									(-) <span id="mobile_cart_sale_{..cart_option_seq}">{=get_currency_price(..tot_sale_price,2)}</span>
+									<!--{ : }-->
+									-&nbsp;
+									<!--{ / }-->
+
+									<div id="cart_sale_detail_{..cart_option_seq}" class="resp_layer_pop hide">
+										<h4 class="title">할인 내역</h4>
+										<div class="y_scroll_auto2">
+											<div class="layer_pop_contents v5">
+												<div class="resp_1line_table">
+													<!--{ @ ..sales.title_list }-->
+													<ul id="mobile_cart_option_{...key_}_saletr_{..cart_option_seq}" { ? ..tsales.sale_list[...key_] > 0 }{ : }class="hide"{ / }>
+														<li class="th size1"><p>{..sales.title_list[...key_]}</p></li>
+														<li class="td"><span id="mobile_cart_option_{...key_}_saleprice_{..cart_option_seq}">{=get_currency_price(..tsales.sale_list[...key_],2)}</span></li>
+													</ul>
+													<!--{ / }-->
+												</div>
+											</div>
+										</div>
+										<div class="layer_bottom_btn_area2">
+											<button type="button" class="btn_resp size_c color5 Wmax" onclick="hideCenterLayer()">확인</button>
+										</div>
+										<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+									</div>
+
+								</li>
+								<li class="price_c">
+									<span class="ptitle">할인적용금액</span>
+									<span class="total_p" id="option_suboption_price_sum_{..cart_option_seq}">{=get_currency_price(..tot_result_price,2,'', '<span class="num">_str_price_</span>')}</span>
+								</li>
+							</ul>
+
+							<ul class="block block3">
+								<li><button type="button" class="btn_option_modify btn_resp" id="{..cart_option_seq}">옵션/수량변경</button></li>
+								<!--li><button type="button" class="btn_option_modify btn_resp" id="{..cart_option_seq}">옵션/수량변경</button></li-->
+								<li><button type="button" class="btn_direct_buy btn_resp color2" value="{..cart_option_seq}">바로구매</button></li>
+							</ul>
+
+						</div>
+
+						<!-- 옵션 수량변경 Layer -->
+						<div id="optional_changes_area_{..cart_option_seq}" class="resp_layer_pop maxHeight hide">
+							<h4 class="title">옵션/수량 변경</h4>
+							<div class="y_scroll_auto">
+								<div class="layer_pop_contents v2 Pb70">
+									<!--h5 class="stitle">{..goods_name}</h5-->
+									<div id="onContent">
+										옵션/수량 변경 컨텐츠
+									</div>
+								</div>
+							</div>
+							<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+						</div>
+
+					</div>
+				</li>
+				<!--{ / }-->
+			</ul>
+			<!--{ / }-->
+			</div>
+		</div>
+		
+		<!-- 배송 국가 수정 레이어 팝업 -->
+		<!-- {? impossible_shipping_flag == true} -->
+		<div class="cart_list">
+			<ul class="shipping_group_list">
+				<li class="goods_delivery_info clearbox" id="sippingInfo{..shipping_group_seq}">
+					<ul class="detail">
+						<li><span >현재 배송 국가 : <strong>{=getstrcut(ini_info.kr_nation, 10)}</strong> <img src="/admin/skin/default/images/common/icon/nation/{ini_info.nation}.png" height="20" alt=""></span></li>
+						<li><button type="button" class="btn_option_modify btn_resp" id="select_other_country">다른국가 선택</button></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!--{ / }-->
+
+		<div id="select_country_layer_pop" class="resp_layer_pop hide">
+			<h4 class="title">배송국가 선택</h4>
+			<div class="y_scroll_auto2">
+				<div class="layer_pop_contents v5">
+					<div class ="shipping-info-lay">
+						<ul class="ul_ship">
+							<li>
+								<dl class="clearbox">
+									<dt>
+										<h5 class="title_sub3 Pt5 Pb5">
+											현재 배송 국가 : <strong>{=getstrcut(ini_info.kr_nation, 10)}</strong> <img src="/admin/skin/default/images/common/icon/nation/{ini_info.nation}.png" height="20" alt="">
+										</h5>
+									</dt>
+									<dd>
+										<button type="button" class="btn_resp {?ini_info.nation=='KOREA'} hide {/}" onclick="chg_shipping_nation('KOREA');" title="새창">대한민국으로 변경</button>
+									</dd>
+								</dl>
+								<div style="padding-right:5px;">
+									<table width="100%" class="list_table_style" border="0" cellspacing="0" cellpadding="0">
+										<caption>배송국가</caption>
+										<colgroup>
+											<col style="width:50%">
+										</colgroup>
+										<tbody>
+										<!--{ @ ship_gl_arr }-->
+											<tr onclick="chg_shipping_nation('{.nation_str}');">
+												<td class="hand">
+													<img src="/admin/skin/default/images/common/icon/nation/{ship_gl_list[.key_]['gl_nation']}.png" style="text-align: left;" alt=""> {ship_gl_list[.key_]['gl_nation']}
+												</td>
+												<td class="hand">
+													{ship_gl_list[.key_]['kr_nation']}
+												</td>
+											</tr>
+										<!--{ / }-->
+										</tbody>
+									</table>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+		</div>
+		<!-- 배송 국가 수정 레이어 팝업 END-->
+
+		<!-- 버튼 그룹 -->
+		<div class="selected_btn_groups">
+			<label class="checkbox_allselect"><input type="checkbox" class="btn_select_all" /> <span class="txt">전체선택</span></label>
+			
+			<div class="btns">
+				<button type="button" class="btn_resp size_b color2 btn_selected_order">선택상품 주문하기</button>
+				<!--{ ? member_seq }-->
+				<button type="button" class="btn_resp size_b color4 btn_select_wishlist">선택상품 찜</button>
+				<!--{ / }-->
+				<button type="button" class="btn_resp size_b gray_05 btn_select_del">선택상품 삭제</button>
+			</div>
+		</div>
+	</li>
+	<!-- ++++++++++++ //cart left area +++++++++++ -->
+
+	<!-- ++++++++++++ cart right area +++++++++++ -->
+	<li class="cart_right">
+		<h3 class="title_x">전체 주문시 금액</h3>
+
+		<!-- 총합계 Start -->
+		<div class="total_sum_price">
+			<ul class="list list1">
+				<li class="th">총 상품금액</li>
+				<li class="td"><span class="sum_price" id="totalGoodsPrice">{=get_currency_price(total,2,'', '<span class="num">_str_price_</span>')}</span></li>
+			</ul>
+			<ul class="list list2">
+				<li class="th">총 배송비</li>
+				<li class="td"><span class="sum_price" id="shippingTotalPrice">{?total_shipping_price>0}(+) {/}<span id="total_shipping_price">{=get_currency_price(total_shipping_price,2)}</span></span></li>
+			</ul>
+			<ul class="list list3">
+				<li class="th">총 할인</li>
+				<li class="td"><span class="sum_price" id="saleTotalPrice">{?total_sale>0}(-) {/}<span id="mobile_total_sale">{=get_currency_price(total_sale,2)}</span></span></li>
+			</ul>
+			<ul class="list list4 total">
+				<li class="th">총 결제금액</li>
+				<li class="td"><span class="sum_price settle_price" id="totalPrice">{=get_currency_price(total_price,2,'', '<span class="num">_str_price_</span>')}</span></li>
+			</ul>
+		</div>
+
+		<ul class="cart_order_btn_area">
+			<!--{? btn_estimateyn == 'y' }-->
+			<li>
+				<button type="button" class="btn_resp size_c btn_select_estimate">전체 견적서</button>
+			</li>
+			<!--{ / }-->
+			<li>
+				<input type="button" class="btn_resp size_c color2 btn_all_order" {? total_ea < 1 }onclick="openDialogAlert('주문할 상품을 선택해 주세요.','400','140');return false;" {/} value="전체 주문하기" />
+			</li>
+		</ul>
+		<div class="pdb10 center">{navercheckout_tpl}</div>
+		<div class="pdb10 center">{talkbuyorder_tpl}</div>
+	</li>
+	<!-- ++++++++++++ //cart right area +++++++++++ -->
+</ul>
+<!-- { : } -->
+<div class="no_data_area2">
+	장바구니에 담긴 상품이 없습니다.
+</div>
+<!-- { / } -->
+
+
+	
+		
+
+
+	<div class="total_price_n_btns">
+		
+
+		
+	</div>
+
+
+	
+
+
+
+
+</form>
+
+
+	<div align="center" id="facebook_mgs">{? is_file_facebook_tag }페이스북과 정보를 교환 중에 있습니다. 잠시만 기다려 주세요.{/}.</div>
+
+	<div id="optional_changes_dialog" style="display:none;"></div>
+
+	<!-- 배송 변경 레이어 -->
+	<div id="shipping_detail_lay" class="resp_layer_pop hide">
+		<h4 class="title">배송 변경</h4>
+		<div class="y_scroll_auto2">
+			<div class="layer_pop_contents v5"></div>
+		</div>
+		<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+	</div>
+	<!--div id="shipping_detail_lay" style="display:none;"></div-->
+
+	{ #INTERNATIONAL_SHIPPING_INFO }
+
+	<!-- 본문내용 끝 -->
+	{? is_file_facebook_tag }
+		<!-- 좋아요할인 : 삭제하지 말아주세요 -->
+		{? !( strstr(_SERVER.HTTP_HOST,'.firstmall.kr') || _SERVER.HTTP_HOST==APP_DOMAIN ) //t }
+<iframe name="snsiframe" src="//{config_system.subDomain}/admin/sns/subdomainfacebookck" frameborder="0" width="0" height="0"></iframe>
+<script language="JavaScript" src="//{config_system.subDomain}/order/fblike_opengraph_firstmallplus?firstmallcartid={firstmallcartid}"></script>
+<script language="JavaScript" src="//{config_system.subDomain}/order/fbopengraph?firstmallcartid={firstmallcartid}"></script>
+		{/}
+		<script language="JavaScript" src="../order/fblike_opengraph"></script>
+		<!-- 좋아요할인 : 삭제하지 말아주세요 -->
+	{/}
+
+
+
+<script type="text/javascript">
+	{?  APP_LIKE_TYPE == 'API' }
+	try{
+		window.fbAsyncInit = function() {
+			FB.init({
+			appId      : plus_app_id, //App ID
+			status     : true, // check login status
+			cookie     : true, // enable cookies to allow the server to access the session
+			xfbml      : true,  // parse XFBML,
+			oauth      : true,
+			version    : 'v{APP_VER}'
+			});
+			{? cfg.order.fblike_ordertype && fblikesale }
+				FB.getLoginStatus(function(response) {
+					$("#fbloginlay").hide();
+						{ ? !fbuser }
+							$.ajax({'url' : '../sns_process/facebooklogincknone', 'type' : 'post'});
+						{ / }
+					if (response.status === 'connected') {
+						var uid = response.authResponse.userID;
+						var accessToken = response.authResponse.accessToken;
+					} else if (response.status === 'not_authorized') {
+						$("#fbloginlay").show();
+					} else {
+						$("#fbloginlay").show();
+					}
+				});
+			{ / }
+			{? APP_USE == 'f' }
+				// like 이벤트가 발생할때 호출된다.
+				FB.Event.subscribe('edge.create', function(response) {
+					//페이스북과 정보를 교환 중에 있습니다. 잠시만 기다려 주세요.
+					$("#facebook_mgs").html(getAlert('oc039'));
+					{? ( _SERVER.HTTP_HOST==APP_DOMAIN ) }
+						$.ajax({'url' : '../sns_process/facebooklikeck', 'type' : 'post', 'data' : {'mode':'like', 'product_url':response}, 'dataType': 'json','success': function(result){$("#facebook_mgs").html("");order_price_calculate();}});
+					{:}
+						var url = '../sns_process/facebooklikeck?mode=like&firstmallcartid={firstmallcartid}&product_url='+response;
+						$.getJSON(url + "&jsoncallback=?", function(res) {$("#facebook_mgs").html("");order_price_calculate();});
+					{/}
+				});
+
+				// unlike 이벤트가 발생할때 호출된다.
+				FB.Event.subscribe('edge.remove', function(response) {
+					//페이스북과 정보를 교환 중에 있습니다. 잠시만 기다려 주세요.
+					$("#facebook_mgs").html(getAlert('oc039'));
+					{? ( _SERVER.HTTP_HOST==APP_DOMAIN ) }
+						$.ajax({'url' : '../sns_process/facebooklikeck', 'type' : 'post', 'data' : {'mode':'unlike', 'product_url':response}, 'dataType': 'json','success': function(result){$("#facebook_mgs").html("");order_price_calculate();}});
+					{:}
+						var url = '../sns_process/facebooklikeck?mode=unlike&firstmallcartid={firstmallcartid}&product_url='+response;
+						$.getJSON(url + "&jsoncallback=?", function(res) {$("#facebook_mgs").html("");order_price_calculate();});
+					{/}
+				});//
+			{ / }
+		}
+	} catch (facebookjsok) {
+	}
+	{ / }
+
+	$(document).ready(function() {
+		
+		var cartVersion = $('input[name=cart_version]').val(); //18-05-03 카트 스킨 버전 gcns jhs add
+
+		{ ? !is_goods}
+		$(".goods_delivery_info").hide();
+		{ / }
+
+		// 전체 선택
+		$("form#cart_form .btn_select_all").change(function() {
+			if($(this).is(":checked")){
+				$("form#cart_form .btn_select_all").attr("checked",true);
+				//$("form#cart_form .btn_select_all").closest("div").addClass("ez-checkbox-on");
+				$("form#cart_form input[name='cart_option_seq[]']").each(function(){
+					$(this).attr("checked",true);
+					//$(this).closest("div").addClass("ez-checkbox-on");
+				});
+				$(".cart_goods").addClass('selected');
+				cnt = $("form#cart_form input[name='cart_option_seq[]']").length;
+				
+				//18-05-03 gcns jhs add 장바구니 개선
+				if(cartVersion >= 3){
+					setPriceInfoCheck();	//전체 주문선택 금액 계산 추가 gcns jhs add
+				}
+			}else{
+				$("form#cart_form .btn_select_all").removeAttr("checked");
+				//$("form#cart_form .btn_select_all").closest("div").removeClass("ez-checkbox-on");
+				$("form#cart_form input[name='cart_option_seq[]']").each(function(){
+					$(this).removeAttr("checked");
+					//$(this).closest("div").removeClass("ez-checkbox-on");
+				});
+				$(".cart_goods").removeClass('selected');
+				//18-05-03 gcns jhs add 장바구니 개선
+				if(cartVersion >= 3){				
+					setPriceInfoCheck();	//전체 주문선택 금액 계산 추가 gcns jhs add	
+				}
+			}
+		});
+		/*
+		$("form#cart_form .btn_select_all").change(function() {
+			if($(this).is(":checked")){
+				$("form#cart_form input[name='cart_option_seq[]']").each(function(){
+					$(this).attr("checked",true);
+					$(this).closest("div").addClass("ez-checkbox-on");
+				});
+				$(".cart_goods").css('outline','2px solid #769dff');
+				cnt = $("form#cart_form input[name='cart_option_seq[]']").length;
+			}else{
+				$("form#cart_form input[name='cart_option_seq[]']").each(function(){
+					$(this).removeAttr("checked");
+					$(this).closest("div").removeClass("ez-checkbox-on");
+				});
+				$(".cart_goods").css('outline','');
+			}
+		});
+		*/
+
+		// 해당 상품삭제
+		$(".btn_thisitem_del").click(function() {
+			var selected_order = $(this).val();
+			$("input[name='cart_option_seq[]']").removeAttr("checked");
+			$("input[name='cart_option_seq[]'][value='"+selected_order+"']").attr("checked", true);
+
+			$("form#cart_form").attr("action","del");
+			$("form#cart_form").attr("target","actionFrame");
+			$("form#cart_form")[0].submit();
+		});
+
+		// 선택 상품 삭제
+		$(".btn_select_del").click(function() {
+			var selected_order = '';
+			$("input[name='cart_option_seq[]']").each(function(e, el) {
+				if( $(el).attr('checked') == 'checked' ){
+					selected_order += $(el).val() + ",";
+				}
+			});
+			if(!selected_order){
+				//삭제할 상품을 선택해 주세요.
+				openDialogAlert(getAlert('oc003'),'400','140');
+				return false;
+			}
+			$("form#cart_form").attr("action","del");
+			$("form#cart_form").attr("target","actionFrame");
+			$("form#cart_form")[0].submit();
+		});
+
+
+		// 옵션/수량변경 클릭시
+		$("button.btn_option_modify").bind("click",function() {
+			var id = $(this).attr("id");
+			var url = "optional_changes?no="+id+"&t="+new Date().getTime();
+			var area_obj = $("#optional_changes_area_"+id);
+			$.get(url, function(data) {
+				area_obj.find('#onContent').empty().html(data);
+				showCenterLayer(area_obj);
+			});
+		});
+
+		// 바로구매
+		$(".btn_direct_buy").bind("click",function() {
+			var selected_order = $(this).val();
+			$("input[name='cart_option_seq[]']").removeAttr("checked");
+			$("input[name='cart_option_seq[]'][value='"+selected_order+"']").attr("checked", true);
+
+			//$("form#cart_form").attr("action","settle?mode=choice");
+			$("form#cart_form").attr("action","addsettle?mode=choice");
+			$("form#cart_form").attr("target","");
+			$("form#cart_form")[0].submit();
+			$("form#cart_form").attr("target","actionFrame");
+		});
+
+		// 선택 주문
+		$(".btn_selected_order").bind("click",function() {
+			var selected_order = '';
+			var ship_possible = true;
+			$("input[name='cart_option_seq[]']").each(function(e, el) {
+				if( $(el).attr('checked') == 'checked' ){
+					if( $(el).attr('stat') != 'Y' ){
+						ship_possible = false;
+						return false;
+					}
+					selected_order += $(el).val() + ",";
+				}
+			});
+
+			if(!ship_possible){
+				// 주문이 불가능한 상품이 있습니다.
+				openDialogAlert(getAlert('os142'),'400','140');
+				return false;
+			}
+
+			if(!selected_order){
+				//주문할 상품을 선택해 주세요.
+				openDialogAlert(getAlert('oc042'),'400','140');
+				return false;
+			}
+
+			//$("form#cart_form").attr("action","settle?mode=choice");
+			$("form#cart_form").attr("action","addsettle?mode=choice");
+			$("form#cart_form").attr("target","");
+			$("form#cart_form")[0].submit();
+			$("form#cart_form").attr("target","actionFrame");
+		});
+
+		// 전체 주문
+		$(".btn_all_order").bind("click",function() {
+			$("form#cart_form").attr("action","addsettle");
+			$("form#cart_form").attr("target","actionFrame");
+			$("form#cart_form")[0].submit();
+		});
+
+		// 선택 위시리스트 저장
+		$(".btn_select_wishlist").bind("click",function(){
+			$("form#cart_form").attr("action","../mypage/wish_add?mode=cart");
+			$("form#cart_form").attr("target","actionFrame");
+			$("form#cart_form")[0].submit();
+		});
+
+		// 비우기
+		$(".btn_select_all_del").bind("click",function(){
+			$("input[name='cart_option_seq[]']").attr("checked",true);
+
+			$("form#cart_form").attr("action","del");
+			$("form#cart_form").attr("target","actionFrame");
+			$("form#cart_form")[0].submit();
+		});
+
+		// 상품 선택시
+		$("input[name='cart_option_seq[]']").bind("click",function(){
+			var obj = eval("cart_goods_" + $(this).val());
+			if($(this).is(":checked")){
+				$(obj).addClass('selected');
+				cnt = $("input[name='cart_option_seq[]']:checked").length;
+			}else{
+				$(obj).removeClass('selected');
+				cnt = $("input[name='cart_option_seq[]']:checked").length;
+			}
+		});
+
+		{? cart_promotioncode }
+			getPromotionckloding();
+		{/}
+
+		//배송 방법 변경 이벤트
+		bind_shipping_modify_btn();
+
+		// 배송국가 선택 레이어 팝업 이벤트
+		$("#select_other_country").bind("click",function() {
+			showCenterLayer('#select_country_layer_pop');
+		});
+
+		//  견적서 출력
+		$(".btn_select_estimate").bind("click",function(){
+			var win = window.open('/prints/form_print_estimate?code=cart', '_estimate', 'width=960,height=760, scrollbars=yes');
+			win.focus();
+		});
+	//	order_price_calculate();
+	});
+
+	function getPromotionckloding() {
+		var cartpromotioncode = '{cart_promotioncode}';
+		if( cartpromotioncode  ) {
+			$.ajax({
+				'url' : '../promotion/getPromotionJson?mode=cart',
+				'data' : {'cartpromotioncode':cartpromotioncode},
+				'type' : 'post',
+				'dataType': 'json',
+				'success': function(data) {
+					order_price_calculate();
+				}
+			});
+		}
+	}
+
+	// facebook 라이크 할인 적용 및 오픈그라피
+	function getfblikeopengraph(){
+		$.get('../order/fblike_opengraph', function(data) {
+			$("#facebook_mgs").html("");
+		});
+	}
+
+	function order_price_calculate()
+	{
+		var f = $("form#orderFrm");
+
+		f.attr("action","calculate?mode=cart");
+		f.attr("target","actionFrame");
+		f[0].submit();
+	}
+	
+	// 묶음배송상품보기
+	function bundle_goods_search(grp_seq){ 
+		window.open('/goods/search?ship_grp_seq='+grp_seq);
+	}
+	
+	// 배송국가 선택 이벤트
+	function chg_shipping_nation(nation){
+		var tmpFrm	= '<form name="nationFrm" id="nationFrm" method="post" action="./cart"><input type="hidden" name="nation" value="' + nation + '"></form>';
+		$('body').append(tmpFrm);
+		$("#nationFrm").submit();
+	}
+</script>
+
+<form name="orderFrm" id="orderFrm" method="post" action="cacluate" target="actionFrame"></form>

@@ -1,0 +1,341 @@
+<style type="text/css">
+#mzWrap {position:fixed; left:0px; top:0px; width:100%; height:100%; background-color:#333}
+#mzWrap #mzScreen {z-index:1; position:absolute; left:0px; top:0px; width:100%; height:100%; box-sizing:border-box; overflow:hidden;}
+#mzWrap #mzScreen #mzSlideContainer {position:relative; *zoom:1; box-sizing:border-box;}
+#mzWrap #mzScreen #mzSlideContainer:after {content:""; display:block; clear:both;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem {position:relative; float:left; overflow:hidden;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiImageScreen {position:absolute; z-index:1; left:0px; top:0px; width:100%; height:100%; box-sizing:border-box; overflow:hidden; background-color:#000;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiImageScreen .mzsiImageSlideContainer {position:relative; width:100%; height:100%; box-sizing:border-box;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiImageScreen .mzsiImageSlideContainer .mzsiImageSlideItem {position:relative; background-repeat:no-repeat; background-position:center center; background-size:cover;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiImageScreen .mzsiImageSlideNavigation {position:absolute; lefT:10px; top:10px;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiImageScreen .mzsiImageSlideNavigation li {display:block; width:12px; height:12px; margin-bottom:4px; background:url('../../images/design/navi_dot.png') no-repeat; background-size:12px 12px;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiImageScreen .mzsiImageSlideNavigation li.on {background:url('../../images/design/navi_dot_on.png') no-repeat; background-size:12px 12px;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer {position:absolute; z-index:2; bottom:0; left:0; width:100%; padding:15px 10px; color:#fff; background:#333; filter:alpha(opacity:80); -moz-opacity:0.8; opacity:0.8;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer .mzsiDescriptionGoodsName {font-size:16px; line-height:25px; color:#fff;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer .mzsiDescriptionConsumerprice {font-size:18px; font-weight:bold; color:#fff;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer .mzsiDescriptionConsumerprice span {font-size:16px; font-weight:normal; color:#fff;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer .mzsiDescriptionPrice {font-size:18px; font-weight:bold;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer .mzsiDescriptionPrice span {font-size:16px; font-weight:normal;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDetailBtn {position:absolute; right:10px; bottom:15px; z-index:3; color:#fff}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiDetailBtn a {color:#ffffff; padding:0 10px}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzCloseBtn {position:absolute; z-index:1; right:0px; top:0px;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzCloseBtn a {display:block; width:30px; height:30px; background:url('../../images/design/btn_close.png') no-repeat; background-size:30px 30px; text-indent:-200px; overflow:hidden;}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiPrevBtn {position:absolute; z-index:2; left:0px; top:50%; margin-top:-33px; width:40px; height:66px; background:url('../../images/design/navi_prev.png') no-repeat; background-size:40px 60px; text-indent:-200px; overflow:hidden; cursor:pointer}
+#mzWrap #mzScreen #mzSlideContainer .mzSlideItem .mzsiNextBtn {position:absolute; z-index:2; right:0px; top:50%; margin-top:-33px; width:40px; height:66px; background:url('../../images/design/navi_next.png') no-repeat; background-size:40px 60px; text-indent:-200px; overflow:hidden; cursor:pointer}
+#mzWrap #mzScreen.horizontal #mzSlideContainer .mzSlideItem .mzsiImageScreen {width:50% !important;}
+#mzWrap #mzScreen.horizontal #mzSlideContainer .mzSlideItem .mzsiDescriptionContainer {bottom:45%; left:50%; width:50%; text-align:center; color:#fff;}
+#mzWrap #mzScreen.horizontal #mzSlideContainer .mzSlideItem .mzsiDetailBtn {right:0px; text-align:center; bottom:24%; width:50%;}
+#mzWrap #mzScreen.horizontal #mzSlideContainer .mzSlideItem .mzsiPrevBtn,
+#mzWrap #mzScreen.horizontal #mzSlideContainer .mzSlideItem .mzsiNextBtn {display:none;}
+</style>
+<script>
+var perpage = 1;
+var page = {=json_encode(page)};
+
+var mzScreenWidth;
+var mzScreenHeight;
+var mzSlideIdx = 0;
+var mzsiImageScreenWidth;
+var mzsiImageScreenHeight;
+var mzsiImageSlideIdx = 0;
+
+var msTouchFlag = false;
+var mzSwipingFlag = false;		// 스와이핑중인지 여부
+var mzSwipingTarget = null;		// 타겟
+var mzSwipingDirection = null;	// 방향 : w(가로) or h(세로)
+var mzSwipingStartX = null;		// 시작위치 x
+var mzSwipingStartY = null;		// 시작위치 y
+var mzSwipingMoveX = null;		// 이동한거리 x
+var mzSwipingMoveY = null;		// 이동한거리 y
+
+var mzResizeTimer = null;
+
+$(function(){
+	set_mz_slide_container_size();
+	set_mzsi_image_slide_container_size();
+
+	document.onselectstart = function() {return false;};
+
+	$(document).on("mousedown touchstart","#mzScreen",function(e){
+		msTouchFlag = true;
+		if(typeof e.clientX == 'undefined'){
+			var touch = e.changedTouches[0];
+			mzSwipingStartX = touch.clientX;
+			mzSwipingStartY = touch.clientY;
+		}else{
+			mzSwipingStartX = e.clientX;
+			mzSwipingStartY = e.clientY;
+		}
+		if($(e.target).closest(".mzsiImageScreen").length){
+			mzSwipingTarget = "mzsiImageScreen";
+		}else{
+			mzSwipingTarget = "mzScreen";
+		}
+	});
+
+	$(document).on("mousemove touchmove",function(e){
+		if(msTouchFlag){
+			e.preventDefault();
+			
+			if(typeof e.clientX == 'undefined'){
+				var touch = e.changedTouches[0];
+				mzSwipingMoveX = touch.clientX-mzSwipingStartX;
+				mzSwipingMoveY = touch.clientY-mzSwipingStartY;
+			}else{
+				mzSwipingMoveX = e.clientX-mzSwipingStartX;
+				mzSwipingMoveY = e.clientY-mzSwipingStartY;
+			}
+
+			if(mzSwipingFlag){
+				if(mzSwipingDirection=='y' && mzSwipingTarget != "mzsiImageScreen"){
+					$(document).trigger("mouseup");
+					return false;
+				}
+				if(mzSwipingDirection=='x' ){
+					mzSwipingTarget = "mzScreen";
+				}
+
+				// 상품 스와이핑
+				if(mzSwipingTarget=="mzScreen"){
+					//if(mzSlideIdx==0 && mzSwipingMoveX>0) return;
+					//if(mzSlideIdx==$("#mzSlideContainer .mzSlideItem").length-1 && mzSwipingMoveX<0) return;
+					$("#mzSlideContainer").css({'margin-left':(mzSlideIdx*mzScreenWidth*-1)+mzSwipingMoveX});
+				}
+				
+				// 이미지 스와이핑
+				if(mzSwipingTarget=="mzsiImageScreen"){
+					//if(mzsiImageSlideIdx==0 && mzSwipingMoveY>0) return;
+					//if(mzsiImageSlideIdx==$("#mzSlideContainer .mzSlideItem").eq(mzSlideIdx).find(".mzsiImageSlideItem").length-1 && mzSwipingMoveY<0) return;
+					if(mzSwipingMoveY>0) mzSwipingMoveY = mzSwipingMoveY-(mzSwipingMoveY*0.6);
+					$("#mzSlideContainer .mzSlideItem").eq(mzSlideIdx).find(".mzsiImageSlideContainer").css({'margin-top':(mzsiImageSlideIdx*mzsiImageScreenHeight*-1)+mzSwipingMoveY});
+				}
+
+			}else if(Math.abs(mzSwipingMoveY)>10){
+				mzSwipingDirection = 'y';
+				mzSwipingFlag = true;
+			}else if(Math.abs(mzSwipingMoveX)>15){
+				mzSwipingDirection = 'x';
+				mzSwipingFlag = true;
+			}
+		}
+	});
+
+	$(document).on("mouseup touchend",function(e){
+		// 상품 스와이핑
+		if(mzSwipingFlag && mzSwipingTarget=="mzScreen"){
+			var move = 0;
+			if(mzSwipingMoveX>50){
+				if(mzSlideIdx>0) move = -1;
+			}else if(mzSwipingMoveX<-50){
+				if(mzSlideIdx<$("#mzSlideContainer .mzSlideItem").length-1) move = 1;
+			}
+			set_mz_slide_move(move);
+		}
+		
+		// 이미지 스와이핑
+		if(mzSwipingFlag && mzSwipingTarget=="mzsiImageScreen"){
+			if(mzSwipingMoveY>25){
+				if(mzsiImageSlideIdx>0) mzsiImageSlideIdx--;
+			}else if(mzSwipingMoveY<-25){
+				if(mzsiImageSlideIdx<$("#mzSlideContainer .mzSlideItem").eq(mzSlideIdx).find(".mzsiImageSlideItem").length-1) mzsiImageSlideIdx++;
+			}
+			set_mzsi_image_slide_move();
+		}
+
+		msTouchFlag = false;
+		mzSwipingFlag = false;
+		mzSwipingTarget = null;
+		mzSwipingDirection = null;
+		mzSwipingStartX = null
+		mzSwipingStartY = null;
+		mzSwipingMoveX = null;
+		mzSwipingMoveY = null;
+	});
+
+	/* 창 회전(리사이징) */
+	$(window).on('resize orientationchange',function(){
+		clearInterval(mzResizeTimer);
+		mzResizeTimer = setInterval(function(){
+			clearInterval(mzResizeTimer);
+			set_mz_slide_container_size();
+			set_mzsi_image_slide_container_size();
+		},100);
+	});
+
+	$(document).on("click",".mzsiPrevBtn",function(e){
+		var move = 0;
+		if(mzSlideIdx>0) move = -1;
+		set_mz_slide_move(move);
+	});
+	$(document).on("click",".mzsiNextBtn",function(e){
+		var move = 0;
+		if(mzSlideIdx<$("#mzSlideContainer .mzSlideItem").length-1) move = 1;
+		set_mz_slide_move(move);
+	});
+	
+});
+
+// 상품 슬라이드 사이즈 설정
+function set_mz_slide_container_size(){
+
+	// 다음페이지 상품 미리 로딩
+	if(num(page.nowpage)<num(page.totalpage) && mzSlideIdx >= num(page.nowpage)*perpage-1){
+		$.ajax({
+			'url' : "?returnJsonData=1&page="+(num(page.nowpage)+1)+"&{=getVars('page',_GET)}",
+			'dataType' : 'json',
+			'async' : false,
+			'success' : function(data){
+				page.nowpage = num(page.nowpage)+1;
+
+				for(var i=0;i<data.record.length;i++){
+					var new_mzSlideItem = $(".mzSlideItem").eq(0).clone();
+					$(new_mzSlideItem).find(".mzsiImageSlideContainer").empty();
+
+					for(var j in data.record[i].images){
+						if(typeof data.record[i].images[j].view != 'undefined'){
+							$(new_mzSlideItem).find(".mzsiImageSlideContainer").append("<div class='mzsiImageSlideItem' style=\"background-image:url('"+data.record[i].images[j].view.image+"');\"></div>");
+						}
+					}
+					$(new_mzSlideItem).find(".mzsiDescriptionGoodsName").html(data.record[i].goods_name);
+					$(new_mzSlideItem).find(".mzsiDescriptionPrice").html(data.record[i].sale_price+"<span>원</span>");
+					$("#mzSlideContainer").append(new_mzSlideItem);
+				}
+			}
+		});
+
+	}
+
+	if($(window).width()>$(window).height()) {
+		$("#mzScreen").addClass("horizontal");
+		$("#mzSlideContainer .mzsiDescriptionGoodsName").css('width','100%');
+	}else{
+		$("#mzScreen").removeClass("horizontal");
+		$("#mzSlideContainer .mzsiDescriptionGoodsName").css('width',$(window).width()-140);
+	}
+
+	mzScreenWidth = $("#mzScreen").width();
+	mzScreenHeight = $("#mzScreen").height();
+
+	$("#mzSlideContainer").each(function(){
+		$(this).css({
+			'width'		: mzScreenWidth*$(this).children().length,
+			'height'	: mzScreenHeight
+		});
+	});
+	
+	$("#mzSlideContainer>.mzSlideItem").each(function(i){
+		if(i==0) $(".mzsiPrevBtn",this).hide();
+		else $(".mzsiPrevBtn",this).show();
+		if(i>=$("#mzSlideContainer .mzSlideItem").length-1) $(".mzsiNextBtn",this).hide();
+		else $(".mzsiNextBtn",this).show();
+
+		$(this).css({
+			'width'		: mzScreenWidth,
+			'height'	: mzScreenHeight
+		});
+	});
+
+	$("#mzSlideContainer").css({'margin-left':(mzSlideIdx*mzScreenWidth*-1)});
+}
+
+// 상품 슬라이드 이동
+function set_mz_slide_move(move){
+	mzSlideIdx = mzSlideIdx + move;
+
+	// 상품 슬라이드 변경시 이미지 인덱스 초기화
+	if(move!=0) mzsiImageSlideIdx = 0;
+
+	$("#mzSlideContainer").stop(true,true).animate({'margin-left':(mzSlideIdx*mzScreenWidth)*-1},{duration:250,complete:function(){
+		$("#mzSlideContainer .mzSlideItem").not(":eq("+mzSlideIdx+")").find(".mzsiImageSlideContainer").css({'margin-top':(mzsiImageSlideIdx*mzsiImageScreenHeight)*-1});
+		set_mz_slide_container_size();
+		set_mzsi_image_slide_container_size();
+	}});
+}
+// 상품별 이미지 슬라이드
+function set_mzsi_image_slide_container_size(){
+	mzsiImageScreenWidth = $(".mzsiImageScreen").eq(0).width();
+	mzsiImageScreenHeight = $(".mzsiImageScreen").eq(0).height();
+
+	$(".mzsiImageSlideContainer").each(function(){
+		$(this).css({
+			'width'		: mzsiImageScreenWidth,
+			'height'	: mzsiImageScreenHeight*$(this).children().length
+		});
+
+		var thisSlideIdx = $("#mzSlideContainer .mzSlideItem").index($(this).closest('.mzSlideItem'));
+		var navObj = $(this).parent().children(".mzsiImageSlideNavigation");
+		var imageCnt = $(".mzsiImageSlideItem",this).length;
+		if(imageCnt>1){
+			navObj.show();
+			if(navObj.children().length!=imageCnt){
+				navObj.empty();
+				for(var i=0;i<imageCnt;i++){
+					if((mzSlideIdx==thisSlideIdx && i==mzsiImageSlideIdx) || i==0){
+						navObj.append("<li class='on'></li>");
+					}else{
+						navObj.append("<li></li>");
+					}
+				}
+			}else{
+				$("li.on",navObj).removeClass("on");
+				$("li",navObj).eq(mzsiImageSlideIdx).addClass("on");
+			}
+		}else{
+			navObj.hide();
+		}
+	});
+	$(".mzsiImageSlideContainer>.mzsiImageSlideItem").each(function(){
+		$(this).css({
+			'width'		: mzsiImageScreenWidth+'px',
+			'height'	: mzsiImageScreenHeight+'px'
+		});
+	});
+
+	$("#mzSlideContainer .mzSlideItem").not(":eq("+mzSlideIdx+")").find(".mzsiImageSlideContainer").css({'margin-top':0});
+	$("#mzSlideContainer .mzSlideItem").eq(mzSlideIdx).find(".mzsiImageSlideContainer").css({'margin-top':(mzsiImageSlideIdx*mzsiImageScreenHeight)*-1});
+}
+
+// 상품별 이미지 슬라이드 이동
+function set_mzsi_image_slide_move(){
+	$("#mzSlideContainer .mzSlideItem").eq(mzSlideIdx).find(".mzsiImageSlideContainer").animate({'margin-top':(mzsiImageSlideIdx*mzsiImageScreenHeight)*-1},{duration:150});
+	$("#mzSlideContainer .mzSlideItem").eq(mzSlideIdx).find(".mzsiImageSlideNavigation").each(function(){
+		$("li.on",this).removeClass("on");
+		$("li",this).eq(mzsiImageSlideIdx).addClass("on");
+	});
+}
+</script>
+
+<div id="mzWrap">
+	<div id="mzScreen">
+		<div id="mzSlideContainer">
+			{@displayGoodsList}
+			<div class="mzSlideItem">
+				<div class="mzsiImageScreen">
+					<div class="mzsiImageSlideContainer">
+						{@get_goods_image(.goods_seq)}
+						<div class="mzsiImageSlideItem" style="background-image:url('{..view.image}');"></div>
+						{/}
+					</div>
+					<ul class="mzsiImageSlideNavigation"></ul>
+				</div>
+				<div class="mzsiDescriptionContainer">
+					<div class="mzsiDescriptionGoodsName">{.goods_name}</div>
+					{=get_currency_price(.sale_price,2,'','<span class="mzsiDescriptionPrice">_str_price_</span>')}
+				</div>
+				<div class="mzsiDetailBtn"><a href="/goods/view?no={.goods_seq}" class="btn_important_large" style="line-height:42px;"><img src="../../images/design/ico_detail.png" width="28" height="24" />상세보기</a></div>
+				<div class="mzsiPrevBtn">이전 상품</div>
+				<div class="mzsiNextBtn">다음 상품</div>
+				<div class="mzCloseBtn"><a href="?display_style=mobile_lattice_responsible&{=get_args_list(array('display_style','page'))}">작은이미지로 보기</a></div>
+			</div>
+			{/}
+		</div>
+	</div>
+</div>
+
+<div id="swipe_guide" class="swipe_guide">
+	<div class="swipe_atb">위, 아래로 쓸어넘기면 해당 상품의 다른 이미지를 확인할 수 있습니다.</div>
+	<div class="swipe_alr">왼쪽, 오른쪽으로 쓸어넘기면 이전 상품 또는 다음 상품을 확인할 수 있습니다.</div>
+	<div class="swipe_asl">해당 상품의 상세페이지로 이동하고 싶다면? 선택!</div>
+	<a href="javascript:;" class="swipe_close">닫기 버튼</a>
+	<div class="swipe_bg"></div>
+</div>

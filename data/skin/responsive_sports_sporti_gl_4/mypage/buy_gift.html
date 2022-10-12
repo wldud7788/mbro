@@ -1,0 +1,187 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 사은품 신청( 혜택 교환 > 마일리지 to 사은품 > [신청하기] 클릭시 뜨는 레이어 ) @@
+- 파일위치 : [스킨폴더]/mypage/buy_gift.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<script>
+$(document).ready(function() {
+// 배송지 정보 채우기 t
+	$("input#copy_order_info").bind("click",function(){
+		if( $(this).attr("checked") ){
+			if($("input[name='recipient_new_zipcode']").length == 1){
+				var tmp_recipient_zipcode = '';
+				$("input[name='order_zipcode[]']").each(function(idx){
+					tmp_recipient_zipcode = tmp_recipient_zipcode + $("input[name='order_zipcode[]']").eq(idx).val();
+				});
+				$("input[name='recipient_new_zipcode']").val( tmp_recipient_zipcode );
+			}else{
+				$("input[name='order_zipcode[]']").each(function(idx){
+					$("input[name='recipient_zipcode[]']").eq(idx).val( $("input[name='order_zipcode[]']").eq(idx).val() );
+				});
+			}
+
+			$("input[name='recipient_address_type']").val( $("input[name='order_address_type']").val() );
+			$("input[name='recipient_address']").val( $("input[name='order_address']").val() );
+			$("input[name='recipient_address_street']").val( $("input[name='order_address_street']").val() );
+			$("input[name='recipient_address_detail']").val( $("input[name='order_address_detail']").val() );
+			$("input[name='recipient_user_name']").val( $("input[name='order_user_name']").val() );
+
+			if($("input[name='order_address']").val() == "street"){
+				$("input[name='recipient_address']").hide();
+				$("input[name='recipient_address_street']").show();
+			}else{
+				$("input[name='recipient_address']").show();
+				$("input[name='recipient_address_street']").hide();
+			}
+
+			$("input[name='order_phone[]']").each(function(idx){
+				$("input[name='recipient_phone[]']").eq(idx).val( $("input[name='order_phone[]']").eq(idx).val() );
+			});
+
+			$("input[name='order_cellphone[]']").each(function(idx){
+				$("input[name='recipient_cellphone[]']").eq(idx).val( $("input[name='order_cellphone[]']").eq(idx).val() );
+			});
+
+		}else{
+			if($("input[name='recipient_new_zipcode']").length == 1){
+				$("input[name='recipient_new_zipcode']").val("");
+			}else{
+				$("input[name='order_zipcode[]']").each(function(idx){
+					$("input[name='recipient_zipcode[]']").eq(idx).val("");
+				});
+			}
+
+
+			$("input[name='recipient_address_type']").val("");
+			$("input[name='recipient_address']").val("");
+			$("input[name='recipient_address_street']").val("");
+			$("input[name='recipient_address_detail']").val("");
+			$("input[name='recipient_user_name']").val("");
+
+			$("input[name='order_phone[]']").each(function(idx){
+				$("input[name='recipient_phone[]']").eq(idx).val("");
+			});
+
+			$("input[name='order_cellphone[]']").each(function(idx){
+				$("input[name='recipient_cellphone[]']").eq(idx).val("");
+			});
+		}
+	});
+});
+</script>
+
+<form name="orderFrm" id="orderFrm" method="post" action="../mypage_process/buy_gift" target="actionFrame">
+<input type="hidden" name="point" value="{point}">
+<input type="hidden" name="goods_rule" value="{goods_rule}">
+<input type="hidden" name="goods_seq" value="{goods_seq}">
+<input type="hidden" name="goods_name" value="{goods_name}">
+
+<input type="hidden" name="order_zipcode[]" value="{members.zipcode1}" />
+<input type="hidden" name="order_zipcode[]" value="{members.zipcode2}" />
+<input type="hidden" name="order_address" value="{members.address}" />
+<input type="hidden" name="order_address_type" value="{members.address_type}" />
+<input type="hidden" name="order_address_street" value="{members.address_street}" />
+<input type="hidden" name="order_address_detail" value="{members.address_detail}" />
+
+<h5 class="stitle v2">주문자 정보</h5>
+<div class="resp_table_row input_form">
+	<ul class="tr">
+		<li class="th">이름</li>
+		<li class="td">
+			<input type="text" name="order_user_name" value="{members.user_name}" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">휴대폰</li>
+		<li class="td">
+			<input type="text" name="order_cellphone[]" value="{members.cellphone1}" class="size_phone" /> - 
+			<input type="text" name="order_cellphone[]" value="{members.cellphone2}" class="size_phone" /> - 
+			<input type="text" name="order_cellphone[]" value="{members.cellphone3}" class="size_phone" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">연락처2</li>
+		<li class="td">
+			<input type="text" name="order_phone[]" value="{members.phone1}" class="size_phone" /> - 
+			<input type="text" name="order_phone[]" value="{members.phone2}" class="size_phone" /> - 
+			<input type="text" name="order_phone[]" value="{members.phone3}" class="size_phone" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">이메일</li>
+		<li class="td">
+			<input type="text" name="order_email" value="{members.email}" class="size_full" />
+		</li>
+	</ul>
+</div>
+<ul class="list_02">
+	<li>- 주문자명이 실명이 아닐 경우 실명으로 수정해주셔야 합니다.</li>
+	<li>- 주문내용을 E-mail과 입력하신 휴대폰번호로 안내해드립니다.</li>
+</ul>
+
+
+
+<!--{ ? shipping_policy.count }-->
+<h5 class="stitle v2 Pt25">
+	배송지 정보 &nbsp; &nbsp;
+	<label class="stitle_desc"><input type="checkbox" id="copy_order_info" /> 주문자 정보와 동일</label>
+</h5>
+<div class="resp_table_row input_form">
+	<ul class="tr">
+		<li class="th">이름</li>
+		<li class="td">
+			<input type="text" name="recipient_user_name" value="" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">주소</li>
+		<li class="td">
+			<!--input type="text" name="recipient_zipcode[]" value="" class="size_zip" readonly /> -
+			<input type="text" name="recipient_zipcode[]" value="" class="size_zip" readonly /-->
+			<input type="text" name="recipient_new_zipcode" value="" class="size_zip_all" maxlength="7" title="우편번호" readonly />
+			<button type="button" class="btn_resp size_b color4" onclick="openDialogZipcode_resp('order');">우편번호 검색</button>
+			<input type="hidden" name="recipient_address_type" value="" />
+			<div class="address_area">
+				<input type="text" name="recipient_address" class="size_address" value="" readonly />
+				<input type="text" name="recipient_address_street" class="size_address" value="" readonly style="display:none;" />
+			</div>
+			<div class="address_area">
+				<input type="text" name="recipient_address_detail" class="size_address" placeholder="상세 주소" value="" />
+			</div>
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">휴대폰</li>
+		<li class="td">
+			<input type="text" name="recipient_cellphone[]" value="" class="size_phone" /> - 
+			<input type="text" name="recipient_cellphone[]" value="" class="size_phone" /> - 
+			<input type="text" name="recipient_cellphone[]" value="" class="size_phone" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">연락처2</li>
+		<li class="td">
+			<input type="text" name="recipient_phone[]" value="" class="size_phone" /> - 
+			<input type="text" name="recipient_phone[]" value="" class="size_phone" /> - 
+			<input type="text" name="recipient_phone[]" value="" class="size_phone" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">배송메세지</li>
+		<li class="td">
+			<input type="text" name="memo" value="" class="size_full" placeholder="예) 부재시 경비실에 맡겨주세요" />
+		</li>
+	</ul>
+</div>
+<!--{ / }-->
+
+<p class="p_01">
+	사은품 신청 시 <strong class="pointcolor2">{=number_format(point)} 마일리지</strong>가 차감됩니다.<br />
+	신청하시겠습니까?<br />
+</p>
+
+<div class="btn_area_a">
+	<button type="submit" class="btn_resp size_c color2">신청하기</button>
+</div>
+
+</form>

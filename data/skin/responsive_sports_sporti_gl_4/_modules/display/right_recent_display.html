@@ -1,0 +1,13 @@
+<div class="thumb">
+<!--{ ? dataRightQuicklist }--><ul>
+<!--{ @ dataRightQuicklist }-->
+{? ( .index_ < (sc.limit*10) ) //10page까지 노출}
+	{? (.index_ && (.index_%sc.limit) == 0 )}</ul><ul>{/}
+	<li><a href="../goods/view?no={.goods_seq}" class="right_quick_goods"><img src="{.image}" onerror="this.src='../../images/common/noimage_list.gif'" alt="{.goods_name}"></a><a href="javascript:rightDeleteItem('{sc.ftype}', '{.goods_seq}',$(this))" class="btn_delete cover">삭제</a></li>
+{/}
+<!--{ / }-->
+</ul>
+<!--{ : }-->
+<h2> 최근 본 상품이 없습니다.</h2>
+<!--{ / }-->
+</div>

@@ -1,0 +1,465 @@
+<!--{* ver.[20170811] original.[lattice_a] 버전관리용입니다 삭제하지마세요 *}-->
+<!--{? !ajax_call }-->
+
+<div><b>{title}</b></div>
+<div>{displayTitle}</div>
+
+<!--{ ? perpage }-->
+<!--[ 상품 검색 폼 ]-->
+<div class="mb20">
+	{=showGoodsSearchForm(sc)}
+</div>
+<div class="goods_list_top">
+	<ul class="float_wrap">
+		<li>
+			{?sort}
+			<span class="sort_item">
+				<!--{ @ orders }-->
+					<!--{ ? .index_ }-->
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<!--{ / }-->
+					<!--{ ? .key_ == sort }-->
+						<a href="?sort={.key_}&{=get_args_list(array('page','sort'))}"><b>{.value_}</b></a>
+					<!--{ : }-->
+						<a href="?sort={.key_}&{=get_args_list(array('page','sort'))}">{.value_}</a>
+					<!--{ / }-->
+				<!--{ / }-->
+			</span>
+			{/}
+		</li>
+		<li class="right">
+			<select name="perpage" onchange="document.location.href='?perpage='+this.value+'&{=get_args_list(array('page','perpage'))}'">
+				<option value="{=perpage_min}" {?_GET.perpage==perpage_min}selected{/}>{=number_format(perpage_min)}개씩 보기</option>
+				<option value="{=perpage_min*2}" {?_GET.perpage==perpage_min*2}selected{/}>{=number_format(perpage_min*2)}개씩 보기</option>
+				<option value="{=perpage_min*5}" {?_GET.perpage==perpage_min*5}selected{/}>{=number_format(perpage_min*5)}개씩 보기</option>
+				<option value="{=perpage_min*10}" {?_GET.perpage==perpage_min*10}selected{/}>{=number_format(perpage_min*10)}개씩 보기</option>
+			</select>
+			<ul class="goods_list_style">
+				<li {?list_style=='lattice_a'}class="lattice_a_on"{:}class="lattice_a"{/}><a href="?display_style=lattice_a&{=get_args_list(array('page','display_style'))}" title="격자형A"></a></li>
+				<li {?list_style=='lattice_b'}class="lattice_b_on"{:}class="lattice_b"{/}><a href="?display_style=lattice_b&{=get_args_list(array('page','display_style'))}" title="격자형B"></a></li>
+				<li {?list_style=='list'}class="list_on"{:}class="list"{/}><a href="?display_style=list&{=get_args_list(array('page','display_style'))}" title="리스트형"></a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<!--{ / }-->
+
+<!--{ ? count(displayTabsList)>1 }-->
+<ul class="displayTabContainer {tab_design_type}">
+	<!--{ @ displayTabsList }-->
+		<li {?.index_==0}class="current"{/}>{.tab_title}</li>
+	<!--{ / }-->
+</ul>
+<!--{ / }-->
+
+<!--{ / }-->
+
+<!--{ @ displayTabsList }-->
+<div class="displayTabContentsContainer displayTabContentsA {?count(displayTabsList)>1}displayTabContentsContainerBox{/}">
+	<!--{ ? .contents_type == 'text' }-->
+		<ul>
+			<li>
+				{?mobileMode || storemobileMode}{.tab_contents_mobile}{:}{.tab_contents}{/}
+			</li>
+		</ul>
+	<!--{ : }-->		
+		<!--{ @ .grid }-->
+		<ul>
+			<!--{@..value_}-->
+			<!--{?...index_}--><li class="goodsDisplayItemPadding"></li><!--{/}-->
+			<li class="goodsDisplayWrap">
+				<?php
+					{idx} = {..index_}*{count_w}+{...index_};
+					{goodsDisplayObj} = {.value_.record[idx]};
+				?>				
+				<!--{ ? goodsDisplayObj }-->
+				<div class="goodsDisplayItemWrap">
+					<div class="goodsDisplayImageWrap" decoration="{image_decorations}" goodsInfo="{=base64_encode(json_encode(goodsDisplayObj))}" style="{?img_optimize!=1}max-width:{goodsImageSize.width}px;{/}" version="20141110" img_opt="{img_optimize}">
+						<a href="javascript:void(0);" onclick="display_goods_view('{goodsDisplayObj.goods_seq}','{target}',this,'goods_view')">
+							{ ? img_optimize!=1 && goodsDisplayObj.image_size && goodsDisplayObj.image_size[0]/goodsDisplayObj.image_size[1] <  goodsImageSize.width/goodsImageSize.height}
+								<img src="{goodsDisplayObj.image}" data-src="{goodsDisplayObj.image}" class="goodsDisplayImage lazyload" height="{goodsImageSize.height}" onerror="this.src='../../images/common/noimage.gif';this.style.height='{goodsImageSize.height}px';" alt="{goodsDisplayObj.goods_name}" />
+							{ : }
+								<img src="{goodsDisplayObj.image}" data-src="{goodsDisplayObj.image}" class="goodsDisplayImage lazyload" width="{?img_optimize==1}100%{:}{goodsImageSize.width}{/}" onerror="this.src='../../images/common/noimage.gif';this.style.width='{?img_optimize==1}100%{:}{goodsImageSize.width}px{/}';" alt="{goodsDisplayObj.goods_name}" />
+							{ / }
+							{?decorations.image_icon_type != 'condition'}
+							{?decorations.image_icon && preg_match("/^icon_sale/",decorations.image_icon)}
+								{?goodsDisplayObj.sale_per>0}
+								<div class='goodsDisplayImageIcon'>
+									<img src='/data/icon/goodsdisplay/{decorations.image_icon}' alt="" />
+									<span class='goodsDisplayImageIconText'>{goodsDisplayObj.sale_per}<span class="per">%</span></span>
+								</div>
+								{/}
+							{:decorations.image_icon}
+								<div class='goodsDisplayImageIcon'>
+									<img src='/data/icon/goodsdisplay/{decorations.image_icon}' alt="" />
+									{?preg_match("/^(icon_best_no|icon_number)/",decorations.image_icon)}
+									<span class='goodsDisplayImageIconText'>{=idx+1}</span>
+									{/}
+								</div>
+							{/}
+							{:decorations.image_icon_type == 'condition'}
+								<div class='goodsDisplayImageIcon'>				
+									<div class="goodsDisplayImageIconWrap"></div>
+								</div>
+							{/}
+							{?decorations.image_send || decorations.image_zzim}
+								<div class='goodsDisplayImageSend'>
+								{?decorations.image_send}
+									<img class='goodsSendBtn' src='/data/icon/goodsdisplay/send/{decorations.image_send}' alt="" />
+								{/}
+								{?decorations.image_zzim}
+									<span class='goodsZzimBtn'><img src='/data/icon/goodsdisplay/zzim/{decorations.image_zzim}' class='zzimOffImg' {?goodsDisplayObj.wish=='1'}style="display:none"{/} alt="" /><img src='/data/icon/goodsdisplay/zzim_on/{decorations.image_zzim_on}' class='zzimOnImg' {?goodsDisplayObj.wish!='1'}style="display:none"{/} alt="" /></span>
+								{/}
+								</div>
+							{/}
+							{?decorations.image_slide && goodsDisplayObj.image_cnt>1}
+								<div class='goodsDisplayImageSlide'><img src='/data/icon/goodsdisplay/slide/{decorations.image_slide}' alt="" /></div>
+							{/}
+							{?decorations.image_overay1 || decorations.image_overay1_text}
+								<div class='goodsDisplayImageOveray1'>
+									<div class='goodsDisplayImageOveray1Bg'></div>
+									<div class='goodsDisplayImageOveray1Text'>
+										{?decorations.image_overay1=='goods_name'}{goodsDisplayObj.goods_name}{/}
+										{?decorations.image_overay1=='price'}{=get_currency_price(goodsDisplayObj.price,2)}{/}
+										{?decorations.image_overay1=='sale_price'}{=get_currency_price(goodsDisplayObj.sale_price,2)}{/}
+										{?decorations.image_overay1=='consumer_price'}{=get_currency_price(goodsDisplayObj.consumer_price,2)}{/}
+										{?decorations.image_overay1=='discount'}
+											{?goodsDisplayObj.string_price}
+												{goodsDisplayObj.string_price}
+											{:goodsDisplayObj.consumer_price>goodsDisplayObj.price}
+												{=get_currency_price(goodsDisplayObj.consumer_price)} → {=get_currency_price(goodsDisplayObj.price)}
+											{:}
+												{=get_currency_price(goodsDisplayObj.price)}
+											{/}
+										{/}
+										{?decorations.image_overay1=='sale_discount'}
+											{?goodsDisplayObj.string_price}
+												{goodsDisplayObj.string_price}
+											{:goodsDisplayObj.consumer_price>goodsDisplayObj.sale_price}
+												{=get_currency_price(goodsDisplayObj.consumer_price)} → {=get_currency_price(goodsDisplayObj.sale_price)}
+											{:}
+												{=get_currency_price(goodsDisplayObj.sale_price)}
+											{/}
+										{/}
+										{?decorations.image_overay1=='brand_title'}{goodsDisplayObj.brand_title}{/}
+										{?decorations.image_overay1=='related_goods'}<span class='hand' onclick="return show_display_related_goods(this,'{goodsDisplayObj.goods_seq}')" style='display:block;'>관련상품보기</span>{/}
+										{?!decorations.image_overay1 && image_overay1_text}{goodsDisplayObj.image_overay1_text}{/}
+									</div>
+								</div>
+							{/}
+							{?decorations.use_review_option_like}
+								<div class="goodsDisplayBottomFuncWrap">
+									<div class="goodsDisplayBottomFunc">
+										<div class="display_newwin hide" onclick="window.open('/goods/view?no={goodsDisplayObj.goods_seq}')"><img src='/data/icon/goodsdisplay/preview/thumb_newwin.png' alt="새창보기" /></div>
+										<div class="display_quickview" onclick="display_goods_quickview(this,'{goodsDisplayObj.goods_seq}')"><img src='/data/icon/goodsdisplay/preview/thumb_quickview.png' alt="미리보기" /></div>
+										<div class="display_option" onclick="display_goods_show_opt(this,'{goodsDisplayObj.goods_seq}')" goods_seq="{goodsDisplayObj.goods_seq}"><img src='/data/icon/goodsdisplay/preview/thumb_option.png' alt="옵션보기" /><div class="hide display_opt_bak"></div></div>
+										<div class="display_send" onclick="display_goods_send(this,'bottom')"><img src='/data/icon/goodsdisplay/preview/thumb_send.png' alt="SNS보내기" /></div>
+										<div class="display_zzim" onclick="display_goods_zzim(this,'{goodsDisplayObj.goods_seq}')" {?goodsDisplayObj.wish=='1'}act="stay"{/}><img src='/data/icon/goodsdisplay/preview/thumb_zzim_off.png' class='zzimOffImg' {?goodsDisplayObj.wish=='1'}style="display:none"{/} alt="찜하기" /><img src='/data/icon/goodsdisplay/preview/thumb_zzim_on.png' class='zzimOnImg' {?goodsDisplayObj.wish!='1'}style="display:none"{/} alt="찜하기"/></div>
+									</div>
+								</div>
+							{/}
+						</a>
+					</div>
+					<!--{ ? decorations.quick_shopping && decorations.quick_shopping_data }-->
+					<div class="goodsDisplayQuickShopping">
+						<ul class="quick_shopping_container">
+							{@(decorations.quick_shopping_data)}
+								{?....value_=='newwin'}
+								<li class='goodsNewwinBtn' onclick="window.open('/goods/view?no={goodsDisplayObj.goods_seq}')"><img src='/data/icon/goodsdisplay/quick_shopping/thumb_newwin.gif' alt="새창보기" /></li>
+								{/}
+								{?....value_=='quickview'}
+								<li class='goodsQuickviewBtn' onclick="display_goods_quickview(this,'{goodsDisplayObj.goods_seq}')"><img src='/data/icon/goodsdisplay/quick_shopping/thumb_quickview.gif' alt="미리보기" /></li>
+								{/}
+								{?....value_=='send'}
+								<li class='goodsSendBtn' onclick="display_goods_send(this,'bottom')"><img src='/data/icon/goodsdisplay/quick_shopping/thumb_send.gif' alt="SNS보내기" /></li>
+								{/}
+								{?....value_=='zzim'}
+								<li class='goodsZzimBtn' onclick="display_goods_zzim(this,'{goodsDisplayObj.goods_seq}')"><img src='/data/icon/goodsdisplay/quick_shopping/thumb_zzim.gif' class='zzimOffImg' {?goodsDisplayObj.wish=='1'}style="display:none"{/} alt="찜하기" /><img src='/data/icon/goodsdisplay/quick_shopping/thumb_zzim_on.gif' class='zzimOnImg' {?goodsDisplayObj.wish!='1'}style="display:none"{/} alt="찜하기"/>
+								</li>
+								{/}
+							{/}
+						</ul>
+					</div>
+					<!--{ / }-->
+					<ul class="goodsDisplayTextWrap" style="text-align:{text_align};">
+					<!--{ @ info_settings.list }-->
+						<!--{? ....value_->kind == 'brand_title' && goodsDisplayObj.brand_title }-->
+						<li>
+							<a href="/goods/brand?code={goodsDisplayObj.brand_code}">
+								<span {....value_->name_css} class="brand_title">
+								{?....value_->wrapper}{=substr(....value_->wrapper,0,1)}{/}{goodsDisplayObj.brand_title}{?....value_->wrapper}{=substr(....value_->wrapper,1,1)}{/}
+								</span>
+							</a>
+						</li>
+						<!-- //브랜드명 -->
+						<!--{/}-->						
+						<!--{? ....value_->kind == 'goods_name' }-->
+						<li>
+							<a href="javascript:void(0)"  onclick="display_goods_view('{goodsDisplayObj.goods_seq}','{target}',this,'goods_view')"><span {....value_->name_css} class="goods_name">{goodsDisplayObj.goods_name}</span></a>
+						</li>
+						<!-- //상품명 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'summary' && goodsDisplayObj.summary}-->
+						<li>
+							<span {....value_->name_css} class="summary">{goodsDisplayObj.summary}</span>
+						</li>
+						<!-- //짧은 설명 -->
+						<!--{/}-->						
+						<!--{? ....value_->kind == 'consumer_price' && goodsDisplayObj.consumer_price > goodsDisplayObj.sale_price }-->
+						<li class="consumer_wrap">
+							<span {....value_->name_css} class="consumer_price">
+								{?goodsDisplayObj.string_price}
+									{goodsDisplayObj.string_price}
+								{:}
+									{?....value_->position == "before" && ....value_->postfix}{....value_->postfix}{/}
+									{=get_currency_price(goodsDisplayObj.consumer_price)}{?....value_->position == "after" &&....value_->postfix}{....value_->postfix}{/}
+								{/}
+							</span>
+							{=showCompareCurrency(....value_->compare,goodsDisplayObj.consumer_price)}
+
+							<!--{? goodsDisplayObj.sale_per }-->
+							{? text_align=='center' || text_align=='right'}
+							<span class="sale_per">(<strong>{goodsDisplayObj.sale_per}</strong>%)</span>
+							{:}
+							<span class="sale_per"><strong>{goodsDisplayObj.sale_per}</strong> %</span>
+							{/}
+							<!-- //할인율 -->
+							<!--{ / }-->
+						</li>
+						<!-- //정가 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'price' }-->
+						<li>
+							<span class="price_txt">판매가</span>
+							<span {....value_->name_css} class="sale_price">
+								{?goodsDisplayObj.string_price}
+									{goodsDisplayObj.string_price}
+								{:}
+									{?....value_->position == "before" && ....value_->postfix}{....value_->postfix}{/}
+									{=get_currency_price(goodsDisplayObj.price)}{?....value_->position == "after" && ....value_->postfix}<span class="price_unit">{....value_->postfix}</span>{/}
+								{/}
+							</span>
+							{=showCompareCurrency(....value_->compare,goodsDisplayObj.price)}
+						</li>
+						<!-- //판매가 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'sale_price' }-->
+						<li>
+							<span class="price_txt">이벤트가</span>
+							<span {....value_->name_css} class="sale_price">
+								{?goodsDisplayObj.string_price}
+									{goodsDisplayObj.string_price}
+								{:}
+									{?....value_->position == "before" && ....value_->postfix}{....value_->postfix}{/}
+									{=get_currency_price(goodsDisplayObj.sale_price)}{?....value_->position == "after" && ....value_->postfix}<span class="price_unit">{....value_->postfix}</span>{/}
+								{/}
+							</span>
+							{=showCompareCurrency(....value_->compare,goodsDisplayObj.sale_price)}
+						</li>
+						<!-- //(혜택적용)판매가 -->
+						<!--{/}-->						
+						<!--{? ....value_->kind == 'count' && goodsDisplayObj.eventEnd && (....value_->time_count || ....value_->buy_count) }-->
+						<li>
+							<ul class="eventEnd">
+							<!--{? ....value_->time_count }-->
+								<!--{? goodsDisplayObj.eventEnd }-->
+								<li class="soloEventTd_{display_key}_{goodsDisplayObj.goods_seq}">
+									<img src="../../images/common/icon_clock.gif" alt="" /> 남은시간 <span class="time_count"><span id="soloday_{display_key}_{goodsDisplayObj.goods_seq}"></span>일 <span id="solohour_{display_key}_{goodsDisplayObj.goods_seq}"></span>:<span id="solomin_{display_key}_{goodsDisplayObj.goods_seq}"></span>:<span id="solosecond_{display_key}_{goodsDisplayObj.goods_seq}"></span></span>
+									<script type="text/javascript">
+										$(function() {
+											timeInterval_{display_key}_{goodsDisplayObj.goods_seq} = setInterval(function(){
+												var time_{display_key}_{goodsDisplayObj.goods_seq} = showClockTime('text', '{goodsDisplayObj.eventEnd.year}', '{goodsDisplayObj.eventEnd.month}', '{goodsDisplayObj.eventEnd.day}', '{goodsDisplayObj.eventEnd.hour}', '{goodsDisplayObj.eventEnd.min}', '{goodsDisplayObj.eventEnd.second}', 'soloday_{display_key}_{goodsDisplayObj.goods_seq}', 'solohour_{display_key}_{goodsDisplayObj.goods_seq}', 'solomin_{display_key}_{goodsDisplayObj.goods_seq}', 'solosecond_{display_key}_{goodsDisplayObj.goods_seq}', '_{display_key}_{goodsDisplayObj.goods_seq}');
+												if(time_{display_key}_{goodsDisplayObj.goods_seq} == 0){
+												clearInterval(timeInterval_{display_key}_{goodsDisplayObj.goods_seq});
+												$(".soloEventTd_{display_key}_{goodsDisplayObj.goods_seq}").html("단독 이벤트 종료");
+												}
+											},1000);
+										});
+									</script>
+								</li>
+								<!--{/}-->
+							<!--{/}-->
+							<!--{? ....value_->buy_count }-->
+								<li>
+									현재 <span class="buy_count">{=number_format(goodsDisplayObj.event_order_ea)}</span>개 구매
+								</li>
+							<!--{/}-->
+							</ul>
+						</li>
+						<!-- //판매수량, 남은시간 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'event_text' }-->
+						<li>
+							<span {....value_->name_css} class="event_text">
+								{?is_numeric(goodsDisplayObj.event_text)}
+									{=number_format(goodsDisplayObj.event_text)}{?....value_->postfix}{....value_->postfix}{/}
+								{:}
+									{goodsDisplayObj.event_text}
+								{/}
+							</span>
+						</li>
+						<!-- //이벤트 텍스트 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'fblike' && APP_USE == 'f' && APP_LIKE_TYPE != 'NO'}-->
+						<li class="fblike">
+							{=snsLikeButton(goodsDisplayObj.goods_seq,....value_->fblike)}
+						</li>
+						<!-- //좋아요(페이스북) -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'icon'}-->
+						<li class="icon">
+							<!--{ @ goodsDisplayObj.icons }-->
+							<img src="/data/icon/goods/{.....value_}.gif" alt="" />
+							<!--{ / }-->
+							<!--{ ? ....value_->list_icon_cpn && 0 }-->
+							<img src="/data/icon/goods_status/icon_list_cpn.gif" alt="쿠폰" />
+							<!--{ / }-->
+							<!--{ ? ....value_->list_icon_freedlv && 0 }-->
+							<img src="/data/icon/goods_status/icon_list_freedlv.gif" alt="무료배송" />
+							<!--{ / }-->
+							<!--{ ? ....value_->list_icon_video && goodsDisplayObj.videousetotal }-->
+							<img src="/data/icon/goods_status/icon_list_video.gif" alt="동영상" />
+							<!--{ / }-->
+						</li>
+						<!-- //아이콘 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'status_icon' }-->
+						<li class="status_icon">
+							<!--{ ? ....value_->status_icon_runout && goodsDisplayObj.goods_status == 'runout' }-->
+							<img src="/data/icon/goods_status/icon_list_soldout.gif" alt="품절" />
+							<!--{ / }-->
+							<!--{ ? ....value_->status_icon_purchasing && goodsDisplayObj.goods_status == 'purchasing' }-->
+							<img src="/data/icon/goods_status/icon_list_warehousing.gif" alt="재고확보중" />
+							<!--{ / }-->
+							<!--{ ? ....value_->status_icon_unsold && goodsDisplayObj.goods_status == 'unsold' }-->
+							<img src="/data/icon/goods_status/icon_list_stop.gif" alt="판매중지" />
+							<!--{ / }-->
+						</li>
+						<!-- //상태 아이콘 -->
+						<!--{/}-->						
+						<!--{? ....value_->kind == 'score' }-->
+						<li class="score">
+							<!--{? number_format(round(goodsDisplayObj.review_sum/goodsDisplayObj.review_count)) == 0 }-->
+							<span class="num">0</span>
+							<!--{ : }-->
+							<span class="num">{=round(goodsDisplayObj.review_sum/goodsDisplayObj.review_count)}</span>
+							<!--{ / }-->
+							<span class="orange">{=str_repeat('★',round(goodsDisplayObj.review_sum/goodsDisplayObj.review_count))}</span>
+							<span class="gray">{=str_repeat('★',5-number_format(round(goodsDisplayObj.review_sum/goodsDisplayObj.review_count)))}</span>
+							상품평 (<span class="red">{=number_format(goodsDisplayObj.review_count)}</span>)
+						</li>
+						<!-- //상품평 -->
+						<!--{/}-->						
+						<!--{? ....value_->kind == 'color' }-->
+						<li>
+							{@(goodsDisplayObj.colors)}
+							<span style="background:{.....value_}; color:{.....value_};" class="color">■</span>
+							{/}
+						</li>
+						<!-- //컬러 옵션 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'provider_name' }-->
+						<li>
+							<a href="javascript:void(0)"  onclick="display_goods_view('{goodsDisplayObj.provider_seq}','{target}',this,'provider')"><span {....value_->name_css} class="provider_name">{goodsDisplayObj.provider_name}</span></a>
+						</li>
+						<!-- //판매자명 -->
+						<!--{/}-->
+						<!--{? ....value_->kind == 'bigdata' }-->
+						<li>
+							<a href="javascript:void(0)"  onclick="display_goods_view('{goodsDisplayObj.goods_seq}','{target}',this,'bigdata')"><span {....value_->name_css} class="bigdata">{....value_->bigdata}</span></a>
+						</li>
+						<!-- //빅데이터 큐레이션 -->
+						<!--{ / }-->
+						<!--{? ....value_->kind == 'shipping' && goodsDisplayObj.shipping_group}-->
+						<li class="shipping">
+							<ul>
+								<!--{? ....value_->shipping_free && goodsDisplayObj.shipping_group.default_type == 'free' && goodsDisplayObj.shipping_group.default_type_code.free}-->
+								<li>{goodsDisplayObj.shipping_group.default_type_code.free}</li>
+								<!--{/}-->
+								<!--{? ....value_->shipping_fixed && goodsDisplayObj.shipping_group.default_type == 'fixed' && goodsDisplayObj.shipping_group.default_type_code.fixed}-->
+								<li>{goodsDisplayObj.shipping_group.default_type_code.fixed}</li>
+								<!--{/}-->
+								<!--{? ....value_->shipping_iffree && goodsDisplayObj.shipping_group.default_type == 'iffree' && goodsDisplayObj.shipping_group.default_type_code.iffree}-->
+								<li>{goodsDisplayObj.shipping_group.default_type_code.iffree}</li>
+								<!--{/}-->
+								<!--{? ....value_->shipping_ifpay && goodsDisplayObj.shipping_group.default_type == 'ifpay' && goodsDisplayObj.shipping_group.default_type_code.ifpay}-->
+								<li>{goodsDisplayObj.shipping_group.default_type_code.ifpay}</li>
+								<!--{/}-->
+							</ul>
+							<!--{? ....value_->shipping_overseas && goodsDisplayObj.shipping_group.gl_shipping_yn == 'Y' && goodsDisplayObj.shipping_group.default_type_code.overseas}-->
+							<div class="shipping_overseas">
+								{goodsDisplayObj.shipping_group.default_type_code.overseas}
+							</div>
+							<!--{/}-->
+						</li>
+						<!-- //배송그룹 -->
+						<!--{ / }-->						
+						<!--{?....value_->kind == 'pageview'}-->
+						<li>
+							<span class="goods_list_page_view">
+								<img class="goods_list_page_view_img" src="/data/icon/goodsdisplay/preview/icon_pageview.png" alt="페이지뷰" /> 
+								<span class="goods_list_page_view_count">{?goodsDisplayObj.page_view > 9999}9,999+{:}{=number_format(goodsDisplayObj.page_view)}{/}</span>
+							</span>
+							<span class="goods_list_goods_zzim">
+								<label onclick="display_goods_zzim(this,'{goodsDisplayObj.goods_seq}');"><img class="goods_list_goods_zzim_img" src="/data/icon/goodsdisplay/preview/icon_zzim_{?goodsDisplayObj.wish==1}on{:}off{/}.png" alt="찜하기" /> 
+								찜 <span class="goods_list_goods_zzim_count">{=number_format(goodsDisplayObj.wish_count)}</span></label>
+							</span>
+						</li>
+						<!-- //페이지뷰&찜하기 -->
+						<!--{ / }-->
+					<!--{ / }-->
+					</ul>
+				</div>
+				<!--{/}-->				
+			</li>
+			<!--{/}-->
+		</ul>
+		<!--{/}-->		
+	<!--{ / }-->
+</div>
+<!--{ / }-->
+
+<!--{? !ajax_call }-->
+
+<!--{ ? perpage }-->
+	<!--{ #paging }-->
+<!--{ / }-->
+
+<style type="text/css">
+	{?decorations.image_border1_width && decorations.image_border_type != 'all'}
+	#{display_key} .goodsDisplayImageWrap {border:{decorations.image_border1_width}px solid {decorations.image_border1}; margin:-{decorations.image_border1_width}px;}
+	{:decorations.image_border1_width && decorations.image_border_type == 'all'}
+	#{display_key} .goodsDisplayItemWrap {border:{decorations.image_border1_width}px solid {decorations.image_border1};}
+    #{display_key} .goodsDisplayTextWrap {padding:15px;}
+	{/}
+	{?decorations.image_icon && decorations.image_icon_location=='right'}
+	#{display_key} .goodsDisplayImageIcon {right:0px; {?decorations.image_icon_over=='y'}display:none;{/}}
+	{/}
+	{?decorations.image_icon && decorations.image_icon_location=='left'}
+	#{display_key} .goodsDisplayImageIcon {left:0px; {?decorations.image_icon_over=='y'}display:none;{/}}
+	{/}
+	{?decorations.image_icon && preg_match("/^icon_best_no/",decorations.image_icon)}
+	#{display_key} .goodsDisplayImageIconText {font-size:16px; text-align:center; width:48px; top:22px;}
+	{/}
+	{?decorations.image_icon && preg_match("/^icon_number/",decorations.image_icon)}
+	#{display_key} .goodsDisplayImageIconText {font-size:18px; text-align:right; width:28px; top:11px;}
+	{/}
+	{?decorations.image_icon && preg_match("/^icon_sale/",decorations.image_icon)}
+	#{display_key} .goodsDisplayImageIconText {font-size:16px; text-align:center; width:48px; top:6px;}	
+	{/}
+	{?(decorations.image_send || decorations.image_zzim) && decorations.image_send_location=='right'}
+	#{display_key} .goodsDisplayImageSend {right:2px; {?decorations.image_send_over=='y'}display:none;{/}} 
+	{/}
+	{?(decorations.image_send || decorations.image_zzim) && decorations.image_send_location=='left'}
+	#{display_key} .goodsDisplayImageSend {left:2px; {?decorations.image_send_over=='y'}display:none;{/}}
+	{/}
+	{? text_align=='center' || text_align=='right'}
+	#{display_key} .goodsDisplayTextWrap .consumer_price {margin-left:0;}
+	#{display_key} .goodsDisplayTextWrap .price_txt {display:none;}
+	#{display_key} .goodsDisplayTextWrap .sale_per {position:relative; left:1px; top:1px; font-family:'tahoma', sans-serif; height:18px; line-height:1.8; letter-spacing:0;}
+	#{display_key} .goodsDisplayTextWrap .sale_per strong {font-family:inherit; font-size:inherit; font-weight:bold; letter-spacing:inherit;}
+	{/}
+	#{display_key} .displayTabContentsA > ul > li.goodsDisplayWrap {width:{?img_optimize==1}{(100-img_padding)/count_w}%{:}{goodsImageSize.width}px;{/}}
+</style>
+
+<!--{ / }-->

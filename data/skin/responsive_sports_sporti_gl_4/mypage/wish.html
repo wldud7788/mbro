@@ -1,0 +1,163 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 위시리스트 @@
+- 파일위치 : [스킨폴더]/mypage/wish.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">위시리스트</span></h2>
+		</div>
+
+		{#common_mycart_top}
+
+		<form name="wish_form" id="wish_form" method="post">
+		<!--{ ? record }-->
+			<div class="wish_allselect_area">
+				<label class="checkbox_allselect"><input type="checkbox" class="btn_select_all" /> <span class="txt">전체선택</span></label>
+				<button type="button" class="btn_resp btn_select_del">선택삭제</button>
+			</div>
+
+			<div class="wish_wrap">
+				<ul id="wishList" class="wish_list">
+					<!--{ @ record }-->
+					<li>
+						<div class="img_area"><a href="../goods/view?no={.goods_seq}">{.image_html}</a></div>
+						<ul class="sub">
+							<li class="wish_name">
+								<label><input type="checkbox" name="wish_seq[]" value="{.wish_seq}" /> {.goods_name}</label>
+							</li>
+							<li class="wish_price">
+								<!--{? .string_price_use }-->
+								<p class="string_price"><b class="price">{.string_price}</b></p>
+								<!--{ : }-->
+								<p class="nomal_price">
+									<b>{=get_currency_price(.sale_price,2)}</b>
+									<!--{ ? .consumer_price && .sale_price != .consumer_price  }-->
+									<s>{=get_currency_price(.consumer_price)}</s>
+									<!--{ / }-->
+								</p>
+								{=.sale_price_compare}
+								<!--{ / }-->
+							</li>
+							<!--{ ? .reserve || ( isplusfreenot && isplusfreenot.ispoint ) }-->
+							<li class="wish_point">
+								<!--{ ? .reserve }-->
+								{=get_currency_price(.reserve,2)} 적립
+								<!--{ / }-->
+								<!--{ ? isplusfreenot && isplusfreenot.ispoint  }-->
+								/ {=number_format(.point)}P 적립
+								<!--{ / }-->
+							</li>
+							<!--{ / }-->
+							<li class="wish_btns">
+								<button type="button" name="cart" id="wishcart_{.wish_seq}" class="btn_resp size_a color2 wishcart">장바구니 담기</button>
+								<button type="button" class="btn_resp size_a color5 btn_thisitem_del" value="{.wish_seq}">삭제</button>
+							</li>
+						</ul>
+					</li>
+					<!--{ / }-->
+				</ul>
+			</div>
+
+			<div class="paging_navigation">
+				<!--{ ? page.prev }-->
+				<a href="wish?page={page.prev}&amp;{page.querystring}"><span class="prev" />◀ 이전 </span></a>
+				<!--{ / }-->
+				<!--{ @ page.page }-->
+					<!--{ ? page.nowpage ==  .value_ }-->
+					<a class="on red">{.value_ }</a>&nbsp;
+					<!--{ : }-->
+					<a href="wish?page={.value_}&amp;{page.querystring}">{.value_ }</a>&nbsp;
+					<!--{ / }-->
+				<!--{ / }-->
+				<!--{ ? page.next }-->
+				<a href="wish?page={page.next}&amp;{page.querystring}"><span class="next " />다음 ▶</span></a>
+				<!--{ / }-->
+			</div>
+		<!--{ : }-->
+			<div class="no_data_area2 Mt20">
+				위시리스트에 담긴 상품이 없습니다.
+			</div>
+		<!--{ / }-->
+		</form>
+
+		<div id="cart_dialog" class="resp_layer_pop hide">
+			<h4 class="title">장바구니 담기</h4>
+			<div class="y_scroll_auto v2">
+			</div>
+			<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+		</div>
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+
+<!--div id="cart_dialog" style="display:none;"></div-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		// 항목 크기 설정
+		/* 반응형에서 크기가 고정됨 --> css 처리로 변경 __ 190422
+		if ( window.innerWidth > 767 ) {
+			var li_width = $('#wishList>li:first-child .img_area img').width();
+			$('#wishList>li').width( li_width );
+		}
+		*/
+
+		// 전체 선택
+		$("form#wish_form .btn_select_all").change(function() {
+			if($(this).is(":checked")) {
+				$("input[name='wish_seq[]']").attr("checked",true);
+				$("input[name='wish_seq[]']").closest('.ez-checkbox').addClass('ez-checkbox-on');
+			} else {
+				$("input[name='wish_seq[]']").attr("checked",false);
+				$("input[name='wish_seq[]']").closest('.ez-checkbox').removeClass('ez-checkbox-on');
+			}
+		});
+
+		// 선택삭제
+		$("form#wish_form button.btn_select_del").bind("click",function(){
+			$("form#wish_form").attr("action","wish_del");
+			$("form#wish_form").attr("target","actionFrame");
+			$("form#wish_form")[0].submit();
+		});
+		
+		// 현재상품 삭제
+		$("form#wish_form button.btn_thisitem_del").bind("click",function(){
+			var selected_order = $(this).val();
+			$("input[name='wish_seq[]']").removeAttr("checked");
+			$("input[name='wish_seq[]'][value='"+selected_order+"']").attr("checked", true);
+
+			$("form#wish_form").attr("action","wish_del");
+			$("form#wish_form").attr("target","actionFrame");
+			$("form#wish_form")[0].submit();
+		});
+
+		// 장바구니담기 버튼
+		$("button[name='cart']").bind("click",function() {
+			var seq = $(this).attr('id');
+			seq = seq.replace("wishcart_","");
+			var url = "wish2cart?no="+seq;
+			$.get(url, function(data) {
+				$("#cart_dialog .y_scroll_auto").html(data);
+				//장바구니 담기
+				showCenterLayer('#cart_dialog');
+				//openDialog(getAlert('mp040'), "cart_dialog", {"width":500,"height":600});
+			});
+		});
+	});
+</script>

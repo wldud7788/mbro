@@ -1,0 +1,148 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 브랜드 메인 @@
+- 파일위치 : [스킨폴더]/goods/brand_main.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="search_nav">
+	<a class="home" href="../main/index">홈</a>
+	<span class="navi_linemap on" designElement="text">BRANDS</span>
+</div>
+
+<!-- 브랜드 데이터 로드 -->
+<!--{=assignBrandMenuData()}-->
+
+<!--{ ? page_config.banner.banner_seq }-->
+<!--메인배너 :: START -->
+<div id="slideBanner_BrandMain" class="page_banner_area1 slider_before_loading">
+{=showDesignBanner(page_config.banner.banner_seq,true)}
+</div>
+<!--메인배너 :: END -->
+<!--{ / }-->
+<!--{ ? page_config.search_filter && count(page_config.search_filter) > 0 }-->
+<form id="brandFm">
+	<fieldset>
+		<legend>Search Brand</legend>
+		<!--{ ? in_array('brand', page_config.search_filter)}-->
+		<div class="resp_brand_search_form">
+			<span class="search_title" designElement="text">Search Brand</span>
+			<input type="text" name="keyword" class="search_input" value="" />&nbsp;
+			<button type="submit" class="btn_resp size_c"><span designElement="text">검색</span></button>
+		</div>
+		<!--{ / }-->
+		<!--{ ? in_array('kor', page_config.search_filter) || in_array('eng', page_config.search_filter) }-->
+		<div class="resp_brand_search_btns">
+			<ul>
+				<li><a href="javascript:void(0)" class="alphabet_btn all on" data-target="all"><span designElement="text">ALL</span></a></li>
+				<!--{ @ (brandMenuData) }-->
+					<!--{ ? (preg_match('/[a-z]/', .key_) && in_array('eng', page_config.search_filter)) || (preg_match('/[ㄱ-ㅎ]/', .key_) && in_array('kor', page_config.search_filter)) }-->
+				<li {?!.value_[0]}class="hide"{/}><a href="javascript:void(0)" class="alphabet_btn" data-target="wrap{=str_replace("/", "", strtr(base64_encode(str_replace("/", "", .key_)), "+=", "-_"))}">{=strtoupper(.key_)}</a></li>
+					<!--{ / }-->
+				<!--{ / }-->
+			</ul>
+		</div>
+		<!--{ / }-->
+	</fieldset>
+</form>
+<!--{ / }-->
+<!--{ ? (brandMenuData) }-->
+<div class="resp_brand_main_list">
+	<!--{ @ (ALL) }-->
+		<ul class="brandwrap all brand{.category_code}" >
+			<li>
+				<a class="brand_list_block" {?.brand_image}{/} href="/goods/brand?code={.category_code}">
+					<img src="{=.brand_image}" alt="{.prn_title}" onerror="this.src='../images/common/noimage.gif';" />
+					<span class="name">
+						{.prn_title}
+						<!--{ ? .best == 'Y' && brand_best_icon }-->
+						<img class="icon" src="{brand_best_icon}" alt="best" onerror="this.src='/data/icon/goods/error/noimage_list.gif';" />
+						<!--{ / }-->
+					</span>
+				</a>
+			</li>
+		</ul>
+	<!--{ / }-->
+	<!--{ @ (brandMenuData) }-->
+		<!--{ @ .value_ }-->
+		<ul class="brandwrap brand{..category_code} wrap{=str_replace("/", "", strtr(base64_encode(str_replace("/", "", .key_)), "+=", "-_"))}" style="display: none">
+			<li>
+				<a class="brand_list_block" {?..brand_image}{/} href="/goods/brand?code={..category_code}">
+					<img src="{=..brand_image}" alt="{..prn_title}" onerror="this.src='../images/common/noimage.gif';" />
+					<span class="name">
+						{..prn_title}
+						<!--{ ? ..best == 'Y' && brand_best_icon }-->
+						<img class="icon" src="{brand_best_icon}" alt="best" onerror="this.src='/data/icon/goods/error/noimage_list.gif';" />
+						<!--{ / }-->
+					</span>
+				</a>
+			</li>
+		</ul>
+		<!--{ / }-->
+	<!--{ / }-->
+	
+</div>
+<!--{ : }-->
+<div class="no_data_area2">
+	브랜드 정보가 없습니다.
+</div>
+<!--{ / }-->
+
+<div id="filterNoData" class="no_data_area2" style="display:none;">
+	브랜드 정보가 없습니다.
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".alphabet_btn").click(function(){
+		$(".alphabet_btn").removeClass("on");
+		$(this).addClass("on");
+
+		$target = $(this).attr("data-target");
+		$(".brandwrap").removeClass("on").hide();
+		$(".brandwrap."+$target).addClass("on").show();
+		if($target === "all") {
+			$(".brandwrap.all").removeClass("on").show();
+		}
+
+		if ( $('.resp_brand_main_list>ul:visible').length == 0 ) $('#filterNoData').show();
+		else $('#filterNoData').hide();
+		$('.search_input').val('');
+	});
+	$("#brandFm").submit(function(){
+		$.post("/goods_process/brand_search",$(this).serializeArray(), function(response){
+			if (response.result == false) {
+				$(".brandwrap.all").removeClass("on").show();
+				//$(".brandtxt").removeClass("disable");
+				//$(".brandtxt").removeClass("on");
+			} else {
+				$(".brandwrap").removeClass("on").hide();
+				//$(".brandtxt").addClass("disable");
+				//$(".brandtxt").removeClass("on");
+				$(response).each(function(idx, data){
+					//$(".brandwrap.brand"+data.category_code).show();
+					$(".brandwrap.all.brand"+data.category_code).addClass("on").show();
+				});
+			}
+
+			if ( $('.resp_brand_main_list>ul:visible').length == 0 ) $('#filterNoData').show();
+			else $('#filterNoData').hide();
+			$('.alphabet_btn').removeClass('on');
+			$('.alphabet_btn.all').addClass('on');
+		}, "json");
+		return false;
+	});
+
+	$(".brand_classification").click(function(){
+		$("#brandFm").submit();
+	});
+
+	// "브랜드 메인" 상단 슬라이드배너 옵션 설정
+	$('#slideBanner_BrandMain .custom_slider>div').slick('unslick');
+	$('#slideBanner_BrandMain .custom_slider>div').slick({
+		dots: true, // 도트 페이징 사용( true 혹은 false )
+		autoplay: true, // 슬라이드 자동( true 혹은 false )
+		speed: 1000, // 슬라이딩 모션 속도 ms( 밀리세컨드, ex. 600 == 0.6초 )
+		fade: true, // 페이드 모션 사용( 이 부분은 수정하지 마세요 )
+		autoplaySpeed: 5000 // autoplay 사용시 슬라이드간 시간 ms( 밀리세컨드, ex. 5000 == 5초 )
+	});
+});
+</script>

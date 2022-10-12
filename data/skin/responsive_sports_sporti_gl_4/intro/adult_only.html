@@ -1,0 +1,124 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 인트로 > 성인인증 @@
+- 파일위치 : [스킨폴더]/intro/adult_only.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+{is_file_facebook_tag}
+{is_file_kakao_tag}
+
+
+<div class="layout_intro">	
+	<div class="mypage_greeting Lh16 pointcolor imp">
+		<div style="text-align:center; padding: 20px 0 20px 0;"><img src="../images/common/top_img_minor.gif" alt="19세 미만 출입금지" /></div>
+		<div style="padding: 0 20px 0 20px;">
+			<p style="padding-bottom:10px; font-size:30px; line-height:1.2; font-weight:700; color:red; text-align:center;" designElement="text">본 상품정보는 '청소년에게 유해한 정보'를 포함하고 있어서, 성인여부 인증이 필요합니다.</p>
+			<p style="font-size:20px; text-align:center; line-height: 1.2; padding:0 4% 0 4%;" designElement="text">이 정보내용은 「청소년유해매체물로서 정보통신망 이용촉진 및 정보보호 등에 관한 법률」 및 「청소년 보호법」에 따라 19세 미만의 청소년이 이용할 수 없습니다.</p>
+		</div>
+		
+		<div style="width:100%; padding: 20px 0 0 0; text-align:center;">
+			<p style="display:inline-block;"><a class="btn_resp size_c color3 Wmax" href="https://firstmall.kr" designElement="text">19세 미만 나가기</a></p>
+		</div>
+	</div>
+
+	<div class="resp_login_wrap">
+		<form name="loginForm" target="actionFrame" method="post" action="{=sslAction('../login_process/login')}">
+		<input type="hidden" name="return_url" value="{return_url}"/>
+		<input type="hidden" name="adult_auth" value="1"/><!-- 성인인증시 인증페이지 이동값 -->
+
+			<fieldset>
+				<ul class="login_real_area">
+					<li class="input_area">
+						<input type="text" name="userid" id="userid" class="box_id" value="{? idsavechecked }{idsavechecked}{/}" placeholder="아이디" />
+						<input type="password" name="password" class="box_pw" placeholder="비밀번호" />
+					</li>
+					<li>
+						<label class="id_save"><input type="checkbox" name="idsave" id="idsave" value="checked"  {? idsavechecked } checked="checked" {/} /> <span designElement="text">아이디 저장</span></label>
+					</li>
+					<li>
+						<button type="submit" class="btn_resp size_login1"><span designElement="text">로그인</span></button>
+					</li>
+					<li class="find_join">
+						<a href="../member/find?mode=findid" designElement="text">아이디 찾기</a> &nbsp;|&nbsp;
+						<a href="../member/find?mode=findpw" designElement="text">비밀번호 찾기</a> &nbsp;|&nbsp;
+						<a class="join" href="/member/agreement" designElement="text">회원가입</a>
+					</li>
+				</ul>
+				
+
+				<!-- SNS 가입폼 -->
+				<!--{? count(joinform.use_sns) > 0 }-->
+				<h3 class="title_sub3 v3"><span designElement="text">또는 SNS 로그인</span></h3>
+				<ul class="sns_login_ul">
+					<!--{@ joinform.use_sns }-->
+					{? .key_ }<li class="sns-login-button" snstype="{=.key_}"><div class="img"><img src="../images/design/sns_icon_{=.key_}.png" alt="{=.key_} 로그인" title="{=.value_['nm']} 로그인"/></div></li>{/}
+					<!--{ / }-->
+				</ul>
+				<!--{/}-->
+			</fieldset>
+		</form>
+
+		<!-- 비회원 인증시 -->
+		<div class="Pt40"><a class="btn_resp size_c color4 Wmax" href="/member/adult_auth{?return_url}?return_url={return_url}{/}"><span designElement="text">비회원 인증하기</span></a></div>
+	</div>
+	
+	<div>
+		<div style="width:100%; padding: 30px 0 0 0; text-align:center;">
+			<p style="display:inline-block; font-size: 18px;">www.{=domain}</p>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("input:radio[name='auth_type']").live("click",function(){
+		if($(this).val()=='phone'){
+			$("#phone_tab").show();
+			$("#ipin_tab").hide();
+			$("#auth_tab").hide();
+		}else if($(this).val()=='ipin'){
+			$("#phone_tab").hide();
+			$("#ipin_tab").show();
+			$("#auth_tab").hide();
+		}else{
+			$("#phone_tab").hide();
+			$("#ipin_tab").hide();
+			$("#auth_tab").show();
+		}
+	});
+});
+
+//본인인증:휴대폰
+function phonePopup(){
+	var url = "../member_process/realnamecheck?intro=1&realnametype=phone";
+	window.open(url, 'popupChk', 'width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+}
+
+//아이핀 실명인증
+function ipinPopup(){
+	var url = "../member_process/realnamecheck?intro=1&realnametype=ipin";
+	window.open(url, 'popupIPIN2', 'width=450, height=550, top=100, left=100,fullscreen=no, menubar=no status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+}
+
+//안심체크 실명인증
+function checkPopup(){
+	var url = "../member_process/realnamecheck?intro=1&realnametype=check";
+	window.open(url, 'niceID_popup', 'width=500, height=550, toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,top=0,left=0,location=no');
+}
+</script>
+
+<script src="/app/javascript/js/skin-snslogin.js"></script>
+<script type="text/javascript">
+var return_url		= "../main/index";
+<!--{?_GET.return_url }-->
+return_url			= "{_GET.return_url}";
+<!--{: return_url }-->
+return_url			= "{return_url}";
+{/}
+var mobileapp		= "{mobileapp}";
+var m_device		= "{m_device}";
+var fbuserauth		= "{fbuserauth}";
+var jointype		= '{_GET.join_type}';
+var adult_auth		= "1";
+var apple_authurl	= '{apple_authurl}';
+</script>

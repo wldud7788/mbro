@@ -1,0 +1,298 @@
+<!--{* ver.[20170811] original.[sizeswipe] 버전관리용입니다 삭제하지마세요 *}-->
+<style>
+	.{display_key} .goods_list ol.gli_contents { text-align:{text_align};}
+</style>
+
+<!--{ ? title }--><div class="res_db_title1">{title}</div><!--{ / }-->
+<!--{ ? displayTitle }--><div class="res_db_title2">{displayTitle}</div><!--{ / }-->
+
+<!--{ ? count(displayTabsList)>=1 }-->
+<ul class="displayTabContainer displaySwipeTabContainer {tab_design_type} { ? count(displayTabsList)<2 }hide{/}">
+     <!--{ @ displayTabsList }-->
+          <li {?.index_==0}class="current"{/}>{.tab_title}</li>
+     <!--{ / }-->
+</ul>
+<!--{ / }-->
+
+<!--{ @ displayTabsList }-->
+     <!--{ ? .contents_type == 'text' }-->
+          <table class="displaySwipeTabContentsContainer" tabIdx="{.key_}" cellpadding="0" cellspacing="0">
+			  <tr>
+				   <td>
+						{?mobileMode || storemobileMode}{.tab_contents_mobile}{:}{.tab_contents}{/}
+				   </td>
+			  </tr>
+          </table>
+     <!--{ : .record }-->
+          <div class="{display_key} display_slide_class displaySwipeTabContentsContainer" tabIdx="{.key_}">
+			  <div class="goods_display_slide_wrap">
+				  <div class="swiper-wrapper">
+					  <!--{ @ .record }-->
+					  <ul class="goods_list swiper-slide">
+						  <li class="gl_item">
+							<div class="gl_inner_item_wrap">
+								<span class="gli_image goodsDisplayImageWrap" decoration="{image_decorations}" goodsInfo="{=base64_encode(json_encode(..value_))}"><a href="javascript:void(0);" onclick="display_goods_view('{..goods_seq}','{target}',this,'goods_view')"><img src="{..image}" onerror="this.src='../../images/common/m_noimage.gif'" /></a>
+								</span>
+								<ol class="gli_contents">
+									 <!--{ @ info_settings.list }-->
+										  <!--{? ...value_->kind == 'brand_title' && ..brand_title }-->
+										  <li class="goods_brand_area">
+											   <span {...value_->name_css}>
+											   {?...value_->wrapper}{=substr(...value_->wrapper,0,1)}{/}{..brand_title}{?...value_->wrapper}{=substr(...value_->wrapper,1,1)}{/}
+											   </span>
+										  </li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'goods_name' }-->
+										  <li class="goods_name_area"><a href="javascript:void(0);" onclick="display_goods_view('{..goods_seq}','{target}',this,'goods_view')"><span class="goods_name" {...value_->name_css}>{..goods_name}</span></a></li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'icon' && ..icons }-->
+										  <li class="goods_icon_area">
+											   <!--{ @ ..icons }--><img src="/data/icon/goods/{....value_}.gif" border="0"><!--{ / }-->
+										  </li>
+										  <!--{ / }-->
+
+										  <!--{? ...value_->kind == 'summary' && ..summary}-->
+										  <li class="goods_summary_area"><span class="goods_summary" {...value_->name_css}>{..summary}</span></li>
+										  <!--{/}-->
+
+										  <!-- {? ...value_->kind == 'consumer_price' && ..consumer_price>..sale_price} -->
+										  <li class="goods_consumer_price_area">
+											   <span {...value_->name_css}>
+											   <!--{?..string_price}-->
+													{..string_price}
+											   <!--{:}-->
+													{?...value_->position == "before" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+													{=get_currency_price(..consumer_price)}{?...value_->position == "after" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+											   <!--{/}-->
+											   </span>
+											   <!--{? ..sale_per > 0 //할인율 }-->
+												<span class="sale_per">(<strong>{..sale_per}</strong>%)</span>
+												<!--{ / }-->
+												{? ...value_->compare }{=showCompareCurrency(...value_->compare,..consumer_price)}{ / }
+										  </li>
+										  <!-- {/} -->
+
+										  <!--{? ...value_->kind == 'price' }-->
+										  <li class="gli_goodsprice">
+											   <div class="goods_price" {...value_->name_css}>
+											   <!--{?..string_price}-->
+													{..string_price}
+											   <!--{:}-->
+													{?...value_->position == "before" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+													{=get_currency_price(..price)}{?...value_->position == "after" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+											   <!--{/}-->
+											   </div>
+												{? ...value_->compare }{=showCompareCurrency(...value_->compare,..price)}{ / }
+										  </li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'sale_price' }-->
+										  <li class="goods_sale_price_area">
+											   <span {...value_->name_css}>
+													{?..string_price}
+														 {..string_price}
+													{:}
+														{?...value_->position == "before" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+														 {=get_currency_price(..sale_price)}{?...value_->position == "after" && ...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+													{/}
+											   </span>
+												{? ...value_->compare }{=showCompareCurrency(...value_->compare,..sale_price)}{ / }
+										  </li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'fblike' && APP_USE == 'f' && APP_LIKE_TYPE != 'NO'}-->
+										  <li class="goods_fblike_area">{=snsLikeButton(..goods_seq,...value_->fblike)}</li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'status_icon' }-->
+										  <li class="goods_status_icon_area">
+											   <!--{ ? ...value_->status_icon_runout && ..goods_status == 'runout' }-->
+											   <img src="/data/icon/goods_status/{goodsStatusImage.icon_runout}" class="icon_runout" />
+											   <!--{ / }-->
+											   <!--{ ? ...value_->status_icon_purchasing && ..goods_status == 'purchasing' }-->
+											   <img src="/data/icon/goods_status/{goodsStatusImage.icon_purchasing}" class="icon_purchasing" />
+											   <!--{ / }-->
+											   <!--{ ? ...value_->status_icon_unsold && ..goods_status == 'unsold' }-->
+											   <img src="/data/icon/goods_status/{goodsStatusImage.icon_unsold}" class="icon_unsold" />
+											   <!--{ / }-->
+										  </li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'score' }-->
+										  <li class="goods_score_area">
+											   <font class="font1">
+											   <!--{? number_format(round(..review_divide)) == 0 }-->
+											   0
+											   <!--{ : }-->
+											   {=round(..review_divide)}
+											   <!--{ / }-->
+											   </font>
+											   <span class="font2">{=str_repeat('★',round(..review_divide))}</span>
+											   <span class="font3">{=str_repeat('★',5-number_format(round(..review_divide)))}</span>
+											   (<span class="font4" onclick="window.open('/goods/view?no={..goods_seq}#goods_review')">{=number_format(..review_count)}</span>)
+										  </li>
+										  <!--{/}-->
+
+										<!--{? ...value_->kind == 'provider_name' }-->
+										<li class="goods_provider_name_area"><a href="javascript:void(0);" onclick="display_goods_view('{..provider_seq}','{target}',this,'provider')"><span class="goods_name" {...value_->name_css}>{..provider_name}</span></a></li>
+										<!--{/}-->
+
+
+										  <!--{? ...value_->kind == 'color' }-->
+										  <li class="goods_color_area">
+											   {@(..colors)}
+											   <span style="background:{....value_}; color:{....value_};" class="color">■</span>
+											   {/}
+										  </li>
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'count' && ..eventEnd && (...value_->time_count || ...value_->buy_count)}-->
+											<!--{? ...value_->time_count }-->
+											<!--{? ..eventEnd }-->
+											   <li class="goods_solo_event_area soloEventTd{..goods_seq}">
+													<img src="../../images/common/icon_clock.gif" class="img1"> <span class="style1"><span id="soloday{..goods_seq}" class="style2"></span>일 <span id="solohour{..goods_seq}" class="style3"></span>:<span id="solomin{..goods_seq}" class="style4"></span>:<span id="solosecond{..goods_seq}" class="style5"></span></span>
+											   <script>
+											   $(function() {
+													timeInterval{..goods_seq} = setInterval(function(){
+														 var time{..goods_seq} = showClockTime('text', '{..eventEnd.year}', '{..eventEnd.month}', '{..eventEnd.day}', '{..eventEnd.hour}', '{..eventEnd.min}', '{..eventEnd.second}', 'soloday{..goods_seq}', 'solohour{..goods_seq}', 'solomin{..goods_seq}', 'solosecond{..goods_seq}', '{..goods_seq}','class');
+														 if(time{..goods_seq} == 0){
+															  clearInterval(timeInterval{..goods_seq});
+															  $("..soloEventTd{..goods_seq}").html("단독 이벤트 종료");
+														 }
+													},1000);
+											   });
+											   </script>
+											   </li>
+											<!--{/}-->
+											<!--{/}-->
+											<!--{? ...value_->buy_count }-->
+											<li class="goods_buy_count_area">현재 <font class="style1">{=number_format(..event_order_ea)}</font>개 구매</li>
+											<!--{/}-->
+										  <!--{/}-->
+
+										  <!--{? ...value_->kind == 'event_text' }-->
+										  <li class="goods_event_text_area">
+											   <span {...value_->name_css}>
+													{?is_numeric(..event_text)}
+														 {=number_format(..event_text)}
+														 {?...value_->postfix}<span class="goods_won">{...value_->postfix}</span>{/}
+													{:}
+														 {..event_text}
+													{/}
+											   </span>
+										  </li>
+										  <!--{/}-->
+											<!--{? ...value_->kind == 'bigdata' }-->
+											<li class="goods_bigdata_area">
+												<span>
+													<a href="javascript:void(0);" onclick="display_goods_view('{..goods_seq}','{target}',this,'bigdata')"><u {...value_->name_css}>{...value_->bigdata}</u></a>
+												</span>
+											</li>
+											<!--{ / }-->
+
+											<!--{? ...value_->kind == 'shipping' && ..shipping_group}-->
+											<li class="goods_shipping_area">
+												<!--{? ...value_->shipping_free && ..shipping_group.default_type == 'free' && ..shipping_group.default_type_code.free}-->
+												<ul class="shipping"><li>{..shipping_group.default_type_code.free}</li></ul>
+												<!--{/}-->
+												<!--{? ...value_->shipping_fixed && ..shipping_group.default_type == 'fixed' && ..shipping_group.default_type_code.fixed}-->
+												<ul class="shipping"><li>{..shipping_group.default_type_code.fixed}</li></ul>
+												<!--{/}-->
+												<!--{? ...value_->shipping_iffree && ..shipping_group.default_type == 'iffree' && ..shipping_group.default_type_code.iffree}-->
+												<ul class="shipping"><li>{..shipping_group.default_type_code.iffree}</li></ul>
+												<!--{/}-->
+												<!--{? ...value_->shipping_ifpay && ..shipping_group.default_type == 'ifpay' && ..shipping_group.default_type_code.ifpay}-->
+												<ul class="shipping"><li>{..shipping_group.default_type_code.ifpay}</li></ul>
+												<!--{/}-->
+												<!--{? ...value_->shipping_overseas && ..shipping_group.gl_shipping_yn == 'Y' && ..shipping_group.default_type_code.overseas}-->
+													<div class="shipping_overseas">{..shipping_group.default_type_code.overseas}</div>
+												<!--{/}-->
+											</li>
+											<!-- //배송그룹 -->
+											<!--{ / }-->
+
+											<!--{?...value_->kind == 'pageview'}-->
+											<li class="goods_pageview_area">
+												<span class="goods_list_page_view">
+													<img class="goods_list_page_view_img" src="/data/icon/goodsdisplay/preview/icon_pageview.png" alt="페이지뷰" />
+													<span class="goods_list_page_view_count">{?..page_view > 9999}9,999+{:}{=number_format(..page_view)}{/}</span>
+												</span>
+												<span class="goods_list_goods_zzim">
+													<label onclick="display_goods_zzim(this, {..goods_seq});"><img class="goods_list_goods_zzim_img" src="/data/icon/goodsdisplay/preview/icon_zzim_{?..wish==1}on{:}off{/}.png" alt="찜" />
+													찜 <span class="goods_list_goods_zzim_count">{=number_format(..wish_count)}</span></label>
+												</span>
+											</li>
+											<!-- //페이지뷰, 찜 -->
+											<!--{ / }-->
+									 <!--{ / }-->
+								</ol>
+							</div>
+						  </li>
+					  </ul>
+					  <!--{ / }-->
+				  </div>
+				  <!-- scrollbar -->
+				  <div class="display-scrollbar swiper-scrollbar{display_key}"></div>
+			  </div>
+			   <!-- left, right button -->
+			  <div class="swiper-button-next"></div>
+			  <div class="swiper-button-prev"></div>
+          </div>
+     <!--{ : }-->
+     <div class="displaySwipeTabContentsContainer" tabIdx="{.key_}">
+          <div style="width:90%; margin:auto;"></div>
+     </div>
+     <!--{ / }-->
+<!--{ / }-->
+
+<script>
+	var t = new Date();
+	var uniquekey_dsp = '{display_key}'+t.getTime();
+	var display_swiper = [uniquekey_dsp];
+
+	$(function(){
+		/* 상품디스플레이 스와이프형 탭 스크립트 */
+		$("#{display_key} .displaySwipeTabContainer").each(function(){
+			var tabContainerObj = $(this);
+			tabContainerObj.children('li').css('width',(100/tabContainerObj.children('li').length)+'%');
+			tabContainerObj.children('li').bind('mouseover click',function(){
+				tabContainerObj.children('li.current').removeClass('current');
+				$(this).addClass('current');
+				var tabIdx = tabContainerObj.children('li').index(this);
+				tabContainerObj.closest('.designDisplay, .designCategoryRecommendDisplay').find('.displayTabContentsContainer').hide().eq(tabIdx).show();
+			}).eq(0).trigger('mouseover');
+		});
+
+		setTimeout(function(){
+			$('.display_slide_class').each(function(){
+				if(!$(this).hasClass('set_slide_clear')){
+					display_swiper[uniquekey_dsp] = new Swiper($(this).find('.goods_display_slide_wrap'), {
+						scrollbar: $(this).find('.display-scrollbar'),
+						slidesPerView: 'auto',
+						grabCursor: true,
+						nextButton: $(this).find('.swiper-button-next'),
+						prevButton: $(this).find('.swiper-button-prev'),
+						onReachEnd: function(){
+						<!--{ ? count(displayTabsList)>=1 }-->
+						$('.active_swipe_slide').parent().parent().find('.displaySwipeTabContainer li').next().trigger('click');
+						<!--{ / }-->
+						}
+					});
+					$(this).addClass('set_slide_clear').bind('mousedown mousemove touchstart touchmove',function(){
+						$('.active_swipe_slide').removeClass('active_swipe_slide');
+						$(this).addClass('active_swipe_slide');
+					});
+				}
+		});},100);
+
+		 $(window).resize(function(){
+			setTimeout(function(){
+				if($('.swiper-scrollbar-drag').width() == 0) display_swiper[uniquekey_dsp].update(true);
+			},1000);
+		 });
+
+		 set_goods_display_decoration(".goodsDisplayImageWrap");
+	});
+</script>

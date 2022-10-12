@@ -1,0 +1,69 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 마일리지 내역 @@
+- 파일위치 : [스킨폴더]/mypage/emoney.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<div class="subpage_wrap">
+
+	<!-- +++++ mypage LNB ++++ -->
+	<div id="subpageLNB" class="subpage_lnb"><!-- [스킨폴더]/mypage/mypage_lnb.html --></div>
+	<!-- +++++ //mypage LNB ++++ -->
+
+	<!-- +++++ mypage contents ++++ -->
+	<div class="subpage_container">
+		<!-- 전체 메뉴 -->
+		<a id="subAllButton" class="btn_sub_all" href="javascript:void(0)">MENU</a>
+
+		<!-- 타이틀 -->
+		<div class="title_container">
+			<h2><span designElement="text">마일리지 내역</span></h2>
+		</div>
+
+		{ ? loop }
+		<div class="mypage_greeting btm_padding">
+			<span class="username">{user_name}(<span class="usergroup">{userid}</span>)</span>님이 보유한 마일리지는 <span class="pointnum">{=number_format(emoney)}</span>M 입니다.
+		</div>
+		<div class="res_table">
+			<ul class="thead">
+				<li style="width:45px;">번호</li>
+				<li style="width:85px;">날짜</li>
+				<li style="width:80px;">지급/차감</li>
+				<li>사유</li>
+				<li style="width:180px;">내역</li>
+				<li style="width:95px;">유효기간</li>
+			</ul>
+			{@ loop }
+			<ul class="tbody">
+				<li class="mo_hide">{.number}</li>
+				<li class="sjb_top mo_r grow" style="order:-8;">{=date('Y.m.d',strtotime(.regist_date))}</li>
+				<li class="R sjb_top Bo" style="order:-10;">
+					{?.gb=='plus'}<span class="pointcolor2">+ {=number_format(.emoney)}</span>{:}<span class="pointcolor3">- {=number_format(.emoney)}</span>{/} 
+				</li>
+				<li class="subject">
+					{.memo}
+				</li>
+				<li class="L Pb10">
+					<span class="motle">내역:</span> <span class="desc2">{.contents}</span>
+				</li>				
+				<li class="sjb_top" style="order:-9;">
+					<span class="motle">유효기간:</span> 
+					{?.limit_date}~ {.limit_date}{ : }-{ / }
+				</li>
+			</ul>
+			{ / }
+		</div>
+		<div class="paging_navigation">{pagin}</div>
+		{ : }
+		<div class="no_data_area2">
+			마일리지 내역이 없습니다.
+		</div>
+		{ / }
+
+	</div>
+	<!-- +++++ //mypage contents ++++ -->
+
+</div>
+
+<script type="text/javascript" src="../common/mypage_ui.js"></script><!-- mypage ui 공통 -->
+
+

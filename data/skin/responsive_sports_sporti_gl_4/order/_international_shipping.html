@@ -1,0 +1,69 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 해외 배송 약관/통관고유부호 @@
+- 파일위치 : [스킨폴더]/order/_international_shipping.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<h3 class="title3"><span designElement="text">해외구매대행 개인통관고유부호</span></h3>
+<ul class="list_01 v2">
+	<li>
+		<input type="text" name="clearance_unique_personal_code" value="" title="개인통관 고유부호" />
+		<button type="button" class="btn_resp size_b" onclick="showCenterLayer('#interShipGuide')">발급안내</button>
+	</li>
+	<li>
+		<label><input type="checkbox" name="agree_international_shipping1" value="y"> 개인통관 고유부호 수집에 동의</label>
+		<button type="button" class="btn_resp" onclick="showCenterLayer('#interShipAgree1')">자세히</button>
+	</li>
+	<!--{ ? serviceLimit('H_AD') }-->
+	<li>
+		<label><input type="checkbox" name="agree_international_shipping2" value="y"> 개인통관 고유부호 판매자 제공에 동의</label>
+		<button type="button" class="btn_resp" onclick="showCenterLayer('#interShipAgree2')">자세히</button>
+	</li>
+	<!--{ / }-->
+</ul>
+
+<div id="interShipGuide" class="resp_layer_pop hide">
+	<h4 class="title">개인통관고유부호 발급안내</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v3">
+			<p class="Pt10">
+				개인통관 고유부호는 해외배송 상품 통관 시 주민등록번호 대신 사용 가능한 번호로, 관세청 사이트에서 발급 받으실 수 있습니다.
+			</p>
+			<h5 class="title_sub3">개인통관고유부호 발급방법</h5>
+			<ol class="list_01 v3">
+				<li>1. 관세청 전자통관 사이트(https://p.customs.go.kr) 방문</li>
+				<li>2. 사이트 상단에서 업무처리 메뉴 선택</li>
+				<li>3. 좌측 메뉴에서 수입통관 메뉴 선택</li>
+				<li>4. 좌측 메뉴에서 개인통관고유부호 항목 선택</li>
+				<li>5. 본인 이름과 주민등록번호 입력 후 ‘확인’ 클릭</li>
+				<li>6. 공인인증서 인증</li>
+				<li>7. 주소, 전화번호, 휴대폰번호, 이메일 입력 후 최종 ‘등록’</li>
+				<li>8. 개인통관고유부호 확인</li>
+			</ol>
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<div id="interShipAgree1" class="resp_layer_pop hide">
+	<h4 class="title">개인통관 고유부호 수집</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v3">
+			<p class="Pt10">
+				개인통관고유번호는 수입통관 업무처리를 위해 수집하며, 서비스 이용기간 동안 보관합니다.
+			</p>
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>
+
+<div id="interShipAgree2" class="resp_layer_pop hide">
+	<h4 class="title">개인통관 고유부호 판매자 제공</h4>
+	<div class="y_scroll_auto">
+		<div class="layer_pop_contents v3">
+			<p class="Pt10">
+				개인통관고유번호는 수입통관 업무처리를 위해 수집하며, 서비스 이용기간 동안 보관합니다.
+			</p>
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="btn_pop_close" onclick="hideCenterLayer()"></a>
+</div>

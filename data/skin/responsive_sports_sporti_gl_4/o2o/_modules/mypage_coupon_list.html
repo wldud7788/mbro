@@ -1,0 +1,11 @@
+<!--{ ? data.sale_store == 'all' || data.sale_store == 'off' }-->
+<div class="aside_o2o_barcode v2">
+	<div class="barcode pop_o2o_barcode"
+		data-mode		= "coupon_list"
+		data-d_seq		= "<!--{ = data.download_seq }-->"
+		data-m_seq		= "<!--{ = data.member_seq }-->"
+		data-c_seq		= "<!--{ = data.coupon_seq }-->"
+		data-s_seq		= "<!--{ = strtotime(data.regist_date) }-->"
+	></div>
+</div>
+<!--{ / }-->

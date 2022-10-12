@@ -1,0 +1,69 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ [반응형] 디스플레이 템플릿 - 격자 반응형 @@
+- 파일위치 : [스킨폴더]/_modules/broadcast/broadcast_display_lattice_r.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<style>	
+.{broadcast_display_key} {display:block; margin-left: -10px; font-size:0;}
+.{broadcast_display_key} li.gl_item{ width:50%;  display:inline-block; box-sizing: border-box; padding: 10px 0 0 10px; }	
+
+@media only screen and (max-width:660px) {
+	.{broadcast_display_key} li.gl_item { width:100%; }	
+}
+</style>
+<div class="resp_wrap">
+<div id='{broadcast_display_key}' class="broadcast_display " designElement='{displayElement}' templatePath='{template_path}' displaySeq='{broadcast_display_seq}' displayStyle='{style}'>	
+	<div class="display_responsible_class">
+		<ul class="{broadcast_display_key} ">
+		<!--{ @ broadcastList }-->
+		<li class="gl_item">
+			<div class="gl_inner_item_wrap">
+				<!--상품이미지-->
+				<div class="gli_image goodsDisplayImageWrap">
+					<ul class="item_wrap">
+						<li class="cast">
+							<!--{? .status == 'live' }-->
+							<img src="/data/skin/{skin}/images/broadcast/i_live.png" class="live_mode">
+							<div class="status">{.sumvisitors}명 시청 중</div>
+							<!--{: .status == 'end' }-->
+							<div class="status">{.real_time}</div>
+							<!--{/}-->						
+							<a href="{broadcast_link}{.bs_seq}" target="{.link_target}"><img src="{.image}"></a>
+						</li>
+						<li class="info_wrap">
+							<div class="time">{.start_date_hour}</div>
+							<div class="cast_info">
+								<div class="tit"><a href="{broadcast_link}{.bs_seq}" target="{.link_target}">{.title}</a></div>
+								<!--{? .status == 'end' }-->
+								<span class="view_count"><img src="/data/skin/{skin}/images/broadcast/i_view.png"/>{.sumvisitors}</span>
+								<span class="like_count"><img src="/data/skin/{skin}/images/broadcast/i_heart.png"/>{.likes}</span>
+								<!--{: .status == 'live' }-->
+								<div class="like_count"><img src="/data/skin/{skin}/images/broadcast/i_heart.png"/>{.likes}</div>
+								<!--{/}-->
+								<!--{ ? serviceLimit('H_AD') }-->
+								<div class="brand">{.provider_name}</div>
+								<!--{/}-->
+							</div>
+							<a href="/goods/view?no={.goods_seq}">
+							<ul class="product">
+								<li><div><img src="{.goods_img}"></div></li>
+								<li class="prod_info">
+									<div class="tit">{.goods_name}</div>
+									<div class="prod_price">
+										<!--{? .sale_rate > 0}-->
+										<span class="percent">{=.sale_rate}%</span>
+										<!--{/}-->
+										{.goods_price}
+									</div>
+								</li>
+							</ul>
+							</a>
+						</li>
+					</ul>				
+				</div>
+			</div>
+		</li>
+		<!--{/}-->
+		</ul>
+	</div>
+</div>
+</div>

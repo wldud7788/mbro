@@ -1,0 +1,275 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 세금계산서 신청폼 @@
+- 파일위치 : [스킨폴더]/mypage/taxwrite.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<h5 class="stitle">세금계산서 정보를 입력해 주세요.</h5>
+<form  name="refundForm" method="post" action="../sales_process/taxwrite" target="actionFrame">
+<input type="hidden" name="order_seq" value="{orders.order_seq}" />
+<input type="hidden" name="settleprice" value="{orders.settleprice}" />
+<input type="hidden" name="tax_seq" value="{tax.seq}" />
+<div class="resp_table_row input_form">
+	<ul class="tr">
+		<li class="th">상호명</li>
+		<li class="td">
+			<input type="text" name="co_name" id="co_name" value="{tax.co_name}" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">사업자번호</li>
+		<li class="td"><input type="text" name="busi_no" id="busi_no" value="{tax.busi_no}" /> <span class="res_st_desc2">ex)123-12-12345</span></li>
+	</ul>
+	<ul class="tr">
+		<li class="th">대표자</li>
+		<li class="td">
+			<input type="text" name="co_ceo" id="co_ceo" value="{tax.co_ceo}" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">업태</li>
+		<li class="td">
+			<input type="text" name="co_status" id="co_status" value="{tax.co_status}" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">업종</li>
+		<li class="td">
+			<input type="text" name="co_type" id="co_type" value="{tax.co_type}" />
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">주소</li>
+		<li class="td">
+			<input type="text" name="zipcode[]" value="{tax.zipcode0}" size="10" class="size_zip" /> -
+			<input type="text" name="zipcode[]" value="{tax.zipcode1}" size="10" class="size_zip" />
+			<button type="button" class="btn_resp size_b color4" onclick="openDialogZipcode_resp('');">우편번호 검색</button>
+
+			<input type="hidden" name="address_type" value="{tax.address_type}">
+			<div class="address_area">
+				<input type="text" name="address" id="address" size="40" class="size_address" {? tax.address_type == "street"}style="display:none;"{/} value="{tax.address}"/>
+				<input type="text" name="address_street" id="address_street" size="40" class="size_address" {? tax.address_type != "street"}style="display:none;"{/} value="{tax.address_street}"/>
+			</div>
+			<div class="address_area">
+				<input type="text" name="address_detail" size="40" class="size_address" value="{tax.address_detail}" />
+			</div>
+		</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">담당자</li>
+		<li class="td"><input type="text" name="person" id="person" value="{tax.person}" /></li>
+	</ul>
+	<ul class="tr">
+		<li class="th">이메일</li>
+		<li class="td"><input type="text" name="email" id="email" value="{tax.email}" /></li>
+	</ul>
+	<ul class="tr">
+		<li class="th">연락처</li>
+		<li class="td"><input type="text" name="phone" id="phone" value="{tax.phone}" /></li>
+	</ul>
+</div>
+<div class="btn_area_b">
+	<button type="submit" class="btn_resp size_c color2">{? tax.seq}수정하기{:}신청하기{/}</button>
+</div>
+</form>
+
+
+<h5 class="stitle v2">주문/결제 정보</h5>
+
+<div class="res_table">
+	<ul class="thead">
+		<li>주문상품</li>
+		<li style="width:45px;">수량</li>
+		<li style="width:80px;">상품금액</li>
+	</ul>
+<!--{ @ shipping_group_items }-->
+<!--{ @ .items }-->
+<!--{ @ ..options }-->
+	<!--{?..goods_type == 'gift'}-->
+	<ul class="tbody gift">
+	<!--{:}-->
+	<ul class="tbody">
+	<!--{/}-->
+		<li class="subject">
+			<ul class="board_goods_list">
+				<li class="pic">
+					<!--{ ? ..goods_type == 'gift'}-->
+					<img class="small_goods_image" src="{..image}" alt="" /></span>
+					<!--{ : }-->
+					<a href='/goods/view?no={..goods_seq}' target='_blank' title="새창"><img class="small_goods_image" src="{..image}" alt="" /></a>
+					<!--{ / }-->
+				</li>
+				<li class="info">
+					<!--{?..goods_type == 'gift' || ..cancel_type == '1' }-->
+					<div class="Pb5">
+						<!--{?..goods_type == 'gift'}-->
+						<span class="pointcolor2">[사은품]</span>
+						<!--{/}-->
+						<!--{? ..cancel_type == '1' }-->
+						<span class="pointcolor">[청약철회불가]</span>
+						<!--{/}-->
+					</div>
+					<!--{/}-->
+					<div class="title">
+						<!--{ ? ..goods_type == 'gift'}-->
+						{..goods_name}
+						<!--{ : }-->
+						<a href='/goods/view?no={..goods_seq}' target='_blank' title="새창">{..goods_name}</a>
+						<!--{ / }-->
+					</div>
+					<!--{?...option1}-->
+					<div class="cont3">
+						<span class="res_option_inline"><!--{?...title1}--><span class="xtle">{...title1}</span><!--{ / }-->{...option1}</span>
+						<!--{?...option2 }--><span class="res_option_inline"><!--{?...title2}--><span class="xtle">{...title2}</span><!--{ / }-->{...option2}</span><!--{ / }-->
+						<!--{?...option3 }--><span class="res_option_inline"><!--{?...title3}--><span class="xtle">{...title3}</span><!--{ / }-->{...option3}</span><!--{ / }-->
+						<!--{?...option4 }--><span class="res_option_inline"><!--{?...title4}--><span class="xtle">{...title4}</span><!--{ / }-->{...option4}</span><!--{ / }-->
+						<!--{?...option5 }--><span class="res_option_inline"><!--{?...title5}--><span class="xtle">{...title5}</span><!--{ / }-->{...option5}</span><!--{ / }-->
+					</div>
+					<!--{ / }-->
+
+					<!--{ ? ...inputs }-->
+					<div class="cont3">
+						<!--{ @ ...inputs }-->
+						<!--{ ? ....value }-->
+						<span class="res_option_inline">
+							<!--{?....title}--><span class="xtle v2">{....title}</span><!--{ / }--><!--{?....type=='file'}--><a href="../mypage_process/filedown?file={...value}" target="actionFrame" class="gray_05" title="다운로드">{....value}</a><!--{:}-->{....value}<!--{ / }-->
+						</span>
+						<!--{ / }-->
+						<!--{ / }-->
+					</div>
+					<!--{ / }-->
+				</li>
+			</ul>
+		</li>
+		<li><span class="mtitle">수량:</span> {...ea}</li>
+		<li><span class="mtitle">금액:</span> {=number_format(...out_price)}</li>
+	</ul>
+	<!--{ @ ...suboptions }-->
+	<ul class="tbody suboptions">
+		<li class="subject">
+			<!--{ ? ....suboption }-->
+			<div class="reply_ui">
+				{?....title}<span class="xtle v3">{....title}</span>{/} {....suboption}
+			</div>
+			<!--{ / }-->
+		</li>
+		<li><span class="mtitle">수량:</span> {....ea}</li>
+		<li><span class="mtitle">금액:</span> {=get_currency_price(....out_price)}</li>
+	</ul>
+	<!--{ / }-->
+<!--{ / }-->
+<!--{ / }-->
+<!--{ / }-->
+</div>
+
+<div class="taxbill_total">
+	<p class="txt_tot">
+		총 금액 <span class="num_tot">{=get_currency_price(items_tot.price+items_tot.goods_shipping_cost+orders.shipping_cost, 2)}</span>
+	</p>
+	<p class="txt_part">
+		상품가격합계 {=get_currency_price(items_tot.price, 2, '', '<span class="num_part">_str_price_</span>')}
+		<!--{ ? orders.shipping_cost }-->
+		<span class="Dib">+ 기본배송비 {=get_currency_price(orders.shipping_cost, 2,'','<span class="num_part">_str_price_</span>')}</span>
+		<!--{ / }-->
+		<!--{ ? items_tot.goods_shipping_cost }-->
+		<span class="Dib">+ 개별배송비 {=get_currency_price(items_tot.goods_shipping_cost, 2,'','<span class="num_part">_str_price_</span>')}</span>
+		<!--{ / }-->
+	</p>
+</div>
+
+<!-- 결제정보 -->
+<div class="resp_table_row th_size3 mt_sp1">
+	<!--{ ? items_tot.reserve }-->
+	<ul class="tr">
+		<li class="th">마일리지</li>
+		<li class="td">{=get_currency_price(items_tot.reserve)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.point }-->
+	<ul class="tr">
+		<li class="th">포인트</li>
+		<li class="td">{=get_currency_price(items_tot.point)}P</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? orders.coupon_sale }-->
+	<ul class="tr">
+		<li class="th">배송비쿠폰 할인</li>
+		<li class="td">- {=get_currency_price(orders.coupon_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? orders.shipping_promotion_code_sale }-->
+	<ul class="tr">
+		<li class="th">배송비P코드 할인</li>
+		<li class="td">- {=get_currency_price(orders.shipping_promotion_code_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? orders.enuri }-->
+	<ul class="tr">
+		<li class="th">에누리 할인</li>
+		<li class="td">- {=get_currency_price(orders.enuri, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.coupon_sale }-->
+	<ul class="tr">
+		<li class="th">상품쿠폰 할인</li>
+		<li class="td">- {=get_currency_price(items_tot.coupon_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.promotion_code_sale }-->
+	<ul class="tr">
+		<li class="th">상품P코드 할인</li>
+		<li class="td">- {=get_currency_price(items_tot.promotion_code_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.member_sale }-->
+	<ul class="tr">
+		<li class="th">회원 할인</li>
+		<li class="td">- {=get_currency_price(items_tot.member_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.fblike_sale }-->
+	<ul class="tr">
+		<li class="th">좋아요 할인</li>
+		<li class="td">- {=get_currency_price(items_tot.fblike_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.mobile_sale }-->
+	<ul class="tr">
+		<li class="th">모바일 할인</li>
+		<li class="td">- {=get_currency_price(items_tot.mobile_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.referer_sale }-->
+	<ul class="tr">
+		<li class="th">유입경로 할인</li>
+		<li class="td">- {=get_currency_price(items_tot.referer_sale, 2)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.emoney_use == 'use' && items_tot.emoney}-->
+	<ul class="tr">
+		<li class="th">마일리지 사용</li>
+		<li class="td">- {=get_currency_price(items_tot.emoney)}</li>
+	</ul>
+	<!--{ / }-->
+	<!--{ ? items_tot.cash_use == 'use' && items_tot.cash}-->
+	<ul class="tr">
+		<li class="th">예치금 사용</li>
+		<li class="td">- {=get_currency_price(items_tot.cash)}</li>
+	</ul>
+	<!--{ / }-->
+	<ul class="tr">
+		<li class="th">결제방식</li>
+		<li class="td">{orders.mpayment}</li>
+	</ul>
+	<ul class="tr">
+		<li class="th">결제금액</li>
+		<li class="td"><strong class="Fs16 pointcolor">{=get_currency_price(orders.settleprice, 2)}</strong></li>
+	</ul>
+</div>
+
+
+
+<script type="text/javascript">
+function taxlayerclose(){
+	document.location.reload();
+}
+</script>

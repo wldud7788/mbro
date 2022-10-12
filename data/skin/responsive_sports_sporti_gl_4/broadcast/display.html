@@ -1,0 +1,54 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "라이브커머스-지난방송" 페이지 @@
+- 파일위치 : [스킨폴더]/broadcast/display.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<div class="broadcast broadcast_list">
+	<div class="prev_live">
+		<h1>지난방송</h1>
+		<!--{ ? vods }-->
+		<ul class="cast_list">	
+			<!--{ @vods }-->
+			<li>
+				<div class="cast">
+					<div class="status">{.real_time}</div>
+					<a href="./vod?no={.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+					<a href="/goods/view?no={.goods_seq}" target="{.link_target}">
+						<ul class="product">
+							<li><div><img src="{.goods_img}"></div></li>
+							<li class="prod_info">
+								<div class="tit">{.goods_name}</div>
+								<div class="price">
+									<!--{? .sale_rate > 0}-->
+									<span class="percent">{=.sale_rate}%</span>
+									<!--{/}-->
+									{.goods_price}
+								</div>
+							</li>
+						</ul>
+					</a>
+				</div>
+				<div class="cast_info">
+					<div class="tit"><a href="./vod?no={.bs_seq}" target="{.link_target}">{.title}</a></div>
+					<span class="view_count"><img src="../images/broadcast/i_view.png"/>{.sumvisitors}</span>
+					<span class="like_count"><img src="../images/broadcast/i_heart.png"/>{.likes}</span>
+					<!--{ ? serviceLimit('H_AD') }-->
+					<div class="brand">{.provider_name}</div>
+					<!--{ / }-->
+				</div>
+			</li>
+			<!--{ / }-->	
+		</ul>
+		<!--{ : }-->	
+		<div class="nodata_wrap">		
+			<img src="../images/broadcast/i_nodata.png">
+			<div class="mess">지난 방송이 없습니다.</div>	
+		</div>	
+		<!--{ / }-->	
+	</div>
+		
+</div>
+<!--{ ? vods }-->
+<div id="pagingDisplay" class="paging_navigation">
+	{=paging.html}
+</div>
+<!--{ / }-->

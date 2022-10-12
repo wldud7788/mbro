@@ -1,0 +1,235 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "빅데이터 상품추천" 페이지 @@
+- 파일위치 : [스킨폴더]/bigdata/catalog.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{? cfg_bigdata.banner}-->
+<div class="visual_title">
+	<div class="img_area">
+		<img src="/data/bigdata/{= cfg_bigdata.banner}"/>
+	</div>
+	<!--div class="visual_gon">
+		<ul class="title_inner_a">
+			<li>
+				<h2><span designElement="text">BIGDATA</span></h2>
+				<p class="descr2" designElement="text">빅데이터를 통한 상품추천 서비스</p>
+			</li>
+		</ul>
+	</div-->
+</div>
+<!--{/}-->
+
+
+<div class="bigdata_area">
+
+	<div class="detail_title_area v2">
+		<h3 class="name">{goodsinfo.goods_name}</h3>
+		<p class="summary">
+			{goodsinfo.summary}
+			<span class="detail_icons">
+				<!--{ @ icons }-->
+					<img src="/data/icon/goods/{.codecd}.gif" alt="" />
+				<!--{ / }-->
+			</span>
+		</p>
+	</div>
+
+	{? eventEnd}
+	<div class="event_datetime" style="background:{goodsinfo.event.bgcolor};">
+		<ul class="event_wrap">
+			<li class="event_tit">
+				<span class="title">{goodsinfo.event.title_contents}</span>
+			</li>
+			<li class="remain_time">
+				<span class="title" designElement="text">남은시간</span>
+				<div class="event_date" id="soloday">0</div> 일
+				<div class="event_date" id="solohour">00</div> :
+				<div class="event_date" id="solomin">00</div> :
+				<div class="event_date" id="solosecond">00</div>
+			</li>
+		</ul>
+	</div>
+	{ / }
+
+	<div id="goods_view">
+		<div class="goods_thumbs_spec">
+			<!-- ++++++++++++++++++++++++ 상품 이미지 ++++++++++++++++++++++++ -->
+			<div id="goods_thumbs">
+				<!--{ ? images && count(images) > 1 }-->
+				<div class="slide-wrap">
+					<div class="slides_wrap">
+					<!--{ @ images }-->
+						<div class="main_tabs_contents slide {? .index_ == 0}active{/}" id="slide{.index_}" style="{? .index_ != 0}display:none;{/}">
+							<a href="javascript:;">
+						<!--{ ? .view.image_type == 'video' }-->
+								<iframe  width="{goodsinfo.video_size_mobile0}" height="{goodsinfo.video_size_mobile1}" src="{.view.image}" frameborder="0" allowfullscreen  ></iframe>
+						<!--{ : }-->
+								<img src="{.view.image}" onerror="this.src='../images/common/noimage_wide.gif'" title="{images[1].large.label}" />
+						<!--{ / }-->
+							</a>
+					</div>
+					<!--{ / }-->
+					</div>
+				</div>
+				<!--{ : }-->
+				<a href="javascript:;"><img src="{images[1].view.image}" onerror="this.src='../images/common/noimage.gif'" title="{images[1].large.label}" /></a>
+				<!--{ / }-->
+				
+				<div style="margin:10px auto; text-align:center; display:none;">
+				<!--{ @ images }-->
+					<img src="../images/design/intro_dot{? .index_ == 0}_on{/}.png" class="dot_paging hand" id="dot_{.index_}" idx="{.index_}" {? .view.match_color } color="{.view.match_color}" {/}/>
+				<!--{ / }-->
+				</div>
+			</div>
+			<!-- ++++++++++++++++++++++++ //상품 이미지 ++++++++++++++++++++++++ -->
+
+
+			<!-- ++++++++++++++++++++++++ 상품 스펙 ++++++++++++++++++++++++ -->
+			<div id="goods_spec" style="border-top:none;">
+				
+				<!-- 확대/sns -->
+				<div class="dcont_b1">
+					<div class="Fl"><a href="javascript:popup('../goods/zoom?no={goodsinfo.goods_seq}&popup=1',{=(goodsImageSize.view.width+400)},{=(goodsImageSize.view.width+350)},'no')"><img src="../images/design/icon_zoom.png" style="width:35px; opacity:0.4;" /></a></div>
+					<div class="Fr">{=snslinkurl('goods', goodsinfo.goods_name)}</div>
+				</div>
+
+				<!--{? goodsinfo.string_price_use }-->
+					<b class="price">{goodsinfo.string_price}</b>
+				<!--{ : }-->
+					<ul class="price_area">
+						<li>
+							<p>
+								<!--{ ? goodsinfo.org_price > goodsinfo.sale_price }-->
+								<span class="consumer"><s>{=number_format(goodsinfo.org_price)}원</s></span> &nbsp;
+								<!--{ / }-->
+							</p>
+							<p class="price1">
+								<b>{? goodsinfo.sale_price > 0 }{=number_format(goodsinfo.sale_price)}{:}0{/}</b>원&nbsp;
+								<!--{ ? goodsinfo.sum_sale_price }-->
+								<button type="button" class="btn_resp Mt-3" onclick="if( $('#priceDetail').is(':hidden') ) $('#priceDetail').show(); else $('#priceDetail').hide();"><span designElement="text">혜택보기</span></button>
+								<!--{ / }-->
+							</p>
+						</li>
+						<li>
+							{? goodsinfo.sale_rate }
+							<div class="deatil_sale_rate">
+								<p class="inner">
+									<span class="num">{=number_format(goodsinfo.sale_rate)}</span>%
+								</p>
+							</div>
+							{/}
+						</li>
+					</ul>
+					<div id="priceDetail" class="detail_option_list Mt0" style="display:none;">
+						<ul>
+						<!--{ @ sales.sale_list }-->
+							<!--{ ? .value_ > 0 }-->
+							<li>
+								<span class="title">{sales.title_list[.key_]}</span>
+								<span class="detail">{=number_format(.value_)} 원</span>
+							</li>
+							<!--{ / }-->
+						<!--{ / }-->
+						</ul>
+					</div>
+					<!--{ ? goodsinfo.goods_status == 'runout' }-->
+					<p class="text_soldout">품절</p>
+					<!--{ / }-->
+					<!--{ ? goodsinfo.goods_status == 'purchasing' }-->
+					<p class="text_soldout">재고확보 중</p>
+					<!--{ / }-->
+					<!--{ ? goodsinfo.goods_status == 'unsold' }-->
+					<p class="text_soldout">판매중지</p>
+					<!--{ / }-->
+				<!--{ / }-->
+
+
+
+				<ul class="cart_order_btn_area">
+					<li><button type="button" class="btn-goods btn_resp size_c color2"><span designElement="text">상품상세정보</span></button></li>
+					<li><button type="button" id="wishimg" usewish="n" class="btn_resp size_c" onclick="wish_chg();"><span designElement="text">위시리스트</span></button></li>
+				</ul>
+			</div>
+			<!-- ++++++++++++++++++++++++ //상품 스펙 ++++++++++++++++++++++++ -->
+		</div>
+
+
+		<!--{ @ kinds }-->
+		<h3 class="title_sub2"><b><img src="../images/design/ico_bd_{ .key_ }.png" /> { .textStr }</b></h3>
+		{ .display }
+		<!--{ / }-->
+
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+var gl_member_seq = "{sessionMember.member_seq}";
+$(document).ready(function(){
+
+	setSlideSwipe('.slides_wrap', '.main_tabs_contents', 'resimg_num');
+
+	{? eventEnd}
+	timeInterval{goodsinfo.goods_seq} = setInterval(function(){
+		var time{goodsinfo.goods_seq} = showClockTime('text', '{eventEnd.year}', '{eventEnd.month}', '{eventEnd.day}', '{eventEnd.hour}', '{eventEnd.min}', '{eventEnd.second}', 'soloday', 'solohour', 'solomin', 'solosecond', '{goodsinfo.goods_seq}');
+		if(time{goodsinfo.goods_seq} == 0){
+			clearInterval(timeInterval{goodsinfo.goods_seq});
+			//단독이벤트가 종료되었습니다.
+			alert(getAlert('et356'));
+			document.location.reload();
+		}
+	},1000);
+	{/}
+
+	$("button.btn-goods").click(function(){
+		location.href	= '../goods/view?no={goodsinfo.goods_seq}';
+	});
+
+	{? wish_seq}
+		$('#wishimg').attr('usewish','y');
+	{/}
+});
+
+function resimg_num(i){
+	var slide_current = $(".slides_wrap").data('slide_current');
+	$('.dot_paging').attr('src','../images/design/intro_dot.png');
+	$('#dot_'+i).attr('src','../images/design/intro_dot_on.png');
+	$('.main_tabs_contents').eq(slide_current).removeClass('active');
+	$('.main_tabs_contents').eq(i).addClass('active');
+	var k=0;
+	$('.main_tabs_contents').each(function(){
+		if(i == k) $(this).show();
+		else $(this).hide();
+
+		k = k + 1;
+	});
+	$(".slides_wrap").data('slide_current',i);
+}
+
+function openlayer(type){
+	$('#'+type).slideToggle(300);
+}
+
+function wish_chg(){
+	if(!gl_member_seq){
+		//회원만 사용가능합니다.\n로그인하시겠습니까?
+		if(confirm(getAlert('et357'))){
+			var url = "/member/login?return_url={_SERVER['REQUEST_URI']}";
+			top.document.location.href = url;
+			return;
+		}else{
+			return;
+		}
+	}
+	if($('#wishimg').attr('usewish') == 'n'){
+		$('#wishimg').attr('usewish','y');
+		$('iframe[name=actionFrame]').attr('src','../mypage/wish_add?seqs[]={goodsinfo.goods_seq}');
+	}else{
+		$('#wishimg').attr('usewish','n');
+		$('iframe[name=actionFrame]').attr('src','../mypage/wish_del?seqs={goodsinfo.goods_seq}');
+	}
+}
+</script>

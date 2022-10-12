@@ -1,0 +1,36 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ 카테고리 네비게이션 @@
+- 파일위치 : [스킨폴더]/_modules/category/category_gnb.html
+- 현재 3뎁스까지 노출 가능
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!--{ @ category }-->
+	<li class="categoryDepth1">
+		<a class="categoryDepthLink designElement" designelement="category" href="/goods/catalog?code={.category_code}"><em>{.name}</em></a>
+		<!--{ ? .childs}-->
+		<div class="categorySub">
+			<div class="categorySubWrap">
+				<ul class="categoryDepth2">
+					<!--{ @ .childs}-->
+					<li class="categorySubDepth">
+						<!--{ ? ..childs}-->
+						<ul class="categoryDepth3">
+							<!--{ @ ..childs}-->
+							<li><a href="/goods/catalog?code={...category_code}">{...name}</a></li>
+							<!--{ / }-->
+						</ul>
+						<!--{ / }-->
+						<a href="/goods/catalog?code={..category_code}">{..name}</a>
+					</li>
+					<!--{ / }-->
+				</ul>
+				<!--{ ? .node_banner }-->
+				<div class="categorySubBanner">
+					{.node_banner}
+				</div>
+				<!--{ / }-->
+			</div>
+		</div>
+		<!--{ / }-->
+	</li>
+<!--{ / }-->

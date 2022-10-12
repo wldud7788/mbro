@@ -1,0 +1,247 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ "라이브커머스" 페이지 @@
+- 파일위치 : [스킨폴더]/broadcast/schedule.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<script>
+	$(function(){
+		var navSwiper; 
+		$(".schedule .nav > li a").on("click", function(e){
+			e.preventDefault();
+			var idx = $(this).closest("li").index();
+			$(this).closest(".nav").find(".on").removeClass("on");
+			$(this).addClass("on");
+			navSwiper.slideTo( idx-1, 800, false );
+			
+			if($(this).hasClass('empty')) 
+			{
+				$(".schedule .nodata_wrap").show();
+			}else{
+				$(".schedule .nodata_wrap").hide();
+			}
+		});
+
+		$('.display_slide_class').each(function(){
+			if(!$(this).hasClass('set_slide_clear')){
+				var display_swiper = new Swiper($(this).find('.goods_display_slide_wrap'), {
+					slidesPerView: 'auto',
+					grabCursor: true,				
+				});
+				
+				if($(this).closest(".schedule").length) 
+				{
+					navSwiper = display_swiper
+					navSwiper.slideTo( 2, 800, false );				
+				}
+				
+				$(this).addClass('set_slide_clear').on('mousedown touchstart touchmove',function(){
+					$('.active_swipe_slide').removeClass('active_swipe_slide');
+					$(this).addClass('active_swipe_slide');
+				});
+			}
+		});
+
+		$(".schedule .nav > li:eq(3) a").trigger('click');
+	});
+</script>
+
+<div class="broadcast">
+	<!-- LIVE : 시작 -->	
+	<div class="live">
+		<h1>LIVE</h1>
+		<div class="display_slide_class">
+			<div class="goods_display_slide_wrap">
+				<!--{?lives}-->
+				<ul class="cast_list swiper-wrapper">
+					<!--{@ lives}-->
+					<li class="swiper-slide">
+						<div class="cast">
+							<!--{? .status == 'create'}-->
+							<a href="./player?no={.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+							<div class="live_expected">
+								<div>
+									<p class="d_day">{.start_date_day}</p>
+									<p class="d_time">{.start_date_hour}</p>
+								</div>
+							</div>
+							<!--{: .status == 'live' }-->
+							<img src="../images/broadcast/i_live.png" class="live_mode">
+							<div class="status">{.sumvisitors}명 시청 중</div>
+							<a href="./player?no={.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+							<!--{ /}-->
+							<a href="/goods/view?no={.goods_seq}">
+								<ul class="product">
+									<li><div><img src="{.goods_img}"></div></li>
+									<li class="prod_info">
+										<div class="tit">{.goods_name}</div>
+										<div class="price">
+											<!--{? .sale_rate > 0}-->
+											<span class="percent">{=.sale_rate}%</span>
+											<!--{/}-->
+											{.goods_price}
+										</div>
+									</li>
+								</ul>
+							</a>
+						</div>
+						<div class="cast_info">
+							<div class="tit"><a href="./player?no={.bs_seq}" target="{.link_target}">{.title}</a></div>
+							<!--{? .status == 'live' }-->
+							<span class="view_count"><img src="../images/broadcast/i_view.png"/>{.sumvisitors}</span>
+							<span class="like_count"><img src="../images/broadcast/i_heart.png"/>{.likes}</span>
+							<!--{/}-->
+							<!--{ ? serviceLimit('H_AD') }-->
+							<div class="brand">{.provider_name}</div>
+							<!--{/}-->
+						</div>
+					</li>
+					<!--{/}-->
+				</ul>
+				<!--{:}-->				
+				<div class="nodata_wrap">		
+					<img src="../images/broadcast/i_nodata.png">
+					<div class="mess">LIVE 방송이 없습니다.</div>	
+				</div>	
+				<!--{/}-->
+			</div>
+		</div>
+	</div>
+	<!-- LIVE : 끝 -->	
+	
+	<!-- 지난 방송 : 시작 -->	
+	<div class="prev_live"> 
+		<h1>지난 방송<a href="/broadcast/display">더보기 ></a></h1>
+		<div class="display_slide_class">
+			<div class="goods_display_slide_wrap">
+				<!--{? vods}-->
+				<ul class="cast_list swiper-wrapper">
+					<!--{@ vods}-->
+					<li class="swiper-slide">
+						<div class="cast">					
+							<div class="status">{.real_time}</div>
+							<a href="./vod?no={.bs_seq}" target="{.link_target}" class="thumb"><img src="{.image}"></a>
+							<a href="/goods/view?no={.goods_seq}" target="{.link_target}">
+								<ul class="product">
+									<li><div><img src="{.goods_img}"></div></li>
+									<li class="prod_info">
+										<div class="tit">{.goods_name}</div>
+										<div class="price">
+											<!--{? .sale_rate > 0}-->
+											<span class="percent">{=.sale_rate}%</span>
+											<!--{/}-->
+											{.goods_price}
+										</div>
+									</li>
+								</ul>
+							</a>
+						</div>
+						<div class="cast_info">
+							<div class="tit"><a href="./vod?no={.bs_seq}" target="{.link_target}">{.title}</a></div>
+							<span class="view_count"><img src="../images/broadcast/i_view.png"/>{.sumvisitors}</span>
+							<span class="like_count"><img src="../images/broadcast/i_heart.png"/>{.likes}</span>	
+							<!--{ ? serviceLimit('H_AD') }-->
+							<div class="brand">{.provider_name}</div>
+							<!--{/}-->
+						</div>
+					</li>
+					<!--{/}-->
+				</ul>
+				<!--{:}-->
+				<div class="nodata_wrap">		
+					<img src="../images/broadcast/i_nodata.png">
+					<div class="mess">지난 방송이 없습니다.</div>	
+				</div>				
+				<!--{/}-->
+			</div>
+		</div>
+	</div>
+	<!-- 지난 방송 : 끝 -->	
+
+	<!-- 방송 스케줄 : 시작 -->	
+	<div class="schedule">
+		<h1>방송 스케줄</h1>	
+		<div class="display_slide_class">
+			<div class="goods_display_slide_wrap">
+				<ul class="nav swiper-wrapper calendar_list">
+					<!--{@calendar}-->
+					<li class="swiper-slide">
+						<!--{? .index_ == 3}-->
+						<a class="calendar today {? !array_key_exists(.value_,calendar_sch)}empty{/}" schdate="{=str_replace('.','',.value_)}">
+							<p class="d_day">{.value_}</p>
+							<p class="d_week">오늘</p>
+						</a>
+						<!--{: array_key_exists(.value_,calendar_sch) }-->
+						<a class="calendar" schdate="{=str_replace('.','',.value_)}">
+							<p class="d_day">{.value_}</p>
+						</a>
+						<!--{:}-->
+						<a class="calendar empty" schdate="{=str_replace('.','',.value_)}">
+							<p class="d_day">{.value_}</p>
+						</a>
+						<!--{/}-->
+					</li>	
+					<!--{/}-->
+				</ul>
+			</div>
+		</div>
+
+		<!--{@calendar_sch}-->
+		<ul class="cast_list calendarsch hide" schdate="{=str_replace('.','',.key_)}">
+			<!--{@ .value_}-->
+			<!--{? ..status == 'create' }-->
+			<li class="prev_live">
+			<!--{ : }-->
+			<li>
+			<!--{ / }-->
+				<ul class="item_wrap">
+					<li class="cast">
+						<!--{? ..status == 'live' }-->
+						<img src="../images/broadcast/i_live.png" class="live_mode">
+						<div class="status">{..sumvisitors}명 시청 중</div>
+						<!--{: ..status == 'end' }-->
+						<div class="status">{..real_time}</div>
+						<!--{/}-->
+						<a href="./player?no={..bs_seq}" target="{.link_target}"><img src="{..image}"></a>
+					</li>
+					<li class="info_wrap">
+						<div class="time">{..start_date_hour}</div>
+						<div class="cast_info">
+							<div class="tit"><a href="./player?no={..bs_seq}" target="{.link_target}">{..title}</a></div>
+							<!--{? ..status == 'end' }-->
+							<span class="view_count"><img src="../images/broadcast/i_view.png"/>{..sumvisitors}</span>
+							<span class="like_count"><img src="../images/broadcast/i_heart.png"/>{..likes}</span>
+							<!--{: ..status == 'live' }-->
+							<div class="like_count"><img src="../images/broadcast/i_heart.png"/>{..likes}</div>
+							<!--{/}-->
+							<!--{ ? serviceLimit('H_AD') }-->
+							<div class="brand">{..provider_name}</div>
+							<!--{/}-->
+						</div>
+						<a href="/goods/view?no={..goods_seq}">
+						<ul class="product">
+							<li><div><img src="{..goods_img}"></div></li>
+							<li class="prod_info">
+								<div class="tit">{..goods_name}</div>
+								<div class="price">
+									<!--{? ..sale_rate > 0}-->
+									<span class="percent">{=..sale_rate}%</span>
+									<!--{/}-->
+									{..goods_price}
+								</div>
+							</li>
+						</ul>
+						</a>
+					</li>
+				</ul>				
+			</li>
+			<!--{/}-->
+		</ul>
+		<!--{/}-->
+
+		<div class="nodata_wrap hide">		
+			<img src="../images/broadcast/i_nodata.png">
+			<div class="mess">예약된 방송이 없습니다.</div>	
+		</div>
+	</div>
+	<!-- 방송 스케줄 : 끝 -->	
+</div>
+

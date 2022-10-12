@@ -1,0 +1,91 @@
+<!--{* ver.[20160211] original.[sizeswipe] 버전관리용입니다 삭제하지마세요 *}-->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ [반응형] 디스플레이 템플릿 - 스와이프형 @@
+- 파일위치 : [스킨폴더]/_modules/display/goods_display_sizeswipe.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<style>
+	.{display_key} .goods_list ol.gli_contents { text-align:{text_align};}
+	.{display_key} .swiper-slide>li.gl_item { width:{goodsImageSize.width}px;  }
+</style>
+
+<!--{? isRecommend}--><h3 class="title_sub1 x2"><span designElement="text">추천상품</span></h3><!--{/}-->
+<div id='{display_key}' class='{displayClass}' designElement='{displayElement}' templatePath='{template_path}' displaySeq='{display_seq}' perpage='{perpage}' category='{category_code}' displayStyle='{style}'>
+<!--{ ? title }--><div class="res_db_title1">{title}</div><!--{ / }-->
+<!--{ ? displayTitle }--><div class="res_db_title2">{displayTitle}</div><!--{ / }-->
+<!--{ @ displayTabsList }-->
+     <!--{ ? .contents_type == 'text' }-->
+          <table class="displaySwipeTabContentsContainer" tabIdx="{.key_}" cellpadding="0" cellspacing="0">
+			  <tr>
+				   <td>
+						{?mobileMode || storemobileMode}{.tab_contents_mobile}{:}{.tab_contents}{/}
+				   </td>
+			  </tr>
+          </table>
+     <!--{ : goodsList }-->
+          <div class="{display_key} display_slide_class displaySwipeTabContentsContainer" tabIdx="{.key_}">
+			  <div class="goods_display_slide_wrap">
+				  <div class="swiper-wrapper">
+					<!-- ------- 상품정보. 파일위치 : /data/design/ ------- -->
+					<!--{ #goods_list }-->
+					<!-- ------- //상품정보. ------- -->
+				  </div>
+				  <!-- scrollbar -->
+				  <div class="display-scrollbar swiper-scrollbar{display_key}"></div>
+			  </div>
+			   <!-- left, right button -->
+			  <div class="swiper-button-next"></div>
+			  <div class="swiper-button-prev"></div>
+          </div>
+     <!--{ : }-->
+     <div class="displaySwipeTabContentsContainer" tabIdx="{.key_}">
+          <div style="width:90%; margin:auto;"></div>
+     </div>
+     <!--{ / }-->
+<!--{ / }-->
+
+<script>
+	var t = new Date();
+	var uniquekey_dsp = '{display_key}'+t.getTime();
+	var display_swiper = [];
+
+	$(function(){
+		/* 상품디스플레이 스와이프형 탭 스크립트 */
+		$("#{display_key} .displaySwipeTabContainer").each(function(){
+			var tabContainerObj = $(this);
+			tabContainerObj.children('li').css('width',(100/tabContainerObj.children('li').length)+'%');
+			tabContainerObj.children('li').bind('mouseover click',function(){
+				tabContainerObj.children('li.current').removeClass('current');
+				$(this).addClass('current');
+				var tabIdx = tabContainerObj.children('li').index(this);
+				tabContainerObj.closest('.designDisplay, .designCategoryRecommendDisplay').find('.displayTabContentsContainer').hide().eq(tabIdx).show();
+			}).eq(0).trigger('mouseover');
+		});
+
+
+		$('.display_slide_class').each(function(){
+			if(!$(this).hasClass('set_slide_clear')){
+				display_swiper[uniquekey_dsp] = new Swiper($(this).find('.goods_display_slide_wrap'), {
+					//scrollbar: $(this).find('.display-scrollbar'),
+					slidesPerView: 'auto',
+					grabCursor: true,
+					nextButton: $(this).find('.swiper-button-next'),
+					prevButton: $(this).find('.swiper-button-prev')
+				});
+				$(this).addClass('set_slide_clear').bind('mousedown touchstart touchmove',function(){
+					$('.active_swipe_slide').removeClass('active_swipe_slide');
+					$(this).addClass('active_swipe_slide');
+				});
+			}
+		});
+		/*
+		 $(window).resize(function(){
+			setTimeout(function(){
+				if($('.swiper-scrollbar-drag').width() == 0) display_swiper[uniquekey_dsp].update(true);
+			},1000);
+		 });
+		 set_goods_display_decoration(".goodsDisplayImageWrap");
+		*/
+	});
+</script>
+</div>

@@ -1,0 +1,147 @@
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ index @@
+- 파일위치 : [스킨폴더]/main/index.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+{=showDesignLightPopup(4)}
+{=showDesignLightPopup(3)}
+{=showDesignLightPopup(2)}
+{=showDesignLightPopup(1)}
+<!-- //띠배너/팝업 -->
+
+<style type="text/css">
+    #layout_body { max-width:100%; padding-left:0; padding-right:0; }
+    #layout_footer { margin-top:100px; }
+</style>
+
+<!-- 슬라이드 배너 영역 (light_style_1_3) :: START -->
+<div class="main_slider_a2 sliderA slider_before_loading">
+	{=showDesignBanner(3)}
+</div>
+<!-- //3단 슬라이드 배너 -->
+<script type="text/javascript">
+    $(function() {
+        $('.light_style_1_3').slick({
+            dots: true, // 도트 페이징 사용( true 혹은 false )
+            autoplay: true, // 슬라이드 자동( true 혹은 false )
+            autoplaySpeed: 8000, // autoplay 사용시 슬라이드간 시간 ms( 밀리세컨드, ex. 8000 == 8초 )
+            speed: 800, // 슬라이딩 모션 속도 ms( 밀리세컨드, ex. 800 == 0.8초 )
+            centerMode: true, // 센터모드 사용( true 혹은 false )
+            variableWidth: true, // 가변 넓이 사용( true 혹은 false )
+            slidesToShow: 1,
+            pauseOnHover: false, // Hover시 autoplay 정지안함( 정지: true, 정지안함: false )
+            responsive: [
+            {
+                breakpoint: 1100, // 스크린 가로 사이즈가 1100px 이하일 때,
+                settings: {
+                    arrows: false, // 좌우 버튼 페이징 사용 안함( 사용함: true, 사용안함: false )
+                    variableWidth: false,
+                    centerPadding: '80px', // 센터모드 사용시 좌우 여백
+                    slidesToShow: 1 // 한 화면에 몇개의 슬라이드를 보여줄 것인가? - 2개
+                }
+            },
+            {
+                breakpoint: 640, // 스크린 가로 사이즈가 640px 이하일 때,
+                settings: {
+                    arrows: false, // 좌우 버튼 페이징 사용 안함( 사용함: true, 사용안함: false )
+                    variableWidth: false,
+                    centerPadding: '20px', // 센터모드 사용시 좌우 여백
+                    slidesToShow: 1 // 한 화면에 몇개의 슬라이드를 보여줄 것인가? - 1개
+                }
+            }]
+        });
+    });
+</script>
+<!-- 슬라이드 배너 영역 (light_style_1_3) :: END -->
+<div class="main_bnr_type2">
+    <ul data-effect="scale">
+        <li style="background:#a6d8ee;">
+            <a href="#none"><img src="../images/design_resp/bnr_a01.jpg" alt="" /></a>
+        </li>
+        <li style="background:#fbd5d7;">
+            <a href="#none"><img src="../images/design_resp/bnr_a02.jpg" alt="" /></a>
+        </li>
+    </ul>
+</div>
+<!-- //2단 이미지 배너 -->
+
+<div class="resp_wrap">	
+	<div class="title_group1">
+		<h3 class="title1"><span designElement="text">BEST</span></h3>
+	</div>
+	<div class="show_display_col4">
+		{=showDesignDisplay(10171)}
+	</div>
+</div>
+<!-- //BEST PRODUCTS -->
+
+<div class="main_bnr_type3 respBnrGon respBnrGon_num3_typeE">
+	<ul data-effect="rotate_01">
+		<li><a href="#none"><img src="../images/design_resp/bnr_b01.jpg" alt="" /></a></li>
+		<li><a href="#none"><img src="../images/design_resp/bnr_b02.jpg" alt="" /></a></li>
+		<li><a href="#none"><img src="../images/design_resp/bnr_b03.jpg" alt="" /></a></li>
+	</ul>
+</div>
+<!-- //3단 이미지 배너 -->
+
+<div class="resp_wrap">
+	<div class="title_group1">
+		<h3 class="title1"><span designElement="text">NEW</span></h3>
+	</div>
+	<div class="show_display_col4" data-effect="scale">
+		{=showDesignDisplay(10172)}
+	</div>
+</div>
+<!-- //NEW ARRIVALS -->
+
+<!-- =====================================================
+	백그라운드 이미지로 처리되어 있습니다. 
+	배너 이미지를 변경하려면 아래 경로( '[스킨폴더]/images/design_resp/' )의 이미지를 업로드하여 바꾸기 바랍니다.
+	이미지 사이즈 : 1920 * 1500 (권장)
+	===================================================== -->
+<div class="full_bnr" style="background-image:url('../images/design_resp/bnr_c01.jpg');">
+    <ul class="text_wrap">					
+        <li class="text1"><span designElement="text">A HEALTHY MIND IN A HEALTHY BODY</span></li>
+        <li class="text2"><span designElement="text">건강한 신체에 건강한 정신이 깃든다</span></li>
+        <li class="sbtn"><a href="#none" designElement="text">read more</a></li>				
+    </ul>
+</div>
+<!-- //패럴렉스 배너 -->
+
+<div class="resp_wrap">	
+	<div class="title_group1">
+		<h3 class="title1"><a href="/board/?id=custom_bbs2" designElement="text">MAGAZINE</a></h3>
+	</div>
+	<div id="mainStoryList" class="board_gallery" designElement='displaylastest' templatePath='bWFpbi9pbmRleC5odG1s'>
+		<ul>
+			<!--{@ getBoardData('custom_bbs2','3',null,null,'17','60','ID','HID','IMG',array('orderby=gid asc','','rdate_s=','rdate_f=','auto_term=','image_w=406','image_h=')) }-->
+			<li class="board_gallery_li">
+				<div class="item_img_area">
+					<a href="{.wigetboardurl_view}"><img src="{.filelist}" alt="" /></a>
+				</div>
+				<ul class="item_info_area">
+					<li class="goods_name_area">
+						<a href="{.wigetboardurl_view}"><span class="name">{.subject} {.iconnew} {.iconhot} {.iconfile} {.iconhidden}</span></a>
+					</li>
+					<li class="goods_desc_area">
+						<a href="{.wigetboardurl_view}">{.contents}</a>
+					</li>
+				</ul>
+			</li>
+			<!--{:}-->
+            <div class="no_data_area2">
+                등록된 게시글이 없습니다.
+            </div>
+			<!--{/}-->
+		</ul>
+	</div>    
+</div>
+<!-- //게시판 넣기 -->
+
+<div class="resp_wrap">
+	<!--{ ? sns.ntalk_connect == 'Y' && sns.ntalk_use == 'Y' && sns.ntalk_use_mobile_main == 'Y' }-->
+	<!-- 네이버 톡톡 -->
+	<div class="btn_talk_area">
+		<button type="button" class="btn_talk v2" onclick="location.href='https://talk.naver.com/{sns.ntalk_connect_id}#nafullscreen';"><span designElement="text">쇼핑할땐</span> &nbsp;<img src="../images/icon/icon_talk.png" class="talk_img" alt="네이버톡톡" />&nbsp; <span designElement="text">톡톡하세요</span></button>
+	</div>
+	<!--{ / }-->
+</div>
