@@ -89,10 +89,10 @@ Modify Date : 2021-02-25
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap { display:table; width:100%; text-align:left; }
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap>div.categorySubBanner { padding:10px 0 0; width:1px; }
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap .categoryDepth2 { font-size:0; padding-bottom:10px; }
-.layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap .categoryDepth2>li { font-size:14px; display:inline-block; vertical-align:top; min-width:175px; min-height:46px; padding-bottom:2px; border:none; }
+.layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap .categoryDepth2>li { font-size:14px; display: block; vertical-align:top; min-width:175px; min-height:46px; padding-bottom:2px; border:none; }
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap .categoryDepth2>li>a { box-sizing:border-box; padding:24px 0 8px 10px; width:100%; position:absolute; left:0; top:0; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;-ms-text-overflow:ellipsis;-moz-binding:url('ellipsis.xml#ellipsis');word-wrap:normal !important; font-size:16px; color:#fff; }
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categorySubWrap .categoryDepth2>li:hover>a { transform:none; color:#ccc; }
-.layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categoryDepth3 { margin-top:52px; font-size:13px; font-weight:300; opacity:1; position:static; left:auto; top:auto; z-index:auto; white-space:normal; border:none; background:transparent; border-radius:0;  transform:none; transition:none; }
+.layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categoryDepth3 { display: none; margin-top:52px; font-size:13px; font-weight:300; opacity:1; position:static; left:auto; top:auto; z-index:auto; white-space:normal; border:none; background:transparent; border-radius:0;  transform:none; transition:none; }
 .layout_header .nav_wrap .categorySubWrap .categoryDepth3>li>a { padding:5px 0 4px 10px; border-top:none; transition:none; color:#fff; }
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categoryDepth3>li:hover>a { transform:none; color:#ccc; }
 .layout_header .nav_wrap[data-submenu='type2'] .categoryDepth1 .categoryDepth3 + a:after { display:none; }
