@@ -11,14 +11,14 @@
 		<div class="logo_wrap">
 			<!-- logo -->
 			<h1 class="logo_area">
-				<a href='/main/index' target='_self'><img src="../images/design_resp/logo.png" alt="{config_basic.companyName}"></a>
+				<a href='/main/index' target='_self' style="max-width: 160px;"><img src="../images/design_resp/logo.png" title="(주)음악형제들" alt="(주)음악형제들"></a>
 			</h1>
 
 			<!-- 햄버거 버튼 -->
-			<div class="resp_top_hamburger">
+			<!-- div class="resp_top_hamburger">
 				<a href="#category"><b>aside menu</b></a>
 			</div>
-
+ -->
 			<ul class="util_wrap_menu2">
 				<!--{? userInfo.member_seq }-->
 				<li class="user_info">
@@ -215,16 +215,21 @@
 			<div class="nav_category_area">
 				<div class="designCategoryNavigation">
 					<ul class="respCategoryList">
-						<li class="nav_category_all">
-							<!-- 전체 카테고리 버튼 class 네임 : 'categoryAllBtn', 전체 브랜드 : 'brandAllBtn', 전체 지역 : 'locationAllBtn' -->
-							<!-- 전체 카테고리 로딩 파일위치 : [스킨폴더]/_modules/category/all_navigation.html -->
-							<a class="hand categoryAllBtn" designElement="text" title="전체 카테고리"><em>ALL</em></a>
-						</li>
+						<li class="custom_nav_link">
+			              <div class="resp_top_hamburger">
+			                <a href="#category"><b>aside menu</b></a>
+			              </div>
+			            </li>
+						<!-- //<li class="nav_category_all">
+							전체 카테고리 버튼 class 네임 : 'categoryAllBtn', 전체 브랜드 : 'brandAllBtn', 전체 지역 : 'locationAllBtn' 
+							 전체 카테고리 로딩 파일위치 : [스킨폴더]/_modules/category/all_navigation.html 
+							<a class="hand categoryAllBtn" designElement="text" title="전체 카테고리" target="_self">ALL</a>
+						</li>-->
 						<!-- 카테고리 네비게이션. 파일위치 : [스킨폴더]/_modules/category/category_gnb.html -->
 						<!-- 참고) 브랜드: showBrandLightNavigation(), 지역: showLocationLightNavigation() -->
 						{=showCategoryLightNavigation()}
 						<!-- //카테고리 네비게이션 -->
-						<li class="custom_nav_link">
+						<!-- //<li class="custom_nav_link">
 							<a class="categoryDepthLink" designElement="text" href="/goods/new_arrivals"><em>NEW</em></a>
 						</li>
 						<li class="custom_nav_link">
@@ -232,13 +237,13 @@
 						</li>
 						<li class="custom_nav_link">
 							<a class="categoryDepthLink" designElement="text" href="/goods/brand_main"><em>BRANDS</em></a>
-						</li>
+						</li>-->
 						<li class="custom_nav_link">
-							<a class="categoryDepthLink" designElement="text" href="/promotion/event"><em>EVENT</em></a>
+							<a class="categoryDepthLink" designElement="text" href="/promotion/event" target="_self">기획전<br><br></a>
 						</li>
-						<li class="custom_nav_link">
+						<!--<li class="custom_nav_link">
 							<a class="categoryDepthLink" designElement="text" href="/board/?id=custom_bbs2"><em>MAGAZINE</em></a>
-						</li>
+						</li>-->
 					</ul>
 				</div>
 			</div>

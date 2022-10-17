@@ -29,7 +29,7 @@ Modify Date : 2021-02-25
 #layout_header .benefit { top:26px; }
 
 /* HEADER - 햄버그 메뉴 */
-.layout_header .resp_top_hamburger { display:none; }
+.layout_header .resp_top_hamburger { display:block; }
 .layout_header .resp_top_hamburger>a { width:22px; }
 .layout_header .resp_top_hamburger>a>b,
 .layout_header .resp_top_hamburger>a:before,
@@ -105,7 +105,7 @@ Modify Date : 2021-02-25
 	.layout_header .logo_wrap .logo_area { float:none; margin:0 auto; }
 	.layout_header .logo_wrap .logo_area>a { height:auto; padding:20px 0; line-height:0; }
 	.layout_header .util_wrap_menu2 { display:none; }
-	.layout_header .resp_top_hamburger { display:block; }
+	.layout_header .resp_top_hamburger { margin-top: 15px; padding: 0 15px; margin-right: 0; }
 	.layout_header .resp_top_cart { display:block; right:65px; margin-top:-18px; padding-left:25px; background:url('../images/design_resp/icon_cart.png') center no-repeat; }
     .layout_header .resp_top_cart .cart_cnt2 { background:#888; }
     .layout_header .resp_top_search { right:40px; margin-top:-21px; }
